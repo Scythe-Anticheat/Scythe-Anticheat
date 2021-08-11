@@ -16,7 +16,7 @@ execute @e[type=scythe:killaura] ~~~ tag @a[tag=killaura2] add noaura
 execute @a[tag=killaura2,tag=!noaura,scores={leftclick=1..}] ~~~ scoreboard players add @s killauravl 1
 execute @a[tag=killaura2,tag=!noaura,scores={leftclick=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4KillAura/ForceField. VL= "},{"score":{"name":"@s","objective":"killauravl"}}]}
 
-execute @a[tag=killaura2,scores={aura_timer=10..}] ~~~ tp @e[type=scythe:killaura] ~ -200 ~
+execute @a[tag=killaura2,scores={aura_timer=10..}] ~~~ tp @e[type=scythe:killaura] 999 -200 999
 
 tag @a[tag=killaura2,scores={aura_timer=..10}] remove killaura
 tag @a[tag=killaura2,scores={aura_timer=..10}] remove noaura
