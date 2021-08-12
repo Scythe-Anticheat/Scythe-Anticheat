@@ -10,6 +10,7 @@ execute @a[tag=!bypass,tag=bypass2] ~~~ tellraw @a[tag=notify] {"rawtext":[{"tex
 execute @a[tag=!bypass,tag=bypass2] ~~~ tag @s remove bypass2
 execute @a[tag=!bypass,tag=bypass2] ~~~ tag @s remove bypass
 
+tp @e[type=xp_orb] @p
 
 # If the player is under y= -40 this teleports them to y= -40
 execute @a[tag=!bypass] ~~~ execute @s[y=-41,dy=-60] ~~~ tp @s ~ -40 ~
