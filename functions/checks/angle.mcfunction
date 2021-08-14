@@ -9,4 +9,4 @@ execute @a[tag=!bypass,tag=!noBadAngle] ~~~ function checks/alerts/anglenotif
 execute @a[tag=!bypass,tag=!noBadAngle2] ~~~ function checks/alerts/anglenotif
 
 tag @a[tag=noBadAngle] remove noBadAngle
-tag @a[tag=noBadAngle] remove noBadAngle2
+tag @a[tag=noBadAngle2] remove noBadAngle2
