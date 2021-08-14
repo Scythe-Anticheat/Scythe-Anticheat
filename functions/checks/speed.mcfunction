@@ -24,9 +24,9 @@ execute @a[tag=speedtest2] ~~~ tag @s remove isOnAir
 
 execute @a[tag=speedtest2] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=6] add NoSpeed
 
-execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding] ~~~ scoreboard players add @s speedvl 1
-execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Speed/FastWalk. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
-execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding] ~~~ tp @s @e[type=scythe:speedtest] true
+execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding] ~~~ scoreboard players add @s speedvl 1
+execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Speed/FastWalk. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
+execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding] ~~~ tp @s @e[type=scythe:speedtest] true
 
 tag @a[tag=speedtest2,tag=isFalling,scores={timer=9..}] remove isFalling
 execute @a[tag=speedtest2,scores={timer=10..}] ~~~ tp @e[type=scythe:speedtest] 999 -200 999

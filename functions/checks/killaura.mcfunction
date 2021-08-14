@@ -2,7 +2,7 @@
 
 scoreboard players add @a killauravl 0
 
-tag @r[tag=!bypass] add killaura
+tag @r[tag=!bypass,tag=!gliding] add killaura
 execute @a[tag=killaura2] ~~~ tag @a[tag=killaura] remove killaura
 
 tag @a[tag=killaura,tag=!killaura2] add killaura2
@@ -13,8 +13,8 @@ execute @a[tag=killaura2,scores={aura_timer=0}] ^^^ summon scythe:killaura killa
 execute @a[tag=killaura2] ~~~ scoreboard players add @s aura_timer 1
 
 execute @e[type=scythe:killaura] ~~~ tag @a[tag=killaura2] add noaura
-execute @a[tag=killaura2,tag=!noaura,scores={leftclick=1..}] ~~~ scoreboard players add @s killauravl 1
-execute @a[tag=killaura2,tag=!noaura,scores={leftclick=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4KillAura/ForceField. VL= "},{"score":{"name":"@s","objective":"killauravl"}}]}
+execute @a[tag=killaura2,tag=!noaura,scores={leftclick=1..},tag=!gliding] ~~~ scoreboard players add @s killauravl 1
+execute @a[tag=killaura2,tag=!noaura,scores={leftclick=1..},tag=!gliding] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4KillAura/ForceField. VL= "},{"score":{"name":"@s","objective":"killauravl"}}]}
 
 execute @a[tag=killaura2,scores={aura_timer=10..}] ~~~ tp @e[type=scythe:killaura] 999 -200 999
 
@@ -23,4 +23,3 @@ tag @a[tag=killaura2,scores={aura_timer=..10}] remove noaura
 tag @a[tag=killaura2,scores={aura_timer=10}] remove killaura2
 
 scoreboard players set @a[scores={aura_timer=10..}] aura_timer 0
-
