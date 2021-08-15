@@ -3,7 +3,7 @@ gamerule functioncommandlimit 10000
 gamerule randomtickspeed 1
 
 gamerule commandblockoutput false
-
+tickingarea add circle ~~~ 1 AntiCheat
 
 # Runs All The Checks
 
