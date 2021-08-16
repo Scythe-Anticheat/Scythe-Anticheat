@@ -8,8 +8,11 @@ scoreboard objectives remove killauravl
 scoreboard objectives remove timer
 scoreboard objectives remove aura_timer
 scoreboard objectives remove epearlGlitch
+scoreboard objectives remove leftclick
+scoreboard objectives remove leftclickvl
+scoreboard objectives remove leftclick_timer
+scoreboard objectives remove isBanned
 gamerule commandblockoutput true
-gamerule sendcommandfeedback true
 tag @a remove op
 tag @a remove flying
 tag @a remove vanished
