@@ -8,7 +8,7 @@
 						"jump": "query.is_jumping"
 					}],
 					"on_entry": [
-						""
+						"/function checks/airjump"
 					]
 				},
 				"jump": {
@@ -143,6 +143,26 @@
 					}],
 					"on_entry": [
 						"/scoreboard players add @s[tag=!bypass] leftclick 1"
+					]
+				}
+			}
+		},
+		"controller.animation.sneak": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"sneak": "query.is_sneaking"
+					}],
+					"on_entry": [
+						"/tag @s remove sneak"
+					]
+				},
+				"sneak": {
+					"transitions": [{
+						"default": "!query.is_sneaking"
+					}],
+					"on_entry": [
+						"/tag @s add sneak"
 					]
 				}
 			}
