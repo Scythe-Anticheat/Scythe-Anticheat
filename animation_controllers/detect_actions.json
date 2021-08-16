@@ -8,7 +8,7 @@
 						"jump": "query.is_jumping"
 					}],
 					"on_entry": [
-						"/function checks/airjump"
+						""
 					]
 				},
 				"jump": {
