@@ -30,6 +30,16 @@
 				"minecraft:attack": {
 					"damage": 0
 				},
+				"minecraft:breathable": {
+					"breathes_air": true,
+					"breathes_lava": true,
+					"breathes_solids": true,
+					"breathes_water": true,
+					"generates_bubbles": true,
+					"inhale_time": 0.0,
+					"suffocate_time": -20,
+					"total_supply": 15
+				},
 				"minecraft:player.saturation": {
 					"value": 1
 				},
