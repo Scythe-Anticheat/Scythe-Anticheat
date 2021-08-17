@@ -25,6 +25,9 @@ To recieve anti-cheat alerts use this command: ```/function notify```
   Ender Pearl Glitching -><br />
       (A) => Checks if an ender pearl is inside a climable block.
    
+  Fly -><br />
+      (A) => Checks if the players y coordinate is the same or greater every second
+   
   Illegal Items -><br />
       (A) => Clears illegal items from everybodys inventories.
       
