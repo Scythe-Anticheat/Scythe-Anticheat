@@ -5,6 +5,8 @@ Scythe AntiCheat - a simple, basic anticheat for Minecraft Bedrock Edition realm
 # How To Use?
 To install this anticheat to your realm/world you need to install the .mcaddon and apply it to your world, once you do that join that world and use "/function setup/init". This will give you a command block which then you need to add this command: "function main".
 
+To recieve anti-cheat alerts use this command: ```/function notify```
+
 # List of checks detected by Scythe AntiCheat
 
    Angle -><br />
@@ -43,6 +45,8 @@ To install this anticheat to your realm/world you need to install the .mcaddon a
 
 # Extra Commands.
 
+To recieve anti-cheat alerts use this command: ```/function notify```
+
 To ban a user use: ```/execute <playername> ~~~ function ban```
 
 To freeze a player use: ```/tag <playername> add freeze```
@@ -54,7 +58,7 @@ To enter Vanish use: ```/function tools/vanish```
 To be able to fly in survival use: ```/function tools/fly```
 
 To view a players anticheat logs use: ```/execute <playername> ~~~ function tools/stats```
- 
+
 # FAQ
 
 Q1: Does the AntiCheat auto-ban?<br />
