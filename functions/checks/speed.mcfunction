@@ -17,13 +17,18 @@ execute @a[tag=speedtest2] ~~~ scoreboard players add @s timer 1
 
 execute @a[tag=speedtest2] ~~~ kill @e[type=item,name="Armor Stand",r=5]
 
-execute @a[tag=speedtest2,tag=!sneak] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=6] add NoSpeed
-execute @a[tag=speedtest2,tag=sneak] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=4] add NoSpeed
+execute @a[tag=speedtest2,tag=!sneak,tag=!right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=6] add NoSpeed
+execute @a[tag=speedtest2,tag=sneak,tag=!right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=4] add NoSpeed
+execute @a[tag=speedtest2,tag=!sneak,tag=right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=4] add NoSpeed
+execute @a[tag=speedtest2,tag=sneak,tag=right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=3] add NoSpeed
 
 execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding] ~~~ scoreboard players add @s speedvl 1
-execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=!sneak] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Speed/FastWalk. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
 
-execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=sneak] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Speed/FastWalk §7(is_sneaking)§4. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
+execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=!sneak,tag=!right] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Speed/FastWalk. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
+execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=sneak,tag=!right] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Speed/FastWalk §7(is_sneaking)§4. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
+execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=!sneak,tag=right] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Speed/FastWalk §7(is_using)§4. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
+execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=sneak,tag=right] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Speed/FastWalk §7(is_using) (is_sneaking)§4. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
+
 execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding] ~~~ tp @s @e[type=scythe:speedtest] true
 
 execute @a[tag=speedtest2,scores={timer=10..}] ~~~ tp @e[type=scythe:speedtest] 999 -200 999
