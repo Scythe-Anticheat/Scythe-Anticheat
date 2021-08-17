@@ -16,7 +16,9 @@
 					"death",
 					"ride",
 					"left",
-					"sneak"
+					"right",
+					"sneak",
+					"sprint"
 				]
 			},
 			"animations": {
@@ -28,7 +30,9 @@
 				"death": "controller.animation.death",
 				"ride": "controller.animation.ride",
 				"left": "controller.animation.left",
-				"sneak": "controller.animation.sneak"
+				"right": "controller.animation.right",
+				"sneak": "controller.animation.sneak",
+				"sprint": "controller.animation.sprint"
 			}
 		},
 		"component_groups": {

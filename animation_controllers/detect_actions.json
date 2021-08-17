@@ -134,7 +134,7 @@
 						"left": "variable.attack_time"
 					}],
 					"on_entry": [
-						""
+						"/execute @s[tag=right] ~~~ function checks/alerts/interactuse"
 					]
 				},
 				"left": {
@@ -143,6 +143,28 @@
 					}],
 					"on_entry": [
 						"/scoreboard players add @s[tag=!bypass] leftclick 1"
+					]
+				}
+			}
+		},
+		"controller.animation.right": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"right": "query.is_using_item"
+					}],
+					"on_entry": [
+						"/say No Right",
+						"/tag @s remove right"
+					]
+				},
+				"right": {
+					"transitions": [{
+						"default": "!query.is_using_item"
+					}],
+					"on_entry": [
+						"/say right",
+						"/tag @s add right"
 					]
 				}
 			}
@@ -163,6 +185,26 @@
 					}],
 					"on_entry": [
 						"/tag @s add sneak"
+					]
+				}
+			}
+		},
+		"controller.animation.sprint": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"sprint": "query.is_sprinting"
+					}],
+					"on_entry": [
+						""
+					]
+				},
+				"sprint": {
+					"transitions": [{
+						"default": "!query.is_sprinting"
+					}],
+					"on_entry": [
+						""
 					]
 				}
 			}
