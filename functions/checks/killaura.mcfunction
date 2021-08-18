@@ -19,6 +19,7 @@ execute @a[tag=killaura2,tag=!noaura,tag=!gliding,scores={leftclick=1..}] ~~~ sc
 execute @a[tag=killaura2,tag=!noaura,tag=!gliding,scores={leftclick=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Combat) §4KillAura/A. VL= "},{"score":{"name":"@s","objective":"killauravl"}}]}
 
 execute @a[tag=killaura2,scores={aura_timer=10..}] ~~~ tp @e[type=scythe:killaura] 999 -200 999
+execute @a[tag=killaura2,scores={aura_timer=10..}] ~~~ kill @e[type=scythe:killaura]
 
 tag @a[tag=killaura2,scores={aura_timer=..10}] remove killaura
 tag @a[tag=killaura2,scores={aura_timer=..10}] remove noaura

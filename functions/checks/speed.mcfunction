@@ -32,6 +32,7 @@ execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,
 execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding] ~~~ tp @s @e[type=scythe:speedtest] true
 
 execute @a[tag=speedtest2,scores={timer=10..}] ~~~ tp @e[type=scythe:speedtest] 999 -200 999
+execute @a[tag=speedtest2,scores={timer=10..}] ~~~ kill @e[type=scythe:speedtest]
 tag @a[tag=speedtest2,scores={timer=..10}] remove NoSpeed
 tag @a[tag=speedtest2,scores={timer=10}] remove speedtest2
 
