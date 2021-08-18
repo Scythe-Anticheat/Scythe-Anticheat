@@ -16,11 +16,11 @@ To recieve anti-cheat alerts use this command: ```/function notify```
       (A) = checks how much left clicks the player sends
    
    Command Block Exploit -><br />
-      (A) = Clears animal buckets/beehives
-      (B) = Replaces beehives with air
-      (C) = Kill all command block minecarts
-      (D) = Kills all NPC's (to disable edit the cbe check)
-      (E) = Instant despawn time for command block minecarts
+      (A) = Clears animal buckets/beehives<br />
+      (B) = Replaces beehives with air<br />
+      (C) = Kill all command block minecarts<br />
+      (D) = Kills all NPC's (to disable edit the cbe check)<br />
+      (E) = Instant despawn time for command block minecarts<br />
  
   Ender Pearl Glitching -><br />
       (A) => Checks if an ender pearl is inside a climable block.
