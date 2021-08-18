@@ -134,7 +134,6 @@
 						"right": "query.is_using_item"
 					}],
 					"on_entry": [
-						"/say No Right",
 						"/tag @s remove right"
 					]
 				},
@@ -143,7 +142,6 @@
 						"default": "!query.is_using_item"
 					}],
 					"on_entry": [
-						"/say right",
 						"/tag @s add right"
 					]
 				}
