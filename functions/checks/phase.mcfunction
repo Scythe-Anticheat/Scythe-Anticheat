@@ -15,4 +15,4 @@ execute @a[tag=!bypass] ~ ~ ~ detect ~ ~ ~ bedrock -1 tag @s add PhaseDetected
 execute @a[tag=PhaseDetected] ~ ~ ~ scoreboard players add @s phasevl 1
 execute @a[tag=PhaseDetected] ~ ~ ~ tp @s ~ ~ ~ 0 0
 execute @a[tag=PhaseDetected] ^ ^ ^ tp ^ ^ ^-1
-execute @a[tag=PhaseDetected] ~ ~ ~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Phase/NoClip. VL= "},{"score":{"name":"@s","objective":"phasevl"}}]}
+execute @a[tag=PhaseDetected] ~ ~ ~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Phase/A. VL= "},{"score":{"name":"@s","objective":"phasevl"}}]}

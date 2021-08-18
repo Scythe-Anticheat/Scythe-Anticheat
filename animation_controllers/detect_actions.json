@@ -1,26 +1,6 @@
 {
 	"format_version": "1.10.0",
 	"animation_controllers": {
-		"controller.animation.jump": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"jump": "query.is_jumping"
-					}],
-					"on_entry": [
-						""
-					]
-				},
-				"jump": {
-					"transitions": [{
-						"default": "!query.is_jumping"
-					}],
-					"on_entry": [
-						""
-					]
-				}
-			}
-		},
 		"controller.animation.glide": {
 			"states": {
 				"default": {
@@ -154,6 +134,7 @@
 						"right": "query.is_using_item"
 					}],
 					"on_entry": [
+						"/say No Right",
 						"/tag @s remove right"
 					]
 				},
@@ -162,6 +143,7 @@
 						"default": "!query.is_using_item"
 					}],
 					"on_entry": [
+						"/say right",
 						"/tag @s add right"
 					]
 				}
@@ -183,26 +165,6 @@
 					}],
 					"on_entry": [
 						"/tag @s add sneak"
-					]
-				}
-			}
-		},
-		"controller.animation.sprint": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"sprint": "query.is_sprinting"
-					}],
-					"on_entry": [
-						""
-					]
-				},
-				"sprint": {
-					"transitions": [{
-						"default": "!query.is_sprinting"
-					}],
-					"on_entry": [
-						""
 					]
 				}
 			}

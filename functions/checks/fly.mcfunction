@@ -527,7 +527,7 @@ execute @s[tag=CheckFly,scores={flycheck=20..}] ~~~ execute @s[y=255,dy=0] ~~~ s
 execute @s[tag=CheckFly,scores={flycheck=20..}] ~~~ scoreboard players operation @s lastYpos -= @s currentYpos
 
 execute @s[tag=CheckFly,tag=!ground,scores={lastYpos=0..}] ~~~ scoreboard players add @s flyvl 1
-execute @s[tag=CheckFly,tag=!ground,scores={lastYpos=0..}] ~~~ tellraw @s[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §4Fly/A. VL= "},{"score":{"name":"@s","objective":"flyvl"}}]}
+execute @s[tag=CheckFly,tag=!ground,scores={lastYpos=0..}] ~~~ tellraw @s[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Fly/A. VL= "},{"score":{"name":"@s","objective":"flyvl"}}]}
 
 execute @s[scores={flycheck=20..}] ~~~ tag @s remove CheckFly
 execute @s[scores={flycheck=20..}] ~~~ tag @s remove isFlying

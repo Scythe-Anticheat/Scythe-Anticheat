@@ -8,7 +8,6 @@
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
-					"jump",
 					"stand",
 					"glide",
 					"levitate",
@@ -17,12 +16,10 @@
 					"ride",
 					"left",
 					"right",
-					"sneak",
-					"sprint"
+					"sneak"
 				]
 			},
 			"animations": {
-				"jump": "controller.animation.jump",
 				"stand": "controller.animation.stand",
 				"glide": "controller.animation.glide",
 				"levitate": "controller.animation.levitate",
@@ -31,8 +28,7 @@
 				"ride": "controller.animation.ride",
 				"left": "controller.animation.left",
 				"right": "controller.animation.right",
-				"sneak": "controller.animation.sneak",
-				"sprint": "controller.animation.sprint"
+				"sneak": "controller.animation.sneak"
 			}
 		},
 		"component_groups": {
