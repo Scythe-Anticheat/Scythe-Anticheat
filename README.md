@@ -52,13 +52,13 @@ To recieve anti-cheat alerts use this command: ```/function notify```
 
 To ban a user use: ```/execute <playername> ~~~ function ban```
 
-To freeze a player use: ```/tag <playername> add freeze```
+To freeze a player use: ```/execute <playername> ~~~ function tools/freeze```
 
 To make a player bypass all checks use: ```/tag <playername> add bypass```
 
 To enter Vanish use: ```/function tools/vanish```
 
-To be able to fly in survival use: ```/function tools/fly```
+To be able to fly in survival mode use: ```/function tools/fly```
 
 To view a players anticheat logs use: ```/execute <playername> ~~~ function tools/stats```
 
