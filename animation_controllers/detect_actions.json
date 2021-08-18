@@ -114,7 +114,7 @@
 						"left": "variable.attack_time"
 					}],
 					"on_entry": [
-						"/execute @s[tag=right] ~~~ function checks/alerts/interactuse"
+						"/execute @s[tag=right,tag=!bypass] ~~~ function checks/alerts/interactuse"
 					]
 				},
 				"left": {
