@@ -73,3 +73,5 @@ A2: Yes but you need to modify the .mcfunction files
 # Notes:
 
 When applying the pack to your world make sure it is at the top to ensure all checks work properly.
+
+If your world uses NPC's, please edit the cbe.mcfunction file and do the instructions to make sure they wont be insta-killed.
