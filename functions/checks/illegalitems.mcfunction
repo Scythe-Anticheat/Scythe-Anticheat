@@ -11,6 +11,7 @@ clear @a[tag=!op,m=!c,tag=!bypass] red_mushroom_block
 clear @a[tag=!op,m=!c,tag=!bypass] chorus_plant
 clear @a[tag=!op,m=!c,tag=!bypass] turtle_egg
 clear @a[tag=!op,m=!c,tag=!bypass] skull 3
+clear @a[tag=!op,m=!c,tag=!bypass] mob_spawner
 clear @a[tag=!op,tag=!bypass] command_block
 clear @a[tag=!op,tag=!bypass] chain_command_block
 clear @a[tag=!op,tag=!bypass] repeating_command_block
