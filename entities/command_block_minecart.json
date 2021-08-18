@@ -25,7 +25,7 @@
 					"check_block_types": false,
 					"eject_on_activate": false,
 					"eject_on_deactivate": false,
-					"tick_command_block_on_activate": true,
+					"tick_command_block_on_activate": false,
 					"tick_command_block_on_deactivate": false,
 					"on_activate": {
 						"event": "minecraft:command_block_deactivate"
