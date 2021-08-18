@@ -1,4 +1,4 @@
-# Makes a entity and checks how far away they are from the entity
+# Creats an entity and checks how far away they are from the entity
 
 scoreboard players add @a speedvl 0
 
