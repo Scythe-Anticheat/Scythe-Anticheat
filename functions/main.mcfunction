@@ -5,6 +5,7 @@ gamerule commandblocksenabled true
 
 gamerule commandblockoutput false
 tickingarea add circle ~~~ 1 AntiCheat
+tickingarea add circle 999 0 999 1 kill
 
 # Runs All The Checks
 
