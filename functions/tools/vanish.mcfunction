@@ -5,6 +5,7 @@ tellraw @s[tag=novanish] {"rawtext":[{"text":"§6[§aScythe§6] §rYou are no lo
 execute @s[tag=novanish] ~ ~ ~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §rIs no longer in Vanish."}]}
 
 effect @s[tag=!novanish] invisibility 9999 250 true
+effect @s[tag=!novanish] night_vision 9999 255 true
 tag @s[tag=!novanish] add vanish
 tellraw @s[tag=vanish,tag=!novanish] {"rawtext":[{"text":"§6[§aScythe§6] §rYou are now in vanish!"}]}
 execute @s[tag=vanish,tag=!novanish] ~ ~ ~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §rIs now in Vanish."}]}
