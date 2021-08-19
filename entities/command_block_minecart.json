@@ -47,6 +47,9 @@
 					"max_distance": 1,
 					"min_distance": 1
 				},
+				"minecraft:instant_despawn": {
+					"remove_child_entities": true
+				},
 				"minecraft:physics": {},
 				"minecraft:pushable": {
 					"is_pushable": false,
