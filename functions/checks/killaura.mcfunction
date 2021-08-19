@@ -9,9 +9,9 @@ execute @a[tag=killaura2] ~~~ tag @a[tag=killaura] remove killaura
 tag @a[tag=killaura,tag=!killaura2] add killaura2
 tag @a[tag=killaura,tag=killaura2] remove killaura
 
-execute @a[tag=killaura2,scores={aura_timer=0}] ^^^ summon scythe:killaura killaura ^-2 ^+1 ^-1
+execute @a[tag=killaura2,scores={aura_timer=0}] ^^^ summon scythe:killaura killaura ^ ^+1 ^-3
 
-execute @a[tag=killaura2,scores={aura_timer=..9}] ~~~ tp @e[type=scythe:killaura] ^-2 ^+1 ^-1
+execute @a[tag=killaura2,scores={aura_timer=..9}] ~~~ tp @e[type=scythe:killaura] ^ ^+1 ^-3
 
 execute @a[tag=killaura2] ~~~ scoreboard players add @s aura_timer 1
 
