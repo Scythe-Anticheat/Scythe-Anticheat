@@ -30,6 +30,7 @@
 				"minecraft:attack": {
 					"damage": 0
 				},
+				"minecraft:fire_immune": {},
 				"minecraft:breathable": {
 					"breathes_air": true,
 					"breathes_lava": true,
