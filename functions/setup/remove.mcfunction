@@ -12,6 +12,8 @@ scoreboard objectives remove leftclick
 scoreboard objectives remove leftclickvl
 scoreboard objectives remove leftclick_timer
 scoreboard objectives remove isBanned
+scoreboard objectives remove lastYpos
+scoreboard objectives remove currentYpos
 gamerule commandblockoutput true
 tag @a remove op
 tag @a remove flying

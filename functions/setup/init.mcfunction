@@ -12,6 +12,8 @@ scoreboard objectives add leftclick dummy
 scoreboard objectives add leftclickvl dummy
 scoreboard objectives add leftclick_timer dummy
 scoreboard objectives add isBanned dummy
+scoreboard objectives add lastYpos dummy
+scoreboard objectives add currentYpos dummy
 gamerule commandblockoutput false
 tag @s add op
 give @s repeating_command_block 1
