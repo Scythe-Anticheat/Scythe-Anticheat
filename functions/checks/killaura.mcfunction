@@ -1,6 +1,7 @@
 # Places a fake entity behind the player and see if they will hit the entity
 
 scoreboard players add @a killauravl 0
+scoreboard players add @a aura_timer 0
 
 tag @r[tag=!bypass,tag=!gliding] add killaura
 execute @a[tag=killaura2] ~~~ tag @a[tag=killaura] remove killaura
