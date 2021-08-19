@@ -8,7 +8,6 @@
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
-					"stand",
 					"glide",
 					"levitate",
 					"ground",
@@ -20,7 +19,6 @@
 				]
 			},
 			"animations": {
-				"stand": "controller.animation.stand",
 				"glide": "controller.animation.glide",
 				"levitate": "controller.animation.levitate",
 				"ground": "controller.animation.ground",
