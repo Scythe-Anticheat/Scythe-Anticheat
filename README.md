@@ -1,5 +1,5 @@
 # Scythe-AntiCheat
-Scythe AntiCheat - a simple, basic anticheat for Minecraft Bedrock Edition realms or servers.
+Scythe AntiCheat - an AntiCheat designed for Minecraft Bedrock realms/worlds/servers.
 
 
 # How To Use?
