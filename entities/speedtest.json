@@ -61,8 +61,8 @@
 					"allow_name_tag_renaming": false
 				},
 				"minecraft:health": {
-					"value": 999,
-					"max": 999
+					"value": 50,
+					"max": 50
 				},
 				"minecraft:pushable": {
 					"is_pushable": false,
