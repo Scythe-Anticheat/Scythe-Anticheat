@@ -8,6 +8,7 @@ scoreboard objectives remove killauravl
 scoreboard objectives remove timer
 scoreboard objectives remove aura_timer
 scoreboard objectives remove epearlGlitch
+scoreboard objectives remove interactusevl
 scoreboard objectives remove leftclick
 scoreboard objectives remove leftclickvl
 scoreboard objectives remove leftclick_timer
