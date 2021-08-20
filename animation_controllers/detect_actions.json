@@ -187,6 +187,26 @@
 					]
 				}
 			}
+		},
+		"controller.animation.jump": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"jump": "query.is_jumping"
+					}],
+					"on_entry": [
+						"/tag @s remove jump"
+					]
+				},
+				"jump": {
+					"transitions": [{
+						"default": "!query.is_jumping"
+					}],
+					"on_entry": [
+						"/tag @s add jump"
+					]
+				}
+			}
 		}
 	}
 }

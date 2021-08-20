@@ -15,7 +15,8 @@
 					"ride",
 					"left",
 					"right",
-					"sneak"
+					"sneak",
+					"jump"
 				]
 			},
 			"animations": {
@@ -26,7 +27,8 @@
 				"ride": "controller.animation.ride",
 				"left": "controller.animation.left",
 				"right": "controller.animation.right",
-				"sneak": "controller.animation.sneak"
+				"sneak": "controller.animation.sneak",
+				"jump": "controller.animation.jump"
 			}
 		},
 		"component_groups": {
