@@ -167,6 +167,26 @@
 					]
 				}
 			}
+		},
+		"controller.animation.critical": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"critical": "query.is_critical"
+					}],
+					"on_entry": [
+						""
+					]
+				},
+				"critical": {
+					"transitions": [{
+						"default": "!query.is_critical"
+					}],
+					"on_entry": [
+						""
+					]
+				}
+			}
 		}
 	}
 }
