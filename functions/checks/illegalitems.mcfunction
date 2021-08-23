@@ -28,3 +28,21 @@ clear @a[tag=!op,tag=!bypass] chemistry_table
 clear @a[tag=!op,tag=!bypass] frosted_ice
 
 kill @e[type=chalkboard]
+
+# Kills illegal ground items
+kill @e[type=item,name="Bedrock"]
+kill @e[type=item,name="End Portal"]
+kill @e[type=item,name="Command Block"]
+kill @e[type=item,name="Chain Command Block"]
+kill @e[type=item,name="Repeating Command Block"]
+kill @e[type=item,name="Minecart with Command Block"]
+kill @e[type=item,name="Barrier"]
+kill @e[type=item,name="Structure Block"]
+kill @e[type=item,name="Structure Void"]
+kill @e[type=item,name="Jigsaw Block"]
+kill @e[type=item,name="Allow"]
+kill @e[type=item,name="Deny"]
+kill @e[type=item,name="Light Block"]
+kill @e[type=item,name="Border"]
+kill @e[type=item,name="Compound Creator"]
+kill @e[type=item,name="Frosted Ice"]
