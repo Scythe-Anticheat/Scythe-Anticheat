@@ -16,7 +16,7 @@ function checks/illegalitems
 function checks/phase
 function checks/others
 function checks/jesus
-execute @a ~~~ function checks/fly
+# execute @a ~~~ function checks/fly
 function checks/speed
 function checks/killaura
 function checks/epearlglitching
