@@ -24,6 +24,7 @@ kill @e[type=item,name="Powder Snow Bucket"]
 kill @e[type=item,name="Bucket Of Axolotl"]
 kill @e[type=item,name="Beehive"]
 kill @e[type=item,name="Bee Nest"]
+kill @e[type=item,name="tile.movingBlock.name"]
 
 # Gets rid of beehives and beenests already placed
 execute @a ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace bee_nest -1
