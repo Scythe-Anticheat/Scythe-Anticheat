@@ -3,6 +3,7 @@
 execute @e[type=command_block_minecart] ~~~ execute @p ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has attempted to use §4CBE!"}]}
 
 kill @e[type=command_block_minecart]
+kill @e[type=moving_block]
 
 clear @a[tag=!op,tag=!bypass] bucket 2
 clear @a[tag=!op,tag=!bypass] bucket 3
