@@ -9,6 +9,7 @@ scoreboard objectives add timer dummy
 scoreboard objectives add aura_timer dummy
 scoreboard objectives add epearlGlitch dummy
 scoreboard objectives add interactusevl dummy
+scoreboard objectives add illegalitemsvl dummy
 scoreboard objectives add leftclick dummy
 scoreboard objectives add leftclickvl dummy
 scoreboard objectives add leftclick_timer dummy

@@ -1,0 +1,349 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.illegals": {
+			"initial_state": "check_illegal",
+			"states": {
+				"check_illegal": {
+					"transitions": [{
+							"bedrock": "query.get_equipped_item_name == 'bedrock'"
+						},
+						{
+							"end_portal_frame": "query.get_equipped_item_name == 'end_portal_frame'"
+						},
+						{
+							"dragon_egg": "query.get_equipped_item_name == 'dragon_egg'"
+						},
+						{
+							"farmland": "query.get_equipped_item_name == 'farmland'"
+						},
+						{
+							"monster_egg": "query.get_equipped_item_name == 'monster_egg'"
+						},
+						{
+							"brown_mushroom_block": "query.get_equipped_item_name == 'brown_mushroom_block'"
+						},
+						{
+							"red_mushroom_block": "query.get_equipped_item_name == 'red_mushroom_block'"
+						},
+						{
+							"chorus_plant": "query.get_equipped_item_name == 'chorus_plant'"
+						},
+						{
+							"turtle_egg": "query.get_equipped_item_name == 'turtle_egg'"
+						},
+						{
+							"mob_spawner": "query.get_equipped_item_name == 'mob_spawner'"
+						},
+						{
+							"command_block": "query.get_equipped_item_name == 'command_block'"
+						},
+						{
+							"chain_command_block": "query.get_equipped_item_name == 'chain_command_block'"
+						},
+						{
+							"repeating_command_block": "query.get_equipped_item_name == 'repeating_command_block'"
+						},
+						{
+							"command_block_minecart": "query.get_equipped_item_name == 'command_block_minecart'"
+						},
+						{
+							"barrier": "query.get_equipped_item_name == 'barrier'"
+						},
+						{
+							"structure_block": "query.get_equipped_item_name == 'structure_block'"
+						},
+						{
+							"structure_void": "query.get_equipped_item_name == 'structure_void'"
+						},
+						{
+							"jigsaw": "query.get_equipped_item_name == 'jigsaw'"
+						},
+						{
+							"allow": "query.get_equipped_item_name == 'allow'"
+						},
+						{
+							"deny": "query.get_equipped_item_name == 'deny'"
+						},
+						{
+							"light_block": "query.get_equipped_item_name == 'light_block'"
+						},
+						{
+							"border_block": "query.get_equipped_item_name == 'border_block'"
+						},
+						{
+							"chemistry_table": "query.get_equipped_item_name == 'chemistry_table'"
+						},
+						{
+							"frosted_ice": "query.get_equipped_item_name == 'frosted_ice'"
+						}
+					]
+				},
+				"bedrock": {
+					"on_entry": [
+						"/tag @s add bedrock"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'bedrock'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"end_portal_frame": {
+					"on_entry": [
+						"/tag @s add end_portal_frame"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'end_portal_frame'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"dragon_egg": {
+					"on_entry": [
+						"/tag @s add dragon_egg"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'dragon_egg'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"farmland": {
+					"on_entry": [
+						"/tag @s add farmland"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'farmland'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"monster_egg": {
+					"on_entry": [
+						"/tag @s add monster_egg"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'monster_egg'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"brown_mushroom_block": {
+					"on_entry": [
+						"/tag @s add brown_mushroom_block"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'brown_mushroom_block'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"red_mushroom_block": {
+					"on_entry": [
+						"/tag @s add red_mushroom_block"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'red_mushroom_block'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"chorus_plant": {
+					"on_entry": [
+						"/tag @s add chorus_plant"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'chorus_plant'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"turtle_egg": {
+					"on_entry": [
+						"/tag @s add turtle_egg"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'turtle_egg'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"mob_spawner": {
+					"on_entry": [
+						"/tag @s add mob_spawner"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'mob_spawner'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"command_block": {
+					"on_entry": [
+						"/tag @s add command_block"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'command_block'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"chain_command_block": {
+					"on_entry": [
+						"/tag @s add chain_command_block"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'chain_command_block'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"repeating_command_block": {
+					"on_entry": [
+						"/tag @s add repeating_command_block"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'repeating_command_block'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"command_block_minecart": {
+					"on_entry": [
+						"/tag @s add command_block_minecart"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'command_block_minecart'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"barrier": {
+					"on_entry": [
+						"/tag @s add barrier"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'barrier'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"structure_block": {
+					"on_entry": [
+						"/tag @s add structure_block"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'structure_block'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"structure_void": {
+					"on_entry": [
+						"/tag @s add structure_void"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'structure_void'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"jigsaw": {
+					"on_entry": [
+						"/tag @s add jigsaw"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'jigsaw'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"allow": {
+					"on_entry": [
+						"/tag @s add allow"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'allow'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"deny": {
+					"on_entry": [
+						"/tag @s add deny"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'deny'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"light_block": {
+					"on_entry": [
+						"/tag @s add light_block"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'light_block'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"border_block": {
+					"on_entry": [
+						"/tag @s add border_block"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'border_block'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"chemistry_table": {
+					"on_entry": [
+						"/tag @s add chemistry_table"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'chemistry_table'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"frosted_ice": {
+					"on_entry": [
+						"/tag @s add frosted_ice"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'frosted_ice'"
+					}],
+					"on_exit": [
+						""
+					]
+				}
+			}
+		}
+	}
+}

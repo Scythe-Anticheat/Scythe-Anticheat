@@ -16,7 +16,8 @@
 					"left",
 					"right",
 					"sneak",
-					"jump"
+					"jump",
+					"illegals"
 				]
 			},
 			"animations": {
@@ -28,7 +29,8 @@
 				"left": "controller.animation.left",
 				"right": "controller.animation.right",
 				"sneak": "controller.animation.sneak",
-				"jump": "controller.animation.jump"
+				"jump": "controller.animation.jump",
+				"illegals": "controller.animation.illegals"
 			}
 		},
 		"component_groups": {
