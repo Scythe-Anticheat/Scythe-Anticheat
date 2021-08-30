@@ -1,6 +1,7 @@
 # other stuff
 
-effect @a[tag=vanish] invisibility 9999 250 true
+effect @a[tag=vanish] invisibility 9999 255 true
+effect @a[tag=vanish] night_vision 9999 255 true
 title @a[tag=vanish] actionbar §aYOU ARE VANISHED!
 
 execute @a[tag=bypass,tag=!bypass2] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has been excluded from all Scythe Checks!"}]}
