@@ -47,6 +47,9 @@
 				"minecraft:despawn": {
 					"despawn_from_simulation_edge": true
 				},
+				"minecraft:knockback_resistance": {
+					"value": 1.0
+				},
 				"minecraft:explosion_resistance": -1.0,
 				"minecraft:player.exhaustion": {
 					"value": 0,
