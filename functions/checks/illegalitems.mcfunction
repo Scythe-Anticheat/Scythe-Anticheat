@@ -1,5 +1,6 @@
 # Clears illegal items from player inventories
 
+scoreboard objectives add illegalitemsvl dummy
 scoreboard players add @s illegalitemsvl 0
 
 # spawn_eggs
