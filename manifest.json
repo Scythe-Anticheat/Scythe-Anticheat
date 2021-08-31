@@ -2,7 +2,7 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Sycthe AntiCheat",
+		"name": "Scythe AntiCheat",
 		"description": "Cheat Detection Tool For Realms And Servers",
 		"uuid": "c68ba0c1-b9e4-46ad-b6c8-88bbd28f1fa5",
 		"version": [
