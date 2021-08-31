@@ -3,7 +3,7 @@ Scythe AntiCheat - an AntiCheat designed for Minecraft Bedrock realms/worlds/ser
 
 
 # How To Use?
-To install this anticheat to your realm/world you need to install the .mcpack and apply it to your world, once you do that join that world and use "/function setup/init". This will give you a command block which then you need to add this command: "function main".
+To install this anticheat to your realm/world you need to install the .mcpack and apply it to your world and it should be fully up and running
 
 To recieve anti-cheat alerts use this command: ```/function notify```
 
