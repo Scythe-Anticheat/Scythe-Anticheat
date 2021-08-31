@@ -5,14 +5,13 @@ gamerule randomtickspeed 1
 # Runs All The Checks
 
 function checks/angle
+function checks/autoclicker
 function checks/ban
 function checks/cbe
-function checks/illegalitems
-function checks/phase
-function checks/others
-function checks/jesus
-# execute @a ~~~ function checks/fly
-function checks/speed
-function checks/killaura
 function checks/epearlglitching
-function checks/autoclicker
+function checks/illegalitems
+function checks/jesus
+# function checks/killaura
+function checks/others
+function checks/phase
+# function checks/speed

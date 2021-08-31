@@ -1,7 +1,8 @@
+//bridge-file-version: #17
 {
 	"format_version": 2,
 	"header": {
-		"name": "Scythe AntiCheat",
+		"name": "Sycthe AntiCheat",
 		"description": "Cheat Detection Tool For Realms And Servers",
 		"uuid": "c68ba0c1-b9e4-46ad-b6c8-88bbd28f1fa5",
 		"version": [
