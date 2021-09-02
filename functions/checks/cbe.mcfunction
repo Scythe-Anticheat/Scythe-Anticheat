@@ -1,7 +1,13 @@
 # Anti-Command Block Exploit
 
-execute @e[type=command_block_minecart] ~~~ execute @p ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has attempted to use §4Command Block Exploit!"}]}
-execute @e[type=moving_block] ~~~ execute @p ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has attempted to use §4Command Block Exploit!"}]}
+scoreboard objectives add cbevl dummy
+scoreboard players add @a cbevl 0
+
+execute @e[type=command_block_minecart] ~~~ execute @p ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has attempted to use §7(Exploit) §4Command Block Exploit! VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}
+execute @e[type=command_block_minecart] ~~~ scoreboard players add @p cbevl 1
+
+execute @e[type=moving_block] ~~~ execute @p ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has attempted to use §7(Exploit) §4Command Block Exploit! VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}
+execute @e[type=moving_block] ~~~ scoreboard players add @p cbevl 1
 
 kill @e[type=command_block_minecart]
 kill @e[type=moving_block]
