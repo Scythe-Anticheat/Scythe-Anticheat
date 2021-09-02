@@ -10,7 +10,7 @@ tickingarea add circle ~~~ 1 AntiCheat
 
 # function checks/crasher
 function checks/angle
-function checks/ban
+# function checks/ban
 function checks/cbe
 function checks/illegalitems
 function checks/phase
