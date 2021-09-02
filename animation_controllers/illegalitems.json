@@ -222,9 +222,9 @@
 				"command_block": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] command_block",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] command_block",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'command_block'"
@@ -236,9 +236,9 @@
 				"chain_command_block": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] chain_command_block",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(chain_command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] chain_command_block",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(chain_command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'chain_command_block'"
@@ -250,9 +250,9 @@
 				"repeating_command_block": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] repeating_command_block",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(repeating_command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] repeating_command_block",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(repeating_command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'repeating_command_block'"
@@ -264,9 +264,9 @@
 				"command_block_minecart": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] command_block_minecart",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(command_block_minecart)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] command_block_minecart",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(command_block_minecart)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'command_block_minecart'"
@@ -278,9 +278,9 @@
 				"barrier": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] barrier",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(barrier)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] barrier",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(barrier)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'barrier'"
@@ -292,9 +292,9 @@
 				"structure_block": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] structure_block",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(structure_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] structure_block",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(structure_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'structure_block'"
@@ -306,9 +306,9 @@
 				"structure_void": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] structure_void",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(structure_void)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] structure_void",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(structure_void)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'structure_void'"
@@ -320,9 +320,9 @@
 				"jigsaw": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] jigsaw",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(jigsaw)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] jigsaw",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(jigsaw)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'jigsaw'"
@@ -334,9 +334,9 @@
 				"allow": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] allow",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(allow)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] allow",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(allow)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'allow'"
@@ -348,9 +348,9 @@
 				"deny": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] deny",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(deny)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] deny",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(deny)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'deny'"
@@ -362,9 +362,9 @@
 				"light_block": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] light_block",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(light_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] light_block",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(light_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'light_block'"
@@ -376,9 +376,9 @@
 				"border_block": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] border_block",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(border_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] border_block",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(border_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'border_block'"
@@ -390,9 +390,9 @@
 				"chemistry_table": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] chemistry_table",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(chemistry_table)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] chemistry_table",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(chemistry_table)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'chemistry_table'"
@@ -404,9 +404,9 @@
 				"frosted_ice": {
 					"on_entry": [
 						"/scoreboard objectives add illegalitemsvl dummy",
-						"/clear @s[tag=!op,\"tag=!bypass] frosted_ice",
-						"/scoreboard players add @s[tag=!op,\"tag=!bypass] illegalitemsvl 1",
-						"/execute @s[tag=!op,\"tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(frosted_ice)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/clear @s[tag=!op,tag=!bypass] frosted_ice",
+						"/scoreboard players add @s[tag=!op,tag=!bypass] illegalitemsvl 1",
+						"/execute @s[tag=!op,tag=!bypass] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(frosted_ice)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'frosted_ice'"
