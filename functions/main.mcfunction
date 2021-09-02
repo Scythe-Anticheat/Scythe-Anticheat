@@ -6,7 +6,7 @@ gamerule randomtickspeed 1
 
 function checks/angle
 function checks/autoclicker
-function checks/ban
+# function checks/ban
 function checks/cbe
 function checks/epearlglitching
 function checks/illegalitems
