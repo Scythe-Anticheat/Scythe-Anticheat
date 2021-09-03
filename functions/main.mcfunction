@@ -1,5 +1,4 @@
 # Prevents disabler hacks from possibly disabling the anticheat
-gamerule functioncommandlimit 10000
 gamerule randomtickspeed 1
 
 # Runs All The Checks

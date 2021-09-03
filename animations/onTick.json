@@ -4,7 +4,8 @@
 		"animation.onTick": {
 			"timeline": {
 				"0.0": [
-					"/function main"
+					"/function main",
+					"/gamerule functioncommandlimit 10000"
 				]
 			},
 			"animation_length": 0.05,
