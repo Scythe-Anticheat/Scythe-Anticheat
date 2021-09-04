@@ -11,11 +11,8 @@ tag @a[tag=speedtest,tag=!speedtest2] add speedtest2
 tag @a[tag=speedtest,tag=speedtest2] remove speedtest
 
 execute @a[tag=speedtest2,scores={timer=0}] ^^^ summon scythe:speedtest ^-2 ^+1 ^-1
-effect @e[type=scythe:speedtest] invisibility 9999 250 true
 
 execute @a[tag=speedtest2] ~~~ scoreboard players add @s timer 1
-
-execute @a[tag=speedtest2] ~~~ kill @e[type=item,name="Armor Stand",r=5]
 
 execute @a[tag=speedtest2,tag=!sneak,tag=!right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=6] add NoSpeed
 execute @a[tag=speedtest2,tag=sneak,tag=!right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=4] add NoSpeed
