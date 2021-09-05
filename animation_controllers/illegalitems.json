@@ -1,7 +1,7 @@
 {
 	"format_version": "1.10.0",
 	"animation_controllers": {
-		"controller.animation.illegals": {,
+		"controller.animation.illegals": {
 			"states": {
 				"check_illegal": {
 					"transitions": [{
