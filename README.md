@@ -55,7 +55,6 @@ To ban a user use: ```/execute <playername> ~~~ function ban```
 
 To freeze a player use: ```/execute <playername> ~~~ function tools/freeze```
 
-To make a player bypass all checks use: ```/tag <playername> add bypass```
 
 To enter Vanish use: ```/function tools/vanish```
 

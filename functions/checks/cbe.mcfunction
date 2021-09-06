@@ -12,14 +12,14 @@ execute @e[type=moving_block] ~~~ scoreboard players add @p cbevl 1
 kill @e[type=command_block_minecart]
 kill @e[type=moving_block]
 
-clear @s[tag=!op,tag=!bypass] bucket 2
-clear @s[tag=!op,tag=!bypass] bucket 3
-clear @s[tag=!op,tag=!bypass] bucket 4
-clear @s[tag=!op,tag=!bypass] bucket 5
-clear @s[tag=!op,tag=!bypass] bucket 11
-clear @s[tag=!op,tag=!bypass] bucket 12
-clear @s[tag=!op,tag=!bypass] beehive
-clear @s[tag=!op,tag=!bypass] bee_nest
+clear @s[tag=!op] bucket 2
+clear @s[tag=!op] bucket 3
+clear @s[tag=!op] bucket 4
+clear @s[tag=!op] bucket 5
+clear @s[tag=!op] bucket 11
+clear @s[tag=!op] bucket 12
+clear @s[tag=!op] beehive
+clear @s[tag=!op] bee_nest
 
 # Clears ground items
 

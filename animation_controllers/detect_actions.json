@@ -122,8 +122,8 @@
 						"default": "!variable.attack_time"
 					}],
 					"on_entry": [
-						"/scoreboard players add @s[tag=!bypass] leftclick 1",
-						"/execute @s[tag=right,tag=!bypass] ~~~ function checks/alerts/interactuse"
+						"/scoreboard players add @s leftclick 1",
+						"/execute @s[tag=right] ~~~ function checks/alerts/interactuse"
 					]
 				}
 			}

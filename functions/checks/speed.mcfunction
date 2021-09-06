@@ -7,7 +7,7 @@ scoreboard players add @s timer 0
 
 execute @s[tag=speedtest2,m=c] ~~~ tp @e[type=scythe:speedtest,name="speedtest",r=5] 999 -200 999
 
-tag @r[tag=!bypass,tag=!flying,m=!c,tag=!speedtest,tag=!speedtest2,tag=!gliding,tag=!riding,tag=!dead,tag=ground] add speedtest
+tag @r[tag=!flying,m=!c,tag=!speedtest,tag=!speedtest2,tag=!gliding,tag=!riding,tag=!dead,tag=ground] add speedtest
 execute @s[tag=speedtest2] ~~~ tag @a[tag=speedtest] remove speedtest
 
 tag @s[tag=speedtest,tag=!speedtest2] add speedtest2
