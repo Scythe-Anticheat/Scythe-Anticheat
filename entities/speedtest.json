@@ -50,7 +50,7 @@
 				"minecraft:knockback_resistance": {
 					"value": 1.0
 				},
-				"minecraft:explosion_resistance": -1.0,
+				"minecraft:explosion_resistance": 1.0,
 				"minecraft:player.exhaustion": {
 					"value": 0,
 					"max": 4

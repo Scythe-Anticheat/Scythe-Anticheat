@@ -14,7 +14,6 @@ tag @s[tag=speedtest,tag=!speedtest2] add speedtest2
 tag @s[tag=speedtest,tag=speedtest2] remove speedtest
 
 execute @s[tag=speedtest2,scores={timer=0}] ^^^ summon scythe:speedtest speedtest ^-2 ^+1 ^-1
-
 execute @s[tag=speedtest2] ~~~ scoreboard players add @s timer 1
 
 execute @s[tag=speedtest2,tag=!sneak,tag=!right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=6] add NoSpeed
