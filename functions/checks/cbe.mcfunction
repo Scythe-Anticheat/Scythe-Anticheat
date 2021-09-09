@@ -34,8 +34,8 @@ kill @e[type=item,name="Bee Nest"]
 kill @e[type=item,name="tile.movingBlock.name"]
 
 # Gets rid of beehives and beenests already placed
-fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace bee_nest -1
-fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace beehive -1
+execute @e ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace bee_nest -1
+execute @e ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace beehive -1
 
 # NOTE: IF YOUR SERVER USES NPC'S PLEASE PUT A # AT THE START OF THE COMMAND!
 kill @e[type=npc]
