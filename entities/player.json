@@ -8,6 +8,7 @@
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
+					"onTick",
 					"glide",
 					"levitate",
 					"ground",
@@ -21,6 +22,7 @@
 				]
 			},
 			"animations": {
+				"onTick": "animation.onTick",
 				"glide": "controller.animation.glide",
 				"levitate": "controller.animation.levitate",
 				"ground": "controller.animation.ground",

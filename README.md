@@ -3,17 +3,18 @@ Scythe AntiCheat - an AntiCheat designed for Minecraft Bedrock realms/worlds/ser
 
 
 # How To Use?
-To install this anticheat to your realm/world you need to install the .mcpack and apply it to your world, once you do that join that world and use "/function setup/init". This will give you a command block which then you need to add this command: "function main".
+To install this anticheat to your realm/world you need to install the .mcpack and apply it to your world and it should be fully up and running
 
 To recieve anti-cheat alerts use this command: ```/function notify```
 
 # List of checks detected by Scythe AntiCheat
 
-   Angle -><br />
-      (A) = checks if the players yaw/pitch is greater than normal
-   
    AutoClicker -><br />
-      (A) = checks how much left clicks the player sends
+      (A) = Checks how much left clicks the player sends
+      
+   BadPackets -><br />
+      (1) = Checks if the players yaw/pitch is greater than normal
+   
    
    Command Block Exploit -><br />
       (A) = Clears animal buckets/beehives<br />
@@ -44,7 +45,7 @@ To recieve anti-cheat alerts use this command: ```/function notify```
       (A) => Detect if someone moves inside a block
  
   Speed -><br />
-      (A) = spawns in an entity and sees how far the player moves away from it.
+      (A) = Spawns in an entity and sees how far the player moves away from it.
 
 # Extra Commands.
 
@@ -54,7 +55,6 @@ To ban a user use: ```/execute <playername> ~~~ function ban```
 
 To freeze a player use: ```/execute <playername> ~~~ function tools/freeze```
 
-To make a player bypass all checks use: ```/tag <playername> add bypass```
 
 To enter Vanish use: ```/function tools/vanish```
 
