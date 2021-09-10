@@ -30,7 +30,8 @@ To recieve anti-cheat alerts use this command: ```/function notify```
       (A) => Checks if the players y coordinate is the same or greater every second
    
   Illegal Items -><br />
-      (A) => Clears illegal items from everybodys inventories.
+      (A) => Clears illegal items from everybodys inventories.<br />
+      (B) => Clears dropped items.
       
   InteractUse -><br />
       (A) => Checks if a player is using an item white hitting/interacting with items
