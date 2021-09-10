@@ -18,7 +18,8 @@
 					"right",
 					"sneak",
 					"jump",
-					"illegals"
+					"illegals",
+					"illegals2"
 				]
 			},
 			"animations": {
@@ -32,7 +33,8 @@
 				"right": "controller.animation.right",
 				"sneak": "controller.animation.sneak",
 				"jump": "controller.animation.jump",
-				"illegals": "controller.animation.illegals"
+				"illegals": "controller.animation.illegals",
+				"illegals2": "controller.animation.illegals2"
 			}
 		},
 		"component_groups": {
