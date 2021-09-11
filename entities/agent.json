@@ -9,7 +9,6 @@
 		},
 		"component_groups": {},
 		"components": {
-
 			"minecraft:instant_despawn": {
 				"remove_child_entities": true
 			}
