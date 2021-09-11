@@ -2,10 +2,12 @@
 Scythe AntiCheat - an AntiCheat designed for Minecraft Bedrock realms/worlds/servers.
 
 
-# How To Use?
+# How To Setup
 To install this anticheat to your realm/world you need to install the .mcpack and apply it to your world and it should be fully up and running
 
 To recieve anti-cheat alerts use this command: ```/function notify```
+
+If your world contains NPC's, make sure to edit the cbe.mcfunction file and add a # to the ```/kill @e[type=npc``` or they will be insta-killed
 
 # List of checks detected by Scythe AntiCheat
 
@@ -74,5 +76,3 @@ A2: Yes but you need to modify the .mcfunction files
 # Notes:
 
 When applying the pack to your world make sure it is at the top to ensure all checks work properly.
-
-If your world uses NPC's, please edit the cbe.mcfunction file and do the instructions to make sure they wont be insta-killed.
