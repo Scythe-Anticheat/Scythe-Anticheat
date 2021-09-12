@@ -3,9 +3,6 @@
 scoreboard objectives add illegalitemsvl dummy
 scoreboard players add @s illegalitemsvl 0
 
-# spawn_eggs
-clear @a[tag=!op,m=!c] spawn_egg
-
 # skull3
 clear @a[tag=skull3,tag=!op,m=!c] skull 3
 
