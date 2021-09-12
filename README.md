@@ -76,3 +76,15 @@ A2: Yes but you need to modify the .mcfunction files
 # Notes:
 
 When applying the pack to your world make sure it is at the top to ensure all checks work properly.
+
+# License
+**You MAY;**
+Modify it
+Use it (public/private use)
+Using its code (with credit)
+
+**YOU MAY NOT;**
+Steal code
+Claim it as your own
+Sell it
+Redistrubute it.
