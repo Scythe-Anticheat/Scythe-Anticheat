@@ -207,6 +207,26 @@
 					]
 				}
 			}
+		},
+		"controller.animation.move": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"jump": "query.is_moving"
+					}],
+					"on_entry": [
+						"/tag @s remove moving"
+					]
+				},
+				"jump": {
+					"transitions": [{
+						"default": "!query.is_moving"
+					}],
+					"on_entry": [
+						"/tag @s add moving"
+					]
+				}
+			}
 		}
 	}
 }
