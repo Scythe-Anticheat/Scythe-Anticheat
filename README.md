@@ -78,13 +78,13 @@ A2: Yes but you need to modify the .mcfunction files
 When applying the pack to your world make sure it is at the top to ensure all checks work properly.
 
 # License
-**You MAY;**
-Modify it
-Use it (public/private use)
-Using its code (with credit)
+**You MAY;**<br />
+Modify it<br />
+Use it (public/private use)<br />
+Using its code (with credit)<br />
 
-**YOU MAY NOT;**
-Steal code
-Claim it as your own
-Sell it
-Redistrubute it.
+**YOU MAY NOT;**<br />
+Steal code<br />
+Claim it as your own<br />
+Sell it<br />
+Redistrubute it.<br />
