@@ -1,0 +1,20 @@
+{
+	"format_version": "1.13.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:tripod_camera",
+			"is_spawnable": false,
+			"is_summonable": false,
+			"is_experimental": false
+		},
+
+		"components": {
+			"minecraft:type_family": {
+				"family": ["tripodcamera", "inanimate", "mob"]
+			},
+			"minecraft:instant_despawn": {
+				"remove_child_entities": true
+			}
+		}
+	}
+}
