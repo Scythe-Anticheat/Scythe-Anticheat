@@ -35,6 +35,9 @@
 							"mob_spawner": "query.get_equipped_item_name == 'mob_spawner'"
 						},
 						{
+							"spawn_egg": "query.get_equipped_item_name == 'spawn_egg'"
+						},
+						{
 							"command_block": "query.get_equipped_item_name == 'command_block'"
 						},
 						{
@@ -203,6 +206,19 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'mob_spawner'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"spawn_egg": {
+					"on_entry": [
+						"/clear @s[tag=!op] spawn_egg",
+						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
+						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'spawn_egg'"
 					}],
 					"on_exit": [
 						""
