@@ -35,6 +35,9 @@
 							"unlit_redstone_torch": "query.get_equipped_item_name == 'unlit_redstone_torch'"
 						},
 						{
+							"portal": "query.get_equipped_item_name == 'portal'"
+						},
+						{
 							"unpowered_repeater": "query.get_equipped_item_name == 'unpowered_repeater'"
 						},
 						{
@@ -105,6 +108,30 @@
 						},
 						{
 							"camera": "query.get_equipped_item_name == 'camera'"
+						},
+						{
+							"reserved6": "query.get_equipped_item_name == 'reserved6'"
+						},
+						{
+							"info_update": "query.get_equipped_item_name == 'info_update'"
+						},
+						{
+							"info_update2": "query.get_equipped_item_name == 'info_update2'"
+						},
+						{
+							"lit_deepslate_redstone_ore": "query.get_equipped_item_name == 'lit_deepslate_redstone_ore'"
+						},
+						{
+							"hard_stained_glass_pane": "query.get_equipped_item_name == 'hard_stained_glass_pane'"
+						},
+						{
+							"colored_torch_rg": "query.get_equipped_item_name == 'colored_torch_rg'"
+						},
+						{
+							"colored_torch_bp": "query.get_equipped_item_name == 'colored_torch_bp'"
+						},
+						{
+							"hard_stained_glass": "query.get_equipped_item_name == 'hard_stained_glass'"
 						}
 					]
 				},
@@ -233,6 +260,19 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unlit_redstone_torch'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"portal": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'portal'"
 					}],
 					"on_exit": [
 						""
@@ -545,6 +585,110 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'camera'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"reserved6": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(reserved6)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'reserved6'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"info_update": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(info_update)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'info_update'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"info_update2": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(info_update2)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'info_update2'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"lit_deepslate_redstone_ore": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_deepslate_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'lit_deepslate_redstone_ore'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"hard_stained_glass_pane": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_stained_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass_pane'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"colored_torch_rg": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(colored_torch_rg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'colored_torch_rg'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"colored_torch_bp": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(colored_torch_bp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'colored_torch_bp'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"hard_stained_glass": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_stained_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass'"
 					}],
 					"on_exit": [
 						""
