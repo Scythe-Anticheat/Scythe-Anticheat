@@ -198,6 +198,27 @@
 						},
 						{
 							"hard_stained_glass": "query.get_equipped_item_name == 'hard_stained_glass'"
+						},
+						{
+							"balloon": "query.get_equipped_item_name == 'balloon'"
+						},
+						{
+							"ice_bomb": "query.get_equipped_item_name == 'ice_bomb'"
+						},
+						{
+							"bleach": "query.get_equipped_item_name == 'bleach'"
+						},
+						{
+							"medicine": "query.get_equipped_item_name == 'medicine'"
+						},
+						{
+							"sparkler": "query.get_equipped_item_name == 'sparkler'"
+						},
+						{
+							"glow_stick": "query.get_equipped_item_name == 'glow_stick'"
+						},
+						{
+							"compound": "query.get_equipped_item_name == 'compound'"
 						}
 					]
 				},
@@ -1028,6 +1049,97 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"balloon": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(balloon)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'balloon'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"ice_bomb": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(ice_bomb)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'ice_bomb'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"bleach": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(bleach)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'bleach'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"medicine": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(medicine)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'medicine'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"sparkler": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(sparkler)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'sparkler'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"glow_stick": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(glow_stick)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'glow_stick'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"compound": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(compound)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'compound'"
 					}],
 					"on_exit": [
 						""
