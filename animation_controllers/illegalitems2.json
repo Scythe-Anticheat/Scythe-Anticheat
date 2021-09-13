@@ -224,7 +224,7 @@
 				},
 				"flowing_water": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(flowing_water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -237,7 +237,7 @@
 				},
 				"water": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -250,7 +250,7 @@
 				},
 				"flowing_lava": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(flowing_lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -263,7 +263,7 @@
 				},
 				"lava": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -276,7 +276,7 @@
 				},
 				"fire": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -289,7 +289,7 @@
 				},
 				"lit_furnace": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -302,7 +302,7 @@
 				},
 				"standing_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -315,7 +315,7 @@
 				},
 				"wall_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -328,7 +328,7 @@
 				},
 				"lit_redstone_ore": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -341,7 +341,7 @@
 				},
 				"unlit_redstone_torch": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(unlit_redstone_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -354,7 +354,7 @@
 				},
 				"portal": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -367,7 +367,7 @@
 				},
 				"unpowered_repeater": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(unpowered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -380,7 +380,7 @@
 				},
 				"powered_repeater": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(powered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -393,7 +393,7 @@
 				},
 				"invisiblebedrock": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(invisiblebedrock)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -406,7 +406,7 @@
 				},
 				"pumpkin_stem": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(pumpkin_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -419,7 +419,7 @@
 				},
 				"melon_stem": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(melon_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -432,7 +432,7 @@
 				},
 				"end_portal": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(end_portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -445,7 +445,7 @@
 				},
 				"lit_redstone_lamp": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_redstone_lamp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -458,7 +458,7 @@
 				},
 				"cocoa": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(cocoa)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -471,7 +471,7 @@
 				},
 				"carrots": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(carrots)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -484,7 +484,7 @@
 				},
 				"potatoes": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(potatoes)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -497,7 +497,7 @@
 				},
 				"unpowered_comparator": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(unpowered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -510,7 +510,7 @@
 				},
 				"powered_comparator": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(powered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -523,7 +523,7 @@
 				},
 				"double_wooden_slab": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -536,7 +536,7 @@
 				},
 				"standing_banner": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(standing_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -549,7 +549,7 @@
 				},
 				"wall_banner": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(wall_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -562,7 +562,7 @@
 				},
 				"daylight_detector_inverted": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(daylight_detector_inverted)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -575,7 +575,7 @@
 				},
 				"chemical_heat": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(chemical_heat)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -588,7 +588,7 @@
 				},
 				"underwater_torch": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(underwater_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -601,7 +601,7 @@
 				},
 				"end_gateway": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(end_gateway)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -614,7 +614,7 @@
 				},
 				"stonecutter": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(stonecutter)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -627,7 +627,7 @@
 				},
 				"glowingobsidian": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(glowingobsidian)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -640,7 +640,7 @@
 				},
 				"netherreactor": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(netherreactor)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -653,7 +653,7 @@
 				},
 				"bubble_column": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(bubble_column)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -666,7 +666,7 @@
 				},
 				"bamboo_sapling": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(bamboo_sapling)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -679,7 +679,7 @@
 				},
 				"spruce_standing_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(spruce_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -692,7 +692,7 @@
 				},
 				"birch_standing_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(birch_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -705,7 +705,7 @@
 				},
 				"birch_wall_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(birch_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -718,7 +718,7 @@
 				},
 				"jungle_standing_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(jungle_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -731,7 +731,7 @@
 				},
 				"jungle_wall_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(jungle_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -744,7 +744,7 @@
 				},
 				"acacia_standing_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(acacia_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -757,7 +757,7 @@
 				},
 				"acacia_wall_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(acacia_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -770,7 +770,7 @@
 				},
 				"darkoak_standing_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(darkoak_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -783,7 +783,7 @@
 				},
 				"darkoak_wall_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(darkoak_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -796,7 +796,7 @@
 				},
 				"lit_smoker": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_smoker)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -809,7 +809,7 @@
 				},
 				"lava_cauldron": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lava_cauldron)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -822,7 +822,7 @@
 				},
 				"soul_fire": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(soul_fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -835,7 +835,7 @@
 				},
 				"crimson_standing_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(crimson_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -848,7 +848,7 @@
 				},
 				"warped_standing_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(warped_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -861,7 +861,7 @@
 				},
 				"crimson_wall_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(crimson_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -874,7 +874,7 @@
 				},
 				"warped_wall_sign": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(warped_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -887,7 +887,7 @@
 				},
 				"blackstone_double_slab": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -900,7 +900,7 @@
 				},
 				"polished_blackstone_brick_double_slab": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(polished_blackstone_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -913,7 +913,7 @@
 				},
 				"polished_blackstone_double_slab": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(polished_blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -926,7 +926,7 @@
 				},
 				"unknown": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(unknown)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -939,7 +939,7 @@
 				},
 				"camera": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(camera)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -952,7 +952,7 @@
 				},
 				"reserved6": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(reserved6)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -965,7 +965,7 @@
 				},
 				"info_update": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(info_update)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -978,7 +978,7 @@
 				},
 				"info_update2": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(info_update2)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -991,7 +991,7 @@
 				},
 				"lit_deepslate_redstone_ore": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_deepslate_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1004,7 +1004,7 @@
 				},
 				"hard_stained_glass_pane": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_stained_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1017,7 +1017,7 @@
 				},
 				"colored_torch_rg": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(colored_torch_rg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1030,7 +1030,7 @@
 				},
 				"colored_torch_bp": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(colored_torch_bp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1043,7 +1043,7 @@
 				},
 				"hard_stained_glass": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_stained_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1056,7 +1056,7 @@
 				},
 				"balloon": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(balloon)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1069,7 +1069,7 @@
 				},
 				"ice_bomb": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(ice_bomb)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1082,7 +1082,7 @@
 				},
 				"bleach": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(bleach)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1095,7 +1095,7 @@
 				},
 				"medicine": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(medicine)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1108,7 +1108,7 @@
 				},
 				"sparkler": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(sparkler)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1121,7 +1121,7 @@
 				},
 				"glow_stick": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(glow_stick)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
@@ -1134,7 +1134,7 @@
 				},
 				"compound": {
 					"on_entry": [
-						"/clear @s",
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
 						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(compound)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
