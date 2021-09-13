@@ -86,6 +86,9 @@
 							"end_gateway": "query.get_equipped_item_name == 'end_gateway'"
 						},
 						{
+							"stonecutter": "query.get_equipped_item_name == 'stonecutter'"
+						},
+						{
 							"glowingobsidian": "query.get_equipped_item_name == 'glowingobsidian'"
 						},
 						{
@@ -481,6 +484,19 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'end_gateway'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
+				"stonecutter": {
+					"on_entry": [
+						"/clear @s",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/execute @s ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(stonecutter)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'stonecutter'"
 					}],
 					"on_exit": [
 						""
