@@ -8,6 +8,7 @@ function checks/autoclicker
 # function checks/ban
 function checks/cbe
 function checks/epearlglitching
+function checks/gamemode
 function checks/illegalitems
 function checks/jesus
 # function checks/killaura
