@@ -6,9 +6,9 @@
 			"states": {
 				"default": {
 					"on_entry": [
+						"/kill @e[type=command_block_minecart]",
 						"/execute @p ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(command_block_minecart)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
-						"/scoreboard players add @p cbevl 1",
-						"/kill @e[type=command_block_minecart]"
+						"/scoreboard players add @p cbevl 1"
 					]
 				}
 			}
