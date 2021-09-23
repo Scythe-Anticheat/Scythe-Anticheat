@@ -3,9 +3,9 @@
 scoreboard objectives add gamemodevl dummy
 scoreboard players add @s gamemodevl 0
 
-scoreboard players operation @s gma = scythe:gamemode gma
-scoreboard players operation @s gmc = scythe:gamemode gmc
-scoreboard players operation @s gms = scythe:gamemode gms
+scoreboard players operation @s gma = scythe:config gma
+scoreboard players operation @s gmc = scythe:config gmc
+scoreboard players operation @s gms = scythe:config gms
 
 # adventure mode check
 execute @s[tag=!op,m=a,scores={gma=0}] ~~~ scoreboard players add @s gamemodevl 1
@@ -26,4 +26,4 @@ execute @s[tag=!op,m=s,scores={gms=0}] ~~~ gamemode 1 @s[scores={gmc=1}]
 
 # if all gamemodes are disabled, allow adventure mode to be used
 execute @s[scores={gma=0}] ~~~ execute @s[scores={gms=0}] ~~~ execute @s[scores={gmc=0}] ~~~ tellraw @s[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Since all gamemodes were disallowed, adventure mode has been enabled."}]}
-execute @s[scores={gma=0}] ~~~ execute @s[scores={gms=0}] ~~~ execute @s[scores={gmc=0}] ~~~ scoreboard players set scythe:gamemode gma 1
+execute @s[scores={gma=0}] ~~~ execute @s[scores={gms=0}] ~~~ execute @s[scores={gmc=0}] ~~~ scoreboard players set scythe:config gma 1
