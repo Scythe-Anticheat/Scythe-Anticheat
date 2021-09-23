@@ -1,3 +1,4 @@
+scoreboard objectives add gmc dummy
 scoreboard players add @s gmc 0
 
 # make sure they are allowed to use this command

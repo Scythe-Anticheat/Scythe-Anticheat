@@ -1,3 +1,4 @@
+scoreboard objectives add gma dummy
 scoreboard players add @s gma 0
 
 # make sure they are allowed to use this command

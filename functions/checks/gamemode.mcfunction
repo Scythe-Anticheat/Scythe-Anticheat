@@ -1,8 +1,5 @@
 # Prevents people from changing their gamemode
 
-scoreboard objectives add gma dummy
-scoreboard objectives add gmc dummy
-scoreboard objectives add gms dummy
 scoreboard objectives add gamemodevl dummy
 scoreboard players add @s gamemodevl 0
 
