@@ -15,3 +15,9 @@ tp @s[y=-41,dy=-80] ~ -40 ~
 scoreboard players operation @s cmds = scythe:config cmds
 execute @s[scores={cmds=2}] ~~~ gamerule commandblocksenabled false
 execute @s[scores={cmds=3..}] ~~~ gamerule commandblocksenabled true
+
+# clear command blocks
+scoreboard players operation @s commandblocks = scythe:config commandblocks
+execute @s[scores={commandblocks=1}] ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace command_block -1
+execute @s[scores={commandblocks=1}] ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace repeating_command_block -1
+execute @s[scores={commandblocks=1}] ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace chain_command_block -1
