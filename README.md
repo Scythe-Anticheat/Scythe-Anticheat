@@ -58,12 +58,13 @@ To ban a user use: ```/execute <playername> ~~~ function ban```
 
 To freeze a player use: ```/execute <playername> ~~~ function tools/freeze```
 
-
 To enter Vanish use: ```/function tools/vanish```
 
 To be able to fly in survival mode use: ```/function tools/fly```
 
 To view a players anticheat logs use: ```/execute <playername> ~~~ function tools/stats```
+
+Additionally, there are custom features you can enable like anti gamemode change to further enhance your realm security, these options can be used by /function settings/<name>
 
 # FAQ
 
