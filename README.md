@@ -4,6 +4,7 @@
   <a href="https://github.com/MrDiamond64/Scythe-AntiCheat"><img src="https://raw.githubusercontent.com/MrDiamond64/Scythe-AntiCheat/main/img/scythe%20pog%20anticheat.png" width="600" alt="Scythe AntiCheat" /></a>
    
 <div/>
+  <div2 align="left">
 # How To Setup
 To install this anticheat to your realm/world you need to install the .mcpack and apply it to your world and it should be fully up and running
 
