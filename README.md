@@ -1,7 +1,7 @@
 <div align="center">
 <b>Scythe AntiCheat - an AntiCheat designed for Minecraft Bedrock realms/worlds/servers.</b>
 
-  <a href="https://github.com/MrDiamond64/Scythe-AntiCheat"><img src="https://raw.githubusercontent.com/MrDiamond64/Scythe-AntiCheat/main/img/scythe%20pog%20anticheat.png" width="600" alt="Scythe AntiCheat" /></a>
+  <a href="https://github.com/MrDiamond64/Scythe-AntiCheat"><img src="https://raw.githubusercontent.com/MrDiamond64/image-assets/main/scythe%20pog%20anticheat.png" width="600" alt="Scythe AntiCheat" /></a>
    
 </div>
 
