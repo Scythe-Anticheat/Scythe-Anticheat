@@ -7,7 +7,7 @@ execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aSc
 
 # enable
 execute @s[type=player,tag=op,scores={cmds=..0}] ~~~ scoreboard players set scythe:config cmds 1
-execute @s[type=player,tag=op,scores={cmds=..0}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has §edisabled§r Force-CommandBlocksEnabled!"}]}
+execute @s[type=player,tag=op,scores={cmds=..0}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has set CommandBlocksEnabled §aas enabled!"}]}
 
 # disable command blocks
 execute @s[type=player,tag=op,scores={cmds=1}] ~~~ scoreboard players set scythe:config cmds 2
@@ -15,4 +15,4 @@ execute @s[type=player,tag=op,scores={cmds=1}] ~~~ tellraw @a[tag=notify] {"rawt
 
 # allow command block
 execute @s[type=player,tag=op,scores={cmds=2..}] ~~~ scoreboard players set scythe:config cmds 0
-execute @s[type=player,tag=op,scores={cmds=2..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has set CommandBlocksEnabled §aas enabled!"}]}
+execute @s[type=player,tag=op,scores={cmds=2..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has §etoggled§r Force-CommandBlocksEnabled!"}]}

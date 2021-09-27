@@ -13,8 +13,8 @@ tp @s[y=-41,dy=-80] ~ -40 ~
 
 # NoCMDS
 scoreboard players operation @s cmds = scythe:config cmds
-execute @s[scores={cmds=2}] ~~~ gamerule commandblocksenabled false
-execute @s[scores={cmds=3..}] ~~~ gamerule commandblocksenabled true
+execute @s[scores={cmds=1}] ~~~ gamerule commandblocksenabled true
+execute @s[scores={cmds=2..}] ~~~ gamerule commandblocksenabled false
 
 # clear command blocks
 scoreboard players operation @s commandblocks = scythe:config commandblocks
