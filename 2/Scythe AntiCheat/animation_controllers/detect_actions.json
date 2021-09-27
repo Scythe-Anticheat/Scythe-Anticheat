@@ -1,0 +1,172 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.jump": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"jump": "query.is_jumping"
+					}],
+					"on_entry": [
+						""
+					]
+				},
+				"jump": {
+					"transitions": [{
+						"default": "!query.is_jumping"
+					}],
+					"on_entry": [
+						""
+					]
+				}
+			}
+		},
+		"controller.animation.glide": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"glide": "query.is_gliding"
+					}],
+					"on_entry": [
+						"/tag @s remove gliding"
+					]
+				},
+				"glide": {
+					"transitions": [{
+						"default": "!query.is_gliding"
+					}],
+					"on_entry": [
+						"/tag @s add gliding",
+						"/tag @s remove speedtest2"
+					]
+				}
+			}
+		},
+		"controller.animation.levitate": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"levitate": "query.is_levitating"
+					}],
+					"on_entry": [
+						"/tag @s remove levitating"
+					]
+				},
+				"levitate": {
+					"transitions": [{
+						"default": "!query.is_levitating"
+					}],
+					"on_entry": [
+						"/tag @s add levitating"
+					]
+				}
+			}
+		},
+		"controller.animation.ground": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"ground": "query.is_on_ground"
+					}],
+					"on_entry": [
+						"/tag @s remove ground"
+					]
+				},
+				"ground": {
+					"transitions": [{
+						"default": "!query.is_on_ground"
+					}],
+					"on_entry": [
+						"/tag @s add ground"
+					]
+				}
+			}
+		},
+		"controller.animation.death": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"dead": "!query.is_alive"
+					}],
+					"on_exit": [
+						"/kill @e[type=armor_stand,name=speedtest]",
+						"/tag @s remove speedtest",
+						"/tag @s remove speedtest2",
+						"/scoreboard players set @s timer 0",
+						"/tag @s add dead"
+					]
+				},
+				"dead": {
+					"transitions": [{
+						"alive": "query.is_alive"
+					}],
+					"on_entry": [
+						"/tag @s remove dead"
+					]
+				}
+			}
+		},
+		"controller.animation.ride": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"ride": "query.is_riding"
+					}],
+					"on_entry": [
+						"/tag @s remove riding"
+					]
+				},
+				"ride": {
+					"transitions": [{
+						"default": "!query.is_riding"
+					}],
+					"on_entry": [
+						"/tag @s add riding",
+						"/tag @s remove speedtest2",
+						"/scoreboard players set @s timer 0"
+					]
+				}
+			}
+		},
+		"controller.animation.left": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"left": "variable.attack_time"
+					}],
+					"on_entry": [
+						""
+					]
+				},
+				"left": {
+					"transitions": [{
+						"default": "!variable.attack_time"
+					}],
+					"on_entry": [
+						"/scoreboard players add @s[tag=!bypass] leftclick 1"
+					]
+				}
+			}
+		},
+		"controller.animation.right": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"right": "query.is_using_item"
+					}],
+					"on_entry": [
+						"/say No Right"
+					]
+				},
+				"right": {
+					"transitions": [{
+						"default": "!query.is_using_item"
+					}],
+					"on_entry": [
+						"/say right"
+					]
+				}
+			}
+		}
+	}
+}
