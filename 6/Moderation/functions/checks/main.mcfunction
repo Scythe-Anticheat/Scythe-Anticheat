@@ -1,0 +1,1 @@
+function checks/xray.mcfunction
