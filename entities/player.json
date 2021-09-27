@@ -36,8 +36,7 @@
 				"jump": "controller.animation.jump",
 				"illegals": "controller.animation.illegals",
 				"illegals2": "controller.animation.illegals2",
-				"move": "controller.animation.move",
-				"itemcheck": "ontroller.animation.itemcheck"
+				"move": "controller.animation.move"
 			}
 		},
 		"component_groups": {
