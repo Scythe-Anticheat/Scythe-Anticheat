@@ -10,7 +10,7 @@ To install this anticheat to your realm/world you need to install the .mcpack an
 
 To recieve anti-cheat alerts use this command: ```/function notify```
 
-If your world contains NPC's, make sure to edit the cbe.mcfunction file and add a # to the ```/kill @e[type=npc``` or they will be insta-killed
+If your world contains NPC's, make sure to edit the cbe.mcfunction file and add a # to the ```/function setting/npc``` or they will be insta-killed
 
 # List of checks detected by Scythe AntiCheat
 
@@ -20,19 +20,15 @@ If your world contains NPC's, make sure to edit the cbe.mcfunction file and add 
    BadPackets -><br />
       (1) = Checks if the players yaw/pitch is greater than normal
    
-   
    Command Block Exploit -><br />
       (A) = Clears animal buckets/beehives<br />
       (B) = Replaces beehives with air<br />
       (C) = Kill all command block minecarts<br />
-      (D) = Kills all NPC's (to disable edit the cbe check)<br />
+      (D) = Kills all NPC's (to disable use /function settings/npc)<br />
       (E) = Instant despawn time for command block minecarts<br />
  
   Ender Pearl Glitching -><br />
       (A) => Checks if an ender pearl is inside a climable block.
-   
-  Fly -><br />
-      (A) => Checks if the players y coordinate is the same or greater every second
    
   Illegal Items -><br />
       (A) => Clears illegal items from everybodys inventories.<br />
@@ -43,15 +39,9 @@ If your world contains NPC's, make sure to edit the cbe.mcfunction file and add 
  
   Jesus -><br />
       (A) => Checks if the player is above water/lava blocks.
- 
-  KillAura -><br />
-      (A) => Spawns a fake entity behind the player and checks if they hit it.
- 
+
   Phase -><br />
       (A) => Detect if someone moves inside a block
- 
-  Speed -><br />
-      (A) = Spawns in an entity and sees how far the player moves away from it.
 
 # Extra Commands.
 
@@ -75,7 +65,7 @@ Q1: Does the AntiCheat auto-ban?<br />
 A1: No.
 
 Q2: Is it customizable?<br />
-A2: Yes but you need to modify the .mcfunction files
+A2: Yes using /function settings/<setting>. or by modifing the .mcfunction files
 
 # Notes:
 
