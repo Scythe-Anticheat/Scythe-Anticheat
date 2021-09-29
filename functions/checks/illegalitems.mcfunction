@@ -4,7 +4,13 @@ scoreboard objectives add illegalitemsvl dummy
 scoreboard players add @s illegalitemsvl 0
 
 # skull3
-clear @a[tag=skull3,tag=!op,m=!c] skull 3
+clear @s[tag=skull3,tag=!op,m=!c] skull 3
+
+# chiseled purpur
+clear @s purpur_block 1
+
+# tile.purpur_block.smooth.name
+clear @a purpur_block 3
 
 kill @e[type=chalkboard]
 
