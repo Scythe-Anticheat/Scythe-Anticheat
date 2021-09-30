@@ -13,6 +13,7 @@ scoreboard players add @s jesusvl 0
 # scoreboard players add @s killauravl 0
 scoreboard players add @s phasevl 0
 # scoreboard players add @s speedvl 0
+scoreboard players add @s autototemvl 0
 
 tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Getting all Scythe Logs from: "},{"selector":"@s"}]}
 execute @s[m=c] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" is in Creative Mode"}]}
