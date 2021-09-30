@@ -77,7 +77,7 @@
 				},
 				"dead": {
 					"transitions": [{
-						"alive": "query.is_alive"
+						"dead": "query.is_alive"
 					}],
 					"on_entry": [
 						"/tag @s remove dead"
