@@ -5,7 +5,15 @@
 			"identifier": "minecraft:npc",
 			"is_spawnable": false,
 			"is_summonable": false,
-			"is_experimental": false
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"npc"
+				]
+			},
+			"animations": {
+				"npc": "controller.animation.npc"
+			}
 		},
 
 		"components": {
