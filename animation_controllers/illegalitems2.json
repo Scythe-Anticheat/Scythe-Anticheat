@@ -690,6 +690,19 @@
 						""
 					]
 				},
+				"spruce_wall_sign": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(spruce_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'spruce_wall_sign'"
+					}],
+					"on_exit": [
+						""
+					]
+				},
 				"birch_standing_sign": {
 					"on_entry": [
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
