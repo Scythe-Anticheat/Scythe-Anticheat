@@ -60,9 +60,6 @@
 				"height": 1.8
 			},
 			"minecraft:can_climb": {},
-			"minecraft:movement": {
-				"value": 0.1
-			},
 			"minecraft:attack": {
 				"damage": 0
 			},
@@ -106,7 +103,6 @@
 				"value": 1,
 				"max": 2
 			},
-			"minecraft:scaffolding_climber": {},
 			"minecraft:environment_sensor": {
 				"triggers": {
 					"filters": {

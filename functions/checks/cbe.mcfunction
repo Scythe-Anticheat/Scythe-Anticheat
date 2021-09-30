@@ -7,10 +7,11 @@ scoreboard players add @a npc 0
 
 scoreboard players operation @s npc = scythe:config npc
 
-execute @e[type=moving_block] ~~~ execute @p ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(moving_block)§4 VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}
-execute @e[type=moving_block] ~~~ scoreboard players add @p cbevl 1
+# cant kill @e[type=movingblock] for whatever reason
+# execute @e[type=moving_block] ~~~ execute @p ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(moving_block)§4 VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}
+# execute @e[type=moving_block] ~~~ scoreboard players add @p cbevl 1
 
-kill @e[type=moving_block]
+# kill @e[type=moving_block]
 
 # fish buckets no longer have NBT tags, but we will keep them just incase
 clear @s[tag=!op] bucket 2

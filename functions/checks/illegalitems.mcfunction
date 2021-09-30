@@ -3,15 +3,13 @@
 scoreboard objectives add illegalitemsvl dummy
 
 # skull3
-clear @s[tag=skull3,tag=!op,m=!c] skull 3
+clear @s[tag=!op,m=!c] skull 3
 
 # chiseled purpur
 clear @s purpur_block 1
 
 # tile.purpur_block.smooth.name
 clear @a purpur_block 3
-
-kill @e[type=chalkboard]
 
 # clear dropped items
 kill @e[type=item,name="Bedrock"]
