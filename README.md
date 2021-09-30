@@ -16,6 +16,10 @@ If your world contains NPC's, make sure to edit the cbe.mcfunction file and add 
 
    AutoClicker -><br />
       (A) = Checks how much left clicks the player sends
+
+   AutoTotem -><br />
+      (A) = Checks if a player equips a totem while moving<br />
+      (B) = Checks if a player equips a totem while using an item<br />
       
    BadPackets -><br />
       (1) = Checks if the players yaw/pitch is greater than normal

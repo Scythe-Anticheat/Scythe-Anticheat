@@ -7,8 +7,6 @@ scoreboard objectives add leftclick_timer dummy
 scoreboard objectives add interactusevl dummy
 
 scoreboard players add @s leftclick 0
-scoreboard players add @s leftclickvl 0
-scoreboard players add @s interactusevl 0
 scoreboard players add @s leftclick_timer 0
 
 execute @s[scores={leftclick=1..}] ~~~ scoreboard players add @s leftclick_timer 1

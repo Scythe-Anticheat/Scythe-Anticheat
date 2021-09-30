@@ -1,7 +1,6 @@
 # Anti-Command Block Exploit
 
 scoreboard objectives add cbevl dummy
-scoreboard players add @a cbevl 0
 
 scoreboard objectives add npc dummy
 scoreboard players add @a npc 0

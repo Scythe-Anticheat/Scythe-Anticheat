@@ -1,7 +1,6 @@
 # Blocks invalid viewing angles
 
 scoreboard objectives add anglevl dummy
-scoreboard players add @s anglevl 0
 
 execute @s[rxm=-90,rx=90,rym=-180,ry=180] ~~~ tag @s add noBadAngle
 

@@ -20,7 +20,8 @@
 					"jump",
 					"illegals",
 					"illegals2",
-					"move"
+					"move",
+					"autototem"
 				]
 			},
 			"animations": {
@@ -36,7 +37,8 @@
 				"jump": "controller.animation.jump",
 				"illegals": "controller.animation.illegals",
 				"illegals2": "controller.animation.illegals2",
-				"move": "controller.animation.move"
+				"move": "controller.animation.move",
+				"autototem": "controller.animation.autototem"
 			}
 		},
 		"component_groups": {

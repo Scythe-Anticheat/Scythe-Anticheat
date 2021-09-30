@@ -1,7 +1,6 @@
 # Prevents E-Pearls from glitching through walls
 
 scoreboard objectives add epearlGlitch dummy
-scoreboard players add @s epearlGlitch 0
 
 execute @e[type=ender_pearl,tag=!enderPearlGlitch] ~~~ detect ~~~ ladder -1 tag @s add enderPearlGlitch
 execute @e[type=ender_pearl,tag=!enderPearlGlitch] ~~~ detect ~~~ vine -1 tag @s add enderPearlGlitch

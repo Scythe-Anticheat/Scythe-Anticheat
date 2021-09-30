@@ -1,7 +1,6 @@
 # Prevents Jesus Hacks
 
 scoreboard objectives add jesusvl dummy
-scoreboard players add @s jesusvl 0
 
 execute @s[tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gliding,tag=!dead] ~~~ detect ~ ~-1 ~ water 0 execute @s ~~~ detect ~-1 ~-1 ~ water 0 execute @s ~~~ detect ~ ~-1 ~-1 water 0  execute @s ~~~ detect ~-1 ~-1 ~-1 water 0 execute @s ~~~ detect ~+1 ~-1 ~ water 0 execute @s ~~~ detect ~ ~-1 ~+1 water 0 execute @s ~~~ detect ~+1 ~-1 ~+1 water 0 execute @s ~~~ detect ~-1 ~-1 ~+1 water 0 execute @s ~~~ detect ~+1 ~-1 ~-1 water 0 execute @s ~~~ detect ~~~ air -1 tag @s add JesusDetected 
 execute @s[tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gliding,tag=!dead] ~~~ detect ~ ~-1 ~ lava 0 execute @s ~~~ detect ~-1 ~-1 ~ lava 0 execute @s ~~~ detect ~ ~-1 ~-1 lava 0  execute @s ~~~ detect ~-1 ~-1 ~-1 lava 0 execute @s ~~~ detect ~+1 ~-1 ~ lava 0 execute @s ~~~ detect ~ ~-1 ~+1 lava 0 execute @s ~~~ detect ~+1 ~-1 ~+1 lava 0 execute @s ~~~ detect ~-1 ~-1 ~+1 lava 0 execute @s ~~~ detect ~+1 ~-1 ~-1 lava 0 execute @s ~~~ detect ~~~ air -1 tag @s add JesusDetected 

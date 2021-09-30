@@ -2,7 +2,6 @@
 
 scoreboard objectives add killauravl dummy
 scoreboard objectives add aura_timer dummy
-scoreboard players add @s killauravl 0
 scoreboard players add @s aura_timer 0
 
 tag @r[tag=!gliding,tag=!dead] add killaura

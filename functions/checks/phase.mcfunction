@@ -1,7 +1,6 @@
 # Stops Phase/Noclip hacks
 
 scoreboard objectives add phasevl dummy
-scoreboard players add @s phasevl 0
 
 tag @s[tag=PhaseDetected] remove PhaseDetected
 

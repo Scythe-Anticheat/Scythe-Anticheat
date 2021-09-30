@@ -1,7 +1,6 @@
 # Prevents people from changing their gamemode
 
 scoreboard objectives add gamemodevl dummy
-scoreboard players add @s gamemodevl 0
 
 scoreboard players operation @s gma = scythe:config gma
 scoreboard players operation @s gmc = scythe:config gmc

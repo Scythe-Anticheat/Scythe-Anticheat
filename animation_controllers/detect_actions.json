@@ -114,7 +114,7 @@
 						"left": "variable.attack_time"
 					}],
 					"on_entry": [
-						""
+						"/tag @s remove left"
 					]
 				},
 				"left": {
@@ -123,7 +123,8 @@
 					}],
 					"on_entry": [
 						"/scoreboard players add @s leftclick 1",
-						"/execute @s[tag=right] ~~~ function checks/alerts/interactuse"
+						"/execute @s[tag=right] ~~~ function checks/alerts/interactuse",
+						"/tag @s add left"
 					]
 				}
 			}
@@ -212,18 +213,43 @@
 			"states": {
 				"default": {
 					"transitions": [{
-						"jump": "query.is_moving"
+						"move": "query.is_moving"
 					}],
 					"on_entry": [
 						"/tag @s remove moving"
 					]
 				},
-				"jump": {
+				"move": {
 					"transitions": [{
 						"default": "!query.is_moving"
 					}],
 					"on_entry": [
 						"/tag @s add moving"
+					]
+				}
+			}
+		},
+		"controller.animation.autototem": {
+			"states": {
+				"autototem": {
+					"transitions": [{
+						"totem": "query.get_equipped_item_name('off_hand') == 'totem_of_undying'"
+					}]
+				},
+				"totem": {
+					"on_entry": [
+						"/execute @s[tag=moving,tag=ground,tag=!left,tag=!right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/A VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/scoreboard players add @s[tag=moving,tag=ground,tag=!left,tag=!right] autototemvl 1",
+						"/execute @s[tag=right,tag=!left,tag=!moving] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/B1 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/scoreboard players add @s[tag=right,tag=!moving] autototemvl 1",
+						"/execute @s[tag=left,tag=!moving,tag=!right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/B2 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/scoreboard players add @s[tag=left,tag=!moving,tag=!right] autototemvl 1"
+					],
+					"transitions": [{
+						"autototem": "query.get_equipped_item_name('off_hand') != 'totem_of_undying'"
+					}],
+					"on_exit": [
+						""
 					]
 				}
 			}
