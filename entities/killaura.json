@@ -86,7 +86,6 @@
 			"minecraft:knockback_resistance": {
 				"value": 1.0
 			},
-			"minecraft:explosion_resistance": 1.0,
 			"minecraft:player.exhaustion": {
 				"value": 0,
 				"max": 4
@@ -107,86 +106,26 @@
 				"value": 1,
 				"max": 2
 			},
-			"minecraft:pushable": {
-				"is_pushable": false,
-				"is_pushable_by_piston": false
-			},
-			"pull_in_entities": true,
-			"seats": [{
-					"position": [
-						0.4,
-						-0.2,
-						-0.1
-					],
-					"min_rider_count": 0,
-					"max_rider_count": 0,
-					"lock_rider_rotation": 0
-				},
-				{
-					"position": [
-						-0.4,
-						-0.2,
-						-0.1
-					],
-					"min_rider_count": 1,
-					"max_rider_count": 2,
-					"lock_rider_rotation": 0
+			"minecraft:scaffolding_climber": {},
+			"minecraft:environment_sensor": {
+				"triggers": {
+					"filters": {
+						"all_of": [{
+								"test": "has_mob_effect",
+								"subject": "self",
+								"value": "bad_omen"
+							},
+							{
+								"test": "is_in_village",
+								"subject": "self",
+								"value": true
+							}
+						]
+					},
+					"event": "minecraft:trigger_raid"
 				}
-			]
-		},
-		"minecraft:scaffolding_climber": {},
-		"minecraft:environment_sensor": {
-			"triggers": {
-				"filters": {
-					"all_of": [{
-							"test": "has_mob_effect",
-							"subject": "self",
-							"value": "bad_omen"
-						},
-						{
-							"test": "is_in_village",
-							"subject": "self",
-							"value": true
-						}
-					]
-				},
-				"event": "minecraft:trigger_raid"
-			}
-		}
-	},
-	"events": {
-		"minecraft:gain_bad_omen": {
-			"add": {
-				"component_groups": [
-					"minecraft:add_bad_omen"
-				]
 			}
 		},
-		"minecraft:clear_add_bad_omen": {
-			"remove": {
-				"component_groups": [
-					"minecraft:add_bad_omen"
-				]
-			},
-			"add": {
-				"component_groups": [
-					"minecraft:clear_bad_omen_spell_effect"
-				]
-			}
-		},
-		"minecraft:trigger_raid": {
-			"add": {
-				"component_groups": [
-					"minecraft:raid_trigger"
-				]
-			}
-		},
-		"minecraft:remove_raid_trigger": {
-			"remove": {
-				"component_groups": [
-					"minecraft:raid_trigger"
-				]
-			}
-		}
+		"events": {}
 	}
 }
