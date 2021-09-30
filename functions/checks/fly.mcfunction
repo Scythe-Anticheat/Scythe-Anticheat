@@ -1,8 +1,11 @@
 # Stops Fly Hackers
-
-scoreboard players add @s[tag=!isFlying] flyvl 0
-scoreboard players add @s[tag=!isFlying] lastYpos 0
-scoreboard players add @s[tag=!isFlying] currentYpos 0
+scoreboard objectives add flyvl dummy
+scoreboard objectives add lastYpos dummy
+scoreboard objectives add currentYpos dummy
+scoreboard objectives add flycheck dummy
+scoreboard players add @s flyvl 0
+scoreboard players add @s lastYpos 0
+scoreboard players add @s currentYpos 0
 
 execute @s[tag=!flying,m=!c,tag=!levitating,tag=!gliding,tag=!riding,tag=!dead] ~~~ detect ~ ~-1 ~ air -1 execute @s ~~~ detect ~1 ~-1 ~ air -1 execute @s ~~~ detect ~-1 ~-1 ~ air -1 execute @s ~~~ detect ~ ~-1 ~1 air -1 execute @s ~~~ detect ~ ~-1 ~-1 air -1 execute @s ~~~ detect ~1 ~-1 ~1 air -1 execute @s ~~~ detect ~1 ~-1 ~-1 air -1 execute @s ~~~ detect ~-1 ~-1 ~-1 air -1 execute @s ~~~ detect ~-1 ~-1 ~1 air -1 execute @s ~~~ detect ~ ~-2 ~ air -1 execute @s ~~~ detect ~1 ~-2 ~ air -1 execute @s ~~~ detect ~-1 ~-2 ~ air -1 execute @s ~~~ detect ~ ~-2 ~1 air -1 execute @s ~~~ detect ~ ~-2 ~-1 air -1 execute @s ~~~ detect ~1 ~-2 ~1 air -1 execute @s ~~~ detect ~1 ~-2 ~-1 air -1 execute @s ~~~ detect ~-1 ~-2 ~-1 air -1 execute @s ~~~ detect ~-1 ~-2 ~1 air -1 execute @s ~~~ detect ~ ~-3 ~ air -1 tag @s add isFlying
 
