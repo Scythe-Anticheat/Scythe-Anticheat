@@ -230,10 +230,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'flowing_water'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"water": {
 					"on_entry": [
@@ -243,10 +240,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'water'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"flowing_lava": {
 					"on_entry": [
@@ -256,10 +250,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'flowing_lava'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"lava": {
 					"on_entry": [
@@ -269,10 +260,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lava'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"fire": {
 					"on_entry": [
@@ -282,10 +270,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'fire'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"lit_furnace": {
 					"on_entry": [
@@ -295,10 +280,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_furnace'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"standing_sign": {
 					"on_entry": [
@@ -308,10 +290,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'standing_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"wall_sign": {
 					"on_entry": [
@@ -321,10 +300,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'wall_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"lit_redstone_ore": {
 					"on_entry": [
@@ -334,10 +310,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_redstone_ore'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"unlit_redstone_torch": {
 					"on_entry": [
@@ -347,10 +320,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unlit_redstone_torch'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"portal": {
 					"on_entry": [
@@ -360,10 +330,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'portal'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"unpowered_repeater": {
 					"on_entry": [
@@ -373,10 +340,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unpowered_repeater'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"powered_repeater": {
 					"on_entry": [
@@ -386,10 +350,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'powered_repeater'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"invisiblebedrock": {
 					"on_entry": [
@@ -399,10 +360,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'invisiblebedrock'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"pumpkin_stem": {
 					"on_entry": [
@@ -412,10 +370,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'pumpkin_stem'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"melon_stem": {
 					"on_entry": [
@@ -425,10 +380,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'melon_stem'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"end_portal": {
 					"on_entry": [
@@ -438,10 +390,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'end_portal'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"lit_redstone_lamp": {
 					"on_entry": [
@@ -451,10 +400,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_redstone_lamp'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"cocoa": {
 					"on_entry": [
@@ -464,10 +410,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'cocoa'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"carrots": {
 					"on_entry": [
@@ -477,10 +420,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'carrots'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"potatoes": {
 					"on_entry": [
@@ -490,10 +430,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'potatoes'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"unpowered_comparator": {
 					"on_entry": [
@@ -503,10 +440,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unpowered_comparator'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"powered_comparator": {
 					"on_entry": [
@@ -516,10 +450,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'powered_comparator'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"double_wooden_slab": {
 					"on_entry": [
@@ -529,10 +460,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'double_wooden_slab'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"standing_banner": {
 					"on_entry": [
@@ -542,10 +470,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'standing_banner'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"wall_banner": {
 					"on_entry": [
@@ -555,10 +480,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'wall_banner'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"daylight_detector_inverted": {
 					"on_entry": [
@@ -568,10 +490,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'daylight_detector_inverted'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"chemical_heat": {
 					"on_entry": [
@@ -581,10 +500,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'chemical_heat'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"underwater_torch": {
 					"on_entry": [
@@ -594,10 +510,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'underwater_torch'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"end_gateway": {
 					"on_entry": [
@@ -607,10 +520,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'end_gateway'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"stonecutter": {
 					"on_entry": [
@@ -620,10 +530,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'stonecutter'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"glowingobsidian": {
 					"on_entry": [
@@ -633,10 +540,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'glowingobsidian'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"netherreactor": {
 					"on_entry": [
@@ -646,10 +550,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'netherreactor'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"bubble_column": {
 					"on_entry": [
@@ -659,10 +560,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'bubble_column'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"bamboo_sapling": {
 					"on_entry": [
@@ -672,10 +570,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'bamboo_sapling'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"spruce_standing_sign": {
 					"on_entry": [
@@ -685,10 +580,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'spruce_standing_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"spruce_wall_sign": {
 					"on_entry": [
@@ -698,10 +590,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'spruce_wall_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"birch_standing_sign": {
 					"on_entry": [
@@ -711,10 +600,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'birch_standing_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"birch_wall_sign": {
 					"on_entry": [
@@ -724,10 +610,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'birch_wall_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"jungle_standing_sign": {
 					"on_entry": [
@@ -737,10 +620,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'jungle_standing_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"jungle_wall_sign": {
 					"on_entry": [
@@ -750,10 +630,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'jungle_wall_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"acacia_standing_sign": {
 					"on_entry": [
@@ -763,10 +640,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'acacia_standing_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"acacia_wall_sign": {
 					"on_entry": [
@@ -776,10 +650,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'acacia_wall_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"darkoak_standing_sign": {
 					"on_entry": [
@@ -789,10 +660,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'darkoak_standing_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"darkoak_wall_sign": {
 					"on_entry": [
@@ -802,10 +670,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'darkoak_wall_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"lit_smoker": {
 					"on_entry": [
@@ -815,10 +680,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_smoker'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"lava_cauldron": {
 					"on_entry": [
@@ -828,10 +690,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lava_cauldron'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"soul_fire": {
 					"on_entry": [
@@ -841,10 +700,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'soul_fire'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"crimson_standing_sign": {
 					"on_entry": [
@@ -854,10 +710,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'crimson_standing_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"warped_standing_sign": {
 					"on_entry": [
@@ -867,10 +720,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'warped_standing_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"crimson_wall_sign": {
 					"on_entry": [
@@ -880,10 +730,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'crimson_wall_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"warped_wall_sign": {
 					"on_entry": [
@@ -893,10 +740,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'warped_wall_sign'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"blackstone_double_slab": {
 					"on_entry": [
@@ -906,10 +750,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'blackstone_double_slab'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"polished_blackstone_brick_double_slab": {
 					"on_entry": [
@@ -919,10 +760,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'polished_blackstone_brick_double_slab'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"polished_blackstone_double_slab": {
 					"on_entry": [
@@ -932,10 +770,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'polished_blackstone_double_slab'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"unknown": {
 					"on_entry": [
@@ -945,10 +780,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unknown'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"camera": {
 					"on_entry": [
@@ -958,10 +790,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'camera'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"reserved6": {
 					"on_entry": [
@@ -971,10 +800,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'reserved6'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"info_update": {
 					"on_entry": [
@@ -984,10 +810,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'info_update'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"info_update2": {
 					"on_entry": [
@@ -997,10 +820,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'info_update2'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"lit_deepslate_redstone_ore": {
 					"on_entry": [
@@ -1010,10 +830,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_deepslate_redstone_ore'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"hard_stained_glass_pane": {
 					"on_entry": [
@@ -1023,10 +840,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass_pane'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"colored_torch_rg": {
 					"on_entry": [
@@ -1036,10 +850,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'colored_torch_rg'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"colored_torch_bp": {
 					"on_entry": [
@@ -1049,10 +860,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'colored_torch_bp'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"hard_stained_glass": {
 					"on_entry": [
@@ -1062,10 +870,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"balloon": {
 					"on_entry": [
@@ -1075,10 +880,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'balloon'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"ice_bomb": {
 					"on_entry": [
@@ -1088,10 +890,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'ice_bomb'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"bleach": {
 					"on_entry": [
@@ -1101,10 +900,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'bleach'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"medicine": {
 					"on_entry": [
@@ -1114,10 +910,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'medicine'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"sparkler": {
 					"on_entry": [
@@ -1127,10 +920,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'sparkler'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"glow_stick": {
 					"on_entry": [
@@ -1140,10 +930,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'glow_stick'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"compound": {
 					"on_entry": [
@@ -1153,10 +940,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'compound'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				}
 			}
 		}
