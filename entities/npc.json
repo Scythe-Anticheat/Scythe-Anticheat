@@ -5,16 +5,9 @@
 			"identifier": "minecraft:npc",
 			"is_spawnable": false,
 			"is_summonable": false,
-			"is_experimental": false,
-			"scripts": {
-				"animate": [
-					"npc"
-				]
-			},
-			"animations": {
-				"npc": "controller.animation.npc"
-			}
+			"is_experimental": false
 		},
+
 		"components": {
 			"minecraft:damage_sensor": {
 				"triggers": {
@@ -111,12 +104,27 @@
 						},
 						{
 							"variant": 19
+						},
+						{
+							"variant": 20
+						},
+						{
+							"variant": 21
+						},
+						{
+							"variant": 22
+						},
+						{
+							"variant": 23
+						},
+						{
+							"variant": 24
 						}
 					]
 				}
 			},
 			"minecraft:nameable": {
-				"always_show": true,
+				"always_show": false,
 				"allow_name_tag_renaming": false
 			},
 			"minecraft:physics": {},
