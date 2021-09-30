@@ -3,7 +3,7 @@
 	"minecraft:entity": {
 		"description": {
 			"identifier": "minecraft:npc",
-			"is_spawnable": true,
+			"is_spawnable": false,
 			"is_summonable": false,
 			"is_experimental": false,
 			"scripts": {
