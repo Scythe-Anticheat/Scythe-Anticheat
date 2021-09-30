@@ -89,10 +89,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'bedrock'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"end_portal_frame": {
 					"on_entry": [
@@ -102,10 +99,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'end_portal_frame'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"dragon_egg": {
 					"on_entry": [
@@ -115,10 +109,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'dragon_egg'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"farmland": {
 					"on_entry": [
@@ -128,10 +119,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'farmland'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"monster_egg": {
 					"on_entry": [
@@ -141,10 +129,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'monster_egg'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"brown_mushroom_block": {
 					"on_entry": [
@@ -154,10 +139,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'brown_mushroom_block'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"red_mushroom_block": {
 					"on_entry": [
@@ -167,10 +149,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'red_mushroom_block'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"chorus_plant": {
 					"on_entry": [
@@ -180,10 +159,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'chorus_plant'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"turtle_egg": {
 					"on_entry": [
@@ -193,10 +169,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'turtle_egg'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"mob_spawner": {
 					"on_entry": [
@@ -206,10 +179,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'mob_spawner'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"spawn_egg": {
 					"on_entry": [
@@ -219,10 +189,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'spawn_egg'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"command_block": {
 					"on_entry": [
@@ -232,10 +199,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'command_block'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"chain_command_block": {
 					"on_entry": [
@@ -245,10 +209,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'chain_command_block'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"repeating_command_block": {
 					"on_entry": [
@@ -258,10 +219,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'repeating_command_block'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"command_block_minecart": {
 					"on_entry": [
@@ -271,10 +229,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'command_block_minecart'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"barrier": {
 					"on_entry": [
@@ -284,10 +239,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'barrier'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"structure_block": {
 					"on_entry": [
@@ -297,10 +249,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'structure_block'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"structure_void": {
 					"on_entry": [
@@ -310,10 +259,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'structure_void'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"jigsaw": {
 					"on_entry": [
@@ -323,10 +269,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'jigsaw'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"allow": {
 					"on_entry": [
@@ -336,10 +279,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'allow'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"deny": {
 					"on_entry": [
@@ -349,10 +289,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'deny'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"light_block": {
 					"on_entry": [
@@ -362,10 +299,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'light_block'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"border_block": {
 					"on_entry": [
@@ -375,10 +309,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'border_block'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"chemistry_table": {
 					"on_entry": [
@@ -388,10 +319,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'chemistry_table'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				},
 				"frosted_ice": {
 					"on_entry": [
@@ -401,10 +329,7 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'frosted_ice'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				}
 			}
 		}

@@ -174,18 +174,12 @@
 				"default": {
 					"transitions": [{
 						"critical": "query.is_critical"
-					}],
-					"on_entry": [
-						""
-					]
+					}]
 				},
 				"critical": {
 					"transitions": [{
 						"default": "!query.is_critical"
-					}],
-					"on_entry": [
-						""
-					]
+					}]
 				}
 			}
 		},
@@ -247,10 +241,7 @@
 					],
 					"transitions": [{
 						"autototem": "query.get_equipped_item_name('off_hand') != 'totem_of_undying'"
-					}],
-					"on_exit": [
-						""
-					]
+					}]
 				}
 			}
 		}
