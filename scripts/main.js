@@ -23,5 +23,10 @@ World.events.tick.subscribe(() => {
         let regex = /[^A-Za-z0-9_ ]/
         if(!regex.test(plater.name))
         Commands.run(`execute ${player.name} ~~~ say i am a noob who uses namespoof`, World.getDimension("overworld"));
+
+        // Crasher/A = invalid pos check
+        if (isNaN(player.location.x) || player.location.x > 30000000 || 
+            isNaN(player.location.y) || player.location.y > 30000000 || 
+            isNaN(player.location.z) || player.location.z > 30000000) console.warn("CRASH!!! NO!!!!!")
     }
 });
