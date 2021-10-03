@@ -1,5 +1,9 @@
-import * as GameTest from "mojang-gametest";
-import { World, Commands } from "mojang-minecraft";
+import * as Gametest from "mojang-gametest"
+import * as Minecraft from "mojang-minecraft"
+
+const World = Minecraft.World
+const Commands = Minecraft.Commands
+
 
 var debug = true;
 
@@ -11,6 +15,9 @@ World.events.beforeChat.subscribe(msg => {
     if (debug && message == "Ping") console.warn("Pong!");
 
     if (message.toLowerCase().includes("the best minecraft bedrock utility mod"))  msg.cancel = true;
+
+    // BadPackets/2 = chat message length check
+    if(message.length > 180 || message.length < 0) msg.cancel = true;
 });
 
 World.events.tick.subscribe(() => {
@@ -18,13 +25,13 @@ World.events.tick.subscribe(() => {
     for (let player of World.getPlayers()) {
         // Namespoof/A = username length check.
         if(player.name.length > 16)
-            Commands.run(`execute ${player.name} ~~~ say i am a noob who uses namespoof`, World.getDimension("overworld"));
+            Commands.run(`execute ${player.name} ~~~ say i am a noob who uses namespoof (check A)`, World.getDimension("overworld"));
         
         // Namespoof/B = regex check
         let regex = /[^A-Za-z0-9_ ]/;
 
-        //if(!regex.test(player.name))
-            // Commands.run(`execute ${player.name} ~~~ say i am a noob who uses namespoof`, World.getDimension("overworld"));
+        if(regex.test(player.name))
+            Commands.run(`execute ${player.name} ~~~ say i am a noob who uses namespoof (check B)`, World.getDimension("overworld"));
 
         // Crasher/A = invalid pos check
         if (isNaN(player.location.x) || player.location.x > 30000000 || 
