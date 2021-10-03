@@ -4,7 +4,7 @@
 		"name": "Scythe AntiCheat",
 		"description": "Cheat Detection Tool For Realms And Servers",
 		"uuid": "c68ba0c1-b9e4-46ad-b6c8-88bbd28f1fa5",
-		"version": [1, 5, 0],
+		"version": [2, 0, 1],
 		"min_engine_version": [1, 16, 210]
 	},
 	"modules": [{
