@@ -10,19 +10,20 @@ World.events.beforeChat.subscribe(msg => {
 
     if (debug && message == "Ping") console.warn("Pong!");
 
-    if (message.includes("Horion - the best minecraft bedrock utility mod - "))  msg.cancel = true;
+    if (message.toLowerCase().includes("the best minecraft bedrock utility mod"))  msg.cancel = true;
 });
 
 World.events.tick.subscribe(() => {
     for (let player of World.getPlayers()) {
         // Namespoof/A = username length check.
-        if(player.name.length > 15) 
+        if(player.name.length > 16)
             Commands.run(`execute ${player.name} ~~~ say i am a noob who uses namespoof`, World.getDimension("overworld"));
-
+        
         // Namespoof/B = regex check
-        let regex = /[^A-Za-z0-9_]/;
-        if(!regex.test(player.name))
-            Commands.run(`execute ${player.name} ~~~ say i am a noob who uses namespoof`, World.getDimension("overworld"));
+        let regex = /[^A-Za-z0-9_ ]/;
+
+        //if(!regex.test(player.name))
+            // Commands.run(`execute ${player.name} ~~~ say i am a noob who uses namespoof`, World.getDimension("overworld"));
 
         // Crasher/A = invalid pos check
         if (isNaN(player.location.x) || player.location.x > 30000000 || 
