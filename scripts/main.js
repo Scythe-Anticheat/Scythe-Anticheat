@@ -38,8 +38,8 @@ World.events.tick.subscribe(() => {
 
         // fixed banning system, yay!
         // messy af but if it works then it works
-        Commands.run(`execute ${player.name} ~~~ execute @s[scores={isBanned=3}] ~~~ kick ${player.name} "§cYOU ARE BANNED!\n\n§bReason: Sending Crash Packets\n§bBanned By: Scythe AntiCheat."`, World.getDimension("overworld"));
-        Commands.run(`execute ${player.name} ~~~ execute @s[scores={isBanned=2}] ~~~ kick ${player.name} "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\n§bBanned By: Scythe AntiCheat."`, World.getDimension("overworld"));
-        Commands.run(`execute ${player.name} ~~~ execute @s[scores={isBanned=1}] ~~~ kick ${player.name} "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\n§bBanned By: An Operator."`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.name}" ~~~ execute @s[scores={isBanned=3}] ~~~ kick "${player.name}" "§cYOU ARE BANNED!\n\n§bReason: Sending Crash Packets\n§bBanned By: Scythe AntiCheat."`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.name}" ~~~ execute @s[scores={isBanned=2}] ~~~ kick "${player.name}" "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\n§bBanned By: Scythe AntiCheat."`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.name}" ~~~ execute @s[scores={isBanned=1}] ~~~ kick "${player.name}" "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\n§bBanned By: An Operator."`, World.getDimension("overworld"));
     };
 });
