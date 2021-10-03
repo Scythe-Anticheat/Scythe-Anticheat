@@ -1,5 +1,5 @@
 <div align="center">
-Scythe AntiCheat - an AntiCheat designed for Minecraft Bedrock realms/worlds/servers.
+  <b>Scythe AntiCheat - an AntiCheat designed for Minecraft Bedrock realms/worlds/servers.</b>
 
   <img src="https://raw.githubusercontent.com/MrDiamond64/image-assets/main/scythe%20pog%20anticheat.png" width="600" alt="Scythe AntiCheat" />
    
@@ -14,41 +14,34 @@ If your world contains NPC's, make sure to edit the cbe.mcfunction file and add 
 
 # List of hacks detected by Scythe AntiCheat
 
-   AutoClicker ->
-
+   AutoClicker -><br />
       (A) = Checks how much left clicks the player sends
 
-   AutoTotem ->
-
+   AutoTotem -><br />
       (A) = Checks if a player equips a totem while moving<br />
-      (B) = Checks if a player equips a totem while using an item<br />
+      (B) = Checks if a player equips a totem while using an item
       
-   BadPackets ->
-
+   BadPackets -><br />
       (1) = Checks if the players yaw/pitch is greater than normal
    
    Command Block Exploit -><br />
       (A) = Clears animal buckets/beehives<br />
       (B) = Replaces beehives with air<br />
       (C) = Kill all command block minecarts<br />
-      (D) = Kills all NPC's (to disable use /function settings/npc)
-
+      (D) = Kills all NPC's (to disable use /function settings/npc)<br />
       (E) = Instant despawn time for command block minecarts
 
  
-  Ender Pearl Glitching ->
-
+  Ender Pearl Glitching -><br />
       (A) => Checks if an ender pearl is inside a climbable block.
    
   Illegal Items -><br />
       (A) => Clears illegal items from everybody's inventories.
-
       (B) => Clears dropped items.
       
-  InteractUse ->
-
+  InteractUse -><br />
       (A) => Checks if a player is using an item white hitting/interacting with items
- 
+      
   Jesus -><br />
       (A) => Checks if the player is above water/lava blocks.
 
@@ -67,9 +60,9 @@ To enter Vanish use: ```/function tools/vanish```
 
 To be able to fly in survival mode use: ```/function tools/fly```
 
-To view a players anticheat logs use: ```/execute ~~~ function tools/stats```
+To view a players anticheat logs use: ```/execute <playername> ~~~ function tools/stats```
 
-Additionally, there are custom features you can enable like anti gamemode change to further enhance your realm security, these options can be used by /function settings/
+Additionally, there are custom features you can enable like anti gamemode change to further enhance your realm security, these options can be used by /function settings/<name>
 
 # FAQ
 
@@ -78,7 +71,7 @@ Q1: Does the AntiCheat auto-ban?
 A1: No.
 
 Q2: Is it customizable?<br />
-A2: Yes using /function settings/. or by modifying the .mcfunction files
+A2: Yes using /function settings/<name> or by modifying the .mcfunction files
 
 # Notes:
 
@@ -94,6 +87,4 @@ Using its code (with credit)<br />
 Steal code<br />
 Claim it as your own<br />
 Sell it<br />
-redistribute it.
-
-
+Redistribute it.
