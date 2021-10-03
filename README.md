@@ -14,23 +14,26 @@ If your world contains NPC's, make sure to edit the cbe.mcfunction file and add 
 
 # List of hacks detected by Scythe AntiCheat
 
-   AutoClicker -><br />
+  AutoClicker -><br />
       (A) = Checks how much left clicks the player sends
 
-   AutoTotem -><br />
+  AutoTotem -><br />
       (A) = Checks if a player equips a totem while moving<br />
       (B) = Checks if a player equips a totem while using an item
       
-   BadPackets -><br />
-      (1) = Checks if the players yaw/pitch is greater than normal
+  BadPackets -><br />
+      (1) = Checks if the players yaw/pitch is greater than normal<br />
+      (2) = Chat message length check (Requires GameTest Framework)
    
-   Command Block Exploit -><br />
+  Command Block Exploit -><br />
       (A) = Clears animal buckets/beehives<br />
       (B) = Replaces beehives with air<br />
       (C) = Kill all command block minecarts<br />
       (D) = Kills all NPC's (to disable use /function settings/npc)<br />
       (E) = Instant despawn time for command block minecarts
-
+      
+  Crasher -><br />
+      (A) = Checks if a player's position is invalid. (Requires GameTest FrameWork)<br />
  
   Ender Pearl Glitching -><br />
       (A) => Checks if an ender pearl is inside a climbable block.
@@ -44,6 +47,10 @@ If your world contains NPC's, make sure to edit the cbe.mcfunction file and add 
       
   Jesus -><br />
       (A) => Checks if the player is above water/lava blocks.
+
+  NameSpoof -><br />
+      (A) => Checks if a player's name is longer then 16 characters (Requires GameTest FrameWork)<br />
+      (B) => Invalid characters check. (Requires GameTest FrameWork)<br />
 
   Phase -><br />
       (A) => Detect if someone moves inside a block
