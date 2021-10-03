@@ -1,9 +1,8 @@
-import * as Gametest from "mojang-gametest"
-import * as Minecraft from "mojang-minecraft"
+import * as Gametest from "mojang-gametest";
+import * as Minecraft from "mojang-minecraft";
 
-const World = Minecraft.World
-const Commands = Minecraft.Commands
-
+const World = Minecraft.World;
+const Commands = Minecraft.Commands;
 
 var debug = true;
 
@@ -42,6 +41,6 @@ World.events.tick.subscribe(() => {
         // messy af but if it works then it works
         Commands.run(`execute ${player.name} ~~~ execute @s[scores={isBanned=3}] ~~~ kick ${player.name} "§cYOU ARE BANNED!\n\n§bReason: Sending Crash Packets\nebBanned By: Scythe AntiCheat."`, World.getDimension("overworld"));
         Commands.run(`execute ${player.name} ~~~ execute @s[scores={isBanned=2}] ~~~ kick ${player.name} "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\nebBanned By: Scythe AntiCheat."`, World.getDimension("overworld"));
-        Commands.run(`execute ${player.name} ~~~ execute @s[scores={isBanned=3}] ~~~ kick ${player.name} "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\nebBanned By: An Operator."`, World.getDimension("overworld"));
+        Commands.run(`execute ${player.name} ~~~ execute @s[scores={isBanned=1}] ~~~ kick ${player.name} "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\nebBanned By: An Operator."`, World.getDimension("overworld"));
     };
 });
