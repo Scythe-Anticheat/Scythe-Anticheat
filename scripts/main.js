@@ -5,7 +5,7 @@ import { hacknotif } from "./util.js";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-var debug = true;
+var debug = false;
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
