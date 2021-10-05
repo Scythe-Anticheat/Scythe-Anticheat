@@ -39,7 +39,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (A) => Checks if an ender pearl is inside a climbable block.
    
   Illegal Items -><br />
-      (A) => Clears illegal items from everybody's inventories.
+      (A) => Clears illegal items from everybody's inventories.<br />
       (B) => Clears dropped items.
       
   InteractUse -><br />
