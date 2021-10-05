@@ -10,7 +10,7 @@ To install this anticheat to your realm/world you need to install the .mcpack an
 
 To receive anti-cheat alerts use this command: ```/function notify```
 
-If your world contains NPC's, make sure to edit the cbe.mcfunction file and add a # to the ```/function setting/npc``` or they will be insta-killed
+If your world contains NPC's, make sure to use the ```/function setting/npc``` command or they will be insta-killed
 
 # List of hacks detected by Scythe AntiCheat
 
