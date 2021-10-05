@@ -219,6 +219,9 @@
 						},
 						{
 							"compound": "query.get_equipped_item_name == 'compound'"
+						},
+						{
+							"powder_snow": "query.get_equipped_item_name == 'powder_snow'"
 						}
 					]
 				},
@@ -940,6 +943,16 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'compound'"
+					}]
+				},
+				"powder_snow": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(powder_snow)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'powder_snow'"
 					}]
 				}
 			}
