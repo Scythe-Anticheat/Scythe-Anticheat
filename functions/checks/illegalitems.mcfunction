@@ -29,3 +29,6 @@ kill @e[type=item,name="Border"]
 kill @e[type=item,name="Compound Creator"]
 kill @e[type=item,name="Frosted Ice"]
 kill @e[type=item,name=""]
+
+# get rid of illegal blocks already placed
+fill ~+10 ~+3 ~+10 ~-10 ~-3 ~-10 air 0 replace unknown -1
