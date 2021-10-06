@@ -94,4 +94,4 @@ Using its code (with credit)<br />
 Steal code<br />
 Claim it as your own<br />
 Sell it<br />
-Redistribute it.
+Redistribute it without proper credit.
