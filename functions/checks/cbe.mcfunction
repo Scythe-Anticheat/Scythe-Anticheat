@@ -18,6 +18,7 @@ clear @s[tag=!op] bucket 2
 clear @s[tag=!op] bucket 3
 clear @s[tag=!op] bucket 4
 clear @s[tag=!op] bucket 5
+clear @s[tag=!op] bucket 11
 clear @s[tag=!op] bucket 12
 
 clear @s[tag=!op] beehive
@@ -29,6 +30,7 @@ kill @e[type=item,name="Bucket Of Cod"]
 kill @e[type=item,name="Bucket Of Salmon"]
 kill @e[type=item,name="Bucket Of Tropical Fish"]
 kill @e[type=item,name="Bucket Of Pufferfish"]
+kill @e[type=item,name="Powder Snow Bucket"]
 kill @e[type=item,name="Bucket Of Axolotl"]
 kill @e[type=item,name="Beehive"]
 kill @e[type=item,name="Bee Nest"]
