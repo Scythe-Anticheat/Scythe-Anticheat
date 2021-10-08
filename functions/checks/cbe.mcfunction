@@ -7,7 +7,8 @@ scoreboard players add @a npc 0
 
 scoreboard players operation @s npc = scythe:config npc
 
-# cant kill @e[type=movingblock] for whatever reason
+# cant kill @e[type=moving_block] for whatever reason
+
 # execute @e[type=moving_block] ~~~ execute @p ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(moving_block)§4 VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}
 # execute @e[type=moving_block] ~~~ scoreboard players add @p cbevl 1
 
@@ -43,8 +44,8 @@ kill @e[type=item,name="§g§lMovingBlock BeeNest Command"]
 
 
 # Gets rid of beehives and beenests already placed
-fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace bee_nest -1
-fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace beehive -1
+execute @e ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace bee_nest -1
+execute @e ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace beehive -1
 
 fill ~+10 ~+3 ~+10 ~-10 ~-3 ~-10 air 0 replace bee_nest -1
 fill ~+10 ~+3 ~+10 ~-10 ~-3 ~-10 air 0 replace beehive -1
