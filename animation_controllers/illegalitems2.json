@@ -44,9 +44,6 @@
 							"powered_repeater": "query.get_equipped_item_name == 'powered_repeater'"
 						},
 						{
-							"invisiblebedrock": "query.get_equipped_item_name == 'invisiblebedrock'"
-						},
-						{
 							"pumpkin_stem": "query.get_equipped_item_name == 'pumpkin_stem'"
 						},
 						{
@@ -222,6 +219,15 @@
 						},
 						{
 							"powder_snow": "query.get_equipped_item_name == 'powder_snow'"
+						},
+						{
+							"sweat_berry_bush": "query.get_equipped_item_name == 'sweet_berry_bush'"
+						},
+						{
+							"lit_blast_furnace": "query.get_equipped_item_name == 'lit_blast_furnace'"
+						},
+						{
+							"redstone_wire": "query.get_equipped_item_name == 'redstone_wire'"
 						}
 					]
 				},
@@ -353,16 +359,6 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'powered_repeater'"
-					}]
-				},
-				"invisiblebedrock": {
-					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(invisiblebedrock)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
-					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'invisiblebedrock'"
 					}]
 				},
 				"pumpkin_stem": {
@@ -953,6 +949,36 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'powder_snow'"
+					}]
+				},
+				"sweat_berry_bush": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(sweet_berry_bush)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'sweet_berry_bush'"
+					}]
+				},
+				"lit_blast_furnace": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_blast_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'lit_blast_furnace'"
+					}]
+				},
+				"redstone_wire": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(redstone_wire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'redstone_wire'"
 					}]
 				}
 			}
