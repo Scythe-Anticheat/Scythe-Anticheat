@@ -14,27 +14,27 @@ World.events.beforeChat.subscribe(msg => {
 
     if (debug && message == "Ping") console.warn("Pong!");
 
-    if (message.includes("the best minecraft bedrock utility mod"))  msg.cancel = true;
+    if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
     // BadPackets/2 = chat message length check
-    if(message.length > 180 || message.length < 0) return hacknotif(player, "BadPackets2", msg);
+    if(message.length > 180 || message.length < 0) hacknotif(player, "BadPackets2", msg);
 });
 
 World.events.tick.subscribe(() => {
     // run as each player
     for (let player of World.getPlayers()) {
         // Namespoof/A = username length check.
-        if(player.name.length > 16) return hacknotif(player, "NameSpoofA");
+        if(player.name.length > 16) hacknotif(player, "NameSpoofA");
         
         // Namespoof/B = regex check
         let regex = /[^A-Za-z0-9_ ]/;
 
-        if (regex.test(player.name)) return hacknotif(player, "NameSpoofB");
+        if (regex.test(player.name)) hacknotif(player, "NameSpoofB");
 
         // Crasher/A = invalid pos check
         if (isNaN(player.location.x) || player.location.x > 30000000 || 
             isNaN(player.location.y) || player.location.y > 30000000 || 
-            isNaN(player.location.z) || player.location.z > 30000000) return hacknotif(player, "CrasherA");
+            isNaN(player.location.z) || player.location.z > 30000000) hacknotif(player, "CrasherA");
 
         // fixed banning system, yay!
         // messy af but if it works then it works
