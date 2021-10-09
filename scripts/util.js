@@ -36,7 +36,7 @@ export function bedrock(player) {
     // nether
     if (i === 3) Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("nether"));
     if (i === 4) Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~+10 127 ~+10 bedrock`, World.getDimension("nether"));
-    if (i === 5) Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 170 ~+5 air 0 replace bedrock`, World.getDimension("nether"));
+    if (i === 5) Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 120 ~+5 air 0 replace bedrock`, World.getDimension("nether"));
 
     if (i >= 6) i = 0
 };
