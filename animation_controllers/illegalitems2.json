@@ -228,6 +228,24 @@
 						},
 						{
 							"redstone_wire": "query.get_equipped_item_name == 'redstone_wire'"
+						},
+						{
+							"crimson_double_slab": "query.get_equipped_item_name == 'crimson_double_slab'"
+						},
+						{
+							"warped_double_slab": "query.get_equipped_item_name == 'warped_double_slab'"
+						},
+						{
+							"cobbled_deepslate_double_slab": "query.get_equipped_item_name == 'cobbled_deepslate_double_slab'"
+						},
+						{
+							"polished_deepslate_double_slab": "query.get_equipped_item_name == 'polished_deepslate_double_slab'"
+						},
+						{
+							"deepslate_tile_double_slab": "query.get_equipped_item_name == 'deepslate_tile_double_slab'"
+						},
+						{
+							"deepslate_brick_double_slab": "query.get_equipped_item_name == 'deepslate_brick_double_slab'"
 						}
 					]
 				},
@@ -979,6 +997,66 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'redstone_wire'"
+					}]
+				},
+				"crimson_double_slab": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(crimson_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'crimson_double_slab'"
+					}]
+				},
+				"warped_double_slab": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(warped_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'warped_double_slab'"
+					}]
+				},
+				"cobbled_deepslate_double_slab": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(cobbled_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'cobbled_deepslate_double_slab'"
+					}]
+				},
+				"polished_deepslate_double_slab": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(polished_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'polished_deepslate_double_slab'"
+					}]
+				},
+				"deepslate_tile_double_slab": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(deepslate_tile_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'deepslate_tile_double_slab'"
+					}]
+				},
+				"deepslate_brick_double_slab": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(deepslate_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'deepslate_brick_double_slab'"
 					}]
 				}
 			}
