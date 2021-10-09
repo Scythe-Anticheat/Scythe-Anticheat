@@ -5,7 +5,7 @@ import { hacknotif } from "./util.js";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-var debug = false;
+var debug = true;
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
@@ -36,10 +36,9 @@ World.events.tick.subscribe(() => {
             isNaN(player.location.y) || player.location.y > 30000000 || 
             isNaN(player.location.z) || player.location.z > 30000000) hacknotif(player, "CrasherA");
 
-        // fixed banning system, yay!
-        // messy af but if it works then it works
-        Commands.run(`execute "${player.name}" ~~~ execute @s[scores={isBanned=3}] ~~~ kick "${player.name}" "§cYOU ARE BANNED!\n\n§bReason: Sending Crash Packets\n§bBanned By: Scythe AntiCheat."`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.name}" ~~~ execute @s[scores={isBanned=2}] ~~~ kick "${player.name}" "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\n§bBanned By: Scythe AntiCheat."`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.name}" ~~~ execute @s[scores={isBanned=1}] ~~~ kick "${player.name}" "§cYOU ARE BANNED!\n\n§bReason: Hacking Or Abuse\n§bBanned By: An Operator."`, World.getDimension("overworld"));
+        // player position shit
+        Commands.run(`scoreboard players set "${player.name}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
+        Commands.run(`scoreboard players set "${player.name}" yPos ${Math.floor(player.location.y)}`, World.getDimension("overworld"));
+        Commands.run(`scoreboard players set "${player.name}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
     };
 });
