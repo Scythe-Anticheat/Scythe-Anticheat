@@ -1,6 +1,6 @@
 import * as Gametest from "mojang-gametest";
 import * as Minecraft from "mojang-minecraft";
-import { hacknotif } from "./util.js";
+import { hacknotif, bedrock } from "./util.js";
 
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
@@ -40,5 +40,10 @@ World.events.tick.subscribe(() => {
         Commands.run(`scoreboard players set "${player.name}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
         Commands.run(`scoreboard players set "${player.name}" yPos ${Math.floor(player.location.y)}`, World.getDimension("overworld"));
         Commands.run(`scoreboard players set "${player.name}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
+
+        Commands.run(`scoreboard players operation ${player.name} bedrock = scythe:config bedrock`, World.getDimension("overworld"));
+
+        // bedrock validation function
+        bedrock(player);
     };
 });
