@@ -47,5 +47,5 @@ kill @e[type=item,name="§g§lMovingBlock BeeNest Command"]
 execute @e ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace bee_nest -1
 execute @e ~~~ fill ~-5 0 ~-5 ~+5 255 ~+5 air 0 replace beehive -1
 
-fill ~+10 ~+3 ~+10 ~-10 ~-3 ~-10 air 0 replace bee_nest -1
-fill ~+10 ~+3 ~+10 ~-10 ~-3 ~-10 air 0 replace beehive -1
+fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace bee_nest -1
+fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace beehive -1
