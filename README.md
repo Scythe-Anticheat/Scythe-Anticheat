@@ -38,6 +38,10 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
  
   Ender Pearl Glitching -><br />
       (A) => Checks if an ender pearl is inside a climbable block.
+      
+  Fly -><br />
+      (A) => not finished<br />
+      (B) => AirJump check (Requires GameTest FrameWork)
    
   Illegal Items -><br />
       (A) => Clears illegal items from everybody's inventories.<br />
