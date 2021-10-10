@@ -6,6 +6,7 @@ const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
 var debug = true;
+var ticks = 0
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
@@ -21,6 +22,10 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 World.events.tick.subscribe(() => {
+    // count ticks
+    ticks++
+    if (ticks >= 20) ticks = 0
+
     // run as each player
     for (let player of World.getPlayers()) {
         // Namespoof/A = username length check.
