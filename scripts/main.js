@@ -73,7 +73,7 @@ World.events.tick.subscribe(() => {
 
         // fly
         if (Math.abs(player.velocity.y).toFixed(3) == 0.333) try {
-            Commands.run(`execute @a[name="${player.name}",tag=jump,tag=!elytra,tag=!dead] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.name}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
             hacknotif(player, "FlyB")
         } catch (error) {}
 
