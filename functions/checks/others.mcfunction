@@ -1,5 +1,4 @@
 # other stuff
-scoreboard objectives add autototemvl dummy
 scoreboard objectives add spammervl dummy
 scoreboard objectives add namespoofvl dummy
 scoreboard objectives add crasher dummy

@@ -2,7 +2,6 @@
 
 scoreboard objectives add speedvl dummy
 scoreboard objectives add timer dummy
-scoreboard players add @s timer 0
 
 execute @s[tag=speedtest2,m=c] ~~~ tp @e[type=scythe:speedtest,name="speedtest",r=5] 999 -200 999
 

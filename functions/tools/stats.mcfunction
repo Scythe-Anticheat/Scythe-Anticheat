@@ -1,6 +1,8 @@
 # Gets all Scythe statistics on a user
 
 # make sure if the player doesnt have any violations it shows as vl: 0
+scoreboard objectives add autototemvl dummy
+
 scoreboard players add @s anglevl 0
 scoreboard players add @s leftclickvl 0
 scoreboard players add @s interactusevl 0

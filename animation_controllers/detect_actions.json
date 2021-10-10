@@ -124,6 +124,7 @@
 					"on_entry": [
 						"/scoreboard players add @s leftclick 1",
 						"/execute @s[tag=right] ~~~ function checks/alerts/interactuse",
+						"/execute @s[tag=right] ~~~ scoreboard objectives add interactusevl dummy",
 						"/tag @s add left"
 					]
 				}
