@@ -1,6 +1,6 @@
 import * as Gametest from "mojang-gametest";
 import * as Minecraft from "mojang-minecraft";
-import { hacknotif, bedrock } from "./util.js";
+import { hacknotif } from "./util.js";
 
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
@@ -30,7 +30,7 @@ World.events.tick.subscribe(() => {
     for (let player of World.getPlayers()) {
         // Namespoof/A = username length check.
         if(player.name.length > 16) hacknotif(player, "NameSpoofA");
-        
+
         // Namespoof/B = regex check
         let regex = /[^A-Za-z0-9_ ]/;
 
@@ -46,9 +46,29 @@ World.events.tick.subscribe(() => {
         Commands.run(`scoreboard players set "${player.name}" yPos ${Math.floor(player.location.y)}`, World.getDimension("overworld"));
         Commands.run(`scoreboard players set "${player.name}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
 
-        Commands.run(`scoreboard players operation ${player.name} bedrock = scythe:config bedrock`, World.getDimension("overworld"));
+        // bedrock validation
+        try {
+        Commands.run(`scoreboard players operation "${player.name}" bedrock = scythe:config bedrock`, World.getDimension("overworld"));
+        } catch(error) {}
 
-        // bedrock validation function
-        bedrock(player);
+        try {
+        Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("overworld"));
+        } catch(error) {}
+
+        try {
+        Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 255 ~+5 air 0 replace bedrock`, World.getDimension("overworld"));
+        } catch(error) {}
+
+        try {
+        Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("nether"));
+        } catch(error) {}
+
+        try {
+        Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~+10 127 ~+10 bedrock`, World.getDimension("nether"));
+        } catch(error) {}
+        
+        try {
+        Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 120 ~+5 air 0 replace bedrock`, World.getDimension("nether"));
+        } catch(error) {}
     };
 });
