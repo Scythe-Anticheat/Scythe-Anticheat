@@ -4,8 +4,6 @@ import * as Minecraft from "mojang-minecraft";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands
 
-var i = 0
-
 export function hacknotif(player, check, message) {
     if (check == "BadPackets2") {
         message.cancel = true;
@@ -23,5 +21,10 @@ export function hacknotif(player, check, message) {
     if (check == "CrasherA") {
         Commands.run(`scoreboard players add "${player.name}" crasher 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.name}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4Crasher/A. VL= "},{"score":{"name":"@s","objective":"crashervl"}}]}`, World.getDimension("overworld"));
+    };
+    if (check == "FlyB") {
+        Commands.run(`scoreboard players add "${player.name}" flyvl 1`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.name}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Fly/B. VL= "},{"score":{"name":"@s","objective":"flyvl"}}]}`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.name}" ~~~ tp @s ~ ~-1 ~`, World.getDimension("overworld"));
     };
 };
