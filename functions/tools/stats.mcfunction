@@ -6,7 +6,7 @@ scoreboard objectives add autototemvl dummy
 scoreboard players add @s anglevl 0
 scoreboard players add @s leftclickvl 0
 scoreboard players add @s interactusevl 0
-scoreboard players add @a cbevl 0
+scoreboard players add @s cbevl 0
 scoreboard players add @s epearlGlitch 0
 # scoreboard players add @s flyvl 0
 scoreboard players add @s gamemodevl 0
@@ -17,7 +17,7 @@ scoreboard players add @s phasevl 0
 # scoreboard players add @s speedvl 0
 scoreboard players add @s autototemvl 0
 scoreboard players add @s spammervl 0
-scoreboard players add @a namespoofvl 0
+scoreboard players add @s namespoofvl 0
 scoreboard players add @s crasher 0
 
 tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Getting all Scythe Logs from: "},{"selector":"@s"}]}
