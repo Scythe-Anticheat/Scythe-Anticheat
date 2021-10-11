@@ -12,7 +12,7 @@ tag @s[tag=speedtest,tag=!speedtest2] add speedtest2
 tag @s[tag=speedtest,tag=speedtest2] remove speedtest
 
 execute @s[tag=speedtest2,scores={timer=0}] ^^^ summon scythe:speedtest speedtest ^-2 ^+1 ^-1
-execute @s[tag=speedtest2] ~~~ scoreboard players add @s timer 1
+scoreboard players add @s[tag=speedtest2] timer 1
 
 execute @s[tag=speedtest2,tag=!sneak,tag=!right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=6] add NoSpeed
 execute @s[tag=speedtest2,tag=sneak,tag=!right] ~~~ execute @e[type=scythe:speedtest] ~~~ tag @p[tag=speedtest2,r=4] add NoSpeed
@@ -26,7 +26,7 @@ execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,
 execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=!sneak,tag=right,tag=!dead] ~~~ execute @s[y=1,dy=256] ~~~ tellraw @s[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Speed/A §7(is_using)§4. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
 execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=sneak,tag=right,tag=!dead] ~~~ execute @s[y=1,dy=256] ~~~ tellraw @s[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Speed/A §7(is_using) (is_sneaking)§4. VL= "},{"score":{"name":"@s","objective":"speedvl"}}]}
 
-execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=!dead] ~~~ execute @s[y=0,dy=256] ~~~ tp @s @e[type=scythe:speedtest] true
+execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=!dead] ~~~ tp @s[y=0,dy=256] @e[type=scythe:speedtest] true
 
 execute @s[tag=speedtest2,scores={timer=10..}] ~~~ tp @e[type=scythe:speedtest] 999 -200 999
 execute @s[tag=speedtest2,scores={timer=10..}] ~~~ kill @e[type=scythe:speedtest]
