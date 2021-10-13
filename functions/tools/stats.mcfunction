@@ -2,6 +2,8 @@
 
 # make sure if the player doesnt have any violations it shows as vl: 0
 scoreboard objectives add autototemvl dummy
+scoreboard objectives add angelvl dummy
+scoreboard objectives add interactusevl dummy
 
 scoreboard players add @s anglevl 0
 scoreboard players add @s leftclickvl 0
