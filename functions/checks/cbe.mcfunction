@@ -3,7 +3,7 @@
 scoreboard objectives add cbevl dummy
 
 scoreboard objectives add npc dummy
-scoreboard players add @a npc 0
+scoreboard players add scythe:config npc 0
 
 scoreboard players operation @s npc = scythe:config npc
 
