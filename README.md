@@ -95,7 +95,7 @@ When applying the pack to your world make sure it is at the top to make sure all
 **You MAY;**<br />
 Modify it<br />
 Use it (public/private use)<br />
-Using its code (with credit)<br />
+Using its code (with permission)<br />
 
 **YOU MAY NOT;**<br />
 Steal code<br />
