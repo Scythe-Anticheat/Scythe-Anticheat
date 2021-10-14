@@ -17,3 +17,4 @@ function checks/others
 function checks/phase
 # function checks/speed
 execute @s[scores={worldborder=1..}] ~~~ function checks/worldborder
+execute @s[tag=!op,scores={frostwalker=1..}] ~~~ function checks/nofrostwalker
