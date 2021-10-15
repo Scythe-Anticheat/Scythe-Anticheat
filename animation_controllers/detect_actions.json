@@ -123,7 +123,7 @@
 					}],
 					"on_entry": [
 						"/scoreboard players add @s leftclick 1",
-						"/execute @s[tag=right] ~~~ function checks/alerts/interactuse",
+						"/execute @s[tag=right,scores={right=2..}] ~~~ function checks/alerts/interactuse",
 						"/tag @s add left"
 					]
 				}
@@ -136,7 +136,8 @@
 						"right": "query.is_using_item"
 					}],
 					"on_entry": [
-						"/tag @s remove right"
+						"/tag @s remove right",
+						"/scoreboard players set @s right 0"
 					]
 				},
 				"right": {
@@ -144,6 +145,7 @@
 						"default": "!query.is_using_item"
 					}],
 					"on_entry": [
+						"/scoreboard objectives add right dummy",
 						"/tag @s add right"
 					]
 				}
