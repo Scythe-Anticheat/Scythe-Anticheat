@@ -23,7 +23,7 @@
 					"move",
 					"autototem",
 					"sprint",
-					"test"
+					"noswing"
 				]
 			},
 			"animations": {
@@ -42,7 +42,7 @@
 				"move": "controller.animation.move",
 				"autototem": "controller.animation.autototem",
 				"sprint": "controller.animation.sprint",
-				"test": "controller.animation.test"
+				"noswing": "controller.animation.noswing"
 			}
 		},
 		"component_groups": {
@@ -80,7 +80,7 @@
 					"remove_effects": "bad_omen"
 				}
 			},
-			"scythe:onHurt": {
+			"scythe:onAttack": {
 				"minecraft:skin_id": {
 					"value": 1
 				}
@@ -228,7 +228,7 @@
 			"scythe:attacked": {
 				"add": {
 					"component_groups": [
-						"scythe:onHurt"
+						"scythe:onAttack"
 					]
 				},
 				"remove": {

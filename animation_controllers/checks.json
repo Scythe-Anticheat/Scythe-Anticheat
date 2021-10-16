@@ -46,7 +46,7 @@
 				}
 			}
 		},
-		"controller.animation.test": {
+		"controller.animation.noswing": {
 			"states": {
 				"default": {
 					"transitions": [{
@@ -62,6 +62,7 @@
 						"default": "query.skin_id != 1"
 					}],
 					"on_entry": [
+						"",
 					 	"@s scythe:reset"
 					]
 				}
