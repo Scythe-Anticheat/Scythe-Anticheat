@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "minecraft:player",
 			"is_spawnable": false,
-			"is_summonable": false,
+			"is_summonable": true,
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
@@ -21,7 +21,9 @@
 					"illegals",
 					"illegals2",
 					"move",
-					"autototem"
+					"autototem",
+					"sprint",
+					"test"
 				]
 			},
 			"animations": {
@@ -38,7 +40,9 @@
 				"illegals": "controller.animation.illegals",
 				"illegals2": "controller.animation.illegals2",
 				"move": "controller.animation.move",
-				"autototem": "controller.animation.autototem"
+				"autototem": "controller.animation.autototem",
+				"sprint": "controller.animation.sprint",
+				"test": "controller.animation.test"
 			}
 		},
 		"component_groups": {
@@ -74,6 +78,16 @@
 				},
 				"minecraft:spell_effects": {
 					"remove_effects": "bad_omen"
+				}
+			},
+			"scythe:onHurt": {
+				"minecraft:skin_id": {
+					"value": 1
+				}
+			},
+			"scythe:reset": {
+				"minecraft:skin_id": {
+					"value": 0
 				}
 			}
 		},
@@ -174,6 +188,22 @@
 					}
 				]
 			},
+			"minecraft:damage_sensor": {
+				"triggers": {
+					"on_damage": {
+						"filters": {
+							"any_of": [{
+									"test": "is_family",
+									"subject": "other",
+									"value": "player"
+								}
+							]
+						},
+						"event": "scythe:attacked",
+						"target": "other"
+					}
+				}
+			},
 			"minecraft:scaffolding_climber": {},
 			"minecraft:environment_sensor": [{
 				"triggers": {
@@ -195,6 +225,30 @@
 			}]
 		},
 		"events": {
+			"scythe:attacked": {
+				"add": {
+					"component_groups": [
+						"scythe:onHurt"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:reset"
+					]
+				}
+			},
+			"scythe:reset": {
+				"add": {
+					"component_groups": [
+						"scythe:reset"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:onHurt"
+					]
+				}
+			},
 			"minecraft:gain_bad_omen": {
 				"add": {
 					"component_groups": [

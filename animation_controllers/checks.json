@@ -25,6 +25,47 @@
 					}]
 				}
 			}
+		},
+		"controller.animation.sprint": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"sprint": "query.is_sprinting"
+					}],
+					"on_entry": [
+						"/tag @s remove sprint"
+					]
+				},
+				"sprint": {
+					"transitions": [{
+						"default": "!query.is_sprinting"
+					}],
+					"on_entry": [
+						"/tag @s add sprint"
+					]
+				}
+			}
+		},
+		"controller.animation.test": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"sprint": "query.skin_id == 1"
+					}],
+					"on_entry": [
+					"/execute @s[tag=!left] ~~~ function checks/alerts/noswing",
+					"@s scythe:reset"
+					]
+				},
+				"sprint": {
+					"transitions": [{
+						"default": "query.skin_id != 1"
+					}],
+					"on_entry": [
+					 	"@s scythe:reset"
+					]
+				}
+			}
 		}
 	}
 }
