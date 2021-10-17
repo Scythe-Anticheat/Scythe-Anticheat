@@ -1,4 +1,3 @@
-import * as Gametest from "mojang-gametest";
 import * as Minecraft from "mojang-minecraft";
 import { hacknotif } from "./util.js";
 
@@ -78,5 +77,12 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         // if (debug) console.warn(Math.abs(player.velocity.y).toFixed(3));
+
+        // reach
+        try {                                                                   // we could use r=4 but that wont account for lag
+            Commands.run(`execute @a[name="${player.name}",rm=0,tag=attack] ~~~ give @p[name=!"${player.name}",r=5] air 1 `, World.getDimension("nether"));
+        } catch(error) {
+            hacknotif(player, "ReachA")
+        }
     };
 });
