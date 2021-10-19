@@ -4,10 +4,6 @@
 scoreboard objectives add autototemvl dummy
 scoreboard objectives add anglevl dummy
 scoreboard objectives add interactusevl dummy
-scoreboard objectives add spammervl dummy
-scoreboard objectives add namespoofvl dummy
-scoreboard objectives add crashervl dummy
-scoreboard objectives add flyvl dummy
 scoreboard objectives add reachvl dummy
 
 scoreboard players add @s anglevl 0
