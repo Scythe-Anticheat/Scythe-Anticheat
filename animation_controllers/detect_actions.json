@@ -16,7 +16,8 @@
 						"default": "!query.is_gliding"
 					}],
 					"on_entry": [
-						"/tag @s add gliding"
+						"/tag @s add gliding",
+						"/say elytra glide"
 					]
 				}
 			}
