@@ -64,6 +64,10 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   Phase -><br />
       (A) => Detect if someone moves inside a block
 
+  Reach -><br />
+      (A) => Check if someone hits a player outside a 5 block radius
+
+
 # Extra Commands.
 
 To receive anti-cheat alerts use this command: ```/function notify```
