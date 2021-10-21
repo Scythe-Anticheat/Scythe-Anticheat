@@ -65,21 +65,23 @@
 			"states": {
 				"default": {
 					"transitions": [{
-						"dead": "query.is_alive"
+						"dead": "!query.is_alive"
 					}],
 					"on_entry": [
-						"/tag @s remove dead"
+						"/tag @s remove dead",
+						"/say not dead"
 					]
 				},
 				"dead": {
 					"transitions": [{
-						"default": "!query.is_alive"
+						"default": "query.is_alive"
 					}],
 					"on_entry": [
 						"/tag @s remove speedtest",
 						"/tag @s remove speedtest2",
 						"/scoreboard players set @s timer 0",
-						"/tag @s add dead"
+						"/tag @s add dead",
+						"/say dead"
 					]
 				}
 			}
