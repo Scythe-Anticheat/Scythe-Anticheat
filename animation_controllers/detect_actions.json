@@ -68,8 +68,7 @@
 						"dead": "!query.is_alive"
 					}],
 					"on_entry": [
-						"/tag @s remove dead",
-						"/say not dead"
+						"/tag @s remove dead"
 					]
 				},
 				"dead": {
@@ -80,8 +79,9 @@
 						"/tag @s remove speedtest",
 						"/tag @s remove speedtest2",
 						"/scoreboard players set @s timer 0",
-						"/tag @s add dead",
-						"/say dead"
+						"/tag @p remove attack",
+						"/tag @p remove left",
+						"/tag @s add dead"
 					]
 				}
 			}
