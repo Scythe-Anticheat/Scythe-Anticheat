@@ -88,7 +88,8 @@ World.events.tick.subscribe(() => {
         try {                                                                   // we could use r=4 but that wont account for lag
             Commands.run(`execute @a[name="${player.name}",rm=0,tag=attack,m=!c] ~~~ execute @p[name=!"${player.name}",r=5] ~~~ list`, World.getDimension("overworld"));
         } catch(error) {
-            Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("nether"));
-        }
-    };
+            try {
+                Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("nether"));
+            } catch (error) {}
+        };
 });
