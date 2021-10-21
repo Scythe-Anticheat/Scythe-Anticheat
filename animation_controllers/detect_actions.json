@@ -67,20 +67,21 @@
 					"transitions": [{
 						"dead": "!query.is_alive"
 					}],
-					"on_exit": [
-						"/kill @e[type=armor_stand,name=speedtest]",
-						"/tag @s remove speedtest",
-						"/tag @s remove speedtest2",
-						"/scoreboard players set @s timer 0",
-						"/tag @s add dead"
+					"on_entry": [
+						"/tag @s remove dead"
 					]
 				},
 				"dead": {
 					"transitions": [{
-						"dead": "query.is_alive"
+						"default": "query.is_alive"
 					}],
 					"on_entry": [
-						"/tag @s remove dead"
+						"/tag @s remove speedtest",
+						"/tag @s remove speedtest2",
+						"/scoreboard players set @s timer 0",
+						"/tag @p remove attack",
+						"/tag @p remove left",
+						"/tag @s add dead"
 					]
 				}
 			}
