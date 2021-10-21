@@ -28,6 +28,12 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {
+        // add staff tag to username
+        try {
+            Commands.run(`execute "${player.name}" ~~~ list`, World.getDimension("overworld"));
+            player.nameTag = `§r§6[§aStaff§6]§r ${player.name}`;
+        } catch (error) {}
+
         // Namespoof/A = username length check.
         if(player.name.length > 16) hacknotif(player, "NameSpoofA");
 
