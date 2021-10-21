@@ -1,4 +1,3 @@
-import * as Gametest from "mojang-gametest";
 import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.World;

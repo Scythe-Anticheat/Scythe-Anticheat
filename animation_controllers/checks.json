@@ -50,19 +50,19 @@
 			"states": {
 				"default": {
 					"transitions": [{
-						"sprint": "query.skin_id == 1"
+						"noswing": "query.skin_id == 1"
 					}],
 					"on_entry": [
-					"/execute @s[tag=!left] ~~~ function checks/alerts/noswing",
+					"/tag @s remove attack",
 					"@s scythe:reset"
 					]
 				},
-				"sprint": {
+				"noswing": {
 					"transitions": [{
 						"default": "query.skin_id != 1"
 					}],
 					"on_entry": [
-						"",
+						"/tag @s add attack",
 					 	"@s scythe:reset"
 					]
 				}
