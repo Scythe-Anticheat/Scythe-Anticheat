@@ -53,7 +53,6 @@
 						"noswing": "query.skin_id == 1"
 					}],
 					"on_entry": [
-//					"/execute @s[tag=!left,tag=attack] ~~~ function checks/alerts/noswing",
 					"/tag @s remove attack",
 					"@s scythe:reset"
 					]
