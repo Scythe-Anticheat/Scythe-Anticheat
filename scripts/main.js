@@ -13,8 +13,6 @@ World.events.beforeChat.subscribe(msg => {
     let message = msg.message.toLowerCase();
     let player = msg.sender;
 
-    console.warn(`${message.length} ${player.name}`)
-
     if (debug && message == "ping") console.warn("Pong!");
 
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
