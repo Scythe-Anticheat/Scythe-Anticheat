@@ -40,7 +40,6 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (A) => Checks if an ender pearl is inside a climbable block.
       
   Fly -><br />
-      (A) => not finished<br />
       (B) => AirJump check (Requires GameTest FrameWork)
    
   Illegal Items -><br />
@@ -54,8 +53,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (A) => Checks if the player is above water/lava blocks.
 
   KillAura -><br />
-      (A) => Entity check.<br />
-      (B) => NoSwing Check.
+      (B) => NoSwing Check
 
   NameSpoof -><br />
       (A) => Checks if a player's name is longer then 16 characters (Requires GameTest FrameWork)<br />
