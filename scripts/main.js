@@ -5,12 +5,15 @@ const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
 var debug = true;
-var ticks = 0
+var ticks = 0;
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
 World.events.beforeChat.subscribe(msg => {
     let message = msg.message.toLowerCase();
+    let player = msg.sender;
+
+    console.warn(`${message.length} ${player.name}`)
 
     if (debug && message == "ping") console.warn("Pong!");
 
@@ -22,17 +25,11 @@ World.events.beforeChat.subscribe(msg => {
 
 World.events.tick.subscribe(() => {
     // count ticks
-    ticks++
-    if (ticks >= 20) ticks = 0
+    ticks++;
+    if (ticks >= 20) ticks = 0;
 
     // run as each player
     for (let player of World.getPlayers()) {
-        // add staff tag to username
-        try {
-            Commands.run(`execute "${player.name}" ~~~ list`, World.getDimension("overworld"));
-            player.nameTag = `§r§6[§aStaff§6]§r ${player.name}`;
-        } catch (error) {}
-
         // Namespoof/A = username length check.
         if(player.name.length > 16) hacknotif(player, "NameSpoofA");
 
@@ -79,7 +76,7 @@ World.events.tick.subscribe(() => {
         // fly
         if (Math.abs(player.velocity.y).toFixed(3) == 0.333) try {
             Commands.run(`execute @a[name="${player.name}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
-            hacknotif(player, "FlyB")
+            hacknotif(player, "FlyB");
         } catch (error) {}
 
         // if (debug) console.warn(Math.abs(player.velocity.y).toFixed(3));
@@ -91,5 +88,5 @@ World.events.tick.subscribe(() => {
             try {
                 Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("nether"));
             } catch (error) {}
-        };
-});
+        }
+}});

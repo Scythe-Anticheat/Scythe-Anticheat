@@ -5,8 +5,8 @@ const Commands = Minecraft.Commands
 
 export function hacknotif(player, check, message) {
     // validate that required params are defined
-    if(!player) return console.warn("Error: ${player} isnt defined. Did you forget to pass it?");
-    if(!check) return console.warn("Error: ${check} isnt defined. Did you forget to pass it?");
+    if(!player) return console.warn("Error: ${player} isnt defined. Did you forget to pass it? (./util.js)");
+    if(!check) return console.warn("Error: ${check} isnt defined. Did you forget to pass it? (./util.js)");
 
     if (check === "BadPackets2") {
         message.cancel = true;
@@ -25,5 +25,5 @@ export function hacknotif(player, check, message) {
         Commands.run(`scoreboard players add "${player.name}" flyvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.name}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Fly/B. VL= "},{"score":{"name":"@s","objective":"flyvl"}}]}`, World.getDimension("overworld"));
         Commands.run(`execute "${player.name}" ~~~ tp @s ~ ~-2 ~`, World.getDimension("overworld"));
-    } else return console.warn(`Error: No check by the name of ${check} exists. Did you forget to put an if statement?`);
+    } else return console.warn(`Error: No check by the name of ${check} exists. Did you forget to put an if statement? (./util.js)`);
 };
