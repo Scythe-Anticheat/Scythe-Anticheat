@@ -9,3 +9,5 @@ scoreboard players add @s[scores={leftclick=1..}] leftclick_timer 1
 execute @s[scores={leftclick=15..,leftclick_timer=70..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4AutoClicker/A (CPS: "},{"score":{"name":"@s","objective":"leftclick"}},{"text":") VL= "},{"score":{"name":"@s","objective":"leftclickvl"}}]}
 
 scoreboard players add @s[scores={leftclick_timer=70..}] leftclickvl 1
+scoreboard players set @s[scores={leftclick_timer=70..}] leftclick 0
+scoreboard players set @s[scores={leftclick_timer=70..}] leftclick_timer 0
