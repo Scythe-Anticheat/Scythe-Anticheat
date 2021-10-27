@@ -1,3 +1,5 @@
+scoreboard objectives add phasevl dummy
+
 scoreboard players add @s[type=player] phasevl 1
 tp @s[type=player] ~~~ 0 0
 tp @s[type=player] ^ ^ ^-1
