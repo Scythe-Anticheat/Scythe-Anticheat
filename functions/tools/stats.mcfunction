@@ -5,6 +5,7 @@ scoreboard objectives add autototemvl dummy
 scoreboard objectives add anglevl dummy
 scoreboard objectives add interactusevl dummy
 scoreboard objectives add reachvl dummy
+scoreboard objectives add phasevl dummy
 
 scoreboard players add @s anglevl 0
 scoreboard players add @s leftclickvl 0
