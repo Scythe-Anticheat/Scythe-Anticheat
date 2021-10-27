@@ -1,6 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
 import { hacknotif } from "./util.js";
-import { commandhandler } from "./handler.js"
 
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
@@ -11,10 +10,12 @@ var ticks = 0;
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
 World.events.beforeChat.subscribe(msg => {
-    let player = msg.sender;
     let message = msg.message.toLowerCase();
+    let player = msg.sender;
 
-    commandhandler(msg, player, debug);
+    if (debug && message == "ping") console.warn("Pong!");
+
+    if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
     // BadPackets/2 = chat message length check
     if(message.length > 180 || message.length < 0) hacknotif(player, "BadPackets2", msg);
