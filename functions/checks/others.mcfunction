@@ -1,7 +1,4 @@
 # other stuff
-scoreboard objectives add spammervl dummy
-scoreboard objectives add namespoofvl dummy
-scoreboard objectives add crashervl dummy
 scoreboard objectives add xPos dummy
 scoreboard objectives add yPos dummy
 scoreboard objectives add zPos dummy

@@ -77,14 +77,22 @@ World.events.tick.subscribe(() => {
             hacknotif(player, "FlyB");
         } catch (error) {}
 
-        // if (debug) console.warn(Math.abs(player.velocity.y).toFixed(3));
+        // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(3)}`);
 
         // reach
         try {                                                                   // we could use r=4 but that wont account for lag
             Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ execute @p[name=!"${player.name}",r=5] ~~~ list`, World.getDimension("overworld"));
         } catch(error) {
             try {
-                Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("nether"));
+                Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("overworld"));
             } catch (error) {}
-        }
+        };
+
+        // jesus/b
+        try {
+            if (Math.abs(player.velocity.y).toFixed(3) <= 0.026 && Math.abs(player.velocity.y).toFixed(3) >= 0.024) {
+                Commands.run(`execute @a[name="${player.name}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding] ~~~ detect ~ ~-1 ~ water -1 list`, World.getDimension("overworld"));
+                hacknotif(player, "JesusB");
+            }
+        } catch(error) {}
 }});

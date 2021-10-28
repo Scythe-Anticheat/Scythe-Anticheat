@@ -50,7 +50,8 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (A) => Checks if a player is using an item white hitting/interacting with items
       
   Jesus -><br />
-      (A) => Checks if the player is above water/lava blocks.
+      (A) => Checks if the player is above water/lava blocks.<br />
+      (B) => Motion check.
 
   KillAura -><br />
       (B) => NoSwing Check
