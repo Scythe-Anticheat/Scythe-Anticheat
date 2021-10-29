@@ -38,10 +38,10 @@ export function hacknotif(player, check, message) {
     } else if (check === "FlyB") {
         Commands.run(`scoreboard players add "${player.name}" flyvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.name}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Fly/B. VL= "},{"score":{"name":"@s","objective":"flyvl"}}]}`, World.getDimension("overworld"));
-        Commands.run(`tp @s[name="${player.name}"] ~ ~-2 ~`, World.getDimension("overworld"));
+        Commands.run(`tp @a[name="${player.name}"] ~ ~-2 ~`, World.getDimension("overworld"));
     } else if (check === "JesusB") {
         Commands.run(`scoreboard players add "${player.name}" jesusvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.name}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Jesus/B. VL= "},{"score":{"name":"@s","objective":"jesusvl"}}]}`, World.getDimension("overworld"));
-        Commands.run(`tp @s[name="${player.name}"] ~ ~-1 ~`, World.getDimension("overworld"));
+        Commands.run(`tp @a[name="${player.name}"] ~ ~-1 ~`, World.getDimension("overworld"));
     } else return console.warn(`Error: No check by the name of ${check} exists. Did you forget to put an if statement? (./util.js)`);
 }
