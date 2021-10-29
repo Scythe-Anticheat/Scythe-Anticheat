@@ -50,9 +50,6 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (A) => Checks if the player is above water/lava blocks.<br />
       (B) => Motion check.
 
-  KillAura -><br />
-      (B) => NoSwing Check
-
   NameSpoof -><br />
       (A) => Checks if a player's name is longer then 16 characters (Requires GameTest FrameWork)<br />
       (B) => Invalid characters check. (Requires GameTest FrameWork)<br />
