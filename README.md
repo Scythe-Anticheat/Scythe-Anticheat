@@ -14,9 +14,6 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
 
 # List of hacks detected by Scythe AntiCheat
 
-  AutoClicker -><br />
-      (A) = Checks how much left clicks the player sends
-
   AutoTotem -><br />
       (A) = Checks if a player equips a totem while moving<br />
       (B) = Checks if a player equips a totem while using an item<br />
