@@ -13,7 +13,7 @@ World.events.beforeChat.subscribe(msg => {
     let message = msg.message.toLowerCase();
     let player = msg.sender;
 
-    if (debug && message == "ping") console.warn("Pong!");
+    if (debug && message === "ping") console.warn("Pong!");
 
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
@@ -71,12 +71,12 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         // fly
-        if (Math.abs(player.velocity.y).toFixed(3) == 0.333) try {
+        if (Math.abs(player.velocity.y).toFixed(3) === 0.333) try {
             Commands.run(`execute @a[name="${player.name}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
             hacknotif(player, "FlyB");
         } catch (error) {}
 
-        // if (debug) console.warn(`${player.name}"s vertical velocity: ${Math.abs(player.velocity.y).toFixed(3)}`);
+        // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(3)}`);
 
         // reach
         try {                                                                   // we could use r=4 but that wont account for lag
