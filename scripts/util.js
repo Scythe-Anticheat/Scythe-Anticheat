@@ -5,8 +5,8 @@ const Commands = Minecraft.Commands;
 
 export function hacknotif(player, check, message) {
     // validate that required params are defined
-    if(!player) return console.warn("Error: ${player} isnt defined. Did you forget to pass it? (./util.js)");
-    if(!check) return console.warn("Error: ${check} isnt defined. Did you forget to pass it? (./util.js)");
+    if (!player) return console.warn("Error: ${player} isnt defined. Did you forget to pass it? (./util.js)");
+    if (!check) return console.warn("Error: ${check} isnt defined. Did you forget to pass it? (./util.js)");
 
     // make sure all scoreboard objectives are created
     try {

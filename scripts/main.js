@@ -4,8 +4,8 @@ import { hacknotif } from "./util.js";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-var debug = true;
-var ticks = 0;
+let debug = true;
+let ticks = 0;
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
@@ -18,7 +18,7 @@ World.events.beforeChat.subscribe(msg => {
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
     // BadPackets/2 = chat message length check
-    if(message.length > 180 || message.length < 0) hacknotif(player, "BadPackets2", msg);
+    if (message.length > 180 || message.length < 0) hacknotif(player, "BadPackets2", msg);
 });
 
 World.events.tick.subscribe(() => {
@@ -29,7 +29,7 @@ World.events.tick.subscribe(() => {
     // run as each player
     for (let player of World.getPlayers()) {
         // Namespoof/A = username length check.
-        if(player.name.length > 16) hacknotif(player, "NameSpoofA");
+        if (player.name.length > 16) hacknotif(player, "NameSpoofA");
 
         // Namespoof/B = regex check
         let regex = /[^A-Za-z0-9_ ]/;
@@ -37,8 +37,8 @@ World.events.tick.subscribe(() => {
         if (regex.test(player.name)) hacknotif(player, "NameSpoofB");
 
         // Crasher/A = invalid pos check
-        if (isNaN(player.location.x) || player.location.x > 30000000 || 
-            isNaN(player.location.y) || player.location.y > 30000000 || 
+        if (isNaN(player.location.x) || player.location.x > 30000000 ||
+            isNaN(player.location.y) || player.location.y > 30000000 ||
             isNaN(player.location.z) || player.location.z > 30000000) hacknotif(player, "CrasherA");
 
         // player position shit
@@ -49,27 +49,26 @@ World.events.tick.subscribe(() => {
         // bedrock validation
         try {
             Commands.run(`scoreboard players operation "${player.name}" bedrock = scythe:config bedrock`, World.getDimension("overworld"));
-        } catch(error) {}
+        } catch (error) {}
 
         try {
             Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("overworld"));
-        } catch(error) {}
+        } catch (error) {}
 
         try {
             Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 255 ~+5 air 0 replace bedrock`, World.getDimension("overworld"));
-        } catch(error) {}
+        } catch (error) {}
 
         try {
             Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("nether"));
-        } catch(error) {}
+        } catch (error) {}
 
         try {
             Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~+10 127 ~+10 bedrock`, World.getDimension("nether"));
-        } catch(error) {}
-        
+        } catch (error) {}
         try {
             Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 120 ~+5 air 0 replace bedrock`, World.getDimension("nether"));
-        } catch(error) {}
+        } catch (error) {}
 
         // fly
         if (Math.abs(player.velocity.y).toFixed(3) == 0.333) try {
@@ -77,16 +76,16 @@ World.events.tick.subscribe(() => {
             hacknotif(player, "FlyB");
         } catch (error) {}
 
-        // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(3)}`);
+        // if (debug) console.warn(`${player.name}"s vertical velocity: ${Math.abs(player.velocity.y).toFixed(3)}`);
 
         // reach
         try {                                                                   // we could use r=4 but that wont account for lag
             Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ execute @p[name=!"${player.name}",r=5] ~~~ list`, World.getDimension("overworld"));
-        } catch(error) {
+        } catch (error) {
             try {
                 Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("overworld"));
-            } catch (error) {}
-        };
+            } catch (error2) {}
+        }
 
         // jesus/b
         try {
@@ -94,5 +93,5 @@ World.events.tick.subscribe(() => {
                 Commands.run(`execute @a[name="${player.name}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding] ~~~ detect ~ ~-1 ~ water -1 list`, World.getDimension("overworld"));
                 hacknotif(player, "JesusB");
             }
-        } catch(error) {}
+        } catch (error) {}
 }});
