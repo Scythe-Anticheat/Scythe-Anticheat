@@ -18,7 +18,7 @@ World.events.beforeChat.subscribe(msg => {
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
     // BadPackets/2 = chat message length check
-    if (message.length > 180 || message.length < 0) hacknotif(player, "BadPackets2", msg);
+    if (message.length > 512 || message.length < 0) hacknotif(player, "BadPackets2", message.length, msg);
 });
 
 World.events.tick.subscribe(() => {
@@ -29,7 +29,7 @@ World.events.tick.subscribe(() => {
     // run as each player
     for (let player of World.getPlayers()) {
         // Namespoof/A = username length check.
-        if (player.name.length > 16) hacknotif(player, "NameSpoofA");
+        if (player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
 
         // Namespoof/B = regex check
         let regex = /[^A-Za-z0-9_ ]/;
@@ -80,7 +80,7 @@ World.events.tick.subscribe(() => {
 
         // reach
         try {                                                                   // we could use r=4 but that wont account for lag
-            Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ execute @p[name=!"${player.name}",r=5] ~~~ list`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ execute @p[name=!"${player.name}",r=4.5] ~~~ list`, World.getDimension("overworld"));
         } catch (error) {
             try {
                 Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("overworld"));
@@ -89,9 +89,9 @@ World.events.tick.subscribe(() => {
 
         // jesus/b
         try {
-            if (Math.abs(player.velocity.y).toFixed(3) <= 0.026 && Math.abs(player.velocity.y).toFixed(3) >= 0.024) {
-                Commands.run(`execute @a[name="${player.name}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding] ~~~ detect ~ ~-1 ~ water -1 list`, World.getDimension("overworld"));
-                hacknotif(player, "JesusB");
+            if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246) {
+                Commands.run(`execute @a[name="${player.name}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding] ~~~ detect ~ ~-1 ~ water 0 list`, World.getDimension("overworld"));
+                hacknotif(player, "JesusB", Math.abs(player.velocity.y).toFixed(4));
             }
         } catch (error) {}
 }});
