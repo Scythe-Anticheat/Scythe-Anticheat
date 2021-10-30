@@ -4,8 +4,6 @@ scoreboard objectives add yPos dummy
 scoreboard objectives add zPos dummy
 scoreboard players add @s[tag=right] right 1
 
-effect @s[tag=vanish] invisibility 9999 255 true
-effect @s[tag=vanish] night_vision 9999 255 true
 title @s[tag=vanish] actionbar §aYOU ARE VANISHED!
 
 tp @e[type=xp_orb] @p[r=25]
