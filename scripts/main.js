@@ -4,7 +4,7 @@ import { hacknotif } from "./util.js";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-let debug = true;
+const debug = true;
 let ticks = 0;
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
@@ -19,6 +19,27 @@ World.events.beforeChat.subscribe(msg => {
 
     // BadPackets/2 = chat message length check
     if (message.length > 512 || message.length < 0) hacknotif(player, "BadPackets2", message.length, msg);
+
+    // Spammer/A = checks if someone sends a message while moving and on ground
+    try {
+        Commands.run(`execute @a[name="${player.nameTag}",tag=moving,tag=ground] ~~~ list`, World.getDimension("overworld"));
+        hacknotif(player, "SpammerA", "isMoving", msg);
+    } catch (error) {}
+
+    // Spammer/B = checks if someone sends a message while sneaking
+    if(player.isSneaking) hacknotif(player, "SpammerB", "isSneaking", msg);
+
+    // Spammer/C = checks if someone sends a message while swinging their hand
+    try {
+        Commands.run(`execute @a[name="${player.nameTag}",tag=left] ~~~ list`, World.getDimension("overworld"));
+        hacknotif(player, "SpammerA", "left", msg);
+    } catch (error) {}
+
+    // Spammer/D = checks if someone sends a message while using an item
+    try {
+        Commands.run(`execute @a[name="${player.nameTag}",tag=right] ~~~ list`, World.getDimension("overworld"));
+        hacknotif(player, "SpammerA", "right", msg);
+    } catch (error) {}
 });
 
 World.events.tick.subscribe(() => {
@@ -44,7 +65,7 @@ World.events.tick.subscribe(() => {
         if (player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
 
         // Namespoof/B = regex check
-        let regex = /[^A-Za-z0-9_ ]/;
+        const regex = /[^A-Za-z0-9_ ]/;
 
         if (regex.test(player.name)) hacknotif(player, "NameSpoofB");
 
@@ -82,13 +103,13 @@ World.events.tick.subscribe(() => {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 120 ~+5 air 0 replace bedrock`, World.getDimension("nether"));
         } catch (error) {}
 
-        // fly
-        if (Math.abs(player.velocity.y).toFixed(3) === 0.333) try {
+        // fly = airjump check
+        if (Math.abs(player.velocity.y).toFixed(3) == 0.333) try {
             Commands.run(`execute @a[name="${player.nameTag}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
             hacknotif(player, "FlyB");
         } catch (error) {}
 
-        // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(3)}`);
+        // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
 
         // reach
         try {                                                                   // we could use r=4 but that wont account for lag
@@ -99,11 +120,16 @@ World.events.tick.subscribe(() => {
             } catch (error2) {}
         }
 
-        // jesus/b
+        // jesus/b = motion check
         try {
             if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246) {
                 Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding] ~~~ detect ~ ~-1 ~ water 0 list`, World.getDimension("overworld"));
                 hacknotif(player, "JesusB", Math.abs(player.velocity.y).toFixed(4));
             }
+        } catch (error) {}
+
+        try {
+            Commands.run(`tp @a[tag=isBanned] ~~~`, World.getDimension("overworld"));
+            setTimeout(() =>  Commands.run(`tp @a[tag=isBanned] ~~~`, World.getDimension("nether")), 10000);
         } catch (error) {}
 }});

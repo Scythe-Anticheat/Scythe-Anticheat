@@ -56,6 +56,12 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
 
   Phase -><br />
       (A) => Detect if someone moves inside a block
+      
+  Spammer -><br />
+      (A) => Checks if someone sends a message while moving<br />
+      (B) => Checks if someone sends a message while sneaking<br />
+      (C) => Checks if someone sends a message while swinging their hand<br />
+      (D) => Checks if someone sends a message while using an item<br />
 
   Reach -><br />
       (A) => Check if someone hits a player outside a 5 block radius
