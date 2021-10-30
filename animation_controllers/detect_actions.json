@@ -1,247 +1,95 @@
 {
 	"format_version": "1.10.0",
 	"animation_controllers": {
-		"controller.animation.glide": {
+		"controller.animation.autototem": {
 			"states": {
-				"default": {
+				"autototem": {
 					"transitions": [{
-						"glide": "query.is_gliding"
-					}],
-					"on_entry": [
-						"/tag @s remove gliding",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aGLIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"glide": {
-					"transitions": [{
-						"default": "!query.is_gliding"
-					}],
-					"on_entry": [
-						"/tag @s add gliding",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aGLIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.levitate": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"levitate": "query.is_levitating"
-					}],
-					"on_entry": [
-						"/tag @s remove levitating",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aLEVITATE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"levitate": {
-					"transitions": [{
-						"default": "!query.is_levitating"
-					}],
-					"on_entry": [
-						"/tag @s add levitating",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aLEVITATE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.ground": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"ground": "query.is_on_ground"
-					}],
-					"on_entry": [
-						"/tag @s remove ground",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aGROUND§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"ground": {
-					"transitions": [{
-						"default": "!query.is_on_ground"
-					}],
-					"on_entry": [
-						"/tag @s add ground",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aGROUND§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.death": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"dead": "!query.is_alive"
-					}],
-					"on_entry": [
-						"/tag @s remove dead",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aDEATH§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"dead": {
-					"transitions": [{
-						"default": "query.is_alive"
-					}],
-					"on_entry": [
-						"/tag @s remove speedtest",
-						"/tag @s remove speedtest2",
-						"/scoreboard players set @s timer 0",
-						"/tag @p remove attack",
-						"/tag @p remove left",
-						"/tag @s add dead",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aDEATH§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.ride": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"ride": "query.is_riding"
-					}],
-					"on_entry": [
-						"/tag @s remove riding",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aRIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"ride": {
-					"transitions": [{
-						"default": "!query.is_riding"
-					}],
-					"on_entry": [
-						"/tag @s add riding",
-						"/tag @s remove speedtest2",
-						"/scoreboard players set @s timer 0",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aRIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.left": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"left": "variable.attack_time"
-					}],
-					"on_entry": [
-						"/tag @s remove left",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"left": {
-					"transitions": [{
-						"default": "!variable.attack_time"
-					}],
-					"on_entry": [
-						"/scoreboard players add @s leftclick 1",
-						"/execute @s[tag=right,scores={right=2..}] ~~~ function checks/alerts/interactuse",
-						"/tag @s add left",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.right": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"right": "query.is_using_item"
-					}],
-					"on_entry": [
-						"/tag @s remove right",
-						"/scoreboard players set @s right 0",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aRIGHT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"right": {
-					"transitions": [{
-						"default": "!query.is_using_item"
-					}],
-					"on_entry": [
-						"/scoreboard objectives add right dummy",
-						"/tag @s add right",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aRIGHT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.sneak": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"sneak": "query.is_sneaking"
-					}],
-					"on_entry": [
-						"/tag @s remove sneak",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSNEAK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"sneak": {
-					"transitions": [{
-						"default": "!query.is_sneaking"
-					}],
-					"on_entry": [
-						"/tag @s add sneak",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSNEAK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.critical": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"critical": "query.is_critical"
+						"totem": "query.get_equipped_item_name('off_hand') == 'totem_of_undying'"
 					}]
 				},
-				"critical": {
+				"totem": {
+					"on_entry": [
+						"/scoreboard objectives add autototemvl dummy",
+						"/execute @s[tag=moving,tag=ground] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/A VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/scoreboard players add @s[tag=moving,tag=ground] autototemvl 1",
+						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/B1 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/scoreboard players add @s[tag=right] autototemvl 1",
+						"/execute @s[tag=left] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/B2 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/scoreboard players add @s[tag=left] autototemvl 1",
+						"/execute @s[tag=sneak] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/C VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/scoreboard players add @s[tag=sneak] autototemvl 1"
+					],
 					"transitions": [{
-						"default": "!query.is_critical"
+						"autototem": "query.get_equipped_item_name('off_hand') != 'totem_of_undying'"
 					}]
 				}
 			}
 		},
-		"controller.animation.jump": {
+		"controller.animation.sprint": {
 			"states": {
 				"default": {
 					"transitions": [{
-						"jump": "query.is_jumping"
+						"sprint": "query.is_sprinting"
 					}],
 					"on_entry": [
-						"/tag @s remove jump",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aJUMP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tag @s remove sprint",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
-				"jump": {
+				"sprint": {
 					"transitions": [{
-						"default": "!query.is_jumping"
+						"default": "!query.is_sprinting"
 					}],
 					"on_entry": [
-						"/tag @s add jump",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aJUMP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tag @s add sprint",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
 		},
-		"controller.animation.move": {
+		"controller.animation.noswing": {
 			"states": {
 				"default": {
 					"transitions": [{
-						"move": "query.is_moving"
+						"noswing": "query.skin_id == 1"
 					}],
 					"on_entry": [
-						"/tag @s remove moving",
-						"/tellraw @a[tag=packetlogger,tag=packetlogger2] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tag @s remove attack",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}",
+						"@s scythe:reset"
 					]
 				},
-				"move": {
+				"noswing": {
 					"transitions": [{
-						"default": "!query.is_moving"
+						"default": "query.skin_id != 1"
 					}],
 					"on_entry": [
-						"/tag @s add moving",
-						"/tellraw @a[tag=packetlogger,tag=packetlogger2] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tag @s add attack",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/say attack",
+						"@s scythe:reset"
+					]
+				}
+			}
+		},
+		"controller.animation.kill": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"kill": "query.variant == 101"
+					}],
+					"on_entry": [
+						"@s removekill"
+					]
+				},
+				"kill": {
+					"transitions": [{
+						"default": "query.variant != 101"
+					}],
+					"on_entry": [
+						"/scoreboard players add @s kills 1",
+						"@s removekill"
 					]
 				}
 			}
