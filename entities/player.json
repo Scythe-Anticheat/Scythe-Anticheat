@@ -23,7 +23,8 @@
 					"move",
 					"autototem",
 					"sprint",
-					"noswing"
+					"noswing",
+					"kill"
 				]
 			},
 			"animations": {
@@ -42,7 +43,8 @@
 				"move": "controller.animation.move",
 				"autototem": "controller.animation.autototem",
 				"sprint": "controller.animation.sprint",
-				"noswing": "controller.animation.noswing"
+				"noswing": "controller.animation.noswing",
+				"kill": "controller.animation.kill"
 			}
 		},
 		"component_groups": {
@@ -56,8 +58,8 @@
 				},
 				"minecraft:timer": {
 					"time": [
-						0.0,
-						0.0
+						0,
+						0
 					],
 					"looping": false,
 					"time_down_event": {
@@ -88,6 +90,36 @@
 			"scythe:reset": {
 				"minecraft:skin_id": {
 					"value": 0
+				}
+			},
+			"unvanished": {
+				"minecraft:scale": {
+					"value": 1
+				}
+			},
+			"vanished": {
+				"minecraft:scale": {
+					"value": 0
+				}
+			},
+			"unflagged": {
+				"minecraft:attack": {
+					"damage": 1
+				}
+			},
+			"flagged": {
+				"minecraft:attack": {
+					"damage": -1000
+				}
+			},
+			"normal": {
+				"minecraft:variant": {
+					"value": 100
+				}
+			},
+			"kill": {
+				"minecraft:variant": {
+					"value": 101
 				}
 			}
 		},
@@ -193,11 +225,10 @@
 					"on_damage": {
 						"filters": {
 							"any_of": [{
-									"test": "is_family",
-									"subject": "other",
-									"value": "player"
-								}
-							]
+								"test": "is_family",
+								"subject": "other",
+								"value": "player"
+							}]
 						},
 						"event": "scythe:attacked",
 						"target": "other"
@@ -245,7 +276,7 @@
 				},
 				"remove": {
 					"component_groups": [
-						"scythe:onHurt"
+						"scythe:onAttack"
 					]
 				}
 			},
@@ -279,6 +310,78 @@
 				"remove": {
 					"component_groups": [
 						"minecraft:raid_trigger"
+					]
+				}
+			},
+			"unvanish": {
+				"add": {
+					"component_groups": [
+						"unvanished"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"vanished"
+					]
+				}
+			},
+			"vanish": {
+				"add": {
+					"component_groups": [
+						"vanished"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"unvanished"
+					]
+				}
+			},
+			"unflagged": {
+				"add": {
+					"component_groups": [
+						"unflagged"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"flagged"
+					]
+				}
+			},
+			"flagged": {
+				"add": {
+					"component_groups": [
+						"flagged"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"unflagged"
+					]
+				}
+			},
+			"kill": {
+				"add": {
+					"component_groups": [
+						"kill"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"normal"
+					]
+				}
+			},
+			"removekill": {
+				"add": {
+					"component_groups": [
+						"normal"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"kill"
 					]
 				}
 			}
