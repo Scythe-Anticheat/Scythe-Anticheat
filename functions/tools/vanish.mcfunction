@@ -1,6 +1,7 @@
 tag @s[tag=vanish] add novanish
 tag @s[tag=novanish] remove vanish
 event entity @s[tag=novanish] unvanish
+effect @s[tag=novanish] clear
 tellraw @s[tag=novanish] {"rawtext":[{"text":"§6[§aScythe§6] §rYou are no longer in vanish!"}]}
 execute @s[tag=novanish] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §rIs no longer in Vanish."}]}
 
