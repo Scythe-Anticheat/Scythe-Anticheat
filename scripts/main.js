@@ -28,6 +28,18 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {
+        // add staff tag to username
+        try {
+            Commands.run(`execute @a[name="${player.nameTag}",tag=op] ~~~ list`, World.getDimension("overworld"));
+            player.nameTag = `§r§6[§aStaff§6]§r ${player.name}`;
+        } catch (error) {
+            try {
+                Commands.run(`execute @a[name="${player.nameTag}",tag=op] ~~~ list`, World.getDimension("overworld"));
+            } catch (err) {
+                player.nameTag = player.name;
+            }
+        }
+
         // Namespoof/A = username length check.
         if (player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
 
@@ -42,37 +54,37 @@ World.events.tick.subscribe(() => {
             isNaN(player.location.z) || player.location.z > 30000000) hacknotif(player, "CrasherA");
 
         // player position shit
-        Commands.run(`scoreboard players set "${player.name}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
-        Commands.run(`scoreboard players set "${player.name}" yPos ${Math.floor(player.location.y)}`, World.getDimension("overworld"));
-        Commands.run(`scoreboard players set "${player.name}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
+        Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
+        Commands.run(`scoreboard players set "${player.nameTag}" yPos ${Math.floor(player.location.y)}`, World.getDimension("overworld"));
+        Commands.run(`scoreboard players set "${player.nameTag}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
 
         // bedrock validation
         try {
-            Commands.run(`scoreboard players operation "${player.name}" bedrock = scythe:config bedrock`, World.getDimension("overworld"));
+            Commands.run(`scoreboard players operation "${player.nameTag}" bedrock = scythe:config bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 255 ~+5 air 0 replace bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 255 ~+5 air 0 replace bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("nether"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("nether"));
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~+10 127 ~+10 bedrock`, World.getDimension("nether"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~+10 127 ~+10 bedrock`, World.getDimension("nether"));
         } catch (error) {}
         try {
-            Commands.run(`execute @a[name="${player.name}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 120 ~+5 air 0 replace bedrock`, World.getDimension("nether"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 120 ~+5 air 0 replace bedrock`, World.getDimension("nether"));
         } catch (error) {}
 
         // fly
         if (Math.abs(player.velocity.y).toFixed(3) === 0.333) try {
-            Commands.run(`execute @a[name="${player.name}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
             hacknotif(player, "FlyB");
         } catch (error) {}
 
@@ -80,17 +92,17 @@ World.events.tick.subscribe(() => {
 
         // reach
         try {                                                                   // we could use r=4 but that wont account for lag
-            Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ execute @p[name=!"${player.name}",r=4.5] ~~~ list`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ execute @p[name=!"${player.nameTag}",r=4.5] ~~~ list`, World.getDimension("overworld"));
         } catch (error) {
             try {
-                Commands.run(`execute @a[name="${player.name}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("overworld"));
+                Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("overworld"));
             } catch (error2) {}
         }
 
         // jesus/b
         try {
             if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246) {
-                Commands.run(`execute @a[name="${player.name}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding] ~~~ detect ~ ~-1 ~ water 0 list`, World.getDimension("overworld"));
+                Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding] ~~~ detect ~ ~-1 ~ water 0 list`, World.getDimension("overworld"));
                 hacknotif(player, "JesusB", Math.abs(player.velocity.y).toFixed(4));
             }
         } catch (error) {}

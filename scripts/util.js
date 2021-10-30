@@ -27,9 +27,11 @@ export function hacknotif(player, check, debug, message) {
         Commands.run(`scoreboard players add "${player.name}" spammervl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.name}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Player) §4BadPackets/2 §7(msgLength=${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
     } else if (check === "NameSpoofA") {
+        player.nameTag = "invalid username";
         Commands.run(`scoreboard players add "${player.name}" namespoofvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.name}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4NameSpoof/A §7(nameLength=${debug})§4. VL= "},{"score":{"name":"@s","objective":"namespoofvl"}}]}`, World.getDimension("overworld"));
     } else if (check === "NameSpoofB") {
+        player.nameTag = "invalid username";
         Commands.run(`scoreboard players add "${player.name}" namespoofvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.name}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4NameSpoof/B. VL= "},{"score":{"name":"@s","objective":"namespoofvl"}}]}`, World.getDimension("overworld"));
     } else if (check === "CrasherA") {
