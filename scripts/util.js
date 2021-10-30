@@ -52,22 +52,22 @@ export function hacknotif(player, check, debug, message) {
     } else if (check === "SpammerA") {
         message.cancel = true;
         Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Spammer/A §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/A §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tp @s @s`, World.getDimension("overworld"));
     } else if (check === "SpammerB") {
         message.cancel = true;
         Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Spammer/B §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/B §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tp @s @s`, World.getDimension("overworld"));
     } else  if (check === "SpammerC") {
         message.cancel = true;
         Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Spammer/C §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/C §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tp @s @s`, World.getDimension("overworld"));
     } else if (check === "SpammerD") {
         message.cancel = true;
         Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Spammer/D §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/D §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tp @s @s`, World.getDimension("overworld"));
     } else return console.warn(`Error: No check by the name of ${check} exists. Did you forget to put an if statement? (./util.js)`);
 }
