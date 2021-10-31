@@ -4,14 +4,14 @@ import { hacknotif } from "./util.js";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-const debug = true;
+let debug = true;
 let ticks = 0;
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
 World.events.beforeChat.subscribe(msg => {
-    let message = msg.message.toLowerCase();
-    let player = msg.sender;
+    const message = msg.message.toLowerCase();
+    const player = msg.sender;
 
     if (debug && message === "ping") console.warn("Pong!");
 
@@ -85,7 +85,7 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 -64 ~-10 ~+10 -64 ~+10 bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
@@ -104,7 +104,7 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         // fly = airjump check
-        if (Math.abs(player.velocity.y).toFixed(3) == 0.333) try {
+        if (Math.abs(player.velocity.y).toFixed(3) === 0.333) try {
             Commands.run(`execute @a[name="${player.nameTag}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
             hacknotif(player, "FlyB");
         } catch (error) {}
