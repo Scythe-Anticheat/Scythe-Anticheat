@@ -4,7 +4,7 @@ import { hacknotif } from "./util.js";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-let debug = true;
+const debug = true;
 let ticks = 0;
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
@@ -85,7 +85,7 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 -64 ~-10 ~+10 -64 ~+10 bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 -0 ~+10 bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
