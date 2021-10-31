@@ -121,6 +121,11 @@
 				"minecraft:variant": {
 					"value": 101
 				}
+			},
+			"scythe:kick": {
+				"minecraft:instant_despawn": {
+					"remove_child_entities": true
+				}
 			}
 		},
 		"components": {
@@ -382,6 +387,13 @@
 				"remove": {
 					"component_groups": [
 						"kill"
+					]
+				}
+			},
+			"scythe:kick": {
+				"add": {
+					"component_groups": [
+						"scythe:kick"
 					]
 				}
 			}
