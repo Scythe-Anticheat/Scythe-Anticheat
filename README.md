@@ -48,7 +48,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       
   Jesus -><br />
       (A) => Checks if the player is above water/lava blocks.<br />
-      (B) => Motion check.
+      (B) => Motion check. (Requires GameTest FrameWork)
 
   NameSpoof -><br />
       (A) => Checks if a player's name is longer then 16 characters (Requires GameTest FrameWork)<br />
@@ -58,13 +58,13 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (A) => Detect if someone moves inside a block
       
   Spammer -><br />
-      (A) => Checks if someone sends a message while moving<br />
-      (B) => Checks if someone sends a message while sneaking<br />
-      (C) => Checks if someone sends a message while swinging their hand<br />
-      (D) => Checks if someone sends a message while using an item<br />
+      (A) => Checks if someone sends a message while moving. (Requires GameTest FrameWork)<br />
+      (B) => Checks if someone sends a message while sneaking. (Requires GameTest FrameWork)<br />
+      (C) => Checks if someone sends a message while swinging their hand. (Requires GameTest FrameWork)<br />
+      (D) => Checks if someone sends a message while using an item. (Requires GameTest FrameWork)<br />
 
   Reach -><br />
-      (A) => Check if someone hits a player outside a 5 block radius
+      (A) => Check if someone hits a player outside a 4.5 block radius. (Requires GameTest FrameWork)
 
 
 # Extra Commands.
