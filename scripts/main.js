@@ -127,9 +127,4 @@ World.events.tick.subscribe(() => {
                 hacknotif(player, "JesusB", Math.abs(player.velocity.y).toFixed(4));
             }
         } catch (error) {}
-
-        try {
-            Commands.run(`tp @a[tag=isBanned] ~~~`, World.getDimension("overworld"));
-            setTimeout(() =>  Commands.run(`tp @a[tag=isBanned] ~~~`, World.getDimension("nether")), 10000);
-        } catch (error) {}
 }});
