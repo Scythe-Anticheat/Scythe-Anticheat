@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "minecraft:player",
 			"is_spawnable": false,
-			"is_summonable": false,
+			"is_summonable": true,
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
@@ -24,7 +24,8 @@
 					"autototem",
 					"sprint",
 					"noswing",
-					"kill"
+					"kill",
+					"invmove"
 				]
 			},
 			"animations": {
@@ -44,6 +45,7 @@
 				"autototem": "controller.animation.autototem",
 				"sprint": "controller.animation.sprint",
 				"noswing": "controller.animation.noswing",
+				"invmove": "controller.animation.invmove",
 				"kill": "controller.animation.kill"
 			}
 		},
@@ -85,6 +87,14 @@
 			"scythe:onAttack": {
 				"minecraft:skin_id": {
 					"value": 1
+				}
+			},
+			"scythe:hasGUIopen": {
+				"minecraft:skin_id": {
+					"value": 2
+				},
+				"minecraft:instant_despawn": {
+					"remove_child_entities": true
 				}
 			},
 			"scythe:reset": {
@@ -241,30 +251,55 @@
 				}
 			},
 			"minecraft:scaffolding_climber": {},
-			"minecraft:environment_sensor": [{
-				"triggers": {
-					"filters": {
-						"all_of": [{
-								"test": "has_mob_effect",
-								"subject": "self",
-								"value": "bad_omen"
-							},
-							{
-								"test": "is_in_village",
-								"subject": "self",
-								"value": true
-							}
-						]
+			"minecraft:environment_sensor": {
+				"triggers": [{
+						"filters": {
+							"all_of": [{
+									"test": "has_mob_effect",
+									"subject": "self",
+									"value": "bad_omen"
+								},
+								{
+									"test": "is_in_village",
+									"subject": "self",
+									"value": true
+
+								}
+							]
+						},
+						"event": "minecraft:trigger_raid"
 					},
-					"event": "minecraft:trigger_raid"
-				}
-			}]
+					{
+						"filters": {
+							"all_of": [{
+								"test": "has_container_open",
+								"operator": "==",
+								"subject": "other",
+								"value": true
+							}]
+						},
+						"event": "scythe:invmove"
+					}
+				]
+			}
 		},
 		"events": {
 			"scythe:attacked": {
 				"add": {
 					"component_groups": [
 						"scythe:onAttack"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:reset"
+					]
+				}
+			},
+			"scythe:invmove": {
+				"add": {
+					"component_groups": [
+						"scythe:hasGUIopen"
 					]
 				},
 				"remove": {
@@ -281,7 +316,8 @@
 				},
 				"remove": {
 					"component_groups": [
-						"scythe:onAttack"
+						"scythe:onAttack",
+						"scythe:hasGUIopen"
 					]
 				}
 			},

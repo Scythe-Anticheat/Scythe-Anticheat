@@ -56,7 +56,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove attack",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}",
+						"/tellraw @a {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}",
 						"@s scythe:reset"
 					]
 				},
@@ -66,7 +66,29 @@
 					}],
 					"on_entry": [
 						"/tag @s add attack",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/tellraw @a {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"@s scythe:reset"
+					]
+				}
+			}
+		},
+		"controller.animation.invmove": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"invmove": "query.skin_id == 2"
+					}],
+					"on_entry": [
+						"/say no GUI",
+						"@s scythe:reset"
+					]
+				},
+				"invmove": {
+					"transitions": [{
+						"default": "query.skin_id != 2"
+					}],
+					"on_entry": [
+						"/say has GUI open",
 						"@s scythe:reset"
 					]
 				}
