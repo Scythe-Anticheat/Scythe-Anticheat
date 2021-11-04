@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "minecraft:player",
 			"is_spawnable": false,
-			"is_summonable": true,
+			"is_summonable": false,
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
