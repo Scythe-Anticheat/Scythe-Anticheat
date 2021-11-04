@@ -79,8 +79,7 @@
 						"invmove": "query.skin_id == 2"
 					}],
 					"on_entry": [
-						"/say no GUI",
-						"@s scythe:reset"
+						"/say no GUI"
 					]
 				},
 				"invmove": {
@@ -88,8 +87,7 @@
 						"default": "query.skin_id != 2"
 					}],
 					"on_entry": [
-						"/say has GUI open",
-						"@s scythe:reset"
+						"/say has GUI open"
 					]
 				}
 			}

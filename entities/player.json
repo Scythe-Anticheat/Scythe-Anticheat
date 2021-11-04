@@ -89,12 +89,9 @@
 					"value": 1
 				}
 			},
-			"scythe:hasGUIopen": {
+			"scythe:gui": {
 				"minecraft:skin_id": {
 					"value": 2
-				},
-				"minecraft:instant_despawn": {
-					"remove_child_entities": true
 				}
 			},
 			"scythe:reset": {
@@ -274,11 +271,22 @@
 							"all_of": [{
 								"test": "has_container_open",
 								"operator": "==",
-								"subject": "other",
+								"subject": "self",
 								"value": true
 							}]
 						},
-						"event": "scythe:invmove"
+						"event": "scythe:guiopen"
+					},
+					{
+						"filters": {
+							"all_of": [{
+								"test": "has_container_open",
+								"operator": "==",
+								"subject": "self",
+								"value": false
+							}]
+						},
+						"event": "scythe:reset"
 					}
 				]
 			}
@@ -296,10 +304,10 @@
 					]
 				}
 			},
-			"scythe:invmove": {
+			"scythe:guiopen": {
 				"add": {
 					"component_groups": [
-						"scythe:hasGUIopen"
+						"scythe:gui"
 					]
 				},
 				"remove": {
@@ -317,7 +325,7 @@
 				"remove": {
 					"component_groups": [
 						"scythe:onAttack",
-						"scythe:hasGUIopen"
+						"scythe:gui"
 					]
 				}
 			},
