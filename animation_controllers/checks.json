@@ -42,12 +42,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add hasGUIopen",
-						"/scoreboard players add @s[tag=left] invmovevl 1",
-						"/execute @s[tag=left] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMods/B §7(is_hitting)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}",
-						"/scoreboard players add @s[tag=right] invmovevl 1",
-						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMods/C §7(is_using)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}",
-						"/scoreboard players add @s[tag=attack] invmovevl 1",
-						"/execute @s[tag=attack] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMods/D §7(is_attacking)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}"
+						"/scoreboard objectives add invmovevl dummy"
 					]
 				}
 			}
@@ -93,6 +88,8 @@
 					"on_entry": [
 						"/tag @s add attack",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/scoreboard players add @s[tag=attack] invmovevl 1",
+						"/execute @s[tag=attack] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMods/D §7(is_attacking)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}",
 						"@s scythe:reset"
 					]
 				}
