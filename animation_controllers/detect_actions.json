@@ -134,9 +134,10 @@
 						"default": "!variable.attack_time"
 					}],
 					"on_entry": [
+						"/tag @s add left",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"/scoreboard players add @s leftclick 1",
-						"/execute @s[tag=right,scores={right=2..}] ~~~ function checks/alerts/interactuse",
-						"/tag @s add left"
+						"/execute @s[tag=right,scores={right=2..}] ~~~ function checks/alerts/interactuse"
 					]
 				}
 			}
