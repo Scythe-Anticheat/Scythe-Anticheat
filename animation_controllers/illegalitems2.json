@@ -246,6 +246,18 @@
 						},
 						{
 							"deepslate_brick_double_slab": "query.get_equipped_item_name == 'deepslate_brick_double_slab' || query.get_equipped_item_name('off_hand') == 'deepslate_brick_double_slab'"
+						},
+						{
+							"movingblock": "query.skin_id == 3"
+						},
+						{
+							"invisiblebedrock": "query.skin_id == 4"
+						},
+						{
+							"pistonarmcollision": "query.skin_id == 5"
+						},
+						{
+							"stickypistonarmcollision": "query.skin_id == 6"
 						}
 					]
 				},
@@ -1138,6 +1150,50 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'deepslate_brick_double_slab' || query.get_equipped_item_name('off_hand') != 'deepslate_brick_double_slab'"
+					}]
+				},
+				"movingblock": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(movingblock)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
+						"@s scythe:reset"
+					],
+					"transitions": [{
+						"check_illegal": "query.skin_id != 3"
+					}]
+				},
+				"invisiblebedrock": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(invisiblebedrock)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
+						"@s scythe:reset"
+					],
+					"transitions": [{
+						"check_illegal": "query.skin_id != 4"
+					}]
+				},
+				"pistonarmcollision": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(pistonarmcollision)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
+						"@s scythe:reset"
+					],
+					"transitions": [{
+						"check_illegal": "query.skin_id != 5"
+					}]
+				},
+				"stickypistonarmcollision": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(stickypistonarmcollision)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
+						"@s scythe:reset"
+					],
+					"transitions": [{
+						"check_illegal": "query.skin_id != 6"
 					}]
 				}
 			}

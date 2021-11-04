@@ -43,6 +43,12 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (A) => Clears illegal items from everybody's inventories.<br />
       (B) => Clears dropped items.
       
+  InventoryMods-><br />
+      (A) => Checks if opens a chest while moving. (Work in Progress)<br />
+      (B) => Checks if opens a chest while swinging their hand.<br />
+      (C) => Checks if opens a chest while using an item.<br />
+      (D) => Checks if opens a chest while attacking.<br />
+      
   InteractUse -><br />
       (A) => Checks if a player is using an item white hitting/interacting with items
       
@@ -62,6 +68,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (B) => Checks if someone sends a message while sneaking. (Requires GameTest FrameWork)<br />
       (C) => Checks if someone sends a message while swinging their hand. (Requires GameTest FrameWork)<br />
       (D) => Checks if someone sends a message while using an item. (Requires GameTest FrameWork)<br />
+      (E) => Checks if someone sends a message while having a chest opened. (Requires GameTest FrameWork)<br />
 
   Reach -><br />
       (A) => Check if someone hits a player outside a 4.5 block radius. (Requires GameTest FrameWork)

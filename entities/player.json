@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "minecraft:player",
 			"is_spawnable": false,
-			"is_summonable": false,
+			"is_summonable": true,
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
@@ -24,7 +24,8 @@
 					"autototem",
 					"sprint",
 					"noswing",
-					"kill"
+					"kill",
+					"invmove"
 				]
 			},
 			"animations": {
@@ -44,6 +45,7 @@
 				"autototem": "controller.animation.autototem",
 				"sprint": "controller.animation.sprint",
 				"noswing": "controller.animation.noswing",
+				"invmove": "controller.animation.invmove",
 				"kill": "controller.animation.kill"
 			}
 		},
@@ -85,6 +87,31 @@
 			"scythe:onAttack": {
 				"minecraft:skin_id": {
 					"value": 1
+				}
+			},
+			"scythe:gui": {
+				"minecraft:skin_id": {
+					"value": 2
+				}
+			},
+			"scythe:movingBlock": {
+				"minecraft:skin_id": {
+					"value": 3
+				}
+			},
+			"scythe:invisiblebedrock": {
+				"minecraft:skin_id": {
+					"value": 4
+				}
+			},
+			"scythe:pistonarmcollision": {
+				"minecraft:skin_id": {
+					"value": 5
+				}
+			},
+			"scythe:stickypistonarmcollision": {
+				"minecraft:skin_id": {
+					"value": 6
 				}
 			},
 			"scythe:reset": {
@@ -241,30 +268,158 @@
 				}
 			},
 			"minecraft:scaffolding_climber": {},
-			"minecraft:environment_sensor": [{
-				"triggers": {
-					"filters": {
-						"all_of": [{
-								"test": "has_mob_effect",
-								"subject": "self",
-								"value": "bad_omen"
-							},
-							{
-								"test": "is_in_village",
+			"minecraft:environment_sensor": {
+				"triggers": [{
+						"filters": {
+							"all_of": [{
+									"test": "has_mob_effect",
+									"subject": "self",
+									"value": "bad_omen"
+								},
+								{
+									"test": "is_in_village",
+									"subject": "self",
+									"value": true
+
+								}
+							]
+						},
+						"event": "minecraft:trigger_raid"
+					},
+					{
+						"filters": {
+							"all_of": [{
+								"test": "has_container_open",
+								"operator": "==",
 								"subject": "self",
 								"value": true
-							}
-						]
+							}]
+						},
+						"event": "scythe:guiopen"
 					},
-					"event": "minecraft:trigger_raid"
-				}
-			}]
+					{
+						"filters": {
+							"all_of": [{
+								"test": "has_container_open",
+								"operator": "==",
+								"subject": "self",
+								"value": false
+							}]
+						},
+						"event": "scythe:reset"
+					},
+					{
+						"filters": {
+							"all_of": [{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:movingblock"
+							}]
+						},
+						"event": "scythe:movingBlock"
+					},
+					{
+						"filters": {
+							"all_of": [{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:invisiblebedrock"
+							}]
+						},
+						"event": "scythe:invisiblebedrock"
+					},
+					{
+						"filters": {
+							"all_of": [{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:pistonarmcollision"
+							}]
+						},
+						"event": "scythe:pistonarmcollision"
+					},
+					{
+						"filters": {
+							"all_of": [{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:stickypistonarmcollision"
+							}]
+						},
+						"event": "scythe:stickypistonarmcollision"
+					}
+				]
+			}
 		},
 		"events": {
 			"scythe:attacked": {
 				"add": {
 					"component_groups": [
 						"scythe:onAttack"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:reset"
+					]
+				}
+			},
+			"scythe:guiopen": {
+				"add": {
+					"component_groups": [
+						"scythe:gui"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:reset"
+					]
+				}
+			},
+			"scythe:movingBlock": {
+				"add": {
+					"component_groups": [
+						"scythe:movingBlock"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:reset"
+					]
+				}
+			},
+			"scythe:invisiblebedrock": {
+				"add": {
+					"component_groups": [
+						"scythe:invisiblebedrock"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:reset"
+					]
+				}
+			},
+			"scythe:pistonarmcollision": {
+				"add": {
+					"component_groups": [
+						"scythe:pistonarmcollision"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:reset"
+					]
+				}
+			},
+			"scythe:stickypistonarmcollision": {
+				"add": {
+					"component_groups": [
+						"scythe:stickypistonarmcollision"
 					]
 				},
 				"remove": {
@@ -281,7 +436,12 @@
 				},
 				"remove": {
 					"component_groups": [
-						"scythe:onAttack"
+						"scythe:onAttack",
+						"scythe:gui",
+						"scythe:movingBlock",
+						"scythe:invisiblebedrock",
+						"scythe:pistonarmcollision",
+						"scythe:stickypistonarmcollision"
 					]
 				}
 			},
