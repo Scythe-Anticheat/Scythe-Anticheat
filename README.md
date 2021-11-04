@@ -44,7 +44,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (B) => Clears dropped items.
       
   InventoryMods-><br />
-      (A) => Checks if opens a chest while moving. (Work in Progress)<br />
+      (A) => Checks if opens a chest while moving.<br />
       (B) => Checks if opens a chest while swinging their hand.<br />
       (C) => Checks if opens a chest while using an item.<br />
       (D) => Checks if opens a chest while attacking.<br />
