@@ -32,13 +32,19 @@ World.events.beforeChat.subscribe(msg => {
     // Spammer/C = checks if someone sends a message while swinging their hand
     try {
         Commands.run(`execute @a[name="${player.nameTag}",tag=left] ~~~ list`, World.getDimension("overworld"));
-        hacknotif(player, "SpammerA", "left", msg);
+        hacknotif(player, "SpammerC", "left", msg);
     } catch (error) {}
 
     // Spammer/D = checks if someone sends a message while using an item
     try {
         Commands.run(`execute @a[name="${player.nameTag}",tag=right] ~~~ list`, World.getDimension("overworld"));
-        hacknotif(player, "SpammerA", "right", msg);
+        hacknotif(player, "SpammerD", "right", msg);
+    } catch (error) {}
+
+    // Spammer/E = checks if someone sends a message while having a GUI open
+    try {
+        Commands.run(`execute @a[name="${player.nameTag}",tag=hasGUIopen] ~~~ list`, World.getDimension("overworld"));
+        hacknotif(player, "SpammerE", "has_gui_open", msg);
     } catch (error) {}
 });
 

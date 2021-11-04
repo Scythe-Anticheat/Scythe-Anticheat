@@ -26,6 +26,35 @@
 				}
 			}
 		},
+		"controller.animation.invmove": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"invmove": "query.skin_id == 2"
+					}],
+					"on_entry": [
+						"/tag @s remove hasGUIopen"
+					]
+				},
+				"invmove": {
+					"transitions": [{
+						"default": "query.skin_id != 2"
+					}],
+					"on_entry": [
+						"/tag @s add hasGUIopen",
+						"/scoreboard objectives add invmovevl dummy",
+						"/scoreboard players add @s[tag=moving,tag=ground,scores={move=1..}] invmovevl 1",
+						"/execute @s[tag=moving,tag=ground,scores={move=1..}] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMove/A §7(is_moving)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}",
+						"/scoreboard players add @s[tag=left] invmovevl 1",
+						"/execute @s[tag=left] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMove/B §7(is_hitting)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}",
+						"/scoreboard players add @s[tag=right] invmovevl 1",
+						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMove/C §7(is_using)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}",
+						"/scoreboard players add @s[tag=right] invmovevl 1",
+						"/execute @s[tag=attack] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMove/D §7(is_attacking)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}"
+					]
+				}
+			}
+		},
 		"controller.animation.sprint": {
 			"states": {
 				"default": {
@@ -56,7 +85,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove attack",
-						"/tellraw @a {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}",
 						"@s scythe:reset"
 					]
 				},
@@ -66,28 +95,8 @@
 					}],
 					"on_entry": [
 						"/tag @s add attack",
-						"/tellraw @a {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"@s scythe:reset"
-					]
-				}
-			}
-		},
-		"controller.animation.invmove": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"invmove": "query.skin_id == 2"
-					}],
-					"on_entry": [
-						"/say no GUI"
-					]
-				},
-				"invmove": {
-					"transitions": [{
-						"default": "query.skin_id != 2"
-					}],
-					"on_entry": [
-						"/say has GUI open"
 					]
 				}
 			}
