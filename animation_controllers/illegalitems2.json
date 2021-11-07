@@ -258,6 +258,12 @@
 						},
 						{
 							"stickypistonarmcollision": "query.skin_id == 6"
+						},
+						{
+							"npc_spawn_egg": "query.get_equipped_item_name == 'npc_spawn_egg' || query.get_equipped_item_name('off_hand') == 'npc_spawn_egg'"
+						},
+						{
+							"agent_spawn_egg": "query.get_equipped_item_name == 'agent_spawn_egg' || query.get_equipped_item_name('off_hand') == 'agent_spawn_egg'"
 						}
 					]
 				},
@@ -1194,6 +1200,28 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.skin_id != 6"
+					}]
+				},
+				"npc_spawn_egg": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(npc_spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'npc_spawn_egg' || query.get_equipped_item_name('off_hand') != 'npc_spawn_egg'"
+					}]
+				},
+				"agent_spawn_egg": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(agent_spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'agent_spawn_egg' || query.get_equipped_item_name('off_hand') != 'agent_spawn_egg'"
 					}]
 				}
 			}
