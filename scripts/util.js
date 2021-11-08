@@ -39,7 +39,8 @@ export function hacknotif(player, check, debug, message) {
         Commands.run(`scoreboard players add "${player.nameTag}" namespoofvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4NameSpoof/B. VL= "},{"score":{"name":"@s","objective":"namespoofvl"}}]}`, World.getDimension("overworld"));
     } else if (check === "CrasherA") {
-        Commands.run(`scoreboard players add "${player.nameTag}" crasher 1`, World.getDimension("overworld"));
+        Commands.run(`tp "${player.nameTag}" 0 100 0`, World.getDimension("overworld"));
+        Commands.run(`scoreboard players add "${player.nameTag}" crashervl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4Crasher/A. VL= "},{"score":{"name":"@s","objective":"crashervl"}}]}`, World.getDimension("overworld"));
     } else if (check === "FlyB") {
         Commands.run(`scoreboard players add "${player.nameTag}" flyvl 1`, World.getDimension("overworld"));
