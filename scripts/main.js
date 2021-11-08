@@ -76,9 +76,9 @@ World.events.tick.subscribe(() => {
         if (regex.test(player.name)) hacknotif(player, "NameSpoofB");
 
         // Crasher/A = invalid pos check
-        if (isNaN(player.location.x) || player.location.x > 30000000 ||
-            isNaN(player.location.y) || player.location.y > 30000000 ||
-            isNaN(player.location.z) || player.location.z > 30000000) hacknotif(player, "CrasherA");
+        if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||
+            isNaN(player.location.y) || Math.abs(Math.ceil(player.location.y)) > 30000000 ||
+            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) hacknotif(player, "CrasherA");
 
         // player position shit
         Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
