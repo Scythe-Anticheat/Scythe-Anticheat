@@ -2,7 +2,6 @@
   <b>Scythe AntiCheat - an AntiCheat designed for Minecraft Bedrock realms/worlds/servers.</b>
 
   <img src="https://raw.githubusercontent.com/MrDiamond64/image-assets/main/scythe%20pog%20anticheat.png" width="600" alt="Scythe AntiCheat" />
-  <br><img src="https://discordapp.com/api/guilds/879970475483217940/embed.png" alt="Discord server"><br/>
 </div>
 
 # How To Setup
