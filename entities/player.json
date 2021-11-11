@@ -94,24 +94,9 @@
 					"value": 2
 				}
 			},
-			"scythe:movingBlock": {
+			"scythe:illegal": {
 				"minecraft:skin_id": {
 					"value": 3
-				}
-			},
-			"scythe:invisiblebedrock": {
-				"minecraft:skin_id": {
-					"value": 4
-				}
-			},
-			"scythe:pistonarmcollision": {
-				"minecraft:skin_id": {
-					"value": 5
-				}
-			},
-			"scythe:stickypistonarmcollision": {
-				"minecraft:skin_id": {
-					"value": 6
 				}
 			},
 			"scythe:reset": {
@@ -310,47 +295,33 @@
 					},
 					{
 						"filters": {
-							"all_of": [{
+							"any_of": [{
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:movingblock"
-							}]
-						},
-						"event": "scythe:movingBlock"
-					},
-					{
-						"filters": {
-							"all_of": [{
+								},
+								{
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:invisiblebedrock"
-							}]
-						},
-						"event": "scythe:invisiblebedrock"
-					},
-					{
-						"filters": {
-							"all_of": [{
+								},
+								{
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:pistonarmcollision"
-							}]
-						},
-						"event": "scythe:pistonarmcollision"
-					},
-					{
-						"filters": {
-							"all_of": [{
+								},
+								{
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:stickypistonarmcollision"
-							}]
+								}
+							]
 						},
-						"event": "scythe:stickypistonarmcollision"
+						"event": "scythe:illegal"
 					}
 				]
 			}
@@ -380,46 +351,10 @@
 					]
 				}
 			},
-			"scythe:movingBlock": {
+			"scythe:illegal": {
 				"add": {
 					"component_groups": [
-						"scythe:movingBlock"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:reset"
-					]
-				}
-			},
-			"scythe:invisiblebedrock": {
-				"add": {
-					"component_groups": [
-						"scythe:invisiblebedrock"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:reset"
-					]
-				}
-			},
-			"scythe:pistonarmcollision": {
-				"add": {
-					"component_groups": [
-						"scythe:pistonarmcollision"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:reset"
-					]
-				}
-			},
-			"scythe:stickypistonarmcollision": {
-				"add": {
-					"component_groups": [
-						"scythe:stickypistonarmcollision"
+						"scythe:illegal"
 					]
 				},
 				"remove": {
@@ -438,10 +373,7 @@
 					"component_groups": [
 						"scythe:onAttack",
 						"scythe:gui",
-						"scythe:movingBlock",
-						"scythe:invisiblebedrock",
-						"scythe:pistonarmcollision",
-						"scythe:stickypistonarmcollision"
+						"scythe:illegal"
 					]
 				}
 			},
