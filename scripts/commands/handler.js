@@ -5,6 +5,7 @@ const Commands = Minecraft.Commands;
 
 // import all our commands
 import { kick } from "./moderation/kick.js";
+import { tag } from "./utility/tag.js";
 
 // to make eslint shut up 
 if (Commands !== World) console.log(`impossible`);
@@ -28,5 +29,7 @@ export function commandHandler(player, message) {
     // we could much easily get rid of the if/else chain only if we have npm support...
     if (commandName === "kick") {
         kick(message, args);
-    } 
+    } else if (commandName === "tag") {
+        tag(message, args);
+    }
 }

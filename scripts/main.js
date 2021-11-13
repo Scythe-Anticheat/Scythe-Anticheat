@@ -23,6 +23,12 @@ World.events.beforeChat.subscribe(msg => {
 
     commandHandler(player, msg);
 
+    // add's user custom tags to their messages
+    if (player.name !== player.nameTag) {
+        if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message}"}]}`, World.getDimension("nether"));
+        msg.cancel = true;
+    }
+
     // Spammer/A = checks if someone sends a message while moving and on ground
     try {
         Commands.run(`execute @a[name="${player.nameTag}",tag=moving,tag=ground] ~~~ list`, World.getDimension("overworld"));
@@ -58,18 +64,6 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {
-        // add staff tag to username
-        try {
-            Commands.run(`execute @a[name="${player.nameTag}",tag=op] ~~~ list`, World.getDimension("overworld"));
-            player.nameTag = `§r§6[§aStaff§6]§r ${player.name}`;
-        } catch (error) {
-            try {
-                Commands.run(`execute @a[name="${player.nameTag}",tag=op] ~~~ list`, World.getDimension("overworld"));
-            } catch (err) {
-                player.nameTag = player.name;
-            }
-        }
-
         // Namespoof/A = username length check.
         if (player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
 

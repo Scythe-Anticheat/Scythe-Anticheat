@@ -3,9 +3,6 @@ import * as Minecraft from "mojang-minecraft";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-// to make eslint shut up 
-if (Commands !== World) console.log(`impossible`);
-
 export function kick(message, args) {
     // validate that required params are defined
     if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? (./commands/kick.js:13)");
