@@ -8,6 +8,8 @@ import { kick } from "./moderation/kick.js";
 import { ban } from "./moderation/ban.js";
 import { notify } from "./utility/notify.js";
 import { tag } from "./utility/tag.js";
+import { vanish } from "./utility/vanish.js";
+import { fly } from "./utility/fly.js";
 
 // to make eslint shut up 
 if (Commands === World) console.log(`impossible`);
@@ -35,10 +37,12 @@ export function commandHandler(player, message, debug) {
         if (commandName === "kick") kick(message, args);
         else if (commandName === "tag") tag(message, args);
         else if (commandName === "ban") ban(message, args);
-        else if (commandName === "notify") notify(message, args);
+        else if (commandName === "notify") notify(message);
+        else if (commandName === "vanish" || commandName === "v") vanish(message);
+        else if (commandName === "fly") fly(message, args);
         else return;
     } catch (error) {
         console.warn(error);
-        return Commands.run(`tellraw "${player.name}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please read console output"}]}`, World.getDimension("overworld"));
+        return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please read console output"}]}`, World.getDimension("overworld"));
     }
 }
