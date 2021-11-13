@@ -21,7 +21,7 @@ World.events.beforeChat.subscribe(msg => {
     // BadPackets/2 = chat message length check
     if (message.length > 512 || message.length < 0) hacknotif(player, "BadPackets2", message.length, msg);
 
-    commandHandler(player, msg)
+    commandHandler(player, msg);
 
     // Spammer/A = checks if someone sends a message while moving and on ground
     try {
