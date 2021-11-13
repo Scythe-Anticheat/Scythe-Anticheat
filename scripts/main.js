@@ -1,5 +1,6 @@
 import * as Minecraft from "mojang-minecraft";
 import { hacknotif } from "./util.js";
+import { commandHandler } from "./commands/handler.js";
 
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
@@ -19,6 +20,8 @@ World.events.beforeChat.subscribe(msg => {
 
     // BadPackets/2 = chat message length check
     if (message.length > 512 || message.length < 0) hacknotif(player, "BadPackets2", message.length, msg);
+
+    commandHandler(player, msg)
 
     // Spammer/A = checks if someone sends a message while moving and on ground
     try {
@@ -91,7 +94,7 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 -0 ~+10 bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
@@ -105,6 +108,7 @@ World.events.tick.subscribe(() => {
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~+10 127 ~+10 bedrock`, World.getDimension("nether"));
         } catch (error) {}
+
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~+5 120 ~+5 air 0 replace bedrock`, World.getDimension("nether"));
         } catch (error) {}
