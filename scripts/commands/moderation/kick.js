@@ -1,3 +1,4 @@
+/* eslint no-var: "off"*/
 import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.World;
@@ -10,8 +11,10 @@ export function kick(message, args) {
 
     message.cancel = true;
 
+    if (args[1] === "-s") var isSilent = true;
+
     let player = message.sender;
-    let reason = args.slice(1).join(" ") || "No reason specified";
+    let reason = args.slice(1).join(" ").replace("-s", "") || "No reason specified";
 
     // make sure the user has permissions to run the command
     try {
@@ -21,12 +24,12 @@ export function kick(message, args) {
     }
 
     if (!args.length) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to kick!"}]}`, World.getDimension("overworld"));
-    /* eslint no-var: "off"*/
     for (let pl of World.getPlayers()) {
         if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase())) var member = pl.nameTag; 
     }
     try {
-        Commands.run(`event entity "${member}" scythe:kick`, World.getDimension("overworld"));
+        if (!isSilent) Commands.run(`kick "${member}" ${reason}`, World.getDimension("overworld"));
+            else Commands.run(`event entity "${member}" scythe:kick`, World.getDimension("overworld"));
     } catch (error) {
         console.warn(error);
         return Commands.run(`tellraw ${player.nameTag} {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`, World.getDimension("overworld"));
