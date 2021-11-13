@@ -4,18 +4,15 @@ import * as Minecraft from "mojang-minecraft";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-export function kick(message, args) {
+export function ban(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? (./commands/moderation/kick.js:9)");
+    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? ./commands/moderation/ban.js:9)");
     if (!args) return console.warn("Error: ${args} isnt defined. Did you forget to pass it? (./commands/moderation/kick.js:10)");
 
     message.cancel = true;
 
-    if (args[1] === "-s") var isSilent = true;
-        else isSilent = false;
-
     let player = message.sender;
-    let reason = args.slice(1).join(" ").replace("-s", "") || "No reason specified";
+    let reason = args.slice(1).join(" ") || "No reason specified";
 
     // make sure the user has permissions to run the command
     try {
@@ -24,7 +21,7 @@ export function kick(message, args) {
         return Commands.run(`tellraw ${player.nameTag} {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));
     }
 
-    if (!args.length) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to kick!"}]}`, World.getDimension("overworld"));
+    if (!args.length) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to ban!"}]}`, World.getDimension("overworld"));
     
     // try to find the player requested
     for (let pl of World.getPlayers()) {
@@ -32,15 +29,19 @@ export function kick(message, args) {
     }
     if (!member) return Commands.run(`tellraw ${player.nameTag} {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`, World.getDimension("overworld"));
 
-    // make sure they dont kick themselves
-    if (member === player.nameTag) return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot kick yourself."}]}`, World.getDimension("overworld"));
+    // make sure they dont ban themselves
+    if (member === player.nameTag) return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban yourself."}]}`, World.getDimension("overworld"));
+
+    // make sure our ban objective is created
+    try {
+        Commands.run(`scoreboard objectives add isBanned dummy`, World.getDimension("overworld"));
+    } catch(error) {}
 
     try {
-        if (!isSilent) Commands.run(`kick "${member}" ${reason}`, World.getDimension("overworld"));
-            else Commands.run(`event entity "${member}" scythe:kick`, World.getDimension("overworld"));
+        Commands.run(`scoreboard players set ${member} isBanned 1`, World.getDimension("overworld"));
     } catch (error) {
         console.warn(error);
         return Commands.run(`tellraw ${player.nameTag} {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to ban that player! Error: ${error}"}]}`, World.getDimension("overworld"));
     }
-    return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${member} (Silent:${isSilent}). Reason: ${reason}"}]}`, World.getDimension("overworld"));
+    return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member}. Reason: ${reason}"}]}`, World.getDimension("overworld"));
 }

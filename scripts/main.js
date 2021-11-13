@@ -21,7 +21,7 @@ World.events.beforeChat.subscribe(msg => {
     // BadPackets/2 = chat message length check
     if (message.length > 512 || message.length < 0) hacknotif(player, "BadPackets2", message.length, msg);
 
-    commandHandler(player, msg);
+    commandHandler(player, msg, debug);
 
     // add's user custom tags to their messages
     if (player.name !== player.nameTag) {
