@@ -8,8 +8,8 @@
 					"on_entry": [
 						"/execute @p ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(command_block_minecart)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
 						"/scoreboard players add @p cbevl 1",
-						"fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace bee_nest -1",
-						"fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace beehive -1",
+						"/fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace bee_nest -1",
+						"/fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace beehive -1",
 						"/kill @e[type=command_block_minecart]"
 					]
 				}
@@ -22,8 +22,8 @@
 					"on_entry": [
 						"/execute @p[scores={npc=..0}] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(npc)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
 						"/scoreboard players add @p[scores={npc=..0}] cbevl 1",
-						"fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace bee_nest -1",
-						"fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace beehive -1",
+						"/fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace bee_nest -1",
+						"/fill ~+13 ~+5 ~+13 ~-13 ~-5 ~-13 air 0 replace beehive -1",
 						"/execute @r[scores={npc=..0}] ~~~ kill @e[type=npc]"
 					]
 				}
