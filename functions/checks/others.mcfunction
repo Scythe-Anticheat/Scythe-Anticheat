@@ -10,8 +10,8 @@ title @s[tag=vanish] actionbar §aYOU ARE VANISHED!
 
 tp @e[type=xp_orb] @p[r=25]
 
-# If the player is under y= -40 this teleports them to y= -40
-tp @s[y=-41,dy=-80] ~ -40 ~
+# If the player is under y=-104 this teleports them back to y=-104
+tp @s[y=-105,dy=-205] ~ -104 ~
 
 # optional features
 
