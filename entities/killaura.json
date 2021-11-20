@@ -8,60 +8,21 @@
 			"is_experimental": false
 		},
 		"component_groups": {
-			"minecraft:add_bad_omen": {
-				"minecraft:spell_effects": {
-					"add_effects": [{
-						"effect": "bad_omen",
-						"duration": 6000,
-						"display_on_screen_animation": true
-					}]
-				},
-				"minecraft:timer": {
-					"time": [
-						0,
-						0
-					],
-					"looping": false,
-					"time_down_event": {
-						"event": "minecraft:clear_add_bad_omen",
-						"target": "self"
-					}
-				}
-			},
-			"minecraft:clear_bad_omen_spell_effect": {
-				"minecraft:spell_effects": {}
-			},
-			"minecraft:raid_trigger": {
-				"minecraft:raid_trigger": {
-					"triggered_event": {
-						"event": "minecraft:remove_raid_trigger",
-						"target": "self"
-					}
-				},
-				"minecraft:spell_effects": {
-					"remove_effects": "bad_omen"
+			"scythe:despawn": {
+				"minecraft:instant_despawn": {
+					"remove_child_entities": true
 				}
 			}
 		},
 		"components": {
-			"minecraft:experience_reward": {
-				"on_death": "0"
-			},
 			"minecraft:type_family": {
 				"family": [
 					"player"
 				]
 			},
-			"minecraft:loot": {
-				"table": "loot_tables/empty.json"
-			},
 			"minecraft:collision_box": {
 				"width": 0.6,
 				"height": 1.8
-			},
-			"minecraft:can_climb": {},
-			"minecraft:attack": {
-				"damage": 0
 			},
 			"minecraft:fire_immune": {},
 			"minecraft:breathable": {
@@ -74,18 +35,8 @@
 				"suffocate_time": -20,
 				"total_supply": 15
 			},
-			"minecraft:player.saturation": {
-				"value": 1
-			},
-			"minecraft:despawn": {
-				"despawn_from_simulation_edge": true
-			},
 			"minecraft:knockback_resistance": {
 				"value": 1.0
-			},
-			"minecraft:player.exhaustion": {
-				"value": 0,
-				"max": 4
 			},
 			"minecraft:player.level": {
 				"value": 0,
@@ -102,26 +53,16 @@
 			"minecraft:health": {
 				"value": 1,
 				"max": 2
-			},
-			"minecraft:environment_sensor": {
-				"triggers": {
-					"filters": {
-						"all_of": [{
-								"test": "has_mob_effect",
-								"subject": "self",
-								"value": "bad_omen"
-							},
-							{
-								"test": "is_in_village",
-								"subject": "self",
-								"value": true
-							}
-						]
-					},
-					"event": "minecraft:trigger_raid"
-				}
 			}
 		},
-		"events": {}
+		"events": {
+			"scythe:despawn": {
+				"add": {
+					"component_groups": [
+						"scythe:despawn"
+					]
+				}
+			}
+		}
 	}
 }
