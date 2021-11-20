@@ -67,10 +67,9 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       
   Spammer -><br />
       (A) => Checks if someone sends a message while moving. (Requires GameTest FrameWork)<br />
-      (B) => Checks if someone sends a message while sneaking. (Requires GameTest FrameWork)<br />
-      (C) => Checks if someone sends a message while swinging their hand. (Requires GameTest FrameWork)<br />
-      (D) => Checks if someone sends a message while using an item. (Requires GameTest FrameWork)<br />
-      (E) => Checks if someone sends a message while having a chest opened. (Requires GameTest FrameWork)<br />
+      (B) => Checks if someone sends a message while swinging their hand. (Requires GameTest FrameWork)<br />
+      (C) => Checks if someone sends a message while using an item. (Requires GameTest FrameWork)<br />
+      (D) => Checks if someone sends a message while having a chest opened. (Requires GameTest FrameWork)<br />
 
   Reach -><br />
       (A) => Check if someone hits a player outside a 4.5 block radius. (Requires GameTest FrameWork)
