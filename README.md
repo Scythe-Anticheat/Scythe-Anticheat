@@ -19,7 +19,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   AutoTotem -><br />
       (A) => Checks if a player equips a totem while moving<br />
       (B) => Checks if a player equips a totem while using an item<br />
-      (C) => Checks if a player equips a totem while sneaking<br />
+      (C) => Checks if a player equips a totem while swinging their hand<br />
       
   BadPackets -><br />
       (1) => Checks if the players yaw/pitch is greater than normal<br />

@@ -5,11 +5,11 @@
 			"timeline": {
 				"0.0": [
 					"/scoreboard players add scythe:config npc 0",
-                    "/scoreboard players operation @s npc = scythe:config npc",
-                    "/scoreboard players operation @s npc = scythe:config npc",
-                    "/scoreboard players operation @s commandblocks = scythe:config commandblocks",
-                    "/scoreboard players operation @s frostwalker = scythe:config frostwalker",
-                    "/scoreboard players operation @s worldborder = scythe:config worldborder",
+					"/scoreboard players operation @s npc = scythe:config npc",
+					"/scoreboard players operation @s npc = scythe:config npc",
+					"/scoreboard players operation @s commandblocks = scythe:config commandblocks",
+					"/scoreboard players operation @s frostwalker = scythe:config frostwalker",
+					"/scoreboard players operation @s worldborder = scythe:config worldborder",
 					"/scoreboard players operation @s gma = scythe:config gma",
 					"/scoreboard players operation @s gmc = scythe:config gmc",
 					"/scoreboard players operation @s gms = scythe:config gms",

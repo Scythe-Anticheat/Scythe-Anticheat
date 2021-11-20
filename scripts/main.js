@@ -31,7 +31,7 @@ World.events.beforeChat.subscribe(msg => {
 
     // Spammer/A = checks if someone sends a message while moving and on ground
     try {
-        Commands.run(`execute @a[name="${player.nameTag}",tag=moving,tag=ground] ~~~ list`, World.getDimension("overworld"));
+        Commands.run(`execute @a[name="${player.nameTag}",tag=moving,tag=ground,tag=!jump] ~~~ list`, World.getDimension("overworld"));
         hacknotif(player, "SpammerA", "isMoving", msg);
     } catch (error) {}
 
