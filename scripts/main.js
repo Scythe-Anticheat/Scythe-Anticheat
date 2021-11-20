@@ -62,7 +62,7 @@ World.events.tick.subscribe(() => {
     // run as each player
     for (let player of World.getPlayers()) {
         // Namespoof/A = username length check.
-        if (player.name.lenght < 3 || player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
+        if (player.name.length < 3 || player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
 
         // Namespoof/B = regex check
         const regex = /[^A-Za-z0-9_ ]/;

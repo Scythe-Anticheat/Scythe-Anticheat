@@ -28,8 +28,7 @@ execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,
 
 execute @e[type=scythe:speedtest] ~~~ execute @a[m=!c,tag=speedtest2,tag=ground,tag=!NoSpeed,tag=!riding,tag=!gliding,tag=!dead] ~~~ tp @s[y=0,dy=256] @e[type=scythe:speedtest] true
 
-execute @s[tag=speedtest2,scores={timer=10..}] ~~~ tp @e[type=scythe:speedtest] 999 -200 999
-execute @s[tag=speedtest2,scores={timer=10..}] ~~~ kill @e[type=scythe:speedtest]
+execute @s[tag=speedtest2,scores={timer=10..}] ~~~ event entity @e[type=scythe:speedtest] scythe:despawn
 tag @s[tag=speedtest2,scores={timer=..10}] remove NoSpeed
 tag @s[tag=speedtest2,scores={timer=10..}] remove speedtest2
 

@@ -51,8 +51,8 @@
 				"allow_name_tag_renaming": false
 			},
 			"minecraft:health": {
-				"value": 1,
-				"max": 2
+				"value": 999,
+				"max": 999
 			}
 		},
 		"events": {
