@@ -1,11 +1,7 @@
 # Anti-Command Block Exploit
 
 scoreboard objectives add cbevl dummy
-
 scoreboard objectives add npc dummy
-scoreboard players add scythe:config npc 0
-
-scoreboard players operation @s npc = scythe:config npc
 
 # cant kill @e[type=moving_block] for whatever reason
 

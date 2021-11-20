@@ -1189,7 +1189,7 @@
 					"on_entry": [
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(other;movingblock,pistonarmcollision,stickypistonarmcollison,invisiblebedrock)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(other)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
 						"@s scythe:reset"
 					],
 					"transitions": [{

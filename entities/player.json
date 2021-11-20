@@ -9,6 +9,7 @@
 			"scripts": {
 				"animate": [
 					"onTick",
+					"onJoin",
 					"glide",
 					"levitate",
 					"ground",
@@ -30,6 +31,7 @@
 			},
 			"animations": {
 				"onTick": "animation.onTick",
+				"onJoin": "animation.onJoin",
 				"glide": "controller.animation.glide",
 				"levitate": "controller.animation.levitate",
 				"ground": "controller.animation.ground",
@@ -318,6 +320,12 @@
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:stickypistonarmcollision"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:tripwire"
 								}
 							]
 						},

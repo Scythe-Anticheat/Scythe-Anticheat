@@ -24,6 +24,9 @@ export function hacknotif(player, check, debug, message) {
     try {
         Commands.run(`scoreboard objectives add spammervl dummy`, World.getDimension("overworld"));
     } catch (err) {}
+    try {
+        Commands.run(`scoreboard objectives add flyvl dummy`, World.getDimension("overworld"));
+    } catch (err) {}
 
     if (message) message.cancel = true;
 

@@ -7,7 +7,6 @@ function checks/angle
 function checks/ban
 function checks/cbe
 function checks/epearlglitching
-function checks/fly
 function checks/gamemode
 function checks/illegalitems
 function checks/jesus

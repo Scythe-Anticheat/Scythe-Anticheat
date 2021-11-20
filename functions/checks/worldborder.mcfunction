@@ -1,5 +1,4 @@
 # requires gametest for player position stuff to work
-scoreboard players operation @s worldborder = scythe:config worldborder
 
 # 1k
 execute @s[scores={worldborder=1}] ~~~ tag @s[scores={xPos=1000..}] add worldborder
@@ -38,7 +37,6 @@ execute @s[scores={worldborder=6..}] ~~~ tag @s[scores={xPos=..-100000}] add wor
 execute @s[scores={worldborder=6..}] ~~~ tag @s[scores={zPos=..-100000}] add worldborder
 
 tellraw @s[tag=worldborder] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"§4§lHey!§r You have reached the world border."}]}
-tp @s[tag=worldborder] 0 500 0
 effect @s[tag=worldborder] slow_falling 30 1 true
 spreadplayers 0 0 1 999 @s[tag=worldborder]
 

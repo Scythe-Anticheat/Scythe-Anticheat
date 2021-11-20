@@ -2,10 +2,6 @@
 
 scoreboard objectives add gamemodevl dummy
 
-scoreboard players operation @s gma = scythe:config gma
-scoreboard players operation @s gmc = scythe:config gmc
-scoreboard players operation @s gms = scythe:config gms
-
 # adventure mode check
 scoreboard players add @s[tag=!op,m=a,scores={gma=..0}] gamemodevl 0
 execute @s[tag=!op,m=a,scores={gma=..0}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has tried to §4change their gamemode §7(Gamemode_A)§4 . VL= "},{"score":{"name":"@s","objective":"gamemodevl"}}]}

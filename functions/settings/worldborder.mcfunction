@@ -32,5 +32,3 @@ execute @s[type=player,tag=op,scores={worldborder=5}] ~~~ tellraw @a[tag=notify]
 # disable
 execute @s[type=player,tag=op,scores={worldborder=6..}] ~~~ scoreboard players set scythe:config worldborder 0
 execute @s[type=player,tag=op,scores={worldborder=6..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has §4disabled§r the worldborder!"}]}
-
-scoreboard players operation @s worldborder = scythe:config worldborder
