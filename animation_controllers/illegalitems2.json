@@ -257,6 +257,12 @@
 							"rapid_fertilizer": "query.get_equipped_item_name == 'rapid_fertilizer' || query.get_equipped_item_name('off_hand') == 'rapid_fertilizer'"
 						},
 						{
+							"hard_glass": "query.get_equipped_item_name == 'hard_glass' || query.get_equipped_item_name('off_hand') == 'hard_glass'"
+						},
+						{
+							"hard_glass_pane": "query.get_equipped_item_name == 'hard_glass_pane' || query.get_equipped_item_name('off_hand') == 'hard_glass_pane'"
+						},
+						{
 							"other": "query.skin_id == 3"
 						}
 					]
@@ -1183,6 +1189,28 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'rapid_fertilizer' || query.get_equipped_item_name('off_hand') != 'rapid_fertilizer'"
+					}]
+				},
+				"hard_glass": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'hard_glass' || query.get_equipped_item_name('off_hand') != 'hard_glass'"
+					}]
+				},
+				"hard_glass_pane": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'hard_glass_pane' || query.get_equipped_item_name('off_hand') != 'hard_glass_pane'"
 					}]
 				},
 				"other": {

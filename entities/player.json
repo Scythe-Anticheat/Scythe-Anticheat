@@ -326,6 +326,12 @@
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:tripwire"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:brewingstandblock"
 								}
 							]
 						},

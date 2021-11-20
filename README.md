@@ -22,7 +22,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (C) => Checks if a player equips a totem while swinging their hand<br />
       
   BadPackets -><br />
-      (1) => Checks if the players yaw/pitch is greater than normal<br />
+      (1) => Checks for invalid player head rotations<br />
       (2) => Chat message length check (Requires GameTest Framework)
    
   Command Block Exploit -><br />
