@@ -115,7 +115,7 @@ World.events.tick.subscribe(() => {
 
         // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
 
-        // reach
+        // reach/a
         try {                                                                   // we could use r=4 but that wont account for lag
             Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ execute @p[name=!"${player.nameTag}",r=4.5] ~~~ list`, World.getDimension("overworld"));
         } catch (error) {

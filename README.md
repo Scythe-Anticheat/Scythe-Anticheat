@@ -17,23 +17,23 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
 # List of hacks detected by Scythe AntiCheat
 
   AutoTotem -><br />
-      (A) = Checks if a player equips a totem while moving<br />
-      (B) = Checks if a player equips a totem while using an item<br />
-      (C) = Checks if a player equips a totem while sneaking<br />
+      (A) => Checks if a player equips a totem while moving<br />
+      (B) => Checks if a player equips a totem while using an item<br />
+      (C) => Checks if a player equips a totem while sneaking<br />
       
   BadPackets -><br />
-      (1) = Checks if the players yaw/pitch is greater than normal<br />
-      (2) = Chat message length check (Requires GameTest Framework)
+      (1) => Checks if the players yaw/pitch is greater than normal<br />
+      (2) => Chat message length check (Requires GameTest Framework)
    
   Command Block Exploit -><br />
-      (A) = Clears animal buckets/beehives<br />
-      (B) = Replaces beehives with air<br />
-      (C) = Kill all command block minecarts<br />
-      (D) = Kills all NPC's (to disable use /function settings/npc)<br />
-      (E) = Instant despawn time for command block minecarts
+      (A) => Clears animal buckets/beehives<br />
+      (B) => Replaces beehives with air<br />
+      (C) => Kill all command block minecarts<br />
+      (D) => Kills all NPC's (to disable use /function settings/npc)<br />
+      (E) => Instant despawn time for command block minecarts
       
   Crasher -><br />
-      (A) = Checks if a player's position is invalid. (Requires GameTest FrameWork)<br />
+      (A) => Checks if a player's position is invalid. (Requires GameTest FrameWork)<br />
  
   Ender Pearl Glitching -><br />
       (A) => Checks if an ender pearl is inside a climbable block.

@@ -251,6 +251,12 @@
 							"agent_spawn_egg": "query.get_equipped_item_name == 'agent_spawn_egg' || query.get_equipped_item_name('off_hand') == 'agent_spawn_egg'"
 						},
 						{
+							"client_request_placeholder_block": "query.get_equipped_item_name == 'client_request_placeholder_block' || query.get_equipped_item_name('off_hand') == 'client_request_placeholder_block'"
+						},
+						{
+							"rapid_fertilizer": "query.get_equipped_item_name == 'rapid_fertilizer' || query.get_equipped_item_name('off_hand') == 'rapid_fertilizer'"
+						},
+						{
 							"other": "query.skin_id == 3"
 						}
 					]
@@ -1155,6 +1161,28 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'agent_spawn_egg' || query.get_equipped_item_name('off_hand') != 'agent_spawn_egg'"
+					}]
+				},
+				"client_request_placeholder_block": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(client_request_placeholder_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'client_request_placeholder_block' || query.get_equipped_item_name('off_hand') != 'client_request_placeholder_block'"
+					}]
+				},
+				"rapid_fertilizer": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(rapid_fertilizer)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'rapid_fertilizer' || query.get_equipped_item_name('off_hand') != 'rapid_fertilizer'"
 					}]
 				},
 				"other": {
