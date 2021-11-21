@@ -27,3 +27,17 @@ execute @s[scores={invmovevl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text
 execute @s[tag=freeze] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" is currently frozen by a staff member"}]}
 execute @s[tag=vanish] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" is currently in vanish"}]}
 execute @s[tag=flying] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has fly mode enabled"}]}
+
+tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"text":" ----- DEBUG STATS -----"}]}
+
+execute @s[tag=ground] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" OnGround: §atrue"}]}
+execute @s[tag=jump] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isJumping: §atrue"}]}
+execute @s[tag=sneak] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isSneaking: §atrue"}]}
+execute @s[tag=gliding] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isGliding: §atrue"}]}
+execute @s[tag=levitating] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isLevitating: §atrue"}]}
+execute @s[tag=riding] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isRiding: §atrue"}]}
+execute @s[tag=left] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isSwinging: §atrue"}]}
+execute @s[tag=right] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isUsing: §atrue"}]}
+execute @s[tag=moving] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isMoving: §atrue"}]}
+execute @s[tag=hasGUIopen] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" hasGUIopen: §atrue"}]}
+execute @s[tag=sprint] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isSprinting: §atrue"}]}
