@@ -80,9 +80,6 @@ World.events.tick.subscribe(() => {
         Commands.run(`scoreboard players set "${player.nameTag}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
 
         // bedrock validation
-        try {
-            Commands.run(`scoreboard players operation "${player.nameTag}" bedrock = scythe:config bedrock`, World.getDimension("overworld"));
-        } catch (error) {}
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~+10 0 ~+10 bedrock`, World.getDimension("overworld"));

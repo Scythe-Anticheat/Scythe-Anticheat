@@ -30,7 +30,7 @@ execute @s[tag=flying] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§
 
 tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"text":" ----- DEBUG STATS -----"}]}
 
-execute @s[tag=ground] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" OnGround: §atrue"}]}
+execute @s[tag=ground] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" onGround: §atrue"}]}
 execute @s[tag=jump] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isJumping: §atrue"}]}
 execute @s[tag=sneak] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isSneaking: §atrue"}]}
 execute @s[tag=gliding] ~~~ tellraw @a[tag=notify,tag=debug] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" isGliding: §atrue"}]}

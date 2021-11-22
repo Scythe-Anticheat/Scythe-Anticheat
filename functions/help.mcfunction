@@ -13,9 +13,9 @@ tellraw @s {"rawtext":[{"text":"§l/function settings/modules - View all enabled
 tellraw @s {"rawtext":[{"text":"/function settings/allowGMA - Enables/disables gamemode 2 to be used."}]}
 tellraw @s {"rawtext":[{"text":"/function settings/allowGMC - Enables/disables gamemode 1 to be used."}]}
 tellraw @s {"rawtext":[{"text":"/function settings/allowGMS - Enables/disables gamemode 0 to be used."}]}
-tellraw @s {"rawtext":[{"text":"/function settings/antiCommandBlocks - Enables/disables clearing nearby command blocks."}]}
+tellraw @s {"rawtext":[{"text":"/function settings/removeCommandBlcoks - Enables/disables clearing nearby command blocks."}]}
 tellraw @s {"rawtext":[{"text":"/function settings/bedrockvalidate - Enables/disables validation of bedrock (Such as in the nether roof or at y=0)."}]}
-tellraw @s {"rawtext":[{"text":"/function settings/noCMD - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
+tellraw @s {"rawtext":[{"text":"/function settings/overideCommandBlocksEnabled - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
 tellraw @s {"rawtext":[{"text":"/function settings/nofrostwalker - Enables/disables preventing frost walker. High levels of frost walker can crash realms."}]}
 tellraw @s {"rawtext":[{"text":"/function settings/npc - Enables/disables Killing all NPC's."}]}
 tellraw @s {"rawtext":[{"text":"/function settings/worldborder - Enables/disables the world border and its size."}]}

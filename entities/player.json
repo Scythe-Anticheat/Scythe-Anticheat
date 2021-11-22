@@ -47,8 +47,8 @@
 				"autototem": "controller.animation.autototem",
 				"sprint": "controller.animation.sprint",
 				"noswing": "controller.animation.noswing",
-				"invmove": "controller.animation.invmove",
-				"kill": "controller.animation.kill"
+				"kill": "controller.animation.kill",
+				"invmove": "controller.animation.invmove"
 			}
 		},
 		"component_groups": {

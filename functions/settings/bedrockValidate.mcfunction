@@ -12,3 +12,5 @@ execute @s[type=player,tag=op,scores={bedrock=..0}] ~~~ tellraw @a[tag=op] {"raw
 # deny
 execute @s[type=player,tag=op,scores={bedrock=1..}] ~~~ scoreboard players set scythe:config bedrock 0
 execute @s[type=player,tag=op,scores={bedrock=1..}] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has disabled §4BedrockValidate!"}]}
+
+scoreboard players operation @s bedrock = scythe:config bedrock
