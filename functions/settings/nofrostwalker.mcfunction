@@ -13,4 +13,4 @@ execute @s[type=player,tag=op,scores={frostwalker=..0}] ~~~ tellraw @a[tag=op] {
 execute @s[type=player,tag=op,scores={frostwalker=1..}] ~~~ scoreboard players set scythe:config frostwalker 0
 execute @s[type=player,tag=op,scores={frostwalker=1..}] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has disabled §4No Frost Walker!"}]}
 
-scoreboard players operation @s frostwalker = scythe:config frostwalker
+scoreboard players operation @a frostwalker = scythe:config frostwalker

@@ -17,4 +17,4 @@ execute @s[type=player,tag=op,scores={cmds=1}] ~~~ tellraw @a[tag=op] {"rawtext"
 execute @s[type=player,tag=op,scores={cmds=2..}] ~~~ scoreboard players set scythe:config cmds 0
 execute @s[type=player,tag=op,scores={cmds=2..}] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has §etoggled§r Force-CommandBlocksEnabled!"}]}
 
-scoreboard players operation @s cmds = scythe:config cmds
+scoreboard players operation @a cmds = scythe:config cmds
