@@ -6,6 +6,8 @@ const Commands = Minecraft.Commands;
 // import all our commands
 import { kick } from "./moderation/kick.js";
 import { ban } from "./moderation/ban.js";
+import { mute } from "./moderation/mute.js";
+import { unmute } from "./moderation/unmute.js";
 import { notify } from "./utility/notify.js";
 import { tag } from "./utility/tag.js";
 import { vanish } from "./utility/vanish.js";
@@ -40,6 +42,8 @@ export function commandHandler(player, message, debug) {
         else if (commandName === "notify") notify(message);
         else if (commandName === "vanish" || commandName === "v") vanish(message);
         else if (commandName === "fly") fly(message, args);
+        else if (commandName === "mute") mute(message, args);
+        else if (commandName === "unmute") unmute(message, args);
         else return;
     } catch (error) {
         console.warn(error);
