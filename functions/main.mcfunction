@@ -15,5 +15,5 @@ function checks/phase
 
 # optional checks.
 execute @s[scores={commandblocks=1..}] ~~~ function checks/nocommandblocks
-execute @s[tag=!op,scores={frostwalker=1..}] ~~~ function checks/nofrostwalker
+replaceitem entity @s[tag=!op,scores={frostwalker=1..}] slot.armor.feet 0 leather_boots 1 0 {"item_lock": {"mode": "lock_in_slot"},"keep_on_death":{}}
 execute @s[scores={worldborder=1..}] ~~~ function checks/worldborder
