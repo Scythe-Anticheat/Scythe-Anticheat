@@ -15,4 +15,4 @@ clear @a purpur_block 3
 execute @e[type=item,c=1] ~~~ function checks/assets/cleardropped
 
 # get rid of illegal blocks already placed
-fill ~+10 ~+3 ~+10 ~-10 ~-3 ~-10 air 0 replace unknown -1
+fill ~10 ~3 ~10 ~-10 ~-3 ~-10 air 0 replace unknown -1

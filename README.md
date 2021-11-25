@@ -116,4 +116,3 @@ Using its code (with permission)<br />
 Steal code<br />
 Claim it as your own<br />
 Sell it<br />
-Redistribute it without proper credit.
