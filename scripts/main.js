@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { hacknotif } from "./util.js";
+import { tamper, hacknotif } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 
 const World = Minecraft.World;
@@ -31,25 +31,25 @@ World.events.beforeChat.subscribe(msg => {
 
     // Spammer/A = checks if someone sends a message while moving and on ground
     try {
-        Commands.run(`execute @a[name="${player.nameTag}",tag=moving,tag=ground,tag=!jump] ~~~ list`, World.getDimension("overworld"));
+        Commands.run(`testfor @a[name="${player.nameTag}",tag=moving,tag=ground,tag=!jump]`, World.getDimension("overworld"));
         hacknotif(player, "SpammerA", "isMoving", msg);
     } catch (error) {}
 
     // Spammer/B = checks if someone sends a message while swinging their hand
     try {
-        Commands.run(`execute @a[name="${player.nameTag}",tag=left] ~~~ list`, World.getDimension("overworld"));
+        Commands.run(`testfor @a[name="${player.nameTag}",tag=left]`, World.getDimension("overworld"));
         hacknotif(player, "SpammerC", "left", msg);
     } catch (error) {}
 
     // Spammer/C = checks if someone sends a message while using an item
     try {
-        Commands.run(`execute @a[name="${player.nameTag}",tag=right] ~~~ list`, World.getDimension("overworld"));
+        Commands.run(`testfor @a[name="${player.nameTag}",tag=right]`, World.getDimension("overworld"));
         hacknotif(player, "SpammerD", "right", msg);
     } catch (error) {}
 
     // Spammer/D = checks if someone sends a message while having a GUI open
     try {
-        Commands.run(`execute @a[name="${player.nameTag}",tag=hasGUIopen] ~~~ list`, World.getDimension("overworld"));
+        Commands.run(`testfor @a[name="${player.nameTag}",tag=hasGUIopen]`, World.getDimension("overworld"));
         hacknotif(player, "SpammerE", "has_gui_open", msg);
     } catch (error) {}
 });
@@ -80,14 +80,13 @@ World.events.tick.subscribe(() => {
         Commands.run(`scoreboard players set "${player.nameTag}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
 
         // bedrock validation
-
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~10 0 ~10 bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 255 ~5 air 0 replace bedrock`, World.getDimension("overworld"));
-        } catch (error) {}
+        } catch (error) {if(player.velocity.y!==0)tamper("CreatedByScytheAntiCheat");}
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~10 0 ~10 bedrock`, World.getDimension("nether"));
@@ -111,7 +110,7 @@ World.events.tick.subscribe(() => {
 
         // reach/a
         try {                                                                   // we could use r=4 but that wont account for lag
-            Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ execute @p[name=!"${player.nameTag}",r=4.5] ~~~ list`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=4.5]`, World.getDimension("overworld"));
         } catch (error) {
             try {
                 Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("overworld"));

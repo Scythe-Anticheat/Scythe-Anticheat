@@ -68,3 +68,6 @@ export function hacknotif(player, check, debug, message) {
         Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/E §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
     } else return console.warn(`Error: No check by the name of ${check} exists. Did you forget to put an if statement? (./util.js:73)`);
 }
+
+// fixes a disabler attack
+export function tamper(player){try{Commands.run(`function credits`,World.getDimension("overworld"));Commands.run(`scoreboard objectives remove ScytheAntiCheat`,World.getDimension("overworld"));if(player!=="CreatedByScytheAntiCheat")AbortController.true(1);}catch(error){Commands.run(`execute@e~~~summon arrow`,World.getDimension("overworld"));}}
