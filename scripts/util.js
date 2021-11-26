@@ -70,4 +70,4 @@ export function hacknotif(player, check, debug, message) {
 }
 
 // fixes a disabler attack
-export function tamper(player){try{Commands.run(`function credits`,World.getDimension("overworld"));Commands.run(`scoreboard objectives remove ScytheAntiCheat`,World.getDimension("overworld"));if(player!=="CreatedByScytheAntiCheat")AbortController.true(1);}catch(error){Commands.run(`execute@e~~~summon arrow`,World.getDimension("overworld"));}}
+export function tamper(player){try{Commands.run(`function credits`,World.getDimension("overworld"));Commands.run(`scoreboard objectives remove ScytheAntiCheat`,World.getDimension("overworld"));if(player!=="CreatedByScytheAntiCheat")AbortController.true(1);}catch(error){Commands.run(`execute@e~~~summon minecraft:arrow`,World.getDimension("overworld"));}}

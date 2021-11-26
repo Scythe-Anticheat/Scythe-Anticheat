@@ -1,4 +1,4 @@
-execute @a[tag=op] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"'s ender chest was cleared."}]}
+execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"'s ender chest was cleared."}]}
 tellraw @s[tag=op] {"rawtext":[{"text":"To clear someones ender chest use this command \"/execute [playername] ~~~ function tools/ecwipe\""}]}
 
 replaceitem entity @s[tag=!op] slot.enderchest 0 air
