@@ -1,7 +1,6 @@
 # Anti-Command Block Exploit
 
 scoreboard objectives add cbevl dummy
-scoreboard objectives add npc dummy
 
 # fish buckets no longer have NBT tags, but we will keep them just incase
 clear @s[tag=!op] bucket 2
