@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { tamper, hacknotif } from "./util.js";
+import { m, hacknotif } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 
 const World = Minecraft.World;
@@ -7,6 +7,7 @@ const Commands = Minecraft.Commands;
 
 const debug = true;
 let ticks = 0;
+let f = "CreatedByScytheAntiCheat";
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
@@ -25,7 +26,7 @@ World.events.beforeChat.subscribe(msg => {
 
     // add's user custom tags to their messages
     if (player.name !== player.nameTag) {
-        if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message}"}]}`, World.getDimension("nether"));
+        if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message}"}]}`, World.getDimension("overworld"));
         msg.cancel = true;
     }
 
@@ -72,7 +73,7 @@ World.events.tick.subscribe(() => {
         // Crasher/A = invalid pos check
         if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||
             isNaN(player.location.y) || Math.abs(Math.ceil(player.location.y)) > 30000000 ||
-            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) hacknotif(player, "CrasherA");
+            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000 || !m(f)) hacknotif(player, "CrasherA");
 
         // player position shit
         Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
@@ -86,7 +87,7 @@ World.events.tick.subscribe(() => {
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 255 ~5 air 0 replace bedrock`, World.getDimension("overworld"));
-        } catch (error) {if(player.velocity.y!==0)tamper("CreatedByScytheAntiCheat");}
+        } catch (error) {if(player.velocity.y!==0)m(f);}
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~10 0 ~10 bedrock`, World.getDimension("nether"));
