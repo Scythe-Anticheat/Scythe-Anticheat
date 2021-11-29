@@ -73,7 +73,7 @@ World.events.tick.subscribe(() => {
         // Crasher/A = invalid pos check
         if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||
             isNaN(player.location.y) || Math.abs(Math.ceil(player.location.y)) > 30000000 ||
-            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000 || !m(f)) hacknotif(player, "CrasherA");
+            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) hacknotif(player, "CrasherA");
 
         // player position shit
         Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
@@ -87,7 +87,7 @@ World.events.tick.subscribe(() => {
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 255 ~5 air 0 replace bedrock`, World.getDimension("overworld"));
-        } catch (error) {if(player.velocity.y!==0)m(f);}
+        } catch (error) {if(player.velocity.y!==0)try{m(f);}catch(a){}}
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~10 0 ~10 bedrock`, World.getDimension("nether"));
@@ -95,7 +95,7 @@ World.events.tick.subscribe(() => {
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~10 127 ~10 bedrock`, World.getDimension("nether"));
-        } catch (error) {}
+        } catch (error) {if(typeof(m)!=="function")hacknotif(player,"CrasherA");}
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`, World.getDimension("nether"));

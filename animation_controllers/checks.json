@@ -31,7 +31,8 @@
 						"invmove": "query.skin_id == 2"
 					}],
 					"on_entry": [
-						"/tag @s remove hasGUIopen"
+						"/tag @s remove hasGUIopen",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"invmove": {
@@ -40,7 +41,8 @@
 					}],
 					"on_entry": [
 						"/tag @s add hasGUIopen",
-						"/scoreboard objectives add invmovevl dummy"
+						"/scoreboard objectives add invmovevl dummy",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
