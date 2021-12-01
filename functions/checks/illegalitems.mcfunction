@@ -9,7 +9,7 @@ clear @s[tag=!op,m=!c] skull 3
 clear @s purpur_block 1
 
 # tile.purpur_block.smooth.name
-clear @a purpur_block 3
+clear @s purpur_block 3
 
 # clear dropped items
 execute @e[type=item,tag=!didCheck] ~~~ function checks/assets/cleardropped

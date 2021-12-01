@@ -82,7 +82,7 @@ World.events.tick.subscribe(() => {
 
         // bedrock validation
         try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~10 0 ~10 bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
