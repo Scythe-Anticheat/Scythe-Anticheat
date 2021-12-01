@@ -22,7 +22,6 @@ fill ~13 ~5 ~13 ~-13 ~-5 ~-13 air 0 replace beehive -1
 
 # patch invalid entities riding boats
 ride @e[type=!player] stop_riding
-execute @e[type=player] ~~~ ride @s evict_riders
 
 # fix a possible bypass
 tag @e[type=!player] remove op
