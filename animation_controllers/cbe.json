@@ -20,6 +20,9 @@
 			"states": {
 				"default": {
 					"on_entry": [
+						"/scoreboard objectives add npc dummy",
+						"/scoreboard players add scythe:config npc 0",
+						"/scoreboard players operation @a npc = scythe:config npc",
 						"/execute @p[scores={npc=..0}] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(npc)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
 						"/scoreboard players add @p[scores={npc=..0}] cbevl 1",
 						"/fill ~13 ~5 ~13 ~-13 ~-5 ~-13 air 0 replace bee_nest -1",

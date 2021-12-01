@@ -3,10 +3,7 @@
 	"animations": {
 		"animation.onJoin": {
 			"timeline": {
-				"7.0": [
-					"/scoreboard objectives add npc dummy",
-					"/scoreboard players add scythe:config npc 0",
-					"/scoreboard players operation @a npc = scythe:config npc",
+				"9.0": [
 					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",
 					"/scoreboard players operation @a frostwalker = scythe:config frostwalker",
@@ -18,7 +15,7 @@
 					"/scoreboard players operation @a bedrock = scythe:config bedrock"
 				]
 			},
-			"animation_length": 7.9,
+			"animation_length": 9.9,
 			"loop": false
 		}
 	}

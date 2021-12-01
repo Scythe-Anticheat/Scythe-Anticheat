@@ -86,7 +86,7 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 255 ~5 air 0 replace bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-4 -59 ~-4 ~4 255 ~4 air 0 replace bedrock`, World.getDimension("overworld"));
         } catch (error) {if(player.velocity.y!==0)try{m(f);}catch(a){}}
 
         try {
