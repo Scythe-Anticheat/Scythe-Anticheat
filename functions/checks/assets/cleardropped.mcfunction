@@ -35,5 +35,5 @@ kill @s[type=item,name="§g§lMovingBlock BeeNest Command"]
 
 tag @s[type=item] add didCheck
 
-execute @s[type=item,name="Ancient Debris"] ~~~ execute @p[r=7] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r §4[Xray]§r "},{"selector":"@s"},{"text":" has found §g1x Ancient Debris."}]}
-execute @s[type=item,name="Diamond"] ~~~ execute @p[r=7] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r §4[Xray]§r "},{"selector":"@s"},{"text":" has found §g1x Diamond."}]}
+execute @s[type=item,name="Ancient Debris"] ~~~ execute @p[r=5,tag=left] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r §4[Xray]§r "},{"selector":"@s"},{"text":" has found §g1x Ancient Debris."}]}
+execute @s[type=item,name="Diamond"] ~~~ execute @p[r=5,tag=left] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r §4[Xray]§r "},{"selector":"@s"},{"text":" has found §g1x Diamond."}]}
