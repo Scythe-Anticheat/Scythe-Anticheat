@@ -62,6 +62,11 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {
+        // Crasher/A = invalid pos check
+        if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||
+            isNaN(player.location.y) || Math.abs(Math.ceil(player.location.y)) > 30000000 ||
+            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) hacknotif(player, "CrasherA");
+
         // Namespoof/A = username length check.
         if (player.name.length < 3 || player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
 
@@ -69,11 +74,6 @@ World.events.tick.subscribe(() => {
         const regex = /[^A-Za-z0-9_ ]/;
 
         if (regex.test(player.name)) hacknotif(player, "NameSpoofB");
-
-        // Crasher/A = invalid pos check
-        if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||
-            isNaN(player.location.y) || Math.abs(Math.ceil(player.location.y)) > 30000000 ||
-            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) hacknotif(player, "CrasherA");
 
         // player position shit
         Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
@@ -86,7 +86,7 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-4 -59 ~-4 ~4 255 ~4 air 0 replace bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`, World.getDimension("overworld"));
         } catch (error) {if(player.velocity.y!==0)try{m(f);}catch(a){}}
 
         try {

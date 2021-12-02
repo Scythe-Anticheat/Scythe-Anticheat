@@ -25,7 +25,6 @@
 					"autototem",
 					"sprint",
 					"noswing",
-					"kill",
 					"invmove"
 				]
 			},
@@ -86,6 +85,11 @@
 					"remove_effects": "bad_omen"
 				}
 			},
+			"scythe:reset": {
+				"minecraft:skin_id": {
+					"value": 0
+				}
+			},
 			"scythe:onAttack": {
 				"minecraft:skin_id": {
 					"value": 1
@@ -99,11 +103,6 @@
 			"scythe:illegal": {
 				"minecraft:skin_id": {
 					"value": 3
-				}
-			},
-			"scythe:reset": {
-				"minecraft:skin_id": {
-					"value": 0
 				}
 			},
 			"unvanished": {
@@ -124,16 +123,6 @@
 			"flagged": {
 				"minecraft:attack": {
 					"damage": -1000
-				}
-			},
-			"normal": {
-				"minecraft:variant": {
-					"value": 100
-				}
-			},
-			"kill": {
-				"minecraft:variant": {
-					"value": 101
 				}
 			},
 			"scythe:kick": {
@@ -525,6 +514,13 @@
 					]
 				}
 			},
+			"scythe:kick": {
+				"add": {
+					"component_groups": [
+						"scythe:kick"
+					]
+				}
+			},
 			"minecraft:gain_bad_omen": {
 				"add": {
 					"component_groups": [
@@ -603,37 +599,6 @@
 				"remove": {
 					"component_groups": [
 						"unflagged"
-					]
-				}
-			},
-			"kill": {
-				"add": {
-					"component_groups": [
-						"kill"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"normal"
-					]
-				}
-			},
-			"removekill": {
-				"add": {
-					"component_groups": [
-						"normal"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"kill"
-					]
-				}
-			},
-			"scythe:kick": {
-				"add": {
-					"component_groups": [
-						"scythe:kick"
 					]
 				}
 			}

@@ -11,8 +11,10 @@ export function tag(message, args) {
     message.cancel = true;
 
     let player = message.sender;
-    let nametag = `[${args.join(" ")}] ${player.name}`;
-    
+
+    // fixes a bug with this command not working if the nametag had invalid characters
+    player.nameTag = player.name;
+
     // make sure the user has permissions to run the command
     try {
         Commands.run(`execute @a[name="${player.nameTag}",tag=op] ~~~ list`, World.getDimension("overworld"));
@@ -25,6 +27,11 @@ export function tag(message, args) {
         player.nameTag = player.name;
         return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset their nametag"}]}`, World.getDimension("overworld"));
     }
+
+    let nametag = `[${args.join(" ")}] ${player.name}`;
+    
+    // input sanitization
+    nametag = nametag.replace("\\", "").replace("\"", "");
 
     if (!args.length) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag!"}]}`, World.getDimension("overworld"));
 

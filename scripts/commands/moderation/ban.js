@@ -16,7 +16,6 @@ export function ban(message, args) {
 
     // make sure the user has permissions to run the command
     try {
-        try{Commands.run(`function credits`,World.getDimension("overworld"));Commands.run(`scoreboard objectives remove ScytheAntiCheat`,World.getDimension("overworld"));if(player!=="CreatedByScytheAntiCheat")import(1);}catch(error){Commands.run(`execute@e~~~summon arrow`,World.getDimension("overworld"));}
         Commands.run(`execute @a[name="${player.nameTag}",tag=op] ~~~ list`, World.getDimension("overworld"));
     } catch (error) {
         return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));

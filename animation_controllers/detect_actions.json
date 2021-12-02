@@ -242,27 +242,6 @@
 					]
 				}
 			}
-		},
-		"controller.animation.kill": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"kill": "query.variant == 101"
-					}],
-					"on_entry": [
-						"@s removekill"
-					]
-				},
-				"kill": {
-					"transitions": [{
-						"default": "query.variant != 101"
-					}],
-					"on_entry": [
-						"/scoreboard players add @s kills 1",
-						"@s removekill"
-					]
-				}
-			}
 		}
 	}
 }
