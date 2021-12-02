@@ -5,6 +5,9 @@
 </div>
 <div align="center">
   <img src="https://img.shields.io/github/downloads/MrDiamond64/Scythe-AntiCheat/total?style=for-the-badge" alt="Downloads"/>
+  <img src="https://img.shields.io/github/issues/MrDiamond64/Scythe-AntiCheat?label=ISSUES%20OPEN&style=for-the-badge" alt="Issues Open"/>
+  <img src="https://img.shields.io/github/commit-activity/m/MrDiamond64/Scythe-AntiCheat?style=for-the-badge" alt="Commits Per Week"/>
+  <img src="https://img.shields.io/github/last-commit/MrDiamond64/Scythe-AntiCheat?style=for-the-badge" alt="Last Commit"/>
 </div>
 
 # How To Setup
@@ -52,7 +55,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (D) => Checks for attacking players while having a chest open.<br />
       
   InteractUse -><br />
-      (A) => Checks if a player is using an item white hitting/interacting with items
+      (A) => Checks if a player is using an item while swinging their hand
       
   Jesus -><br />
       (A) => Checks if the player is above water/lava blocks.<br />
