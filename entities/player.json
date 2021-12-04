@@ -202,6 +202,7 @@
 			},
 			"minecraft:damage_sensor": {
 				"triggers": {
+					"cause": "entity_attack",
 					"on_damage": {
 						"filters": {
 							"any_of": [{
