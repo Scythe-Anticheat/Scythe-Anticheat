@@ -201,7 +201,7 @@
 				"days_until_insomnia": 3
 			},
 			"minecraft:damage_sensor": {
-				"triggers": {
+				"triggers": [{
 					"cause": "entity_attack",
 					"on_damage": {
 						"filters": {
@@ -214,7 +214,7 @@
 						"event": "scythe:attacked",
 						"target": "other"
 					}
-				}
+				}]
 			},
 			"minecraft:scaffolding_climber": {},
 			"minecraft:environment_sensor": {
@@ -522,39 +522,6 @@
 					]
 				}
 			},
-			"minecraft:gain_bad_omen": {
-				"add": {
-					"component_groups": [
-						"minecraft:add_bad_omen"
-					]
-				}
-			},
-			"minecraft:clear_add_bad_omen": {
-				"remove": {
-					"component_groups": [
-						"minecraft:add_bad_omen"
-					]
-				},
-				"add": {
-					"component_groups": [
-						"minecraft:clear_bad_omen_spell_effect"
-					]
-				}
-			},
-			"minecraft:trigger_raid": {
-				"add": {
-					"component_groups": [
-						"minecraft:raid_trigger"
-					]
-				}
-			},
-			"minecraft:remove_raid_trigger": {
-				"remove": {
-					"component_groups": [
-						"minecraft:raid_trigger"
-					]
-				}
-			},
 			"unvanish": {
 				"add": {
 					"component_groups": [
@@ -600,6 +567,39 @@
 				"remove": {
 					"component_groups": [
 						"unflagged"
+					]
+				}
+			},
+			"minecraft:gain_bad_omen": {
+				"add": {
+					"component_groups": [
+						"minecraft:add_bad_omen"
+					]
+				}
+			},
+			"minecraft:clear_add_bad_omen": {
+				"remove": {
+					"component_groups": [
+						"minecraft:add_bad_omen"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"minecraft:clear_bad_omen_spell_effect"
+					]
+				}
+			},
+			"minecraft:trigger_raid": {
+				"add": {
+					"component_groups": [
+						"minecraft:raid_trigger"
+					]
+				}
+			},
+			"minecraft:remove_raid_trigger": {
+				"remove": {
+					"component_groups": [
+						"minecraft:raid_trigger"
 					]
 				}
 			}
