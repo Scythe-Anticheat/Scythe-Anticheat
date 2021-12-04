@@ -4,7 +4,7 @@ import * as Minecraft from "mojang-minecraft";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-// found the inventory viewing scipt in the bedrock addons discord. unsure of the original owner
+// found the inventory viewing scipt in the bedrock addons discord, unsure of the original owner (not my code)
 export function invsee(message, args) {
     // validate that required params are defined
     if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? ./commands/utility/invsee.js:10)");
@@ -37,7 +37,7 @@ export function invsee(message, args) {
 
     for (let i = 0; i < 36; i ++) {
         if (o[i].id !== "minecraft:air") {
-            Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot: ${i} ${o[i].id}:${o[i].data} x${o[i].amount}"}]}`, World.getDimension("overworld"));
+            Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${o[i].id}:${o[i].data} x${o[i].amount}"}]}`, World.getDimension("overworld"));
         }
     }
 }
