@@ -35,7 +35,7 @@ export function invsee(message, args) {
 
     Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${member.nameTag}'s inventory:\n\n"}]}`, World.getDimension("overworld"));
 
-    for (let i = 0; i < 36; i ++) {
+    for (let i = 0; i < 36; i++) {
         if (o[i].id !== "minecraft:air") {
             Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${o[i].id}:${o[i].data} x${o[i].amount}"}]}`, World.getDimension("overworld"));
         }

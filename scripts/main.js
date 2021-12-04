@@ -6,8 +6,8 @@ const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
 const debug = true;
+const f = "CreatedByScytheAntiCheat";
 let ticks = 0;
-let f = "CreatedByScytheAntiCheat";
 
 if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
 
@@ -86,7 +86,7 @@ World.events.tick.subscribe(() => {
 
         // bedrock validation
         try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`, World.getDimension("overworld"));
+            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`, World.getDimension("overworld"));
         } catch (error) {}
 
         try {
