@@ -68,12 +68,16 @@ World.events.tick.subscribe(() => {
             isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) hacknotif(player, "CrasherA");
 
         // Namespoof/A = username length check.
-        if (player.name.length < 3 || player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
+        try {
+            if (player.name.length < 3 || player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
+        } catch(error) {}
 
         // Namespoof/B = regex check
         const regex = /[^A-Za-z0-9_ ]/;
 
-        if (regex.test(player.name)) hacknotif(player, "NameSpoofB");
+        try {
+            if (regex.test(player.name)) hacknotif(player, "NameSpoofB");
+        } catch(error) {}
 
         // player position shit
         Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
