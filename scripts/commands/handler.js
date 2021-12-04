@@ -12,6 +12,7 @@ import { notify } from "./utility/notify.js";
 import { tag } from "./utility/tag.js";
 import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
+import { invsee } from "./utility/invsee.js";
 
 // to make eslint shut up 
 if (Commands === World) console.log(`impossible`);
@@ -44,6 +45,7 @@ export function commandHandler(player, message, debug) {
         else if (commandName === "fly") fly(message, args);
         else if (commandName === "mute") mute(message, args);
         else if (commandName === "unmute") unmute(message, args);
+        else if (commandName === "invsee") invsee(message, args);
         else return;
     } catch (error) {
         console.warn(error);
