@@ -34,11 +34,11 @@ export function hacknotif(player, check, debug, message) {
         Commands.run(`scoreboard players add "${player.nameTag}" badpackets2 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Player) §4BadPackets/2 §7(msgLength=${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
     } else if (check === "NameSpoofA") {
-        Commands.run(`event entity "${player.nameTag}" scythe:kick`, World.getDimension("overworld"));
+        Commands.run(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid Username!`, World.getDimension("overworld"));
         Commands.run(`scoreboard players add "${player.nameTag}" namespoofvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4NameSpoof/A §7(nameLength=${debug})§4. VL= "},{"score":{"name":"@s","objective":"namespoofvl"}}]}`, World.getDimension("overworld"));
     } else if (check === "NameSpoofB") {
-        Commands.run(`event entity "${player.nameTag}" scythe:kick`, World.getDimension("overworld"));
+        Commands.run(`event entity "${player.nameTag}" Invalid Username!`, World.getDimension("overworld"));
         Commands.run(`scoreboard players add "${player.nameTag}" namespoofvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4NameSpoof/B. VL= "},{"score":{"name":"@s","objective":"namespoofvl"}}]}`, World.getDimension("overworld"));
     } else if (check === "CrasherA") {
