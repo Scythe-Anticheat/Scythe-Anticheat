@@ -2,6 +2,9 @@
 
 scoreboard objectives add cbevl dummy
 
+# patch falling blocks
+kill @e[type=falling_block]
+
 # fish buckets no longer have NBT tags, but we will keep them just incase
 clear @s[tag=!op] bucket 2
 clear @s[tag=!op] bucket 3
