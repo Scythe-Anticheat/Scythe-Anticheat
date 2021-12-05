@@ -125,8 +125,16 @@ World.events.tick.subscribe(() => {
         // jesus/b = motion check
         try {
             if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246) {
-                Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
+                Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding,tag=!levitating] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
                 hacknotif(player, "JesusB", Math.abs(player.velocity.y).toFixed(4));
             }
         } catch (error) {}
+
+        // NoSlow/A = speed limit check
+        if(Math.abs(player.velocity.x).toFixed(2) >= 0.15 || Math.abs(player.velocity.z).toFixed(2) >= 0.15) {
+            try{
+                Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=!jump,tag=!gliding]`, World.getDimension("overworld"));
+                hacknotif(player, "NoSlowA", Math.abs(player.velocity.z).toFixed(4));
+            } catch(error) {}
+        }
 }});

@@ -2,10 +2,14 @@
 	"format_version": 2,
 	"header": {
 		"name": "Scythe AntiCheat",
-		"description": "Cheat Detection Tool For Realms And Servers",
+		"description": "The best minecraft bedrock anticheat, designed for realms and servers.",
 		"uuid": "c68ba0c1-b9e4-46ad-b6c8-88bbd28f1fa5",
 		"version": [2, 0, 6],
 		"min_engine_version": [1, 16, 210]
+	},
+	"metadata": {
+		"authors": ["MrDiamond64"],
+		"url": "https://github.com/MrDiamond64/Scythe-AntiCheat"
 	},
 	"modules": [{
 			"type": "data",

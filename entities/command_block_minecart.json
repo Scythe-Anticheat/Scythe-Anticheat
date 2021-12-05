@@ -20,9 +20,13 @@
 			"minecraft:type_family": {
 				"family": ["minecart", "inanimate"]
 			},
+			"minecraft:loot": {
+				"table": "loot_tables/empty.json"
+			},
 			"minecraft:instant_despawn": {
 				"remove_child_entities": true
 			}
-		}
+		},
+		"events": {}
 	}
 }

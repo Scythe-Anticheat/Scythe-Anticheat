@@ -27,6 +27,9 @@ export function hacknotif(player, check, debug, message) {
     try {
         Commands.run(`scoreboard objectives add flyvl dummy`, World.getDimension("overworld"));
     } catch (err) {}
+    try {
+        Commands.run(`scoreboard objectives add noslowvl dummy`, World.getDimension("overworld"));
+    } catch (err) {}
 
     if (message) message.cancel = true;
 
@@ -66,6 +69,10 @@ export function hacknotif(player, check, debug, message) {
     } else if (check === "SpammerD") {
         Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/E §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
+    } else if (check === "NoSlowA") {
+        Commands.run(`scoreboard players add "${player.nameTag}" noslowvl 1`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4NoSlow/A §7(speed=${debug})§4. VL= "},{"score":{"name":"@s","objective":"noslowvl"}}]}`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.nameTag}" ~~~ tp @s @s`, World.getDimension("overworld"));
     } else return console.warn(`Error: No check by the name of ${check} exists. Did you forget to put an if statement? (./util.js:73)`);
 }
 

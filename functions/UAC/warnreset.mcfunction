@@ -2,7 +2,7 @@
 scoreboard objectives add disablervl dummy
 scoreboard players add @s disablervl 1
 
-tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4Disabler/A (This check should not be used as proof). VL= "},{"score":{"name":"@s","objective":"disablervl"}}]}
+tellraw @a[tag=notify] {"rawtext":[{"text":"Â§rÂ§6[Â§aScytheÂ§6]Â§r "},{"selector":"@s"},{"text":" Â§1has failed Â§7(Exploit) Â§4Disabler/A Â§7(This check should not be used as proof)Â§4. VL= "},{"score":{"name":"@s","objective":"disablervl"}}]}
 effect @a clear
 tag @s remove admin
 tag @s remove Admin
@@ -25,3 +25,5 @@ tag @s remove HELPER
 tag @s remove staffstatus
 gamemode 0 @s
 fill ~-3 -64 ~-3 ~+3 319 ~+3 air 0 replace allow -1
+
+gamerule sendcommandfeedback true

@@ -31,9 +31,10 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   Command Block Exploit -><br />
       (A) => Clears animal buckets/beehives<br />
       (B) => Replaces beehives with air<br />
-      (C) => Kill all command block minecarts<br />
+      (C) => Kills all command block minecarts<br />
       (D) => Kills all NPC's (to disable use /function settings/npc)<br />
       (E) => Instant despawn time for command block minecarts
+      (F) => Kills all falling block entities
       
   Crasher -><br />
       (A) => Checks if a player's position is invalid. (Requires GameTest FrameWork)<br />
@@ -45,7 +46,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (A) => Checks if an ender pearl is inside a climbable block.
       
   Fly -><br />
-      (B) => AirJump check (Requires GameTest FrameWork)
+      (B) => AirJump check. (Requires GameTest FrameWork)
    
   Illegal Items -><br />
       (A) => Clears illegal items from everybody's inventories.<br />
@@ -58,18 +59,21 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (D) => Checks for attacking players while having a chest open.<br />
       
   InteractUse -><br />
-      (A) => Checks if a player is using an item while swinging their hand
+      (A) => Checks if a player is using an item while swinging their hand.
       
   Jesus -><br />
       (A) => Checks if the player is above water/lava blocks.<br />
       (B) => Motion check. (Requires GameTest FrameWork)
 
   NameSpoof -><br />
-      (A) => Checks if a player's name is longer then 16 characters (Requires GameTest FrameWork)<br />
+      (A) => Checks if a player's name is longer then 16 characters. (Requires GameTest FrameWork)<br />
       (B) => Invalid characters check. (Requires GameTest FrameWork)<br />
 
+  NoSlow -><br />
+      (A) => Checks if a player has high speeds while using an item.
+
   Phase -><br />
-      (A) => Detect if someone moves inside a block
+      (A) => Detect if someone moves inside a block.
       
   Spammer -><br />
       (A) => Checks if someone sends a message while moving. (Requires GameTest FrameWork)<br />
@@ -80,7 +84,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   Reach -><br />
       (A) => Check if someone hits a player outside a 4.5 block radius. (Requires GameTest FrameWork)
 
-  Xray -><br />
+  Xray -><br />.
       (A) => Alerts staff if a player finds a diamond or ancient debris
 
 
