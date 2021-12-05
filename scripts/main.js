@@ -133,7 +133,7 @@ World.events.tick.subscribe(() => {
         // NoSlow/A = speed limit check
         if(Math.abs(player.velocity.x).toFixed(2) >= 0.15 || Math.abs(player.velocity.z).toFixed(2) >= 0.15) {
             try{
-                Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=!jump,tag=!gliding]`, World.getDimension("overworld"));
+                Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=!jump,tag=ground,tag=!gliding]`, World.getDimension("overworld"));
                 hacknotif(player, "NoSlowA", Math.abs(player.velocity.z).toFixed(4));
             } catch(error) {}
         }

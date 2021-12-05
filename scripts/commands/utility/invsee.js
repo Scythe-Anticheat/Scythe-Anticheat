@@ -31,12 +31,12 @@ export function invsee(message, args) {
 
     let container = player.getComponent('inventory').container;
     let o = [];
-    for (let i = 0; i < container.size; i++) { o.push(container.getItem(i) ?? {id: 'minecraft:air', amount: 0, data: 0});}
+    for (let i = 0; i < container.size; i++) o.push(container.getItem(i));
 
     Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${member.nameTag}'s inventory:\n\n"}]}`, World.getDimension("overworld"));
 
     for (let i = 0; i < 36; i++) {
-        if (o[i].id !== "minecraft:air") {
+        if (o[i]) {
             Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${o[i].id}:${o[i].data} x${o[i].amount}"}]}`, World.getDimension("overworld"));
         }
     }

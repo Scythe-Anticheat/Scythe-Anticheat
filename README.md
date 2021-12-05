@@ -70,7 +70,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (B) => Invalid characters check. (Requires GameTest FrameWork)<br />
 
   NoSlow -><br />
-      (A) => Checks if a player has high speeds while using an item.
+      (A) => Checks if a player has high speeds while using an item. (Requires GameTest FrameWork)
 
   Phase -><br />
       (A) => Detect if someone moves inside a block.
@@ -84,8 +84,8 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   Reach -><br />
       (A) => Check if someone hits a player outside a 4.5 block radius. (Requires GameTest FrameWork)
 
-  Xray -><br />.
-      (A) => Alerts staff if a player finds a diamond or ancient debris
+  Xray -><br />
+      (A) => Alerts staff if a player finds a diamond or ancient debris.
 
 
 # Extra Commands.
