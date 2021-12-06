@@ -1,85 +1,52 @@
+/* eslint no-var: "off"*/
 import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-export function hacknotif(player, check, debug, message) {
+export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message) {
     // validate that required params are defined
     if (!player) return console.warn("Error: ${player} isnt defined. Did you forget to pass it? (./util.js:8)");
     if (!check) return console.warn("Error: ${check} isnt defined. Did you forget to pass it? (./util.js:9)");
+    if (!check) return console.warn("Error: ${checkType} isnt defined. Did you forget to pass it? (./util.js:10)");
+    if (!hackType) return console.warn("Error: ${hackType} isnt defined. Did you forget to pass it? (./util.js:11)");
 
-    // make sure all scoreboard objectives are created
+    // make sure the vl objective exists
     try {
-        Commands.run(`scoreboard objectives add badpackets2 dummy`, World.getDimension("overworld"));
-    } catch (err) {}
-    try {
-        Commands.run(`scoreboard objectives add namespoofvl dummy`, World.getDimension("overworld"));
-    } catch (err) {}
-    try {
-        Commands.run(`scoreboard objectives add crashervl dummy`, World.getDimension("overworld"));
-    } catch (err) {}
-    try {
-        Commands.run(`scoreboard objectives add jesusvl dummy`, World.getDimension("overworld"));
-    } catch (err) {}
-    try {
-        Commands.run(`scoreboard objectives add spammervl dummy`, World.getDimension("overworld"));
-    } catch (err) {}
-    try {
-        Commands.run(`scoreboard objectives add flyvl dummy`, World.getDimension("overworld"));
-    } catch (err) {}
-    try {
-        Commands.run(`scoreboard objectives add noslowvl dummy`, World.getDimension("overworld"));
-    } catch (err) {}
+        Commands.run(`scoreboard objectives add ${check.toLowerCase()}vl dummy`, World.getDimension("overworld"));
+    } catch(error) {}
 
+    // cancel the message
     if (message) message.cancel = true;
 
-    if (check === "BadPackets2") {
-        Commands.run(`scoreboard players add "${player.nameTag}" badpackets2 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Player) §4BadPackets/2 §7(msgLength=${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
-    } else if (check === "NameSpoofA") {
-        Commands.run(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid Username!`, World.getDimension("overworld"));
-        Commands.run(`scoreboard players add "${player.nameTag}" namespoofvl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4NameSpoof/A §7(nameLength=${debug})§4. VL= "},{"score":{"name":"@s","objective":"namespoofvl"}}]}`, World.getDimension("overworld"));
-    } else if (check === "NameSpoofB") {
-        Commands.run(`event entity "${player.nameTag}" Invalid Username!`, World.getDimension("overworld"));
-        Commands.run(`scoreboard players add "${player.nameTag}" namespoofvl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4NameSpoof/B. VL= "},{"score":{"name":"@s","objective":"namespoofvl"}}]}`, World.getDimension("overworld"));
-    } else if (check === "CrasherA") {
-        Commands.run(`tp "${player.nameTag}" 30000000 30000000 30000000 facing "${player.nameTag}"`, World.getDimension("overworld"));
-        Commands.run(`scoreboard players add "${player.nameTag}" crashervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4Crasher/A. VL= "},{"score":{"name":"@s","objective":"crashervl"}}]}`, World.getDimension("overworld"));
-    } else if (check === "FlyB") {
-        Commands.run(`scoreboard players add "${player.nameTag}" flyvl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Fly/B. VL= "},{"score":{"name":"@s","objective":"flyvl"}}]}`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tp @s ~ ~-2 ~`, World.getDimension("overworld"));
-    } else if (check === "JesusB") {
-        Commands.run(`scoreboard players add "${player.nameTag}" jesusvl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4Jesus/B §7(yMotion=${debug})§4. VL= "},{"score":{"name":"@s","objective":"jesusvl"}}]}`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tp @s ~ ~-1 ~`, World.getDimension("overworld"));
-    } else if (check === "SpammerA") {
-        Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/A §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tp @s @s`, World.getDimension("overworld"));
-    } else if (check === "SpammerB") {
-        Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/C §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
-    } else if (check === "SpammerC") {
-        Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/D §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
-    } else if (check === "SpammerD") {
-        Commands.run(`scoreboard players add "${player.nameTag}" spammervl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Misc) §4Spammer/E §7(${debug})§4. VL= "},{"score":{"name":"@s","objective":"spammervl"}}]}`, World.getDimension("overworld"));
-    } else if (check === "NoSlowA") {
-        Commands.run(`scoreboard players add "${player.nameTag}" noslowvl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4NoSlow/A §7(speed=${debug})§4. VL= "},{"score":{"name":"@s","objective":"noslowvl"}}]}`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tp @s @s`, World.getDimension("overworld"));
-    } else if (check === "IllegalItemsC") {
-        console.warn(debug.slot);
-        Commands.run(`scoreboard players add "${player.nameTag}" illegalitemsvl 1`, World.getDimension("overworld"));
-        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Inventory) §4IllegalItems/C §7(stackAmount=${debug.amount})§4. VL= "},{"score":{"name":"@s","objective":"noslowvl"}}]}`, World.getDimension("overworld"));
-        if(debug.slot <= 8) Commands.run(`replaceitem entity "${player.nameTag}" slot.hotbar ${debug.slot} air 1`, World.getDimension("overworld"));
-            else Commands.run(`replaceitem entity "${player.nameTag}" slot.inventory ${debug.slot} air 1`, World.getDimension("overworld"));
-    } else return console.warn(`Error: No check by the name of ${check} exists. Did you forget to put an if statement? (./util.js:73)`);
+
+    if(shouldTP && check !== "Crasher") Commands.run(`tp "${player.nameTag}" "${player.nameTag}"`, World.getDimension("overworld"));
+        else if(shouldTP && check === "Crasher") Commands.run(`tp "${player.nameTag}" 30000000 30000000 30000000`, World.getDimension("overworld"));
+
+
+    Commands.run(`scoreboard players add "${player.nameTag}" ${check.toLowerCase()}vl 1`, World.getDimension("overworld"));
+
+    if (check === "IllegalItems") { 
+        var oldDebug = debug;
+        debug = debug.amount;
+    }
+
+    try {
+        if(debug) Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`, World.getDimension("overworld"));
+            else Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`, World.getDimension("overworld"));
+    } catch(error) {}
+
+    debug = oldDebug;
+
+    // check dependent stuff
+    if (check === "IllegalItems") {
+        try {
+            if(debug.slot <= 8) Commands.run(`replaceitem entity "${player.nameTag}" slot.hotbar ${debug.slot} air 1`, World.getDimension("overworld"));
+                else Commands.run(`replaceitem entity "${player.nameTag}" slot.inventory ${debug.slot} air 1`, World.getDimension("overworld"));
+        } catch(error) {console.warn(error);}
+    }
+
+    if (check === "Namespoof") Commands.run(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid username`, World.getDimension("overworld"));
 }
 
 // fixes a disabler attack

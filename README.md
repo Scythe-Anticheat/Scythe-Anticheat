@@ -51,7 +51,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   Illegal Items -><br />
       (A) => Clears illegal items from everybody's inventories.<br />
       (B) => Clears dropped items.<br />
-      (C) => Checks for items with stacks over 64
+      (C) => Checks for items that are stacked over 64
       
   InventoryMods-><br />
       (A) => Checks for moving while having a chest open.<br />

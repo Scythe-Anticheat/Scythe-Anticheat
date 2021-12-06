@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { m, hacknotif } from "./util.js";
+import { m, flag } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 
 const World = Minecraft.World;
@@ -20,7 +20,7 @@ World.events.beforeChat.subscribe(msg => {
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
     // BadPackets/2 = chat message length check
-    if (message.length > 512 || message.length < 0) hacknotif(player, "BadPackets2", message.length, msg);
+    if (message.length > 512 || message.length < 0) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
     commandHandler(player, msg, debug);
 
@@ -33,25 +33,25 @@ World.events.beforeChat.subscribe(msg => {
     // Spammer/A = checks if someone sends a message while moving and on ground
     try {
         Commands.run(`testfor @a[name="${player.nameTag}",tag=moving,tag=ground,tag=!jump]`, World.getDimension("overworld"));
-        hacknotif(player, "SpammerA", "isMoving", msg);
+        flag(player, "Spammer", "A", "Movement", false, false, true, msg);
     } catch (error) {}
 
     // Spammer/B = checks if someone sends a message while swinging their hand
     try {
         Commands.run(`testfor @a[name="${player.nameTag}",tag=left]`, World.getDimension("overworld"));
-        hacknotif(player, "SpammerC", "left", msg);
+        flag(player, "Spammer", "B", "Combat", false, false, false, msg);
     } catch (error) {}
 
     // Spammer/C = checks if someone sends a message while using an item
     try {
         Commands.run(`testfor @a[name="${player.nameTag}",tag=right]`, World.getDimension("overworld"));
-        hacknotif(player, "SpammerD", "right", msg);
+        flag(player, "Spammer", "C", "Misc", false, false, false, msg);
     } catch (error) {}
 
     // Spammer/D = checks if someone sends a message while having a GUI open
     try {
         Commands.run(`testfor @a[name="${player.nameTag}",tag=hasGUIopen]`, World.getDimension("overworld"));
-        hacknotif(player, "SpammerE", "has_gui_open", msg);
+        flag(player, "Spammer", "D", "Misc", false, false, false, msg);
     } catch (error) {}
 });
 
@@ -65,18 +65,18 @@ World.events.tick.subscribe(() => {
         // Crasher/A = invalid pos check
         if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||
             isNaN(player.location.y) || Math.abs(Math.ceil(player.location.y)) > 30000000 ||
-            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) hacknotif(player, "CrasherA");
+            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true, false);
 
         // Namespoof/A = username length check.
         try {
-            if (player.name.length < 3 || player.name.length > 16) hacknotif(player, "NameSpoofA", player.name.length);
+            if (player.name.length < 3 || player.name.length > 16) flag(player, "Namespoof", "A", "Exploit", true, player.name.length, false, false);
         } catch(error) {}
 
         // Namespoof/B = regex check
         const regex = /[^A-Za-z0-9_ ]/;
 
         try {
-            if (regex.test(player.name)) hacknotif(player, "NameSpoofB");
+            if (regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit", false, false, false, false);
         } catch(error) {}
 
         // player position shit
@@ -99,7 +99,7 @@ World.events.tick.subscribe(() => {
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~10 127 ~10 bedrock`, World.getDimension("nether"));
-        } catch (error) {if(typeof(m)!=="function")hacknotif(player,"CrasherA");}
+        } catch (error) {if(typeof(m)!=="function")flag(player, "Crasher", "A", false, false, true, false);}
 
         try {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`, World.getDimension("nether"));
@@ -108,7 +108,7 @@ World.events.tick.subscribe(() => {
         // fly = airjump check
         if (Math.abs(player.velocity.y).toFixed(3) === 0.333) try {
             Commands.run(`execute @a[name="${player.nameTag}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
-            hacknotif(player, "FlyB");
+            flag(player, "Fly", "B", "Movement", false, false, true, false);
         } catch (error) {}
 
         // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
@@ -126,15 +126,15 @@ World.events.tick.subscribe(() => {
         try {
             if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246) {
                 Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding,tag=!levitating] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
-                hacknotif(player, "JesusB", Math.abs(player.velocity.y).toFixed(4));
+                flag(player, "Jesus", "B", "Movement", "yMotion", player.velocity.y.toFixed(4), true, false);
             }
         } catch (error) {}
 
         // NoSlow/A = speed limit check
-        if(Math.abs(player.velocity.x).toFixed(2) >= 0.15 || Math.abs(player.velocity.z).toFixed(2) >= 0.15) {
+        if(Math.abs(player.velocity.x.toFixed(2)) >= 0.15 || Math.abs(player.velocity.z.toFixed(2)) >= 0.15) {
             try{
                 Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=!jump,tag=ground,tag=!gliding]`, World.getDimension("overworld"));
-                hacknotif(player, "NoSlowA", Math.abs(player.velocity.z).toFixed(4));
+                flag(player, "NoSlow", "A", "Movement", "speed", (Number(player.velocity.x) + Number(player.velocity.z)).toFixed(2), true, false);
             } catch(error) {}
         }
 
@@ -146,7 +146,7 @@ World.events.tick.subscribe(() => {
 
         for (let i = 0; i < 36; i++) try {
             o[i].slot = i;
-            if (o[i].amount > 64) hacknotif(player, "IllegalItemsC", o[i]);
+            if (o[i].amount > 64) flag(player, "IllegalItems", "C", "Exploit", "stack", o[i], false, false);
         } catch(e) {} 
     }
 });
