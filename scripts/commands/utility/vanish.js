@@ -13,7 +13,7 @@ export function vanish(message) {
     
     // make sure the user has permissions to run the command
     try {
-        Commands.run(`execute @a[name="${player.nameTag}",tag=op] ~~~ list`, World.getDimension("overworld"));
+        Commands.run(`tesfor @a[name="${player.nameTag}",tag=op]`, World.getDimension("overworld"));
     } catch (error) {
         return Commands.run(`tellraw ${player.nameTag} {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));
     }

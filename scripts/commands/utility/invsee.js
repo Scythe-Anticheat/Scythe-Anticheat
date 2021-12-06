@@ -24,20 +24,16 @@ export function invsee(message, args) {
     if (!args.length) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide whos inventory to view!"}]}`, World.getDimension("overworld"));
     
     // try to find the player requested
-    for (let pl of World.getPlayers()) {
-        if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase())) var member = pl; 
-    }
+    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase())) var member = pl;
+    
     if (!member) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`, World.getDimension("overworld"));
 
     let container = player.getComponent('inventory').container;
     let o = [];
+    
     for (let i = 0; i < container.size; i++) o.push(container.getItem(i));
 
     Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${member.nameTag}'s inventory:\n\n"}]}`, World.getDimension("overworld"));
 
-    for (let i = 0; i < 36; i++) {
-        if (o[i]) {
-            Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${o[i].id}:${o[i].data} x${o[i].amount}"}]}`, World.getDimension("overworld"));
-        }
-    }
+    for (let i = 0; i < 36; i++) if (o[i]) Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${o[i].id}:${o[i].data} x${o[i].amount}"}]}`, World.getDimension("overworld"));
 }

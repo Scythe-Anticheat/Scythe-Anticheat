@@ -33,7 +33,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (B) => Replaces beehives with air<br />
       (C) => Kills all command block minecarts<br />
       (D) => Kills all NPC's (to disable use /function settings/npc)<br />
-      (E) => Instant despawn time for command block minecarts
+      (E) => Instant despawn time for command block minecarts<br />
       (F) => Kills all falling block entities
       
   Crasher -><br />
@@ -70,7 +70,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       (B) => Invalid characters check. (Requires GameTest FrameWork)<br />
 
   NoSlow -><br />
-      (A) => Checks if a player has high speeds while using an item. (Requires GameTest FrameWork)
+      (A) => Checks for high movement speeds while using or eating an item. (Requires GameTest FrameWork)
 
   Phase -><br />
       (A) => Detect if someone moves inside a block.
