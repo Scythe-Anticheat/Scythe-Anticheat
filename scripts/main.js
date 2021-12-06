@@ -137,4 +137,16 @@ World.events.tick.subscribe(() => {
                 hacknotif(player, "NoSlowA", Math.abs(player.velocity.z).toFixed(4));
             } catch(error) {}
         }
-}});
+
+        // IllegalItems/C = invalid item stack check
+        let container = player.getComponent('inventory').container;
+        let o = [];
+    
+        for (let i = 0; i < container.size; i++) o.push(container.getItem(i));
+
+        for (let i = 0; i < 36; i++) try {
+            o[i].slot = i;
+            if (o[i].amount > 64) hacknotif(player, "IllegalItemsC", o[i]);
+        } catch(e) {} 
+    }
+});

@@ -73,6 +73,12 @@ export function hacknotif(player, check, debug, message) {
         Commands.run(`scoreboard players add "${player.nameTag}" noslowvl 1`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4NoSlow/A §7(speed=${debug})§4. VL= "},{"score":{"name":"@s","objective":"noslowvl"}}]}`, World.getDimension("overworld"));
         Commands.run(`execute "${player.nameTag}" ~~~ tp @s @s`, World.getDimension("overworld"));
+    } else if (check === "IllegalItemsC") {
+        console.warn(debug.slot);
+        Commands.run(`scoreboard players add "${player.nameTag}" illegalitemsvl 1`, World.getDimension("overworld"));
+        Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Inventory) §4IllegalItems/C §7(stackAmount=${debug.amount})§4. VL= "},{"score":{"name":"@s","objective":"noslowvl"}}]}`, World.getDimension("overworld"));
+        if(debug.slot <= 8) Commands.run(`replaceitem entity "${player.nameTag}" slot.hotbar ${debug.slot} air 1`, World.getDimension("overworld"));
+            else Commands.run(`replaceitem entity "${player.nameTag}" slot.inventory ${debug.slot} air 1`, World.getDimension("overworld"));
     } else return console.warn(`Error: No check by the name of ${check} exists. Did you forget to put an if statement? (./util.js:73)`);
 }
 
