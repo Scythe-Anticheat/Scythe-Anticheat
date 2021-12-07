@@ -21,10 +21,10 @@ let prefix = "!";
 
 export function commandHandler(player, message, debug) {
     // validate that required params are defined
-    if (!player) return console.warn("Error: ${player} isnt defined. Did you forget to pass it? (./commands/handler.js:13)");
-    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? (./commands/handler.js:14)");
+    if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./commands/handler.js:13)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/handler.js:14)");
 
-    if (debug) console.warn("did run command handler");
+    if (debug) console.warn(`${new Date()} | ` + "did run command handler");
 
     // checks if the message starts with our prefix, if not exit
     if (!message.message.startsWith(prefix)) return;
@@ -33,11 +33,11 @@ export function commandHandler(player, message, debug) {
 
     const commandName = args.shift().toLowerCase();
 
-    if (debug) console.warn(`${player.name} used the command: ${prefix}${commandName} ${args.join(" ")}`);
+    if (debug) console.warn(`${new Date()} | ${player.name} used the command: ${prefix}${commandName} ${args.join(" ")}`);
 
     // we could much easily get rid of the if/else chain only if we have npm support...
     try {
-        if (commandName === "kick") kick(message, args);
+        if (commandName === "kick") kick(message);
         else if (commandName === "tag" || commandName === "nametag") tag(message, args);
         else if (commandName === "ban") ban(message, args);
         else if (commandName === "notify") notify(message);
@@ -48,7 +48,7 @@ export function commandHandler(player, message, debug) {
         else if (commandName === "invsee") invsee(message, args);
         else return;
     } catch (error) {
-        console.warn(error);
+        console.warn(`${new Date()} | ` + error);
         return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please read console output"}]}`, World.getDimension("overworld"));
     }
 }

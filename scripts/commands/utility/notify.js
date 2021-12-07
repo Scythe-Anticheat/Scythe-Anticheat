@@ -5,7 +5,7 @@ const Commands = Minecraft.Commands;
 
 export function notify(message) {
     // validate that required params are defined
-    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? (./utility/notify.js:8)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./utility/notify.js:8)");
 
     message.cancel = true;
 

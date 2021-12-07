@@ -7,7 +7,7 @@ const Commands = Minecraft.Commands;
 
 export function fly(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? (./commands/utility/fly.js:10)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/utility/fly.js:10)");
 
     message.cancel = true;
 

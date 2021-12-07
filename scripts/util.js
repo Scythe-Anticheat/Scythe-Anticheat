@@ -6,10 +6,10 @@ const Commands = Minecraft.Commands;
 
 export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message) {
     // validate that required params are defined
-    if (!player) return console.warn("Error: ${player} isnt defined. Did you forget to pass it? (./util.js:8)");
-    if (!check) return console.warn("Error: ${check} isnt defined. Did you forget to pass it? (./util.js:9)");
-    if (!check) return console.warn("Error: ${checkType} isnt defined. Did you forget to pass it? (./util.js:10)");
-    if (!hackType) return console.warn("Error: ${hackType} isnt defined. Did you forget to pass it? (./util.js:11)");
+    if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:8)");
+    if (!check) return console.warn(`${new Date()} | ` + "Error: ${check} isnt defined. Did you forget to pass it? (./util.js:9)");
+    if (!check) return console.warn(`${new Date()} | ` + "Error: ${checkType} isnt defined. Did you forget to pass it? (./util.js:10)");
+    if (!hackType) return console.warn(`${new Date()} | ` + "Error: ${hackType} isnt defined. Did you forget to pass it? (./util.js:11)");
 
     // make sure the vl objective exists
     try {
@@ -19,10 +19,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // cancel the message
     if (message) message.cancel = true;
 
-
     if(shouldTP && check !== "Crasher") Commands.run(`tp "${player.nameTag}" "${player.nameTag}"`, World.getDimension("overworld"));
         else if(shouldTP && check === "Crasher") Commands.run(`tp "${player.nameTag}" 30000000 30000000 30000000`, World.getDimension("overworld"));
-
 
     Commands.run(`scoreboard players add "${player.nameTag}" ${check.toLowerCase()}vl 1`, World.getDimension("overworld"));
 
@@ -43,7 +41,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         try {
             if(debug.slot <= 8) Commands.run(`replaceitem entity "${player.nameTag}" slot.hotbar ${debug.slot} air 1`, World.getDimension("overworld"));
                 else Commands.run(`replaceitem entity "${player.nameTag}" slot.inventory ${debug.slot} air 1`, World.getDimension("overworld"));
-        } catch(error) {console.warn(error);}
+        } catch(error) {console.warn(`${new Date()} | ` + error);}
     }
 
     if (check === "Namespoof") Commands.run(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid username`, World.getDimension("overworld"));

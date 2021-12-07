@@ -6,8 +6,8 @@ const Commands = Minecraft.Commands;
 
 export function mute(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? ./commands/moderation/mute.js:9)");
-    if (!args) return console.warn("Error: ${args} isnt defined. Did you forget to pass it? (./commands/moderation/mute.js:10)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? ./commands/moderation/mute.js:9)");
+    if (!args) return console.warn(`${new Date()} | ` + "Error: ${args} isnt defined. Did you forget to pass it? (./commands/moderation/mute.js:10)");
 
     message.cancel = true;
 
@@ -35,7 +35,7 @@ export function mute(message, args) {
         Commands.run(`ability "${member}" mute true`, World.getDimension("overworld"));
         Commands.run(`tellraw "${member}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been muted. Reason: ${reason}"}]}`, World.getDimension("overworld"));
     } catch (error) {
-        console.warn(error);
+        console.warn(`${new Date()} | ` + error);
         return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to mute that player! You most likely dont have education edition enabled."}]}`, World.getDimension("overworld"));
     }
     return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has muted ${member}. Reason: ${reason}"}]}`, World.getDimension("overworld"));

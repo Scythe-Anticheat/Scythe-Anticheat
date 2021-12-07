@@ -7,8 +7,8 @@ const Commands = Minecraft.Commands;
 // found the inventory viewing scipt in the bedrock addons discord, unsure of the original owner (not my code)
 export function invsee(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? ./commands/utility/invsee.js:10)");
-    if (!args) return console.warn("Error: ${args} isnt defined. Did you forget to pass it? (./commands/utility/invsee.js:1)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? ./commands/utility/invsee.js:10)");
+    if (!args) return console.warn(`${new Date()} | ` + "Error: ${args} isnt defined. Did you forget to pass it? (./commands/utility/invsee.js:1)");
 
     message.cancel = true;
 

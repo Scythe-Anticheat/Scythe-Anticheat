@@ -6,8 +6,8 @@ const Commands = Minecraft.Commands;
 
 export function kick(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? (./commands/moderation/kick.js:9)");
-    if (!args) return console.warn("Error: ${args} isnt defined. Did you forget to pass it? (./commands/moderation/kick.js:10)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/moderation/kick.js:9)");
+    if (!args) return console.warn(`${new Date()} | ` + "Error: ${args} isnt defined. Did you forget to pass it? (./commands/moderation/kick.js:10)");
 
     message.cancel = true;
 
@@ -38,7 +38,7 @@ export function kick(message, args) {
         if (!isSilent) Commands.run(`kick "${member}" ${reason}`, World.getDimension("overworld"));
             else Commands.run(`event entity "${member}" scythe:kick`, World.getDimension("overworld"));
     } catch (error) {
-        console.warn(error);
+        console.warn(`${new Date()} | ` + error);
         return Commands.run(`tellraw ${player.nameTag} {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to ban that player! Error: ${error}"}]}`, World.getDimension("overworld"));
     }
     return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${member} (Silent:${isSilent}). Reason: ${reason}"}]}`, World.getDimension("overworld"));

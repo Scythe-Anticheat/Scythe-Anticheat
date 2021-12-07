@@ -5,8 +5,8 @@ const Commands = Minecraft.Commands;
 
 export function tag(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn("Error: ${message} isnt defined. Did you forget to pass it? (./utility/tag.js:8)");
-    if (!args) return console.warn("Error: ${args} isnt defined. Did you forget to pass it? (./utility/tag.js:9)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./utility/tag.js:8)");
+    if (!args) return console.warn(`${new Date()} | ` + "Error: ${args} isnt defined. Did you forget to pass it? (./utility/tag.js:9)");
 
     message.cancel = true;
 

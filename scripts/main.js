@@ -9,13 +9,13 @@ const debug = true;
 const f = "CreatedByScytheAntiCheat";
 let ticks = 0;
 
-if (debug) console.warn("Im not a dumbass and this actually worked :sunglasses:");
+if (debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase();
     const player = msg.sender;
 
-    if (debug && message === "ping") console.warn("Pong!");
+    if (debug && message === "ping") console.warn(`${new Date()} | Pong!`);
 
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
@@ -105,7 +105,7 @@ World.events.tick.subscribe(() => {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`, World.getDimension("nether"));
         } catch (error) {}
 
-        // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
+        // if (debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
 
         // reach/a
         try {                                                                   // we could use r=4 but that wont account for lag
