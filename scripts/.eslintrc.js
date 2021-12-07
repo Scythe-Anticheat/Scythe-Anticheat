@@ -23,7 +23,6 @@ module.exports = {
         "no-unused-vars": "warn",
         "no-var": "warn",
         "use-isnan": "error",
-        "eqeqeq": "error",
         "no-delete-var": "error",
         "no-empty-function": "error",
         "no-eval": "error",

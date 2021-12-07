@@ -105,12 +105,6 @@ World.events.tick.subscribe(() => {
             Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`, World.getDimension("nether"));
         } catch (error) {}
 
-        // fly = airjump check
-        if (Math.abs(player.velocity.y).toFixed(3) === 0.333) try {
-            Commands.run(`execute @a[name="${player.nameTag}",tag=jump,tag=!elytra,tag=!dead,tag=!ground] ~~~ detect ~ ~-1 ~ air -1 testforblock ~ ~-2 ~ air -1`, World.getDimension("overworld"));
-            flag(player, "Fly", "B", "Movement", false, false, true, false);
-        } catch (error) {}
-
         // if (debug) console.warn(`${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
 
         // reach/a
