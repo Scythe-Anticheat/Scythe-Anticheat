@@ -108,11 +108,25 @@
 			"unvanished": {
 				"minecraft:scale": {
 					"value": 1
+				},
+				"minecraft:breathable": {
+					"breathes_solids": false,
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false
 				}
 			},
 			"vanished": {
 				"minecraft:scale": {
 					"value": 0
+				},
+				"minecraft:breathable": {
+					"breathes_solids": true,
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false
 				}
 			},
 			"unflagged": {
@@ -473,7 +487,7 @@
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
-									"value": "minecraft:stonebricks:4"
+									"value": "minecraft:stonebrick:4"
 								}
 							]
 						},

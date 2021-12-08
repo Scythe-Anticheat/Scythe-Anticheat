@@ -119,7 +119,7 @@ World.events.tick.subscribe(() => {
         // jesus/b = motion check
         try {
             if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246) {
-                Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!dead,tag=!ground,tag=!gliding,tag=!levitating] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
+                Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!ground,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
                 flag(player, "Jesus", "B", "Movement", "yMotion", Math.abs(player.velocity.y).toFixed(4), true, false);
             }
         } catch (error) {}
