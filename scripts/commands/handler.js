@@ -37,7 +37,7 @@ export function commandHandler(player, message, debug) {
 
     // we could much easily get rid of the if/else chain only if we have npm support...
     try {
-        if (commandName === "kick") kick(message);
+        if (commandName === "kick") kick(message, args);
         else if (commandName === "tag" || commandName === "nametag") tag(message, args);
         else if (commandName === "ban") ban(message, args);
         else if (commandName === "notify") notify(message);

@@ -456,6 +456,24 @@
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:item.wooden_door"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:tnt:2"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:tnt:3"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:stonebricks:4"
 								}
 							]
 						},
