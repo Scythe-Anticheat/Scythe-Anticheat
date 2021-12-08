@@ -4,6 +4,17 @@ import * as Minecraft from "mojang-minecraft";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
+/**
+ * @name flag
+ * @param {object} player - The player object
+ * @param {string} check - What check ran the function.
+ * @param {string} checktype - What sub-check ran the function (ex. a, b ,c).
+ * @param {string} hacktype - What the hack is considered as (ex. movement, combat, exploit).
+ * @param {string} debugName - Name for the debug value.
+ * @param {string} checktype - Debug info.
+ * @param {boolean} checktype - Whever to tp the player to itself.
+ * @param {object} checktype - The message object, used to cancel the message.
+ */
 export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:8)");
