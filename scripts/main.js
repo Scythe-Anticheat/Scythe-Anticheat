@@ -62,6 +62,10 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {
+        // fix a disabler method
+        player.nameTag = player.nameTag.replace("\"", "");
+        player.nameTag = player.nameTag.replace("\\", "");
+
         // Crasher/A = invalid pos check
         if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||
             isNaN(player.location.y) || Math.abs(Math.ceil(player.location.y)) > 30000000 ||
@@ -69,7 +73,7 @@ World.events.tick.subscribe(() => {
 
         // Namespoof/A = username length check.
         try {
-            if (player.name.length < 3 || player.name.length > 16) flag(player, "Namespoof", "A", "Exploit", true, player.name.length, false, false);
+            if (player.name.length < 3 || player.name.length > 16) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
         } catch(error) {}
 
         // Namespoof/B = regex check
