@@ -53,7 +53,13 @@
 			"minecraft:health": {
 				"value": 999,
 				"max": 999
-			}
+			},
+			"minecraft:damage_sensor": {
+				"triggers": {
+					"cause": "all",
+					"deals_damage": false
+				}
+			}			
 		},
 		"events": {
 			"scythe:despawn": {
