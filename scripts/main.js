@@ -118,18 +118,20 @@ World.events.tick.subscribe(() => {
 
         // jesus/b = motion check
         try {
-            if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246) {
+            if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246 && !player.getEffect(Minecraft.MinecraftEffectTypes.slowFalling)) {
                 Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!ground,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
                 flag(player, "Jesus", "B", "Movement", "yMotion", Math.abs(player.velocity.y).toFixed(4), true, false);
             }
         } catch (error) {}
 
         // NoSlow/A = speed limit check
-        if(Math.abs(player.velocity.x.toFixed(2)) >= 0.12 || Math.abs(player.velocity.z.toFixed(2)) >= 0.12) {
-            try {
-                Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=!jump,tag=ground,tag=!gliding]`, World.getDimension("overworld"));
-                flag(player, "NoSlow", "A", "Movement", "x_speed", `${Math.abs(player.velocity.x).toFixed(2)},z_speed=${Math.abs(player.velocity.z).toFixed(2)}`, true, false);
-            } catch(error) {}
+        if(Math.abs(player.velocity.x.toFixed(2)) >= 0.10 || Math.abs(player.velocity.z.toFixed(2)) >= 0.10) {
+            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed)) {
+                try {
+                    Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=!jump,tag=ground,tag=!gliding]`, World.getDimension("overworld"));
+                    flag(player, "NoSlow", "A", "Movement", "x_speed", `${Math.abs(player.velocity.x).toFixed(2)},z_speed=${Math.abs(player.velocity.z).toFixed(2)}`, true, false);
+                } catch(error) {}
+            }
         }
 
         // IllegalItems/C = invalid item stack check
