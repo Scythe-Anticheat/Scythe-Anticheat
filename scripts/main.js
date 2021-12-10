@@ -132,7 +132,7 @@ World.events.tick.subscribe(() => {
         if(Math.abs(player.velocity.x.toFixed(2)) >= 0.10 || Math.abs(player.velocity.z.toFixed(2)) >= 0.10) {
             if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed)) {
                 try {
-                    Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=!jump,tag=ground,tag=!gliding]`, World.getDimension("overworld"));
+                    Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=ground,tag=!jump,tag=!gliding]`, World.getDimension("overworld"));
                     flag(player, "NoSlow", "A", "Movement", "x_speed", `${Math.abs(player.velocity.x).toFixed(2)},z_speed=${Math.abs(player.velocity.z).toFixed(2)}`, true, false);
                 } catch(error) {}
             }

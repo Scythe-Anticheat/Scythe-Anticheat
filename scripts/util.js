@@ -55,7 +55,12 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         } catch(error) {console.warn(`${new Date()} | ` + error);}
     }
 
-    if (check === "Namespoof") Commands.run(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid username`, World.getDimension("overworld"));
+    try {
+        if (check === "Namespoof") Commands.run(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid username`, World.getDimension("overworld"));
+    } catch(error) {
+        // if we cant kick them with /kick then we instant despawn them
+        player.triggerEvent("scythe:kick");
+    }
 }
 
 // fixes a disabler attack
