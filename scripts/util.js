@@ -11,9 +11,9 @@ const Commands = Minecraft.Commands;
  * @param {string} checktype - What sub-check ran the function (ex. a, b ,c).
  * @param {string} hacktype - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string} debugName - Name for the debug value.
- * @param {string} checktype - Debug info.
- * @param {boolean} checktype - Whever to tp the player to itself.
- * @param {object} checktype - The message object, used to cancel the message.
+ * @param {string} debug - Debug info.
+ * @param {boolean} shouldTP - Whever to tp the player to itself.
+ * @param {object} message - The message object, used to cancel the message.
  */
 export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message) {
     // validate that required params are defined

@@ -158,5 +158,13 @@ World.events.tick.subscribe(() => {
             o[i].slot = i;
             if (o[i].amount > 64) flag(player, "IllegalItems", "C", "Exploit", "stack", o[i], false, false);
         } catch(e) {} 
+
+        // invalidsprint/a = checks for sprinting with the blindness effect
+        if (player.getEffect(Minecraft.MinecraftEffectTypes.blindness)) {
+            try {
+                Commands.run(`testfor @a[name=${player.nameTag},tag=sprint]`, World.getDimension("overworld"));
+                flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
+            } catch(error) {}
+        }
     }
 });
