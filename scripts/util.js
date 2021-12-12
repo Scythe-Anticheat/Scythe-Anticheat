@@ -64,6 +64,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 }
 
 export function banMessage(player) {
+    // validate that required params are defined
+    if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
+
     let tags = Commands.run(`tag "${player.nameTag}" list`, World.getDimension('overworld')).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
     if (tags) tags = String(tags).split(/[,]/);
 

@@ -3,7 +3,7 @@ gamerule randomtickspeed 1
 
 # Runs All The Checks
 function checks/angle
-function checks/ban
+execute @s[type=player,tag=isBanned] ~~~ function checks/ban
 function checks/cbe
 function checks/epearlglitching
 function checks/gamemode
