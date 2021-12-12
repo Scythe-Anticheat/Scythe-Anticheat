@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { m, flag } from "./util.js";
+import { m, flag, banMessage } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 
 const World = Minecraft.World;
@@ -65,6 +65,16 @@ World.events.tick.subscribe(() => {
         // fix a disabler method
         player.nameTag = player.nameTag.replace("\"", "");
         player.nameTag = player.nameTag.replace("\\", "");
+
+        try {
+            Commands.run(`tag "${player.nameTag}" add gametest`, World.getDimension("overworld"));
+        } catch(error) {}
+
+        // sexy looking ban message
+        try {
+            Commands.run(`testfor @a[name="${player.nameTag}",tag=isBanned]`, World.getDimension("overworld"));
+            banMessage(player);
+        } catch(error) {}
 
         // Crasher/A = invalid pos check
         if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||

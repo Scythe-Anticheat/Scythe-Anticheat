@@ -31,7 +31,18 @@ export function ban(message, args) {
     // make sure they dont ban themselves
     if (member === player.nameTag) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban yourself."}]}`, World.getDimension("overworld"));
 
+    let tags = Commands.run(`tag "${member}" list`, World.getDimension('overworld')).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
+    if (tags) tags = String(tags).split(/[,]/);
+
+    // this removes old ban stuff
+    tags.forEach(t => {
+        if(t.startsWith(" reason:")) Commands.run(`tag "${member}" remove "${t.slice(1)}"`, World.getDimension("overworld"));
+        if(t.startsWith(" by:")) Commands.run(`tag "${member}" remove "${t.slice(1)}"`, World.getDimension("overworld"));
+    });
+
     try {
+        Commands.run(`tag "${member}" add "reason:${reason}"`, World.getDimension("overworld"));
+        Commands.run(`tag "${member}" add "by:${player.nameTag}"`, World.getDimension("overworld"));
         Commands.run(`tag "${member}" add isBanned`, World.getDimension("overworld"));
     } catch (error) {
         console.warn(`${new Date()} | ` + error);

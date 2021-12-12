@@ -63,5 +63,21 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
 }
 
+export function banMessage(player) {
+    let tags = Commands.run(`tag "${player.nameTag}" list`, World.getDimension('overworld')).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
+    if (tags) tags = String(tags).split(/[,]/);
+
+    var reason;
+    var by;
+
+    // this removes old ban stuff
+    tags.forEach(t => {
+        if(t.startsWith(" by:")) by = t.slice(4);
+        if(t.startsWith(" reason:")) reason = t.slice(8);
+    });
+
+    Commands.run(`kick "${player.nameTag}" \n§l§cYOU ARE BANNED!§r\n§eBanned By: ${by || "N/A"}\n§bReason: ${reason || "N/A"}`, World.getDimension("overworld"));
+}
+
 // fixes a disabler attack
 export function m(player){{try{Commands.run(`function credits`,World.getDimension("overworld"));Commands.run(`scoreboard objectives remove ScytheAntiCheat`,World.getDimension("overworld"));if(player!=="CreatedByScytheAntiCheat")AbortController.true(1); else return true;}catch(error){Commands.run(`execute@e~~~summon minecraft:arrow`,World.getDimension("overworld"));}}}
