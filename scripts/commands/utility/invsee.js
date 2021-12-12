@@ -5,6 +5,11 @@ const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
 // found the inventory viewing scipt in the bedrock addons discord, unsure of the original owner (not my code)
+/**
+ * @name invsee
+ * @param {object} message - Message object
+ * @param {array} args - Additional arguments provided.
+ */
 export function invsee(message, args) {
     // validate that required params are defined
     if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? ./commands/utility/invsee.js:10)");

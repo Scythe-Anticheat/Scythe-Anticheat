@@ -19,6 +19,12 @@ if (Commands === World) console.log(`impossible`);
 
 let prefix = "!";
 
+/**
+ * @name commandHandler
+ * @param {object} player - The player that has sent the message
+ * @param {object} message - Message data
+ * @param {boolean} debug - Weather or not debug mode is enabled
+ */
 export function commandHandler(player, message, debug) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./commands/handler.js:13)");

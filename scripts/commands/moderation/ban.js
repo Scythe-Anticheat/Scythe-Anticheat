@@ -4,6 +4,11 @@ import * as Minecraft from "mojang-minecraft";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
+/**
+ * @name ban
+ * @param {object} message - Message object
+ * @param {array} args - Additional arguments provided.
+ */
 export function ban(message, args) {
     // validate that required params are defined
     if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? ./commands/moderation/ban.js:9)");

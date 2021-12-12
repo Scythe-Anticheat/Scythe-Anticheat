@@ -3,6 +3,10 @@ import * as Minecraft from "mojang-minecraft";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
+/**
+ * @name notify
+ * @param {object} message - Message object
+ */
 export function notify(message) {
     // validate that required params are defined
     if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./utility/notify.js:8)");

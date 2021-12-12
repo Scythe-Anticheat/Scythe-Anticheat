@@ -22,8 +22,6 @@ World.events.beforeChat.subscribe(msg => {
     // BadPackets/2 = chat message length check
     if (message.length > 512 || message.length < 0) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
-    commandHandler(player, msg, debug);
-
     // add's user custom tags to their messages
     if (player.name !== player.nameTag) {
         if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"${player.nameTag} ${msg.message}"}]}`, World.getDimension("overworld"));
@@ -53,6 +51,8 @@ World.events.beforeChat.subscribe(msg => {
         Commands.run(`testfor @a[name="${player.nameTag}",tag=hasGUIopen]`, World.getDimension("overworld"));
         flag(player, "Spammer", "D", "Misc", false, false, false, msg);
     } catch (error) {}
+
+    if (!msg.cancel) commandHandler(player, msg, debug);
 });
 
 World.events.tick.subscribe(() => {

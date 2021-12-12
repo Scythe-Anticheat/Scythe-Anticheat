@@ -5,6 +5,11 @@ import * as Minecraft from "mojang-minecraft";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
+/**
+ * @name fly
+ * @param {object} message - Message object
+ * @param {array} args - (Optional) Additional arguments provided.
+ */
 export function fly(message, args) {
     // validate that required params are defined
     if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/utility/fly.js:10)");

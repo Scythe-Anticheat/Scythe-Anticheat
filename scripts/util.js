@@ -63,6 +63,10 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
 }
 
+/**
+ * @name banMessage
+ * @param {object} player - The player object
+ */
 export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
@@ -79,7 +83,7 @@ export function banMessage(player) {
         if(t.startsWith(" reason:")) reason = t.slice(8);
     });
 
-    Commands.run(`kick "${player.nameTag}" \n§l§cYOU ARE BANNED!§r\n§eBanned By: ${by || "N/A"}\n§bReason: ${reason || "N/A"}`, World.getDimension("overworld"));
+    Commands.run(`kick "${player.nameTag}" \n§l§cYOU ARE BANNED!§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`, World.getDimension("overworld"));
 }
 
 // fixes a disabler attack
