@@ -129,7 +129,7 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         // NoSlow/A = speed limit check
-        if(Math.abs(player.velocity.x.toFixed(2)) >= 0.10 || Math.abs(player.velocity.z.toFixed(2)) >= 0.10) {
+        if(Math.abs(player.velocity.x.toFixed(2)) >= 0.11 || Math.abs(player.velocity.z.toFixed(2)) >= 0.11) {
             if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed)) {
                 try {
                     Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=ground,tag=!jump,tag=!gliding]`, World.getDimension("overworld"));
