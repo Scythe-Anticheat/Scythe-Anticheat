@@ -83,7 +83,7 @@ export function banMessage(player) {
         if(t.startsWith(" reason:")) reason = t.slice(8);
     });
 
-    Commands.run(`kick "${player.nameTag}" \n§l§cYOU ARE BANNED!§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`, World.getDimension("overworld"));
+    Commands.run(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`, World.getDimension("overworld"));
 }
 
 // fixes a disabler attack
