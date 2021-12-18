@@ -68,10 +68,13 @@
 						"/scoreboard objectives add invalidsprintvl",
 						"/execute @s[tag=right] ~~~ scoreboard players add @s invalidsprintvl 1",
 						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InvalidSprint/B. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invalidsprintvl\"}}]}",
-						"/tp @s[tag=right] ~~~",
+						"/tp @s[tag=right] @s",
 						"/execute @s[tag=sneak] ~~~ scoreboard players add @s invalidsprintvl 1",
 						"/execute @s[tag=sneak] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InvalidSprint/C. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invalidsprintvl\"}}]}",
-						"/tp @s[tag=sneak] ~~~"
+						"/tp @s[tag=sneak] @s",
+						"/execute @s[tag=gliding] ~~~ scoreboard players add @s invalidsprintvl 1",
+						"/execute @s[tag=gliding] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InvalidSprint/D. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invalidsprintvl\"}}]}",
+						"/tp @s[tag=gliding] @s"
 					]
 				}
 			}
