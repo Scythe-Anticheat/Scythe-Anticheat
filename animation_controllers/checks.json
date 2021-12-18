@@ -64,7 +64,11 @@
 					}],
 					"on_entry": [
 						"/tag @s add sprint",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/scoreboard objectives add invalidsprintvl",
+						"/execute @s[tag=right] ~~~ scoreboard players add @s invalidsprintvl 1",
+						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InvalidSprint/B. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invalidsprintvl\"}}]}",
+						"/tp @s[tag=right] ~~~"
 					]
 				}
 			}
