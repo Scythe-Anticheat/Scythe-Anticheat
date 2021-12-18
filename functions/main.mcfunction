@@ -8,9 +8,9 @@ function checks/cbe
 function checks/epearlglitching
 function checks/gamemode
 function checks/illegalitems
-function checks/jesus
+execute @s[tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ function checks/jesus
 function checks/others
-function checks/phase
+execute @s[tag=moving,tag=!gliding,tag=!riding,tag=!vanish] ~~~ function checks/phase
 
 # optional checks
 execute @s[scores={commandblocks=1..}] ~~~ function checks/nocommandblocks
