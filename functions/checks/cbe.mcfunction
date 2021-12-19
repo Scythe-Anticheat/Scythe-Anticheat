@@ -1,5 +1,4 @@
 # Anti-Command Block Exploit
-
 scoreboard objectives add cbevl dummy
 
 # patch falling blocks
@@ -20,11 +19,5 @@ clear @s[tag=!op] bee_nest
 execute @e ~~~ fill ~-4 -64 ~-4 ~4 319 ~4 air 0 replace bee_nest -1
 execute @e ~~~ fill ~-4 -64 ~-4 ~4 319 ~4 air 0 replace beehive -1
 
-fill ~13 ~5 ~13 ~-13 ~-5 ~-13 air 0 replace bee_nest -1
-fill ~13 ~5 ~13 ~-13 ~-5 ~-13 air 0 replace beehive -1
-
-# patch invalid entities riding boats
-ride @e[type=!player] stop_riding
-
-# fix a possible bypass
-tag @e[type=!player] remove op
+fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace bee_nest -1
+fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace beehive -1
