@@ -23,7 +23,7 @@ World.events.beforeChat.subscribe(msg => {
     if (message.length > 512 || message.length < 0) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
     // add's user custom tags to their messages
-    if (player.name !== player.nameTag) {
+    if (player.name && player.name !== player.nameTag) {
         if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"${player.nameTag} ${msg.message}"}]}`, World.getDimension("overworld"));
         msg.cancel = true;
     }
