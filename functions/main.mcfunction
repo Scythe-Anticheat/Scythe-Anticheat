@@ -3,13 +3,15 @@ gamerule randomtickspeed 1
 
 # Runs All The Checks
 function checks/angle
-execute @s[type=player,tag=isBanned] ~~~ function checks/ban
 function checks/cbe
-function checks/epearlglitching
 function checks/gamemode
 function checks/illegalitems
-execute @s[tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ function checks/jesus
 function checks/others
+
+# specific criteria checks
+execute @s[type=player,tag=isBanned] ~~~ function checks/ban
+execute @e[type=ender_pearl] ~~~ function checks/epearlglitching
+execute @s[tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ function checks/jesus
 execute @s[tag=moving,tag=!gliding,tag=!riding,tag=!vanish] ~~~ function checks/phase
 
 # optional checks
