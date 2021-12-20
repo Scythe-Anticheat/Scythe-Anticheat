@@ -65,19 +65,7 @@
 					"on_entry": [
 						"/tag @s add sprint",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/scoreboard objectives add invalidsprintvl dummy",
-						"/scoreboard players add @s[tag=right] invalidsprintvl 1",
-						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InvalidSprint/B. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invalidsprintvl\"}}]}",
-						"/tp @s[tag=right] @s",
-						"/scoreboard players add @s[tag=sneak,m=!c,tag=!flying] invalidsprintvl 1",
-						"/execute @s[tag=sneak,m=!c,tag=!flying] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InvalidSprint/C. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invalidsprintvl\"}}]}",
-						"/tp @s[tag=sneak,m=!c,tag=!flying] @s",
-						"/scoreboard players add @s[tag=gliding invalidsprintvl 1",
-						"/execute @s[tag=gliding] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InvalidSprint/D. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invalidsprintvl\"}}]}",
-						"/tp @s[tag=gliding] @s",
-						"/scoreboard players add @s[tag=!moving] invalidsprintvl 1",
-						"/execute @s[tag=!moving] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InvalidSprint/E. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invalidsprintvl\"}}]}",
-						"/tp @s[tag=!moving] @s"
+						"/function checks/alerts/invalidsprint"
 					]
 				}
 			}
