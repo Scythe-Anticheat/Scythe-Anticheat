@@ -19,7 +19,7 @@ export default
             "maxlength": 512
         },
         "spammerA": {
-            "enabled": false
+            "enabled": true
         },
         "spammerB": {
             "enabled": true
