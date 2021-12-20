@@ -77,9 +77,9 @@ World.events.tick.subscribe(() => {
         } catch(error) {}
 
         // Crasher/A = invalid pos check
-        if (isNaN(player.location.x) || Math.abs(Math.ceil(player.location.x)) > 30000000 ||
-            isNaN(player.location.y) || Math.abs(Math.ceil(player.location.y)) > 30000000 ||
-            isNaN(player.location.z) || Math.abs(Math.ceil(player.location.z)) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true, false);
+        if (isNaN(player.location.x) || Math.abs(player.location.x) > 30000000 ||
+            isNaN(player.location.y) || Math.abs(player.location.y) > 30000000 ||
+            isNaN(player.location.z) || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true, false);
 
         // Namespoof/A = username length check.
         try {

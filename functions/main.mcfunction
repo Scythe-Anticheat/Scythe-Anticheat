@@ -11,8 +11,8 @@ function checks/others
 # Specific criteria checks
 execute @s[type=player,tag=isBanned] ~~~ function checks/ban
 execute @e[type=ender_pearl,r=5] ~~~ function checks/epearlglitching
-execute @s[tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ function checks/jesus
-execute @s[tag=moving,tag=!gliding,tag=!riding,tag=!vanish] ~~~ function checks/phase
+execute @s[type=player,tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ function checks/jesus
+execute @s[type=player,tag=moving,tag=!gliding,tag=!riding,tag=!vanish] ~~~ function checks/phase
 
 # Optional checks
 execute @s[scores={commandblocks=1..}] ~~~ function checks/nocommandblocks
