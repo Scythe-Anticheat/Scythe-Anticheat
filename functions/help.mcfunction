@@ -24,9 +24,20 @@ tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}
 
 tellraw @s {"rawtext":[{"text":"/execute <playername> ~~~ function tools/ecwipe - Clears a players ender chest."}]}
 tellraw @s {"rawtext":[{"text":"/function tools/fly - Enables/disables fly mode in survival."}]}
-tellraw @s {"rawtext":[{"text":"/function tools/fly - Enables/disables fly mode in survival."}]}
 tellraw @s {"rawtext":[{"text":"/execute <playername> ~~~ function tools/freeze - Freeze a player and make it so they cant move."}]}
 tellraw @s {"rawtext":[{"text":"/execute <playername> ~~~ function tools/stats - View a players anticheat logs."}]}
 tellraw @s {"rawtext":[{"text":"/function tools/vanish - Enables/disables vanish (Used for spying on suspects)."}]}
+
+tellraw @s {"rawtext":[{"text":"\n§l§aGametest Commands (Requires GameTest Framework to be enabled in your world settings)}]}
+
+tellraw @s {"rawtext":[{"text":"!ban <playername> <reason> - Ban a player from the realm."}]}
+tellraw @s {"rawtext":[{"text":"!kick <playername> <reason> - Kick a player from the realm."}]}
+tellraw @s {"rawtext":[{"text":"!mute <playername> <reason> - Mute a player from chatting."}]}
+tellraw @s {"rawtext":[{"text":"!unmute <playername> <reason> - Unmute a player."}]}
+tellraw @s {"rawtext":[{"text":"!fly <playername (Optional)> - Enables fly mode."}]}
+tellraw @s {"rawtext":[{"text":"!invsee <playername> - View the contents of a players inventory."}]}
+tellraw @s {"rawtext":[{"text":"!notify - Enabled hack alerts."}]}
+tellraw @s {"rawtext":[{"text":"!tag <tag> - Set a custom message tag."}]}
+tellraw @s {"rawtext":[{"text":"!vanish - Puts you into vanish."}]}
 
 tellraw @s {"rawtext":[{"text":"\n"}]}
