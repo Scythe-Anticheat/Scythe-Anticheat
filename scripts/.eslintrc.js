@@ -32,6 +32,6 @@ module.exports = {
         "no-useless-escape": "error",
         "spaced-comment": "error",
         "yoda": "error",
-        "semi": "error"
+        "semi": "warn"
     }
 };

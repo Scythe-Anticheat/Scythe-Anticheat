@@ -1,11 +1,12 @@
 import * as Minecraft from "mojang-minecraft";
 import { m, flag, banMessage } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
+import config from "./config.js";
 
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-const debug = true;
+const debug = config.debug;
 const f = "CreatedByScytheAntiCheat";
 let ticks = 0;
 
@@ -20,7 +21,7 @@ World.events.beforeChat.subscribe(msg => {
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
     // BadPackets/2 = chat message length check
-    if (message.length > 512 || message.length < 0) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
+    if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
     // add's user custom tags to their messages
     if (player.name && player.name !== player.nameTag) {
@@ -29,30 +30,38 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     // Spammer/A = checks if someone sends a message while moving and on ground
-    try {
-        Commands.run(`testfor @a[name="${player.nameTag}",tag=moving,tag=ground,tag=!jump]`, World.getDimension("overworld"));
-        flag(player, "Spammer", "A", "Movement", false, false, true, msg);
-    } catch (error) {}
+    if (config.modules.spammerA.enabled) {
+        try {
+            Commands.run(`testfor @a[name="${player.nameTag}",tag=moving,tag=ground,tag=!jump]`, World.getDimension("overworld"));
+            flag(player, "Spammer", "A", "Movement", false, false, true, msg);
+        } catch (error) {}
+    }
 
     // Spammer/B = checks if someone sends a message while swinging their hand
-    try {
-        Commands.run(`testfor @a[name="${player.nameTag}",tag=left]`, World.getDimension("overworld"));
-        flag(player, "Spammer", "B", "Combat", false, false, false, msg);
-    } catch (error) {}
+    if (config.modules.spammerB.enabled) {
+        try {
+            Commands.run(`testfor @a[name="${player.nameTag}",tag=left]`, World.getDimension("overworld"));
+            flag(player, "Spammer", "B", "Combat", false, false, false, msg);
+        } catch (error) {}
+    }
 
     // Spammer/C = checks if someone sends a message while using an item
-    try {
-        Commands.run(`testfor @a[name="${player.nameTag}",tag=right]`, World.getDimension("overworld"));
-        flag(player, "Spammer", "C", "Misc", false, false, false, msg);
-    } catch (error) {}
+    if (config.modules.spammerC.enabled) {
+        try {
+            Commands.run(`testfor @a[name="${player.nameTag}",tag=right]`, World.getDimension("overworld"));
+            flag(player, "Spammer", "C", "Misc", false, false, false, msg);
+        } catch (error) {}
+    }
 
     // Spammer/D = checks if someone sends a message while having a GUI open
-    try {
-        Commands.run(`testfor @a[name="${player.nameTag}",tag=hasGUIopen]`, World.getDimension("overworld"));
-        flag(player, "Spammer", "D", "Misc", false, false, false, msg);
-    } catch (error) {}
+    if (config.modules.spammerD.enabled) {
+        try {
+            Commands.run(`testfor @a[name="${player.nameTag}",tag=hasGUIopen]`, World.getDimension("overworld"));
+            flag(player, "Spammer", "D", "Misc", false, false, false, msg);
+        } catch (error) {}
+    }
 
-    if (!msg.cancel) commandHandler(player, msg, debug);
+    if (!msg.cancel) commandHandler(player, msg);
 });
 
 World.events.tick.subscribe(() => {
@@ -77,20 +86,18 @@ World.events.tick.subscribe(() => {
         } catch(error) {}
 
         // Crasher/A = invalid pos check
-        if (isNaN(player.location.x) || Math.abs(player.location.x) > 30000000 ||
+        if (config.modules.crasherA.enabled && isNaN(player.location.x) || Math.abs(player.location.x) > 30000000 ||
             isNaN(player.location.y) || Math.abs(player.location.y) > 30000000 ||
             isNaN(player.location.z) || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true, false);
 
         // Namespoof/A = username length check.
         try {
-            if (player.name.length < 3 || player.name.length > 16) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
+            if (config.modules.namespoofA.enabled && player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
         } catch(error) {}
 
         // Namespoof/B = regex check
-        const regex = /[^A-Za-z0-9_ ]/;
-
         try {
-            if (regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit", false, false, false, false);
+            if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit", false, false, false, false);
         } catch(error) {}
 
         // player position shit
@@ -99,47 +106,53 @@ World.events.tick.subscribe(() => {
         Commands.run(`scoreboard players set "${player.nameTag}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
 
         // bedrock validation
-        try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`, World.getDimension("overworld"));
-        } catch (error) {}
+        if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld) {
+            try {
+                Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`, World.getDimension("overworld"));
+            } catch (error) {}
 
-        try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`, World.getDimension("overworld"));
-        } catch (error) {if(player.velocity.y!==0)try{m(f);}catch(a){}}
+            try {
+                Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`, World.getDimension("overworld"));
+            } catch (error) {if(player.velocity.y!==0)try{m(f);}catch(a){}}
+        }
 
-        try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~10 0 ~10 bedrock`, World.getDimension("nether"));
-        } catch (error) {}
+        if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.nether) {
+            try {
+                Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~10 0 ~10 bedrock`, World.getDimension("nether"));
+            } catch (error) {}
 
-        try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~10 127 ~10 bedrock`, World.getDimension("nether"));
-        } catch (error) {if(typeof(m)!=="function")flag(player, "Crasher", "A", false, false, true, false);}
+            try {
+                Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~10 127 ~10 bedrock`, World.getDimension("nether"));
+            } catch (error) {if(typeof(m)!=="function")flag(player, "Crasher", "A", false, false, true, false);}
 
-        try {
-            Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`, World.getDimension("nether"));
-        } catch (error) {}
+            try {
+                Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`, World.getDimension("nether"));
+            } catch (error) {}
+        }
 
         // if (debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
 
         // reach/a
-        try {                                                                   // we could use r=4 but that wont account for lag
-            Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=4.5]`, World.getDimension("overworld"));
-        } catch (error) {
-            try {
-                Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("overworld"));
-            } catch (error2) {}
+        if (config.modules.reachA.enabled) {
+            try {                                                                   // we could use r=4 but that wont account for lag
+                Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=${config.modules.reachA.reach}]`, World.getDimension("overworld"));
+            } catch (error) {
+                try {
+                    Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ function checks/alerts/reach`, World.getDimension("overworld"));
+                } catch (error2) {}
+            }
         }
 
         // jesus/b = motion check
         try {
-            if (Math.abs(player.velocity.y).toFixed(4) <= 0.027 && Math.abs(player.velocity.y).toFixed(4) >= 0.0246 && !player.getEffect(Minecraft.MinecraftEffectTypes.slowFalling)) {
+            if (config.modules.jesusB.enabled && Math.abs(player.velocity.y).toFixed(4) <= config.modules.jesusB.maxMotion && Math.abs(player.velocity.y).toFixed(4) >= config.modules.jesusB.minMotion && !player.getEffect(Minecraft.MinecraftEffectTypes.slowFalling)) {
                 Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!ground,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
                 flag(player, "Jesus", "B", "Movement", "yMotion", Math.abs(player.velocity.y).toFixed(4), true, false);
             }
         } catch (error) {}
 
         // NoSlow/A = speed limit check
-        if(Math.abs(player.velocity.x.toFixed(2)) >= 0.11 || Math.abs(player.velocity.z.toFixed(2)) >= 0.11) {
+        if(config.modules.noslowA.enabled && Math.abs(player.velocity.x.toFixed(2)) >= config.modules.noslowA.speed || Math.abs(player.velocity.z.toFixed(2)) >= config.modules.noslowA.speed) {
             if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed)) {
                 try {
                     Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=ground,tag=!jump,tag=!gliding]`, World.getDimension("overworld"));
@@ -149,18 +162,20 @@ World.events.tick.subscribe(() => {
         }
 
         // IllegalItems/C = invalid item stack check
-        let container = player.getComponent('inventory').container;
-        let o = [];
+        if(config.modules.illegalitemsC.enabled) {
+            let container = player.getComponent('inventory').container;
+            let o = [];
     
-        for (let i = 0; i < container.size; i++) o.push(container.getItem(i));
+            for (let i = 0; i < container.size; i++) o.push(container.getItem(i));
 
-        for (let i = 0; i < 36; i++) try {
-            o[i].slot = i;
-            if (o[i].amount > 64) flag(player, "IllegalItems", "C", "Exploit", "stack", o[i], false, false);
-        } catch(e) {} 
+            for (let i = 0; i < 36; i++) try {
+                o[i].slot = i;
+                if (o[i].amount > config.modules.illegalitemsC.maxStack) flag(player, "IllegalItems", "C", "Exploit", "stack", o[i], false, false);
+            } catch(e) {}
+        }
 
         // invalidsprint/a = checks for sprinting with the blindness effect
-        if (player.getEffect(Minecraft.MinecraftEffectTypes.blindness)) {
+        if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness)) {
             try {
                 Commands.run(`testfor @a[name=${player.nameTag},tag=sprint]`, World.getDimension("overworld"));
                 flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);

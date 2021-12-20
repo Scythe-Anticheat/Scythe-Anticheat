@@ -28,7 +28,7 @@ tellraw @s {"rawtext":[{"text":"/execute <playername> ~~~ function tools/freeze 
 tellraw @s {"rawtext":[{"text":"/execute <playername> ~~~ function tools/stats - View a players anticheat logs."}]}
 tellraw @s {"rawtext":[{"text":"/function tools/vanish - Enables/disables vanish (Used for spying on suspects)."}]}
 
-tellraw @s {"rawtext":[{"text":"\n§l§aGametest Commands (Requires GameTest Framework to be enabled in your world settings)}]}
+tellraw @s {"rawtext":[{"text":"\n§l§aGametest Commands (Requires GameTest Framework to be enabled in your world settings)"}]}
 
 tellraw @s {"rawtext":[{"text":"!ban <playername> <reason> - Ban a player from the realm."}]}
 tellraw @s {"rawtext":[{"text":"!kick <playername> <reason> - Kick a player from the realm."}]}
