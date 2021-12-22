@@ -43,6 +43,7 @@ export default
             "regex": "/[^A-Za-z0-9_ ]/"
         },
         "bedrockValidate": {
+            "enabled": true,
             "overworld": true,
             "nether": true
         },
