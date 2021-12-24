@@ -67,7 +67,7 @@ export default
         "invalidsprintA": {
             "enabled": true
         },
-        "motionA": {
+        "flyA": {
             "enabled": true,
             "yChange": 0.375
         }

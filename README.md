@@ -47,6 +47,9 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
 
   Ender Pearl Glitching -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if an ender pearl is inside a climbable block.
+
+  Fly -><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for creative fly while in survival.
    
   Illegal Items -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Clears illegal items from everybody's inventories.<br />
@@ -71,10 +74,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
       
   Jesus -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if the player is above water/lava blocks.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Motion check. (Requires GameTest FrameWork)
-
-  Motion -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for fly-like vertical move distance.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Motion check. (Requires GameTest FrameWork)>
 
   NameSpoof -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player's name is longer then 16 characters. (Requires GameTest FrameWork)<br />
