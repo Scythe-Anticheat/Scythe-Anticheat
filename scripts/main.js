@@ -181,5 +181,18 @@ World.events.tick.subscribe(() => {
                 flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
             } catch(error) {}
         }
+        
+        // motion/a = checks for fly-like vertical move distance
+        if(config.modules.motionA.enabled && player.lastYpos) {
+            let yChange = player.location.y - player.lastYpos;
+            // console.warn(yChange);
+            if (yChange == config.modules.motionA.yChange) {
+                try {
+                    Commands.run(`testfor @a[name="${player.nameTag}",tag=!ground,tag=!gliding,tag=!levitating,tag=moving]`, World.getDimension("overworld"));
+                    flag(player, "Motion", "A", "Movement", "yVelocity", `${Math.abs(player.velocity.y).toFixed(3)},yChange=${yChange}`, true, false);
+                } catch(error) {}
+            }
+        }
+        player.lastYpos = player.location.y;
     }
 });

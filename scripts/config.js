@@ -66,6 +66,10 @@ export default
         },
         "invalidsprintA": {
             "enabled": true
+        },
+        "motionA": {
+            "enabled": true,
+            "yChange": 0.375
         }
     }
 };
