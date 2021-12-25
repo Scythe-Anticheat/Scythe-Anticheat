@@ -61,7 +61,7 @@ World.events.beforeChat.subscribe(msg => {
         } catch (error) {}
     }
 
-    if (!msg.cancel) commandHandler(player, msg);
+    commandHandler(player, msg);
 });
 
 World.events.tick.subscribe(() => {

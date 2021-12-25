@@ -27,8 +27,11 @@ export function tag(message, args) {
         return Commands.run(`tellraw ${player.nameTag} {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));
     }
 
+    // check if array contains the string 'reset'
+    let argcheck = args.includes('reset');
+
     // reset user nametag
-    if (args[0] === "reset") {
+    if (argcheck === true) {
         player.nameTag = player.name;
         return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset their nametag"}]}`, World.getDimension("overworld"));
     }

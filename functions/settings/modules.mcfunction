@@ -17,6 +17,8 @@ scoreboard objectives add worldborder dummy
 scoreboard players add @s worldborder 0
 scoreboard objectives add frostwalker dummy
 scoreboard players add @s frostwalker 0
+scoreboard objectives add npc dummy
+scoreboard players add @s npc 0
 
 tellraw @s[scores={gma=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Anti-GMA is currently §4DISABLED"}]}
 tellraw @s[scores={gms=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Anti-GMS is currently §4DISABLED"}]}

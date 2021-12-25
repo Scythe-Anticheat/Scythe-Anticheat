@@ -6,11 +6,27 @@ const Commands = Minecraft.Commands;
 
 // import all our commands
 import { kick } from "./moderation/kick.js";
+import { help } from "./moderation/help.js";
+import { notify } from "./moderation/notify.js";
+import { op } from "./moderation/op.js";
 import { ban } from "./moderation/ban.js";
 import { mute } from "./moderation/mute.js";
 import { unmute } from "./moderation/unmute.js";
-import { notify } from "./utility/notify.js";
+import { credits } from "./moderation/credits.js";
+import { allowgma } from "./settings/allowgma.js";
+import { allowgmc } from "./settings/allowgmc.js";
+import { allowgms } from "./settings/allowgms.js";
+import { bedrockvalidate } from "./settings/bedrockvalidate.js";
+import { modules } from "./settings/modules.js";
+import { nofrostwalker } from "./settings/nofrostwalker.js";
+import { npc } from "./settings/npc.js";
+import { overidecommandblocksenabled } from "./settings/overidecommandblocksenabled.js";
+import { removecommandblocks } from "./settings/removecommandblocks.js";
+import { worldborder } from "./settings/worldborder.js";
 import { tag } from "./utility/tag.js";
+import { ecwipe } from "./utility/ecwipe.js";
+import { freeze } from "./utility/freeze.js";
+import { stats } from "./utility/stats.js";
 import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
@@ -18,7 +34,7 @@ import { invsee } from "./utility/invsee.js";
 // to make eslint shut up 
 if (Commands === World) console.log(`impossible`);
 
-let prefix = "!";
+let prefix = config.customcommands.prefix;
 
 /**
  * @name commandHandler
@@ -52,6 +68,22 @@ export function commandHandler(player, message) {
         else if (config.customcommands.mute && commandName === "mute") mute(message, args);
         else if (config.customcommands.unmute && commandName === "unmute") unmute(message, args);
         else if (config.customcommands.invsee && commandName === "invsee") invsee(message, args);
+        else if (config.customcommands.ecwipe && commandName === "ecwipe") ecwipe(message, args);
+        else if (config.customcommands.freeze && commandName === "freeze") freeze(message, args);
+        else if (config.customcommands.stats && commandName === "stats") stats(message, args);
+        else if (config.customcommands.allowgma && commandName === "allowgma") allowgma(message);
+        else if (config.customcommands.allowgmc && commandName === "allowgmc") allowgmc(message);
+        else if (config.customcommands.allowgms && commandName === "allowgms") allowgms(message);
+        else if (config.customcommands.bedrockvalidate && commandName === "bedrockvalidate") bedrockvalidate(message);
+        else if (config.customcommands.modules && commandName === "modules") modules(message);
+        else if (config.customcommands.nofrostwalker && commandName === "nofrostwalker") nofrostwalker(message);
+        else if (config.customcommands.npc && commandName === "npc") npc(message);
+        else if (config.customcommands.overidecommandblocksenabled && commandName === "overidecommandblocksenabled") overidecommandblocksenabled(message);
+        else if (config.customcommands.removecommandblocks && commandName === "removecommandblocks") removecommandblocks(message);
+        else if (config.customcommands.worldborder && commandName === "worldborder") worldborder(message);
+        else if (config.customcommands.help && commandName === "help") help(message);
+        else if (config.customcommands.credits && commandName === "credits") credits(message);
+        else if (config.customcommands.op && commandName === "op") op(message, args);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
