@@ -85,8 +85,13 @@
 					"remove_effects": "bad_omen"
 				}
 			},
-			"scythe:reset": {
+			"scythe:reset_skinid": {
 				"minecraft:skin_id": {
+					"value": 0
+				}
+			},
+			"scythe:reset_variant": {
+				"minecraft:variant": {
 					"value": 0
 				}
 			},
@@ -96,8 +101,8 @@
 				}
 			},
 			"scythe:gui": {
-				"minecraft:skin_id": {
-					"value": 2
+				"minecraft:variant": {
+					"value": 1
 				}
 			},
 			"scythe:illegal": {
@@ -269,7 +274,7 @@
 								"value": false
 							}]
 						},
-						"event": "scythe:reset"
+						"event": "scythe:reset_variant"
 					},
 					{
 						"filters": {
@@ -541,7 +546,7 @@
 				},
 				"remove": {
 					"component_groups": [
-						"scythe:reset"
+						"scythe:reset_skinid"
 					]
 				}
 			},
@@ -553,7 +558,7 @@
 				},
 				"remove": {
 					"component_groups": [
-						"scythe:reset"
+						"scythe:reset_variant"
 					]
 				}
 			},
@@ -565,21 +570,32 @@
 				},
 				"remove": {
 					"component_groups": [
-						"scythe:reset"
+						"scythe:reset_skinid"
 					]
 				}
 			},
-			"scythe:reset": {
+			"scythe:reset_skinid": {
 				"add": {
 					"component_groups": [
-						"scythe:reset"
+						"scythe:reset_skinid"
 					]
 				},
 				"remove": {
 					"component_groups": [
 						"scythe:onAttack",
-						"scythe:gui",
 						"scythe:illegal"
+					]
+				}
+			},
+			"scythe:reset_variant": {
+				"add": {
+					"component_groups": [
+						"scythe:reset_variant"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:gui"
 					]
 				}
 			},
