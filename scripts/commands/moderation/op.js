@@ -23,7 +23,7 @@ export function op(message, args) {
     try {
         Commands.run(`testfor @a[name="${player.nameTag}",tag=op]`, World.getDimension("overworld"));
     } catch (error) {
-        return Commands.run(`tellraw ${player.nameTag} {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));
+        return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));
     }
     
     // try to find the player requested

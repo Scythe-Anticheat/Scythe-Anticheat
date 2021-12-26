@@ -64,7 +64,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.ban && commandName === "ban") ban(message, args);
         else if (config.customcommands.notify && commandName === "notify") notify(message);
         else if (config.customcommands.vanish && commandName === "vanish" || commandName === "v") vanish(message);
-        else if (config.customcommands.fly && commandName === "fly") fly(message, args);
+        else if (config.customcommands.fly && commandName === "fly" || commandName === "birdmode") fly(message, args);
         else if (config.customcommands.mute && commandName === "mute") mute(message, args);
         else if (config.customcommands.unmute && commandName === "unmute") unmute(message, args);
         else if (config.customcommands.invsee && commandName === "invsee") invsee(message, args);
@@ -80,7 +80,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.npc && commandName === "npc") npc(message);
         else if (config.customcommands.overidecommandblocksenabled && commandName === "overidecommandblocksenabled") overidecommandblocksenabled(message);
         else if (config.customcommands.removecommandblocks && commandName === "removecommandblocks") removecommandblocks(message);
-        else if (config.customcommands.worldborder && commandName === "worldborder") worldborder(message);
+        else if (config.customcommands.worldborder && commandName === "worldborder" || commandName === "wb") worldborder(message);
         else if (config.customcommands.help && commandName === "help") help(message);
         else if (config.customcommands.credits && commandName === "credits") credits(message);
         else if (config.customcommands.op && commandName === "op") op(message, args);
