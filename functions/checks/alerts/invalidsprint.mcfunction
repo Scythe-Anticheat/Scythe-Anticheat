@@ -16,6 +16,6 @@ execute @s[type=player,tag=sprint,tag=gliding] ~~~ tellraw @a[tag=notify] {"rawt
 tp @s[type=player,tag=sprint,tag=gliding] @s
 
 # InvalidSprint/E
-execute @s[type=player,tag=sprint,tag=ground,tag=!jump,tag=!moving] ~~~ detect ~~~ air -1 scoreboard players add @s invalidsprintvl 1
-execute @s[type=player,tag=sprint,tag=ground,tag=!jump,tag=!moving] ~~~ detect ~~~ air -1 tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4InvalidSprint/E. VL= "},{"score":{"name":"@s","objective":"invalidsprintvl"}}]}
-execute @s[type=player,tag=sprint,tag=ground,tag=!jump,tag=!moving] ~~~ detect ~~~ air -1 tp @s @s
+# execute @s[type=player,tag=sprint,tag=ground,tag=!jump,tag=!moving] ~~~ detect ~~~ air -1 scoreboard players add @s invalidsprintvl 1
+# execute @s[type=player,tag=sprint,tag=ground,tag=!jump,tag=!moving] ~~~ detect ~~~ air -1 tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4InvalidSprint/E. VL= "},{"score":{"name":"@s","objective":"invalidsprintvl"}}]}
+# execute @s[type=player,tag=sprint,tag=ground,tag=!jump,tag=!moving] ~~~ detect ~~~ air -1 tp @s @s
