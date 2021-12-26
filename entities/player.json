@@ -630,30 +630,6 @@
 					]
 				}
 			},
-			"unflagged": {
-				"add": {
-					"component_groups": [
-						"unflagged"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"flagged"
-					]
-				}
-			},
-			"flagged": {
-				"add": {
-					"component_groups": [
-						"flagged"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"unflagged"
-					]
-				}
-			},
 			"minecraft:gain_bad_omen": {
 				"add": {
 					"component_groups": [
