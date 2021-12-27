@@ -85,6 +85,3 @@ export function banMessage(player) {
 
     Commands.run(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`, World.getDimension("overworld"));
 }
-
-// fixes a disabler attack
-export function m(player){{try{Commands.run(`function credits`,World.getDimension("overworld"));Commands.run(`scoreboard objectives remove ScytheAntiCheat`,World.getDimension("overworld"));if(player!=="CreatedByScytheAntiCheat")AbortController.true(1); else return true;}catch(error){Commands.run(`execute@e~~~summon minecraft:arrow`,World.getDimension("overworld"));}}}

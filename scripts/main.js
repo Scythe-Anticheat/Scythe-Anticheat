@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { m, flag, banMessage } from "./util.js";
+import { flag, banMessage } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./config.js";
 
@@ -7,7 +7,6 @@ const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
 const debug = config.debug;
-const f = "CreatedByScytheAntiCheat";
 
 if (debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
@@ -108,7 +107,7 @@ World.events.tick.subscribe(() => {
 
             try {
                 Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`, World.getDimension("overworld"));
-            } catch (error) {if(player.velocity.y!==0)try{m(f);}catch(a){}}
+            } catch (error) {}
         }
 
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.nether) {
@@ -118,7 +117,7 @@ World.events.tick.subscribe(() => {
 
             try {
                 Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 127 ~-10 ~10 127 ~10 bedrock`, World.getDimension("nether"));
-            } catch (error) {if(typeof(m)!=="function")flag(player, "Crasher", "A", false, false, true, false);}
+            } catch (error) {}
 
             try {
                 Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`, World.getDimension("nether"));
