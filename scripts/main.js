@@ -8,7 +8,6 @@ const Commands = Minecraft.Commands;
 
 const debug = config.debug;
 const f = "CreatedByScytheAntiCheat";
-let ticks = 0;
 
 if (debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
@@ -65,10 +64,6 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 World.events.tick.subscribe(() => {
-    // count ticks
-    ticks++;
-    if (ticks >= 20) ticks = 0;
-
     // run as each player
     for (let player of World.getPlayers()) {
         // fix a disabler method
