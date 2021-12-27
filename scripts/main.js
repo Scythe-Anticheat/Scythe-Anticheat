@@ -6,15 +6,13 @@ import config from "./config.js";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-const debug = config.debug;
-
-if (debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
+if (config.debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase();
     const player = msg.sender;
 
-    if (debug && message === "ping") console.warn(`${new Date()} | Pong!`);
+    if (config.debug && message === "ping") console.warn(`${new Date()} | Pong!`);
 
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
@@ -23,7 +21,7 @@ World.events.beforeChat.subscribe(msg => {
 
     // add's user custom tags to their messages
     if (player.name && player.name !== player.nameTag) {
-        if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"${player.nameTag} ${msg.message}"}]}`, World.getDimension("overworld"));
+        if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message}"}]}`, World.getDimension("overworld"));
         msg.cancel = true;
     }
 
