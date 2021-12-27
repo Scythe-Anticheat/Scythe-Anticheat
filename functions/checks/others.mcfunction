@@ -16,7 +16,3 @@ ride @e[type=!player] stop_riding
 
 # fix a possible bypass
 tag @e[type=!player] remove op
-
-# overide commandblocksenabled
-execute @s[scores={cmds=1}] ~~~ gamerule commandblocksenabled true
-execute @s[scores={cmds=2..}] ~~~ gamerule commandblocksenabled false
