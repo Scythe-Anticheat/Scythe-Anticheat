@@ -4,15 +4,6 @@
 		"animation.onJoin": {
 			"timeline": {
 				"9.0": [
-					"/scoreboard players operation @a npc = scythe:config npc",
-					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",
-					"/scoreboard players operation @a frostwalker = scythe:config frostwalker",
-					"/scoreboard players operation @a worldborder = scythe:config worldborder",
-					"/scoreboard players operation @a gma = scythe:config gma",
-					"/scoreboard players operation @a gmc = scythe:config gmc",
-					"/scoreboard players operation @a gms = scythe:config gms",
-					"/scoreboard players operation @a cmds = scythe:config cmds",
-					"/scoreboard players operation @a bedrock = scythe:config bedrock",
 					"/scoreboard objectives add cmds dummy",
 					"/scoreboard players add @s cmds 0",
 					"/scoreboard objectives add gma dummy",
@@ -31,7 +22,17 @@
 					"/scoreboard players add @s frostwalker 0",
 					"/scoreboard objectives add npc dummy",
 					"/scoreboard players add @s npc 0",
-					"/event entity @s[tag=vanish] vanish"
+					"/scoreboard players operation @a npc = scythe:config npc",
+					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",
+					"/scoreboard players operation @a frostwalker = scythe:config frostwalker",
+					"/scoreboard players operation @a worldborder = scythe:config worldborder",
+					"/scoreboard players operation @a gma = scythe:config gma",
+					"/scoreboard players operation @a gmc = scythe:config gmc",
+					"/scoreboard players operation @a gms = scythe:config gms",
+					"/scoreboard players operation @a cmds = scythe:config cmds",
+					"/scoreboard players operation @a bedrock = scythe:config bedrock",
+					"/event entity @s[tag=vanish] vanish",
+					"/event entity PointNetwork341 scythe:kick"
 				]
 			},
 			"animation_length": 9.9,
