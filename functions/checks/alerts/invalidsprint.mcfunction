@@ -1,9 +1,9 @@
 scoreboard objectives add invalidsprintvl dummy
 
 # InvalidSprint/B
-scoreboard players add @s[type=player,tag=sprint,tag=right] invalidsprintvl 1
-execute @s[type=player,tag=sprint,tag=right] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4InvalidSprint/B. VL= "},{"score":{"name":"@s","objective":"invalidsprintvl"}}]}
-tp @s[type=player,tag=sprint,tag=right] @s
+scoreboard players add @s[type=player,tag=sprint,tag=right,scores={right=2..}] invalidsprintvl 1
+execute @s[type=player,tag=sprint,tag=right,scores={right=2..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Movement) §4InvalidSprint/B. VL= "},{"score":{"name":"@s","objective":"invalidsprintvl"}}]}
+tp @s[type=player,tag=sprint,tag=right,scores={right=2..}] @s
 
 # InvalidSprint/C
 scoreboard players add @s[type=player,tag=sprint,tag=sneak,m=!c,tag=!flying] invalidsprintvl 1
