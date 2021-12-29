@@ -3,15 +3,15 @@ gamerule randomtickspeed 1
 
 # Run all the checks
 function checks/angle
-function checks/autoclicker
 function checks/cbe
-function checks/gamemode
 function checks/illegalitems
 function checks/others
 
 # Specific criteria checks
+execute @s[type=player,scores={attacks=1..}] ~~~ function checks/autoclicker
 execute @s[type=player,tag=isBanned] ~~~ function checks/ban
 execute @e[type=ender_pearl,r=5] ~~~ function checks/epearlglitching
+execute @s[type=player,tag=!op] ~~~ function checks/gamemode
 execute @s[type=player,tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ function checks/jesus
 execute @s[type=player,tag=moving,tag=!gliding,tag=!riding,tag=!vanish] ~~~ function checks/phase
 
