@@ -137,7 +137,7 @@ World.events.tick.subscribe(() => {
         // jesus/b = motion check
         try {
             if (config.modules.jesusB.enabled && Math.abs(player.velocity.y).toFixed(4) <= config.modules.jesusB.maxMotion && Math.abs(player.velocity.y).toFixed(4) >= config.modules.jesusB.minMotion && !player.getEffect(Minecraft.MinecraftEffectTypes.slowFalling)) {
-                Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!ground,tag=!gliding,tag=!levitating,tag=!vanish] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
+                Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!ground,tag=!gliding,tag=!levitating,tag=!vanish,tag=!swimming] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
                 flag(player, "Jesus", "B", "Movement", "yMotion", Math.abs(player.velocity.y).toFixed(4), true, false);
             }
         } catch (error) {}

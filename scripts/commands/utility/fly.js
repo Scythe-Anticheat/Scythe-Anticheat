@@ -26,7 +26,7 @@ export function fly(message, args) {
     }
     
     // try to find the player requested
-    if(args.length) for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase())) var member = pl.nameTag; 
+    if(args.length) for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace("@", "").replace("\"", ""))) var member = pl.nameTag; 
     
     if (!member) var member = player.nameTag;
 

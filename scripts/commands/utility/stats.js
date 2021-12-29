@@ -12,7 +12,8 @@ const Commands = Minecraft.Commands;
 export function stats(message, args) {
     // validate that required params are defined
     if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/utility/stats.js:14)");
-
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${args} isnt defined. Did you forget to pass it? (./commands/utility/stats.js:15)");
+    
     message.cancel = true;
 
     let player = message.sender;
@@ -27,7 +28,7 @@ export function stats(message, args) {
     if (!args.length) return Commands.run(`execute "${player.nameTag}" ~~~ function tools/stats`, World.getDimension("overworld"));
     
     // try to find the player requested
-    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase())) var member = pl; 
+    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace("@", "").replace("\"", ""))) var member = pl; 
     
     if (!member) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`, World.getDimension("overworld"));
 

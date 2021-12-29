@@ -238,6 +238,28 @@
 					]
 				}
 			}
+		},
+		"controller.animation.swim": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"swim": "query.is_swimming"
+					}],
+					"on_entry": [
+						"/tag @s remove swimming",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+					]
+				},
+				"swim": {
+					"transitions": [{
+						"default": "!query.is_swimming"
+					}],
+					"on_entry": [
+						"/tag @s add swimming",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+					]
+				}
+			}
 		}
 	}
 }

@@ -70,12 +70,12 @@ export default
         },
         "jesusB": {
             "enabled": true,
-            "minMotion": 0.0246,
-            "maxMotion": 0.027
+            "minMotion": 0.0247,
+            "maxMotion": 0.0269
         },
         "noslowA": {
             "enabled": true,
-            "speed": 0.11
+            "speed": 0.12
         },
         "illegalitemsC": {
             "enabled": true,

@@ -25,7 +25,8 @@
 					"autototem",
 					"sprint",
 					"noswing",
-					"invmove"
+					"invmove",
+					"swim"
 				]
 			},
 			"animations": {
@@ -47,7 +48,8 @@
 				"sprint": "controller.animation.sprint",
 				"noswing": "controller.animation.noswing",
 				"kill": "controller.animation.kill",
-				"invmove": "controller.animation.invmove"
+				"invmove": "controller.animation.invmove",
+				"swim": "controller.animation.swim"
 			}
 		},
 		"component_groups": {
