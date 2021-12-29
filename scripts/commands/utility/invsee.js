@@ -33,7 +33,7 @@ export function invsee(message, args) {
     
     if (!member) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`, World.getDimension("overworld"));
 
-    let container = player.getComponent('inventory').container;
+    let container = member.getComponent('inventory').container;
     let o = [];
     
     for (let i = 0; i < container.size; i++) o.push(container.getItem(i));
