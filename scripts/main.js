@@ -152,17 +152,15 @@ World.events.tick.subscribe(() => {
             }
         }
 
-        // IllegalItems/C = invalid item stack check
         if(config.modules.illegalitemsC.enabled) {
             let container = player.getComponent('inventory').container;
-            let o = [];
-    
-            for (let i = 0; i < container.size; i++) o.push(container.getItem(i));
-
-            for (let i = 0; i < 36; i++) try {
-                o[i].slot = i;
-                if (o[i].amount > config.modules.illegalitemsC.maxStack) flag(player, "IllegalItems", "C", "Exploit", "stack", o[i], false, false);
-            } catch(e) {}
+            for (let i = 0; i < container.size; i++) if (container.getItem(i)) {
+                if(container.getItem(i).amount > config.modules.illegalitemsC.maxStack) {
+                    let o = container.getItem(i);
+                    o.slot = i;
+                    flag(player, "IllegalItems", "C", "Exploit", "stack", o, false, false);
+                }
+            }
         }
 
         // invalidsprint/a = checks for sprinting with the blindness effect

@@ -25,12 +25,12 @@ module.exports = {
         "use-isnan": "error",
         "no-delete-var": "error",
         "no-empty-function": "error",
-        "no-eval": "error",
+        "no-eval": "warn",
         "no-lonely-if": "error",
         "no-multi-str": "error",
         "no-regex-spaces": "error",
         "no-useless-escape": "error",
-        "spaced-comment": "error",
+        "spaced-comment": "warn",
         "yoda": "error",
         "semi": "warn"
     }

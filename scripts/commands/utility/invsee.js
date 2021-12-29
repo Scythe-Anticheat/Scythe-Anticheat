@@ -34,11 +34,10 @@ export function invsee(message, args) {
     if (!member) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`, World.getDimension("overworld"));
 
     let container = member.getComponent('inventory').container;
-    let o = [];
     
-    for (let i = 0; i < container.size; i++) o.push(container.getItem(i));
-
     Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${member.nameTag}'s inventory:\n\n"}]}`, World.getDimension("overworld"));
-
-    for (let i = 0; i < 36; i++) if (o[i]) Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${o[i].id}:${o[i].data} x${o[i].amount}"}]}`, World.getDimension("overworld"));
+    for (let i = 0; i < container.size; i++) if (container.getItem(i)) {
+        let o = container.getItem(i);
+        Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${o.id}:${o.data} x${o.amount}"}]}`, World.getDimension("overworld"));
+    }
 }
