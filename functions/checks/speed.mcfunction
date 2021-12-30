@@ -1,8 +1,5 @@
 # Makes a entity and checks how far away they are from the entity
 
-scoreboard objectives add speedvl dummy
-scoreboard objectives add timer dummy
-
 execute @s[tag=speedtest2,m=c] ~~~ tp @e[type=scythe:speedtest,name="speedtest",r=5] 999 -200 999
 
 tag @r[tag=!flying,m=!c,tag=!speedtest,tag=!speedtest2,tag=!gliding,tag=!riding,tag=!dead,tag=ground,tag=moving] add speedtest

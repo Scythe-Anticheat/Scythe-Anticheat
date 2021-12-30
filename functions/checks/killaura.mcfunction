@@ -1,8 +1,5 @@
 # Places a fake entity behind the player and see if they will hit the entity
 
-scoreboard objectives add killauravl dummy
-scoreboard objectives add aura_timer dummy
-
 tag @r[tag=!gliding,tag=!dead] add killaura
 execute @s[tag=killaura2] ~~~ tag @a[tag=killaura] remove killaura
 

@@ -1,5 +1,4 @@
 # Penguins Admin Giver runs this function, we override this and revert all of its effects
-scoreboard objectives add disablervl dummy
 scoreboard players add @s disablervl 1
 
 tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4Disabler/A §7(This check should not be used as proof)§4. VL= "},{"score":{"name":"@s","objective":"disablervl"}}]}

@@ -1,7 +1,5 @@
 # Clears illegal items from player inventories
 
-scoreboard objectives add illegalitemsvl dummy
-
 # skull3
 clear @s[tag=!op,m=!c] skull 3
 

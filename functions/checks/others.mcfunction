@@ -1,7 +1,5 @@
 # other stuff
-scoreboard objectives add xPos dummy
-scoreboard objectives add yPos dummy
-scoreboard objectives add zPos dummy
+
 scoreboard players add @s[tag=right] right 1
 
 execute @s[tag=vanish] ~~~ function checks/assets/vanish

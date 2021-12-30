@@ -1,5 +1,4 @@
 # Anti-Command Block Exploit
-scoreboard objectives add cbevl dummy
 
 # patch falling blocks
 kill @e[type=falling_block]

@@ -92,10 +92,12 @@ World.events.tick.subscribe(() => {
         } catch(error) {}
 
         // player position shit
+        try {
         Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
         Commands.run(`scoreboard players set "${player.nameTag}" yPos ${Math.floor(player.location.y)}`, World.getDimension("overworld"));
         Commands.run(`scoreboard players set "${player.nameTag}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
-
+        } catch(e) {}
+        
         // bedrock validation
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld) {
             try {

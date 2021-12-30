@@ -10,7 +10,6 @@
 				},
 				"totem": {
 					"on_entry": [
-						"/scoreboard objectives add autototemvl dummy",
 						"/execute @s[tag=moving,tag=ground] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/A VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
 						"/scoreboard players add @s[tag=moving,tag=ground] autototemvl 1",
 						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/B VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
@@ -41,7 +40,6 @@
 					}],
 					"on_entry": [
 						"/tag @s add hasGUIopen",
-						"/scoreboard objectives add invmovevl dummy",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
@@ -87,9 +85,6 @@
 						"default": "query.skin_id != 1"
 					}],
 					"on_entry": [
-						"/scoreboard objectives add attacks dummy",
-						"/scoreboard objectives add autoclickervl dummy",
-						"/scoreboard objectives add attack_timer dummy",
 						"/tag @s add attack",
 						"/scoreboard players add @s attacks 1",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
