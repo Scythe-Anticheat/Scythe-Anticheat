@@ -19,12 +19,6 @@ World.events.beforeChat.subscribe(msg => {
     // BadPackets/2 = chat message length check
     if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
-    // add's user custom tags to their messages
-    if (player.name && player.name !== player.nameTag) {
-        if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message}"}]}`, World.getDimension("overworld"));
-        msg.cancel = true;
-    }
-
     // Spammer/A = checks if someone sends a message while moving and on ground
     if (config.modules.spammerA.enabled) {
         try {
@@ -58,6 +52,12 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     commandHandler(player, msg);
+
+    // add's user custom tags to their messages
+    if (player.name && player.name !== player.nameTag) {
+        if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message}"}]}`, World.getDimension("overworld"));
+        if (!msg.cancel) msg.cancel = true;
+    }
 });
 
 World.events.tick.subscribe(() => {
@@ -93,11 +93,11 @@ World.events.tick.subscribe(() => {
 
         // player position shit
         try {
-        Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
-        Commands.run(`scoreboard players set "${player.nameTag}" yPos ${Math.floor(player.location.y)}`, World.getDimension("overworld"));
-        Commands.run(`scoreboard players set "${player.nameTag}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
+            Commands.run(`scoreboard players set "${player.nameTag}" xPos ${Math.floor(player.location.x)}`, World.getDimension("overworld"));
+            Commands.run(`scoreboard players set "${player.nameTag}" yPos ${Math.floor(player.location.y)}`, World.getDimension("overworld"));
+            Commands.run(`scoreboard players set "${player.nameTag}" zPos ${Math.floor(player.location.z)}`, World.getDimension("overworld"));
         } catch(e) {}
-        
+
         // bedrock validation
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld) {
             try {
