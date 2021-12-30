@@ -30,9 +30,7 @@ import { stats } from "./utility/stats.js";
 import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
-
-// to make eslint shut up 
-if (Commands === World) console.log(`impossible`);
+import { clearchat } from "./utility/clearchat.js";
 
 let prefix = config.customcommands.prefix;
 
@@ -84,6 +82,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.help && commandName === "help") help(message);
         else if (config.customcommands.credits && commandName === "credits") credits(message);
         else if (config.customcommands.op && commandName === "op") op(message, args);
+        else if (config.customcommands.clearchat && commandName === "clearchat") clearchat(message, args);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);

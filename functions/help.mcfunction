@@ -32,5 +32,6 @@ tellraw @s {"rawtext":[{"text":"§3!freeze <username>§r - Freeze a player and m
 tellraw @s {"rawtext":[{"text":"§3!stats <username>§r - View a players anticheat logs."}]}
 tellraw @s {"rawtext":[{"text":"§3!vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
 tellraw @s {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window."}]}
+tellraw @s {"rawtext":[{"text":"§3!clearchat§r - Clears chat."}]}
 
 tellraw @s {"rawtext":[{"text":"\n"}]}

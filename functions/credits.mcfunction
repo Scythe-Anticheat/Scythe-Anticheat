@@ -7,4 +7,4 @@ tellraw @s {"rawtext":[{"text":"§lGithub: https://github.com/MrDiamond64/Scythe
 tellraw @s {"rawtext":[{"text":"\n"}]}
 tellraw @s {"rawtext":[{"text":"§l§a               Major Contributers"}]}
 tellraw @s {"rawtext":[{"text":"§l§6----------------------------------------------------------"}]}
-tellraw @s {"rawtext":[{"text":"Visual1mpact#1435 - Porting function-based commands to GameTest commands"}]}
+tellraw @s {"rawtext":[{"text":"Visual1mpact#1435 - Porting function-based commands to GameTest commands and finding many bugs"}]}
