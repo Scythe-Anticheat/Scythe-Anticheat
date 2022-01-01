@@ -23,6 +23,8 @@
 					"/scoreboard players add @s frostwalker 0",
 					"/scoreboard objectives add npc dummy",
 					"/scoreboard players add @s npc 0",
+					"/scoreboard objectives add xray dummy",
+					"/scoreboard players add @s xray 0",
 					// Setting Operations For Objective Types
 					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",

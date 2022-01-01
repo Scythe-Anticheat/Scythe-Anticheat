@@ -18,6 +18,7 @@ export default
         "overidecommandblocksenabled": true,
         "removecommandblocks": true,
         "worldborder": true,
+        "xray": true,
         "ecwipe": true,
         "freeze": true,
         "stats": true,
