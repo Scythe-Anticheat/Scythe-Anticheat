@@ -222,19 +222,41 @@
 			},
 			"minecraft:damage_sensor": {
 				"triggers": [{
-					"cause": "entity_attack",
-					"on_damage": {
-						"filters": {
-							"any_of": [{
-								"test": "is_family",
-								"subject": "other",
-								"value": "player"
-							}]
+						"on_damage": {
+							"filters": {
+								"any_of": [{
+										"test": "has_tag",
+										"operator": "==",
+										"subject": "self",
+										"value": "flying"
+									},
+									{
+										"test": "has_tag",
+										"operator": "==",
+										"subject": "self",
+										"value": "vanish"
+									}
+								]
+							}
 						},
-						"event": "scythe:attacked",
-						"target": "other"
+						"cause": "all",
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [{
+									"test": "is_family",
+									"subject": "other",
+									"value": "player"
+								}],
+								"cause": "entity_attack"
+							},
+							"event": "scythe:attacked",
+							"target": "other"
+						}
 					}
-				}]
+				]
 			},
 			"minecraft:scaffolding_climber": {},
 			"minecraft:environment_sensor": {
