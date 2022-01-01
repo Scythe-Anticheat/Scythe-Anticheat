@@ -27,6 +27,7 @@ import { tag } from "./utility/tag.js";
 import { ecwipe } from "./utility/ecwipe.js";
 import { freeze } from "./utility/freeze.js";
 import { stats } from "./utility/stats.js";
+import { fullreport } from "./utility/fullreport.js";
 import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
@@ -67,6 +68,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.ecwipe && commandName === "ecwipe") ecwipe(message, args);
         else if (config.customcommands.freeze && commandName === "freeze") freeze(message, args);
         else if (config.customcommands.stats && commandName === "stats") stats(message, args);
+        else if (config.customcommands.fullreport && commandName === "fullreport") fullreport(message);
         else if (config.customcommands.allowgma && commandName === "allowgma") allowgma(message);
         else if (config.customcommands.allowgmc && commandName === "allowgmc") allowgmc(message);
         else if (config.customcommands.allowgms && commandName === "allowgms") allowgms(message);

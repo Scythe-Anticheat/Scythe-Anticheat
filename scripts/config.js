@@ -21,6 +21,7 @@ export default
         "ecwipe": true,
         "freeze": true,
         "stats": true,
+        "fullreport": true,
         "kick": true,
         "mute": true,
         "unmute": true,

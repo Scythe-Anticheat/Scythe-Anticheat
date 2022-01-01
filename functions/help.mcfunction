@@ -28,7 +28,8 @@ tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}
 tellraw @s {"rawtext":[{"text":"§3!ecwipe <username>§r - Clears a players ender chest."}]}
 tellraw @s {"rawtext":[{"text":"§3!fly <username>§r - Enables/disables fly mode in survival."}]}
 tellraw @s {"rawtext":[{"text":"§3!freeze <username>§r - Freeze a player and make it so they cant move."}]}
-tellraw @s {"rawtext":[{"text":"§3!stats <username>§r - View a players anticheat logs."}]}
+tellraw @s {"rawtext":[{"text":"§3!stats <username>§r - View a specific players anticheat logs."}]}
+tellraw @s {"rawtext":[{"text":"§3!fullreport§r - View everyones anticheat logs."}]}
 tellraw @s {"rawtext":[{"text":"§3!vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
 tellraw @s {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window."}]}
 tellraw @s {"rawtext":[{"text":"§3!clearchat§r - Clears chat."}]}
