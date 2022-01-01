@@ -22,6 +22,7 @@ tellraw @s {"rawtext":[{"text":"§3!overidecommandblocksenabled§r - Forces the 
 tellraw @s {"rawtext":[{"text":"§3!nofrostwalker§r - Enables/disables preventing frost walker. High levels of frost walker can crash realms."}]}
 tellraw @s {"rawtext":[{"text":"§3!npc§r - Enables/disables Killing all NPC's."}]}
 tellraw @s {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
+tellraw @s {"rawtext":[{"text":"§3!xray§r - Enables/disables the anti-xray check."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}
 
