@@ -222,6 +222,7 @@
 			},
 			"minecraft:damage_sensor": {
 				"triggers": [{
+						"cause": "all",
 						"on_damage": {
 							"filters": {
 								"any_of": [{
@@ -239,18 +240,17 @@
 								]
 							}
 						},
-						"cause": "all",
 						"deals_damage": false
 					},
 					{
+						"cause": "entity_attack",
 						"on_damage": {
 							"filters": {
 								"any_of": [{
 									"test": "is_family",
 									"subject": "other",
 									"value": "player"
-								}],
-								"cause": "entity_attack"
+								}]
 							},
 							"event": "scythe:attacked",
 							"target": "other"
