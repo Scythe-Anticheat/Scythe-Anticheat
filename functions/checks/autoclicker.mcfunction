@@ -6,4 +6,5 @@ execute @s[scores={attacks=8..,attack_timer=60..}] ~~~ tellraw @a[tag=notify] {"
 scoreboard players add @s[scores={attacks=10..,attack_timer=60..}] autoclickervl 1
 
 scoreboard players set @s[scores={attack_timer=60..}] attacks 0
+tag @s[tag=attack,scores={attack_timer=60..}] remove attack
 scoreboard players set @s[scores={attack_timer=60..}] attack_timer 0
