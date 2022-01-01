@@ -30,6 +30,79 @@
 					]
 				}
 			}
+		},
+		"controller.animation.cbeitems": {
+			"states": {
+				"cbeitems": {
+					"transitions": [{
+							"axolotl_bucket": "query.get_equipped_item_name == 'axolotl_bucket' || query.get_equipped_item_name('off_hand') == 'axolotl_bucket'"
+						},
+						{
+							"cod_bucket": "query.get_equipped_item_name == 'cod_bucket' || query.get_equipped_item_name('off_hand') == 'cod_bucket'"
+						},
+						{
+							"powder_snow_bucket": "query.get_equipped_item_name == 'powder_snow_bucket' || query.get_equipped_item_name('off_hand') == 'powder_snow_bucket'"
+						},
+						{
+							"pufferfish_bucket": "query.get_equipped_item_name == 'pufferfish_bucket' || query.get_equipped_item_name('off_hand') == 'pufferfish_bucket'"
+						},
+						{
+							"salmon_bucket": "query.get_equipped_item_name == 'salmon_bucket' || query.get_equipped_item_name('off_hand') == 'salmon_bucket'"
+						},
+						{
+							"tropical_fish_bucket": "query.get_equipped_item_name == 'tropical_fish_bucket' || query.get_equipped_item_name('off_hand') == 'tropical_fish_bucket'"
+						}
+					]
+				},
+				"axolotl_bucket": {
+					"on_entry": [
+						"/clear @s[tag=!op] axolotl_bucket"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'axolotl_bucket' || query.get_equipped_item_name('off_hand') != 'axolotl_bucket'"
+					}]
+				},
+				"cod_bucket": {
+					"on_entry": [
+						"/clear @s[tag=!op] cod_bucket"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'cod_bucket' || query.get_equipped_item_name('off_hand') != 'cod_bucket'"
+					}]
+				},
+				"powder_snow_bucket": {
+					"on_entry": [
+						"/clear @s[tag=!op] powder_snow_bucket"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'powder_snow_bucket' || query.get_equipped_item_name('off_hand') != 'powder_snow_bucket'"
+					}]
+				},
+				"pufferfish_bucket": {
+					"on_entry": [
+						"/clear @s[tag=!op] pufferfish_bucket"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'pufferfish_bucket' || query.get_equipped_item_name('off_hand') != 'pufferfish_bucket'"
+					}]
+				},
+				"salmon_bucket": {
+					"on_entry": [
+						"/clear @s[tag=!op] salmon_bucket"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'salmon_bucket' || query.get_equipped_item_name('off_hand') != 'salmon_bucket'"
+					}]
+				},
+				"tropical_fish_bucket": {
+					"on_entry": [
+						"/clear @s[tag=!op] tropical_fish_bucket"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'tropical_fish_bucket' || query.get_equipped_item_name('off_hand') != 'tropical_fish_bucket'"
+					}]
+				}
+			}
 		}
 	}
 }

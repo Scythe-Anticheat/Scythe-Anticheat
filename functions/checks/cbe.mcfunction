@@ -1,16 +1,4 @@
 # Anti-Command Block Exploit
-
-# patch falling blocks
-kill @e[type=falling_block]
-
-# fish buckets no longer have NBT tags, but we will keep them just incase
-clear @s[tag=!op] bucket 2
-clear @s[tag=!op] bucket 3
-clear @s[tag=!op] bucket 4
-clear @s[tag=!op] bucket 5
-clear @s[tag=!op] bucket 11
-clear @s[tag=!op] bucket 12
-
 clear @s[tag=!op] beehive
 clear @s[tag=!op] bee_nest
 

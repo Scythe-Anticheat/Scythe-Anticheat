@@ -21,6 +21,7 @@
 					"jump",
 					"illegals",
 					"illegals2",
+					"cbeitems",
 					"move",
 					"autototem",
 					"sprint",
@@ -43,6 +44,7 @@
 				"jump": "controller.animation.jump",
 				"illegals": "controller.animation.illegals",
 				"illegals2": "controller.animation.illegals2",
+				"cbeitems": "controller.animation.cbeitems",
 				"move": "controller.animation.move",
 				"autototem": "controller.animation.autototem",
 				"sprint": "controller.animation.sprint",
@@ -552,6 +554,18 @@
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:cave_vines_head_with_berries"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:purpur_block:1"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:purpur_block:3"
 								}
 							]
 						},
