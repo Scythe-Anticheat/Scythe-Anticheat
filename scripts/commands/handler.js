@@ -32,8 +32,6 @@ import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
 import { clearchat } from "./utility/clearchat.js";
 
-let prefix = config.customcommands.prefix;
-
 /**
  * @name commandHandler
  * @param {object} player - The player that has sent the message
@@ -47,13 +45,13 @@ export function commandHandler(player, message) {
     if (config.debug) console.warn(`${new Date()} | ` + "did run command handler");
 
     // checks if the message starts with our prefix, if not exit
-    if (!message.message.startsWith(prefix)) return;
+    if (!message.message.startsWith(config.customcommands.prefix)) return;
 
-    let args = message.message.slice(prefix.length).split(/ +/);
+    let args = message.message.slice(config.customcommands.prefix.length).split(/ +/);
 
     const commandName = args.shift().toLowerCase();
 
-    if (config.debug) console.warn(`${new Date()} | ${player.name} used the command: ${prefix}${commandName} ${args.join(" ")}`);
+    if (config.debug) console.warn(`${new Date()} | ${player.name} used the command: ${config.customcommands.prefix}${commandName} ${args.join(" ")}`);
 
     // we could much easily get rid of the if/else chain only if we have npm support...
     try {
@@ -76,8 +74,8 @@ export function commandHandler(player, message) {
         else if (config.customcommands.modules && commandName === "modules") modules(message);
         else if (config.customcommands.nofrostwalker && commandName === "nofrostwalker") nofrostwalker(message);
         else if (config.customcommands.npc && commandName === "npc") npc(message);
-        else if (config.customcommands.overidecommandblocksenabled && commandName === "overidecommandblocksenabled") overidecommandblocksenabled(message);
-        else if (config.customcommands.removecommandblocks && commandName === "removecommandblocks") removecommandblocks(message);
+        else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe") overidecommandblocksenabled(message);
+        else if (config.customcommands.removecommandblocks && commandName === "removecb") removecommandblocks(message);
         else if (config.customcommands.worldborder && commandName === "worldborder" || commandName === "wb") worldborder(message);
         else if (config.customcommands.help && commandName === "help") help(message);
         else if (config.customcommands.credits && commandName === "credits") credits(message);

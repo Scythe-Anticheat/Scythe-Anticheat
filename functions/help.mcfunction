@@ -5,7 +5,6 @@ tellraw @s {"rawtext":[{"text":"\n§l§aModeration Commands"}]}
 tellraw @s {"rawtext":[{"text":"§3!help§r - Shows this help page."}]}
 tellraw @s {"rawtext":[{"text":"§3!ban <username> <reason>§r - Ban the specified user."}]}
 tellraw @s {"rawtext":[{"text":"§3!kick <username> <reason>§r - Kick the specified user."}]}
-tellraw @s {"rawtext":[{"text":"§3!main§r - Default settings for Scythe. This is handled through ticks but available for manual intervention."}]}
 tellraw @s {"rawtext":[{"text":"§3!mute <username> <reason>§r - Mute the specified user."}]}
 tellraw @s {"rawtext":[{"text":"§3!unmute <username> <reason>§r - Unmute the specified user."}]}
 tellraw @s {"rawtext":[{"text":"§3!notify§r - Enables/Disables cheat notifications."}]}

@@ -47,7 +47,6 @@
 				"autototem": "controller.animation.autototem",
 				"sprint": "controller.animation.sprint",
 				"noswing": "controller.animation.noswing",
-				"kill": "controller.animation.kill",
 				"invmove": "controller.animation.invmove",
 				"swim": "controller.animation.swim"
 			}
