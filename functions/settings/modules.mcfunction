@@ -26,3 +26,9 @@ tellraw @s[scores={frostwalker=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§
 tellraw @s[scores={frostwalker=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r No Frost Walker is currently §4DISABLED"}]}
 tellraw @s[scores={xray=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Xray is currently §aENABLED"}]}
 tellraw @s[scores={xray=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Xray is currently §4DISABLED"}]}
+tellraw @s[scores={autoclicker=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Autoclicker is currently §aENABLED"}]}
+tellraw @s[scores={autoclicker=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Autoclicker is currently §4DISABLED"}]}
+tellraw @s[scores={jesus=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Jesus is currently §aENABLED"}]}
+tellraw @s[scores={jesus=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Jesus is currently §4DISABLED"}]}
+tellraw @s[scores={phase=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Phase is currently §aENABLED"}]}
+tellraw @s[scores={phase=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Phase is currently §4DISABLED"}]}

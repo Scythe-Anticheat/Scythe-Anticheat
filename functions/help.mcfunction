@@ -23,6 +23,9 @@ tellraw @s {"rawtext":[{"text":"§3!nofrostwalker§r - Enables/disables preventi
 tellraw @s {"rawtext":[{"text":"§3!npc§r - Enables/disables Killing all NPC's."}]}
 tellraw @s {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
 tellraw @s {"rawtext":[{"text":"§3!xray§r - Enables/disables the anti-xray check."}]}
+tellraw @s {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables the anti-xray check."}]}
+tellraw @s {"rawtext":[{"text":"§3!jesus§r - Enables/disables the anti-xray check."}]}
+tellraw @s {"rawtext":[{"text":"§3!phase§r - Enables/disables the anti-xray check."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}
 

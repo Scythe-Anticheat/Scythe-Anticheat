@@ -25,6 +25,12 @@
 					"/scoreboard players add @s npc 0",
 					"/scoreboard objectives add xray dummy",
 					"/scoreboard players add @s xray 0",
+					"/scoreboard objectives add autoclicker dummy",
+					"/scoreboard players add @s autoclicker 0",
+					"/scoreboard objectives add jesus dummy",
+					"/scoreboard players add @s jesus 0",
+					"/scoreboard objectives add phase dummy",
+					"/scoreboard players add @s phase 0",
 					// Setting Operations For Objective Types
 					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",
