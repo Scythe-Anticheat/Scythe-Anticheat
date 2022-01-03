@@ -114,9 +114,9 @@ World.events.tick.subscribe(() => {
         }
 
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.nether) {
-            // only run the rest of the commands if the player is in the nether
-            Commands.run(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`, World.getDimension("nether"));
             try {
+                // only run the rest of the commands if the player is in the nether
+                Commands.run(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`, World.getDimension("nether"));
                 try {
                     Commands.run(`execute @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}] ~~~ fill ~-10 0 ~-10 ~10 0 ~10 bedrock`, World.getDimension("nether"));
                 } catch (error) {}
@@ -131,7 +131,7 @@ World.events.tick.subscribe(() => {
             } catch(error) {}
         }
 
-        // if (debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
+        // if (config.debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
 
         // reach/a
         if (config.modules.reachA.enabled) {
