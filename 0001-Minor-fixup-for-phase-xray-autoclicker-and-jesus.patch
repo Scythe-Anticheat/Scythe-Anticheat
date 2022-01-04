@@ -1,0 +1,45 @@
+From e444e17de5930f133c1d36657e5960e8a60bab38 Mon Sep 17 00:00:00 2001
+From: Visual1mpact <visual@blind.com>
+Date: Mon, 3 Jan 2022 20:58:12 -0500
+Subject: [PATCH] Minor fixup for phase, xray, autoclicker, and jesus
+
+---
+ animations/onJoin.json    | 4 ++++
+ functions/help.mcfunction | 6 +++---
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/animations/onJoin.json b/animations/onJoin.json
+index f0de18e..e72986f 100644
+--- a/animations/onJoin.json
++++ b/animations/onJoin.json
+@@ -41,6 +41,10 @@
+ 					"/scoreboard players operation @a gms = scythe:config gms",
+ 					"/scoreboard players operation @a cmds = scythe:config cmds",
+ 					"/scoreboard players operation @a bedrock = scythe:config bedrock",
++					"/scoreboard players operation @a xray = scythe:config xray",
++					"/scoreboard players operation @a autoclicker = scythe:config autoclicker",
++					"/scoreboard players operation @a jesus = scythe:config jesus",
++					"/scoreboard players operation @a phase = scythe:config phase",
+ 					// Anti Cheat Objectives
+ 					"/scoreboard objectives add autototemvl dummy",
+ 					"/scoreboard objectives add invmovevl dummy",
+diff --git a/functions/help.mcfunction b/functions/help.mcfunction
+index 5a9eb1c..c85c035 100644
+--- a/functions/help.mcfunction
++++ b/functions/help.mcfunction
+@@ -23,9 +23,9 @@ tellraw @s {"rawtext":[{"text":"§3!nofrostwalker§r - Enables/disables preventi
+ tellraw @s {"rawtext":[{"text":"§3!npc§r - Enables/disables Killing all NPC's."}]}
+ tellraw @s {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
+ tellraw @s {"rawtext":[{"text":"§3!xray§r - Enables/disables the anti-xray check."}]}
+-tellraw @s {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables the anti-xray check."}]}
+-tellraw @s {"rawtext":[{"text":"§3!jesus§r - Enables/disables the anti-xray check."}]}
+-tellraw @s {"rawtext":[{"text":"§3!phase§r - Enables/disables the anti-xray check."}]}
++tellraw @s {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables Anti Autoclicker."}]}
++tellraw @s {"rawtext":[{"text":"§3!jesus§r - Enables/disables Anti Jesus (Walking on Water and Lava, etc)."}]}
++tellraw @s {"rawtext":[{"text":"§3!phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
+ 
+ tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}
+ 
+-- 
+2.25.1
+

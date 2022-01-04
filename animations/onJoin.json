@@ -41,6 +41,10 @@
 					"/scoreboard players operation @a gms = scythe:config gms",
 					"/scoreboard players operation @a cmds = scythe:config cmds",
 					"/scoreboard players operation @a bedrock = scythe:config bedrock",
+					"/scoreboard players operation @a xray = scythe:config xray",
+					"/scoreboard players operation @a autoclicker = scythe:config autoclicker",
+					"/scoreboard players operation @a jesus = scythe:config jesus",
+					"/scoreboard players operation @a phase = scythe:config phase",
 					// Anti Cheat Objectives
 					"/scoreboard objectives add autototemvl dummy",
 					"/scoreboard objectives add invmovevl dummy",
