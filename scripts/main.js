@@ -6,56 +6,9 @@ import config from "./config.js";
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
 
-if (config.debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
-
-// We use the tick event to determine when a player has loaded in the World
-// While loaded=false we check if the score for gametestapi is 0 or 1 (disabled/enabled)
-// If this script runs then we know the Gametest Framework is enabled in the World
-// So we wait for the player to load then call function gametestapi to change its
-// Score from disabled to enabled (its disabled by default) then we subsequently
-// Disable the module gametestapi and set loaded to true to effectively insure
-// That we do not run this code during ticks whenever a player joins.
-// Doesn't matter who the player is when joining and scythe op is not required
-// Since we are doing an initial global world configuration for Scythe.
-//
-// We will also check for certain conditions to verify if the configurations have
-// Been made previously so we can essentially cancel the code out for future ticks.
-//
-// This lets the help function to know what to echo on the chat window
-// To insure the instructions are clear for the user whether they have the
-// Gametest Framework enabled or disabled in their world.
-//
-// Credits go out to mrpatches123#0348 for giving guidance to use tick events
 let loaded = false;
-World.events.tick.subscribe(() => {
-    try {
-        if (!loaded) {
-            const players = World.getPlayers().map(player => player.nameTag);
-            // Commands.run(`say "${players}" is loading in world!`, World.getDimension("overworld"));
-            Commands.run(`testfor @a[name="${players}"]`, World.getDimension("overworld"));
-            try {
-                // Commands.run(`say All ticks matter!`, World.getDimension("overworld"));
-                Commands.run(`testfor @a[scores={gametestapi=1..}]`, World.getDimension("overworld"))
-                config.modules.gametestapi.enabled = false;
-                loaded = true;
-                // Commands.run(`say We saved the ticks!`, World.getDimension("overworld"));
-            } catch {
-                // This is to catch it if started from a world with gametest enabled by default
-                Commands.run(`testfor @a[scores={gametestapi=..0}]`, World.getDimension("overworld"))
-                Commands.run(`execute "${players}" ~~~ function checks/gametestapi`, World.getDimension("overworld"));
-                config.modules.gametestapi.enabled = false;
-                loaded = true;
-                return;
-            }
-            loaded = true;
-            if (config.modules.gametestapi.enabled) {
-                // Commands.run(`say Executing gametestapi from "${players}"!!!!!!`, World.getDimension("overworld"));
-                Commands.run(`execute "${players}" ~~~ function checks/gametestapi`, World.getDimension("overworld"));
-                config.modules.gametestapi.enabled = false;
-            }
-        }
-    } catch (error) {}
-});
+
+if (config.debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase();
@@ -110,6 +63,26 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 World.events.tick.subscribe(() => {
+    // Credits go out to mrpatches123#0348 for giving guidance to use tick events
+    // to check when loaded in the world and to execute code afterwards
+    try {
+        if (!loaded) {
+            const players = World.getPlayers().map(player => player.nameTag);
+            Commands.run(`testfor @a[name="${players}"]`, World.getDimension("overworld"));
+            try {
+                // (1..) gametest already enabled so set loaded to true and do nothing
+                Commands.run(`testfor @a[scores={gametestapi=1..}]`, World.getDimension("overworld"));
+                loaded = true;
+            } catch {
+                // (..0) gametest needs to be enabled (1..) then set loaded to true
+                Commands.run(`testfor @a[scores={gametestapi=..0}]`, World.getDimension("overworld"));
+                Commands.run(`execute "${players}" ~~~ function checks/gametestapi`, World.getDimension("overworld"));
+                loaded = true;
+                return;
+            }
+        }
+    } catch (error) {}
+    
     // run as each player
     for (let player of World.getPlayers()) {
         // fix a disabler method
