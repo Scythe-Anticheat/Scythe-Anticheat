@@ -8,6 +8,49 @@ const Commands = Minecraft.Commands;
 
 if (config.debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
+// We use the tick event to determine when a player has loaded in the World
+// While loaded=false we check if the score for gametestapi is 0 or 1 (disabled/enabled)
+// If this script runs then we know the Gametest Framework is enabled in the World
+// So we wait for the player to load then call function gametestapi to change its
+// Score from disabled to enabled (its disabled by default) then we subsequently
+// Disable the module gametestapi and set loaded to true to effectively insure
+// That we do not run this code during ticks whenever a player joins.
+// Doesn't matter who the player is when joining and scythe op is not required
+// Since we are doing an initial global world configuration for Scythe.
+//
+// We will also check for certain conditions to verify if the configurations have
+// Been made previously so we can essentially cancel the code out for future ticks.
+//
+// This lets the help function to know what to echo on the chat window
+// To insure the instructions are clear for the user whether they have the
+// Gametest Framework enabled or disabled in their world.
+//
+// Credits go out to mrpatches123#0348 for giving guidance to use tick events
+let loaded = false;
+World.events.tick.subscribe(() => {
+    try {
+        if (!loaded) {
+            const players = World.getPlayers().map(player => player.nameTag);
+            // Commands.run(`say "${players}" is loading in world!`, World.getDimension("overworld"));
+            Commands.run(`testfor @a[name="${players}"]`, World.getDimension("overworld"));
+            try {
+                // Commands.run(`say All ticks matter!`, World.getDimension("overworld"));
+                Commands.run(`testfor @a[scores={gametestapi=1..}]`, World.getDimension("overworld"));
+                config.modules.gametestapi.enabled = false;
+                loaded = true;
+                // Commands.run(`say We saved the ticks!`, World.getDimension("overworld"));
+                return;
+            } catch {}
+            loaded = true;
+            if (config.modules.gametestapi.enabled) {
+                // Commands.run(`say Executing gametestapi from "${players}"!!!!!!`, World.getDimension("overworld"));
+                Commands.run(`execute "${players}" ~~~ function checks/gametestapi`, World.getDimension("overworld"));
+                config.modules.gametestapi.enabled = false;
+            }
+        }
+    } catch (error) {}
+});
+
 World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase();
     const player = msg.sender;
@@ -66,10 +109,6 @@ World.events.tick.subscribe(() => {
         // fix a disabler method
         player.nameTag = player.nameTag.replace("\"", "");
         player.nameTag = player.nameTag.replace("\\", "");
-
-        try {
-            Commands.run(`tag "${player.nameTag}" add gametest`, World.getDimension("overworld"));
-        } catch(error) {}
 
         // sexy looking ban message
         try {

@@ -93,6 +93,9 @@ export default
         "flyA": {
             "enabled": true,
             "yChange": 0.375
+        },
+        "gametestapi": {
+            "enabled": true
         }
     }
 };
