@@ -35,12 +35,18 @@ World.events.tick.subscribe(() => {
             Commands.run(`testfor @a[name="${players}"]`, World.getDimension("overworld"));
             try {
                 // Commands.run(`say All ticks matter!`, World.getDimension("overworld"));
-                Commands.run(`testfor @a[scores={gametestapi=1..}]`, World.getDimension("overworld"));
+                Commands.run(`testfor @a[scores={gametestapi=1..}]`, World.getDimension("overworld"))
                 config.modules.gametestapi.enabled = false;
                 loaded = true;
                 // Commands.run(`say We saved the ticks!`, World.getDimension("overworld"));
+            } catch {
+                // This is to catch it if started from a world with gametest enabled by default
+                Commands.run(`testfor @a[scores={gametestapi=..0}]`, World.getDimension("overworld"))
+                Commands.run(`execute "${players}" ~~~ function checks/gametestapi`, World.getDimension("overworld"));
+                config.modules.gametestapi.enabled = false;
+                loaded = true;
                 return;
-            } catch {}
+            }
             loaded = true;
             if (config.modules.gametestapi.enabled) {
                 // Commands.run(`say Executing gametestapi from "${players}"!!!!!!`, World.getDimension("overworld"));
