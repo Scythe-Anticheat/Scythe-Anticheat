@@ -31,6 +31,24 @@ export function fly(message, args) {
     if (!member) var member = player.nameTag;
 
     Commands.run(`execute "${member}" ~~~ function tools/fly`, World.getDimension("overworld"));
-
-    return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has enabled fly mode for ${member}"}]}`, World.getDimension("overworld"));
+    
+    // I find try/catch to be completely unorthodox for this lol
+    try {
+        Commands.run(`testfor @a[name="${player.nameTag}",tag=flying]`, World.getDimension("overworld"));
+        if (player.nameTag === member) {
+            return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has enabled fly mode for themselves."}]}`, World.getDimension("overworld"));
+        } else if (player.nameTag != member) {
+            return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has enabled fly mode for ${member}."}]}`, World.getDimension("overworld"));
+        } else {
+            return
+        }
+    } catch {
+        if (player.nameTag === member) {
+            return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has disabled fly mode for themselves."}]}`, World.getDimension("overworld"));
+        } else if (player.nameTag != member) {
+            return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has disabled fly mode for ${member}."}]}`, World.getDimension("overworld"));
+        } else {
+            return
+        }
+    }
 }
