@@ -56,9 +56,9 @@ World.events.beforeChat.subscribe(msg => {
     commandHandler(player, msg);
 
     // add's user custom tags to their messages
-    if (player.name && player.name !== player.nameTag) {
-        if (!msg.cancel) Commands.run(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message}"}]}`, World.getDimension("overworld"));
-        if (!msg.cancel) msg.cancel = true;
+    if (player.name && player.name !== player.nameTag && !msg.cancel) {
+        Commands.run(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message}"}]}`, World.getDimension("overworld"));
+        msg.cancel = true;
     }
 });
 

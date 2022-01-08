@@ -15,7 +15,9 @@ execute @s[type=player,tag=moving,tag=!flying,m=!c,tag=!jump,tag=!riding,tag=!gl
 execute @s[type=player,tag=moving,tag=!gliding,tag=!riding,tag=!vanish,scores={phase=..0}] ~~~ function checks/phase
 
 # Optional checks
-execute @s[type=player,tag=!op] ~~~ function checks/optional/gamemode
+execute @s[type=player,tag=!op,m=a,scores={gma=1..}] ~~~ function checks/optional/gamemodeA
+execute @s[type=player,tag=!op,m=c,scores={gmc=1..}] ~~~ function checks/optional/gamemodeC
+execute @s[type=player,tag=!op,m=s,scores={gmc=1..}] ~~~ function checks/optional/gamemodeS
 execute @s[scores={commandblocks=1..}] ~~~ function checks/optional/nocommandblocks
 execute @s[scores={cmds=1..}] ~~~ function checks/optional/overridecommandblocksenabled
 replaceitem entity @s[type=player,tag=!op,scores={frostwalker=1..}] slot.armor.feet 0 leather_boots 1 0 {"item_lock": {"mode": "lock_in_slot"},"keep_on_death":{}}
