@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { flag, banMessage } from "./util.js";
+import { flag, banMessage, getTags } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./config.js";
 
@@ -21,8 +21,11 @@ World.events.beforeChat.subscribe(msg => {
     // BadPackets/2 = chat message length check
     if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
+    // get all tags of the player
+    let playerTags = getTags(player);
+
     // Spammer/A = checks if someone sends a message while moving and on ground
-    if (config.modules.spammerA.enabled) {
+    if (config.modules.spammerA.enabled && playerTags.includes('moving') && playerTags.includes('ground') && !playerTags.includes('jump')) {
         try {
             Commands.run(`testfor @a[name="${player.nameTag}",tag=moving,tag=ground,tag=!jump]`, World.getDimension("overworld"));
             flag(player, "Spammer", "A", "Movement", false, false, true, msg);
@@ -30,7 +33,7 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     // Spammer/B = checks if someone sends a message while swinging their hand
-    if (config.modules.spammerB.enabled) {
+    if (config.modules.spammerB.enabled && playerTags.includes('left')) {
         try {
             Commands.run(`testfor @a[name="${player.nameTag}",tag=left]`, World.getDimension("overworld"));
             flag(player, "Spammer", "B", "Combat", false, false, false, msg);
@@ -38,7 +41,7 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     // Spammer/C = checks if someone sends a message while using an item
-    if (config.modules.spammerC.enabled) {
+    if (config.modules.spammerC.enabled && playerTags.includes('right')) {
         try {
             Commands.run(`testfor @a[name="${player.nameTag}",tag=right]`, World.getDimension("overworld"));
             flag(player, "Spammer", "C", "Misc", false, false, false, msg);
@@ -46,7 +49,7 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     // Spammer/D = checks if someone sends a message while having a GUI open
-    if (config.modules.spammerD.enabled) {
+    if (config.modules.spammerD.enabled && playerTags.includes('hasGUIopen')) {
         try {
             Commands.run(`testfor @a[name="${player.nameTag}",tag=hasGUIopen]`, World.getDimension("overworld"));
             flag(player, "Spammer", "D", "Misc", false, false, false, msg);
@@ -88,6 +91,9 @@ World.events.tick.subscribe(() => {
         // fix a disabler method
         player.nameTag = player.nameTag.replace("\"", "");
         player.nameTag = player.nameTag.replace("\\", "");
+
+        // get all tags of the player
+        let playerTags = getTags(player);
 
         // sexy looking ban message
         try {
@@ -152,7 +158,7 @@ World.events.tick.subscribe(() => {
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
 
         // reach/a
-        if (config.modules.reachA.enabled) {
+        if (config.modules.reachA.enabled && playerTags.includes('attack')) {
             try {                                                                   // we could use r=4 but that wont account for lag
                 Commands.run(`execute @a[name="${player.nameTag}",tag=attack,m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=${config.modules.reachA.reach}]`, World.getDimension("overworld"));
             } catch (error) {
@@ -165,16 +171,18 @@ World.events.tick.subscribe(() => {
         // jesus/b = motion check
         try {
             if (config.modules.jesusB.enabled && Math.abs(player.velocity.y).toFixed(4) <= config.modules.jesusB.maxMotion && Math.abs(player.velocity.y).toFixed(4) >= config.modules.jesusB.minMotion && !player.getEffect(Minecraft.MinecraftEffectTypes.slowFalling)) {
-                Commands.run(`execute @a[name="${player.nameTag}",tag=!flying,m=!c,tag=!jump,tag=!ground,tag=!gliding,tag=!levitating,tag=!vanish,tag=!swimming] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
-                flag(player, "Jesus", "B", "Movement", "yMotion", Math.abs(player.velocity.y).toFixed(4), true, false);
+                if (!playerTags.includes('flying') && !playerTags.includes('jump') && !playerTags.includes('ground') && !playerTags.includes('gliding') && !playerTags.includes('levitating') && !playerTags.includes('vanish') && !playerTags.includes('swimming') ) {
+                    Commands.run(`execute @a[name="${player.nameTag}",m=!c] ~~~ detect ~~-1~ water 0 list`, World.getDimension("overworld"));
+                    flag(player, "Jesus", "B", "Movement", "yMotion", Math.abs(player.velocity.y).toFixed(4), true, false);
+                }
             }
         } catch (error) {}
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(3) >= config.modules.noslowA.speed) {
-            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed)) {
+            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && playerTags.includes('right') && playerTags.includes('ground') && !playerTags.includes('jump') && !playerTags.includes('gliding')) {
                 try {
-                    Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=ground,tag=!jump,tag=!gliding]`, World.getDimension("overworld"));
+                    Commands.run(`testfor @a[name="${player.nameTag}"]`, World.getDimension("overworld"));
                     flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true, false);
                 } catch(error) {}
             }
@@ -192,7 +200,7 @@ World.events.tick.subscribe(() => {
         }
 
         // invalidsprint/a = checks for sprinting with the blindness effect
-        if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness)) {
+        if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && playerTags.includes('sprint')) {
             try {
                 Commands.run(`testfor @a[name=${player.nameTag},tag=sprint]`, World.getDimension("overworld"));
                 flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
