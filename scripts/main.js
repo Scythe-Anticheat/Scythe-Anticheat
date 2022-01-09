@@ -68,7 +68,7 @@ World.events.tick.subscribe(() => {
     try {
         if (!loaded) {
             const players = World.getPlayers().map(player => player.nameTag);
-            Commands.run(`testfor @a[name="${players}"]`, World.getDimension("overworld"));
+            Commands.run(`testfor @a[name="${players[0]}"]`, World.getDimension("overworld"));
             try {
                 // (1..) gametest already enabled so set loaded to true and do nothing
                 Commands.run(`testfor @a[scores={gametestapi=1..}]`, World.getDimension("overworld"));
@@ -76,7 +76,7 @@ World.events.tick.subscribe(() => {
             } catch {
                 // (..0) gametest needs to be enabled (1..) then set loaded to true
                 Commands.run(`testfor @a[scores={gametestapi=..0}]`, World.getDimension("overworld"));
-                Commands.run(`execute "${players}" ~~~ function checks/gametestapi`, World.getDimension("overworld"));
+                Commands.run(`execute "${players[0]}" ~~~ function checks/gametestapi`, World.getDimension("overworld"));
                 loaded = true;
                 return;
             }
