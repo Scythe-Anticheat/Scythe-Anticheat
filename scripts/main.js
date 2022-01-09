@@ -171,11 +171,11 @@ World.events.tick.subscribe(() => {
         } catch (error) {}
 
         // NoSlow/A = speed limit check
-        if(config.modules.noslowA.enabled && Math.abs(player.velocity.x.toFixed(2)) >= config.modules.noslowA.speed || Math.abs(player.velocity.z.toFixed(2)) >= config.modules.noslowA.speed) {
+        if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(3) >= config.modules.noslowA.speed) {
             if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed)) {
                 try {
                     Commands.run(`testfor @a[name="${player.nameTag}",tag=right,tag=ground,tag=!jump,tag=!gliding]`, World.getDimension("overworld"));
-                    flag(player, "NoSlow", "A", "Movement", "x_speed", `${Math.abs(player.velocity.x).toFixed(2)},z_speed=${Math.abs(player.velocity.z).toFixed(2)}`, true, false);
+                    flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true, false);
                 } catch(error) {}
             }
         }
