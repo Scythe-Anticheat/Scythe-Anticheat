@@ -123,14 +123,3 @@ Q2: Is it customizable?<br />
 
 # Notes
 When applying the pack to your world make sure the addon is at the top of the behavior pack list and GameTest Framework is enabled. This is to ensure all checks and systems work properly
-
-# License
-**You MAY;**<br />
-Modify it<br />
-Use it (public/private use)<br />
-Using its code (with permission)<br />
-
-**YOU MAY NOT;**<br />
-Steal code<br />
-Claim it as your own<br />
-Sell it<br />
