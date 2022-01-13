@@ -91,8 +91,7 @@ export default
             "enabled": true
         },
         "flyA": {
-            "enabled": true,
-            "yChange": 0.375
+            "enabled": true
         }
     }
 };

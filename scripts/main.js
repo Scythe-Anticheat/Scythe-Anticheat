@@ -156,6 +156,7 @@ World.events.tick.subscribe(() => {
         }
 
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
+        if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(4)}`);
 
         // reach/a
         if (config.modules.reachA.enabled && playerTags.includes('attack')) {
@@ -208,16 +209,13 @@ World.events.tick.subscribe(() => {
         }
         
         // fly/a = checks for creative fly while in survival
-        if(config.modules.flyA.enabled && player.lastYpos) {
-            let yChange = player.location.y - player.lastYpos;
-            // console.warn(yChange);
-            if (yChange == config.modules.flyA.yChange) {
+        if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) == 0.2250) {
+            if(playerTags.includes('moving') && !playerTags.includes('ground') && !playerTags.includes('gliding') && !playerTags.includes('levitating') && !playerTags.includes('flying')) {
                 try {
                     Commands.run(`testfor @a[name="${player.nameTag}",tag=moving,tag=!ground,tag=!gliding,tag=!levitating,m=!c,tag=!flying]`, World.getDimension("overworld"));
-                    flag(player, "Fly", "A", "Movement", "yVelocity", `${Math.abs(player.velocity.y).toFixed(3)},yChange=${yChange}`, true, false);
+                    flag(player, "Fly", "A", "Movement", "yVelocity", Math.abs(player.velocity.y).toFixed(4), true, false);
                 } catch(error) {}
             }
         }
-        player.lastYpos = player.location.y;
     }
 });
