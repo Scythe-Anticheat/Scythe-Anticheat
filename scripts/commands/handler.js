@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import config from "../config.js";
+import config from "../data/config.js";
 
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;

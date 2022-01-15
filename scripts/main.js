@@ -1,7 +1,8 @@
 import * as Minecraft from "mojang-minecraft";
 import { flag, banMessage, getTags } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
-import config from "./config.js";
+import { banplayer } from "./data/globalban.js";
+import config from "./data/config.js";
 
 const World = Minecraft.World;
 const Commands = Minecraft.Commands;
@@ -94,6 +95,13 @@ World.events.tick.subscribe(() => {
 
         // get all tags of the player
         let playerTags = getTags(player);
+
+        // Check global ban list and if the player who is joining is on the server then kick them out
+        if (banplayer.some(code => JSON.stringify(code) === JSON.stringify({ name: player.nameTag }))) {
+            Commands.run(`tag "${player.nameTag}" add "by:Scythe Anticheat"`, World.getDimension("overworld"));
+            Commands.run(`tag "${player.nameTag}" add "reason:You are Scythe Anticheat global banned!"`, World.getDimension("overworld"));
+            banMessage(player);
+        }
 
         // sexy looking ban message
         try {
