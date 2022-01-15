@@ -92,6 +92,12 @@ export default
         },
         "flyA": {
             "enabled": true
+        },
+        "illegalitemsD": {
+            "enabled": true,
+            "illegalItems": [
+                "minecraft:movingblock"
+            ]
         }
     }
 };
