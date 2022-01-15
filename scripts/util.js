@@ -41,8 +41,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             else Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`, World.getDimension("overworld"));
     } catch(error) {}
 
-    if (slot) {
-        console.warn(slot);
+    if (slot >= 0) {
         try {
             if(slot <= 8) Commands.run(`replaceitem entity "${player.nameTag}" slot.hotbar ${slot} air 1`, World.getDimension("overworld"));
                 else Commands.run(`replaceitem entity "${player.nameTag}" slot.inventory ${slot - 9} air 1`, World.getDimension("overworld"));
