@@ -156,7 +156,7 @@ World.events.tick.subscribe(() => {
         }
 
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
-        if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(4)}`);
+        // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(4)}`);
 
         // reach/a
         if (config.modules.reachA.enabled && playerTags.includes('attack')) {
@@ -193,9 +193,8 @@ World.events.tick.subscribe(() => {
             let container = player.getComponent('inventory').container;
             for (let i = 0; i < container.size; i++) if (container.getItem(i)) {
                 if(container.getItem(i).amount > config.modules.illegalitemsC.maxStack) {
-                    let o = container.getItem(i);
-                    o.slot = i;
-                    flag(player, "IllegalItems", "C", "Exploit", "stack", o, false, false);
+                    let item = container.getItem(i);
+                    flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
                 }
             }
         }

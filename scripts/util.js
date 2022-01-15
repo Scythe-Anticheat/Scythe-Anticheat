@@ -14,8 +14,9 @@ const Commands = Minecraft.Commands;
  * @param {string} debug - Debug info.
  * @param {boolean} shouldTP - Whever to tp the player to itself.
  * @param {object} message - The message object, used to cancel the message.
+ * @param {number} slot - Slot to clear an item out.
  */
-export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message) {
+export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message, slot) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:8)");
     if (!check) return console.warn(`${new Date()} | ` + "Error: ${check} isnt defined. Did you forget to pass it? (./util.js:9)");
@@ -35,23 +36,16 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     Commands.run(`scoreboard players add "${player.nameTag}" ${check.toLowerCase()}vl 1`, World.getDimension("overworld"));
 
-    if (check === "IllegalItems") { 
-        var oldDebug = debug;
-        debug = debug.amount;
-    }
-
     try {
         if(debug) Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`, World.getDimension("overworld"));
             else Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`, World.getDimension("overworld"));
     } catch(error) {}
 
-    debug = oldDebug;
-
-    // check dependent stuff
-    if (check === "IllegalItems") {
+    if (slot) {
+        console.warn(slot);
         try {
-            if(debug.slot <= 8) Commands.run(`replaceitem entity "${player.nameTag}" slot.hotbar ${debug.slot} air 1`, World.getDimension("overworld"));
-                else Commands.run(`replaceitem entity "${player.nameTag}" slot.inventory ${debug.slot} air 1`, World.getDimension("overworld"));
+            if(slot <= 8) Commands.run(`replaceitem entity "${player.nameTag}" slot.hotbar ${slot} air 1`, World.getDimension("overworld"));
+                else Commands.run(`replaceitem entity "${player.nameTag}" slot.inventory ${slot - 9} air 1`, World.getDimension("overworld"));
         } catch(error) {console.warn(`${new Date()} | ` + error);}
     }
 
@@ -86,6 +80,10 @@ export function banMessage(player) {
     Commands.run(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`, World.getDimension("overworld"));
 }
 
+/**
+ * @name getTags
+ * @param {object} player - The player object
+ */
 export function getTags(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:91)");
