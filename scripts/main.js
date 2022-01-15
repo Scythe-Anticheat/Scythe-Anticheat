@@ -98,8 +98,13 @@ World.events.tick.subscribe(() => {
 
         // Check global ban list and if the player who is joining is on the server then kick them out
         if (banplayer.some(code => JSON.stringify(code) === JSON.stringify({ name: player.nameTag }))) {
-            Commands.run(`tag "${player.nameTag}" add "by:Scythe Anticheat"`, World.getDimension("overworld"));
-            Commands.run(`tag "${player.nameTag}" add "reason:You are Scythe Anticheat global banned!"`, World.getDimension("overworld"));
+            try {
+                // test if they have the tag first or global ban will fail if we attempt to tag with an existing tag
+                // if they are not tagged then we do that here before we ban
+                Commands.run(`testfor @a[name="${player.nameTag}",tag=by:Scythe Anticheat]`, World.getDimension("overworld"));
+                Commands.run(`tag "${player.nameTag}" add "by:Scythe Anticheat"`, World.getDimension("overworld"));
+                Commands.run(`tag "${player.nameTag}" add "reason:You are Scythe Anticheat global banned!"`, World.getDimension("overworld"));
+            } catch (error) {}
             banMessage(player);
         }
 
