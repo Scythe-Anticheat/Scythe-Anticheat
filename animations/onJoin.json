@@ -73,6 +73,7 @@
 					"/scoreboard objectives add phasevl dummy",
 					"/scoreboard objectives add reachvl dummy",
 					"/scoreboard objectives add disablervl dummy",
+					"/scoreboard objectives add last_attack dummy",
 					// If enabled from previous login then activate
 					"/event entity @s[tag=vanish] vanish",
 					"/ability @s[tag=flying] mayfly true",
