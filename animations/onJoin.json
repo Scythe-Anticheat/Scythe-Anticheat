@@ -67,7 +67,6 @@
 					"/scoreboard objectives add speedvl dummy",
 					"/scoreboard objectives add timer dummy",
 					"/scoreboard objectives add anglevl dummy",
-					"/scoreboard objectives add interactusevl dummy",
 					"/scoreboard objectives add invalidsprintvl dummy",
 					"/scoreboard objectives add jesusvl dummy",
 					"/scoreboard objectives add phasevl dummy",

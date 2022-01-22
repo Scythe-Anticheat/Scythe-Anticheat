@@ -7,5 +7,6 @@ export const banplayer = [
     {name: 'Asatobyjg'},
     {name: 'x_beast6464_xX'},
     {name: 'MaddeBaddie'},
-    {name: 'UnknownMyKB'}
+    {name: 'UnknownMyKB'},
+    {name: 'TheKingPengu'}
 ];
