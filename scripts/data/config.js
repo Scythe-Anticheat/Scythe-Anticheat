@@ -81,7 +81,7 @@ export default
         },
         "noslowA": {
             "enabled": true,
-            "speed": 0.117
+            "speed": 0.12
         },
         "illegalitemsC": {
             "enabled": true,
