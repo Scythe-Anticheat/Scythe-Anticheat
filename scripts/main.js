@@ -120,13 +120,24 @@ World.events.tick.subscribe(() => {
 
         // Namespoof/A = username length check.
         try {
-            if (config.modules.namespoofA.enabled && player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
+            if (config.modules.namespoofA.enabled) {
+                // checks if 2 players are logged in with the same name
+                // minecraft adds a sufix to the end of the name which we detect
+                if(player.name.endsWith(')') && ((player.name.length + 3) > config.modules.namespoofA.maxNameLength || player.name.length < config.modules.namespoofA.minNameLength))
+                    flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
+
+                if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
+                    flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
+            }
         } catch(error) {}
 
         // Namespoof/B = regex check
         try {
             if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit", false, false, false, false);
-        } catch(error) {}
+        } catch(error) {
+            console.warn(error);
+        }
+
 
         // player position shit
         try {

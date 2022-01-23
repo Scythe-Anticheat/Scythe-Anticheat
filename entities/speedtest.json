@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "scythe:speedtest",
 			"is_spawnable": false,
-			"is_summonable": true,
+			"is_summonable": false,
 			"is_experimental": false
 		},
 		"component_groups": {
