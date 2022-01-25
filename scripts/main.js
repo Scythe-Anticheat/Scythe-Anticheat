@@ -134,9 +134,7 @@ World.events.tick.subscribe(() => {
         // Namespoof/B = regex check
         try {
             if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit", false, false, false, false);
-        } catch(error) {
-            console.warn(error);
-        }
+        } catch(error) {}
 
 
         // player position shit
