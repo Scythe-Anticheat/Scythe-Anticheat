@@ -25,7 +25,6 @@ import { removecommandblocks } from "./settings/removecommandblocks.js";
 import { worldborder } from "./settings/worldborder.js";
 import { xray } from "./settings/xray.js";
 import { autoclicker } from "./settings/autoclicker.js";
-import { jesus } from "./settings/jesus.js";
 import { phase } from "./settings/phase.js";
 import { tag } from "./utility/tag.js";
 import { ecwipe } from "./utility/ecwipe.js";
@@ -89,7 +88,6 @@ export function commandHandler(player, message) {
         else if (config.customcommands.op && commandName === "op") op(message, args);
         else if (config.customcommands.clearchat && commandName === "clearchat") clearchat(message, args);
         else if (config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message, args);
-        else if (config.customcommands.jesus && commandName === "jesus") jesus(message, args);
         else if (config.customcommands.phase && commandName === "phase") phase(message, args);
         else return;
     } catch (error) {

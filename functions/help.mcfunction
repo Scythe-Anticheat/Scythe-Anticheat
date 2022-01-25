@@ -14,7 +14,6 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!notify§r - Enable
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!credits§r - Shows credits, thats it."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!op <username>§r - Op's player in Scythe AntiCheat features."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables Anti Autoclicker."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!jesus§r - Enables/disables Anti Jesus (Walking on Water and Lava, etc.)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
 
 # Gametest Disabled
@@ -24,7 +23,6 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function notify§r
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function credits§r - Shows credits, thats it."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ op§r - Op's player in Scythe AntiCheat features."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoclicker§r - Enables/disables Anti Autoclicker."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/jesus§r - Enables/disables Anti Jesus (Walking on Water and Lava, etc.)."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
@@ -42,7 +40,6 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/d
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!xray§r - Enables/disables the anti-xray check."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables Anti Autoclicker."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!jesus§r - Enables/disables Anti Jesus (Walking on Water and Lava, etc)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
 
 # Gametest disabled
@@ -58,7 +55,6 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/worldborder§r - Enables/disables the world border and its size."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/xray§r - Enables/disables the anti-xray check."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoclicker§r - Enables/disables Anti Autoclicker."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/jesus§r - Enables/disables Anti Jesus (Walking on Water and Lava, etc)."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}

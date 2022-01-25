@@ -20,7 +20,6 @@ export default
         "worldborder": true,
         "xray": true,
         "autoclicker": true,
-        "jesus": true,
         "phase": true,
         "ecwipe": true,
         "freeze": true,
@@ -73,11 +72,6 @@ export default
         "reachA": {
             "enabled": true,
             "reach": 5
-        },
-        "jesusB": {
-            "enabled": true,
-            "minMotion": 0.0247,
-            "maxMotion": 0.0269
         },
         "noslowA": {
             "enabled": true,
