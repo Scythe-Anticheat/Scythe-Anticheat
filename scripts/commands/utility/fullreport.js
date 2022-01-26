@@ -8,7 +8,7 @@ const Commands = Minecraft.Commands;
  * @name fullreport
  * @param {object} message - Message object
  */
-export function fullreport(message, args) {
+export function fullreport(message) {
     // validate that required params are defined
     if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/utility/fullreport.js:13)");
     

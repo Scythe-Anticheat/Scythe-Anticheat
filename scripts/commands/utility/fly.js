@@ -40,7 +40,7 @@ export function fly(message, args) {
         } else if (player.nameTag != member) {
             return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has enabled fly mode for ${member}."}]}`, World.getDimension("overworld"));
         } else {
-            return
+            return;
         }
     } catch {
         if (player.nameTag === member) {
@@ -48,7 +48,7 @@ export function fly(message, args) {
         } else if (player.nameTag != member) {
             return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has disabled fly mode for ${member}."}]}`, World.getDimension("overworld"));
         } else {
-            return
+            return;
         }
     }
 }
