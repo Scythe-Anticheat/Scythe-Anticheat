@@ -2,7 +2,7 @@
 import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.world;
-const Commands = Minecraft.Commands;
+// const Commands = Minecraft.Commands;
 
 /**
  * @name flag
@@ -25,31 +25,31 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     // make sure the vl objective exists
     try {
-        Commands.run(`scoreboard objectives add ${check.toLowerCase()}vl dummy`, World.getDimension("overworld"));
+        player.runCommand(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
     } catch(error) {}
 
     // cancel the message
     if (message) message.cancel = true;
 
-    if(shouldTP && check !== "Crasher") Commands.run(`tp "${player.nameTag}" "${player.nameTag}"`, World.getDimension("overworld"));
-        else if(shouldTP && check === "Crasher") Commands.run(`tp "${player.nameTag}" 30000000 30000000 30000000`, World.getDimension("overworld"));
+    if(shouldTP && check !== "Crasher") player.runCommand(`tp @s @s`);
+        else if(shouldTP && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
 
-    Commands.run(`scoreboard players add "${player.nameTag}" ${check.toLowerCase()}vl 1`, World.getDimension("overworld"));
+    player.runCommand(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
 
     try {
-        if(debug) Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`, World.getDimension("overworld"));
-            else Commands.run(`execute "${player.nameTag}" ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`, World.getDimension("overworld"));
+        if(debug) player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
+            else player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
     } catch(error) {}
 
     if (slot >= 0) {
         try {
-            if(slot <= 8) Commands.run(`replaceitem entity "${player.nameTag}" slot.hotbar ${slot} air 1`, World.getDimension("overworld"));
-                else Commands.run(`replaceitem entity "${player.nameTag}" slot.inventory ${slot - 9} air 1`, World.getDimension("overworld"));
+            if(slot <= 8) player.runCommand(`replaceitem entity @s slot.hotbar ${slot} air 1`);
+                else player.runCommand(`replaceitem entity @s slot.inventory ${slot - 9} air 1`);
         } catch(error) {console.warn(`${new Date()} | ` + error);}
     }
 
     try {
-        if (check === "Namespoof") Commands.run(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid username`, World.getDimension("overworld"));
+        if (check === "Namespoof") player.runCommand(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid username`);
     } catch(error) {
         // if we cant kick them with /kick then we instant despawn them
         player.triggerEvent("scythe:kick");
@@ -64,7 +64,7 @@ export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
-    let tags = Commands.run(`tag "${player.nameTag}" list`, World.getDimension('overworld')).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
+    let tags = player.runCommand(`tag @s list`).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
     if (tags) tags = String(tags).split(/[,]/);
 
     var reason;
@@ -76,7 +76,7 @@ export function banMessage(player) {
         if(t.startsWith(" reason:")) reason = t.slice(8);
     });
 
-    Commands.run(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`, World.getDimension("overworld"));
+    player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
 }
 
 /**
@@ -87,7 +87,7 @@ export function getTags(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:91)");
 
-    let tags = Commands.run(`tag "${player.nameTag}" list`, World.getDimension('overworld')).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
+    let tags = player.runCommand(`tag "${player.nameTag}" list`).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
 
     return String(tags);
 }
