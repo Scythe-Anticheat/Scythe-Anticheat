@@ -1,6 +1,6 @@
 import * as Minecraft from "mojang-minecraft";
 
-const World = Minecraft.World;
+const World = Minecraft.world;
 const Commands = Minecraft.Commands;
 
 /**

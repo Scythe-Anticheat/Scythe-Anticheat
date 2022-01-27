@@ -13,7 +13,6 @@ export default
         "allowgms": true,
         "bedrockvalidate": true,
         "modules": true,
-        "nofrostwalker": true,
         "npc": true,
         "overidecommandblocksenabled": true,
         "removecommandblocks": true,

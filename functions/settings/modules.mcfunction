@@ -22,8 +22,6 @@ tellraw @s[scores={worldborder=4}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r 
 tellraw @s[scores={worldborder=5}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a50k"}]}
 tellraw @s[scores={worldborder=6..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a100k"}]}
 tellraw @s[scores={worldborder=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World Border is set to §4DISABLED"}]}
-tellraw @s[scores={frostwalker=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r No Frost Walker is currently §aENABLED"}]}
-tellraw @s[scores={frostwalker=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r No Frost Walker is currently §4DISABLED"}]}
 tellraw @s[scores={xray=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Xray is currently §aENABLED"}]}
 tellraw @s[scores={xray=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Xray is currently §4DISABLED"}]}
 tellraw @s[scores={autoclicker=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Autoclicker is currently §aENABLED"}]}

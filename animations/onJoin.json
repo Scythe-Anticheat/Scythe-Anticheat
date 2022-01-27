@@ -19,8 +19,6 @@
 					"/scoreboard players add @s bedrock 0",
 					"/scoreboard objectives add worldborder dummy",
 					"/scoreboard players add @s worldborder 0",
-					"/scoreboard objectives add frostwalker dummy",
-					"/scoreboard players add @s frostwalker 0",
 					"/scoreboard objectives add npc dummy",
 					"/scoreboard players add @s npc 0",
 					"/scoreboard objectives add xray dummy",
@@ -34,7 +32,6 @@
 					// Setting Operations For Objective Types
 					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",
-					"/scoreboard players operation @a frostwalker = scythe:config frostwalker",
 					"/scoreboard players operation @a worldborder = scythe:config worldborder",
 					"/scoreboard players operation @a gma = scythe:config gma",
 					"/scoreboard players operation @a gmc = scythe:config gmc",

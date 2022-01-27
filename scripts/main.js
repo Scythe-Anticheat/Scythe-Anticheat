@@ -4,7 +4,7 @@ import { commandHandler } from "./commands/handler.js";
 import { banplayer } from "./data/globalban.js";
 import config from "./data/config.js";
 
-const World = Minecraft.World;
+const World = Minecraft.world;
 const Commands = Minecraft.Commands;
 
 let loaded = false;

@@ -1,7 +1,7 @@
 import * as Minecraft from "mojang-minecraft";
 import config from "../data/config.js";
 
-const World = Minecraft.World;
+const World = Minecraft.world;
 const Commands = Minecraft.Commands;
 
 // import all our commands
@@ -18,7 +18,6 @@ import { allowgmc } from "./settings/allowgmc.js";
 import { allowgms } from "./settings/allowgms.js";
 import { bedrockvalidate } from "./settings/bedrockvalidate.js";
 import { modules } from "./settings/modules.js";
-import { nofrostwalker } from "./settings/nofrostwalker.js";
 import { npc } from "./settings/npc.js";
 import { overidecommandblocksenabled } from "./settings/overidecommandblocksenabled.js";
 import { removecommandblocks } from "./settings/removecommandblocks.js";
@@ -77,7 +76,6 @@ export function commandHandler(player, message) {
         else if (config.customcommands.allowgms && commandName === "allowgms") allowgms(message);
         else if (config.customcommands.bedrockvalidate && commandName === "bedrockvalidate") bedrockvalidate(message);
         else if (config.customcommands.modules && commandName === "modules") modules(message);
-        else if (config.customcommands.nofrostwalker && commandName === "nofrostwalker") nofrostwalker(message);
         else if (config.customcommands.npc && commandName === "npc") npc(message);
         else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe") overidecommandblocksenabled(message);
         else if (config.customcommands.removecommandblocks && commandName === "removecb") removecommandblocks(message);

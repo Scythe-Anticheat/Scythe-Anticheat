@@ -1,7 +1,7 @@
 /* eslint no-var: "off"*/
 import * as Minecraft from "mojang-minecraft";
 
-const World = Minecraft.World;
+const World = Minecraft.world;
 const Commands = Minecraft.Commands;
 
 // found the inventory viewing scipt in the bedrock addons discord, unsure of the original owner (not my code)
