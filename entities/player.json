@@ -586,6 +586,12 @@
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:purpur_block:3"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:real_double_stone_slab2"
 								}
 							]
 						},
