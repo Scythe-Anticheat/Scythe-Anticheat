@@ -182,10 +182,7 @@ World.events.tick.subscribe(() => {
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed) {
             if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && playerTags.includes('right') && playerTags.includes('ground') && !playerTags.includes('jump') && !playerTags.includes('gliding') && !playerTags.includes('swimming')) {
-                try {
-                    player.runCommand(`testfor @s[tag=right,tag=ground,tag=!jump,tag=!gliding,tag=!swimming]`);
-                    flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true, false);
-                } catch(error) {}
+                flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true, false);
             }
         }
 
@@ -205,19 +202,13 @@ World.events.tick.subscribe(() => {
 
         // invalidsprint/a = checks for sprinting with the blindness effect
         if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && playerTags.includes('sprint')) {
-            try {
-                player.runCommand(`testfor @s[tag=sprint]`);
-                flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
-            } catch(error) {}
+            flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
         }
         
         // fly/a = checks for creative fly while in survival
         if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) == 0.2250) {
             if(playerTags.includes('moving') && !playerTags.includes('ground') && !playerTags.includes('gliding') && !playerTags.includes('levitating') && !playerTags.includes('flying')) {
-                try {
-                    player.runCommand(`testfor @s[tag=moving,tag=!ground,tag=!gliding,tag=!levitating,m=!c,tag=!flying]`);
-                    flag(player, "Fly", "A", "Movement", "yVelocity", Math.abs(player.velocity.y).toFixed(4), true, false);
-                } catch(error) {}
+                flag(player, "Fly", "A", "Movement", "yVelocity", Math.abs(player.velocity.y).toFixed(4), true, false);
             }
         }
     }
