@@ -99,9 +99,7 @@ World.events.tick.subscribe(() => {
         // Check global ban list and if the player who is joining is on the server then kick them out
         if (banplayer.some(code => JSON.stringify(code) === JSON.stringify({ name: player.nameTag }))) {
             try {
-                // test if they have the tag first or global ban will fail if we attempt to tag with an existing tag
-                // if they are not tagged then we do that here before we ban
-                Commands.run(`testfor @a[name="${player.nameTag}",tag=!by:Scythe Anticheat]`, World.getDimension("overworld"));
+                // If the person already has the global ban tags this will error out and run the banMessage() function
                 Commands.run(`tag "${player.nameTag}" add "by:Scythe Anticheat"`, World.getDimension("overworld"));
                 Commands.run(`tag "${player.nameTag}" add "reason:You are Scythe Anticheat global banned!"`, World.getDimension("overworld"));
             } catch (error) {}
@@ -116,7 +114,7 @@ World.events.tick.subscribe(() => {
 
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
-            Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true, false);
+            Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true, false, false, 3);
 
         // Namespoof/A = username length check.
         try {
@@ -207,11 +205,11 @@ World.events.tick.subscribe(() => {
                 let item = container.getItem(i);
                 // Illegalitems/C = item stacked over 64 check
                 if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
-                    flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
+                    flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i, 3);
                 
                 // Illegalitems/D = additional item clearing check
                 if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
-                    flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
+                    flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i, 3);
             }
         }
 

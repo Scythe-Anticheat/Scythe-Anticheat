@@ -114,7 +114,7 @@ Additionally, there are custom features you can enable like anti-gamemode change
 # FAQ
 
 Q1: Does the AntiCheat auto-ban?<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A1: No.
+Yes. Currently only BadPackets[1], IllegalItems/C, IllegalItems/D and Crasher/A autoban. To enable autobanning do /function settings/autoban
 
 Q2: Is it customizable?<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A2: Yes using /function settings/<name> or by modifying the .mcfunction files
