@@ -4,7 +4,6 @@ export default
     "customcommands": {
         "prefix": "!",
         "ban": true,
-        "clearchat": true,
         "help": true,
         "op": true,
         "credits": true,

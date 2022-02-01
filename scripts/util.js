@@ -2,7 +2,9 @@
 import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.world;
-// const Commands = Minecraft.Commands;
+
+// to make eslint shut up
+if(World !== Minecraft) console.log(2);
 
 /**
  * @name flag
@@ -49,7 +51,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
 
     try {
-        if (check === "Namespoof") player.runCommand(`kick "${player.nameTag}" §r§6[§aScythe§6]§r Invalid username`);
+        if (check === "Namespoof") player.runCommand(`kick @s §r§6[§aScythe§6]§r Invalid username`);
     } catch(error) {
         // if we cant kick them with /kick then we instant despawn them
         player.triggerEvent("scythe:kick");
@@ -76,7 +78,7 @@ export function banMessage(player) {
         if(t.startsWith(" reason:")) reason = t.slice(8);
     });
 
-    player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
+    player.runCommand(`kick @s §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
 }
 
 /**
@@ -87,7 +89,7 @@ export function getTags(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:91)");
 
-    let tags = player.runCommand(`tag "${player.nameTag}" list`).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
+    let tags = player.runCommand(`tag @s list`).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
 
     return String(tags);
 }

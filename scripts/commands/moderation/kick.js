@@ -2,7 +2,6 @@
 import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.world;
-const Commands = Minecraft.Commands;
 
 /**
  * @name kick
@@ -23,28 +22,25 @@ export function kick(message, args) {
     let reason = args.slice(1).join(" ").replace("-s", "") || "No reason specified";
 
     // make sure the user has permissions to run the command
-    try {
-        Commands.run(`testfor @a[name="${player.nameTag}",tag=op]`, World.getDimension("overworld"));
-    } catch (error) {
-        return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));
-    }
+    if(!player.hasTag("op")) 
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
-    if (!args.length) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to kick!"}]}`, World.getDimension("overworld"));
+    if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to kick!"}]}`);
     
     // try to find the player requested
     for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace("@", "").replace("\"", ""))) var member = pl.nameTag;
 
-    if (!member) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`, World.getDimension("overworld"));
+    if (!member) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
     // make sure they dont kick themselves
-    if (member === player.nameTag) return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot kick yourself."}]}`, World.getDimension("overworld"));
+    if (member === player.nameTag) return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot kick yourself."}]}`);
 
     try {
-        if (!isSilent) Commands.run(`kick "${member}" ${reason}`, World.getDimension("overworld"));
-            else Commands.run(`event entity "${member}" scythe:kick`, World.getDimension("overworld"));
+        if (!isSilent) player.runCommand(`kick "${member}" ${reason}`);
+            else player.runCommand(`event entity "${member}" scythe:kick`);
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
-        return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to ban that player! Error: ${error}"}]}`, World.getDimension("overworld"));
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to ban that player! Error: ${error}"}]}`);
     }
-    return Commands.run(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${member} (Silent:${isSilent}). Reason: ${reason}"}]}`, World.getDimension("overworld"));
+    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${member} (Silent:${isSilent}). Reason: ${reason}"}]}`);
 }

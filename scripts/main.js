@@ -5,7 +5,6 @@ import { banplayer } from "./data/globalban.js";
 import config from "./data/config.js";
 
 const World = Minecraft.world;
-// const Commands = Minecraft.Commands;
 
 let loaded = false;
 
@@ -133,6 +132,8 @@ World.events.tick.subscribe(() => {
         } catch(e) {}
 
         // bedrock validation
+        // not yet supported in the latest beta
+        /*
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld) {
             try {
                 // only run the rest of the commands if the player is in the overworld
@@ -164,6 +165,7 @@ World.events.tick.subscribe(() => {
                 } catch (error) {}
             } catch(error) {}
         }
+        */
 
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(4)}`);

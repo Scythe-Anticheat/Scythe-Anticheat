@@ -3,7 +3,6 @@
 import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.world;
-const Commands = Minecraft.Commands;
 
 /**
  * @name op
@@ -20,16 +19,13 @@ export function op(message, args) {
     let player = message.sender;
     
     // make sure the user has permissions to run the command
-    try {
-        Commands.run(`testfor @a[name="${player.nameTag}",tag=op]`, World.getDimension("overworld"));
-    } catch (error) {
-        return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));
-    }
+    if(!player.hasTag("op")) 
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
     
     // try to find the player requested
     if (args.length) for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace("@", "").replace("\"", ""))) var member = pl;
     
-    if (!member) return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`, World.getDimension("overworld"));
+    if (!member) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
-    return Commands.run(`execute "${member.nameTag}" ~~~ function op`, World.getDimension("overworld"));
+    return player.runCommand(`execute "${member.nameTag}" ~~~ function op`);
 }

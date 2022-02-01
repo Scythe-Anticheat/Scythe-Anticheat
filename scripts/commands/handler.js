@@ -2,7 +2,9 @@ import * as Minecraft from "mojang-minecraft";
 import config from "../data/config.js";
 
 const World = Minecraft.world;
-const Commands = Minecraft.Commands;
+
+// to make eslint shut up
+if (World !== Minecraft) console.log(1); 
 
 // import all our commands
 import { kick } from "./moderation/kick.js";
@@ -33,7 +35,6 @@ import { fullreport } from "./utility/fullreport.js";
 import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
-import { clearchat } from "./utility/clearchat.js";
 
 /**
  * @name commandHandler
@@ -84,12 +85,11 @@ export function commandHandler(player, message) {
         else if (config.customcommands.help && commandName === "help") help(message);
         else if (config.customcommands.credits && commandName === "credits") credits(message);
         else if (config.customcommands.op && commandName === "op") op(message, args);
-        else if (config.customcommands.clearchat && commandName === "clearchat") clearchat(message, args);
         else if (config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message, args);
         else if (config.customcommands.phase && commandName === "phase") phase(message, args);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
-        return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please read console output"}]}`, World.getDimension("overworld"));
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please read console output"}]}`);
     }
 }

@@ -1,7 +1,6 @@
-import * as Minecraft from "mojang-minecraft";
+// import * as Minecraft from "mojang-minecraft";
 
-const World = Minecraft.world;
-const Commands = Minecraft.Commands;
+// const World = Minecraft.world;
 
 /**
  * @name credits
@@ -16,11 +15,8 @@ export function credits(message) {
     let player = message.sender;
     
     // make sure the user has permissions to run the command
-    try {
-        Commands.run(`testfor @a[name="${player.nameTag}",tag=op]`, World.getDimension("overworld"));
-    } catch (error) {
-        return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`, World.getDimension("overworld"));
-    }
+    if(!player.hasTag("op")) 
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
-    return Commands.run(`execute "${player.nameTag}" ~~~ function credits`, World.getDimension("overworld"));
+    return player.runCommand(`function credits`);
 }
