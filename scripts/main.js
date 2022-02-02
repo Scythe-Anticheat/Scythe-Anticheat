@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { flag, banMessage, getTags } from "./util.js";
+import { flag, banMessage} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import { banplayer } from "./data/globalban.js";
 import config from "./data/config.js";
@@ -22,7 +22,7 @@ World.events.beforeChat.subscribe(msg => {
     if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
     // get all tags of the player
-    let playerTags = getTags(player);
+    let playerTags = player.getTags();
 
     // Spammer/A = checks if someone sends a message while moving and on ground
     if (config.modules.spammerA.enabled && playerTags.includes('moving') && playerTags.includes('ground') && !playerTags.includes('jump')) {
@@ -81,25 +81,19 @@ World.events.tick.subscribe(() => {
         player.nameTag = player.nameTag.replace("\\", "");
 
         // get all tags of the player
-        let playerTags = getTags(player);
+        let playerTags = player.getTags();
+
+        if(player.getTags().includes("noBadAngle")) console.warn(1);
 
         // Check global ban list and if the player who is joining is on the server then kick them out
         if (banplayer.some(code => JSON.stringify(code) === JSON.stringify({ name: player.nameTag }))) {
-            try {
-                // test if they have the tag first or global ban will fail if we attempt to tag with an existing tag
-                // if they are not tagged then we do that here before we ban
-                player.runCommand(`testfor @s[tag="!by:Scythe Anticheat"]`);
-                player.runCommand(`tag @s add "by:Scythe Anticheat"`);
-                player.runCommand(`tag @s add "reason:You are Scythe Anticheat global banned!"`);
-            } catch (error) {}
+            player.addTag(`"by:Scythe Anticheat"`);
+            player.addTag(`"reason:You are Scythe Anticheat global banned!"`);
             banMessage(player);
         }
 
         // sexy looking ban message
-        try {
-            player.runCommand(`testfor @s[tag=isBanned]`);
-            banMessage(player);
-        } catch(error) {}
+        if(playerTags.includes("isBanned")) banMessage(player);
 
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
@@ -122,7 +116,6 @@ World.events.tick.subscribe(() => {
         try {
             if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit", false, false, false, false);
         } catch(error) {}
-
 
         // player position shit
         try {
@@ -199,19 +192,16 @@ World.events.tick.subscribe(() => {
                 // Illegalitems/D = additional item clearing check
                 if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
                     flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
+
+                // BadEnchants/A
+                console.warn(item.getComponent("Enchantment").level);
+
             }
         }
 
         // invalidsprint/a = checks for sprinting with the blindness effect
         if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && playerTags.includes('sprint')) {
             flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
-        }
-        
-        // fly/a = checks for creative fly while in survival
-        if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) == 0.2250) {
-            if(playerTags.includes('moving') && !playerTags.includes('ground') && !playerTags.includes('gliding') && !playerTags.includes('levitating') && !playerTags.includes('flying')) {
-                flag(player, "Fly", "A", "Movement", "yVelocity", Math.abs(player.velocity.y).toFixed(4), true, false);
-            }
         }
     }
 });

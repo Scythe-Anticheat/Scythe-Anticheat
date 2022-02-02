@@ -66,30 +66,15 @@ export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
-    let tags = player.runCommand(`tag @s list`).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
-    if (tags) tags = String(tags).split(/[,]/);
+    let tags = player.getTags();
 
     var reason;
     var by;
 
-    // this removes old ban stuff
     tags.forEach(t => {
-        if(t.startsWith(" by:")) by = t.slice(4);
-        if(t.startsWith(" reason:")) reason = t.slice(8);
+        if(t.startsWith("by:")) by = t;
+        if(t.startsWith("reason:")) reason = t;
     });
 
     player.runCommand(`kick @s §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
-}
-
-/**
- * @name getTags
- * @param {object} player - The player object
- */
-export function getTags(player) {
-    // validate that required params are defined
-    if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:91)");
-
-    let tags = player.runCommand(`tag @s list`).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
-
-    return String(tags);
 }

@@ -30,25 +30,19 @@ export function ban(message, args) {
     if (!member) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
     // make sure they dont ban themselves
-    if (member === player.nameTag) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban yourself."}]}`);
+    // if (member === player.nameTag) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban yourself."}]}`);
 
     // to lazy to convert this stuff to .hasTag()
-    let tags = player.runCommand(`tag "${member}" list`, World.getDimension('overworld')).statusMessage.replace(/§./g, '').match(/(?<=: ).*$/g);
-    if (tags) tags = String(tags).split(/[,]/);
+    let tags = player.getTags();
 
     // this removes old ban stuff
     tags.forEach(t => {
-        if(t.startsWith(" reason:")) player.runCommand(`tag "${member}" remove "${t.slice(1)}"`);
-        if(t.startsWith(" by:")) player.runCommand(`tag "${member}" remove "${t.slice(1)}"`);
+        if(t.startsWith("reason:")) player.removeTag(`""${t}""`);
+        if(t.startsWith("by:")) player.removeTag(`""${t}""`);
     });
 
-    try {
-        player.runCommand(`tag "${member}" add "reason:${reason}"`);
-        player.runCommand(`tag "${member}" add "by:${player.nameTag}"`);
-        player.runCommand(`tag "${member}" add isBanned`);
-    } catch (error) {
-        console.warn(`${new Date()} | ` + error);
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to ban that player! Error: ${error}"}]}`);
-    }
+    player.addTag(`"reason:${reason}"`);
+    player.addTag(`"by:${player.nameTag}"`);
+    player.addTag(`isBanned`);
     return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member}. Reason: ${reason}"}]}`);
 }
