@@ -24,7 +24,6 @@ module.exports = {
         "no-var": "warn",
         "use-isnan": "error",
         "no-delete-var": "error",
-        "no-empty-function": "error",
         "no-eval": "warn",
         "no-lonely-if": "error",
         "no-multi-str": "error",

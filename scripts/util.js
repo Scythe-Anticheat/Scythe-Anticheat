@@ -10,15 +10,16 @@ if(World !== Minecraft) console.log(2);
  * @name flag
  * @param {object} player - The player object
  * @param {string} check - What check ran the function.
- * @param {string} checktype - What sub-check ran the function (ex. a, b ,c).
+ * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
  * @param {string} hacktype - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string} debugName - Name for the debug value.
  * @param {string} debug - Debug info.
  * @param {boolean} shouldTP - Whever to tp the player to itself.
  * @param {object} message - The message object, used to cancel the message.
  * @param {number} slot - Slot to clear an item out.
+ * @param {number} minVLban - How much violations before an autoban occurs.
  */
-export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message, slot) {
+export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message, slot, minVLban) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:8)");
     if (!check) return console.warn(`${new Date()} | ` + "Error: ${check} isnt defined. Did you forget to pass it? (./util.js:9)");
@@ -43,7 +44,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             else player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
     } catch(error) {}
 
-    if (slot >= 0) {
+    if (slot && slot >= 0) {
         try {
             if(slot <= 8) player.runCommand(`replaceitem entity @s slot.hotbar ${slot} air 1`);
                 else player.runCommand(`replaceitem entity @s slot.inventory ${slot - 9} air 1`);
@@ -55,6 +56,18 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     } catch(error) {
         // if we cant kick them with /kick then we instant despawn them
         player.triggerEvent("scythe:kick");
+    }
+
+    // Auto banning stuff
+    if(minVLban) {
+        try {
+            player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${minVLban}..}]`, World.getDimension("overworld"));
+            player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`, World.getDimension("overworld"));
+
+            player.addTag(`"by:Scythe Anticheat"`, World.getDimension("overworld"));
+            player.addTag(`"reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}"`, World.getDimension("overworld"));
+            player.addTag(`isBanned`, World.getDimension("overworld"));
+        } catch(error) {}
     }
 }
 
