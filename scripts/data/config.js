@@ -35,6 +35,7 @@ export default
         "vanish": true
     },
     "modules": {
+        "filterUnicodeChat": true,
         "badpackets2": {
             "enabled": true,
             "minLength": 1,
