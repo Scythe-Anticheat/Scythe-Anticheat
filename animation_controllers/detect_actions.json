@@ -158,8 +158,8 @@
 						"/tag @s add left",
 						"/scoreboard players set @s last_attack 0",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/scoreboard players add @s[tag=dead,scores={deathticks=2..}] killauravl 1",
-						"/execute @s[tag=dead,scores={deathticks=2..}] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4Killaura/B. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"killauravl\"}}]}"
+						"/scoreboard players add @s[tag=dead,scores={deathticks=4..}] killauravl 1",
+						"/execute @s[tag=dead,scores={deathticks=4..}] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4Killaura/B. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"killauravl\"}}]}"
 					]
 				}
 			}
