@@ -6,7 +6,7 @@ execute @s[tag=!left,scores={last_attack=10..}] ~~~ function checks/alerts/noswi
 
 execute @s[tag=vanish] ~~~ function checks/assets/vanish
 
-tp @e[type=xp_orb] @p[r=25]
+execute @e[type=xp_orb] ~~~ tp @s @p[r=10]
 
 # If the player is under y=-104 this teleports them back to y=-104
 tp @s[y=-105,dy=-205] ~ -104 ~

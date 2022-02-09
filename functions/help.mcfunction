@@ -35,7 +35,6 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!allowgms§r - Enab
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!removecommandblocks§r - Enables/disables clearing nearby command blocks."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!bedrockvalidate§r - Enables/disables validation of bedrock (Such as in the nether roof or at y=0)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overidecommandblocksenabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!nofrostwalker§r - Enables/disables preventing frost walker. High levels of frost walker can crash realms."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/disables Killing all NPC's."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!xray§r - Enables/disables the anti-xray check."}]}
@@ -50,7 +49,6 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/bedrockValidate§r - Enables/disables validation of bedrock (Such as in the nether roof or at y=0)."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function overideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/nofrostwalker§r - Enables/disables preventing frost walker. High levels of frost walker can crash realms."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/npc§r - Enables/disables Killing all NPC's."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/worldborder§r - Enables/disables the world border and its size."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/xray§r - Enables/disables the anti-xray check."}]}

@@ -1,8 +1,10 @@
 import * as Minecraft from "mojang-minecraft";
 import config from "../data/config.js";
 
-const World = Minecraft.World;
-const Commands = Minecraft.Commands;
+const World = Minecraft.world;
+
+// to make eslint shut up
+if (World !== Minecraft) console.log(1); 
 
 // import all our commands
 import { kick } from "./moderation/kick.js";
@@ -18,7 +20,6 @@ import { allowgmc } from "./settings/allowgmc.js";
 import { allowgms } from "./settings/allowgms.js";
 import { bedrockvalidate } from "./settings/bedrockvalidate.js";
 import { modules } from "./settings/modules.js";
-import { nofrostwalker } from "./settings/nofrostwalker.js";
 import { npc } from "./settings/npc.js";
 import { overidecommandblocksenabled } from "./settings/overidecommandblocksenabled.js";
 import { removecommandblocks } from "./settings/removecommandblocks.js";
@@ -34,7 +35,6 @@ import { fullreport } from "./utility/fullreport.js";
 import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
-import { clearchat } from "./utility/clearchat.js";
 
 /**
  * @name commandHandler
@@ -77,7 +77,6 @@ export function commandHandler(player, message) {
         else if (config.customcommands.allowgms && commandName === "allowgms") allowgms(message);
         else if (config.customcommands.bedrockvalidate && commandName === "bedrockvalidate") bedrockvalidate(message);
         else if (config.customcommands.modules && commandName === "modules") modules(message);
-        else if (config.customcommands.nofrostwalker && commandName === "nofrostwalker") nofrostwalker(message);
         else if (config.customcommands.npc && commandName === "npc") npc(message);
         else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe") overidecommandblocksenabled(message);
         else if (config.customcommands.removecommandblocks && commandName === "removecb") removecommandblocks(message);
@@ -86,12 +85,11 @@ export function commandHandler(player, message) {
         else if (config.customcommands.help && commandName === "help") help(message);
         else if (config.customcommands.credits && commandName === "credits") credits(message);
         else if (config.customcommands.op && commandName === "op") op(message, args);
-        else if (config.customcommands.clearchat && commandName === "clearchat") clearchat(message, args);
         else if (config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message, args);
         else if (config.customcommands.phase && commandName === "phase") phase(message, args);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
-        return Commands.run(`tellraw "${player.nameTag}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please read console output"}]}`, World.getDimension("overworld"));
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please read console output"}]}`);
     }
 }
