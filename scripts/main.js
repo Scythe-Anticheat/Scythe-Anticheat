@@ -77,13 +77,10 @@ World.events.tick.subscribe(() => {
     // run as each player
     for (let player of World.getPlayers()) {
         // fix a disabler method
-        player.nameTag = player.nameTag.replace("\"", "");
-        player.nameTag = player.nameTag.replace("\\", "");
+        player.nameTag = player.nameTag.replace(/"/g, "").replace(/\\/g, "");
 
         // get all tags of the player
         let playerTags = player.getTags();
-
-        if(player.getTags().includes("noBadAngle")) console.warn(1);
 
         // Check global ban list and if the player who is joining is on the server then kick them out
         if (banplayer.some(code => JSON.stringify(code) === JSON.stringify({ name: player.nameTag }))) {
@@ -192,6 +189,17 @@ World.events.tick.subscribe(() => {
                 // Illegalitems/D = additional item clearing check
                 if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
                     flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i, 3);
+                    
+                // badenchants/a
+
+                // this enchant magic will come soon
+                /*
+                let enchants = item.getComponent("enchantments").enchantments;
+
+                for(let e of enchants) {
+                    console.warn(e);
+                }
+                */
             }
         }
 
