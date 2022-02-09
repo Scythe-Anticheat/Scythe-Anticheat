@@ -61,12 +61,12 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // Auto banning stuff
     if(minVLban) {
         try {
-            player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${minVLban}..}]`, World.getDimension("overworld"));
-            player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`, World.getDimension("overworld"));
+            player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${minVLban}..}]`);
+            player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
 
-            player.addTag(`"by:Scythe Anticheat"`, World.getDimension("overworld"));
-            player.addTag(`"reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}"`, World.getDimension("overworld"));
-            player.addTag(`isBanned`, World.getDimension("overworld"));
+            player.addTag(`"by:Scythe Anticheat"`);
+            player.addTag(`"reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}"`);
+            player.addTag(`isBanned`);
         } catch(error) {}
     }
 }
