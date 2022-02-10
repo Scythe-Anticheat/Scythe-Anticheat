@@ -4,7 +4,7 @@
 		"animation.onJoin": {
 			"timeline": {
 				"9.0": [
-					// Setting Objectives
+					// Settings Objectives
 					"/scoreboard objectives add cmds dummy",
 					"/scoreboard players add @s cmds 0",
 					"/scoreboard objectives add gma dummy",
@@ -45,7 +45,7 @@
 					"/scoreboard players operation @a phase = scythe:config phase",
 					"/scoreboard players operation @a gametestapi = scythe:config gametestapi",
 					"/scoreboard players operation @a autoban = scythe:config autoban",
-					// Anti Cheat Objectives
+					// Anticheat Objectives
 					"/scoreboard objectives add autototemvl dummy",
 					"/scoreboard objectives add invmovevl dummy",
 					"/scoreboard objectives add attacks dummy",
@@ -57,12 +57,9 @@
 					"/scoreboard objectives add gamemodevl dummy",
 					"/scoreboard objectives add illegalitemsvl dummy",
 					"/scoreboard objectives add killauravl dummy",
-					"/scoreboard objectives add aura_timer dummy",
 					"/scoreboard objectives add xPos dummy",
 					"/scoreboard objectives add yPos dummy",
 					"/scoreboard objectives add zPos dummy",
-					"/scoreboard objectives add speedvl dummy",
-					"/scoreboard objectives add timer dummy",
 					"/scoreboard objectives add anglevl dummy",
 					"/scoreboard objectives add invalidsprintvl dummy",
 					"/scoreboard objectives add phasevl dummy",
