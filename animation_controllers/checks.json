@@ -10,12 +10,12 @@
 				},
 				"totem": {
 					"on_entry": [
-						"/execute @s[tag=moving,tag=ground] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/A VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
 						"/scoreboard players add @s[tag=moving,tag=ground] autototemvl 1",
-						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/B VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/execute @s[tag=moving,tag=ground] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/A VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
 						"/scoreboard players add @s[tag=right] autototemvl 1",
-						"/execute @s[tag=left] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/C VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
-						"/scoreboard players add @s[tag=left] autototemvl 1"
+						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/B VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}",
+						"/scoreboard players add @s[tag=left] autototemvl 1",
+						"/execute @s[tag=left] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/C VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}"
 					],
 					"transitions": [{
 						"autototem": "query.get_equipped_item_name('off_hand') != 'totem_of_undying'"

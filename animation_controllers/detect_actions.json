@@ -131,8 +131,6 @@
 					}],
 					"on_entry": [
 						"/tag @s add riding",
-						"/tag @s remove speedtest2",
-						"/scoreboard players set @s timer 0",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aRIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
