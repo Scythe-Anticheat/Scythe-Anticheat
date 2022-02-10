@@ -96,6 +96,27 @@
 					]
 				}
 			}
+		},
+		"controller.animation.flycheck": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"flycheck": "query.mark_variant == 1"
+					}],
+					"on_entry": [
+						"/tag @s remove flying2"
+					]
+				},
+				"flycheck": {
+					"transitions": [{
+						"default": "query.mark_variant != 1"
+					}],
+					"on_entry": [
+						"/tag @s add flying2",
+						"/ability @s mayfly true"
+					]
+				}
+			}
 		}
 	}
 }

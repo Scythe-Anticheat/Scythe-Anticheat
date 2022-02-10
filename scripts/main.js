@@ -210,5 +210,10 @@ World.events.tick.subscribe(() => {
         if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && playerTags.includes('sprint')) {
             flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
         }
+
+        // we put this inside main.js because if we were to put this in a function, it would error if Education Edition was disabled
+        try {
+            player.runCommand(`ability @s[tag=!flying2] mayfly false`);
+        } catch (e) {}
     }
 });
