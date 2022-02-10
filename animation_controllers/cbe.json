@@ -6,8 +6,8 @@
 			"states": {
 				"default": {
 					"on_entry": [
-						"/execute @p ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(command_block_minecart)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
 						"/scoreboard players add @p cbevl 1",
+						"/execute @p ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(command_block_minecart)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
 						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace bee_nest -1",
 						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace beehive -1",
 						"/kill @e[type=command_block_minecart]"
@@ -20,10 +20,10 @@
 			"states": {
 				"default": {
 					"on_entry": [
+						"/scoreboard players add @p[scores={npc=1..}] cbevl 1",
 						"/scoreboard players add scythe:config npc 0",
 						"/scoreboard players operation @a npc = scythe:config npc",
 						"/execute @p[scores={npc=1..}] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(npc)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
-						"/scoreboard players add @p[scores={npc=1..}] cbevl 1",
 						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace bee_nest -1",
 						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace beehive -1",
 						"/execute @r[scores={npc=1..}] ~~~ kill @e[type=npc]"
@@ -51,6 +51,12 @@
 						},
 						{
 							"tropical_fish_bucket": "query.get_equipped_item_name == 'tropical_fish_bucket' || query.get_equipped_item_name('off_hand') == 'tropical_fish_bucket'"
+						},
+						{
+							"beehive": "query.get_equipped_item_name == 'beehive' || query.get_equipped_item_name('off_hand') == 'beehive'"
+						},
+						{
+							"bee_nest": "query.get_equipped_item_name == 'bee_nest' || query.get_equipped_item_name('off_hand') == 'bee_nest'"
 						}
 					]
 				},
@@ -100,6 +106,26 @@
 					],
 					"transitions": [{
 						"cbeitems": "query.get_equipped_item_name != 'tropical_fish_bucket' || query.get_equipped_item_name('off_hand') != 'tropical_fish_bucket'"
+					}]
+				},
+				"beehive": {
+					"on_entry": [
+						"/clear @s[tag=!op] beehive",
+						"/scoreboard players add @s[tag=!op] cbevl 1",
+						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit/A! §7(item=beehive)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'beehive' || query.get_equipped_item_name('off_hand') != 'beehive'"
+					}]
+				},
+				"bee_nest": {
+					"on_entry": [
+						"/clear @s[tag=!op] bee_nest",
+						"/scoreboard players add @s[tag=!op] cbevl 1",
+						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit/A! §7(item=bee_nest)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'bee_nest' || query.get_equipped_item_name('off_hand') != 'bee_nest'"
 					}]
 				}
 			}
