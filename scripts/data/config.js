@@ -90,6 +90,18 @@ export default
             "punishment": "none",
             "minVlbeforeBan": 0
         },
+        "reachB": {
+            "enabled": true,
+            "reach": 5.5,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
+        "reachC": {
+            "enabled": true,
+            "reach": 5.5,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
         "noslowA": {
             "enabled": true,
             "speed": 0.12,

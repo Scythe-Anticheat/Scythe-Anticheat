@@ -219,10 +219,39 @@ World.events.tick.subscribe(() => {
 });
 
 World.events.blockPlace.subscribe(block => {
+    // commandblockexploit/b gametest 
     if(config.debug) console.warn(block.block.id);
     if(config.modules.cbeB.bannedBlocks.includes(block.block.id)) {
         block.player.runCommand(`scoreboard players add @s cbevl 1`);
         block.player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4CommandBlockExploit/B §7(item=${block.block.id})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
         block.player.runCommand(`setblock ${block.block.x} ${block.block.y} ${block.block.z} air`);
+    }
+
+    // reach/b = checks for build reach
+    if(config.modules.reachB.enabled) {
+        // i guess not sleeping through math class was a good idea
+        let reach = Math.sqrt((block.block.location.x - block.player.location.x)**2 + (block.block.location.y - block.player.location.y)**2 + (block.block.location.z - block.player.location.z)**2);
+
+        if(config.debug) console.warn(reach.toFixed(3));
+
+        if(reach > config.modules.reachB.reach) {
+            flag(block.player, "Reach", "B", "Combat", "reach", reach.toFixed(3), false, false);
+            block.player.runCommand(`setblock ${block.block.x} ${block.block.y} ${block.block.z} air 0 destroy`);
+        }
+    }
+});
+
+World.events.blockBreak.subscribe(block => {
+    // reach/C = checks for break reach
+    if(config.modules.reachB.enabled) {
+        // i guess not sleeping through math class was a good idea
+        let reach = Math.sqrt((block.block.location.x - block.player.location.x)**2 + (block.block.location.y - block.player.location.y)**2 + (block.block.location.z - block.player.location.z)**2);
+
+        if(config.debug) console.warn(reach.toFixed(3));
+
+        if(reach > config.modules.reachC.reach) {
+            flag(block.player, "Reach", "C", "Combat", "reach", reach.toFixed(3), false, false);
+            // block.player.runCommand(`setblock ${block.block.x} ${block.block.y} ${block.block.z} ${block.block.id}`);
+        }
     }
 });
