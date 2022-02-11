@@ -62,7 +62,7 @@ World.events.tick.subscribe(() => {
     // to check when loaded in the world and to execute code afterwards
     try {
         if (!loaded) {
-            const players = World.getPlayers().map(player => player.nameTag);
+            const players = Array(World.getPlayers()).map(player => player.nameTag);
             World.getDimension("overworld").runCommand(`testfor @a[name="${players[0]}"]`);
             try {
                 // (1..) gametest already enabled so set loaded to true and do nothing
@@ -176,7 +176,7 @@ World.events.tick.subscribe(() => {
         }
 
         // NoSlow/A = speed limit check
-        if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed) {
+        if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
             if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && playerTags.includes('right') && playerTags.includes('ground') && !playerTags.includes('jump') && !playerTags.includes('gliding') && !playerTags.includes('swimming')) {
                 flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true, false);
             }

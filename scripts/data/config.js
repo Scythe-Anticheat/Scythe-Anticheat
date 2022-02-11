@@ -37,31 +37,47 @@ export default
         "badpackets2": {
             "enabled": true,
             "minLength": 1,
-            "maxlength": 512
+            "maxlength": 512,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "spammerA": {
-            "enabled": true
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "spammerB": {
-            "enabled": true
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "spammerC": {
-            "enabled": true
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "spammerD": {
-            "enabled": true
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "crasherA": {
-            "enabled": true
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "namespoofA": {
             "enabled": true,
             "minNameLength": 3,
-            "maxNameLength": 16
+            "maxNameLength": 16,
+            "punishment": "kick",
+            "minVlbeforeBan": 0
         },
         "namespoofB": {
             "enabled": true,
-            "regex": RegExp(/[^A-Za-z0-9_() ]/)
+            "regex": RegExp(/[^A-Za-z0-9_() ]/),
+            "punishment": "kick",
+            "minVlbeforeBan": 0
         },
         "bedrockValidate": {
             "enabled": true,
@@ -70,27 +86,35 @@ export default
         },
         "reachA": {
             "enabled": true,
-            "reach": 5
+            "reach": 5,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "noslowA": {
             "enabled": true,
-            "speed": 0.12
+            "speed": 0.12,
+            "maxSpeed": 0.16,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "illegalitemsC": {
             "enabled": true,
-            "maxStack": 64
+            "maxStack": 64,
+            "punishment": "ban",
+            "minVlbeforeBan": 3
         },
         "invalidsprintA": {
-            "enabled": true
-        },
-        "flyA": {
-            "enabled": true
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "illegalitemsD": {
             "enabled": true,
             "illegalItems": [
                 "minecraft:movingblock"
-            ]
+            ],
+            "punishment": "ban",
+            "minVlbeforeBan": 3
         },
         "cbeB": {
             "enabled": true,
@@ -98,7 +122,9 @@ export default
                 "minecraft:beehive",
                 "minecraft:bee_nest",
                 "minecraft:movingblock"
-            ]
+            ],
+            "punishment": "none",
+            "minVlbeforeBan": 0
         }
     }
 };

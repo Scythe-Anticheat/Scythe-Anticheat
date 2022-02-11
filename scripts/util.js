@@ -1,5 +1,6 @@
 /* eslint no-var: "off"*/
 import * as Minecraft from "mojang-minecraft";
+import config from "./data/config.js";
 
 const World = Minecraft.world;
 
@@ -17,9 +18,8 @@ if(World !== Minecraft) console.log(2);
  * @param {boolean} shouldTP - Whever to tp the player to itself.
  * @param {object} message - The message object, used to cancel the message.
  * @param {number} slot - Slot to clear an item out.
- * @param {number} minVLban - How much violations before an autoban occurs.
  */
-export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message, slot, minVLban) {
+export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message, slot) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:8)");
     if (!check) return console.warn(`${new Date()} | ` + "Error: ${check} isnt defined. Did you forget to pass it? (./util.js:9)");
@@ -46,19 +46,19 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         } catch(error) {console.warn(`${new Date()} | ` + error);}
     }
 
-    console.warn(slot);
+    let checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
 
-    try {
-        if (check === "Namespoof") player.runCommand(`kick @s §r§6[§aScythe§6]§r Invalid username`);
-    } catch(error) {
-        // if we cant kick them with /kick then we instant despawn them
-        player.triggerEvent("scythe:kick");
-    }
-
-    // Auto banning stuff
-    if(minVLban) {
+    // punishment stuff
+    if(checkData.punishment == "kick") {
         try {
-            player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${minVLban}..}]`);
+            player.runCommand(`kick "${player.nameTag}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
+        } catch(error) {
+            // if we cant /kick them then we despwan them
+            player.runCommand("event entity @s scythe:kick");
+        }
+    } else if(checkData.punishment == "ban") {
+        try {
+            player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${checkData.minVlbeforeBan}..}]`);
             player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
 
             player.addTag(`"by:Scythe Anticheat"`);
@@ -86,5 +86,9 @@ export function banMessage(player) {
         if(t.startsWith("reason:")) reason = t;
     });
 
-    player.runCommand(`kick @s §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
+    try {
+        player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
+    } catch(error) {
+        player.runCommand("event entity @s scythe:kick");
+    }
 }
