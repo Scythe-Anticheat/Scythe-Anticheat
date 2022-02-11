@@ -131,7 +131,7 @@ World.events.tick.subscribe(() => {
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld) {
             try {
                 // only run the rest of the commands if the player is in the overworld
-                World.getDimension("overworld").runCommand(`testfor @r[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
+                World.getDimension("overworld").runCommand(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
                 try {
                     player.runCommand(`fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`);
                 } catch (error) {}
@@ -145,7 +145,7 @@ World.events.tick.subscribe(() => {
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.nether) {
             try {
                 // only run the rest of the commands if the player is in the nether
-                World.getDimension("nether").runCommand(`testfor @r[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
+                World.getDimension("nether").runCommand(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
                 try {
                     player.runCommand(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
                 } catch (error) {}
