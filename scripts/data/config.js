@@ -91,6 +91,14 @@ export default
             "illegalItems": [
                 "minecraft:movingblock"
             ]
+        },
+        "cbeB": {
+            "enabled": true,
+            "bannedBlocks": [
+                "minecraft:beehive",
+                "minecraft:bee_nest",
+                "minecraft:movingblock"
+            ]
         }
     }
 };

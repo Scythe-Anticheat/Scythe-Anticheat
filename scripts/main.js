@@ -217,3 +217,12 @@ World.events.tick.subscribe(() => {
         } catch (e) {}
     }
 });
+
+World.events.blockPlace.subscribe(block => {
+    if(config.debug) console.warn(block.block.id);
+    if(config.modules.cbeB.bannedBlocks.includes(block.block.id)) {
+        block.player.runCommand(`scoreboard players add @s cbevl 1`);
+        block.player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4CommandBlockExploit/B §7(item=${block.block.id})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
+        block.player.runCommand(`setblock ${block.block.x} ${block.block.y} ${block.block.z} air`);
+    }
+});

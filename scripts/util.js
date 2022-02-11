@@ -26,11 +26,6 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if (!check) return console.warn(`${new Date()} | ` + "Error: ${checkType} isnt defined. Did you forget to pass it? (./util.js:10)");
     if (!hackType) return console.warn(`${new Date()} | ` + "Error: ${hackType} isnt defined. Did you forget to pass it? (./util.js:11)");
 
-    // make sure the vl objective exists
-    try {
-        player.runCommand(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
-    } catch(error) {}
-
     // cancel the message
     if (message) message.cancel = true;
 
@@ -44,12 +39,14 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             else player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
     } catch(error) {}
 
-    if (slot && slot >= 0) {
+    if (!isNaN(slot) && slot >= 0) {
         try {
             if(slot <= 8) player.runCommand(`replaceitem entity @s slot.hotbar ${slot} air 1`);
                 else player.runCommand(`replaceitem entity @s slot.inventory ${slot - 9} air 1`);
         } catch(error) {console.warn(`${new Date()} | ` + error);}
     }
+
+    console.warn(slot);
 
     try {
         if (check === "Namespoof") player.runCommand(`kick @s §r§6[§aScythe§6]§r Invalid username`);
