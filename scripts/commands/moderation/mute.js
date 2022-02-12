@@ -36,7 +36,7 @@ export function mute(message, args) {
         player.runCommand(`tellraw "${member}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been muted. Reason: ${reason}"}]}`);
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
-        return player.runCommand(`tellraw@s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to mute that player! You most likely dont have education edition enabled."}]}`);
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to mute that player! You most likely dont have education edition enabled."}]}`);
     }
     return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has muted ${member}. Reason: ${reason}"}]}`);
 }

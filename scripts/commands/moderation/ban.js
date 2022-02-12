@@ -24,24 +24,23 @@ export function ban(message, args) {
     if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to ban!"}]}`);
     
     // try to find the player requested
-    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace("@", "").replace("\"", ""))) var member = pl.nameTag; 
+    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace("@", "").replace("\"", ""))) var member = pl; 
 
     if (!member) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
     // make sure they dont ban themselves
-    // if (member === player.nameTag) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban yourself."}]}`);
+    if (member.nameTag === player.nameTag) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban yourself."}]}`);
 
-    // to lazy to convert this stuff to .hasTag()
-    let tags = player.getTags();
+    let tags = member.getTags();
 
     // this removes old ban stuff
     tags.forEach(t => {
-        if(t.startsWith("reason:")) player.removeTag(`""${t}""`);
-        if(t.startsWith("by:")) player.removeTag(`""${t}""`);
+        if(t.startsWith("reason:")) member.removeTag(`""${t}""`);
+        if(t.startsWith("by:")) member.removeTag(`""${t}""`);
     });
 
-    player.addTag(`"reason:${reason}"`);
-    player.addTag(`"by:${player.nameTag}"`);
-    player.addTag(`isBanned`);
-    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member}. Reason: ${reason}"}]}`);
+    member.addTag(`"reason:${reason}"`);
+    member.addTag(`"by:${player.nameTag}"`);
+    member.addTag(`isBanned`);
+    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member.nameTag}. Reason: ${reason}"}]}`);
 }

@@ -2,7 +2,7 @@ import config from "../data/config.js";
 
 // import all our commands
 import { kick } from "./moderation/kick.js";
-import { help } from "./moderation/help.js";
+import { help } from "./other/help.js";
 import { notify } from "./moderation/notify.js";
 import { op } from "./moderation/op.js";
 import { ban } from "./moderation/ban.js";
@@ -72,7 +72,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.bedrockvalidate && commandName === "bedrockvalidate") bedrockvalidate(message);
         else if (config.customcommands.modules && commandName === "modules") modules(message);
         else if (config.customcommands.npc && commandName === "npc") npc(message);
-        else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe" || commandName === "overridecoomandblocksenabled") overidecommandblocksenabled(message);
+        else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe" || commandName === "overidecommandblocksenabled") overidecommandblocksenabled(message);
         else if (config.customcommands.removecommandblocks && commandName === "removecb" || commandName === "removecommandblocks") removecommandblocks(message);
         else if (config.customcommands.worldborder && commandName === "worldborder" || commandName === "wb") worldborder(message);
         else if (config.customcommands.xray && commandName === "xray") xray(message);

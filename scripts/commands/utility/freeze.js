@@ -27,5 +27,5 @@ export function freeze(message, args) {
     
     if (!member) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
-    return player.runCommand(`function tools/freeze`);
+    return member.runCommand(`function tools/freeze`);
 }

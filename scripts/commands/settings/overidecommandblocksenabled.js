@@ -1,7 +1,3 @@
-// import * as Minecraft from "mojang-minecraft";
-
-// const World = Minecraft.world;
-
 /**
  * @name overidecommandblocksenabled
  * @param {object} message - Message object
@@ -18,5 +14,5 @@ export function overidecommandblocksenabled(message) {
     if(!player.hasTag("op")) 
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
-    return player.runCommands(`function settings/overideCommandBlocksEnabled`);
+    return player.runCommand(`function settings/overideCommandBlocksEnabled`);
 }
