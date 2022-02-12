@@ -1,7 +1,3 @@
-// import * as Minecraft from "mojang-minecraft";
-
-// const World = Minecraft.world;
-
 /**
  * @name credits
  * @param {object} message - Message object

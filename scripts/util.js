@@ -1,11 +1,4 @@
-/* eslint no-var: "off"*/
-import * as Minecraft from "mojang-minecraft";
 import config from "./data/config.js";
-
-const World = Minecraft.world;
-
-// to make eslint shut up
-if(World !== Minecraft) console.log(2);
 
 /**
  * @name flag

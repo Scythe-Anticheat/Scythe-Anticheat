@@ -1,10 +1,4 @@
-import * as Minecraft from "mojang-minecraft";
 import config from "../data/config.js";
-
-const World = Minecraft.world;
-
-// to make eslint shut up
-if (World !== Minecraft) console.log(1); 
 
 // import all our commands
 import { kick } from "./moderation/kick.js";
@@ -14,7 +8,7 @@ import { op } from "./moderation/op.js";
 import { ban } from "./moderation/ban.js";
 import { mute } from "./moderation/mute.js";
 import { unmute } from "./moderation/unmute.js";
-import { credits } from "./moderation/credits.js";
+import { credits } from "./other/credits.js";
 import { allowgma } from "./settings/allowgma.js";
 import { allowgmc } from "./settings/allowgmc.js";
 import { allowgms } from "./settings/allowgms.js";
@@ -78,15 +72,15 @@ export function commandHandler(player, message) {
         else if (config.customcommands.bedrockvalidate && commandName === "bedrockvalidate") bedrockvalidate(message);
         else if (config.customcommands.modules && commandName === "modules") modules(message);
         else if (config.customcommands.npc && commandName === "npc") npc(message);
-        else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe") overidecommandblocksenabled(message);
-        else if (config.customcommands.removecommandblocks && commandName === "removecb") removecommandblocks(message);
+        else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe" || commandName === "overridecoomandblocksenabled") overidecommandblocksenabled(message);
+        else if (config.customcommands.removecommandblocks && commandName === "removecb" || commandName === "removecommandblocks") removecommandblocks(message);
         else if (config.customcommands.worldborder && commandName === "worldborder" || commandName === "wb") worldborder(message);
         else if (config.customcommands.xray && commandName === "xray") xray(message);
         else if (config.customcommands.help && commandName === "help") help(message);
         else if (config.customcommands.credits && commandName === "credits") credits(message);
         else if (config.customcommands.op && commandName === "op") op(message, args);
-        else if (config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message, args);
-        else if (config.customcommands.phase && commandName === "phase") phase(message, args);
+        else if (config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message);
+        else if (config.customcommands.phase && commandName === "phase") phase(message);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);

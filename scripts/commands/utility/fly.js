@@ -1,4 +1,3 @@
-/* eslint no-var: "off"*/
 /* eslint no-redeclare: "off"*/
 import * as Minecraft from "mojang-minecraft";
 

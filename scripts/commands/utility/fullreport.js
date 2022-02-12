@@ -1,8 +1,3 @@
-/* eslint no-var: "off"*/
-// import * as Minecraft from "mojang-minecraft";
-
-// const World = Minecraft.world;
-
 /**
  * @name fullreport
  * @param {object} message - Message object

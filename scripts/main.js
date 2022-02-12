@@ -6,7 +6,7 @@ import config from "./data/config.js";
 
 const World = Minecraft.world;
 
-let loaded = false;
+var loaded = false;
 
 if (config.debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
@@ -62,19 +62,13 @@ World.events.tick.subscribe(() => {
     // to check when loaded in the world and to execute code afterwards
     try {
         if (!loaded) {
-            const players = Array(World.getPlayers()).map(player => player.nameTag);
+            const players = [...World.getPlayers()].map(player => player.nameTag);
             World.getDimension("overworld").runCommand(`testfor @a[name="${players[0]}"]`);
             try {
-                // (1..) gametest already enabled so set loaded to true and do nothing
-                World.getDimension("overworld").runCommand(`testfor @r[scores={gametestapi=1..}]`);
+                World.getDimension("overworld").runCommand(`scoreboard players set scythe:config gametestapi 1`);
+                World.getDimension("overworld").runCommand(`scoreboard players operation @a gametestapi = scythe:config gametestapi`);
                 loaded = true;
-            } catch {
-                // (..0) gametest needs to be enabled (1..) then set loaded to true
-                World.getDimension("overworld").runCommand(`testfor @r[scores={gametestapi=..0}]`);
-                World.getDimension("overworld").runCommand(`execute "${players[0]}" ~~~ function checks/gametestapi`);
-                loaded = true;
-                return;
-            }
+            } catch {}
         }
     } catch (error) {}
     

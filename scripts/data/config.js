@@ -92,13 +92,13 @@ export default
         },
         "reachB": {
             "enabled": true,
-            "reach": 5.5,
+            "reach": 6,
             "punishment": "none",
             "minVlbeforeBan": 0
         },
         "reachC": {
             "enabled": true,
-            "reach": 5.5,
+            "reach": 6,
             "punishment": "none",
             "minVlbeforeBan": 0
         },

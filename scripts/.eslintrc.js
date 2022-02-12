@@ -21,7 +21,6 @@ module.exports = {
         "no-self-compare": "error",
         "no-empty": "off",
         "no-unused-vars": "warn",
-        "no-var": "warn",
         "use-isnan": "error",
         "no-delete-var": "error",
         "no-eval": "warn",
