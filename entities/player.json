@@ -27,8 +27,7 @@
 					"sprint",
 					"noswing",
 					"invmove",
-					"swim",
-					"flycheck"
+					"swim"
 				]
 			},
 			"animations": {
@@ -51,8 +50,7 @@
 				"sprint": "controller.animation.sprint",
 				"noswing": "controller.animation.noswing",
 				"invmove": "controller.animation.invmove",
-				"swim": "controller.animation.swim",
-				"flycheck": "controller.animation.flycheck"
+				"swim": "controller.animation.swim"
 			}
 		},
 		"component_groups": {
@@ -100,11 +98,6 @@
 					"value": 0
 				}
 			},
-			"scythe:reset_mark_variant": {
-				"minecraft:mark_variant": {
-					"value": 0
-				}
-			},
 			"scythe:onAttack": {
 				"minecraft:skin_id": {
 					"value": 1
@@ -118,11 +111,6 @@
 			"scythe:illegal": {
 				"minecraft:skin_id": {
 					"value": 3
-				}
-			},
-			"scythe:flycheck": {
-				"minecraft:mark_variant": {
-					"value": 1
 				}
 			},
 			"unvanished": {
@@ -608,42 +596,6 @@
 							]
 						},
 						"event": "scythe:illegal"
-					},
-					{
-						"filters": {
-							"all_of": [{
-								"test": "is_game_rule",
-								"operator": "==",
-								"domain": "sendcommandfeedback",
-								"subject": "self",
-								"value": false
-							},
-							{
-								"test": "has_ability",
-								"operator": "==",
-								"subject": "self",
-								"value": "mayfly"
-							}]
-						},
-						"event": "scythe:flycheck"
-					},
-					{
-						"filters": {
-							"any_of": [{
-								"test": "is_game_rule",
-								"operator": "==",
-								"domain": "sendcommandfeedback",
-								"subject": "self",
-								"value": true
-							},
-							{
-								"test": "has_ability",
-								"operator": "!=",
-								"subject": "self",
-								"value": "mayfly"
-							}]
-						},
-						"event": "scythe:reset_mark_variant"
 					}
 				]
 			}
@@ -685,18 +637,6 @@
 					]
 				}
 			},
-			"scythe:flycheck": {
-				"add": {
-					"component_groups": [
-						"scythe:flycheck"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:reset_mark_variant"
-					]
-				}
-			},
 			"scythe:reset_skinid": {
 				"add": {
 					"component_groups": [
@@ -719,18 +659,6 @@
 				"remove": {
 					"component_groups": [
 						"scythe:gui"
-					]
-				}
-			},
-			"scythe:reset_mark_variant": {
-				"add": {
-					"component_groups": [
-						"scythe:reset_mark_variant"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:flycheck"
 					]
 				}
 			},

@@ -30,13 +30,15 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     try {
         if(debug) player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
             else player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
-    } catch(error) {}
+    } catch {}
 
     if (!isNaN(slot) && slot >= 0) {
         try {
             if(slot <= 8) player.runCommand(`replaceitem entity @s slot.hotbar ${slot} air 1`);
                 else player.runCommand(`replaceitem entity @s slot.inventory ${slot - 9} air 1`);
-        } catch(error) {console.warn(`${new Date()} | ` + error);}
+        } catch(error) {
+            console.warn(`${new Date()} | ` + error);
+        }
     }
 
     let checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
@@ -57,7 +59,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             player.addTag(`"by:Scythe Anticheat"`);
             player.addTag(`"reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}"`);
             player.addTag(`isBanned`);
-        } catch(error) {}
+        } catch {}
     }
 }
 

@@ -70,7 +70,7 @@ World.events.tick.subscribe(() => {
                 loaded = true;
             } catch {}
         }
-    } catch (error) {}
+    } catch {}
     
     // run as each player
     for (let player of World.getPlayers()) {
@@ -105,19 +105,19 @@ World.events.tick.subscribe(() => {
                 if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
                     flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
             }
-        } catch(error) {}
+        } catch {}
 
         // Namespoof/B = regex check
         try {
             if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit", false, false, false, false);
-        } catch(error) {}
+        } catch {}
 
         // player position shit
         try {
             player.runCommand(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
             player.runCommand(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
             player.runCommand(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
-        } catch(e) {}
+        } catch {}
 
         // bedrock validation
         // not yet supported in the latest beta
@@ -128,12 +128,12 @@ World.events.tick.subscribe(() => {
                 World.getDimension("overworld").runCommand(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
                 try {
                     player.runCommand(`fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`);
-                } catch (error) {}
+                } catch {}
 
                 try {
                     player.runCommand(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
-                } catch (error) {}
-            } catch (error) {}
+                } catch {}
+            } catch {}
         }
 
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.nether) {
@@ -142,16 +142,16 @@ World.events.tick.subscribe(() => {
                 World.getDimension("nether").runCommand(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
                 try {
                     player.runCommand(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
-                } catch (error) {}
+                } catch {}
 
                 try {
                     player.runCommand(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
-                } catch (error) {}
+                } catch {}
 
                 try {
                     player.runCommand(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
-                } catch (error) {}
-            } catch(error) {}
+                } catch {}
+            } catch {}
         }
         */
 
@@ -162,10 +162,10 @@ World.events.tick.subscribe(() => {
         if (config.modules.reachA.enabled && playerTags.includes('attack')) {
             try {                                                                   // we could use r=4 but that wont account for lag
                 player.runCommand(`execute @s[tag=attack,m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=${config.modules.reachA.reach}]`);
-            } catch (error) {
+            } catch {
                 try {
                     player.runCommand(`execute @s[tag=attack,m=!c] ~~~ function checks/alerts/reach`);
-                } catch (error2) {}
+                } catch {}
             }
         }
 
@@ -204,17 +204,12 @@ World.events.tick.subscribe(() => {
         if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && playerTags.includes('sprint')) {
             flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
         }
-
-        // we put this inside main.js because if we were to put this in a function, it would error if Education Edition was disabled
-        try {
-            player.runCommand(`ability @s[tag=!flying2] mayfly false`);
-        } catch (e) {}
     }
 });
 
 World.events.blockPlace.subscribe(block => {
     // commandblockexploit/b gametest 
-    if(config.debug) console.warn(block.block.id);
+    if(config.debug) console.warn(`${block.player.nameTag} has placed ${block.block.id}`);
     if(config.modules.cbeB.bannedBlocks.includes(block.block.id)) {
         block.player.runCommand(`scoreboard players add @s cbevl 1`);
         block.player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4CommandBlockExploit/B §7(item=${block.block.id})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
@@ -236,6 +231,8 @@ World.events.blockPlace.subscribe(block => {
 });
 
 World.events.blockBreak.subscribe(block => {
+    if(config.debug) console.warn(`${block.player.nameTag} has broken the block ${block.block.id}`);
+
     // reach/C = checks for break reach
     if(config.modules.reachB.enabled) {
         // i guess not sleeping through math class was a good idea
@@ -245,7 +242,7 @@ World.events.blockBreak.subscribe(block => {
 
         if(reach > config.modules.reachC.reach) {
             flag(block.player, "Reach", "C", "Combat", "reach", reach.toFixed(3), false, false);
-            // block.player.runCommand(`setblock ${block.block.x} ${block.block.y} ${block.block.z} ${block.block.id}`);
+            // block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
 });
