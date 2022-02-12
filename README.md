@@ -41,9 +41,6 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   Crasher -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player's position is invalid. (Requires GameTest FrameWork)<br />
 
-  Disabler -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Detects Penguins Admin Giver by intercepting a function it runs.
-
   Ender Pearl Glitching -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if an ender pearl is inside a climbable block.
 
