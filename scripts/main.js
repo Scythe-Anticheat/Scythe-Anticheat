@@ -21,26 +21,23 @@ World.events.beforeChat.subscribe(msg => {
     // BadPackets/2 = chat message length check
     if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
-    // get all tags of the player
-    let playerTags = player.getTags();
-
     // Spammer/A = checks if someone sends a message while moving and on ground
-    if (config.modules.spammerA.enabled && playerTags.includes('moving') && playerTags.includes('ground') && !playerTags.includes('jump')) {
+    if (config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump')) {
         flag(player, "Spammer", "A", "Movement", false, false, true, msg);
     }
 
     // Spammer/B = checks if someone sends a message while swinging their hand
-    if (config.modules.spammerB.enabled && playerTags.includes('left')) {
+    if (config.modules.spammerB.enabled && player.hasTag('left')) {
         flag(player, "Spammer", "B", "Combat", false, false, false, msg);
     }
 
     // Spammer/C = checks if someone sends a message while using an item
-    if (config.modules.spammerC.enabled && playerTags.includes('right')) {
+    if (config.modules.spammerC.enabled && player.hasTag('right')) {
         flag(player, "Spammer", "C", "Misc", false, false, false, msg);
     }
 
     // Spammer/D = checks if someone sends a message while having a GUI open
-    if (config.modules.spammerD.enabled && playerTags.includes('hasGUIopen')) {
+    if (config.modules.spammerD.enabled && player.hasTag('hasGUIopen')) {
         flag(player, "Spammer", "D", "Misc", false, false, false, msg);
     }
 
@@ -77,9 +74,6 @@ World.events.tick.subscribe(() => {
         // fix a disabler method
         player.nameTag = player.nameTag.replace(/"/g, "").replace(/\\/g, "");
 
-        // get all tags of the player
-        let playerTags = player.getTags();
-
         // Check global ban list and if the player who is joining is on the server then kick them out
         if (banplayer.some(code => JSON.stringify(code) === JSON.stringify({ name: player.nameTag }))) {
             player.addTag(`"by:Scythe Anticheat"`);
@@ -88,7 +82,7 @@ World.events.tick.subscribe(() => {
         }
 
         // sexy looking ban message
-        if(playerTags.includes("isBanned")) banMessage(player);
+        if(player.hasTag("isBanned")) banMessage(player);
 
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
@@ -113,11 +107,13 @@ World.events.tick.subscribe(() => {
         } catch {}
 
         // player position shit
-        try {
-            player.runCommand(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
-            player.runCommand(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
-            player.runCommand(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
-        } catch {}
+        if(player.hasTag("moving")) {
+            try {
+                player.runCommand(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
+                player.runCommand(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
+                player.runCommand(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
+            } catch {}
+        }
 
         // bedrock validation
         // not yet supported in the latest beta
@@ -159,7 +155,7 @@ World.events.tick.subscribe(() => {
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(4)}`);
 
         // reach/a
-        if (config.modules.reachA.enabled && playerTags.includes('attack')) {
+        if (config.modules.reachA.enabled && player.hasTag('attack')) {
             try {                                                                   // we could use r=4 but that wont account for lag
                 player.runCommand(`execute @s[tag=attack,m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=${config.modules.reachA.reach}]`);
             } catch {
@@ -171,7 +167,7 @@ World.events.tick.subscribe(() => {
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
-            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && playerTags.includes('right') && playerTags.includes('ground') && !playerTags.includes('jump') && !playerTags.includes('gliding') && !playerTags.includes('swimming')) {
+            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming')) {
                 flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true, false);
             }
         }
@@ -201,7 +197,7 @@ World.events.tick.subscribe(() => {
         }
 
         // invalidsprint/a = checks for sprinting with the blindness effect
-        if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && playerTags.includes('sprint')) {
+        if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint')) {
             flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
         }
     }
