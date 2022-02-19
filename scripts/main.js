@@ -115,10 +115,7 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
-        // bedrock validation
-        // not yet supported in the latest beta
-        /*
-        if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld) {
+        if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld && player.dimension === World.getDimension("overworld")) {
             try {
                 // only run the rest of the commands if the player is in the overworld
                 World.getDimension("overworld").runCommand(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
@@ -132,24 +129,17 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
-        if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.nether) {
+        if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.nether && player.dimension === World.getDimension("nether")) { 
             try {
-                // only run the rest of the commands if the player is in the nether
-                World.getDimension("nether").runCommand(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
-                try {
-                    player.runCommand(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
-                } catch {}
-
-                try {
-                    player.runCommand(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
-                } catch {}
-
-                try {
-                    player.runCommand(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
-                } catch {}
+                player.runCommand(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
+            } catch {}
+            try {
+                player.runCommand(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
+            } catch {}
+            try {
+                player.runCommand(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
             } catch {}
         }
-        */
 
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(4)}`);
@@ -227,7 +217,7 @@ World.events.blockPlace.subscribe(block => {
 });
 
 World.events.blockBreak.subscribe(block => {
-    if(config.debug) console.warn(`${block.player.nameTag} has broken the block ${block.block.id}`);
+    if(config.debug) console.warn(`${block.player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
 
     // reach/C = checks for break reach
     if(config.modules.reachB.enabled) {
