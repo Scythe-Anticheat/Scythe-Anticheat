@@ -94,10 +94,10 @@ World.events.tick.subscribe(() => {
                 // checks if 2 players are logged in with the same name
                 // minecraft adds a sufix to the end of the name which we detect
                 if(player.name.endsWith(')') && ((player.name.length + 3) > config.modules.namespoofA.maxNameLength || player.name.length < config.modules.namespoofA.minNameLength))
-                    flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
+                    flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
 
                 if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
-                    flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length, false, false);
+                    flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
             }
         } catch {}
 
@@ -141,8 +141,7 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
-        // if (config.debug) console.warn(`${new Date()} | ${player.name}'s vertical velocity: ${Math.abs(player.velocity.y).toFixed(4)}`);
-        // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(4)}`);
+        // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(4)} Vertical Speed: ${Math.abs(player.velocity.y).toFixed(4)}`);
 
         // reach/a
         if (config.modules.reachA.enabled && player.hasTag('attack')) {
@@ -158,7 +157,7 @@ World.events.tick.subscribe(() => {
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
             if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming')) {
-                flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true, false);
+                flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true);
             }
         }
 
@@ -188,7 +187,7 @@ World.events.tick.subscribe(() => {
 
         // invalidsprint/a = checks for sprinting with the blindness effect
         if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint')) {
-            flag(player, "InvalidSprint", "A", "Movement", false, false, true, false);
+            flag(player, "InvalidSprint", "A", "Movement", false, false, true);
         }
     }
 });
@@ -210,7 +209,7 @@ World.events.blockPlace.subscribe(block => {
         if(config.debug) console.warn(reach.toFixed(3));
 
         if(reach > config.modules.reachB.reach) {
-            flag(block.player, "Reach", "B", "Combat", "reach", reach.toFixed(3), false, false);
+            flag(block.player, "Reach", "B", "Combat", "reach", reach.toFixed(3));
             block.player.runCommand(`setblock ${block.block.x} ${block.block.y} ${block.block.z} air 0 destroy`);
         }
     }
@@ -227,7 +226,7 @@ World.events.blockBreak.subscribe(block => {
         if(config.debug) console.warn(reach.toFixed(3));
 
         if(reach > config.modules.reachC.reach) {
-            flag(block.player, "Reach", "C", "Combat", "reach", reach.toFixed(3), false, false);
+            flag(block.player, "Reach", "C", "Combat", "reach", reach.toFixed(3));
             // block.block.setPermutation(block.brokenBlockPermutation);
         }
     }

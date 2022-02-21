@@ -75,7 +75,7 @@ export default
         },
         "namespoofB": {
             "enabled": true,
-            "regex": RegExp(/[^A-Za-z0-9_() ]/),
+            "regex": /[^A-Za-z0-9_() ]/,
             "punishment": "kick",
             "minVlbeforeBan": 0
         },
