@@ -121,22 +121,24 @@ export default
             "minVlbeforeBan": 0
         },
         "illegalitemsD": {
-            "enabled": true,
+            "enabled": false,
             "illegalItems": [
+                "minecraft:beehive",
+                "minecraft:bee_nest",
                 "minecraft:movingblock"
             ],
             "punishment": "ban",
             "minVlbeforeBan": 3
         },
-        "cbeB": {
-            "enabled": true,
+        "commandblockexploitF": {
+            "enabled": false,
             "bannedBlocks": [
                 "minecraft:beehive",
                 "minecraft:bee_nest",
                 "minecraft:movingblock"
             ],
-            "punishment": "none",
-            "minVlbeforeBan": 0
+            "punishment": "ban",
+            "minVlbeforeBan": 1
         }
     }
 };
