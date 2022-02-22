@@ -189,6 +189,11 @@ World.events.tick.subscribe(() => {
         if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint')) {
             flag(player, "InvalidSprint", "A", "Movement", false, false, true);
         }
+
+        if(config.modules.nukerA.enabled && player.blocksBroken > config.modules.nukerA.maxBlocks)
+            flag(player, "Nuker", "A", "Misc", "blocksBroken", player.blocksBroken);
+
+        player.blocksBroken = 0;
     }
 });
 
@@ -225,10 +230,17 @@ World.events.blockBreak.subscribe(block => {
             // block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
+
+    if(config.modules.nukerA.enabled) {
+        if(!block.player.blocksBroken) block.player.blocksBroken = 0;
+        block.player.blocksBroken++;
+
+        if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) block.block.setPermutation(block.brokenBlockPermutation);
+    }
 });
 
 World.events.beforeItemUseOn.subscribe(item => {
-    if(config.modules.commandblockexploitF.bannedBlocks.includes(item.item.id)) {
+    if(config.modules.commandblockexploitF.enabled && config.modules.commandblockexploitF.bannedBlocks.includes(item.item.id)) {
         item.source.runCommand(`scoreboard players add @s cbevl 1`);
         item.source.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4CommandBlockExploit/F §7(item=${item.item.id})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
         item.cancel = true;

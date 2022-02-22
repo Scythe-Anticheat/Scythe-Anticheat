@@ -139,6 +139,12 @@ export default
             ],
             "punishment": "ban",
             "minVlbeforeBan": 1
-        }
+        },
+        "nukerA": {
+            "enabled": true,
+            "maxBlocks": 2,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
     }
 };
