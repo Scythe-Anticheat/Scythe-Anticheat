@@ -63,8 +63,8 @@ export default
         },
         "crasherA": {
             "enabled": true,
-            "punishment": "none",
-            "minVlbeforeBan": 0
+            "punishment": "ban",
+            "minVlbeforeBan": 3
         },
         "namespoofA": {
             "enabled": true,
@@ -93,14 +93,14 @@ export default
         "reachB": {
             "enabled": true,
             "reach": 7,
-            "punishment": "none",
-            "minVlbeforeBan": 0
+            "punishment": "ban",
+            "minVlbeforeBan": 12
         },
         "reachC": {
             "enabled": true,
             "reach": 7,
-            "punishment": "none",
-            "minVlbeforeBan": 0
+            "punishment": "ban",
+            "minVlbeforeBan": 12
         },
         "noslowA": {
             "enabled": true,
@@ -143,8 +143,8 @@ export default
         "nukerA": {
             "enabled": true,
             "maxBlocks": 2,
-            "punishment": "none",
-            "minVlbeforeBan": 0
+            "punishment": "ban",
+            "minVlbeforeBan": 5
         },
     }
 };

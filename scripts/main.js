@@ -227,7 +227,7 @@ World.events.blockBreak.subscribe(block => {
 
         if(reach > config.modules.reachC.reach) {
             flag(block.player, "Reach", "C", "Combat", "reach", reach.toFixed(3));
-            // block.block.setPermutation(block.brokenBlockPermutation);
+            block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
 
