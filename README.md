@@ -90,8 +90,8 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
 
   Reach -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check if someone hits a player outside a 5 block radius. (Requires GameTest FrameWork)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Check for placing blocks outside a 5.5 block range. (Requires GameTest FrameWork)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Check for breaking blocks outside a 5.5 block range. (Requires GameTest FrameWork)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Check for placing blocks outside a 7 block range. (Requires GameTest FrameWork)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Check for breaking blocks outside a 7 block range. (Requires GameTest FrameWork)<br />
 
   Xray -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Alerts staff if a player finds a diamond or ancient debris.

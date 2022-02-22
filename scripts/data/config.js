@@ -121,7 +121,7 @@ export default
             "minVlbeforeBan": 0
         },
         "illegalitemsD": {
-            "enabled": false,
+            "enabled": true,
             "illegalItems": [
                 "minecraft:beehive",
                 "minecraft:bee_nest",
@@ -131,7 +131,7 @@ export default
             "minVlbeforeBan": 3
         },
         "commandblockexploitF": {
-            "enabled": false,
+            "enabled": true,
             "bannedBlocks": [
                 "minecraft:beehive",
                 "minecraft:bee_nest",

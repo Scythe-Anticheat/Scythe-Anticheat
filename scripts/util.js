@@ -51,7 +51,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             player.runCommand(`kick "${player.nameTag}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
         } catch(error) {
             // if we cant /kick them then we despwan them
-            player.runCommand("event entity @s scythe:kick");
+            player.triggerEvent("scythe:kick");
         }
     } else if(checkData.punishment == "ban") {
         try {
@@ -73,12 +73,10 @@ export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
-    let tags = player.getTags();
-
     var reason;
     var by;
 
-    tags.forEach(t => {
+    player.tags.forEach(t => {
         if(t.startsWith(`"by:`)) by = t.replace(/"/g, "").slice(3);
         if(t.startsWith(`"reason:`)) reason = t.replace(/"/g, "").slice(7);
     });
@@ -86,6 +84,6 @@ export function banMessage(player) {
     try {
         player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
     } catch(error) {
-        player.runCommand("event entity @s scythe:kick");
+        player.triggerEvent("scythe:kick");
     }
 }
