@@ -76,7 +76,7 @@ export function banMessage(player) {
     var reason;
     var by;
 
-    player.tags.forEach(t => {
+    player.getTags().forEach(t => {
         if(t.startsWith(`"by:`)) by = t.replace(/"/g, "").slice(3);
         if(t.startsWith(`"reason:`)) reason = t.replace(/"/g, "").slice(7);
     });
