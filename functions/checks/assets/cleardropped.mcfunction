@@ -18,12 +18,6 @@ kill @s[type=item,name="Frosted Ice"]
 kill @s[type=item,name=""]
 
 # cbe related items
-kill @s[type=item,name="Bucket Of Cod"]
-kill @s[type=item,name="Bucket Of Salmon"]
-kill @s[type=item,name="Bucket Of Tropical Fish"]
-kill @s[type=item,name="Bucket Of Pufferfish"]
-kill @s[type=item,name="Powder Snow Bucket"]
-kill @s[type=item,name="Bucket Of Axolotl"]
 kill @s[type=item,name="Beehive"]
 kill @s[type=item,name="Bee Nest"]
 kill @s[type=item,name="tile.movingBlock.name"]

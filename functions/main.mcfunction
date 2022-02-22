@@ -19,4 +19,4 @@ execute @s[type=player,tag=!op,m=c,scores={gmc=1..}] ~~~ function checks/optiona
 execute @s[type=player,tag=!op,m=s,scores={gmc=1..}] ~~~ function checks/optional/gamemodeS
 execute @s[scores={commandblocks=1..}] ~~~ function checks/optional/nocommandblocks
 execute @s[scores={cmds=1..}] ~~~ function checks/optional/overridecommandblocksenabled
-execute @s[type=player,scores={worldborder=1..}] ~~~ function checks/optional/worldborder
+execute @s[type=player,tag=moving,scores={worldborder=1..,gametestapi=1..}] ~~~ function checks/optional/worldborder
