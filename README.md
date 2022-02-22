@@ -76,6 +76,9 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   NoSlow -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high movement speeds while using or eating an item. (Requires GameTest FrameWork)
 
+  Nuker -><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player breaks more then 2 blocks in a tick. (Requires GameTest FrameWork)
+
   Phase -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Detect if someone moves inside a block.
 
