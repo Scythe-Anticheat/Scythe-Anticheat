@@ -198,7 +198,6 @@ World.events.tick.subscribe(() => {
 });
 
 World.events.blockPlace.subscribe(block => {
-    // commandblockexploit/F
     if(config.debug) console.warn(`${block.player.nameTag} has placed ${block.block.id}`);
 
     // reach/b = checks for build reach
@@ -219,7 +218,7 @@ World.events.blockBreak.subscribe(block => {
     if(config.debug) console.warn(`${block.player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
 
     // reach/C = checks for break reach
-    if(config.modules.reachB.enabled) {
+    if(config.modules.reachC.enabled) {
         // i guess not sleeping through math class was a good idea
         let reach = Math.sqrt((block.block.location.x - block.player.location.x)**2 + (block.block.location.y - block.player.location.y)**2 + (block.block.location.z - block.player.location.z)**2);
 
