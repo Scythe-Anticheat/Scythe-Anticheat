@@ -16,26 +16,17 @@ export function tag(message, args) {
 
     let player = message.sender;
 
-    // fixes a bug with this command not working if the nametag had invalid characters
-    player.nameTag = player.name;
-
     // make sure the user has permissions to run the command
     if(!player.hasTag("op")) 
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
-    // check if array contains the string 'reset'
-    let argcheck = args.includes('reset');
-
     // reset user nametag
-    if (argcheck) {
+    if (args.includes("reset")) {
         player.nameTag = player.name;
         return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset their nametag"}]}`);
     }
 
-    let nametag = `§8[§r${args.join(" ")}§8]§r ${player.name}`;
-    
-    // input sanitization
-    nametag = nametag.replace("\\", "").replace("\"", "");
+    let nametag = `§8[§r${args.join(" ")}§8]§r ${player.name}`.replace(/"|\\/g, "");
 
     if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag!"}]}`);
 

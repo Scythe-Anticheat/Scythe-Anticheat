@@ -55,25 +55,8 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 World.events.tick.subscribe(() => {
-    // Credits go out to mrpatches123#0348 for giving guidance to use tick events
-    // to check when loaded in the world and to execute code afterwards
-    try {
-        if (!loaded) {
-            const players = [...World.getPlayers()].map(player => player.nameTag);
-            World.getDimension("overworld").runCommand(`testfor @a[name="${players[0]}"]`);
-            try {
-                World.getDimension("overworld").runCommand(`scoreboard players set scythe:config gametestapi 1`);
-                World.getDimension("overworld").runCommand(`scoreboard players operation @a gametestapi = scythe:config gametestapi`);
-                loaded = true;
-            } catch {}
-        }
-    } catch {}
-    
     // run as each player
     for (let player of World.getPlayers()) {
-        // fix a disabler method
-        player.nameTag = player.nameTag.replace(/"/g, "").replace(/\\/g, "");
-
         // Check global ban list and if the player who is joining is on the server then kick them out
         if (banplayer.some(code => JSON.stringify(code) === JSON.stringify({ name: player.nameTag }))) {
             player.addTag(`"by:Scythe Anticheat"`);
@@ -244,4 +227,20 @@ World.events.beforeItemUseOn.subscribe(item => {
         item.source.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4CommandBlockExploit/F §7(item=${item.item.id})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
         item.cancel = true;
     }
+});
+
+World.events.playerJoin.subscribe(player => {
+    if(!loaded) {
+        try {
+            World.getDimension("overworld").runCommand(`scoreboard players set scythe:config gametestapi 1`);
+            World.getDimension("overworld").runCommand(`scoreboard players operation @a gametestapi = scythe:config gametestapi`);
+            loaded = true;
+        } catch {}
+    }
+
+    // fix a disabler method
+    player.player.nameTag = player.player.nameTag.replace(/"|\\/g, "");
+
+    // i would also move the namespoof checks here but for whatever reason
+    // this event triggers before the player is fully loaded
 });
