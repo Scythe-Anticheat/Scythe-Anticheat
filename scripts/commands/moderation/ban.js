@@ -32,7 +32,7 @@ export function ban(message, args) {
     if (member.nameTag === player.nameTag) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban yourself."}]}`);
 
     // this removes old ban stuff
-    player.tags.forEach(t => {
+    member.tags.forEach(t => {
         if(t.startsWith("reason:")) member.removeTag(`""${t}""`);
         if(t.startsWith("by:")) member.removeTag(`""${t}""`);
     });
