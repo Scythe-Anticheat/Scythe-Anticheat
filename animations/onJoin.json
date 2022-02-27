@@ -53,7 +53,6 @@
 					"/scoreboard objectives add attack_timer dummy",
 					"/scoreboard objectives add right dummy",
 					"/scoreboard objectives add cbevl dummy",
-					"/scoreboard objectives add epearlGlitch dummy",
 					"/scoreboard objectives add gamemodevl dummy",
 					"/scoreboard objectives add illegalitemsvl dummy",
 					"/scoreboard objectives add killauravl dummy",

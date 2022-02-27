@@ -42,9 +42,6 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   Crasher -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player's position is invalid. (Requires GameTest FrameWork)<br />
 
-  Ender Pearl Glitching -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if an ender pearl is inside a climbable block.
-
   Fly -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for creative fly while in survival.
 

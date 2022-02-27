@@ -10,7 +10,6 @@ function checks/others
 # Specific criteria checks
 execute @s[type=player,scores={attacks=1..,autoclicker=..0}] ~~~ function checks/autoclicker
 execute @s[type=player,tag=isBanned] ~~~ function checks/ban
-execute @e[type=ender_pearl,r=5] ~~~ function checks/epearlglitching
 execute @s[type=player,tag=moving,tag=!gliding,tag=!riding,tag=!vanish,scores={phase=..0}] ~~~ function checks/phase
 
 # Optional checks
