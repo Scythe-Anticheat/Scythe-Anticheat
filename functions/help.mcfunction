@@ -70,7 +70,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!fullreport§r - Vi
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!clearchat§r - Clears chat."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> <reason>§r - Clears chat."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> <reason>§r - Report a player."}]}
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/ecwipe§r - Clears a players ender chest."}]}
