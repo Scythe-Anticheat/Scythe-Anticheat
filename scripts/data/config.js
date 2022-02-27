@@ -19,6 +19,7 @@ export default
         "xray": true,
         "autoclicker": true,
         "phase": true,
+        "autoban": true,
         "ecwipe": true,
         "freeze": true,
         "stats": true,
@@ -30,7 +31,8 @@ export default
         "invsee": true,
         "notify": true,
         "tag": true,
-        "vanish": true
+        "vanish": true,
+        "report": true
     },
     "modules": {
         "filterUnicodeChat": true,

@@ -21,6 +21,7 @@ import { worldborder } from "./settings/worldborder.js";
 import { xray } from "./settings/xray.js";
 import { autoclicker } from "./settings/autoclicker.js";
 import { phase } from "./settings/phase.js";
+import { autoban } from "./settings/autoban.js";
 import { tag } from "./utility/tag.js";
 import { ecwipe } from "./utility/ecwipe.js";
 import { freeze } from "./utility/freeze.js";
@@ -29,6 +30,7 @@ import { fullreport } from "./utility/fullreport.js";
 import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
+import { report } from "./other/report.js";
 
 /**
  * @name commandHandler
@@ -81,9 +83,11 @@ export function commandHandler(player, message) {
         else if (config.customcommands.op && commandName === "op") op(message, args);
         else if (config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message);
         else if (config.customcommands.phase && commandName === "phase") phase(message);
+        else if (config.customcommands.autoban && commandName === "autoban") autoban(message);
+        else if (config.customcommands.report && commandName === "report") report(message, args);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please read console output"}]}`);
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${message.message}\nError: ${error}\n-------------------------"}]}`);
     }
 }

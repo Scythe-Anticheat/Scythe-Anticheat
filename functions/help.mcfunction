@@ -1,4 +1,6 @@
 tellraw @s {"rawtext":[{"text":"\n§l§aScythe AntiCheat Command Help"}]}
+
+# alert the player if gametest is disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"\n§l§4Gametest Is Disabled In World!"}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"\n§l§4Please Enable Gametest, Cheats, and Education Edition!"}]}
 
@@ -40,6 +42,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!worldborder§r - E
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!xray§r - Enables/disables the anti-xray check."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables Anti Autoclicker."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoban§r - Enables/disables auto banning."}]}
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/modules§r - View all enabled or disabled modules."}]}
@@ -54,6 +57,7 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/xray§r - Enables/disables the anti-xray check."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoclicker§r - Enables/disables Anti Autoclicker."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoban - Enables/disables auto banning."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}
 
@@ -66,6 +70,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!fullreport§r - Vi
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!clearchat§r - Clears chat."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> <reason>§r - Clears chat."}]}
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/ecwipe§r - Clears a players ender chest."}]}
