@@ -213,12 +213,22 @@ World.events.blockBreak.subscribe(block => {
         }
     }
 
+    // nuker/a = checks if a player breaks more than 2 blocks in a tick
     if(config.modules.nukerA.enabled) {
         if(!block.player.blocksBroken) block.player.blocksBroken = 0;
         block.player.blocksBroken++;
 
         if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) block.block.setPermutation(block.brokenBlockPermutation);
     }
+
+    // liquidinteract/a = checks if a player breaks a liquid
+    if(config.modules.liquidinteractA.enabled) {
+        if(config.modules.liquidinteractA.liquids.includes(block.block.id)) {
+            flag(block.player, "LiquidInteract", "A", "Misc", "block", block.block.id);
+            block.block.setPermutation(block.brokenBlockPermutation);
+        }
+    }
+
 });
 
 World.events.beforeItemUseOn.subscribe(item => {
