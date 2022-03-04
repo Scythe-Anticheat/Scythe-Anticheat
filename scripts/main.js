@@ -185,34 +185,10 @@ World.events.tick.subscribe(() => {
 
 World.events.blockPlace.subscribe(block => {
     if(config.debug) console.warn(`${block.player.nameTag} has placed ${block.block.id}`);
-
-    // reach/b = checks for build reach
-    if(config.modules.reachB.enabled) {
-        let reach = Math.sqrt((block.block.location.x - block.player.location.x)**2 + (block.block.location.y - block.player.location.y)**2 + (block.block.location.z - block.player.location.z)**2);
-
-        if(config.debug) console.warn(reach.toFixed(3));
-
-        if(reach > config.modules.reachB.reach) {
-            flag(block.player, "Reach", "B", "Combat", "reach", reach.toFixed(3));
-            block.player.runCommand(`setblock ${block.block.x} ${block.block.y} ${block.block.z} air 0 destroy`);
-        }
-    }
 });
 
 World.events.blockBreak.subscribe(block => {
     if(config.debug) console.warn(`${block.player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
-
-    // reach/C = checks for break reach
-    if(config.modules.reachC.enabled) {
-        let reach = Math.sqrt((block.block.location.x - block.player.location.x)**2 + (block.block.location.y - block.player.location.y)**2 + (block.block.location.z - block.player.location.z)**2);
-
-        if(config.debug) console.warn(reach.toFixed(3));
-
-        if(reach > config.modules.reachC.reach) {
-            flag(block.player, "Reach", "C", "Combat", "reach", reach.toFixed(3));
-            block.block.setPermutation(block.brokenBlockPermutation);
-        }
-    }
 
     // nuker/a = checks if a player breaks more than 2 blocks in a tick
     if(config.modules.nukerA.enabled) {

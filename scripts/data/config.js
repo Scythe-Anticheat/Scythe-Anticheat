@@ -92,18 +92,6 @@ export default
             "punishment": "none",
             "minVlbeforeBan": 0
         },
-        "reachB": {
-            "enabled": true,
-            "reach": 7,
-            "punishment": "ban",
-            "minVlbeforeBan": 12
-        },
-        "reachC": {
-            "enabled": true,
-            "reach": 7,
-            "punishment": "ban",
-            "minVlbeforeBan": 12
-        },
         "noslowA": {
             "enabled": true,
             "speed": 0.12,
