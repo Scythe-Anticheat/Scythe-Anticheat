@@ -172,6 +172,14 @@ World.events.tick.subscribe(() => {
             flag(player, "Nuker", "A", "Misc", "blocksBroken", player.blocksBroken);
 
         player.blocksBroken = 0;
+
+        // fly/a
+        if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) == 0.1552 && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("ground") && player.hasTag("moving")) {
+            try {
+                player.runCommand("execute @s ~~~ detect ~~~ air -1 execute @s ~~~ detect ~1~~ air -1 execute @s ~~~ detect ~~~1 air -1 execute @s ~~~ detect ~1~~1 air -1 execute @s ~~~ detect ~-1~~ air -1 execute @s ~~~ detect ~~~-1 air -1 execute @s ~~~ detect ~-1~~-1 air -1 execute @s ~~~ detect ~1~~-1 air -1 testforblock ~-1~~1 air -1");
+                flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
+            } catch {}
+        }
     }
 });
 
@@ -205,7 +213,7 @@ World.events.blockBreak.subscribe(block => {
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
-    
+
     // nuker/a = checks if a player breaks more than 2 blocks in a tick
     if(config.modules.nukerA.enabled) {
         if(!block.player.blocksBroken) block.player.blocksBroken = 0;

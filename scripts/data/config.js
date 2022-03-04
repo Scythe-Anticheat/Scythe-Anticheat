@@ -158,6 +158,11 @@ export default
             ],
             "punishment": "ban",
             "minVlbeforeBan": 1
-        }
+        },
+        "flyA": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
     }
 };

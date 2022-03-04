@@ -65,12 +65,12 @@
 					"/scoreboard objectives add reachvl dummy",
 					"/scoreboard objectives add nukervl dummy",
 					"/scoreboard objectives add liquidinteractvl dummy",
+					"/scoreboard objectives add flyvl dummy",
 					"/scoreboard objectives add last_attack dummy",
 					"/scoreboard objectives add deathticks dummy",
 					// If enabled from previous login then activate
 					"/event entity @s[tag=vanish] vanish",
-					"/ability @s[tag=flying] mayfly true",
-					"/event entity PointNetwork341 scythe:kick"
+					"/ability @s[tag=flying] mayfly true"
 				]
 			},
 			"animation_length": 9.9,

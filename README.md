@@ -43,7 +43,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player's position is invalid. (Requires GameTest FrameWork)<br />
 
   Fly -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for creative fly while in survival.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for fly-like motion. (Requires GameTest FrameWork)
 
   Illegal Items -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Clears illegal items from everybody's inventories.<br />
