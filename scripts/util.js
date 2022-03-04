@@ -11,6 +11,7 @@ import config from "./data/config.js";
  * @param {boolean} shouldTP - Whever to tp the player to itself.
  * @param {object} message - The message object, used to cancel the message.
  * @param {number} slot - Slot to clear an item out.
+ * @example flag(player, "Spammer", "B", "Combat", false, false, false, msg, false);
  */
 export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message, slot) {
     // validate that required params are defined
@@ -58,6 +59,12 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${checkData.minVlbeforeBan}..}]`);
             player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
 
+            // this removes old ban stuff
+            player.getTags().forEach(t => {
+                if(t.startsWith("reason:")) player.removeTag(`""${t}""`);
+                if(t.startsWith("by:")) player.removeTag(`""${t}""`);
+            });
+
             player.addTag(`"by:Scythe Anticheat"`);
             player.addTag(`"reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}"`);
             player.addTag(`isBanned`);
@@ -68,6 +75,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 /**
  * @name banMessage
  * @param {object} player - The player object
+ * @example banMessage(player);
  */
 export function banMessage(player) {
     // validate that required params are defined

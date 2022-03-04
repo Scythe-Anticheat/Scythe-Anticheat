@@ -1,7 +1,7 @@
 import * as Minecraft from "mojang-minecraft";
 import { flag, banMessage} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
-import { banplayer } from "./data/globalban.js";
+import { banList } from "./data/globalban.js";
 import config from "./data/config.js";
 
 const World = Minecraft.world;
@@ -22,24 +22,20 @@ World.events.beforeChat.subscribe(msg => {
     if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
     // Spammer/A = checks if someone sends a message while moving and on ground
-    if (config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump')) {
+    if (config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
         flag(player, "Spammer", "A", "Movement", false, false, true, msg);
-    }
 
     // Spammer/B = checks if someone sends a message while swinging their hand
-    if (config.modules.spammerB.enabled && player.hasTag('left')) {
+    if (config.modules.spammerB.enabled && player.hasTag('left'))
         flag(player, "Spammer", "B", "Combat", false, false, false, msg);
-    }
 
     // Spammer/C = checks if someone sends a message while using an item
-    if (config.modules.spammerC.enabled && player.hasTag('right')) {
+    if (config.modules.spammerC.enabled && player.hasTag('right'))
         flag(player, "Spammer", "C", "Misc", false, false, false, msg);
-    }
 
     // Spammer/D = checks if someone sends a message while having a GUI open
-    if (config.modules.spammerD.enabled && player.hasTag('hasGUIopen')) {
+    if (config.modules.spammerD.enabled && player.hasTag('hasGUIopen'))
         flag(player, "Spammer", "D", "Misc", false, false, false, msg);
-    }
 
     commandHandler(player, msg);
 
@@ -57,11 +53,10 @@ World.events.beforeChat.subscribe(msg => {
 World.events.tick.subscribe(() => {
     // run as each player
     for (let player of World.getPlayers()) {
-        // Check global ban list and if the player who is joining is on the server then kick them out
-        if (banplayer.some(code => JSON.stringify(code) === JSON.stringify({ name: player.nameTag }))) {
+        if (banList.includes(player.name)) {
             player.addTag(`"by:Scythe Anticheat"`);
             player.addTag(`"reason:You are Scythe Anticheat global banned!"`);
-            banMessage(player);
+            player.addTag(`isBanned`);
         }
 
         // sexy looking ban message
@@ -185,7 +180,6 @@ World.events.blockPlace.subscribe(block => {
 
     // reach/b = checks for build reach
     if(config.modules.reachB.enabled) {
-        // i guess not sleeping through math class was a good idea
         let reach = Math.sqrt((block.block.location.x - block.player.location.x)**2 + (block.block.location.y - block.player.location.y)**2 + (block.block.location.z - block.player.location.z)**2);
 
         if(config.debug) console.warn(reach.toFixed(3));
@@ -202,7 +196,6 @@ World.events.blockBreak.subscribe(block => {
 
     // reach/C = checks for break reach
     if(config.modules.reachC.enabled) {
-        // i guess not sleeping through math class was a good idea
         let reach = Math.sqrt((block.block.location.x - block.player.location.x)**2 + (block.block.location.y - block.player.location.y)**2 + (block.block.location.z - block.player.location.z)**2);
 
         if(config.debug) console.warn(reach.toFixed(3));
@@ -212,7 +205,7 @@ World.events.blockBreak.subscribe(block => {
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
-
+    
     // nuker/a = checks if a player breaks more than 2 blocks in a tick
     if(config.modules.nukerA.enabled) {
         if(!block.player.blocksBroken) block.player.blocksBroken = 0;
@@ -250,7 +243,4 @@ World.events.playerJoin.subscribe(player => {
 
     // fix a disabler method
     player.player.nameTag = player.player.nameTag.replace(/"|\\/g, "");
-
-    // i would also move the namespoof checks here but for whatever reason
-    // this event triggers before the player is fully loaded
 });

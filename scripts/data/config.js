@@ -66,7 +66,7 @@ export default
         "crasherA": {
             "enabled": true,
             "punishment": "ban",
-            "minVlbeforeBan": 3
+            "minVlbeforeBan": 1
         },
         "namespoofA": {
             "enabled": true,
