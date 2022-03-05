@@ -22,6 +22,11 @@ export function tag(message, args) {
 
     // reset user nametag
     if (args.includes("reset")) {
+        // remove old tags
+        player.getTags().forEach(t => {
+            if(t.replace(/"|\\/g, "").startsWith("tag:")) player.removeTag(`${t}`);
+        });
+
         player.nameTag = player.name;
         return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset their nametag"}]}`);
     }
@@ -31,6 +36,13 @@ export function tag(message, args) {
     if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag!"}]}`);
 
     player.nameTag = nametag;
+
+    // remove old tags
+    player.getTags().forEach(t => {
+        if(t.replace(/"|\\/g, "").startsWith("tag:")) player.removeTag(`${t}`);
+    });
+
+    player.addTag(`"tag:${args.join(" ").replace(/"|\\/g, "")}"`);
 
     return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has changed their nametag to ${nametag}"}]}`);
 }

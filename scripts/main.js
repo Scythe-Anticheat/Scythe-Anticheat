@@ -227,4 +227,11 @@ World.events.playerJoin.subscribe(player => {
 
     // fix a disabler method
     player.player.nameTag = player.player.nameTag.replace(/"|\\/g, "");
+
+    // load custom nametag
+    player.player.getTags().forEach(t => {
+        if(t.replace(/"|\\/g, "").startsWith("tag:")) {
+            player.player.nameTag = `§8[§r${t.replace(/"|\\/g, "").slice(4)}§8]§r ${player.player.name}`;
+        }
+    });
 });
