@@ -28,3 +28,5 @@ tellraw @s[scores={autoclicker=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§
 tellraw @s[scores={autoclicker=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Autoclicker is currently §4DISABLED"}]}
 tellraw @s[scores={phase=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Phase is currently §aENABLED"}]}
 tellraw @s[scores={phase=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Phase is currently §4DISABLED"}]}
+tellraw @s[scores={autoban=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Auto-Banning is currently §4DISABLED"}]}
+tellraw @s[scores={autoban=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Auto-Banning is currently §aENABLED"}]}
