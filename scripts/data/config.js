@@ -103,7 +103,7 @@ export default
             "enabled": true,
             "maxStack": 64,
             "punishment": "ban",
-            "minVlbeforeBan": 3
+            "minVlbeforeBan": 1
         },
         "invalidsprintA": {
             "enabled": true,

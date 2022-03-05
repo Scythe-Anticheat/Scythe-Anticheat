@@ -2,7 +2,6 @@ import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.world;
 
-
 // found the inventory viewing scipt in the bedrock addons discord, unsure of the original owner (not my code)
 /**
  * @name invsee
