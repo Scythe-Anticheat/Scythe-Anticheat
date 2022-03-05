@@ -33,9 +33,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             else player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
     } catch {}
 
-    if(slot == 0) slot++;
-
-    if (slot >= 0) {
+    if (slot === 0 || slot >= 0) {
         try {
             if(slot <= 8) player.runCommand(`replaceitem entity @s slot.hotbar ${slot} air 1`);
                 else player.runCommand(`replaceitem entity @s slot.inventory ${slot - 9} air 1`);

@@ -154,7 +154,7 @@
 						"/tag @s add left",
 						"/scoreboard players set @s last_attack 0",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/execute @s[tag=dead,scores={deathticks=4..}] ~~~ function checks/alerts/killaura"
+						"/execute @s[tag=dead,scores={deathticks=6..}] ~~~ function checks/alerts/killaura"
 					]
 				}
 			}

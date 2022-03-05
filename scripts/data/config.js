@@ -152,5 +152,11 @@ export default
             "punishment": "none",
             "minVlbeforeBan": 0
         },
+        "highjumpA": {
+            "enabled": true,
+            "vertical_speed": 0.3500,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
     }
 };

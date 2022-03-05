@@ -164,9 +164,8 @@ World.events.tick.subscribe(() => {
         }
 
         // invalidsprint/a = checks for sprinting with the blindness effect
-        if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint')) {
+        if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint'))
             flag(player, "InvalidSprint", "A", "Movement", false, false, true);
-        }
 
         if(config.modules.nukerA.enabled && player.blocksBroken > config.modules.nukerA.maxBlocks)
             flag(player, "Nuker", "A", "Misc", "blocksBroken", player.blocksBroken);
@@ -178,6 +177,13 @@ World.events.tick.subscribe(() => {
             try {
                 player.runCommand("execute @s ~~~ detect ~~~ air -1 execute @s ~~~ detect ~1~~ air -1 execute @s ~~~ detect ~~~1 air -1 execute @s ~~~ detect ~1~~1 air -1 execute @s ~~~ detect ~-1~~ air -1 execute @s ~~~ detect ~~~-1 air -1 execute @s ~~~ detect ~-1~~-1 air -1 execute @s ~~~ detect ~1~~-1 air -1 testforblock ~-1~~1 air -1");
                 flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
+            } catch {}
+        }
+
+        if(config.modules.highjumpA.enabled && player.hasTag("jump") && player.velocity.y.toFixed(4) > config.modules.highjumpA.vertical_speed && !player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost)) {
+            try {
+                player.runCommand("testforblock ~~~ air");
+                flag(player, "HighJump", "A", "Movement", "vertical_velocity", player.velocity.y.toFixed(4), true);
             } catch {}
         }
     }
@@ -205,7 +211,6 @@ World.events.blockBreak.subscribe(block => {
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
-
 });
 
 World.events.beforeItemUseOn.subscribe(item => {
