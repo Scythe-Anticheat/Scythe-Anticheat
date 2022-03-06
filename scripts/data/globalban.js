@@ -5,5 +5,7 @@ export const banList = [
    "KebabNerdTog",
    "JAMtoo2oof",
    "CarltonRBX",
-   "xIlSHNAGSlIx"
+   "xIlSHNAGSlIx",
+   "Samdesap",
+   "VolantSubset630"
 ];
