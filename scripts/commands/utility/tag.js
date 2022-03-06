@@ -1,6 +1,7 @@
-// import * as Minecraft from "mojang-minecraft";
+/* eslint no-redeclare: "off"*/
+import * as Minecraft from "mojang-minecraft";
 
-// const World = Minecraft.world;
+const World = Minecraft.world;
 
 /**
  * @name tag
@@ -20,29 +21,35 @@ export function tag(message, args) {
     if(!player.hasTag("op")) 
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
+    if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag!"}]}`);
+
+    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+        var member = pl; 
+        args.shift();
+    }
+    if (!member) var member = player;
+
     // reset user nametag
-    if (args.includes("reset")) {
+    if (args[0].includes("reset")) {
         // remove old tags
-        player.getTags().forEach(t => {
+        member.getTags().forEach(t => {
             if(t.replace(/"|\\/g, "").startsWith("tag:")) player.removeTag(`${t}`);
         });
 
-        player.nameTag = player.name;
-        return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset their nametag"}]}`);
+        member.nameTag = member.name;
+        return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset ${member.name}'s nametag."}]}`);
     }
 
-    let nametag = `§8[§r${args.join(" ")}§8]§r ${player.name}`.replace(/"|\\/g, "");
+    let nametag = `§8[§r${args.join(" ")}§8]§r ${member.name}`.replace(/"|\\/g, "");
 
-    if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag!"}]}`);
-
-    player.nameTag = nametag;
+    member.nameTag = nametag;
 
     // remove old tags
-    player.getTags().forEach(t => {
-        if(t.replace(/"|\\/g, "").startsWith("tag:")) player.removeTag(`${t}`);
+    member.getTags().forEach(t => {
+        if(t.replace(/"|\\/g, "").startsWith("tag:")) member.removeTag(`${t}`);
     });
 
-    player.addTag(`"tag:${args.join(" ").replace(/"|\\/g, "")}"`);
+    member.addTag(`"tag:${args.join(" ").replace(/"|\\/g, "")}"`);
 
-    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has changed their nametag to ${nametag}"}]}`);
+    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has changed ${member.name}'s nametag to ${nametag}."}]}`);
 }

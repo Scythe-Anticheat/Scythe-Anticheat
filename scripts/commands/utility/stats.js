@@ -2,7 +2,6 @@ import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.world;
 
-
 /**
  * @name stats
  * @param {object} message - Message object

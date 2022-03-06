@@ -2,7 +2,6 @@ import * as Minecraft from "mojang-minecraft";
 
 const World = Minecraft.world;
 
-
 /**
  * @name ecwipe
  * @param {object} message - Message object
