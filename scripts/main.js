@@ -179,13 +179,6 @@ World.events.tick.subscribe(() => {
                 flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
             } catch {}
         }
-
-        if(config.modules.highjumpA.enabled && player.hasTag("jump") && player.velocity.y.toFixed(4) > config.modules.highjumpA.vertical_speed && !player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost)) {
-            try {
-                player.runCommand("testforblock ~~~ air");
-                flag(player, "HighJump", "A", "Movement", "vertical_velocity", player.velocity.y.toFixed(4), true);
-            } catch {}
-        }
     }
 });
 
