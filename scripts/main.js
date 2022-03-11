@@ -71,7 +71,7 @@ World.events.tick.subscribe(() => {
             if (config.modules.namespoofA.enabled) {
                 // checks if 2 players are logged in with the same name
                 // minecraft adds a sufix to the end of the name which we detect
-                if(player.name.endsWith(')') && ((player.name.length + 3) > config.modules.namespoofA.maxNameLength || player.name.length < config.modules.namespoofA.minNameLength))
+                if(player.name.endsWith(')') && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
                     flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
 
                 if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
@@ -95,15 +95,11 @@ World.events.tick.subscribe(() => {
 
         if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld && player.dimension === World.getDimension("overworld")) {
             try {
-                // only run the rest of the commands if the player is in the overworld
-                World.getDimension("overworld").runCommand(`testfor @a[name="${player.nameTag}",rm=0,scores={bedrock=1..}]`);
-                try {
-                    player.runCommand(`fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`);
-                } catch {}
+                player.runCommand(`fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`);
+            } catch {}
 
-                try {
-                    player.runCommand(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
-                } catch {}
+            try {
+                player.runCommand(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
             } catch {}
         }
 
