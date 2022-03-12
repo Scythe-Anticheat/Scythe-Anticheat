@@ -81,7 +81,7 @@ World.events.tick.subscribe(() => {
 
         // Namespoof/B = regex check
         try {
-            if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit", false, false, false, false);
+            if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit");
         } catch {}
 
         // player position shit
@@ -130,9 +130,8 @@ World.events.tick.subscribe(() => {
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
-            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag('sprint')) {
+            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag('sprint'))
                 flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true);
-            }
         }
 
         if(config.modules.illegalitemsC.enabled || config.modules.illegalitemsD.enabled) {
@@ -163,9 +162,6 @@ World.events.tick.subscribe(() => {
         if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint'))
             flag(player, "InvalidSprint", "A", "Movement", false, false, true);
 
-        if(config.modules.nukerA.enabled && player.blocksBroken > config.modules.nukerA.maxBlocks)
-            flag(player, "Nuker", "A", "Misc", "blocksBroken", player.blocksBroken);
-
         player.blocksBroken = 0;
 
         // fly/a
@@ -189,6 +185,9 @@ World.events.blockBreak.subscribe(block => {
     if(config.modules.nukerA.enabled) {
         if(!block.player.blocksBroken) block.player.blocksBroken = 0;
         block.player.blocksBroken++;
+
+        if(block.player.blocksBroken > config.modules.nukerA.maxBlocks)
+            flag(block.player, "Nuker", "A", "Misc", "blocksBroken", block.player.blocksBroken);
 
         if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) block.block.setPermutation(block.brokenBlockPermutation);
     }
