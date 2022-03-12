@@ -67,8 +67,8 @@ World.events.tick.subscribe(() => {
             Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true, false, false, 3);
 
         // Namespoof/A = username length check.
-        try {
-            if (config.modules.namespoofA.enabled) {
+        if (config.modules.namespoofA.enabled) {
+            try {
                 // checks if 2 players are logged in with the same name
                 // minecraft adds a sufix to the end of the name which we detect
                 if(player.name.endsWith(')') && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
@@ -76,8 +76,8 @@ World.events.tick.subscribe(() => {
 
                 if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
                     flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
-            }
-        } catch {}
+            } catch {}
+        }
 
         // Namespoof/B = regex check
         try {
@@ -186,13 +186,14 @@ World.events.blockBreak.subscribe(block => {
         if(!block.player.blocksBroken) block.player.blocksBroken = 0;
         block.player.blocksBroken++;
 
-        if(block.player.blocksBroken > config.modules.nukerA.maxBlocks)
+        if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) {
             flag(block.player, "Nuker", "A", "Misc", "blocksBroken", block.player.blocksBroken);
 
-        if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) block.block.setPermutation(block.brokenBlockPermutation);
+            block.block.setPermutation(block.brokenBlockPermutation);
+        }
     }
 
-    // liquidinteract/a = checks if a player breaks a liquid
+    // liquidinteract/a = checks if a player breaks a liquid source block
     if(config.modules.liquidinteractA.enabled) {
         if(config.modules.liquidinteractA.liquids.includes(block.block.id)) {
             flag(block.player, "LiquidInteract", "A", "Misc", "block", block.block.id);
