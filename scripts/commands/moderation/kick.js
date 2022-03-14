@@ -36,7 +36,7 @@ export function kick(message, args) {
 
     try {
         if (!isSilent) player.runCommand(`kick "${member}" ${reason}`);
-            else player.runCommand(`event entity "${member}" scythe:kick`);
+            else member.runCommand(`event entity @s scythe:kick`);
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to ban that player! Error: ${error}"}]}`);

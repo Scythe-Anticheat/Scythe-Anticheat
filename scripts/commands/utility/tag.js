@@ -33,7 +33,7 @@ export function tag(message, args) {
     if (args[0].includes("reset")) {
         // remove old tags
         member.getTags().forEach(t => {
-            if(t.replace(/"|\\/g, "").startsWith("tag:")) player.removeTag(`${t}`);
+            if(t.replace(/"|\\/g, "").startsWith("tag:")) member.removeTag(`${t}`);
         });
 
         member.nameTag = member.name;

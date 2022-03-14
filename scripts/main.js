@@ -64,7 +64,7 @@ World.events.tick.subscribe(() => {
 
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
-            Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true, false, false, 3);
+            Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true);
 
         // Namespoof/A = username length check.
         if (config.modules.namespoofA.enabled) {
@@ -140,11 +140,11 @@ World.events.tick.subscribe(() => {
                 let item = container.getItem(i);
                 // Illegalitems/C = item stacked over 64 check
                 if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
-                    flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i, 3);
+                    flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount);
                 
                 // Illegalitems/D = additional item clearing check
                 if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
-                    flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i, 3);
+                    flag(player, "IllegalItems", "D", "Exploit", "item", item.id);
                 // badenchants/a
 
                 // this enchant magic will come soon
