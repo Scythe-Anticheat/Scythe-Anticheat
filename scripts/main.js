@@ -93,26 +93,31 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
-        if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.overworld && player.dimension === World.getDimension("overworld")) {
+        if(config.modules.bedrockValidate.enabled) {
             try {
-                player.runCommand(`fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`);
-            } catch {}
+                player.runCommand("testfor @s[scores={bedrock=1..}]");
+                if (config.modules.bedrockValidate.overworld && player.dimension === World.getDimension("overworld")) {
+                    try {
+                        player.runCommand(`fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`);
+                    } catch {}
 
-            try {
-                player.runCommand(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
-            } catch {}
-        }
+                    try {
+                        player.runCommand(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
+                    } catch {}
+                }
 
-        if (config.modules.bedrockValidate.enabled && config.modules.bedrockValidate.nether && player.dimension === World.getDimension("nether")) { 
-            try {
-                player.runCommand(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
-            } catch {}
-            try {
-                player.runCommand(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
-            } catch {}
-            try {
-                player.runCommand(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
-            } catch {}
+                if (config.modules.bedrockValidate.nether && player.dimension === World.getDimension("nether")) { 
+                    try {
+                        player.runCommand(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
+                    } catch {}
+                    try {
+                        player.runCommand(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
+                    } catch {}
+                    try {
+                        player.runCommand(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
+                    } catch {}
+                }
+            } catch{}
         }
 
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(4)} Vertical Speed: ${player.velocity.y.toFixed(4)}`);
