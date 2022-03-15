@@ -125,7 +125,13 @@ export default
             "bannedBlocks": [
                 "minecraft:beehive",
                 "minecraft:bee_nest",
-                "minecraft:movingblock"
+                "minecraft:movingblock",
+                "minecraft:axolotl_bucket",
+                "minecraft:cod_bucket",
+                "minecraft:powder_snow_bucket",
+                "minecraft:pufferfish_bucket",
+                "minecraft:salmon_bucket",
+                "minecraft:tropical_fish_bucket",
             ],
             "punishment": "ban",
             "minVlbeforeBan": 1
