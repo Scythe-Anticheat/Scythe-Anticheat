@@ -8,15 +8,14 @@ tellraw @s {"rawtext":[{"text":"\n§l§aModeration Commands"}]}
 
 # Gametest enabled
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!help§r - Shows this help page."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!ban <username> <reason>§r - Ban the specified user."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!kick <username> <reason>§r - Kick the specified user."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!mute <username> <reason>§r - Mute the specified user."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unmute <username> <reason>§r - Unmute the specified user."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!ban <username> [reason]§r - Ban the specified user."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!kick <username> [reason]§r - Kick the specified user."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!mute <username> [reason]§r - Mute the specified user."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unmute <username> [reason]§r - Unmute the specified user."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!notify§r - Enables/Disables cheat notifications."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!credits§r - Shows credits, thats it."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!op <username>§r - Op's player in Scythe AntiCheat features."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables Anti Autoclicker."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unban <username> [reasom]§r - Unbans a the specified player."}]}
 
 # Gametest Disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function help§r - Shows this help page."}]}
@@ -24,8 +23,6 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username>
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function notify§r - Enables/Disables cheat notifications."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function credits§r - Shows credits, thats it."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ op§r - Op's player in Scythe AntiCheat features."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoclicker§r - Enables/disables Anti Autoclicker."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/phase§r - Enables/disables Anti Phase (Moving through blocks)."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
@@ -70,7 +67,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!fullreport§r - Vi
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!clearchat§r - Clears chat."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> <reason>§r - Report a player."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> [reason]§r - Report a player."}]}
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/ecwipe§r - Clears a players ender chest."}]}

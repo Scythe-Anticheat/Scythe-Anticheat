@@ -61,8 +61,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
             // this removes old ban stuff
             player.getTags().forEach(t => {
-                if(t.startsWith("reason:")) player.removeTag(`""${t}""`);
-                if(t.startsWith("by:")) player.removeTag(`""${t}""`);
+                if(t.slice(1).startsWith("reason:")) player.removeTag(`${t}`);
+                if(t.slice(1).startsWith("by:")) player.removeTag(`${t}`);
             });
 
             player.addTag(`"by:Scythe Anticheat"`);

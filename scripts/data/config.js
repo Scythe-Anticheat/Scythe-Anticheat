@@ -32,7 +32,8 @@ export default
         "notify": true,
         "tag": true,
         "vanish": true,
-        "report": true
+        "report": true,
+        "unban": true
     },
     "modules": {
         "filterUnicodeChat": true,

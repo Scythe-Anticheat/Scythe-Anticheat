@@ -31,6 +31,7 @@ import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
 import { report } from "./other/report.js";
+import { unban } from "./moderation/unban.js";
 
 /**
  * @name commandHandler
@@ -85,6 +86,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.phase && commandName === "phase") phase(message);
         else if (config.customcommands.autoban && commandName === "autoban") autoban(message);
         else if (config.customcommands.report && commandName === "report") report(message, args);
+        else if (config.customcommands.unban && commandName === "unban") unban(message, args);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);

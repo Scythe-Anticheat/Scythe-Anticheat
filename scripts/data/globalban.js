@@ -8,5 +8,6 @@ export const banList = [
    "xIlSHNAGSlIx",
    "Samdesap",
    "VolantSubset630",
-   "RushinBDev"
+   "RushinBDev",
+   "Infernogod4473"
 ];
