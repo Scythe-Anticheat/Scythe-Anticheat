@@ -63,8 +63,8 @@ World.events.tick.subscribe(() => {
         if(unbanQueue.includes(player.name.split(" ")[0])) {
             player.removeTag("isBanned");
             player.getTags().forEach(t => {
-                if(t.startsWith("reason:")) player.removeTag(`${t}`);
-                if(t.startsWith("by:")) player.removeTag(`${t}`);
+                if(t.slice(1).startsWith("reason:")) player.removeTag(`${t}`);
+                if(t.slice(1).startsWith("by:")) player.removeTag(`${t}`);
             });
 
             // remove the player from the unban queue
@@ -208,14 +208,6 @@ World.events.blockBreak.subscribe(block => {
         if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) {
             flag(block.player, "Nuker", "A", "Misc", "blocksBroken", block.player.blocksBroken);
 
-            block.block.setPermutation(block.brokenBlockPermutation);
-        }
-    }
-
-    // liquidinteract/a = checks if a player breaks a liquid source block
-    if(config.modules.liquidinteractA.enabled) {
-        if(config.modules.liquidinteractA.liquids.includes(block.block.id)) {
-            flag(block.player, "LiquidInteract", "A", "Misc", "block", block.block.id);
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }

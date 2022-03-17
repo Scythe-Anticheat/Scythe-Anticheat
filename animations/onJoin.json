@@ -64,7 +64,6 @@
 					"/scoreboard objectives add phasevl dummy",
 					"/scoreboard objectives add reachvl dummy",
 					"/scoreboard objectives add nukervl dummy",
-					"/scoreboard objectives add liquidinteractvl dummy",
 					"/scoreboard objectives add flyvl dummy",
 					"/scoreboard objectives add last_attack dummy",
 					"/scoreboard objectives add deathticks dummy",
