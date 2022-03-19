@@ -211,6 +211,14 @@ World.events.blockBreak.subscribe(block => {
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
+
+    // liquidinteract/a = checks if a player breaks a liquid source block
+    if(config.modules.liquidinteractA.enabled) {
+        if(config.modules.liquidinteractA.liquids.includes(block.brokenBlockPermutation.type.id)) {
+            flag(block.player, "LiquidInteract", "A", "Misc", "block", block.brokenBlockPermutation.type.id);
+            block.block.setPermutation(block.brokenBlockPermutation);
+        }
+    }
 });
 
 World.events.beforeItemUseOn.subscribe(item => {
