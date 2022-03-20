@@ -7,7 +7,7 @@ import config from "./data/config.js";
  * @param {object} player - The player object
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
- * @param {string} hacktype - What the hack is considered as (ex. movement, combat, exploit).
+ * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string} debugName - Name for the debug value.
  * @param {string} debug - Debug info.
  * @param {boolean} shouldTP - Whever to tp the player to itself.
@@ -26,8 +26,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // cancel the message
     if (message) message.cancel = true;
 
-    if(shouldTP && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.x), player.dimension, 0, 0);
-        else if(shouldTP && check === "Crasher") player.teleportFacing(new Minecraft.Location(29999999, 29999999, 29999999), player.dimension, new Minecraft.Location(0, 0, 0));
+    if(shouldTP && check !== "Crasher") player.runCommand(`tp @s @s`);
+    else if(shouldTP && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
 
     player.runCommand(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
 
