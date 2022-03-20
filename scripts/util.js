@@ -1,3 +1,5 @@
+import * as Minecraft from "mojang-minecraft";
+
 import config from "./data/config.js";
 
 /**
@@ -12,6 +14,7 @@ import config from "./data/config.js";
  * @param {object} message - The message object, used to cancel the message.
  * @param {number} slot - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", false, false, false, msg, false);
+ * @remarks Alerts staff if a player is hacking.
  */
 export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message, slot) {
     // validate that required params are defined
@@ -23,8 +26,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // cancel the message
     if (message) message.cancel = true;
 
-    if(shouldTP && check !== "Crasher") player.runCommand(`tp @s @s`);
-        else if(shouldTP && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
+    if(shouldTP && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.x), player.dimension, 0, 0);
+        else if(shouldTP && check === "Crasher") player.teleportFacing(new Minecraft.Location(29999999, 29999999, 29999999), player.dimension, new Minecraft.Location(0, 0, 0));
 
     player.runCommand(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
 
@@ -76,6 +79,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
  * @name banMessage
  * @param {object} player - The player object
  * @example banMessage(player);
+ * @remarks Kicks the player from the game.
  */
 export function banMessage(player) {
     // validate that required params are defined
@@ -91,7 +95,7 @@ export function banMessage(player) {
 
     try {
         player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
-    } catch(error) {
+    } catch {
         player.triggerEvent("scythe:kick");
     }
 }
