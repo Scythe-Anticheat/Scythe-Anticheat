@@ -195,12 +195,6 @@ World.events.tick.subscribe(() => {
 
 World.events.blockPlace.subscribe(block => {
     if(config.debug) console.warn(`${block.player.nameTag} has placed ${block.block.id}`);
-
-    // using nbt's, dispensers can have items already inside once placed. To prevent this we reset the block.
-    if(block.block.id == "minecraft:dispenser") {
-        // TODO: dont reset block facing direction
-        block.dimension.runCommand(`setblock ${block.block.x} ${block.block.y} ${block.block.z} dispenser`);
-    }
 });
 
 World.events.blockBreak.subscribe(block => {
