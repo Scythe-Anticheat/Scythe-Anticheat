@@ -1,5 +1,3 @@
-import * as Minecraft from "mojang-minecraft";
-
 import config from "./data/config.js";
 
 /**
