@@ -1,8 +1,8 @@
 import * as Minecraft from "mojang-minecraft";
 import { flag, banMessage} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
-import { banList } from "./data/globalban.js";
 import config from "./data/config.js";
+import { banList } from "./data/globalban.js";
 import unbanQueue from "./data/unbanQueue.js";
 
 const World = Minecraft.world;
@@ -221,11 +221,11 @@ World.events.blockBreak.subscribe(block => {
     }
 });
 
-World.events.beforeItemUseOn.subscribe(item => {
-    if(config.modules.commandblockexploitF.enabled && config.modules.commandblockexploitF.bannedBlocks.includes(item.item.id)) {
-        item.source.runCommand(`scoreboard players add @s cbevl 1`);
-        item.source.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4CommandBlockExploit/F §7(item=${item.item.id})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
-        item.cancel = true;
+World.events.beforeItemUseOn.subscribe(block => {
+    if(config.modules.commandblockexploitF.enabled && config.modules.commandblockexploitF.bannedBlocks.includes(block.item.id)) {
+        block.source.runCommand(`scoreboard players add @s cbevl 1`);
+        block.source.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4CommandBlockExploit/F §7(item=${block.item.id})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
+        block.cancel = true;
     }
 });
 
