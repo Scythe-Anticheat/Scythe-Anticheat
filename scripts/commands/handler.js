@@ -20,7 +20,6 @@ import { removecommandblocks } from "./settings/removecommandblocks.js";
 import { worldborder } from "./settings/worldborder.js";
 import { xray } from "./settings/xray.js";
 import { autoclicker } from "./settings/autoclicker.js";
-import { phase } from "./settings/phase.js";
 import { autoban } from "./settings/autoban.js";
 import { tag } from "./utility/tag.js";
 import { ecwipe } from "./utility/ecwipe.js";
@@ -83,7 +82,6 @@ export function commandHandler(player, message) {
         else if (config.customcommands.credits && commandName === "credits") credits(message);
         else if (config.customcommands.op && commandName === "op") op(message, args);
         else if (config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message);
-        else if (config.customcommands.phase && commandName === "phase") phase(message);
         else if (config.customcommands.autoban && commandName === "autoban") autoban(message);
         else if (config.customcommands.report && commandName === "report") report(message, args);
         else if (config.customcommands.unban && commandName === "unban") unban(message, args);

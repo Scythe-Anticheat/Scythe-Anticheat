@@ -224,7 +224,6 @@
 					"on_entry": [
 						"/tag @s add moving",
 						"/tellraw @a[tag=packetlogger,tag=packetlogger2] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/execute @s[tag=!gliding,tag=!riding,tag=!vanish,scores={phase=..0}] ~~~ function checks/phase",
 						"/execute @s[scores={worldborder=1..,gametestapi=1..}] ~~~ function checks/optional/worldborder"
 					]
 				}
