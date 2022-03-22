@@ -139,18 +139,22 @@ World.events.tick.subscribe(() => {
         // reach/a
         if (config.modules.reachA.enabled && player.hasTag('attack')) {
             try {                                                                   // we could use r=4 but that wont account for lag
-                player.runCommand(`execute @s[tag=attack,m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=${config.modules.reachA.reach}]`);
+                player.runCommand(`execute @s[m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=${config.modules.reachA.reach}]`);
             } catch {
                 try {
-                    player.runCommand(`execute @s[tag=attack,m=!c] ~~~ function checks/alerts/reach`);
+                    player.runCommand(`execute @s[m=!c] ~~~ function checks/alerts/reach`);
                 } catch {}
             }
         }
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
-            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag('sprint'))
-                flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true);
+            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming')) {
+                try {
+                    player.runCommand("testfor @s[scores={right=5..}]");
+                    flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true);
+                } catch {}
+            }
         }
 
         if(config.modules.illegalitemsC.enabled || config.modules.illegalitemsD.enabled) {
