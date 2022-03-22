@@ -227,8 +227,7 @@ World.events.blockBreak.subscribe(block => {
 
 World.events.beforeItemUseOn.subscribe(block => {
     if(config.modules.commandblockexploitF.enabled && config.modules.commandblockexploitF.bannedBlocks.includes(block.item.id)) {
-        block.source.runCommand(`scoreboard players add @s cbevl 1`);
-        block.source.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(Exploit) §4CommandBlockExploit/F §7(item=${block.item.id})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
+        flag(block.source, "CommandBlockExploit","F", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
         block.cancel = true;
     }
 });
