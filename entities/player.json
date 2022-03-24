@@ -137,16 +137,6 @@
 					"generates_bubbles": false
 				}
 			},
-			"unflagged": {
-				"minecraft:attack": {
-					"damage": 1
-				}
-			},
-			"flagged": {
-				"minecraft:attack": {
-					"damage": -1000
-				}
-			},
 			"scythe:kick": {
 				"minecraft:instant_despawn": {
 					"remove_child_entities": true
