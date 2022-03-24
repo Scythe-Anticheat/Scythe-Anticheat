@@ -3,7 +3,6 @@ import { flag, banMessage} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
-import unbanQueue from "./data/unbanQueue.js";
 
 const World = Minecraft.world;
 
@@ -58,19 +57,6 @@ World.events.tick.subscribe(() => {
             player.addTag(`"by:Scythe Anticheat"`);
             player.addTag(`"reason:You are Scythe Anticheat global banned!"`);
             player.addTag(`isBanned`);
-        }
-
-        if(unbanQueue.includes(player.name.split(" ")[0])) {
-            player.removeTag("isBanned");
-            player.getTags().forEach(t => {
-                if(t.slice(1).startsWith("reason:")) player.removeTag(`${t}`);
-                if(t.slice(1).startsWith("by:")) player.removeTag(`${t}`);
-            });
-
-            // remove the player from the unban queue
-            for (let i = -1; i < unbanQueue.length; i++) {
-                if(unbanQueue[i] == player.name.split(" ")[0]) unbanQueue.splice(i, 1);
-            }
         }
 
         // sexy looking ban message

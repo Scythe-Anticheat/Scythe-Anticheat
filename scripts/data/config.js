@@ -35,7 +35,7 @@ export default
         "unban": true
     },
     "modules": {
-        "filterUnicodeChat": true,
+        "filterUnicodeChat": false,
         "badpackets2": {
             "enabled": true,
             "minLength": 1,

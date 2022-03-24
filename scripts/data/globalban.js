@@ -9,5 +9,8 @@ export const banList = [
    "Samdesap",
    "VolantSubset630",
    "RushinBDev",
-   "Infernogod4473"
+   "Infernogod4473",
+   "Spanishick9762",
+   "Toxic1320",
+   "Tubaexperte5221"
 ];

@@ -1,4 +1,5 @@
 import config from "./data/config.js";
+import unbanQueue from "./data/unbanQueue.js";
 
 /**
  * @name flag
@@ -84,6 +85,20 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
+
+    if(unbanQueue.includes(player.name.split(" ")[0])) {
+        player.removeTag("isBanned");
+        player.getTags().forEach(t => {
+            if(t.slice(1).startsWith("reason:")) player.removeTag(`${t}`);
+            if(t.slice(1).startsWith("by:")) player.removeTag(`${t}`);
+        });
+
+        // remove the player from the unban queue
+        for (let i = -1; i < unbanQueue.length; i++) {
+            if(unbanQueue[i] == player.name.split(" ")[0]) unbanQueue.splice(i, 1);
+        }
+        return;
+    }
 
     var reason;
     var by;
