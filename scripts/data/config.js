@@ -19,6 +19,7 @@ export default
         "xray": true,
         "autoclicker": true,
         "autoban": true,
+        "invalidsprint": true,
         "ecwipe": true,
         "freeze": true,
         "stats": true,

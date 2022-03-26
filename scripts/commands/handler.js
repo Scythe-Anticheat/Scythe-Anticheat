@@ -15,6 +15,7 @@ import { allowgms } from "./settings/allowgms.js";
 import { bedrockvalidate } from "./settings/bedrockvalidate.js";
 import { modules } from "./settings/modules.js";
 import { npc } from "./settings/npc.js";
+import { invalidsprint } from "./settings/invalidsprint.js";
 import { overidecommandblocksenabled } from "./settings/overidecommandblocksenabled.js";
 import { removecommandblocks } from "./settings/removecommandblocks.js";
 import { worldborder } from "./settings/worldborder.js";
@@ -74,6 +75,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.bedrockvalidate && commandName === "bedrockvalidate") bedrockvalidate(message);
         else if (config.customcommands.modules && commandName === "modules") modules(message);
         else if (config.customcommands.npc && commandName === "npc") npc(message);
+        else if (config.customcommands.invalidsprint && commandName === "invalidsprint") invalidsprint(message);
         else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe" || commandName === "overidecommandblocksenabled") overidecommandblocksenabled(message);
         else if (config.customcommands.removecommandblocks && commandName === "removecb" || commandName === "removecommandblocks") removecommandblocks(message);
         else if (config.customcommands.worldborder && commandName === "worldborder" || commandName === "wb") worldborder(message);

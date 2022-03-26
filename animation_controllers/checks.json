@@ -63,9 +63,9 @@
 					"on_entry": [
 						"/tag @s add sprint",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/execute @s[tag=right,scores={right=2..}] ~~~ function checks/alerts/invalidsprintB",
-						"/execute @s[tag=sneak,m=!c,tag=!flying] ~~~ function checks/alerts/invalidsprintC",
-						"/execute @s[tag=gliding,tag=!right] ~~~ function checks/alerts/invalidsprintD"
+						"/execute @s[tag=right,scores={right=4..,invalidsprint=1..}] ~~~ function checks/alerts/invalidsprintB",
+						"/execute @s[tag=sneak,m=!c,tag=!flying,scores={invalidsprint=1..}] ~~~ function checks/alerts/invalidsprintC",
+						"/execute @s[tag=gliding,tag=!right,scores={invalidsprint=1..}] ~~~ function checks/alerts/invalidsprintD"
 					]
 				}
 			}

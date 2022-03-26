@@ -29,6 +29,8 @@
 					"/scoreboard players add @s gametestapi 0",
 					"/scoreboard objectives add autoban dummy",
 					"/scoreboard players add @s autoban 0",
+					"/scoreboard objectives add invalidsprint dummy",
+					"/scoreboard players add @s invalidsprint 0",
 					// Setting Operations For Objective Types
 					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",
@@ -42,6 +44,7 @@
 					"/scoreboard players operation @a autoclicker = scythe:config autoclicker",
 					"/scoreboard players operation @a gametestapi = scythe:config gametestapi",
 					"/scoreboard players operation @a autoban = scythe:config autoban",
+					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
 					// Anticheat Objectives
 					"/scoreboard objectives add autototemvl dummy",
 					"/scoreboard objectives add invmovevl dummy",
