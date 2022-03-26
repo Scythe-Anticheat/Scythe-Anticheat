@@ -3,6 +3,7 @@ import { flag, banMessage} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
+import cache from "./data/cache.js";
 
 const World = Minecraft.world;
 
@@ -51,6 +52,8 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 World.events.tick.subscribe(() => {
+    if(config.modules.itemSpawnRateLimit.enabled) cache.entitiesSpawnedInLastTick = 0;
+
     // run as each player
     for (let player of World.getPlayers()) {
         if (banList.includes(player.name)) {
@@ -236,4 +239,16 @@ World.events.playerJoin.subscribe(player => {
             player.player.nameTag = `§8[§r${t.replace(/"|\\/g, "").slice(4)}§8]§r ${player.player.name}`;
         }
     });
+});
+
+World.events.entityCreate.subscribe(entity => {
+    if(config.modules.itemSpawnRateLimit.enabled) {
+        cache.entitiesSpawnedInLastTick++;
+
+        if(cache.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
+            if(config.debug) console.warn(`Killed "${entity.entity.id}" due to item spawn ratelimit reached.`);
+            // doing entity.entity.kill() crashes my game for whatever reason so teleport them
+            entity.entity.runCommand("tp @s ~ -200 ~");
+        }
+    }
 });

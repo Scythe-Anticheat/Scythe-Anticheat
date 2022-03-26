@@ -1,4 +1,4 @@
-import unbanQueue from "../../data/unbanQueue.js";
+import cache from "../../data/cache.js";
 
 /**
  * @name unban
@@ -23,9 +23,9 @@ export function unban(message, args) {
     
     let member = args[0];
 
-    if(unbanQueue.includes(member)) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Error: ${member} is already queued for an unban."}]}`);
+    if(cache.unbanQueue.includes(member)) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Error: ${member} is already queued for an unban."}]}`);
 
-    unbanQueue.push(member);
+    cache.unbanQueue.push(member);
     
     return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has added ${member} into the unban queue. Reason: ${reason}"}]}`);
 }

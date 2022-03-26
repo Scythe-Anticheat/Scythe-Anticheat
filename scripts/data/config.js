@@ -35,6 +35,10 @@ export default
         "unban": true
     },
     "modules": {
+        "itemSpawnRateLimit": {
+            "enabled": false,
+            "entitiesBeforeRateLimit": 10
+        },
         "filterUnicodeChat": false,
         "badpackets2": {
             "enabled": true,

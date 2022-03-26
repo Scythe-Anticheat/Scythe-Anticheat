@@ -1,5 +1,5 @@
 import config from "./data/config.js";
-import unbanQueue from "./data/unbanQueue.js";
+import cache from "./data/cache.js";
 
 /**
  * @name flag
@@ -86,7 +86,7 @@ export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
-    if(unbanQueue.includes(player.name.split(" ")[0])) {
+    if(cache.unbanQueue.includes(player.name.split(" ")[0])) {
         player.removeTag("isBanned");
         player.getTags().forEach(t => {
             if(t.slice(1).startsWith("reason:")) player.removeTag(`${t}`);
@@ -94,8 +94,8 @@ export function banMessage(player) {
         });
 
         // remove the player from the unban queue
-        for (let i = -1; i < unbanQueue.length; i++) {
-            if(unbanQueue[i] == player.name.split(" ")[0]) unbanQueue.splice(i, 1);
+        for (let i = -1; i < cache.unbanQueue.length; i++) {
+            if(cache.unbanQueue[i] == player.name.split(" ")[0]) cache.unbanQueue.splice(i, 1);
         }
         return;
     }
