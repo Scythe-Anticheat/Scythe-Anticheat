@@ -162,6 +162,49 @@ export default
             "enabled": false,
             "punishment": "none",
             "minVlbeforeBan": 0
+        },
+        "illegalitemsE": {
+            "enabled": true,
+            "obtainable_items" : [
+                "minecraft:bedrock",
+                "minecraft:end_portal_frame",
+                "minecraft:dragon_egg",
+                "minecraft:monster_egg",
+                "minecraft:command_block",
+                "minecraft:repeating_command_block",
+                "minecraft:chain_command_block",
+                "minecraft:barrier",
+                "minecraft:structure_block",
+                "minecraft:structure_void",
+                "minecraft:jigsaw",
+                "minecraft:allow",
+                "minecraft:deny",
+                "minecraft:light_block",
+                "minecraft:border_block",
+                "minecraft:chemistry_table",
+                "minecraft:frosted_ice"
+            ],
+            "unobtainable_items" : [
+                "minecraft:flowing_water",
+                "minecraft:water",
+                "minecraft:flowing_lava",
+                "minecraft:lava",
+                "minecraft:fire",
+                "minecraft:portal",
+                "minecraft:end_portal",
+                "minecraft:end_gateway",
+                "minecraft:glowingobsidian",
+                "minecraft:netherreactor",
+                "minecraft:unknown",
+                "minecraft:camera",
+                "minecraft:reserved6",
+                "minecraft:info_update",
+                "minecraft:info_update2",
+                "minecraft:client_request_placeholder_block",
+                "minecraft:invisiblebedrock"
+            ],
+            "punishment": "ban",
+            "minVlbeforeBan": 1
         }
     }
 };

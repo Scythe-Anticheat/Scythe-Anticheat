@@ -215,9 +215,35 @@ World.events.blockBreak.subscribe(block => {
 });
 
 World.events.beforeItemUseOn.subscribe(block => {
+    // commandblockexploit/f = cancels the placement of cbe items
     if(config.modules.commandblockexploitF.enabled && config.modules.commandblockexploitF.bannedBlocks.includes(block.item.id)) {
         flag(block.source, "CommandBlockExploit","F", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
         block.cancel = true;
+    }
+
+    /*
+        illegalitems/e = cancels the placement of illegal items
+        illegalitems/a could be bypassed by using a right click autoclicker or lag
+        thx drib or matrix_code for telling me lol
+
+        the unobtainable blocks list only has a select items in it because most people wont even place the other blocks
+    */
+    if(config.modules.illegalitemsE.enabled) {
+        // items that are obtainble using commands
+        if(!block.source.hasTag("op") && config.modules.illegalitemsE.obtainable_items.includes(block.item.id)) {
+            // dont affect gmc players
+            try {
+                block.source.runCommand("testfor @s[m=!c]");
+                flag(block.source, "IllegalItems", "E", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
+                block.cancel = true;
+            } catch {}
+        }
+    
+        // items that cannot be obtained normally
+        if(config.modules.illegalitemsE.unobtainable_items.includes(block.item.id)) {
+            flag(block.source, "IllegalItems", "E", "Exploit", "item", block.item.id, false, false, block.source.selectedSlot);
+            block.cancel = true;
+        }
     }
 });
 
