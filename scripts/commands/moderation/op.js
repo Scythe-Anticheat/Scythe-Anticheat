@@ -25,5 +25,5 @@ export function op(message, args) {
     
     if (!member) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
-    return member.runCommand(`execute @s ~~~ function op`);
+    return member.runCommand(`function op`);
 }
