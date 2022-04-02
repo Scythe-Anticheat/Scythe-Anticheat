@@ -230,13 +230,25 @@ World.events.beforeItemUseOn.subscribe(block => {
     */
     if(config.modules.illegalitemsE.enabled) {
         // items that are obtainble using commands
-        if(!block.source.hasTag("op") && config.modules.illegalitemsE.obtainable_items.includes(block.item.id)) {
-            // dont affect gmc players
-            try {
-                block.source.runCommand("testfor @s[m=!c]");
-                flag(block.source, "IllegalItems", "E", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
-                block.cancel = true;
-            } catch {}
+        if(!block.source.hasTag("op")) {
+            if(config.modules.illegalitemsE.obtainable_items.includes(block.item.id)) {
+                // dont affect gmc players
+                try {
+                    block.source.runCommand("testfor @s[m=!c]");
+                    flag(block.source, "IllegalItems", "E", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
+                    block.cancel = true;
+                } catch {}
+            }
+
+            // patch element blocks
+            if(config.modules.illegalitemsE.clearElements && block.item.id.startsWith("minecraft:element")) {
+                // dont affect gmc players
+                try {
+                    block.source.runCommand("testfor @s[m=!c]");
+                    flag(block.source, "IllegalItems", "E", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
+                    block.cancel = true;
+                } catch {}
+            }
         }
     
         // items that cannot be obtained normally

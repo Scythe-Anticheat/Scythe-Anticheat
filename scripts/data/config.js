@@ -165,6 +165,7 @@ export default
         },
         "illegalitemsE": {
             "enabled": true,
+            "clearElements": true,
             "obtainable_items" : [
                 "minecraft:bedrock",
                 "minecraft:end_portal_frame",
