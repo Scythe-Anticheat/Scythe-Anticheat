@@ -17,6 +17,9 @@
 							"monster_egg": "query.get_equipped_item_name == 'monster_egg' || query.get_equipped_item_name('off_hand') == 'monster_egg'"
 						},
 						{
+							"infested_deepslate": "query.get_equipped_item_name == 'infested_deepslate' || query.get_equipped_item_name('off_hand') == 'infested_deepslate'"
+						},
+						{
 							"chorus_plant": "query.get_equipped_item_name == 'chorus_plant' || query.get_equipped_item_name('off_hand') == 'chorus_plant'"
 						},
 						{
@@ -110,6 +113,16 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'monster_egg' || query.get_equipped_item_name('off_hand') != 'monster_egg'"
+					}]
+				},
+				"infested_deepslate": {
+					"on_entry": [
+						"/clear @s[tag=!op,m=!c] infested_deepslate",
+						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
+						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(infested_deepslate)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'infested_deepslate' || query.get_equipped_item_name('off_hand') != 'infested_deepslate'"
 					}]
 				},
 				"chorus_plant": {

@@ -284,6 +284,12 @@
 							"weathered_double_cut_copper_slab": "query.get_equipped_item_name == 'weathered_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'weathered_double_cut_copper_slab'"
 						},
 						{
+							"double_wooden_slab": "query.get_equipped_item_name == 'double_wooden_slab' || query.get_equipped_item_name('off_hand') == 'double_wooden_slab'"
+						},
+						{
+							"double_cut_copper_slab": "query.get_equipped_item_name == 'double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'double_cut_copper_slab'"
+						},
+						{
 							"other": "query.skin_id == 3"
 						}
 					]
@@ -1309,6 +1315,28 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'weathered_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'weathered_double_cut_copper_slab'"
+					}]
+				},
+				"double_stone_slab4": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'double_wooden_slab' || query.get_equipped_item_name('off_hand') != 'double_wooden_slab'"
+					}]
+				},
+				"double_cut_copper_slab": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'double_cut_copper_slab'"
 					}]
 				},
 				"other": {
