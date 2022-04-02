@@ -24,7 +24,7 @@ export function mute(message, args) {
     if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to mute!"}]}`);
     
     // try to find the player requested
-    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl.nameTag; 
+    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl; 
 
     if (!member) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
@@ -32,11 +32,11 @@ export function mute(message, args) {
     if (member === player.nameTag) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot mute yourself."}]}`);
 
     try {
-        member.runCommand(`ability @s mute true`);
+        member.addTag("isMuted");
         member.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been muted. Reason: ${reason}"}]}`);
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to mute that player! You most likely dont have education edition enabled."}]}`);
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to mute that player."}]}`);
     }
-    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has muted ${member}. Reason: ${reason}"}]}`);
+    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has muted ${member.nameTag}. Reason: ${reason}"}]}`);
 }

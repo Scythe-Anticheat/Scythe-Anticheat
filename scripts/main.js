@@ -19,6 +19,11 @@ World.events.beforeChat.subscribe(msg => {
 
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
+    if(player.hasTag("isMuted")) {
+        msg.cancel = true;
+        player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"§a§lNOPE! §r§aYou have been muted."}]}`);
+    }
+
     // BadPackets/2 = chat message length check
     if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "messageLength", message.length, false, msg);
 
