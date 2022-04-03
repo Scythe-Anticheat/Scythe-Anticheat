@@ -143,7 +143,7 @@ export default
         },
         "nukerA": {
             "enabled": true,
-            "maxBlocks": 2,
+            "maxBlocks": 3,
             "punishment": "ban",
             "minVlbeforeBan": 5
         },
