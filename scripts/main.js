@@ -106,7 +106,7 @@ World.events.tick.subscribe(() => {
                 player.runCommand("testfor @s[scores={bedrock=1..}]");
                 if (config.modules.bedrockValidate.overworld && player.dimension === World.getDimension("overworld")) {
                     try {
-                        player.runCommand(`fill ~-20 -64 ~-20 ~20 -64 ~20 bedrock`);
+                        player.runCommand(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
                     } catch {}
 
                     try {
