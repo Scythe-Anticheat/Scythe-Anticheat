@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { flag, banMessage} from "./util.js";
+import { flag, banMessage, getClosestPlayer} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
@@ -290,8 +290,29 @@ World.events.entityCreate.subscribe(entity => {
 
         if(cache.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
             if(config.debug) console.warn(`Killed "${entity.entity.id}" due to item spawn ratelimit reached.`);
-            // doing entity.entity.kill() crashes my game for whatever reason so teleport them
+            // doing entity.entity.kill() crashes my game for whatever reason so we teleport them
             entity.entity.runCommand("tp @s ~ -200 ~");
         }
     }
+
+    /*
+    if(config.modules.commandblockexploitG.enabled) {
+        if(config.modules.commandblockexploitG.entities.includes(entity.entity.id)) {
+            flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
+            // last time i tested, this entity.teleport would sometimes teleport to the wrong location
+            entity.entity.teleport(new Minecraft.BlockLocation(-30000000, -30000000, -30000000));
+            // entity.entity.runCommand("kill @s");
+        }
+
+        if(config.modules.commandblockexploitG.npc && entity.entity.id == "minecraft:npc") {
+            try {
+                entity.entity.runCommand("scoreboard players operation @s npc = scythe:config npc");
+                entity.entity.runCommand("testfor @s[scores={npc=1..}]");
+                flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
+                entity.entity.runCommand("event entity @s scythe:despawn");
+                // entity.entity.runCommand("kill @s");
+            } catch {}
+        }
+    }
+    */
 });

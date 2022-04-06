@@ -1,5 +1,8 @@
+import * as Minecraft from "mojang-minecraft";
 import config from "./data/config.js";
 import cache from "./data/cache.js";
+
+const World = Minecraft.world;
 
 /**
  * @name flag
@@ -113,4 +116,35 @@ export function banMessage(player) {
     } catch {
         player.triggerEvent("scythe:kick");
     }
+}
+
+/**
+ * @name getClosestPlayer
+ * @param {object} entity - The entity to check
+ * @example banMessage(player);
+ * @remarks Gets the nearest player to an entity.
+ * @returns {object} player - The player that was found
+ */
+ export function getClosestPlayer(entity) {
+    // validate that required params are defined
+    if (!entity) return console.warn(`${new Date()} | ` + "Error: ${entity} isnt defined. Did you forget to pass it? (./util.js:130)");
+
+    // thx https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
+
+    const query = new Minecraft.EntityQueryOptions();
+    query.closest = 1;
+
+    let closestPlayer;
+
+    for (let player of World.getPlayers()) {
+        query.location = player.location;
+    
+        const nearestPlayer = [...player.dimension.getPlayers(query)][0];
+    
+        if (!nearestPlayer) continue;
+
+        closestPlayer = player;
+    }
+
+    return closestPlayer;
 }

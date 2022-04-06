@@ -171,6 +171,7 @@ export default
                 "minecraft:end_portal_frame",
                 "minecraft:dragon_egg",
                 "minecraft:monster_egg",
+                "minecraft:mob_spawner",
                 "minecraft:command_block",
                 "minecraft:repeating_command_block",
                 "minecraft:chain_command_block",
