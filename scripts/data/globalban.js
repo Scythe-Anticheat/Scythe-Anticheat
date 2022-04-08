@@ -16,5 +16,6 @@ export const banList = [
    "TudouFan",
    "QuandaleDGNGLE",
    "darkflash123456",
-   "M1tchellPZDC"
+   "M1tchellPZDC",
+   "Night8515"
 ];
