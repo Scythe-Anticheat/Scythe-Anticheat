@@ -207,6 +207,14 @@ export default
             ],
             "punishment": "ban",
             "minVlbeforeBan": 1
+        },
+        "scaffoldA": {
+            "enabled": true,
+            "blocksThatYouCannotPlaceOn": [
+                "minecraft:air"
+            ],
+            "punishment": "none",
+            "minVlbeforeBan": 0
         }
     }
 };

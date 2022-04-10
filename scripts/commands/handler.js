@@ -64,7 +64,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.fly && commandName === "fly" || commandName === "birdmode") fly(message, args);
         else if (config.customcommands.mute && commandName === "mute") mute(message, args);
         else if (config.customcommands.unmute && commandName === "unmute") unmute(message, args);
-        else if (config.customcommands.invsee && commandName === "invsee") invsee(message, args);
+        else if (config.customcommands.invsee && commandName === "invsee" || commandName === "inv") invsee(message, args);
         else if (config.customcommands.ecwipe && commandName === "ecwipe") ecwipe(message, args);
         else if (config.customcommands.freeze && commandName === "freeze") freeze(message, args);
         else if (config.customcommands.stats && commandName === "stats") stats(message, args);
