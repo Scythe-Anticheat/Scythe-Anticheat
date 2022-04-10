@@ -291,14 +291,16 @@ World.events.playerJoin.subscribe(player => {
         } catch {}
     }
 
+    // fix a weird crash that happens when the player has an extremely long name
+    if(player.player.nameTag.length > 100) player.player.triggerEvent("scythe:kick");
+
     // fix a disabler method
     player.player.nameTag = player.player.nameTag.replace(/"|\\/g, "");
 
     // load custom nametag
     player.player.getTags().forEach(t => {
-        if(t.replace(/"|\\/g, "").startsWith("tag:")) {
-            player.player.nameTag = `§8[§r${t.replace(/"|\\/g, "").slice(4)}§8]§r ${player.player.name}`;
-        }
+        if(t.replace(/"|\\/g, "").startsWith("tag:"))
+            return player.player.nameTag = `§8[§r${t.replace(/"|\\/g, "").slice(4)}§8]§r ${player.player.name}`;
     });
 });
 
