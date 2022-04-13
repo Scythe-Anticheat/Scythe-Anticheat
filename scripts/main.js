@@ -262,24 +262,6 @@ World.events.beforeItemUseOn.subscribe(block => {
             block.cancel = true;
         }
     }
-
-    // scaffold/a = checks for airplace
-    if(config.modules.scaffoldA.enabled) {
-        let location = block.blockLocation;
-        let blockRaycastOptions = new Minecraft.BlockRaycastOptions();
-
-        blockRaycastOptions.includeLiquidBlocks = false;
-        blockRaycastOptions.includePassableBlocks = true;
-        blockRaycastOptions.maxDistance = 2;
-
-        let facingBlock = block.source.dimension.getBlockFromRay(new Minecraft.Location(location.x, location.y, location.z), new Minecraft.Vector(location.x, location.y, location.z), blockRaycastOptions);
-        if(!facingBlock) facingBlock = Minecraft.MinecraftBlockTypes.air;
-
-        if(config.modules.scaffoldA.blocksThatYouCannotPlaceOn.includes(facingBlock.id)) {
-            flag(block.source, "Scaffold", "A", "World", "block", facingBlock.id);
-            block.cancel = true;
-        }
-    }
 });
 
 World.events.playerJoin.subscribe(player => {

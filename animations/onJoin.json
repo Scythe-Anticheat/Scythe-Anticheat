@@ -65,7 +65,6 @@
 					"/scoreboard objectives add nukervl dummy",
 					"/scoreboard objectives add liquidinteractvl dummy",
 					"/scoreboard objectives add flyvl dummy",
-					"/scoreboard objectives add scaffoldvl dummy",
 					"/scoreboard objectives add last_attack dummy",
 					// If enabled from previous login then activate
 					"/event entity @s[tag=vanish] vanish",
