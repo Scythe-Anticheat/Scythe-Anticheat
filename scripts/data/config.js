@@ -207,6 +207,15 @@ export default
             ],
             "punishment": "ban",
             "minVlbeforeBan": 1
-        }
+        },
+        "commandblockexploitG": {
+            "enabled": true,
+            "npc": true,
+            "entities": [
+                "minecraft:command_block_minecart",
+            ],
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
     }
 };

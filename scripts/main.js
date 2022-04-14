@@ -296,25 +296,18 @@ World.events.entityCreate.subscribe(entity => {
             entity.entity.runCommand("tp @s ~ -200 ~");
         }
     }
-
-    /*
     if(config.modules.commandblockexploitG.enabled) {
-        if(config.modules.commandblockexploitG.entities.includes(entity.entity.id)) {
+        if(config.modules.commandblockexploitG.entities.includes(entity.entity.id.toLowerCase())) {
             flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
-            // last time i tested, this entity.teleport would sometimes teleport to the wrong location
-            entity.entity.teleport(new Minecraft.BlockLocation(-30000000, -30000000, -30000000));
-            // entity.entity.runCommand("kill @s");
         }
 
-        if(config.modules.commandblockexploitG.npc && entity.entity.id == "minecraft:npc") {
+        if(config.modules.commandblockexploitG.npc && entity.entity.id.toLowerCase() == "minecraft:npc") {
             try {
                 entity.entity.runCommand("scoreboard players operation @s npc = scythe:config npc");
                 entity.entity.runCommand("testfor @s[scores={npc=1..}]");
                 flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
-                entity.entity.runCommand("event entity @s scythe:despawn");
-                // entity.entity.runCommand("kill @s");
+                entity.entity.triggerEvent("scythe:despawn");
             } catch {}
         }
     }
-    */
 });
