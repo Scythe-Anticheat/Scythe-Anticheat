@@ -83,7 +83,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
  * @name banMessage
  * @param {object} player - The player object
  * @example banMessage(player);
- * @remarks Kicks the player from the game.
+ * @remarks Bans the player from the game.
  */
 export function banMessage(player) {
     // validate that required params are defined
@@ -121,7 +121,7 @@ export function banMessage(player) {
 /**
  * @name getClosestPlayer
  * @param {object} entity - The entity to check
- * @example banMessage(player);
+ * @example getClosestPlayer(entity);
  * @remarks Gets the nearest player to an entity.
  * @returns {object} player - The player that was found
  */
