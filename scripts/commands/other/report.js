@@ -28,8 +28,9 @@ export function report(message, args) {
     if (member.nameTag === player.nameTag) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot report yourself."}]}`);
 
     // prevent report spam
-    if(player.lastReport === member.nameTag) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have already reported this player!"}]}`);
-    player.lastReport = member.nameTag;
+    if(!player.reports) player.reports = []
+    if(player.reports.includes(member.nameTag)) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have already reported this player!"}]}`);
+    player.reports.push(member.nameTag);
 
     player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have reported ${member.nameTag} for: ${reason}."}]}`);
 
