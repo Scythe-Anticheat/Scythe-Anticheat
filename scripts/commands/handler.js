@@ -48,7 +48,7 @@ export function commandHandler(player, message) {
     // checks if the message starts with our prefix, if not exit
     if (!message.message.startsWith(config.customcommands.prefix)) return;
 
-    let args = splitStringAwarely(message.message)
+    let args = splitStringAwarely(message.message);
 
     const commandName = args.shift().toLowerCase().slice(config.customcommands.prefix.length);
 
