@@ -48,9 +48,9 @@ export function commandHandler(player, message) {
     // checks if the message starts with our prefix, if not exit
     if (!message.message.startsWith(config.customcommands.prefix)) return;
 
-    let args = message.message.slice(config.customcommands.prefix.length).split(/ +/);
+    let args = splitStringAwarely(message.message)
 
-    const commandName = args.shift().toLowerCase();
+    const commandName = args.shift().toLowerCase().slice(config.customcommands.prefix.length);
 
     if (config.debug) console.warn(`${new Date()} | ${player.name} used the command: ${config.customcommands.prefix}${commandName} ${args.join(" ")}`);
 
@@ -92,4 +92,12 @@ export function commandHandler(player, message) {
         console.warn(`${new Date()} | ` + error);
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${message.message}\nError: ${error}\n-------------------------"}]}`);
     }
+}
+
+function splitStringAwarely(str) {
+    if (!str) return console.warn(`${new Date()} | ` + "Error: ${str} isnt defined. Did you forget to pass it? (./handler.js:98)");
+
+    return [...str
+      .matchAll(/(?<=^| )("?)(.+?)\1(?= |$)/g)]
+      .map((match) => match[0].replaceAll('"', ''));
 }
