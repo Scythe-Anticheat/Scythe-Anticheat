@@ -212,10 +212,20 @@ export default
             "enabled": true,
             "npc": true,
             "entities": [
-                "minecraft:command_block_minecart",
+                "minecraft:command_block_minecart"
             ],
             "punishment": "none",
             "minVlbeforeBan": 0
         },
+        "badenchantsA": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
+        "badenchantsB": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        }
     }
 };

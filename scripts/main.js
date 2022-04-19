@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { flag, banMessage, getClosestPlayer} from "./util.js";
+import { flag, banMessage, getClosestPlayer, snakeToCamel} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
@@ -151,27 +151,35 @@ World.events.tick.subscribe(() => {
             }
         }
 
-        if(config.modules.illegalitemsC.enabled || config.modules.illegalitemsD.enabled) {
-            let container = player.getComponent('inventory').container;
-            for (let i = 0; i < container.size; i++) if (container.getItem(i)) {
-                let item = container.getItem(i);
-                // Illegalitems/C = item stacked over 64 check
-                if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
-                    flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
+        let container = player.getComponent('inventory').container;
+        for (let i = 0; i < container.size; i++) if (container.getItem(i)) {
+            let item = container.getItem(i);
+            // Illegalitems/C = item stacked over 64 check
+            if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
+                flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
                 
-                // Illegalitems/D = additional item clearing check
-                if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
-                    flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
-                // badenchants/a
+            // Illegalitems/D = additional item clearing check
+            if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
+                flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
+                
+            let itemEnchants = item.getComponent("enchantments").enchantments;
+            for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
+                let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
+        
+                if(enchantData) {
+                    // badenchants/a
+                    if(config.modules.badenchantsA.enabled && (enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel || enchantData.level < config.modules.badenchantsA.minLevel))
+                        flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
-                // this enchant magic will come soon
-                /*
-                let enchants = item.getComponent("enchantments").enchantments;
-
-                for(let e of enchants) {
-                    console.warn(e);
+                    // badenchants/b
+                    // just dont ask.
+                    if(config.modules.badenchantsB.enabled) {
+                        let item2 = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes[snakeToCamel(item.id)], 1, item.data);
+                        if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
+                            flag(player, "BadEnchants", "B", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                        }
+                    }
                 }
-                */
             }
         }
 
@@ -228,7 +236,7 @@ World.events.beforeItemUseOn.subscribe(block => {
 
     /*
         illegalitems/e = cancels the placement of illegal items
-        illegalitems/a could be bypassed by using a right click autoclicker or lag
+        illegalitems/a could be bypassed by using a right click autoclicker/autobuild or lag
         thx drib or matrix_code for telling me lol
 
         the unobtainable blocks list only has a select items in it because most people wont even place the other blocks

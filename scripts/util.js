@@ -148,3 +148,13 @@ export function banMessage(player) {
 
     return closestPlayer;
 }
+
+// thanks https://stackoverflow.com/a/52551910
+export function snakeToCamel(str) {
+    str = str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+
+    str = str.replace("minecraft", "");
+
+    // https://stackoverflow.com/a/7224605
+    return str.charAt(0).toLowerCase() + str.slice(1);
+}
