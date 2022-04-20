@@ -120,7 +120,7 @@ export default
             "illegalItems": [
                 "minecraft:beehive",
                 "minecraft:bee_nest",
-                "minecraft:movingblock"
+                "minecraft:moving_block"
             ],
             "punishment": "ban",
             "minVlbeforeBan": 3
@@ -130,7 +130,7 @@ export default
             "bannedBlocks": [
                 "minecraft:beehive",
                 "minecraft:bee_nest",
-                "minecraft:movingblock",
+                "minecraft:moving_block",
                 "minecraft:axolotl_bucket",
                 "minecraft:cod_bucket",
                 "minecraft:powder_snow_bucket",

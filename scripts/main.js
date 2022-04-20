@@ -181,6 +181,7 @@ World.events.tick.subscribe(() => {
                     }
                 }
             }
+            if(item.getLore()) console.warn(item.getLore());
         }
 
         // invalidsprint/a = checks for sprinting with the blindness effect
