@@ -144,8 +144,8 @@ export default
         "nukerA": {
             "enabled": true,
             "maxBlocks": 3,
-            "punishment": "ban",
-            "minVlbeforeBan": 5
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "liquidinteractA": {
             "enabled": true,
