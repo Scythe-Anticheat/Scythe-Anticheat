@@ -104,7 +104,7 @@ World.events.tick.subscribe(() => {
         if(config.modules.bedrockValidate.enabled) {
             try {
                 player.runCommand("testfor @s[scores={bedrock=1..}]");
-                if (config.modules.bedrockValidate.overworld && player.dimension === World.getDimension("overworld")) {
+                if (config.modules.bedrockValidate.overworld && player.dimension.id == "minecraft:overworld") {
                     try {
                         player.runCommand(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
                     } catch {}
@@ -114,7 +114,7 @@ World.events.tick.subscribe(() => {
                     } catch {}
                 }
 
-                if (config.modules.bedrockValidate.nether && player.dimension === World.getDimension("nether")) { 
+                if (config.modules.bedrockValidate.nether && player.dimension.id == "minecraft:nether") { 
                     try {
                         player.runCommand(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
                     } catch {}
@@ -125,7 +125,7 @@ World.events.tick.subscribe(() => {
                         player.runCommand(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
                     } catch {}
                 }
-            } catch{}
+            } catch {}
         }
 
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(4)} Vertical Speed: ${player.velocity.y.toFixed(4)}`);
