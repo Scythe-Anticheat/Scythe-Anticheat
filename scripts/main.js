@@ -151,6 +151,12 @@ World.events.tick.subscribe(() => {
             if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
                 flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
                 
+            // Illegalitems/F = Checks if an item has a name longer then 32 charcters
+            if(item.nameTag) {
+                if(item.nameTag.length > config.modules.illegalitemsF.length) 
+                    flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, false, false, i);
+            }
+
             let itemEnchants = item.getComponent("enchantments").enchantments;
             for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
                 let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);

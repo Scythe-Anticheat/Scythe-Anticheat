@@ -232,6 +232,12 @@ export default
             "entities": 2,
             "punishment": "none",
             "minVlbeforeBan": 0
+        },
+        "illegalitemsF": {
+            "enabled": true,
+            "length": 32,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         }
     }
 };
