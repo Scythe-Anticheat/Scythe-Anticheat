@@ -226,6 +226,12 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVlbeforeBan": 0
+        },
+        "killauraC": {
+            "enabled": true,
+            "entities": 2,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         }
     }
 };

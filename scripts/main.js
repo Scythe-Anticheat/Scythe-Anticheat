@@ -188,6 +188,7 @@ World.events.tick.subscribe(() => {
             flag(player, "InvalidSprint", "A", "Movement", false, false, true);
 
         player.blocksBroken = 0;
+        player.entitiesHit = [];
 
         // fly/a
         if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) == 0.1552 && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("ground") && player.hasTag("moving")) {
@@ -316,6 +317,28 @@ World.events.entityCreate.subscribe(entity => {
                 flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
                 entity.entity.triggerEvent("scythe:despawn");
             } catch {}
+        }
+    }
+});
+
+World.events.entityHit.subscribe(entityHit => {
+    let entity = entityHit.hitEntity;
+    let player = entityHit.entity;
+
+    if(player.id !== "minecraft:player") return;
+
+    if(entity) {
+        let entityHitName = entity.name || entity.id;
+        
+        // killaura/C = checks for multi-aura
+        if(config.modules.killauraC.enabled) {
+            if(!player.entitiesHit.includes(entityHitName)) {
+                player.entitiesHit.push(entityHitName);
+                console.warn(player.entitiesHit.length);
+                if(player.entitiesHit.length >= config.modules.killauraC.entities) {
+                    flag(player, "KillAura", "C", "Exploit", "entitiesHit", player.entitiesHit.length);
+                }
+            }
         }
     }
 });
