@@ -130,17 +130,6 @@ World.events.tick.subscribe(() => {
 
         // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(4)} Vertical Speed: ${player.velocity.y.toFixed(4)}`);
 
-        // reach/a
-        if (config.modules.reachA.enabled && player.hasTag('attack')) {
-            try {                                                                   // we could use r=4 but that wont account for lag
-                player.runCommand(`execute @s[m=!c] ~~~ testfor @p[name=!"${player.nameTag}",r=${config.modules.reachA.reach}]`);
-            } catch {
-                try {
-                    player.runCommand(`execute @s[m=!c] ~~~ function checks/alerts/reach`);
-                } catch {}
-            }
-        }
-
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
             if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming')) {
@@ -334,10 +323,24 @@ World.events.entityHit.subscribe(entityHit => {
         if(config.modules.killauraC.enabled) {
             if(!player.entitiesHit.includes(entityHitName)) {
                 player.entitiesHit.push(entityHitName);
-                console.warn(player.entitiesHit.length);
                 if(player.entitiesHit.length >= config.modules.killauraC.entities) {
                     flag(player, "KillAura", "C", "Exploit", "entitiesHit", player.entitiesHit.length);
                 }
+            }
+        }
+
+        // reach/A = check if a player hits an entity more then 5 block away
+        if(config.modules.reachA.enabled) {
+            // get the difference between 2 three dimensional coordinates
+            let distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
+            if(config.debug) console.warn(`${player.name} attacked ${entityHitName} with a distance of ${distance}`);
+
+            if(distance > config.modules.reachA.reach) {
+                // we ignore gmc players as they get increased reach
+                try {
+                    player.runCommand("testfor @s[m=!c]");
+                    flag(player, "Reach", "A", "Combat", "reach", distance);
+                } catch{}
             }
         }
     }
