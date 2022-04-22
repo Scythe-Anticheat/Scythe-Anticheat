@@ -227,6 +227,14 @@ export default
             "punishment": "none",
             "minVlbeforeBan": 0
         },
+        "badenchantsC": {
+            "enabled": true,
+            "exclusions": [
+                "(+DATA)"
+            ],
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
         "killauraC": {
             "enabled": true,
             "entities": 2,

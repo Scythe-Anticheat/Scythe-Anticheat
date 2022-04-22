@@ -157,21 +157,28 @@ World.events.tick.subscribe(() => {
                     flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, false, false, i);
             }
 
-            let itemEnchants = item.getComponent("enchantments").enchantments;
-            for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
-                let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
-        
-                if(enchantData) {
-                    // badenchants/a
-                    if(config.modules.badenchantsA.enabled && (enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel || enchantData.level < config.modules.badenchantsA.minLevel))
-                        flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+            // BadEnchants/C = checks if an item has a lore
+            if(config.modules.badenchantsC.enabled && item.getLore().length) {
+                if(!config.modules.badenchantsC.exclusions.includes(String(item.getLore()))) flag(player, "BadEnchants", "C", "Exploit", "lore", String(item.getLore()).replace(/"|\\/g, ""), false, false, i);
+            }
 
-                    // badenchants/b
-                    // just dont ask.
-                    if(config.modules.badenchantsB.enabled) {
-                        let item2 = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes[snakeToCamel(item.id)], 1, item.data);
-                        if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
-                            flag(player, "BadEnchants", "B", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+            if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled) {
+                let itemEnchants = item.getComponent("enchantments").enchantments;
+                for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
+                    let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
+        
+                    if(enchantData) {
+                        // badenchants/a = checks for items with invalid enchantment levels
+                        if(config.modules.badenchantsA.enabled && (enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel || enchantData.level < config.modules.badenchantsA.minLevel))
+                            flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+
+                        // badenchants/b = checks if an item has an enchantment which isnt support by the item
+                        // just dont ask.
+                        if(config.modules.badenchantsB.enabled) {
+                            let item2 = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes[snakeToCamel(item.id)], 1, item.data);
+                            if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
+                                flag(player, "BadEnchants", "B", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                            }
                         }
                     }
                 }
@@ -330,7 +337,7 @@ World.events.entityHit.subscribe(entityHit => {
             if(!player.entitiesHit.includes(entityHitName)) {
                 player.entitiesHit.push(entityHitName);
                 if(player.entitiesHit.length >= config.modules.killauraC.entities) {
-                    flag(player, "KillAura", "C", "Exploit", "entitiesHit", player.entitiesHit.length);
+                    flag(player, "KillAura", "C", "Combat", "entitiesHit", player.entitiesHit.length);
                 }
             }
         }
@@ -346,7 +353,7 @@ World.events.entityHit.subscribe(entityHit => {
                 try {
                     player.runCommand("testfor @s[m=!c]");
                     flag(player, "Reach", "A", "Combat", "reach", distance);
-                } catch{}
+                } catch {}
             }
         }
     }
