@@ -151,7 +151,7 @@ World.events.tick.subscribe(() => {
             if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
                 flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
                 
-            // Illegalitems/F = Checks if an item has a name longer then 32 charcters
+            // Illegalitems/F = Checks if an item has a name longer then 32 characters
             if(item.nameTag) {
                 if(item.nameTag.length > config.modules.illegalitemsF.length) 
                     flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, false, false, i);
