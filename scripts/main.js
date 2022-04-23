@@ -62,8 +62,8 @@ World.events.tick.subscribe(() => {
     // run as each player
     for (let player of World.getPlayers()) {
         if (banList.includes(player.name)) {
-            player.addTag(`"by:Scythe Anticheat"`);
-            player.addTag(`"reason:You are Scythe Anticheat global banned!"`);
+            player.addTag(`by:Scythe Anticheat`);
+            player.addTag(`reason:You are Scythe Anticheat global banned!`);
             player.addTag(`isBanned`);
         }
 

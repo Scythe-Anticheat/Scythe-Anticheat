@@ -33,12 +33,12 @@ export function ban(message, args) {
 
     // this removes old ban stuff
     member.getTags().forEach(t => {
-        if(t.slice(1).startsWith("reason:")) member.removeTag(`${t}`);
-        if(t.slice(1).startsWith("by:")) member.removeTag(`${t}`);
+        if(t.slice(1).startsWith("reason:")) member.removeTag(t);
+        if(t.slice(1).startsWith("by:")) member.removeTag(t);
     });
 
-    member.addTag(`"reason:${reason}"`);
-    member.addTag(`"by:${player.nameTag}"`);
+    member.addTag(`reason:${reason}`);
+    member.addTag(`by:${player.nameTag}`);
     member.addTag(`isBanned`);
     return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member.nameTag}. Reason: ${reason}"}]}`);
 }

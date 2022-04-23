@@ -68,12 +68,12 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
             // this removes old ban stuff
             player.getTags().forEach(t => {
-                if(t.slice(1).startsWith("reason:")) player.removeTag(`${t}`);
-                if(t.slice(1).startsWith("by:")) player.removeTag(`${t}`);
+                if(t.slice(1).startsWith("reason:")) player.removeTag(t);
+                if(t.slice(1).startsWith("by:")) player.removeTag(t);
             });
 
-            player.addTag(`"by:Scythe Anticheat"`);
-            player.addTag(`"reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}"`);
+            player.addTag(`by:Scythe Anticheat`);
+            player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
             player.addTag(`isBanned`);
         } catch {}
     }
@@ -89,16 +89,17 @@ export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
-    if(cache.unbanQueue.includes(player.name.split(" ")[0])) {
+    console.warn(cache.unbanQueue);
+    if(cache.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
         player.getTags().forEach(t => {
-            if(t.slice(1).startsWith("reason:")) player.removeTag(`${t}`);
-            if(t.slice(1).startsWith("by:")) player.removeTag(`${t}`);
+            if(t.replace(/"/g, "").startsWith("reason:")) player.removeTag(t);
+            if(t.replace(/"/g, "").startsWith("by:")) player.removeTag(t);
         });
 
         // remove the player from the unban queue
         for (let i = -1; i < cache.unbanQueue.length; i++) {
-            if(cache.unbanQueue[i] == player.name.split(" ")[0]) cache.unbanQueue.splice(i, 1);
+            if(cache.unbanQueue[i] == player.name.toLowerCase().split(" ")[0]) cache.unbanQueue.splice(i, 1);
         }
         return;
     }
@@ -107,8 +108,8 @@ export function banMessage(player) {
     var by;
 
     player.getTags().forEach(t => {
-        if(t.startsWith(`"by:`)) by = t.replace(/"/g, "").slice(3);
-        if(t.startsWith(`"reason:`)) reason = t.replace(/"/g, "").slice(7);
+        if(t.startsWith(`by:`)) by = t.replace(/"/g, "").slice(3);
+        if(t.startsWith(`reason:`)) reason = t.replace(/"/g, "").slice(7);
     });
 
     try {
@@ -148,9 +149,15 @@ export function banMessage(player) {
 
     return closestPlayer;
 }
-
-// thanks https://stackoverflow.com/a/52551910
+/**
+ * @name snakeToCamel
+ * @param {string} str - The string to convert
+ * @example str("minecraft:enchanted_golden_apple");
+ * @remarks Converts a snake_case string to camelCase
+ * @returns {string} str - The converted string
+ */
 export function snakeToCamel(str) {
+    // thanks https://stackoverflow.com/a/52551910
     str = str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
 
     str = str.replace("minecraft", "");
