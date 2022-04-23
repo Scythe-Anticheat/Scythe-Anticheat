@@ -27,7 +27,8 @@
 					"sprint",
 					"noswing",
 					"invmove",
-					"swim"
+					"swim",
+					"sleep"
 				]
 			},
 			"animations": {
@@ -50,7 +51,8 @@
 				"sprint": "controller.animation.sprint",
 				"noswing": "controller.animation.noswing",
 				"invmove": "controller.animation.invmove",
-				"swim": "controller.animation.swim"
+				"swim": "controller.animation.swim",
+				"sleep": "controller.animation.sleep"
 			}
 		},
 		"component_groups": {

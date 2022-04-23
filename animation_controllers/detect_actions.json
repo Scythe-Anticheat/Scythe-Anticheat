@@ -248,6 +248,26 @@
 					]
 				}
 			}
+		},
+		"controller.animation.sleep": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"sleeping": "query.is_sleeping"
+					}],
+					"on_entry": [
+						"/tag @s remove sleeping"
+					]
+				},
+				"sleeping": {
+					"transitions": [{
+						"default": "!query.is_sleeping"
+					}],
+					"on_entry": [
+						"/tag @s add sleeping"
+					]
+				}
+			}
 		}
 	}
 }
