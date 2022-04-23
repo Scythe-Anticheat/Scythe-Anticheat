@@ -219,6 +219,7 @@ export default
         },
         "badenchantsA": {
             "enabled": true,
+            "minLevel": 0,
             "punishment": "none",
             "minVlbeforeBan": 0
         },
