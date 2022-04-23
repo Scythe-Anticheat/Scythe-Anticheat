@@ -1,3 +1,6 @@
+# sometimes the gametestapi scoreboard value doesnt apply correctly so we apply it again
+scoreboard players operation @a gametestapi = scythe:config gametestapi
+
 tellraw @s {"rawtext":[{"text":"\n§l§aScythe AntiCheat Command Help"}]}
 
 # alert the player if gametest is disabled
