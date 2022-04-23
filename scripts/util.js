@@ -28,6 +28,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // cancel the message
     if (message) message.cancel = true;
 
+    // remove characters that may break commands
+    if(debug) debug = String(debug).replace(/"|\\/g, "");
+
     if(shouldTP && check !== "Crasher") player.runCommand(`tp @s @s`);
     else if(shouldTP && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
 
@@ -35,8 +38,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         else player.runCommand(`scoreboard players add @s cbevl 1`);
 
     try {
-        if(debug && check != "CommandBlockExploit") player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug.replace(/"|\\/g, "")})§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
-            else if (debug) player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug.replace(/"|\\/g, "")})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
+        if(debug && check != "CommandBlockExploit") player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
+            else if (debug) player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
             else player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
     } catch {}
 
