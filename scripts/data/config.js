@@ -246,6 +246,11 @@ export default
             "length": 32,
             "punishment": "none",
             "minVlbeforeBan": 0
+        },
+        "badpackets3": {
+            "enabled": true,
+            "punishment": "ban",
+            "minVlbeforeBan": 1
         }
     }
 };

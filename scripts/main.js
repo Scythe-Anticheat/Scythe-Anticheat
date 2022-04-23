@@ -356,5 +356,9 @@ World.events.entityHit.subscribe(entityHit => {
                 } catch {}
             }
         }
+
+        // badpackets/3 = checks if a player attacks themselves
+        // some (bad) hacks use this to bypass anti-movement cheat checks
+        if(config.modules.badpackets3.enabled && entity === player) flag(player, "BadPackets", "3", "Combat");
     }
 });
