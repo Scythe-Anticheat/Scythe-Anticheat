@@ -90,6 +90,6 @@ export function commandHandler(player, message) {
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${message.message}\nError: ${error}\n-------------------------"}]}`);
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${message.message.replace(/"|\\/g, "")}\nError: ${error.replace(/"|\\/g, "")}\n-------------------------"}]}`);
     }
 }

@@ -159,7 +159,10 @@ World.events.tick.subscribe(() => {
 
             // BadEnchants/C = checks if an item has a lore
             if(config.modules.badenchantsC.enabled && item.getLore().length) {
-                if(!config.modules.badenchantsC.exclusions.includes(String(item.getLore()))) flag(player, "BadEnchants", "C", "Exploit", "lore", String(item.getLore()).replace(/"|\\/g, ""), false, false, i);
+                if(!config.modules.badenchantsC.exclusions.includes(String(item.getLore()))) {
+                    let lore = String(item.getLore());
+                    flag(player, "BadEnchants", "C", "Exploit", "lore", `${lore},length=${lore.length}`, false, false, i);
+                }
             }
 
             if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled) {
@@ -330,7 +333,7 @@ World.events.entityHit.subscribe(entityHit => {
     if(player.id !== "minecraft:player") return;
 
     if(entity) {
-        let entityHitName = entity.name || entity.id;
+        let entityHitName = entity.nameTag || entity.id;
         
         // killaura/C = checks for multi-aura
         if(config.modules.killauraC.enabled) {
@@ -359,6 +362,6 @@ World.events.entityHit.subscribe(entityHit => {
 
         // badpackets/3 = checks if a player attacks themselves
         // some (bad) hacks use this to bypass anti-movement cheat checks
-        if(config.modules.badpackets3.enabled && entity === player) flag(player, "BadPackets", "3", "Combat");
+        if(config.modules.badpackets3.enabled && entity === player) flag(player, "BadPackets", "3", "Exploit");
     }
 });
