@@ -34,6 +34,10 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(shouldTP && check !== "Crasher") player.runCommand(`tp @s @s`);
     else if(shouldTP && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
 
+    if(check !== "CommandBlockExploit") try {
+        player.runCommand(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
+    } catch {}
+
     if (check != "CommandBlockExploit") player.runCommand(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
         else player.runCommand(`scoreboard players add @s cbevl 1`);
 

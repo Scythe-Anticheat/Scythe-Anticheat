@@ -93,7 +93,7 @@ export default
         },
         "reachA": {
             "enabled": true,
-            "reach": 5,
+            "reach": 4.5,
             "punishment": "none",
             "minVlbeforeBan": 0
         },
