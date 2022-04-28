@@ -55,6 +55,9 @@
 							"tropical_fish_bucket": "query.get_equipped_item_name == 'tropical_fish_bucket' || query.get_equipped_item_name('off_hand') == 'tropical_fish_bucket'"
 						},
 						{
+							"tadpole_bucket": "query.get_equipped_item_name == 'tadpole_bucket' || query.get_equipped_item_name('off_hand') == 'tadpole_bucket'"
+						},
+						{
 							"beehive": "query.get_equipped_item_name == 'beehive' || query.get_equipped_item_name('off_hand') == 'beehive'"
 						},
 						{
@@ -64,7 +67,7 @@
 				},
 				"axolotl_bucket": {
 					"on_entry": [
-						"/clear @s[tag=!op] axolotl_bucket"
+						"/clear @s axolotl_bucket"
 					],
 					"transitions": [{
 						"cbeitems": "query.get_equipped_item_name != 'axolotl_bucket' || query.get_equipped_item_name('off_hand') != 'axolotl_bucket'"
@@ -72,7 +75,7 @@
 				},
 				"cod_bucket": {
 					"on_entry": [
-						"/clear @s[tag=!op] cod_bucket"
+						"/clear @s cod_bucket"
 					],
 					"transitions": [{
 						"cbeitems": "query.get_equipped_item_name != 'cod_bucket' || query.get_equipped_item_name('off_hand') != 'cod_bucket'"
@@ -80,7 +83,7 @@
 				},
 				"powder_snow_bucket": {
 					"on_entry": [
-						"/clear @s[tag=!op] powder_snow_bucket"
+						"/clear @s powder_snow_bucket"
 					],
 					"transitions": [{
 						"cbeitems": "query.get_equipped_item_name != 'powder_snow_bucket' || query.get_equipped_item_name('off_hand') != 'powder_snow_bucket'"
@@ -88,7 +91,7 @@
 				},
 				"pufferfish_bucket": {
 					"on_entry": [
-						"/clear @s[tag=!op] pufferfish_bucket"
+						"/clear @s pufferfish_bucket"
 					],
 					"transitions": [{
 						"cbeitems": "query.get_equipped_item_name != 'pufferfish_bucket' || query.get_equipped_item_name('off_hand') != 'pufferfish_bucket'"
@@ -96,7 +99,7 @@
 				},
 				"salmon_bucket": {
 					"on_entry": [
-						"/clear @s[tag=!op] salmon_bucket"
+						"/clear @s salmon_bucket"
 					],
 					"transitions": [{
 						"cbeitems": "query.get_equipped_item_name != 'salmon_bucket' || query.get_equipped_item_name('off_hand') != 'salmon_bucket'"
@@ -104,15 +107,23 @@
 				},
 				"tropical_fish_bucket": {
 					"on_entry": [
-						"/clear @s[tag=!op] tropical_fish_bucket"
+						"/clear @s tropical_fish_bucket"
 					],
 					"transitions": [{
 						"cbeitems": "query.get_equipped_item_name != 'tropical_fish_bucket' || query.get_equipped_item_name('off_hand') != 'tropical_fish_bucket'"
 					}]
 				},
+				"tadpole_bucket": {
+					"on_entry": [
+						"/clear @s tadpole_bucket"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'tadpole_bucket' || query.get_equipped_item_name('off_hand') != 'tadpole_bucket'"
+					}]
+				},
 				"beehive": {
 					"on_entry": [
-						"/clear @s[tag=!op] beehive",
+						"/clear @s beehive",
 						"/scoreboard players add @s[tag=!op] cbevl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit/A! §7(item=beehive)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}"
 					],
@@ -122,7 +133,7 @@
 				},
 				"bee_nest": {
 					"on_entry": [
-						"/clear @s[tag=!op] bee_nest",
+						"/clear @s bee_nest",
 						"/scoreboard players add @s[tag=!op] cbevl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit/A! §7(item=bee_nest)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}"
 					],

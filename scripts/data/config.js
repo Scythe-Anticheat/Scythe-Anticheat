@@ -136,7 +136,8 @@ export default
                 "minecraft:powder_snow_bucket",
                 "minecraft:pufferfish_bucket",
                 "minecraft:salmon_bucket",
-                "minecraft:tropical_fish_bucket"
+                "minecraft:tropical_fish_bucket",
+                "minecraft:tadpole_bucket"
             ],
             "punishment": "ban",
             "minVlbeforeBan": 1
