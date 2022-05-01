@@ -70,27 +70,14 @@ World.events.tick.subscribe(() => {
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 
+        // anti-namespoof
+        // these values are set in the playerJoin config
+        if(player.flagNamespoofA) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
+        if(player.flagNamespoofB) flag(player, "Namespoof", "B", "Exploit");
+
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
             Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true);
-
-        // Namespoof/A = username length check.
-        if (config.modules.namespoofA.enabled) {
-            try {
-                // checks if 2 players are logged in with the same name
-                // minecraft adds a sufix to the end of the name which we detect
-                if(player.name.endsWith(')') && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
-                    flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
-
-                if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
-                    flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
-            } catch {}
-        }
-
-        // Namespoof/B = regex check
-        try {
-            if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) flag(player, "Namespoof", "B", "Exploit");
-        } catch {}
 
         // player position shit
         if(player.hasTag("moving")) {
@@ -213,7 +200,6 @@ World.events.blockBreak.subscribe(block => {
 
     // nuker/a = checks if a player breaks more than 2 blocks in a tick
     if(config.modules.nukerA.enabled) {
-        if(!block.player.blocksBroken) block.player.blocksBroken = 0;
         block.player.blocksBroken++;
 
         if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) {
@@ -277,7 +263,9 @@ World.events.beforeItemUseOn.subscribe(block => {
     }
 });
 
-World.events.playerJoin.subscribe(player => {
+World.events.playerJoin.subscribe(playerJoin => {
+    let player = playerJoin.player;
+
     if(!loaded) {
         try {
             World.getDimension("overworld").runCommand(`scoreboard players set scythe:config gametestapi 1`);
@@ -287,16 +275,34 @@ World.events.playerJoin.subscribe(player => {
     }
 
     // fix a weird crash that happens when the player has an extremely long name
-    if(player.player.nameTag.length > 100) player.player.triggerEvent("scythe:kick");
+    if(player.nameTag.length > 100) player.triggerEvent("scythe:kick");
 
     // fix a disabler method
-    player.player.nameTag = player.player.nameTag.replace(/"|\\/g, "");
+    player.nameTag = player.nameTag.replace(/"|\\/g, "");
 
     // load custom nametag
-    player.player.getTags().forEach(t => {
+    player.getTags().forEach(t => {
         if(t.replace(/"|\\/g, "").startsWith("tag:"))
-            return player.player.nameTag = `§8[§r${t.replace(/"|\\/g, "").slice(4)}§8]§r ${player.player.name}`;
+            return player.nameTag = `§8[§r${t.replace(/"|\\/g, "").slice(4)}§8]§r ${player.name}`;
     });
+
+    // Namespoof/A = username length check.
+    if (config.modules.namespoofA.enabled) {
+        try {
+            // checks if 2 players are logged in with the same name
+            // minecraft adds a sufix to the end of the name which we detect
+            if(player.name.endsWith(')') && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
+                player.flagNamespoofA = true;
+
+            if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
+                player.flagNamespoofA = true;
+        } catch {}
+    }
+
+    // Namespoof/B = regex check
+    try {
+        if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
+    } catch {}
 });
 
 World.events.entityCreate.subscribe(entity => {
