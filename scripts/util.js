@@ -75,8 +75,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
             // this removes old ban stuff
             player.getTags().forEach(t => {
-                if(t.slice(1).startsWith("reason:")) player.removeTag(t);
-                if(t.slice(1).startsWith("by:")) player.removeTag(t);
+                if(t.replace(/"|\\/g, "").startsWith("reason:")) player.removeTag(t);
+                if(t.replace(/"|\\/g, "").startsWith("by:")) player.removeTag(t);
+                if(t.replace(/"|\\/g, "").startsWith("time:")) player.removeTag(t);
             });
 
             player.addTag(`by:Scythe Anticheat`);
@@ -96,12 +97,12 @@ export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
-    console.warn(cache.unbanQueue);
     if(cache.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
         player.getTags().forEach(t => {
             if(t.replace(/"/g, "").startsWith("reason:")) player.removeTag(t);
             if(t.replace(/"/g, "").startsWith("by:")) player.removeTag(t);
+            if(t.replace(/"/g, "").startsWith("time:")) player.removeTag(t);
         });
 
         // remove the player from the unban queue
@@ -113,14 +114,32 @@ export function banMessage(player) {
 
     var reason;
     var by;
+    var time;
 
     player.getTags().forEach(t => {
         if(t.startsWith(`by:`)) by = t.replace(/"/g, "").slice(3);
         if(t.startsWith(`reason:`)) reason = t.replace(/"/g, "").slice(7);
+        if(t.startsWith(`time:`)) time = t.replace(/"/g, "").slice(5);
     });
 
+
+    if(time) {
+        if(time < new Date().getTime()) {
+            // ban expired, woo
+            player.removeTag("isBanned");
+            player.getTags().forEach(t => {
+                if(t.replace(/"/g, "").startsWith("reason:")) player.removeTag(t);
+                if(t.replace(/"/g, "").startsWith("by:")) player.removeTag(t);
+                if(t.replace(/"/g, "").startsWith("time:")) player.removeTag(t);
+            });
+            return;
+        }
+
+        time = new Date(Number(time));
+    }
+
     try {
-        player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}`);
+        player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aUnbanned in:§r ${time || "Never"}`);
     } catch {
         player.triggerEvent("scythe:kick");
     }
@@ -156,6 +175,7 @@ export function banMessage(player) {
 
     return closestPlayer;
 }
+
 /**
  * @name snakeToCamel
  * @param {string} str - The string to convert
@@ -164,6 +184,9 @@ export function banMessage(player) {
  * @returns {string} str - The converted string
  */
 export function snakeToCamel(str) {
+    // validate that required params are defined
+    if (!str) return console.warn(`${new Date()} | ` + "Error: ${str} isnt defined. Did you forget to pass it? (./util.js:196)");
+
     // thanks https://stackoverflow.com/a/52551910
     str = str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
 
@@ -171,4 +194,33 @@ export function snakeToCamel(str) {
 
     // https://stackoverflow.com/a/7224605
     return str.charAt(0).toLowerCase() + str.slice(1);
+}
+
+/**
+ * @name parseTime
+ * @param {string} str - The time value to convert to milliseconds
+ * @example str("24d");
+ * @remarks Parses a time string into milliseconds.
+ * @returns {string} str - The converted string
+ */
+export function parseTime(str) {
+    // validate that required params are defined
+    if (!str) return console.warn(`${new Date()} | ` + "Error: ${str} isnt defined. Did you forget to pass it? (./util.js:216)");
+
+    // parse time values like 12h, 1d, 10m into milliseconds
+
+    // code from github co-pilot, thanks ai!
+    const time = str.match(/^(\d+)([smhdw])$/);
+    if (time) {
+        const [, num, unit] = time;
+        const ms = {
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000,
+            w: 604800000
+        }[unit];
+        return ms * num;
+    }
+    return time;
 }

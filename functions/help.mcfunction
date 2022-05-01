@@ -11,7 +11,7 @@ tellraw @s {"rawtext":[{"text":"\n§l§aModeration Commands"}]}
 
 # Gametest enabled
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!help§r - Shows this help page."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!ban <username> [reason]§r - Ban the specified user."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!ban <username> [time] [reason]§r - Ban the specified user."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!kick <username> [reason]§r - Kick the specified user."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!mute <username> [reason]§r - Mute the specified user."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unmute <username> [reason]§r - Unmute the specified user."}]}

@@ -1,4 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
+import { parseTime } from "../../util.js";
 
 const World = Minecraft.world;
 
@@ -15,6 +16,10 @@ export function ban(message, args) {
     message.cancel = true;
 
     let player = message.sender;
+    let time = parseTime(args[1]);
+
+    if(time) args.splice(1, 1);
+
     let reason = args.slice(1).join(" ") || "No reason specified";
 
     // make sure the user has permissions to run the command
@@ -38,10 +43,13 @@ export function ban(message, args) {
     member.getTags().forEach(t => {
         if(t.replace(/"|\\/g, "").startsWith("reason:")) member.removeTag(t);
         if(t.replace(/"|\\/g, "").startsWith("by:")) member.removeTag(t);
+        if(t.replace(/"|\\/g, "").startsWith("time:")) member.removeTag(t);
     });
 
     member.addTag(`reason:${reason}`);
     member.addTag(`by:${player.nameTag}`);
+    if(time) member.addTag(`time:${new Date().getTime() + time}`);
     member.addTag(`isBanned`);
+
     return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member.nameTag}. Reason: ${reason}"}]}`);
 }
