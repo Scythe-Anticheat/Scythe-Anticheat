@@ -99,7 +99,6 @@ export function banMessage(player) {
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
     if(cache.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
-        console.warn(10, player.name, cache.unbanQueue);
         player.removeTag("isBanned");
         player.getTags().forEach(t => {
             t = t.replace(/"/g, "");
@@ -129,7 +128,6 @@ export function banMessage(player) {
 
     if(time) {
         if(time < new Date().getTime()) {
-            console.warn(69, time, new Date().getTime());
             // ban expired, woo
             player.removeTag("isBanned");
             player.getTags().forEach(t => {
