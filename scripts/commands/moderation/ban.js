@@ -41,9 +41,10 @@ export function ban(message, args) {
 
     // this removes old ban stuff
     member.getTags().forEach(t => {
-        if(t.replace(/"|\\/g, "").startsWith("reason:")) member.removeTag(t);
-        if(t.replace(/"|\\/g, "").startsWith("by:")) member.removeTag(t);
-        if(t.replace(/"|\\/g, "").startsWith("time:")) member.removeTag(t);
+        t = t.replace(/"/g, "");
+        if(t.startsWith("reason:")) member.removeTag(t);
+        if(t.startsWith("by:")) member.removeTag(t);
+        if(t.startsWith("time:")) member.removeTag(t);
     });
 
     member.addTag(`reason:${reason}`);

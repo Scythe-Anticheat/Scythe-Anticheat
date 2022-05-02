@@ -1,5 +1,6 @@
 export default
 {
     "unbanQueue": [],
-    "entitiesSpawnedInLastTick": 0
+    "entitiesSpawnedInLastTick": 0,
+    "loaded": false
 };

@@ -7,8 +7,6 @@ import cache from "./data/cache.js";
 
 const World = Minecraft.world;
 
-var loaded = false;
-
 if (config.debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
@@ -61,6 +59,9 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {
+        player.blocksBroken = 0;
+        player.entitiesHit = [];
+
         if (banList.includes(player.name)) {
             player.addTag(`by:Scythe Anticheat`);
             player.addTag(`reason:You are Scythe Anticheat global banned!`);
@@ -70,22 +71,20 @@ World.events.tick.subscribe(() => {
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 
+        // Crasher/A = invalid pos check
+        if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
+            Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true);
+
         // anti-namespoof
         // these values are set in the playerJoin config
         if(player.flagNamespoofA) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
         if(player.flagNamespoofB) flag(player, "Namespoof", "B", "Exploit");
 
-        // Crasher/A = invalid pos check
-        if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
-            Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true);
-
         // player position shit
         if(player.hasTag("moving")) {
-            try {
-                player.runCommand(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
-                player.runCommand(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
-                player.runCommand(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
-            } catch {}
+            player.runCommand(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
+            player.runCommand(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
+            player.runCommand(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
         }
 
         if(config.modules.bedrockValidate.enabled) {
@@ -146,13 +145,13 @@ World.events.tick.subscribe(() => {
 
             // BadEnchants/C = checks if an item has a lore
             if(config.modules.badenchantsC.enabled && item.getLore().length) {
-                if(!config.modules.badenchantsC.exclusions.includes(String(item.getLore()))) {
+                if(!config.modules.badenchantsC.exclusions.includes(String(item.getLore())))
                     flag(player, "BadEnchants", "C", "Exploit", "lore", item.getLore(), false, false, i);
-                }
             }
 
             if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled) {
                 let itemEnchants = item.getComponent("enchantments").enchantments;
+
                 for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
                     let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
         
@@ -178,9 +177,6 @@ World.events.tick.subscribe(() => {
         if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint'))
             flag(player, "InvalidSprint", "A", "Movement", false, false, true);
 
-        player.blocksBroken = 0;
-        player.entitiesHit = [];
-
         // fly/a
         if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) == 0.1552 && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("ground") && player.hasTag("moving")) {
             try {
@@ -198,13 +194,12 @@ World.events.blockPlace.subscribe(block => {
 World.events.blockBreak.subscribe(block => {
     if(config.debug) console.warn(`${block.player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
 
-    // nuker/a = checks if a player breaks more than 2 blocks in a tick
+    // nuker/a = checks if a player breaks more than 3 blocks in a tick
     if(config.modules.nukerA.enabled) {
         block.player.blocksBroken++;
 
         if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) {
             flag(block.player, "Nuker", "A", "Misc", "blocksBroken", block.player.blocksBroken);
-
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
@@ -266,11 +261,11 @@ World.events.beforeItemUseOn.subscribe(block => {
 World.events.playerJoin.subscribe(playerJoin => {
     let player = playerJoin.player;
 
-    if(!loaded) {
+    if(!cache.loaded) {
         try {
             World.getDimension("overworld").runCommand(`scoreboard players set scythe:config gametestapi 1`);
             World.getDimension("overworld").runCommand(`scoreboard players operation @a gametestapi = scythe:config gametestapi`);
-            loaded = true;
+            cache.loaded = true;
         } catch {}
     }
 
@@ -282,8 +277,9 @@ World.events.playerJoin.subscribe(playerJoin => {
 
     // load custom nametag
     player.getTags().forEach(t => {
-        if(t.replace(/"|\\/g, "").startsWith("tag:"))
-            return player.nameTag = `§8[§r${t.replace(/"|\\/g, "").slice(4)}§8]§r ${player.name}`;
+        t = t.replace(/"|\\/g, "");
+        if(t.startsWith("tag:"))
+            return player.nameTag = `§8[§r${t.slice(4)}§8]§r ${player.name}`;
     });
 
     // Namespoof/A = username length check.

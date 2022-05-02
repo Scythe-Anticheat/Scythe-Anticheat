@@ -75,9 +75,10 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
             // this removes old ban stuff
             player.getTags().forEach(t => {
-                if(t.replace(/"|\\/g, "").startsWith("reason:")) player.removeTag(t);
-                if(t.replace(/"|\\/g, "").startsWith("by:")) player.removeTag(t);
-                if(t.replace(/"|\\/g, "").startsWith("time:")) player.removeTag(t);
+                t = t.replace(/"/g, "");
+                if(t.startsWith("reason:")) player.removeTag(t);
+                if(t.startsWith("by:")) player.removeTag(t);
+                if(t.startsWith("time:")) player.removeTag(t);
             });
 
             player.addTag(`by:Scythe Anticheat`);
@@ -98,11 +99,13 @@ export function banMessage(player) {
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
     if(cache.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
+        console.warn(10, player.name, cache.unbanQueue);
         player.removeTag("isBanned");
         player.getTags().forEach(t => {
-            if(t.replace(/"/g, "").startsWith("reason:")) player.removeTag(t);
-            if(t.replace(/"/g, "").startsWith("by:")) player.removeTag(t);
-            if(t.replace(/"/g, "").startsWith("time:")) player.removeTag(t);
+            t = t.replace(/"/g, "");
+            if(t.startsWith("reason:")) player.removeTag(t);
+            if(t.startsWith("by:")) player.removeTag(t);
+            if(t.startsWith("time:")) player.removeTag(t);
         });
 
         // remove the player from the unban queue
@@ -117,29 +120,33 @@ export function banMessage(player) {
     var time;
 
     player.getTags().forEach(t => {
-        if(t.startsWith(`by:`)) by = t.replace(/"/g, "").slice(3);
-        if(t.startsWith(`reason:`)) reason = t.replace(/"/g, "").slice(7);
-        if(t.startsWith(`time:`)) time = t.replace(/"/g, "").slice(5);
+        t = t.replace(/"/g, "");
+        if(t.startsWith(`by:`)) by = t.slice(3);
+        if(t.startsWith(`reason:`)) reason = t.slice(7);
+        if(t.startsWith(`time:`)) time = t.slice(5);
     });
 
 
     if(time) {
         if(time < new Date().getTime()) {
+            console.warn(69, time, new Date().getTime());
             // ban expired, woo
             player.removeTag("isBanned");
             player.getTags().forEach(t => {
-                if(t.replace(/"/g, "").startsWith("reason:")) player.removeTag(t);
-                if(t.replace(/"/g, "").startsWith("by:")) player.removeTag(t);
-                if(t.replace(/"/g, "").startsWith("time:")) player.removeTag(t);
+                t = t.replace(/"/g, "");
+                if(t.startsWith("reason:")) player.removeTag(t);
+                if(t.startsWith("by:")) player.removeTag(t);
+                if(t.startsWith("time:")) player.removeTag(t);
             });
             return;
         }
 
-        time = new Date(Number(time));
+        time = msToTime(Number(time));
+        time = `${time.w} weeks, ${time.d} days, ${time.h} hours, ${time.m} minutes, ${time.s} seconds`;
     }
 
     try {
-        player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aUnbanned in:§r ${time || "Never"}`);
+        player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
     } catch {
         player.triggerEvent("scythe:kick");
     }
@@ -179,7 +186,7 @@ export function banMessage(player) {
 /**
  * @name snakeToCamel
  * @param {string} str - The string to convert
- * @example str("minecraft:enchanted_golden_apple");
+ * @example str("minecraft:enchanted_golden_apple"); // returns "enchantedGoldenApple"
  * @remarks Converts a snake_case string to camelCase
  * @returns {string} str - The converted string
  */
@@ -199,7 +206,7 @@ export function snakeToCamel(str) {
 /**
  * @name parseTime
  * @param {string} str - The time value to convert to milliseconds
- * @example str("24d");
+ * @example str("24d"); // returns 2073600000
  * @remarks Parses a time string into milliseconds.
  * @returns {string} str - The converted string
  */
@@ -223,4 +230,33 @@ export function parseTime(str) {
         return ms * num;
     }
     return time;
+}
+
+/**
+ * @name msToTime
+ * @param {string} str - The string to convert
+ * @example str(88200000); // Returns { d: 1, h: 0, m: 30, s: 0 }
+ * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
+ * @returns {string} str - The converted string
+ */
+export function msToTime(str) {
+    // validate that required params are defined
+    if (!str) return console.warn(`${new Date()} | ` + "Error: ${str} isnt defined. Did you forget to pass it? (./util.js:246)");
+
+    if(str > new Date().getTime()) str = str - new Date().getTime();
+
+    // turn miliseconds into days, minutes, seconds, etc
+    const ms = str;
+    const w = Math.floor(ms / (1000 * 60 * 60 * 24 * 7));
+    const d = Math.floor(ms / (1000 * 60 * 60 * 24));
+    const h = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((ms % (1000 * 60)) / 1000);
+    return {
+        w: w,
+        d: d,
+        h: h,
+        m: m,
+        s: s
+    };
 }
