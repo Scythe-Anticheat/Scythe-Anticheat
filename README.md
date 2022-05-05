@@ -30,7 +30,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
   BadEnchants -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for enchantment levels exceeding vanilla limits or negative levels.  (Requires GameTest Framework)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if an item is enchanted with an enchant that cant be applied to the item. (Requires GameTest Framework)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if an item has a lore. (Requires GameTest Framework)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if an item has a lore. (Requires GameTest Framework)<br />
 
   BadPackets -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) => Checks for invalid player head rotations.<br />
