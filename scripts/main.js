@@ -62,7 +62,7 @@ World.events.tick.subscribe(() => {
         player.blocksBroken = 0;
         player.entitiesHit = [];
 
-        if (banList.includes(player.name)) {
+        if(player.isGlobalBanned) {
             player.addTag(`by:Scythe Anticheat`);
             player.addTag(`reason:You are Scythe Anticheat global banned!`);
             player.addTag(`isBanned`);
@@ -303,6 +303,9 @@ World.events.playerJoin.subscribe(playerJoin => {
     try {
         if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
     } catch {}
+
+    // check if the player is in the global ban list
+    if (banList.includes(player.name)) player.isGlobalBanned = true;
 });
 
 World.events.entityCreate.subscribe(entity => {
