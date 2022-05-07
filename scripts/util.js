@@ -64,7 +64,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(checkData.punishment == "kick") {
         try {
             player.runCommand(`kick "${player.nameTag}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
-        } catch(error) {
+        } catch {
             // if we cant /kick them then we despawn them
             player.triggerEvent("scythe:kick");
         }

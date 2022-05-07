@@ -220,16 +220,21 @@ export default
         },
         "badenchantsA": {
             "enabled": true,
-            "minLevel": 0,
             "punishment": "none",
             "minVlbeforeBan": 0
         },
         "badenchantsB": {
             "enabled": true,
+            "minLevel": 0,
             "punishment": "none",
             "minVlbeforeBan": 0
         },
         "badenchantsC": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
+        "badenchantsD": {
             "enabled": true,
             "exclusions": [
                 "(+DATA)"

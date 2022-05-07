@@ -143,10 +143,10 @@ World.events.tick.subscribe(() => {
                     flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, false, false, i);
             }
 
-            // BadEnchants/C = checks if an item has a lore
-            if(config.modules.badenchantsC.enabled && item.getLore().length) {
+            // BadEnchants/D = checks if an item has a lore
+            if(config.modules.badenchantsD.enabled && item.getLore().length) {
                 if(!config.modules.badenchantsC.exclusions.includes(String(item.getLore())))
-                    flag(player, "BadEnchants", "C", "Exploit", "lore", item.getLore(), false, false, i);
+                    flag(player, "BadEnchants", "D", "Exploit", "lore", item.getLore(), false, false, i);
             }
 
             if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled) {
@@ -156,16 +156,20 @@ World.events.tick.subscribe(() => {
                     let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
         
                     if(enchantData) {
-                        // badenchants/a = checks for items with invalid enchantment levels
-                        if(config.modules.badenchantsA.enabled && (enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel || enchantData.level < config.modules.badenchantsA.minLevel))
+                        // badenchants/A = checks for items with invalid enchantment levels
+                        if(config.modules.badenchantsA.enabled && enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
                             flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
-                        // badenchants/b = checks if an item has an enchantment which isnt support by the item
+                        // badenchants/B = checks for negative enchantment levels
+                        if(config.modules.badenchantsB.enabled && enchantData.level < config.modules.badenchantsA.minLevel) 
+                            flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+
+                        // badenchants/C = checks if an item has an enchantment which isnt support by the item
                         // just dont ask.
-                        if(config.modules.badenchantsB.enabled) {
+                        if(config.modules.badenchantsD.enabled) {
                             let item2 = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes[snakeToCamel(item.id)], 1, item.data);
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
-                                flag(player, "BadEnchants", "B", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                                flag(player, "BadEnchants", "C", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
                             }
                         }
                     }
