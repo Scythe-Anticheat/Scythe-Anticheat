@@ -56,6 +56,7 @@ World.events.beforeChat.subscribe(msg => {
 
 World.events.tick.subscribe(() => {
     if(config.modules.itemSpawnRateLimit.enabled) cache.entitiesSpawnedInLastTick = 0;
+    if(config.debug) cache.currentTick++;
 
     // run as each player
     for (let player of World.getPlayers()) {
@@ -138,10 +139,8 @@ World.events.tick.subscribe(() => {
                 flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
                 
             // Illegalitems/F = Checks if an item has a name longer then 32 characters
-            if(config.modules.illegalitemsF.enabled && item.nameTag) {
-                if(item.nameTag.length > config.modules.illegalitemsF.length) 
-                    flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, false, false, i);
-            }
+            if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
+                flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, false, false, i);
 
             // BadEnchants/D = checks if an item has a lore
             if(config.modules.badenchantsD.enabled && item.getLore().length) {
@@ -149,7 +148,7 @@ World.events.tick.subscribe(() => {
                     flag(player, "BadEnchants", "D", "Exploit", "lore", item.getLore(), false, false, i);
             }
 
-            if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled) {
+            if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
                 let itemEnchants = item.getComponent("enchantments").enchantments;
 
                 for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
@@ -188,6 +187,8 @@ World.events.tick.subscribe(() => {
                 flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
             } catch {}
         }
+
+        if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${cache.currentTick}`);
     }
 });
 
@@ -353,7 +354,7 @@ World.events.entityHit.subscribe(entityHit => {
             }
         }
 
-        // reach/A = check if a player hits an entity more then 5 block away
+        // reach/A = check if a player hits an entity more then 4.5 block away
         if(config.modules.reachA.enabled) {
             // get the difference between 2 three dimensional coordinates
             let distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
