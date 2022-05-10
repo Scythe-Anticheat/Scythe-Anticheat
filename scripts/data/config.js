@@ -204,7 +204,9 @@ export default
                 "minecraft:info_update",
                 "minecraft:info_update2",
                 "minecraft:client_request_placeholder_block",
-                "minecraft:invisiblebedrock"
+                "minecraft:invisible_bedrock",
+                "minecraft:piston_arm_collision",
+                "minecraft:sticky_piston_arm_collision"
             ],
             "punishment": "ban",
             "minVlbeforeBan": 1
