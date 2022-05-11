@@ -5,7 +5,6 @@ import * as Minecraft from "mojang-minecraft";
  * @param {object} message - Message object
  */
  export function gui(message) {
-    console.warn(1);
     // validate that required params are defined
     if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/utility/gui.js:7)");
     
