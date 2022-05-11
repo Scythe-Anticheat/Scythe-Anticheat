@@ -32,6 +32,7 @@ import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
 import { report } from "./other/report.js";
 import { unban } from "./moderation/unban.js";
+import { gui } from "./utility/gui.js";
 
 /**
  * @name commandHandler
@@ -57,7 +58,7 @@ export function commandHandler(player, message) {
     // we could much easily get rid of the if/else chain only if we have npm support...
     try {
         if (config.customcommands.kick && commandName === "kick") kick(message, args);
-        else if (config.customcommands.tag && commandName === "tag" || commandName === "nametag") tag(message, args);
+        else if (config.customcommands.tag && commandName === "tag" || commandName === "rank") tag(message, args);
         else if (config.customcommands.ban && commandName === "ban") ban(message, args);
         else if (config.customcommands.notify && commandName === "notify") notify(message);
         else if (config.customcommands.vanish && commandName === "vanish" || commandName === "v") vanish(message);
@@ -87,6 +88,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.autoban && commandName === "autoban") autoban(message);
         else if (config.customcommands.report && commandName === "report") report(message, args);
         else if (config.customcommands.unban && commandName === "unban") unban(message, args);
+        else if (config.customcommands.gui && commandName === "gui") gui(message);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + error);

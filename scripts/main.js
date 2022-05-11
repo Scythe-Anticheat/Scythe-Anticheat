@@ -4,6 +4,7 @@ import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
 import cache from "./data/cache.js";
+import { mainGui } from "./features/ui.js";
 
 const World = Minecraft.world;
 
@@ -188,7 +189,7 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
-        if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${cache.currentTick}`);
+        // if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${cache.currentTick}`);
     }
 });
 
@@ -372,5 +373,16 @@ World.events.entityHit.subscribe(entityHit => {
         // badpackets/3 = checks if a player attacks themselves
         // some (bad) hacks use this to bypass anti-movement cheat checks
         if(config.modules.badpackets3.enabled && entity === player) flag(player, "BadPackets", "3", "Exploit");
+    }
+});
+
+World.events.beforeItemUse.subscribe((beforeItemUse) => {
+    let item = beforeItemUse.item;
+    let player = beforeItemUse.source;
+
+    // GUI stuff
+    if(config.customcommands.gui && item.id == "minecraft:wooden_axe" && item.nameTag == "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
+        mainGui(player);
+        beforeItemUse.cancel = true;
     }
 });

@@ -33,7 +33,8 @@ export default
         "tag": true,
         "vanish": true,
         "report": true,
-        "unban": true
+        "unban": true,
+        "gui": true
     },
     "modules": {
         "itemSpawnRateLimit": {
