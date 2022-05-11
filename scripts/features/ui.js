@@ -44,11 +44,51 @@ function playerSettingsMenu(player) {
         .body(`Please select a player to manage.`);
     
     for(player of World.getPlayers()) {
-        form.button(`${player.name}`, playerIcons[~~(Math.random() * playerIcons.length)]);
+        form.button(`${player.name}`, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
 
-    form.show(player).then(() => {
+    form.button(`Back`, `textures/ui/arrow_left.png`);
 
+    form.show(player).then((response) => {
+        if([...World.getPlayers()].length > response.selection) playerSettingsMenuSelected(player, [...World.getPlayers()][response.selection]);
+            else mainGui(player);
+    });
+}
+
+function playerSettingsMenuSelected(player, playerSelected) {
+    player.playSound("mob.chicken.plop");
+
+    const form = new MinecraftUI.ActionFormData()
+        .title("Player Menu")
+        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}`)
+        .button(`Kick Player`, "textures/ui/anvil_icon.png");
+
+    if(!playerSelected.hasTag("op")) form.button(`Set Player as Scythe-Op`, `textures/ui/op.png`);
+        else form.button(`Remove Player as Scythe-Op`, `textures/ui/permissions_member_star.png`);
+
+    form.button(`View Anticheat Logs`, "textures/ui/WarningGlyph.png");
+    form.button(`Back`, `textures/ui/arrow_left.png`);
+
+    form.show(player).then((response) => {
+        if(response.selection == 0) {
+            try {
+                player.runCommand(`kick "${playerSelected.nameTag}" You have been kicked from the game by ${player.name}.`);
+            } catch {
+                playerSelected.triggerEvent("scythe:kick");
+            }
+        }
+        if(response.selection == 1) {
+            if(player.hasTag("op")) {
+                playerSelected.removeTag("op");
+                playerSettingsMenuSelected(player, playerSelected);
+            } else {
+                playerSelected.addTag("op");
+                playerSettingsMenuSelected(player, playerSelected);
+            }
+        }
+        if(response.selection == 2) playerSelected.runCommand("function tools/stats");
+        
+        if(response.selection == 3) playerSettingsMenu(player);
     });
 }
 
