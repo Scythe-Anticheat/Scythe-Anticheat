@@ -26,6 +26,8 @@ import * as Minecraft from "mojang-minecraft";
     let enchantments = item.getComponent("enchantments").enchantments;
     enchantments.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes.unbreaking, 3));
 
+    item.getComponent("enchantments").enchantments = enchantments;
+
     // get the player's inventory component
     let container = player.getComponent("inventory").container;
 
