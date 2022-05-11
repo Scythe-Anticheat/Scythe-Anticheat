@@ -377,7 +377,7 @@ World.events.entityHit.subscribe(entityHit => {
         // check if the player was hit with the UI item, and if so open the UI for that player
         let container = player.getComponent("inventory").container;
 
-        if(config.customcommands.gui && container.getItem(player.selectedSlot).id == "minecraft:wooden_axe" && container.getItem(player.selectedSlot).nameTag == "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
+        if(config.customcommands.gui && player.hasTag("op") && entity.id == "minecraft:player" && container.getItem(player.selectedSlot).id == "minecraft:wooden_axe" && container.getItem(player.selectedSlot).nameTag == "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
         }
     }
