@@ -4,7 +4,7 @@ import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
 import cache from "./data/cache.js";
-import { mainGui } from "./features/ui.js";
+import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 
 const World = Minecraft.world;
 
@@ -373,6 +373,13 @@ World.events.entityHit.subscribe(entityHit => {
         // badpackets/3 = checks if a player attacks themselves
         // some (bad) hacks use this to bypass anti-movement cheat checks
         if(config.modules.badpackets3.enabled && entity === player) flag(player, "BadPackets", "3", "Exploit");
+    
+        // check if the player was hit with the UI item, and if so open the UI for that player
+        let container = player.getComponent("inventory").container;
+
+        if(config.customcommands.gui && container.getItem(player.selectedSlot).id == "minecraft:wooden_axe" && container.getItem(player.selectedSlot).nameTag == "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
+            playerSettingsMenuSelected(player, entity);
+        }
     }
 });
 

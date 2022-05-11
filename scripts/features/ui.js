@@ -43,8 +43,8 @@ function playerSettingsMenu(player) {
         .title("Player Menu")
         .body(`Please select a player to manage.`);
     
-    for(player of World.getPlayers()) {
-        form.button(`${player.name}`, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
+    for(let plr of World.getPlayers()) {
+        form.button(plr.name, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
 
     form.button(`Back`, `textures/ui/arrow_left.png`);
@@ -55,17 +55,22 @@ function playerSettingsMenu(player) {
     });
 }
 
-function playerSettingsMenuSelected(player, playerSelected) {
+export function playerSettingsMenuSelected(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
     const form = new MinecraftUI.ActionFormData()
         .title("Player Menu")
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}`)
+        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}`)
         .button(`Kick Player`, "textures/ui/anvil_icon.png");
+    
+    if(!playerSelected.hasTag("isMuted")) form.button(`Mute Player`, `textures/ui/mute_on.png`);
+        else form.button(`Unmute Player`, `textures/ui/mute_off.png`);
 
     if(!playerSelected.hasTag("op")) form.button(`Set Player as Scythe-Op`, `textures/ui/op.png`);
         else form.button(`Remove Player as Scythe-Op`, `textures/ui/permissions_member_star.png`);
 
+    form.button(`Teleport To`, "textures/ui/arrow.png");
+    form.button(`Teleport Here`, "textures/ui/arrow_down.png");
     form.button(`View Anticheat Logs`, "textures/ui/WarningGlyph.png");
     form.button(`Back`, `textures/ui/arrow_left.png`);
 
@@ -78,7 +83,16 @@ function playerSettingsMenuSelected(player, playerSelected) {
             }
         }
         if(response.selection == 1) {
-            if(player.hasTag("op")) {
+            if(playerSelected.hasTag("isMuted")) {
+                playerSelected.removeTag("isMuted");
+                playerSettingsMenuSelected(player, playerSelected);
+            } else {
+                playerSelected.addTag("isMuted");
+                playerSettingsMenuSelected(player, playerSelected);
+            }
+        }
+        if(response.selection == 2) {
+            if(playerSelected.hasTag("op")) {
                 playerSelected.removeTag("op");
                 playerSettingsMenuSelected(player, playerSelected);
             } else {
@@ -86,9 +100,10 @@ function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         }
-        if(response.selection == 2) playerSelected.runCommand("function tools/stats");
-        
-        if(response.selection == 3) playerSettingsMenu(player);
+        if(response.selection == 3) player.runCommand(`tp @s "${playerSelected.nameTag}"`);
+        if(response.selection == 4) player.runCommand(`tp "${playerSelected.nameTag}" @s`);
+        if(response.selection == 5) playerSelected.runCommand("function tools/stats");
+        if(response.selection == 6) playerSettingsMenu(player);
     });
 }
 
