@@ -69,9 +69,12 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     const playerSettingsMenuSelected = new MinecraftUI.ActionFormData()
         .title("Player Menu")
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("frozen")}\nVanished: ${playerSelected.hasTag("vanish")}`)
+        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("frozen")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
         .button(`Clear EnderChest`, "textures/blocks/ender_chest_front.png")
         .button(`Kick Player`, "textures/ui/anvil_icon.png");
+
+    if(!playerSelected.hasTag("flying")) playerSettingsMenuSelected.button(`Enable Fly Mode`, `textures/ui/levitation_effect.png`);
+        else playerSettingsMenuSelected.button(`Disable Fly Mode`, `textures/ui/levitation_effect.png`);
     
     if(!playerSelected.hasTag("isMuted")) playerSettingsMenuSelected.button(`Mute Player`, `textures/ui/mute_on.png`);
         else playerSettingsMenuSelected.button(`Unmute Player`, `textures/ui/mute_off.png`);
@@ -93,6 +96,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSelected.removeTag("op");
             }
             playerSelected.runCommand("function tools/ecwipe");
+            player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has cleared ${player.name}'s enderchest."}]}`);
             if(isOp) playerSelected.addTag("op");
         }
         if(response.selection === 1) {
@@ -101,29 +105,47 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             } catch {
                 playerSelected.triggerEvent("scythe:kick");
             }
+            player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has been kicked by ${player.name}."}]}`);
         }
         if(response.selection === 2) {
-            if(playerSelected.hasTag("isMuted")) {
-                playerSelected.removeTag("isMuted");
+            if(playerSelected.hasTag("flying")) {
+                playerSelected.removeTag("flying");
+                playerSelected.runCommand("ability @s mayfly false");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has disabled fly mode for ${player.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             } else {
-                playerSelected.addTag("isMuted");
+                playerSelected.addTag("flying");
+                playerSelected.runCommand("ability @s mayfly true");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has enabled fly mode for ${player.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             }
         }
         if(response.selection === 3) {
-            if(playerSelected.hasTag("op")) {
-                playerSelected.removeTag("op");
+            if(playerSelected.hasTag("isMuted")) {
+                playerSelected.removeTag("isMuted");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has been unmuted by ${player.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             } else {
-                playerSelected.addTag("op");
+                playerSelected.addTag("isMuted");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has been muted by ${player.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             }
         }
-        if(response.selection === 4) playerSettingsMenuSelectedTeleport(player, playerSelected);
-        if(response.selection === 5) playerSettingsMenuSelectedGamemode(player, playerSelected);
-        if(response.selection === 6) playerSelected.runCommand("function tools/stats");
-        if(response.selection === 7 || !response.selection) playerSettingsMenu(player);
+        if(response.selection === 4) {
+            if(playerSelected.hasTag("op")) {
+                playerSelected.removeTag("op");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} is no longer Scythe-Opped by ${player.name}."}]}`);
+                playerSettingsMenuSelected(player, playerSelected);
+            } else {
+                playerSelected.addTag("op");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} is now Scythe-Opped by ${player.name}."}]}`);
+                playerSettingsMenuSelected(player, playerSelected);
+            }
+        }
+        if(response.selection === 5) playerSettingsMenuSelectedTeleport(player, playerSelected);
+        if(response.selection === 6) playerSettingsMenuSelectedGamemode(player, playerSelected);
+        if(response.selection === 7) playerSelected.runCommand("function tools/stats");
+        if(response.selection === 8 || !response.selection) playerSettingsMenu(player);
     });
 }
 
