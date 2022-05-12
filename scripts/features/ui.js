@@ -1,6 +1,8 @@
 import * as Minecraft from "mojang-minecraft";
 import * as MinecraftUI from "mojang-minecraft-ui";
 
+import config from "../data/config.js";
+
 let World = Minecraft.world;
 
 // this is the function that will be called when the player wants to open the GUI
@@ -90,6 +92,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     playerSettingsMenuSelected.show(player).then((response) => {
         if(response.selection === 0) {
+            if(!config.customcommands.ecwipe) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Enderchest wiping is disabled in config.js."}]}`);
             let isOp;
             if (playerSelected.hasTag("op")) {
                 isOp = true;
@@ -100,6 +103,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             if(isOp) playerSelected.addTag("op");
         }
         if(response.selection === 1) {
+            if(!config.customcommands.kick) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Kicking players is disabled in config.js."}]}`);
             try {
                 player.runCommand(`kick "${playerSelected.nameTag}" You have been kicked from the game by ${player.name}.`);
             } catch {
@@ -108,6 +112,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has been kicked by ${player.name}."}]}`);
         }
         if(response.selection === 2) {
+            if(!config.customcommands.fly) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Toggling Fly is disabled in config.js."}]}`);
             if(playerSelected.hasTag("flying")) {
                 playerSelected.removeTag("flying");
                 playerSelected.runCommand("ability @s mayfly false");
@@ -121,6 +126,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             }
         }
         if(response.selection === 3) {
+            if(!config.customcommands.mute) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Muting players is disabled in config.js."}]}`);
             if(playerSelected.hasTag("isMuted")) {
                 playerSelected.removeTag("isMuted");
                 player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has been unmuted by ${player.name}."}]}`);
@@ -132,6 +138,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             }
         }
         if(response.selection === 4) {
+            if(!config.customcommands.op) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Scythe-Opping players is disabled in config.js."}]}`);
             if(playerSelected.hasTag("op")) {
                 playerSelected.removeTag("op");
                 player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} is no longer Scythe-Opped by ${player.name}."}]}`);
