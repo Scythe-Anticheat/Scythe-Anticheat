@@ -11,7 +11,7 @@ export function mainGui(player) {
     // make sound effect
     player.playSound("mob.chicken.plop");
 
-    const form = new MinecraftUI.ActionFormData()
+    const mainGui = new MinecraftUI.ActionFormData()
 		.title("Scythe Anticheat UI")
 		.body(`Hello ${player.name},\n\nPlease select an option below.`)
 		.button("Ban Menu", "textures/ui/anvil_icon.png")
@@ -19,12 +19,12 @@ export function mainGui(player) {
         .button("Player Options", "textures/ui/FriendsDiversity.png")
         .button("Server Options", "textures/ui/servers.png")
         .button("Exit", "textures/ui/redX1.png");
-    form.show(player).then((response) => {
-        if(response.selection == 0) banMenu(player);
-        if(response.selection == 1) settingsMenu(player);
-        if(response.selection == 2) playerSettingsMenu(player);
-        if(response.selection == 3) worldSettingsMenu(player);
-        if(response.selection == 4) return;
+    mainGui.show(player).then((response) => {
+        if(response.selection === 0) banMenu(player);
+        if(response.selection === 1) settingsMenu(player);
+        if(response.selection === 2) playerSettingsMenu(player);
+        if(response.selection === 3) worldSettingsMenu(player);
+        if(response.selection === 4) return;
     });
 }
 
@@ -69,7 +69,8 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     const playerSettingsMenuSelected = new MinecraftUI.ActionFormData()
         .title("Player Menu")
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}`)
+        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("frozen")}\nVanished: ${playerSelected.hasTag("vanish")}`)
+        .button(`Clear EnderChest`, "textures/blocks/ender_chest_front.png")
         .button(`Kick Player`, "textures/ui/anvil_icon.png");
     
     if(!playerSelected.hasTag("isMuted")) playerSettingsMenuSelected.button(`Mute Player`, `textures/ui/mute_on.png`);
@@ -78,20 +79,30 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     if(!playerSelected.hasTag("op")) playerSettingsMenuSelected.button(`Set Player as Scythe-Op`, `textures/ui/op.png`);
         else playerSettingsMenuSelected.button(`Remove Player as Scythe-Op`, `textures/ui/permissions_member_star.png`);
 
-    playerSettingsMenuSelected.button(`Teleport`, "textures/ui/arrow.png");
-    playerSettingsMenuSelected.button(`Switch Gamemode`, "textures/ui/op.png");
-    playerSettingsMenuSelected.button(`View Anticheat Logs`, "textures/ui/WarningGlyph.png");
-    playerSettingsMenuSelected.button(`Back`, `textures/ui/arrow_left.png`);
+    playerSettingsMenuSelected
+        .button(`Teleport`, "textures/ui/arrow.png")
+        .button(`Switch Gamemode`, "textures/ui/op.png")
+        .button(`View Anticheat Logs`, "textures/ui/WarningGlyph.png")
+        .button(`Back`, `textures/ui/arrow_left.png`);
 
     playerSettingsMenuSelected.show(player).then((response) => {
-        if(response.selection == 0) {
+        if(response.selection === 0) {
+            let isOp;
+            if (playerSelected.hasTag("op")) {
+                isOp = true;
+                playerSelected.removeTag("op");
+            }
+            playerSelected.runCommand("function tools/ecwipe");
+            if(isOp) playerSelected.addTag("op");
+        }
+        if(response.selection === 1) {
             try {
                 player.runCommand(`kick "${playerSelected.nameTag}" You have been kicked from the game by ${player.name}.`);
             } catch {
                 playerSelected.triggerEvent("scythe:kick");
             }
         }
-        if(response.selection == 1) {
+        if(response.selection === 2) {
             if(playerSelected.hasTag("isMuted")) {
                 playerSelected.removeTag("isMuted");
                 playerSettingsMenuSelected(player, playerSelected);
@@ -100,7 +111,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         }
-        if(response.selection == 2) {
+        if(response.selection === 3) {
             if(playerSelected.hasTag("op")) {
                 playerSelected.removeTag("op");
                 playerSettingsMenuSelected(player, playerSelected);
@@ -109,10 +120,10 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         }
-        if(response.selection == 3) playerSettingsMenuSelectedTeleport(player, playerSelected);
-        if(response.selection == 4) playerSettingsMenuSelectedGamemode(player, playerSelected);
-        if(response.selection == 5) playerSelected.runCommand("function tools/stats");
-        if(response.selection == 6 || !response.selection) playerSettingsMenu(player);
+        if(response.selection === 4) playerSettingsMenuSelectedTeleport(player, playerSelected);
+        if(response.selection === 5) playerSettingsMenuSelectedGamemode(player, playerSelected);
+        if(response.selection === 6) playerSelected.runCommand("function tools/stats");
+        if(response.selection === 7 || !response.selection) playerSettingsMenu(player);
     });
 }
 
@@ -121,15 +132,15 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
 
     const playerSettingsMenuSelectedTeleport = new MinecraftUI.ActionFormData()
         .title("Teleport Menu")
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}`)
+        .body(`Managing ${playerSelected.name}.`)
         .button(`Teleport To`, "textures/ui/arrow.png")
         .button(`Teleport Here`, "textures/ui/arrow_down.png")
         .button(`Back`, `textures/ui/arrow_left.png`);
 
     playerSettingsMenuSelectedTeleport.show(player).then((response) => {
-        if(response.selection == 0) player.runCommand(`tp @s "${playerSelected.nameTag}"`);
-        if(response.selection == 1) player.runCommand(`tp "${playerSelected.nameTag}" @s`);
-        if(response.selection == 2 || !response.selection) playerSettingsMenuSelected(player, playerSelected);
+        if(response.selection === 0) player.runCommand(`tp @s "${playerSelected.nameTag}"`);
+        if(response.selection === 1) player.runCommand(`tp "${playerSelected.nameTag}" @s`);
+        if(response.selection === 2 || !response.selection) playerSettingsMenuSelected(player, playerSelected);
     });
 }
 
@@ -138,17 +149,17 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 
     const playerSettingsMenuSelectedGamemode = new MinecraftUI.ActionFormData()
         .title("Gamemode Menu")
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}`)
+        .body(`Managing ${playerSelected.name}.`)
         .button(`Gamemode Creative`, "textures/ui/op.png")
         .button(`Gamemode Survival`, "textures/ui/permissions_member_star.png")
         .button(`Gamemode Adventure`, "textures/ui/permissions_visitor_hand.png")
         .button(`Back`, `textures/ui/arrow_left.png`);
 
         playerSettingsMenuSelectedGamemode.show(player).then((response) => {
-        if(response.selection == 0) player.runCommand(`gamemode 1 "${playerSelected.nameTag}"`);
-        if(response.selection == 1) player.runCommand(`gamemode 0 "${playerSelected.nameTag}"`);
-        if(response.selection == 2) player.runCommand(`gamemode 2 "${playerSelected.nameTag}"`);
-        if(response.selection == 3 || !response.selection) playerSettingsMenuSelected(player, playerSelected);
+            if(response.selection === 0) player.runCommand(`gamemode 1 "${playerSelected.nameTag}"`);
+            if(response.selection === 1) player.runCommand(`gamemode 0 "${playerSelected.nameTag}"`);
+            if(response.selection === 2) player.runCommand(`gamemode 2 "${playerSelected.nameTag}"`);
+            if(response.selection === 3 || !response.selection) playerSettingsMenuSelected(player, playerSelected);
     });
 }
 
