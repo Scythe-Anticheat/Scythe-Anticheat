@@ -8,9 +8,6 @@ let World = Minecraft.world;
 // this is the function that will be called when the player wants to open the GUI
 // all other GUI functions will be called from here
 export function mainGui(player) {
-    if(!player.hasTag("op")) return;
-
-    // make sound effect
     player.playSound("mob.chicken.plop");
 
     const mainGui = new MinecraftUI.ActionFormData()
@@ -65,8 +62,6 @@ function playerSettingsMenu(player) {
 }
 
 export function playerSettingsMenuSelected(player, playerSelected) {
-    if(!player.hasTag("op")) return;
-
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenuSelected = new MinecraftUI.ActionFormData()
@@ -77,12 +72,18 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     if(!playerSelected.hasTag("flying")) playerSettingsMenuSelected.button(`Enable Fly Mode`, `textures/ui/levitation_effect.png`);
         else playerSettingsMenuSelected.button(`Disable Fly Mode`, `textures/ui/levitation_effect.png`);
+
+    if(!playerSelected.hasTag("frozen")) playerSettingsMenuSelected.button(`Freeze Player`, `textures/ui/icon_winter.png`);
+        else playerSettingsMenuSelected.button(`Unfreeze Player`, `textures/ui/icon_winter.png`);
     
     if(!playerSelected.hasTag("isMuted")) playerSettingsMenuSelected.button(`Mute Player`, `textures/ui/mute_on.png`);
         else playerSettingsMenuSelected.button(`Unmute Player`, `textures/ui/mute_off.png`);
 
     if(!playerSelected.hasTag("op")) playerSettingsMenuSelected.button(`Set Player as Scythe-Op`, `textures/ui/op.png`);
         else playerSettingsMenuSelected.button(`Remove Player as Scythe-Op`, `textures/ui/permissions_member_star.png`);
+
+    if(!playerSelected.hasTag("vanish")) playerSettingsMenuSelected.button(`Vanish Player`, `textures/ui/invisibility_effect.png`);
+        else playerSettingsMenuSelected.button(`Un-Vanish Player`, `textures/ui/invisibility_effect.png`);
 
     playerSettingsMenuSelected
         .button(`Teleport`, "textures/ui/arrow.png")
@@ -114,18 +115,28 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         if(response.selection === 2) {
             if(!config.customcommands.fly) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Toggling Fly is disabled in config.js."}]}`);
             if(playerSelected.hasTag("flying")) {
-                playerSelected.removeTag("flying");
-                playerSelected.runCommand("ability @s mayfly false");
-                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has disabled fly mode for ${player.name}."}]}`);
+                playerSelected.runCommand("function tools/fly");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has disabled fly mode for ${playerSelected.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             } else {
-                playerSelected.addTag("flying");
-                playerSelected.runCommand("ability @s mayfly true");
-                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has enabled fly mode for ${player.name}."}]}`);
+                playerSelected.runCommand("function tools/fly");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has enabled fly mode for ${playerSelected.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             }
         }
         if(response.selection === 3) {
+            if(!config.customcommands.freeze) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Toggling Frozen State is disabled in config.js."}]}`);
+            if(playerSelected.hasTag("frozen")) {
+                playerSelected.runCommand("function tools/freeze");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has unfrozen for ${playerSelected.name}."}]}`);
+                playerSettingsMenuSelected(player, playerSelected);
+            } else {
+                playerSelected.runCommand("function tools/freeze");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has frozen for ${playerSelected.name}."}]}`);
+                playerSettingsMenuSelected(player, playerSelected);
+            }
+        }
+        if(response.selection === 4) {
             if(!config.customcommands.mute) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Muting players is disabled in config.js."}]}`);
             if(playerSelected.hasTag("isMuted")) {
                 playerSelected.removeTag("isMuted");
@@ -137,7 +148,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         }
-        if(response.selection === 4) {
+        if(response.selection === 5) {
             if(!config.customcommands.op) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Scythe-Opping players is disabled in config.js."}]}`);
             if(playerSelected.hasTag("op")) {
                 playerSelected.removeTag("op");
@@ -149,10 +160,22 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         }
-        if(response.selection === 5) playerSettingsMenuSelectedTeleport(player, playerSelected);
-        if(response.selection === 6) playerSettingsMenuSelectedGamemode(player, playerSelected);
-        if(response.selection === 7) playerSelected.runCommand("function tools/stats");
-        if(response.selection === 8 || !response.selection) playerSettingsMenu(player);
+        if(response.selection === 6) {
+            if(!config.customcommands.vanish) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Toggling Vanish is disabled in config.js."}]}`);
+            if(playerSelected.hasTag("vanished")) {
+                playerSelected.runCommand("function tools/vanish");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has put ${playerSelected.name} into vanish."}]}`);
+                playerSettingsMenuSelected(player, playerSelected);
+            } else {
+                playerSelected.runCommand("function tools/vanish");
+                player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has unvanished ${playerSelected.name}."}]}`);
+                playerSettingsMenuSelected(player, playerSelected);
+            }
+        }
+        if(response.selection === 7) playerSettingsMenuSelectedTeleport(player, playerSelected);
+        if(response.selection === 8) playerSettingsMenuSelectedGamemode(player, playerSelected);
+        if(response.selection === 9) playerSelected.runCommand("function tools/stats");
+        if(response.selection === 10 || !response.selection) playerSettingsMenu(player);
     });
 }
 
