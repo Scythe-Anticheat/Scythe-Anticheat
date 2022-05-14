@@ -8,7 +8,6 @@ function checks/illegalitems
 function checks/others
 
 # Specific criteria checks
-execute @s[type=player,scores={attacks=1..,autoclicker=..0}] ~~~ function checks/autoclicker
 execute @s[type=player,tag=isBanned] ~~~ function checks/ban
 
 # Optional checks

@@ -48,9 +48,7 @@
 					// Anticheat Objectives
 					"/scoreboard objectives add autototemvl dummy",
 					"/scoreboard objectives add invmovevl dummy",
-					"/scoreboard objectives add attacks dummy",
 					"/scoreboard objectives add autoclickervl dummy",
-					"/scoreboard objectives add attack_timer dummy",
 					"/scoreboard objectives add right dummy",
 					"/scoreboard objectives add cbevl dummy",
 					"/scoreboard objectives add gamemodevl dummy",

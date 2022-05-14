@@ -20,7 +20,7 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
 # List of hacks detected by Scythe AntiCheat
 
   AutoClicker -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Max CPS check.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS. (Requires GameTest Framework).
 
   AutoTotem -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player equips a totem while moving.<br />

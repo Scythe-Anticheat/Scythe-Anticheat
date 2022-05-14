@@ -261,6 +261,13 @@ export default
             "enabled": true,
             "punishment": "ban",
             "minVlbeforeBan": 1
+        },
+        "autoclickerA": {
+            "enabled": true,
+            "maxCPS": 12,
+            "checkCPSAfter": 1000,
+            "punishment": "none",
+            "minVlbeforeBan": 0
         }
     }
 };

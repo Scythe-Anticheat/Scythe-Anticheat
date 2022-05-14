@@ -188,6 +188,13 @@ World.events.tick.subscribe(() => {
                 flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
             } catch {}
         }
+        
+        // autoclicker/a = checks for high cps
+        if(config.modules.autoclickerA.enabled && player.cps > 0 && new Date().getTime() - player.firstAttack > config.modules.autoclickerA.checkCPSAfter) {
+            if(player.cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", "CPS", player.cps);
+            player.firstAttack = new Date().getTime();
+            player.cps = 0;
+        }
 
         // if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${cache.currentTick}`);
     }
@@ -379,6 +386,23 @@ World.events.entityHit.subscribe(entityHit => {
 
         if(config.customcommands.gui && entity.id == "minecraft:player" && container.getItem(player.selectedSlot)?.id == "minecraft:wooden_axe" && (player.hasTag("op") || player === entity) && container.getItem(player.selectedSlot)?.nameTag == "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
+        }
+        
+        // autoclicker/a = check for high cps
+        if(config.modules.autoclickerA.enabled) {
+            // if anti-autoclicker is disabled in game then disable it in config.js
+            if(!player.checkIfAutoclickerDisabled) {
+                try {
+                    player.runCommand("testfor @s[scores={autoclicker=..0}");
+                } catch {
+                    config.modules.autoclickerA.enabled = false;
+                }
+                player.checkIfAutoclickerDisabled = true;
+            }
+
+            if(!player.firstAttack) player.firstAttack = new Date().getTime();
+            if(!player.cps) player.cps = 0;
+            player.cps++;
         }
     }
 });
