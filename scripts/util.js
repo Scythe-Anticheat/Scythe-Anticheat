@@ -53,9 +53,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         try {
             if(slot <= 8) player.runCommand(`replaceitem entity @s slot.hotbar ${slot} air 1`);
                 else player.runCommand(`replaceitem entity @s slot.inventory ${slot - 9} air 1`);
-        } catch(error) {
-            console.warn(`${new Date()} | ` + error);
-        }
+        } catch {}
     }
 
     let checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
@@ -210,7 +208,7 @@ export function snakeToCamel(str) {
  */
 export function parseTime(str) {
     // validate that required params are defined
-    if (!str) return console.warn(`${new Date()} | ` + "Error: ${str} isnt defined. Did you forget to pass it? (./util.js:216)");
+    if (!str) return console.warn(`${new Date()} | ` + "Error: ${str} isnt defined. Did you forget to pass it? (./util.js:211)");
 
     // parse time values like 12h, 1d, 10m into milliseconds
 

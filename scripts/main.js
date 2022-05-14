@@ -297,21 +297,17 @@ World.events.playerJoin.subscribe(playerJoin => {
 
     // Namespoof/A = username length check.
     if (config.modules.namespoofA.enabled) {
-        try {
-            // checks if 2 players are logged in with the same name
-            // minecraft adds a sufix to the end of the name which we detect
-            if(player.name.endsWith(')') && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
-                player.flagNamespoofA = true;
+        // checks if 2 players are logged in with the same name
+        // minecraft adds a sufix to the end of the name which we detect
+        if(player.name?.endsWith(')') && (player.name?.length > config.modules.namespoofA.maxNameLength + 3 || player.name?.length < config.modules.namespoofA.minNameLength))
+            player.flagNamespoofA = true;
 
-            if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
-                player.flagNamespoofA = true;
-        } catch {}
+        if(!player.name?.endsWith(')') && (player.name?.length < config.modules.namespoofA.minNameLength || player.name?.length > config.modules.namespoofA.maxNameLength))
+            player.flagNamespoofA = true;
     }
 
     // Namespoof/B = regex check
-    try {
-        if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
-    } catch {}
+    if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
 
     // check if the player is in the global ban list
     if (banList.includes(player.name)) player.isGlobalBanned = true;
@@ -391,13 +387,13 @@ World.events.entityHit.subscribe(entityHit => {
         // autoclicker/a = check for high cps
         if(config.modules.autoclickerA.enabled) {
             // if anti-autoclicker is disabled in game then disable it in config.js
-            if(!player.checkIfAutoclickerDisabled) {
+            if(!cache.checkedModules.autoclicker) {
                 try {
                     player.runCommand("testfor @s[scores={autoclicker=..0}");
                 } catch {
                     config.modules.autoclickerA.enabled = false;
                 }
-                player.checkIfAutoclickerDisabled = true;
+                cache.checkedModules.autoclicker = true;
             }
 
             if(!player.firstAttack) player.firstAttack = new Date().getTime();
