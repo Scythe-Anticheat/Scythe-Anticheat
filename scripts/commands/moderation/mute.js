@@ -34,6 +34,11 @@ export function mute(message, args) {
     try {
         member.addTag("isMuted");
         member.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been muted. Reason: ${reason}"}]}`);
+
+        // remove chat ability
+        try {
+            member.runCommand("ability @s mute true");
+        } catch {}
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to mute that player."}]}`);

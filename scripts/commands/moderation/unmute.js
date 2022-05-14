@@ -31,6 +31,11 @@ export function unmute(message, args) {
     try {
         member.removeTag("isMuted");
         member.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been unmuted."}]}`);
+    
+        // add chat ability
+        try {
+            member.runCommand("ability @s mute false");
+        } catch {}
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to unmute that player."}]}`);
