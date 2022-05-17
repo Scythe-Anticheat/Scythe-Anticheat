@@ -189,9 +189,19 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
         
-        // autoclicker/a = checks for high cps
         if(config.modules.autoclickerA.enabled && player.cps > 0 && new Date().getTime() - player.firstAttack > config.modules.autoclickerA.checkCPSAfter) {
+            player.cps = player.cps / ((new Date().getTime() - player.firstAttack) / 1000);
+            // autoclicker/A = checks for high cps
             if(player.cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", "CPS", player.cps);
+            
+            // player.runCommand(`say ${player.cps} ${player.lastCPS}`);
+
+            // autoclicker/B = checks if cps is similar to last cps (WIP)
+            /*
+            if(String(player.cps).substring(0, 3) == String(player.lastCPS)?.substring(0, 4)) flag(player, "AutoClicker", "B", "Combat", "CPS", `${player.cps},last_cps=${player.lastCPS}`);
+            player.lastCPS = player.cps;
+            */
+
             player.firstAttack = new Date().getTime();
             player.cps = 0;
         }
@@ -380,7 +390,7 @@ World.events.entityHit.subscribe(entityHit => {
         // check if the player was hit with the UI item, and if so open the UI for that player
         let container = player.getComponent("inventory").container;
 
-        if(config.customcommands.gui && entity.id == "minecraft:player" && container.getItem(player.selectedSlot)?.id == "minecraft:wooden_axe" && (player.hasTag("op") || player === entity) && container.getItem(player.selectedSlot)?.nameTag == "§r§l§aRight click to Open the UI") {
+        if(config.customcommands.gui && entity.id == "minecraft:player" && container.getItem(player.selectedSlot)?.id == "minecraft:wooden_axe" && player.hasTag("op") && container.getItem(player.selectedSlot)?.nameTag == "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
         }
         
@@ -389,7 +399,7 @@ World.events.entityHit.subscribe(entityHit => {
             // if anti-autoclicker is disabled in game then disable it in config.js
             if(!cache.checkedModules.autoclicker) {
                 try {
-                    player.runCommand("testfor @s[scores={autoclicker=..0}");
+                    player.runCommand("testfor @s[scores={autoclicker=..0}]");
                 } catch {
                     config.modules.autoclickerA.enabled = false;
                 }
