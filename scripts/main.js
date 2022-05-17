@@ -371,7 +371,7 @@ World.events.entityHit.subscribe(entityHit => {
         // reach/A = check if a player hits an entity more then 4.5 block away
         if(config.modules.reachA.enabled) {
             // get the difference between 2 three dimensional coordinates
-            let distance = Math.sqrt((entity.location.x - player.location.x)**2 + (entity.location.y - player.location.y)**2 + (entity.location.z - player.location.z)**2);
+            let distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
             if(config.debug) console.warn(`${player.name} attacked ${entityHitName} with a distance of ${distance}`);
 
             if(distance > config.modules.reachA.reach) {
