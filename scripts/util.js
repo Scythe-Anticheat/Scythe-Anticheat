@@ -69,8 +69,10 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     } else if(checkData.punishment == "ban") {
         try {
             player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${checkData.minVlbeforeBan}..}]`);
-            player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
-
+            try {
+                player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+            } catch {}
+                
             // this removes old ban stuff
             player.getTags().forEach(t => {
                 t = t.replace(/"/g, "");
