@@ -232,21 +232,20 @@ export function parseTime(str) {
 
 /**
  * @name msToTime
- * @param {string} str - The string to convert
+ * @param {string} ms - The string to convert
  * @example str(88200000); // Returns { d: 1, h: 0, m: 30, s: 0 }
  * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
  * @returns {string} str - The converted string
  */
-export function msToTime(str) {
+export function msToTime(ms) {
     // validate that required params are defined
-    if (!str) return console.warn(`${new Date()} | ` + "Error: ${str} isnt defined. Did you forget to pass it? (./util.js:246)");
+    if (!ms) return console.warn(`${new Date()} | ` + "Error: ${ms} isnt defined. Did you forget to pass it? (./util.js:242)");
 
-    if(str > new Date().getTime()) str = str - new Date().getTime();
+    if(ms > new Date().getTime()) ms = ms - new Date().getTime();
 
     // turn miliseconds into days, minutes, seconds, etc
-    const ms = str;
     const w = Math.floor(ms / (1000 * 60 * 60 * 24 * 7));
-    const d = Math.floor(ms / (1000 * 60 * 60 * 24));
+    const d = Math.floor((ms % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
     const h = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
     const s = Math.floor((ms % (1000 * 60)) / 1000);
