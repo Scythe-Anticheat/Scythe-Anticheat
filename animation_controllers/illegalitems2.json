@@ -149,10 +149,10 @@
 							"crimson_standing_sign": "query.get_equipped_item_name == 'crimson_standing_sign' || query.get_equipped_item_name('off_hand') == 'crimson_standing_sign'"
 						},
 						{
-							"warped_standing_sign": "query.get_equipped_item_name == 'warped_standing_sign' || query.get_equipped_item_name('off_hand') == 'warped_standing_sign'"
+							"crimson_wall_sign": "query.get_equipped_item_name == 'crimson_wall_sign' || query.get_equipped_item_name('off_hand') == 'crimson_wall_sign'"
 						},
 						{
-							"crimson_wall_sign": "query.get_equipped_item_name == 'crimson_wall_sign' || query.get_equipped_item_name('off_hand') == 'crimson_wall_sign'"
+							"warped_standing_sign": "query.get_equipped_item_name == 'warped_standing_sign' || query.get_equipped_item_name('off_hand') == 'warped_standing_sign'"
 						},
 						{
 							"warped_wall_sign": "query.get_equipped_item_name == 'warped_wall_sign' || query.get_equipped_item_name('off_hand') == 'warped_wall_sign'"
