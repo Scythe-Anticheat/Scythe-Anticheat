@@ -173,7 +173,9 @@ export default
                 "minecraft:end_portal_frame",
                 "minecraft:dragon_egg",
                 "minecraft:monster_egg",
+                "minecraft:infested_deepslate",
                 "minecraft:mob_spawner",
+                "minecraft:budding_amethyst",
                 "minecraft:command_block",
                 "minecraft:repeating_command_block",
                 "minecraft:chain_command_block",
@@ -207,7 +209,10 @@ export default
                 "minecraft:client_request_placeholder_block",
                 "minecraft:invisible_bedrock",
                 "minecraft:piston_arm_collision",
-                "minecraft:sticky_piston_arm_collision"
+                "minecraft:sticky_piston_arm_collision",
+                "minecraft:spawn_egg",
+                "minecraft:npc_spawn_egg",
+                "minecraft:bubble_column"
             ],
             "punishment": "ban",
             "minVlbeforeBan": 1
