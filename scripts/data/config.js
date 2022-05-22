@@ -170,7 +170,7 @@ export default
                     "maxLevel": 69
                 },
                 "sharpness": {
-                   "maxLevel": 3200
+                   "maxLevel": 420
                }
                 */
             },
