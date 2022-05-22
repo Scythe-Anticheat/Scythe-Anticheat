@@ -251,8 +251,6 @@ World.events.beforeItemUseOn.subscribe(block => {
         illegalitems/e = cancels the placement of illegal items
         illegalitems/a could be bypassed by using a right click autoclicker/autobuild or lag
         thx drib or matrix_code for telling me lol
-
-        the unobtainable blocks list only has a select items in it because most people wont even place the other blocks
     */
     if(config.modules.illegalitemsE.enabled) {
         // items that are obtainble using commands
