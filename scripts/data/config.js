@@ -217,8 +217,6 @@ export default
         }
     },
     "itemLists": {
-        // instead of having an illegal items list for every check, we make one big list
-        // this reduces the file size of config.js by only requiring 1 list instead of 2-3
         "spawnEggs": true,
         "elements": true,
         "cbe_items": [
