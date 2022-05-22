@@ -161,8 +161,12 @@ World.events.tick.subscribe(() => {
         
                     if(enchantData) {
                         // badenchants/A = checks for items with invalid enchantment levels
-                        if(config.modules.badenchantsA.enabled && enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
+                        let maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id]?.maxLevel;
+                        if(maxLevel && enchantData.level > maxLevel) {
                             flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                        } else 
+                            if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
+                                flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
                         // badenchants/B = checks for negative enchantment levels
                         if(config.modules.badenchantsB.enabled && enchantData.level < config.modules.badenchantsA.minLevel) 

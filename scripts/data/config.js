@@ -164,6 +164,16 @@ export default
         },
         "badenchantsA": {
             "enabled": true,
+            "levelExclusions": {
+                /*
+                "efficiency": {
+                    "maxLevel": 69
+                },
+                "sharpness": {
+                   "maxLevel": 3200
+               }
+                */
+            },
             "punishment": "none",
             "minVlbeforeBan": 0
         },
