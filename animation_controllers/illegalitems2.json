@@ -299,7 +299,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(flowing_water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(flowing_water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'flowing_water' || query.get_equipped_item_name('off_hand') != 'flowing_water'"
@@ -310,7 +310,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'water' || query.get_equipped_item_name('off_hand') != 'water'"
@@ -321,7 +321,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(flowing_lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(flowing_lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'flowing_lava' || query.get_equipped_item_name('off_hand') != 'flowing_lava'"
@@ -332,7 +332,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lava' || query.get_equipped_item_name('off_hand') != 'lava'"
@@ -343,7 +343,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'fire' || query.get_equipped_item_name('off_hand') != 'fire'"
@@ -354,7 +354,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_furnace' || query.get_equipped_item_name('off_hand') != 'lit_furnace'"
@@ -365,7 +365,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'standing_sign' || query.get_equipped_item_name('off_hand') != 'standing_sign'"
@@ -376,7 +376,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'wall_sign' || query.get_equipped_item_name('off_hand') != 'wall_sign'"
@@ -387,7 +387,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_redstone_ore' || query.get_equipped_item_name('off_hand') != 'lit_redstone_ore'"
@@ -398,7 +398,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(unlit_redstone_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unlit_redstone_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unlit_redstone_torch' || query.get_equipped_item_name('off_hand') != 'unlit_redstone_torch'"
@@ -409,7 +409,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'portal' || query.get_equipped_item_name('off_hand') != 'portal'"
@@ -420,7 +420,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(unpowered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unpowered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unpowered_repeater' || query.get_equipped_item_name('off_hand') != 'unpowered_repeater'"
@@ -431,7 +431,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(powered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'powered_repeater' || query.get_equipped_item_name('off_hand') != 'powered_repeater'"
@@ -442,7 +442,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(pumpkin_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(pumpkin_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'pumpkin_stem' || query.get_equipped_item_name('off_hand') != 'pumpkin_stem'"
@@ -453,7 +453,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(melon_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(melon_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'melon_stem' || query.get_equipped_item_name('off_hand') != 'melon_stem'"
@@ -464,7 +464,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(end_portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(end_portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'end_portal' || query.get_equipped_item_name('off_hand') != 'end_portal'"
@@ -475,7 +475,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_redstone_lamp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_redstone_lamp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_redstone_lamp' || query.get_equipped_item_name('off_hand') != 'lit_redstone_lamp'"
@@ -486,7 +486,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(cocoa)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(cocoa)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'cocoa' || query.get_equipped_item_name('off_hand') != 'cocoa'"
@@ -497,7 +497,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(carrots)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(carrots)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'carrots' || query.get_equipped_item_name('off_hand') != 'carrots'"
@@ -508,7 +508,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(potatoes)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(potatoes)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'potatoes' || query.get_equipped_item_name('off_hand') != 'potatoes'"
@@ -519,7 +519,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(unpowered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unpowered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unpowered_comparator' || query.get_equipped_item_name('off_hand') != 'unpowered_comparator'"
@@ -530,7 +530,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(powered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'powered_comparator' || query.get_equipped_item_name('off_hand') != 'powered_comparator'"
@@ -541,7 +541,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'double_wooden_slab' || query.get_equipped_item_name('off_hand') != 'double_wooden_slab'"
@@ -552,7 +552,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(standing_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(standing_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'standing_banner' || query.get_equipped_item_name('off_hand') != 'standing_banner'"
@@ -563,7 +563,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(wall_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(wall_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'wall_banner' || query.get_equipped_item_name('off_hand') != 'wall_banner'"
@@ -574,7 +574,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(daylight_detector_inverted)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(daylight_detector_inverted)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'daylight_detector_inverted' || query.get_equipped_item_name('off_hand') != 'daylight_detector_inverted'"
@@ -585,7 +585,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(chemical_heat)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(chemical_heat)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'chemical_heat' || query.get_equipped_item_name('off_hand') != 'chemical_heat'"
@@ -596,7 +596,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(underwater_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(underwater_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'underwater_torch' || query.get_equipped_item_name('off_hand') != 'underwater_torch'"
@@ -607,7 +607,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(end_gateway)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(end_gateway)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'end_gateway' || query.get_equipped_item_name('off_hand') != 'end_gateway'"
@@ -618,7 +618,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(stonecutter)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(stonecutter)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'stonecutter' || query.get_equipped_item_name('off_hand') != 'stonecutter'"
@@ -629,7 +629,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(glowingobsidian)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(glowingobsidian)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'glowingobsidian' || query.get_equipped_item_name('off_hand') != 'glowingobsidian'"
@@ -640,7 +640,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(netherreactor)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(netherreactor)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'netherreactor' || query.get_equipped_item_name('off_hand') != 'netherreactor'"
@@ -651,7 +651,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(bubble_column)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bubble_column)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'bubble_column' || query.get_equipped_item_name('off_hand') != 'bubble_column'"
@@ -662,7 +662,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(bamboo_sapling)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bamboo_sapling)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'bamboo_sapling' || query.get_equipped_item_name('off_hand') != 'bamboo_sapling'"
@@ -673,7 +673,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(spruce_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(spruce_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'spruce_standing_sign' || query.get_equipped_item_name('off_hand') != 'spruce_standing_sign'"
@@ -684,7 +684,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(spruce_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(spruce_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'spruce_wall_sign' || query.get_equipped_item_name('off_hand') != 'spruce_wall_sign'"
@@ -695,7 +695,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(birch_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(birch_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'birch_standing_sign' || query.get_equipped_item_name('off_hand') != 'birch_standing_sign'"
@@ -706,7 +706,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(birch_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(birch_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'birch_wall_sign' || query.get_equipped_item_name('off_hand') != 'birch_wall_sign'"
@@ -717,7 +717,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(jungle_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(jungle_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'jungle_standing_sign' || query.get_equipped_item_name('off_hand') != 'jungle_standing_sign'"
@@ -728,7 +728,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(jungle_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(jungle_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'jungle_wall_sign' || query.get_equipped_item_name('off_hand') != 'jungle_wall_sign'"
@@ -739,7 +739,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(acacia_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(acacia_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'acacia_standing_sign' || query.get_equipped_item_name('off_hand') != 'acacia_standing_sign'"
@@ -750,7 +750,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(acacia_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(acacia_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'acacia_wall_sign' || query.get_equipped_item_name('off_hand') != 'acacia_wall_sign'"
@@ -761,7 +761,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(darkoak_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(darkoak_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'darkoak_standing_sign' || query.get_equipped_item_name('off_hand') != 'darkoak_standing_sign'"
@@ -772,7 +772,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(darkoak_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(darkoak_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'darkoak_wall_sign' || query.get_equipped_item_name('off_hand') != 'darkoak_wall_sign'"
@@ -783,7 +783,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_smoker)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_smoker)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_smoker' || query.get_equipped_item_name('off_hand') != 'lit_smoker'"
@@ -794,7 +794,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lava_cauldron)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lava_cauldron)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lava_cauldron' || query.get_equipped_item_name('off_hand') != 'lava_cauldron'"
@@ -805,7 +805,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(soul_fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(soul_fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'soul_fire' || query.get_equipped_item_name('off_hand') != 'soul_fire'"
@@ -816,7 +816,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(crimson_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'crimson_standing_sign' || query.get_equipped_item_name('off_hand') != 'crimson_standing_sign'"
@@ -827,7 +827,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(warped_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'warped_standing_sign' || query.get_equipped_item_name('off_hand') != 'warped_standing_sign'"
@@ -838,7 +838,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(crimson_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'crimson_wall_sign' || query.get_equipped_item_name('off_hand') != 'crimson_wall_sign'"
@@ -849,7 +849,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(warped_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'warped_wall_sign' || query.get_equipped_item_name('off_hand') != 'warped_wall_sign'"
@@ -860,7 +860,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'blackstone_double_slab' || query.get_equipped_item_name('off_hand') != 'blackstone_double_slab'"
@@ -871,7 +871,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(polished_blackstone_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_blackstone_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'polished_blackstone_brick_double_slab' || query.get_equipped_item_name('off_hand') != 'polished_blackstone_brick_double_slab'"
@@ -882,7 +882,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(polished_blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'polished_blackstone_double_slab' || query.get_equipped_item_name('off_hand') != 'polished_blackstone_double_slab'"
@@ -893,7 +893,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(unknown)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unknown)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'unknown' || query.get_equipped_item_name('off_hand') != 'unknown'"
@@ -904,7 +904,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(camera)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(camera)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'camera' || query.get_equipped_item_name('off_hand') != 'camera'"
@@ -915,7 +915,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(reserved6)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(reserved6)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'reserved6' || query.get_equipped_item_name('off_hand') != 'reserved6'"
@@ -926,7 +926,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(info_update)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(info_update)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'info_update' || query.get_equipped_item_name('off_hand') != 'info_update'"
@@ -937,7 +937,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(info_update2)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(info_update2)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'info_update2' || query.get_equipped_item_name('off_hand') != 'info_update2'"
@@ -948,7 +948,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_deepslate_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_deepslate_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_deepslate_redstone_ore' || query.get_equipped_item_name('off_hand') != 'lit_deepslate_redstone_ore'"
@@ -959,7 +959,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_stained_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_stained_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass_pane' || query.get_equipped_item_name('off_hand') != 'hard_stained_glass_pane'"
@@ -970,7 +970,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(colored_torch_rg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(colored_torch_rg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'colored_torch_rg' || query.get_equipped_item_name('off_hand') != 'colored_torch_rg'"
@@ -981,7 +981,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(colored_torch_bp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(colored_torch_bp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'colored_torch_bp' || query.get_equipped_item_name('off_hand') != 'colored_torch_bp'"
@@ -992,7 +992,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_stained_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_stained_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass' || query.get_equipped_item_name('off_hand') != 'hard_stained_glass'"
@@ -1003,7 +1003,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(balloon)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(balloon)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'balloon' || query.get_equipped_item_name('off_hand') != 'balloon'"
@@ -1014,7 +1014,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(ice_bomb)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(ice_bomb)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'ice_bomb' || query.get_equipped_item_name('off_hand') != 'ice_bomb'"
@@ -1025,7 +1025,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(bleach)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bleach)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'bleach' || query.get_equipped_item_name('off_hand') != 'bleach'"
@@ -1036,7 +1036,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(medicine)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(medicine)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'medicine' || query.get_equipped_item_name('off_hand') != 'medicine'"
@@ -1047,7 +1047,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(sparkler)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(sparkler)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'sparkler' || query.get_equipped_item_name('off_hand') != 'sparkler'"
@@ -1058,7 +1058,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(glow_stick)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(glow_stick)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'glow_stick' || query.get_equipped_item_name('off_hand') != 'glow_stick'"
@@ -1069,7 +1069,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(compound)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(compound)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'compound' || query.get_equipped_item_name('off_hand') != 'compound'"
@@ -1080,7 +1080,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(powder_snow)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powder_snow)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'powder_snow' || query.get_equipped_item_name('off_hand') != 'powder_snow'"
@@ -1091,7 +1091,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(sweet_berry_bush)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(sweet_berry_bush)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'sweet_berry_bush' || query.get_equipped_item_name('off_hand') != 'sweet_berry_bush'"
@@ -1102,7 +1102,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(lit_blast_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_blast_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'lit_blast_furnace' || query.get_equipped_item_name('off_hand') != 'lit_blast_furnace'"
@@ -1113,7 +1113,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(redstone_wire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(redstone_wire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'redstone_wire' || query.get_equipped_item_name('off_hand') != 'redstone_wire'"
@@ -1124,7 +1124,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(crimson_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'crimson_double_slab' || query.get_equipped_item_name('off_hand') != 'crimson_double_slab'"
@@ -1135,7 +1135,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(warped_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'warped_double_slab' || query.get_equipped_item_name('off_hand') != 'warped_double_slab'"
@@ -1146,7 +1146,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(cobbled_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(cobbled_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'cobbled_deepslate_double_slab' || query.get_equipped_item_name('off_hand') != 'cobbled_deepslate_double_slab'"
@@ -1157,7 +1157,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(polished_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'polished_deepslate_double_slab' || query.get_equipped_item_name('off_hand') != 'polished_deepslate_double_slab'"
@@ -1168,7 +1168,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(deepslate_tile_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(deepslate_tile_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'deepslate_tile_double_slab' || query.get_equipped_item_name('off_hand') != 'deepslate_tile_double_slab'"
@@ -1179,7 +1179,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(deepslate_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(deepslate_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'deepslate_brick_double_slab' || query.get_equipped_item_name('off_hand') != 'deepslate_brick_double_slab'"
@@ -1190,7 +1190,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(agent_spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(agent_spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'agent_spawn_egg' || query.get_equipped_item_name('off_hand') != 'agent_spawn_egg'"
@@ -1201,7 +1201,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(client_request_placeholder_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(client_request_placeholder_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'client_request_placeholder_block' || query.get_equipped_item_name('off_hand') != 'client_request_placeholder_block'"
@@ -1212,7 +1212,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(rapid_fertilizer)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(rapid_fertilizer)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'rapid_fertilizer' || query.get_equipped_item_name('off_hand') != 'rapid_fertilizer'"
@@ -1223,7 +1223,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'hard_glass' || query.get_equipped_item_name('off_hand') != 'hard_glass'"
@@ -1234,7 +1234,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(hard_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'hard_glass_pane' || query.get_equipped_item_name('off_hand') != 'hard_glass_pane'"
@@ -1245,7 +1245,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(exposed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(exposed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'exposed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'exposed_double_cut_copper_slab'"
@@ -1256,7 +1256,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(oxidized_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(oxidized_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'oxidized_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'oxidized_double_cut_copper_slab'"
@@ -1267,7 +1267,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(waxed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'waxed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'waxed_double_cut_copper_slab'"
@@ -1278,7 +1278,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(waxed_exposed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_exposed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'waxed_exposed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'waxed_exposed_double_cut_copper_slab'"
@@ -1289,7 +1289,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(waxed_oxidized_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_oxidized_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'waxed_oxidized_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'waxed_oxidized_double_cut_copper_slab'"
@@ -1300,7 +1300,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(waxed_weathered_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_weathered_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'waxed_weathered_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'waxed_weathered_double_cut_copper_slab'"
@@ -1311,7 +1311,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(weathered_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(weathered_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'weathered_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'weathered_double_cut_copper_slab'"
@@ -1322,7 +1322,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'double_wooden_slab' || query.get_equipped_item_name('off_hand') != 'double_wooden_slab'"
@@ -1333,7 +1333,7 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'double_cut_copper_slab'"
@@ -1343,7 +1343,7 @@
 					"on_entry": [
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Inventory) §4Illegal Items §7(other)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(other)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
 						"@s scythe:reset_skinid"
 					],
 					"transitions": [{

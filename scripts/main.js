@@ -136,8 +136,12 @@ World.events.tick.subscribe(() => {
                 flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
                 
             // Illegalitems/D = additional item clearing check
-            if (config.modules.illegalitemsD.enabled && config.modules.illegalitemsD.illegalItems.includes(item.id))
+            if (config.modules.illegalitemsD.enabled && config.itemLists.items_very_illegal.includes(item.id))
                 flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
+
+            // CommandBlockExploit/H = clear items
+            if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.id))
+                flag(player, "CommandBlockExploit", "H", "Exploit", "item", item.id, false, false, i);
                 
             // Illegalitems/F = Checks if an item has a name longer then 32 characters
             if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
@@ -238,7 +242,7 @@ World.events.blockBreak.subscribe(block => {
 
 World.events.beforeItemUseOn.subscribe(block => {
     // commandblockexploit/f = cancels the placement of cbe items
-    if(config.modules.commandblockexploitF.enabled && config.modules.commandblockexploitF.bannedBlocks.includes(block.item.id)) {
+    if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(block.item.id)) {
         flag(block.source, "CommandBlockExploit","F", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
         block.cancel = true;
     }
@@ -253,7 +257,7 @@ World.events.beforeItemUseOn.subscribe(block => {
     if(config.modules.illegalitemsE.enabled) {
         // items that are obtainble using commands
         if(!block.source.hasTag("op")) {
-            if(config.modules.illegalitemsE.obtainable_items.includes(block.item.id)) {
+            if(config.itemLists.items_semi_illegal.includes(block.item.id)) {
                 // dont affect gmc players
                 try {
                     block.source.runCommand("testfor @s[m=!c]");
@@ -263,7 +267,17 @@ World.events.beforeItemUseOn.subscribe(block => {
             }
 
             // patch element blocks
-            if(config.modules.illegalitemsE.clearElements && block.item.id.startsWith("minecraft:element")) {
+            if(config.itemLists.elements && block.item.id.startsWith("minecraft:element_")) {
+                // dont affect gmc players
+                try {
+                    block.source.runCommand("testfor @s[m=!c]");
+                    flag(block.source, "IllegalItems", "E", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
+                    block.cancel = true;
+                } catch {}
+            }
+            
+            // patch spawn eggs
+            if(config.itemLists.spawnEggs && block.item.id.endsWith("_spawn_egg")) {
                 // dont affect gmc players
                 try {
                     block.source.runCommand("testfor @s[m=!c]");
@@ -274,7 +288,7 @@ World.events.beforeItemUseOn.subscribe(block => {
         }
     
         // items that cannot be obtained normally
-        if(config.modules.illegalitemsE.unobtainable_items.includes(block.item.id)) {
+        if(config.itemLists.items_very_illegal.includes(block.item.id)) {
             flag(block.source, "IllegalItems", "E", "Exploit", "item", block.item.id, false, false, block.source.selectedSlot);
             block.cancel = true;
         }
@@ -336,6 +350,7 @@ World.events.entityCreate.subscribe(entity => {
     if(config.modules.commandblockexploitG.enabled) {
         if(config.modules.commandblockexploitG.entities.includes(entity.entity.id.toLowerCase())) {
             flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
+            entity.entity.kill();
         }
 
         if(config.modules.commandblockexploitG.npc && entity.entity.id.toLowerCase() == "minecraft:npc") {
@@ -343,7 +358,7 @@ World.events.entityCreate.subscribe(entity => {
                 entity.entity.runCommand("scoreboard players operation @s npc = scythe:config npc");
                 entity.entity.runCommand("testfor @s[scores={npc=1..}]");
                 flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
-                entity.entity.triggerEvent("scythe:despawn");
+                entity.entity.kill();
             } catch {}
         }
     }
