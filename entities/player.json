@@ -319,12 +319,6 @@
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
-									"value": "minecraft:movingblock"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
 									"value": "minecraft:invisiblebedrock"
 								},
 								{

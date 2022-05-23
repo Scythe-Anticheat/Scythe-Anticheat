@@ -290,6 +290,9 @@
 							"double_cut_copper_slab": "query.get_equipped_item_name == 'double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'double_cut_copper_slab'"
 						},
 						{
+							"moving_block": "query.get_equipped_item_name == 'moving_block' || query.get_equipped_item_name('off_hand') == 'moving_block'"
+						},
+						{
 							"other": "query.skin_id == 3"
 						}
 					]
@@ -1337,6 +1340,17 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'double_cut_copper_slab'"
+					}]
+				},
+				"moving_block": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(moving_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'moving_block' || query.get_equipped_item_name('off_hand') != 'moving_block'"
 					}]
 				},
 				"other": {
