@@ -55,6 +55,13 @@ export function commandHandler(player, message) {
 
     if (config.debug) console.warn(`${new Date()} | ${player.name} used the command: ${config.customcommands.prefix}${commandName} ${args.join(" ")}`);
 
+    // this wont work if you use a command alias
+    if(config.customcommands[commandName] === false) {
+        player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"This command has been disabled in config.js. If this was a mistake please contact your server owner,"}]}`);
+        message.cancel = true;
+        return;
+    }
+
     // we could much easily get rid of the if/else chain only if we have npm support...
     try {
         if (config.customcommands.kick && commandName === "kick") kick(message, args);
