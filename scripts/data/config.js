@@ -328,7 +328,7 @@ export default
             "minecraft:colored_torch_rg",
             "minecraft:colored_torch_bp",
             "minecraft:balloon",
-            "minecraft_ice_bomb",
+            "minecraft:ice_bomb",
             "minecraft:medicine",
             "minecraft:sparkler",
             "minecraft:glow_stick",
