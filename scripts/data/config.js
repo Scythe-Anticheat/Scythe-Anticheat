@@ -108,8 +108,8 @@ export default
         "illegalitemsC": {
             "enabled": true,
             "maxStack": 64,
-            "punishment": "ban",
-            "minVlbeforeBan": 1
+            "punishment": "none",
+            "minVlbeforeBan": 0
         },
         "invalidsprintA": {
             "enabled": true,
