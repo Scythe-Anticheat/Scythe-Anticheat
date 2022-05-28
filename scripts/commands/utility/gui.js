@@ -23,7 +23,7 @@ import * as Minecraft from "mojang-minecraft";
     let currentItem = container.getItem(player.selectedSlot);
 
     if(currentItem?.id === "minecraft:wooden_axe" && currentItem?.nameTag == "§r§l§aRight click to Open the UI")
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You already have the UI item in your inventoru."}]}`);
+        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You already have the UI item in your inventory."}]}`);
 
     // creating the item that opens the UI
     let item = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.woodenAxe, 1, 0);
