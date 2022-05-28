@@ -70,6 +70,8 @@ World.events.tick.subscribe(() => {
             player.addTag(`isBanned`);
         }
 
+        // player.selectedSlot = 3;
+
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 
@@ -84,9 +86,11 @@ World.events.tick.subscribe(() => {
 
         // player position shit
         if(player.hasTag("moving")) {
-            player.runCommand(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
-            player.runCommand(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
-            player.runCommand(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
+            try {
+                player.runCommand(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
+                player.runCommand(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
+                player.runCommand(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
+            } catch {}
         }
 
         if(config.modules.bedrockValidate.enabled) {

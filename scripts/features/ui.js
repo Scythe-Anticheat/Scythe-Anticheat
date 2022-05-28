@@ -140,10 +140,16 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             if(!config.customcommands.mute) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Muting players is disabled in config.js."}]}`);
             if(playerSelected.hasTag("isMuted")) {
                 playerSelected.removeTag("isMuted");
+                try {
+                    playerSelected.runCommand("ability @s mute false");
+                } catch {}
                 player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has been unmuted by ${player.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             } else {
                 playerSelected.addTag("isMuted");
+                try {
+                    playerSelected.runCommand("ability @s mute true");
+                } catch {}
                 player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has been muted by ${player.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             }
