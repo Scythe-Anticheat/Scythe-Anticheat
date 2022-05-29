@@ -70,8 +70,6 @@ World.events.tick.subscribe(() => {
             player.addTag(`isBanned`);
         }
 
-        // player.selectedSlot = 3;
-
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 
@@ -219,6 +217,16 @@ World.events.tick.subscribe(() => {
         }
 
         // if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${cache.currentTick}`);
+    
+        if(config.modules.badpackets4.enabled && player.selectedSlot < 0 || player.selectedSlot > 8) {
+            flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
+            player.selectedSlot = 0;
+        }
+
+        if(config.modules.badpackets4.enabled && player.selectedSlot < 0 || player.selectedSlot > 8) {
+            flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
+            player.selectedSlot = 0;
+        }
     }
 });
 
@@ -249,6 +257,7 @@ World.events.blockBreak.subscribe(block => {
 });
 
 World.events.beforeItemUseOn.subscribe(block => {
+    console.warn(`beforeItemUseOn`);
     // commandblockexploit/f = cancels the placement of cbe items
     if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(block.item.id)) {
         flag(block.source, "CommandBlockExploit","F", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
@@ -344,6 +353,7 @@ World.events.playerJoin.subscribe(playerJoin => {
 });
 
 World.events.entityCreate.subscribe(entity => {
+    console.warn(`entityCreate`);
     if(config.modules.itemSpawnRateLimit.enabled) {
         cache.entitiesSpawnedInLastTick++;
 
@@ -371,6 +381,7 @@ World.events.entityCreate.subscribe(entity => {
 });
 
 World.events.entityHit.subscribe(entityHit => {
+    console.warn(`entityHit`);
     let entity = entityHit.hitEntity;
     let player = entityHit.entity;
 
@@ -435,6 +446,7 @@ World.events.entityHit.subscribe(entityHit => {
 });
 
 World.events.beforeItemUse.subscribe((beforeItemUse) => {
+    console.warn(`beforeItemUse`);
     let item = beforeItemUse.item;
     let player = beforeItemUse.source;
 

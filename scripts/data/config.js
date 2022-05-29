@@ -224,6 +224,11 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVlbeforeBan": 0
+        },
+        "badpackets4": {
+            "enabled": true,
+            "punishment": "kick",
+            "minVlbeforeBan": 0
         }
     },
     "itemLists": {
