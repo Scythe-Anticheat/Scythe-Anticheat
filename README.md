@@ -27,7 +27,7 @@ To receive anti-cheat alerts use: ```/function notify```
 
   BadEnchants -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for enchantment levels exceeding vanilla limits. (Requires GameTest Framework)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for negative enchantment levels. (Requires GameTest Framework)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for negative enchantment levels. (Requires GameTest Framework)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if an item is enchanted with an enchant that cant be applied to the item. (Requires GameTest Framework)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks if an item has a lore. (Requires GameTest Framework)<br />
 
