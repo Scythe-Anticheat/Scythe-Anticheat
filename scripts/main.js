@@ -75,7 +75,8 @@ World.events.tick.subscribe(() => {
 
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
-            Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) flag(player, "Crasher", "A", "Exploit", false, false, true);
+            Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) 
+                flag(player, "Crasher", "A", "Exploit", "x_pos", `${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 
         // anti-namespoof
         // these values are set in the playerJoin config
@@ -218,6 +219,7 @@ World.events.tick.subscribe(() => {
 
         // if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${cache.currentTick}`);
     
+        // BadPackets[4] = checks for invalid selected slot
         if(config.modules.badpackets4.enabled && player.selectedSlot < 0 || player.selectedSlot > 8) {
             flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
             player.selectedSlot = 0;
@@ -226,18 +228,33 @@ World.events.tick.subscribe(() => {
 });
 
 World.events.blockPlace.subscribe(block => {
-    if(config.debug) console.warn(`${block.player.nameTag} has placed ${block.block.id}`);
+    if(config.debug) console.warn(`${block.player.nameTag} has placed ${block.block.id}. Player Tags: ${block.player.getTags()}`);
 });
 
 World.events.blockBreak.subscribe(block => {
-    if(config.debug) console.warn(`${block.player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
+    let player = block.player;
+    let dimension = block.dimension;
+
+    if(config.debug) console.warn(`${player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
 
     // nuker/a = checks if a player breaks more than 3 blocks in a tick
     if(config.modules.nukerA.enabled) {
-        block.player.blocksBroken++;
+        player.blocksBroken++;
 
-        if(block.player.blocksBroken > config.modules.nukerA.maxBlocks) {
-            flag(block.player, "Nuker", "A", "Misc", "blocksBroken", block.player.blocksBroken);
+        if(player.blocksBroken > config.modules.nukerA.maxBlocks) {
+            flag(player, "Nuker", "A", "Misc", "blocksBroken", player.blocksBroken);
+
+            // killing all the items it drops
+            let EntityQueryOptions = new Minecraft.EntityQueryOptions();
+            EntityQueryOptions.location = new Minecraft.Location(block.block.location.x, block.block.location.y, block.block.location.z);
+            EntityQueryOptions.minDistance = 0;
+            EntityQueryOptions.maxDistance = 2;
+            EntityQueryOptions.type = "item";
+
+            let droppedItems = dimension.getEntities(EntityQueryOptions);
+
+            for(let item of droppedItems) item.kill();
+
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
@@ -245,14 +262,13 @@ World.events.blockBreak.subscribe(block => {
     // liquidinteract/a = checks if a player breaks a liquid source block
     if(config.modules.liquidinteractA.enabled) {
         if(config.modules.liquidinteractA.liquids.includes(block.brokenBlockPermutation.type.id)) {
-            flag(block.player, "LiquidInteract", "A", "Misc", "block", block.brokenBlockPermutation.type.id);
+            flag(player, "LiquidInteract", "A", "Misc", "block", block.brokenBlockPermutation.type.id);
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
 });
 
 World.events.beforeItemUseOn.subscribe(block => {
-    console.warn(`beforeItemUseOn`);
     // commandblockexploit/f = cancels the placement of cbe items
     if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(block.item.id)) {
         flag(block.source, "CommandBlockExploit","F", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
@@ -326,7 +342,7 @@ World.events.playerJoin.subscribe(playerJoin => {
     let tag = player.getTags().find(t => t.replace(/"|\\/g, "").startsWith("tag:"));
     if(tag) {
         tag = tag.replace(/"|\\/g, "");
-        player.nameTag = `§8[§r${tag.slice(4)}§8]§r ${player.name}`;
+        player.nameTag = `§8[§r${tag.replace("tag:", "")}§8]§r ${player.name}`;
     }
 
     // Namespoof/A = username length check.
@@ -348,7 +364,6 @@ World.events.playerJoin.subscribe(playerJoin => {
 });
 
 World.events.entityCreate.subscribe(entity => {
-    console.warn(`entityCreate`);
     if(config.modules.itemSpawnRateLimit.enabled) {
         cache.entitiesSpawnedInLastTick++;
 
@@ -376,7 +391,6 @@ World.events.entityCreate.subscribe(entity => {
 });
 
 World.events.entityHit.subscribe(entityHit => {
-    console.warn(`entityHit`);
     let entity = entityHit.hitEntity;
     let player = entityHit.entity;
 
@@ -423,7 +437,7 @@ World.events.entityHit.subscribe(entityHit => {
     }
 
      // autoclicker/a = check for high cps
-     if(config.modules.autoclickerA.enabled) {
+     if(config.modules.autoclickerA.enabled || !cache.checkedModules.autoclicker) {
         // if anti-autoclicker is disabled in game then disable it in config.js
         if(!cache.checkedModules.autoclicker) {
             try {
@@ -441,7 +455,6 @@ World.events.entityHit.subscribe(entityHit => {
 });
 
 World.events.beforeItemUse.subscribe((beforeItemUse) => {
-    console.warn(`beforeItemUse`);
     let item = beforeItemUse.item;
     let player = beforeItemUse.source;
 

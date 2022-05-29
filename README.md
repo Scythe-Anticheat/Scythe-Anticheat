@@ -13,9 +13,7 @@
 # How To Setup
 To install this anticheat to your realm/world you need to install the .mcpack, apply it to your world and enable GameTest Framework, once you have done this the anticheat should be fully up and running.
 
-To receive anti-cheat alerts use this command: ```/function notify```
-
-If your world contains NPC's, make sure to use the ```/function setting/npc``` command or they will be insta-killed
+To receive anti-cheat alerts use: ```/function notify```
 
 # List of hacks detected by Scythe AntiCheat
 
@@ -102,7 +100,6 @@ If your world contains NPC's, make sure to use the ```/function setting/npc``` c
 
   Xray -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Alerts staff if a player finds a diamond or ancient debris.
-
 
 # Extra Commands
 To receive anti-cheat alerts use: ```/function notify```
