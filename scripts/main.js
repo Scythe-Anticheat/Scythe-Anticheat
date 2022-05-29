@@ -222,11 +222,6 @@ World.events.tick.subscribe(() => {
             flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
             player.selectedSlot = 0;
         }
-
-        if(config.modules.badpackets4.enabled && player.selectedSlot < 0 || player.selectedSlot > 8) {
-            flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
-            player.selectedSlot = 0;
-        }
     }
 });
 
