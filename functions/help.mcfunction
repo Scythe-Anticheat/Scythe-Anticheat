@@ -18,7 +18,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unmute <username> 
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!notify§r - Enables/Disables cheat notifications."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!credits§r - Shows credits, thats it."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!op <username>§r - Op's player in Scythe AntiCheat features."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unban <username> [reasom]§r - Unbans a the specified player."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unban <username> [reason]§r - Unbans the specified player."}]}
 
 # Gametest Disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function help§r - Shows this help page."}]}
