@@ -1,6 +1,6 @@
 import * as Minecraft from "mojang-minecraft";
 import config from "./data/config.js";
-import cache from "./data/cache.js";
+import data from "./data/data.js";
 
 const World = Minecraft.world;
 
@@ -98,7 +98,7 @@ export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
 
-    if(cache.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
+    if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
         player.getTags().forEach(t => {
             t = t.replace(/"/g, "");
@@ -108,8 +108,8 @@ export function banMessage(player) {
         });
 
         // remove the player from the unban queue
-        for (let i = -1; i < cache.unbanQueue.length; i++) {
-            if(cache.unbanQueue[i] == player.name.toLowerCase().split(" ")[0]) cache.unbanQueue.splice(i, 1);
+        for (let i = -1; i < data.unbanQueue.length; i++) {
+            if(data.unbanQueue[i] == player.name.toLowerCase().split(" ")[0]) data.unbanQueue.splice(i, 1);
         }
         return;
     }

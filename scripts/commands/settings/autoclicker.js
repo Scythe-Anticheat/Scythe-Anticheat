@@ -1,4 +1,4 @@
-import cache from "../../data/cache.js";
+import data from "../../data/data.js";
 
 /**
  * @name autoclicker
@@ -16,7 +16,7 @@ export function autoclicker(message) {
     if(!player.hasTag("op")) 
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
-    cache.checkedModules.autoclicker = false;
+    data.checkedModules.autoclicker = false;
 
     return player.runCommand(`function settings/autoclicker`);
 }

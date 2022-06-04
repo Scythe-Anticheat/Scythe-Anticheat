@@ -3,7 +3,7 @@ import { flag, banMessage, getClosestPlayer, snakeToCamel} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
-import cache from "./data/cache.js";
+import data from "./data/data.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 
 const World = Minecraft.world;
@@ -56,8 +56,8 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 World.events.tick.subscribe(() => {
-    if(config.modules.itemSpawnRateLimit.enabled) cache.entitiesSpawnedInLastTick = 0;
-    if(config.debug) cache.currentTick++;
+    if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
+    if(config.debug) data.currentTick++;
 
     // run as each player
     for (let player of World.getPlayers()) {
@@ -217,7 +217,7 @@ World.events.tick.subscribe(() => {
             player.cps = 0;
         }
 
-        // if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${cache.currentTick}`);
+        // if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${data.currentTick}`);
     
         // BadPackets[4] = checks for invalid selected slot
         if(config.modules.badpackets4.enabled && player.selectedSlot < 0 || player.selectedSlot > 8) {
@@ -324,11 +324,11 @@ World.events.beforeItemUseOn.subscribe(block => {
 World.events.playerJoin.subscribe(playerJoin => {
     let player = playerJoin.player;
 
-    if(!cache.loaded) {
+    if(!data.loaded) {
         try {
             World.getDimension("overworld").runCommand(`scoreboard players set scythe:config gametestapi 1`);
             World.getDimension("overworld").runCommand(`scoreboard players operation @a gametestapi = scythe:config gametestapi`);
-            cache.loaded = true;
+            data.loaded = true;
         } catch {}
     }
 
@@ -365,9 +365,9 @@ World.events.playerJoin.subscribe(playerJoin => {
 
 World.events.entityCreate.subscribe(entity => {
     if(config.modules.itemSpawnRateLimit.enabled) {
-        cache.entitiesSpawnedInLastTick++;
+        data.entitiesSpawnedInLastTick++;
 
-        if(cache.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
+        if(data.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
             if(config.debug) console.warn(`Killed "${entity.entity.id}" due to item spawn ratelimit reached.`);
             // doing entity.entity.kill() crashes my game for whatever reason so we teleport them
             entity.entity.runCommand("tp @s ~ -200 ~");
@@ -437,15 +437,15 @@ World.events.entityHit.subscribe(entityHit => {
     }
 
      // autoclicker/a = check for high cps
-     if(config.modules.autoclickerA.enabled || !cache.checkedModules.autoclicker) {
+     if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
         // if anti-autoclicker is disabled in game then disable it in config.js
-        if(!cache.checkedModules.autoclicker) {
+        if(!data.checkedModules.autoclicker) {
             try {
                 player.runCommand("testfor @s[scores={autoclicker=..0}]");
             } catch {
                 config.modules.autoclickerA.enabled = false;
             }
-            cache.checkedModules.autoclicker = true;
+            data.checkedModules.autoclicker = true;
         }
 
         if(!player.firstAttack) player.firstAttack = new Date().getTime();
