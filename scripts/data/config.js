@@ -229,6 +229,11 @@ export default
             "enabled": true,
             "punishment": "kick",
             "minVlbeforeBan": 0
+        },
+        "crasherB": {
+            "enabled": true,
+            "punishment": "none",
+            "minVLbeforeBan": 0
         }
     },
     "itemLists": {

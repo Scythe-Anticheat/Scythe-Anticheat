@@ -363,29 +363,38 @@ World.events.playerJoin.subscribe(playerJoin => {
     if (banList.includes(player.name)) player.isGlobalBanned = true;
 });
 
-World.events.entityCreate.subscribe(entity => {
+World.events.entityCreate.subscribe(entityCreate => {
+    let entity = entityCreate.entity;
+
     if(config.modules.itemSpawnRateLimit.enabled) {
         data.entitiesSpawnedInLastTick++;
 
         if(data.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
-            if(config.debug) console.warn(`Killed "${entity.entity.id}" due to item spawn ratelimit reached.`);
-            // doing entity.entity.kill() crashes my game for whatever reason so we teleport them
-            entity.entity.runCommand("tp @s ~ -200 ~");
+            if(config.debug) console.warn(`Killed "${entity.id}" due to item spawn ratelimit reached.`);
+            entity.kill();
         }
     }
     if(config.modules.commandblockexploitG.enabled) {
-        if(config.modules.commandblockexploitG.entities.includes(entity.entity.id.toLowerCase())) {
-            flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
-            entity.entity.kill();
+        if(config.modules.commandblockexploitG.entities.includes(entity.id.toLowerCase())) {
+            flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.id);
+            entity.kill();
         }
 
-        if(config.modules.commandblockexploitG.npc && entity.entity.id.toLowerCase() == "minecraft:npc") {
+        if(config.modules.commandblockexploitG.npc && entity.id === "minecraft:npc") {
             try {
-                entity.entity.runCommand("scoreboard players operation @s npc = scythe:config npc");
-                entity.entity.runCommand("testfor @s[scores={npc=1..}]");
-                flag(getClosestPlayer(entity.entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.entity.id);
-                entity.entity.kill();
+                entity.runCommand("scoreboard players operation @s npc = scythe:config npc");
+                entity.runCommand("testfor @s[scores={npc=1..}]");
+                flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.id);
+                entity.kill();
             } catch {}
+        }
+    }
+    if(config.modules.crasherB.enabled && entity.id === "minecraft:item") {
+        let itemData = entity.getComponent("item").itemStack;
+
+        if(itemData.id === "minecraft:arrow" && itemData.data > 43) {
+            flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${itemData.id},data=${itemData.data}`);
+            entity.kill();
         }
     }
 });
