@@ -115,30 +115,6 @@
 					"value": 3
 				}
 			},
-			"unvanished": {
-				"minecraft:scale": {
-					"value": 1
-				},
-				"minecraft:breathable": {
-					"breathes_solids": false,
-					"total_supply": 15,
-					"suffocate_time": -1,
-					"inhale_time": 3.75,
-					"generates_bubbles": false
-				}
-			},
-			"vanished": {
-				"minecraft:scale": {
-					"value": 0
-				},
-				"minecraft:breathable": {
-					"breathes_solids": true,
-					"total_supply": 15,
-					"suffocate_time": -1,
-					"inhale_time": 3.75,
-					"generates_bubbles": false
-				}
-			},
 			"scythe:kick": {
 				"minecraft:instant_despawn": {
 					"remove_child_entities": true
@@ -219,17 +195,17 @@
 						"cause": "all",
 						"on_damage": {
 							"filters": {
-								"any_of": [{
+								"all_of": [{
 										"test": "has_tag",
 										"operator": "==",
 										"subject": "self",
 										"value": "flying"
 									},
 									{
-										"test": "has_tag",
+										"test": "has_ability",
 										"operator": "==",
 										"subject": "self",
-										"value": "vanish"
+										"value": "mayfly"
 									}
 								]
 							}
@@ -652,30 +628,6 @@
 				"add": {
 					"component_groups": [
 						"scythe:kick"
-					]
-				}
-			},
-			"unvanish": {
-				"add": {
-					"component_groups": [
-						"unvanished"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"vanished"
-					]
-				}
-			},
-			"vanish": {
-				"add": {
-					"component_groups": [
-						"vanished"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"unvanished"
 					]
 				}
 			},

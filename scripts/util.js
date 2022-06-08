@@ -61,7 +61,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // punishment stuff
     if(checkData.punishment == "kick") {
         try {
-            player.runCommand(`kick "${player.nameTag}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
+            player.runCommand(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
         } catch {
             // if we cant /kick them then we despawn them
             player.triggerEvent("scythe:kick");
@@ -144,7 +144,7 @@ export function banMessage(player) {
     }
 
     try {
-        player.runCommand(`kick "${player.nameTag}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
+        player.runCommand(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
     } catch {
         player.triggerEvent("scythe:kick");
     }
