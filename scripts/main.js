@@ -86,9 +86,9 @@ World.events.tick.subscribe(() => {
         // player position shit
         if(player.hasTag("moving")) {
             try {
-                player.runCommand(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
-                player.runCommand(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
-                player.runCommand(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
+                player.runCommandAsync(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
+                player.runCommandAsync(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
+                player.runCommandAsync(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
             } catch {}
         }
 
@@ -97,23 +97,23 @@ World.events.tick.subscribe(() => {
                 player.runCommand("testfor @s[scores={bedrock=1..}]");
                 if (config.modules.bedrockValidate.overworld && player.dimension.id == "minecraft:overworld") {
                     try {
-                        player.runCommand(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
+                        player.runCommandAsync(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
                     } catch {}
 
                     try {
-                        player.runCommand(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
+                        player.runCommandAsync(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
                     } catch {}
                 }
 
                 if (config.modules.bedrockValidate.nether && player.dimension.id == "minecraft:nether") { 
                     try {
-                        player.runCommand(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
+                        player.runCommandAsync(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
                     } catch {}
                     try {
-                        player.runCommand(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
+                        player.runCommandAsync(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
                     } catch {}
                     try {
-                        player.runCommand(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
+                        player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
                     } catch {}
                 }
             } catch {}
