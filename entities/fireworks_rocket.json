@@ -49,7 +49,8 @@
 					"event": "scythe:flight_duration",
 					"target": "self"
 				}
-			}
+			},
+			"minecraft:persistent": {}
 		},
 		"events": {
 			"scythe:flight_duration": {
