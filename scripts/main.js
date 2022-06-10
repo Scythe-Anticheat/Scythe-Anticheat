@@ -64,6 +64,7 @@ World.events.tick.subscribe(() => {
         player.blocksBroken = 0;
         player.entitiesHit = [];
 
+
         if(player.isGlobalBanned) {
             player.addTag(`by:Scythe Anticheat`);
             player.addTag(`reason:You are Scythe Anticheat global banned!`);
@@ -365,6 +366,8 @@ World.events.playerJoin.subscribe(playerJoin => {
 
 World.events.entityCreate.subscribe(entityCreate => {
     let entity = entityCreate.entity;
+    
+    entity.removeTag("test");
 
     if(config.modules.itemSpawnRateLimit.enabled) {
         data.entitiesSpawnedInLastTick++;

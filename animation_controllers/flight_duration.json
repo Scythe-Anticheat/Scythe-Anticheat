@@ -1,0 +1,21 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.flight_duration": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"flight_duration": "query.variant == 1"
+					}]
+				},
+				"flight_duration": {
+					"on_entry": [
+						"/scoreboard players add @p illegalitemsvl 1",
+						"/execute @p ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/G. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
+                        "/kill @s"
+					]
+				}
+			}
+		}
+	}
+}
