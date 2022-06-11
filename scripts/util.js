@@ -18,7 +18,7 @@ const World = Minecraft.world;
  * @example flag(player, "Spammer", "B", "Combat", false, false, false, msg, false);
  * @remarks Alerts staff if a player is hacking.
  */
-export function flag(player, check, checkType, hackType, debugName, debug, shouldTP, message, slot) {
+export function flag(player, check, checkType, hackType, debugName, debug, shouldTP = false, message, slot) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:8)");
     if (!check) return console.warn(`${new Date()} | ` + "Error: ${check} isnt defined. Did you forget to pass it? (./util.js:9)");
