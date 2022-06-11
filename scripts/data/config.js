@@ -234,6 +234,12 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVLbeforeBan": 0
+        },
+        "badenchantsE": {
+            "enabled": true,
+            "maximuim_protection_types": 1,
+            "punishment": "none",
+            "minVLbeforeBan": 0
         }
     },
     "itemLists": {

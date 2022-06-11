@@ -160,10 +160,15 @@ World.events.tick.subscribe(() => {
             if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
                 let itemEnchants = item.getComponent("enchantments").enchantments;
 
+                let protection_types = [];
+
                 for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
                     let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
         
                     if(enchantData) {
+                        if(config.modules.badenchantsE.enabled && enchantData.type.id.toLowerCase().endsWith("protection"))
+                            protection_types.push(enchantData.type.id);
+
                         // badenchants/A = checks for items with invalid enchantment levels
                         let maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id]?.maxLevel;
                         if(maxLevel && enchantData.level > maxLevel) {
@@ -186,6 +191,9 @@ World.events.tick.subscribe(() => {
                         }
                     }
                 }
+                // BadEnchants/E = checks for multi-protection armor
+                if(config.modules.badenchantsE.enabled && protection_types.length > config.modules.badenchantsE.maximuim_protection_types) 
+                    flag(player, "BadEnchants", "E", "Exploit", "protection_types", String(protection_types), false, false, i);
             }
         }
 
