@@ -435,11 +435,11 @@ World.events.entityHit.subscribe(entityHit => {
             let distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
             if(config.debug) console.warn(`${player.name} attacked ${entityHitName} with a distance of ${distance}`);
 
-            if(distance > config.modules.reachA.reach) {
+            if(distance > config.modules.reachA.reach && !config.modules.reachA.entities_blacklist.includes(entity.id)) {
                 // we ignore gmc players as they get increased reach
                 try {
                     player.runCommand("testfor @s[m=!c]");
-                    flag(player, "Reach", "A", "Combat", "reach", distance);
+                    flag(player, "Reach", "A", "Combat", "entity", `${entity.id},distance=${distance}`);
                 } catch {}
             }
         }

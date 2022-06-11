@@ -95,6 +95,10 @@ export default
         "reachA": {
             "enabled": true,
             "reach": 4.5,
+            "entities_blacklist": [
+                "minecraft:enderman",
+                "minecraft:fireball"
+            ],
             "punishment": "none",
             "minVlbeforeBan": 0
         },
