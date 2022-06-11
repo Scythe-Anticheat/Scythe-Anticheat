@@ -127,7 +127,7 @@ export default
             "minVlbeforeBan": 1
         },
         "nukerA": {
-            "enabled": true,
+            "enabled": false,
             "maxBlocks": 3,
             "punishment": "none",
             "minVlbeforeBan": 0
