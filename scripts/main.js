@@ -483,4 +483,8 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
         mainGui(player);
         beforeItemUse.cancel = true;
     }
+
+    // patch a bypass for the freeze system
+    if(item.id === "minecraft:milk_bucket" && player.hasTag("freeze"))
+        beforeItemUse.cancel = true;
 });
