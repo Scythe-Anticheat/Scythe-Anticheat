@@ -77,8 +77,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             player.getTags().forEach(t => {
                 t = t.replace(/"/g, "");
                 if(t.startsWith("reason:")) player.removeTag(t);
-                if(t.startsWith("by:")) player.removeTag(t);
-                if(t.startsWith("time:")) player.removeTag(t);
+                    else if(t.startsWith("by:")) player.removeTag(t);
+                    else if(t.startsWith("time:")) player.removeTag(t);
             });
 
             player.addTag(`by:Scythe Anticheat`);
@@ -100,11 +100,16 @@ export function banMessage(player) {
 
     if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
+
+        try {
+            player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been found in the unban queue and has been unbanned."}]}`);
+        } catch {}
+
         player.getTags().forEach(t => {
             t = t.replace(/"/g, "");
             if(t.startsWith("reason:")) player.removeTag(t);
-            if(t.startsWith("by:")) player.removeTag(t);
-            if(t.startsWith("time:")) player.removeTag(t);
+                else if(t.startsWith("by:")) player.removeTag(t);
+                else if(t.startsWith("time:")) player.removeTag(t);
         });
 
         // remove the player from the unban queue
@@ -121,20 +126,24 @@ export function banMessage(player) {
     player.getTags().forEach(t => {
         t = t.replace(/"/g, "");
         if(t.startsWith(`by:`)) by = t.slice(3);
-        if(t.startsWith(`reason:`)) reason = t.slice(7);
-        if(t.startsWith(`time:`)) time = t.slice(5);
+            else if(t.startsWith(`reason:`)) reason = t.slice(7);
+            else if(t.startsWith(`time:`)) time = t.slice(5);
     });
 
 
     if(time) {
         if(time < new Date().getTime()) {
+            try {
+                player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"'s ban has expired and has now been unbanned."}]}`);
+            } catch {}
+
             // ban expired, woo
             player.removeTag("isBanned");
             player.getTags().forEach(t => {
                 t = t.replace(/"/g, "");
                 if(t.startsWith("reason:")) player.removeTag(t);
-                if(t.startsWith("by:")) player.removeTag(t);
-                if(t.startsWith("time:")) player.removeTag(t);
+                    else if(t.startsWith("by:")) player.removeTag(t);
+                    else if(t.startsWith("time:")) player.removeTag(t);
             });
             return;
         }

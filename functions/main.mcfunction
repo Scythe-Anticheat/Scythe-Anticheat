@@ -8,7 +8,7 @@ function checks/illegalitems
 function checks/others
 
 # Specific criteria checks
-execute @s[type=player,tag=isBanned] ~~~ function checks/ban
+execute @s[type=player,tag=isBanned,scores={gametestapi=..0}] ~~~ function checks/ban
 
 # Optional checks
 execute @s[type=player,tag=!op,m=a,scores={gma=1..}] ~~~ function checks/optional/gamemodeA

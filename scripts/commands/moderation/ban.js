@@ -43,8 +43,8 @@ export function ban(message, args) {
     member.getTags().forEach(t => {
         t = t.replace(/"/g, "");
         if(t.startsWith("reason:")) member.removeTag(t);
-        if(t.startsWith("by:")) member.removeTag(t);
-        if(t.startsWith("time:")) member.removeTag(t);
+            else if(t.startsWith("by:")) member.removeTag(t);
+            else if(t.startsWith("time:")) member.removeTag(t);
     });
 
     member.addTag(`reason:${reason}`);
@@ -52,5 +52,5 @@ export function ban(message, args) {
     if(time) member.addTag(`time:${new Date().getTime() + time}`);
     member.addTag(`isBanned`);
 
-    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member.nameTag}. Reason: ${reason}"}]}`);
+    player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member.nameTag}. Reason: ${reason}"}]}`);
 }
