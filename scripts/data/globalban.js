@@ -18,8 +18,9 @@ export const banList = [
    "darkflash123456",
    "M1tchellPZDC",
    "Night8515",
+   "AltAnormalOM",
    "OIlllIIlIIlO",
-   "economydev",
+   "Economydev",
    "HostingEconomy",
    "EcoAutomod"
 ];

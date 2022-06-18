@@ -61,18 +61,19 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {
-        player.blocksBroken = 0;
-        player.entitiesHit = [];
-
-
         if(player.isGlobalBanned) {
-            player.addTag(`by:Scythe Anticheat`);
-            player.addTag(`reason:You are Scythe Anticheat global banned!`);
-            player.addTag(`isBanned`);
+            try {
+                player.addTag(`by:Scythe Anticheat`);
+                player.addTag(`reason:You are Scythe Anticheat global banned!`);
+                player.addTag(`isBanned`);
+            } catch {}
         }
 
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
+
+        player.blocksBroken = 0;
+        player.entitiesHit = [];
 
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
