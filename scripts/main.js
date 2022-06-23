@@ -10,9 +10,13 @@ const World = Minecraft.world;
 
 if (config.debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
+const oldMessages = new Map();
+const startTime = Date.now();
 World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase();
     const player = msg.sender;
+
+    oldMessages.set(msg.sender.name,{date:Date.now()});
 
     if (config.debug && message === "ping") console.warn(`${new Date()} | Pong!`);
 
@@ -55,7 +59,20 @@ World.events.beforeChat.subscribe(msg => {
     }
 });
 
-World.events.tick.subscribe(() => {
+World.events.tick.subscribe((evd) => {
+    oldMessages.clear()
+
+    if (config.modules.antispam.enabled) oldMessages.forEach((v,k)=>{
+       if ((v.date-startTime)-(evd.currentTick*50) < 20) {
+        try{
+            const overworld = World.getDimension('overworld');
+            overworld.runCommand(`tag add "${k}" isMuted`);
+            overworld.runCommand(`tellraw "${k}" {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been muted. Reason: Spamming with an auto clicker."}]}`);
+            overworld.runCommand(`ability "${k}" mute true`);
+        }catch(err) {}
+       }
+    });
+
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
     if(config.debug) data.currentTick++;
 

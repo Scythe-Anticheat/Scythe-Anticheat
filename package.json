@@ -1,0 +1,37 @@
+{
+  "name": "scythe-anticheat",
+  "version": "2.1.0",
+  "description": "Scythe AntiCheat - The best anticheat designed for Minecraft Bedrock realms/worlds/servers",
+  "main": "scripts/main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrDiamond64/Scythe-AntiCheat.git"
+  },
+  "keywords": [
+    "minecraft",
+    "mcpe",
+    "anticheat",
+    "minecraft-anti-cheat",
+    "mcfunction",
+    "minecraft-bedrock",
+    "mcfunctions",
+    "minecraft-bedrock-anticheat",
+    "minecraft-anticheat",
+    "gametest",
+    "mcpe-anticheat",
+    "mc-anticheat",
+    "mcbe-anticheat",
+    "minecraft-bedrock-anti-cheat"
+  ],
+  "author": "MrDiamond64",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/MrDiamond64/Scythe-AntiCheat/issues"
+  },
+  "homepage": "https://github.com/MrDiamond64/Scythe-AntiCheat#readme",
+  "dependencies": {
+    "@types/mojang-gametest": "^0.1.5",
+    "@types/mojang-minecraft": "^0.1.6",
+    "@types/mojang-minecraft-ui": "^0.1.0"
+  }
+}

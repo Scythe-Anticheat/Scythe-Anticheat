@@ -49,6 +49,11 @@ export default
             "punishment": "none",
             "minVlbeforeBan": 0
         },
+        "antispam": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforeBan": 0
+        },
         "spammerA": {
             "enabled": true,
             "punishment": "none",
