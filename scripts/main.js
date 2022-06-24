@@ -60,8 +60,6 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 World.events.tick.subscribe((evd) => {
-    oldMessages.clear()
-
     if (config.modules.antispam.enabled) oldMessages.forEach((v,k)=>{
        if ((v.date-startTime)-(evd.currentTick*50) < 20) {
         try{
@@ -72,6 +70,7 @@ World.events.tick.subscribe((evd) => {
         }catch(err) {}
        }
     });
+    oldMessages.clear()
 
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
     if(config.debug) data.currentTick++;
