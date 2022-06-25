@@ -24,7 +24,7 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     // BadPackets/2 = chat message length check
-    if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", message.length, false, message);
+    if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, false, msg);
 
     // Spammer/A = checks if someone sends a message while moving and on ground
     if (config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
@@ -46,10 +46,10 @@ World.events.beforeChat.subscribe(msg => {
 
     // add's user custom tags to their messages if it exists or we fall back
     // also filter for non ASCII characters and remove them in messages
-    if (player.name && player.name !== player.nameTag && !msg.cancel) {
-        player.runCommand(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"/g, "").replace(/\\/g, "")}"}]}`);
+    if (player.name !== player.nameTag && !msg.cancel && !config.modules.filterUnicodeChat) {
+        player.runCommand(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
-    } else if (player.name && player.name === player.nameTag && !msg.cancel && config.modules.filterUnicodeChat) {
+    } else if ((player.name === player.nameTag || config.modules.filterUnicodeChat) && !msg.cancel) {
         player.runCommand(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
     }

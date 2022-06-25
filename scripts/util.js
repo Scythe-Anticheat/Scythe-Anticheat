@@ -47,26 +47,24 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             else player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
     } catch {}
 
-    slot = slot + 0;
-
-    if (slot >= 0) {
-        try {
-            if(slot <= 8) player.runCommand(`replaceitem entity @s slot.hotbar ${slot} air 1`);
-                else player.runCommand(`replaceitem entity @s slot.inventory ${slot - 9} air 1`);
-        } catch {}
-    }
+    if (typeof(slot) === "number") {
+		let container = player.getComponent("inventory").container;
+		try {
+			container.setItem(slot, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.air, 1, 0));
+		} catch {}
+	}
 
     let checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
 
     // punishment stuff
-    if(checkData.punishment == "kick") {
+    if(checkData.punishment.toLowerCase() == "kick") {
         try {
             player.runCommand(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
         } catch {
             // if we cant /kick them then we despawn them
             player.triggerEvent("scythe:kick");
         }
-    } else if(checkData.punishment == "ban") {
+    } else if(checkData.punishment.toLowerCase() == "ban") {
         try {
             player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${checkData.minVlbeforeBan}..}]`);
             try {
