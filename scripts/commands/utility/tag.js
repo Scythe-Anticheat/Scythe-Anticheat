@@ -34,8 +34,9 @@ export function tag(message, args) {
     // reset user nametag
     if (args[0].includes("reset")) {
         // remove old tags
-        let t = member.getTags().find(t => t.replace(/"|\\/g, "").startsWith("tag:"));
-        if(t) member.removeTag(t);
+        member.getTags().forEach(t => {
+            if(t.replace(/"|\\/g, "").startsWith("tag:")) member.removeTag(t);
+        });
 
         member.nameTag = member.name;
         return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset ${member.name}'s nametag."}]}`);
@@ -46,8 +47,9 @@ export function tag(message, args) {
     member.nameTag = nametag;
 
     // remove old tags
-    let t = member.getTags().find(t => t.replace(/"|\\/g, "").startsWith("tag:"));
-    if(t) member.removeTag(t);
+    member.getTags().forEach(t => {
+        if(t.replace(/"|\\/g, "").startsWith("tag:")) member.removeTag(t);
+    });
 
     member.addTag(`tag:${args.join(" ").replace(/"|\\/g, "")}`);
 
