@@ -352,7 +352,7 @@ World.events.playerJoin.subscribe(playerJoin => {
     player.getTags().forEach(t => {
         t = t.replace(/"|\\/g, "");
         if(t.startsWith("tag:"))
-            return player.nameTag = `§8[§r${t.slice(4)}§8]§r ${player.name}`;
+            player.nameTag = `§8[§r${t.slice(4)}§8]§r ${player.name}`;
     });
 
     // Namespoof/A = username length check.
