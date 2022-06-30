@@ -293,7 +293,7 @@
 							"moving_block": "query.get_equipped_item_name == 'moving_block' || query.get_equipped_item_name('off_hand') == 'moving_block'"
 						},
 						{
-							"other": "query.skin_id == 3"
+							"other": "query.skin_id == 2"
 						}
 					]
 				},

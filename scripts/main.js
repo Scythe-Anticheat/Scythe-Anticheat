@@ -376,7 +376,11 @@ World.events.playerJoin.subscribe(playerJoin => {
 World.events.entityCreate.subscribe(entityCreate => {
     let entity = entityCreate.entity;
     
-    entity.removeTag("test");
+    if(entity.id === "minecraft:player") {
+        entity.removeTag("attack");
+        entity.removeTag("hasGUIopen");
+
+    }
 
     if(config.modules.itemSpawnRateLimit.enabled) {
         data.entitiesSpawnedInLastTick++;

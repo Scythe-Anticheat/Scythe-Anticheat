@@ -112,7 +112,7 @@
 			},
 			"scythe:illegal": {
 				"minecraft:skin_id": {
-					"value": 3
+					"value": 2
 				}
 			},
 			"scythe:kick": {
@@ -658,6 +658,26 @@
 				"add": {
 					"component_groups": [
 						"scythe:kick"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:kick"
+					]
+				}
+			},
+			"minecraft:entity_spawn": {
+				"add": {
+					"component_groups": [
+						"scythe:reset_variant",
+						"scythe:reset_skinid"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:onAttack",
+						"scythe:gui",
+						"scythe:illegal"
 					]
 				}
 			},
