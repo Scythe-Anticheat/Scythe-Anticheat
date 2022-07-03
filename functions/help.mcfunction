@@ -25,7 +25,7 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function help§r -
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function ban§r - Ban the specified user."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function notify§r - Enables/Disables cheat notifications."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function credits§r - Shows credits, thats it."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ op§r - Op's player in Scythe AntiCheat features."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function op§r - Op's player in Scythe AntiCheat features."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
