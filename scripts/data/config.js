@@ -94,7 +94,7 @@ export default
         },
         "reachA": {
             "enabled": true,
-            "reach": 4.5,
+            "reach": 4.7,
             "entities_blacklist": [
                 "minecraft:enderman",
                 "minecraft:fireball"
