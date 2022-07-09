@@ -94,7 +94,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
  */
 export function banMessage(player) {
     // validate that required params are defined
-    if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:68)");
+    if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:97)");
 
     if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
@@ -166,7 +166,7 @@ export function banMessage(player) {
  */
  export function getClosestPlayer(entity) {
     // validate that required params are defined
-    if (!entity) return console.warn(`${new Date()} | ` + "Error: ${entity} isnt defined. Did you forget to pass it? (./util.js:130)");
+    if (!entity) return console.warn(`${new Date()} | ` + "Error: ${entity} isnt defined. Did you forget to pass it? (./util.js:169)");
 
     // thx https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
 
