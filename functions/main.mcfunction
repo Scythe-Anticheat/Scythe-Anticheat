@@ -2,7 +2,6 @@
 gamerule randomtickspeed 1
 
 # Run all the checks
-function checks/angle
 function checks/cbe
 function checks/illegalitems
 function checks/others

@@ -33,7 +33,7 @@ To receive anti-cheat alerts use: ```/function notify```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks for multi-protection armor. (Requires GameTest Framework)<br />
 
   BadPackets -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) => Checks for invalid player head rotations.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) => Checks for invalid player head rotations. (Requires GameTest Framework)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) => Checks for invalid chat message lenghts. (Requires GameTest Framework)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) => Checks for self-hurt. (Requires GameTest Framework)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) => Checks for invalid selected slot. (Requires GameTest Framework)<br />

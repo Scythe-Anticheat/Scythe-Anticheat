@@ -69,6 +69,12 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
+        // BadPackets[1] = checks for invalid player head angle
+        if(config.modules.badpackets1.enabled) {
+            if(Math.abs(Math.floor(player.rotation.x)) > config.modules.badpackets1.maxPitch || Math.abs(Math.floor(player.rotation.y)) > config.modules.badpackets1.maxYaw)
+                flag(player, "BadPackets", "1", "Exploit", "x_rotation", `${(player.rotation.x.toFixed(3))},y_rotation=${(player.rotation.y.toFixed(3))}`, true);
+        }
+
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 
@@ -379,7 +385,6 @@ World.events.entityCreate.subscribe(entityCreate => {
     if(entity.id === "minecraft:player") {
         entity.removeTag("attack");
         entity.removeTag("hasGUIopen");
-
     }
 
     if(config.modules.itemSpawnRateLimit.enabled) {

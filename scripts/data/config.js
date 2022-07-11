@@ -244,6 +244,14 @@ export default
             "maximuim_protection_types": 1,
             "punishment": "none",
             "minVLbeforeBan": 0
+        },
+        "badpackets1": {
+            "enabled": true,
+            // Although the max pitch is 90, with Full Desktop Gameplay you can set your pitch to 94.311 repeating.
+            "maxPitch": 95,
+            "maxYaw": 180,
+            "punishment": "ban",
+            "minVLbeforeBan": 0
         }
     },
     "itemLists": {
