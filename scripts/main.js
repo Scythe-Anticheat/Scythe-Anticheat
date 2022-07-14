@@ -185,7 +185,7 @@ World.events.tick.subscribe(() => {
                                 flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
                         // badenchants/B = checks for negative enchantment levels
-                        if(config.modules.badenchantsB.enabled && enchantData.level < config.modules.badenchantsA.minLevel) 
+                        if(config.modules.badenchantsB.enabled && enchantData.level < 0) 
                             flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
