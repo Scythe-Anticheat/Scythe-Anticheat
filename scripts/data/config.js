@@ -289,7 +289,8 @@ export default
             "minecraft:light_block",
             "minecraft:border_block",
             "minecraft:chemistry_table",
-            "minecraft:frosted_ice"
+            "minecraft:frosted_ice",
+            "minecraft:npc_spawn_egg"
         ],
         "items_very_illegal": [
             "minecraft:flowing_water",
@@ -423,7 +424,6 @@ export default
             "minecraft:cave_vines_head_with_berries",
             "minecraft:real_double_stone_slab2",
             "minecraft:spawn_egg",
-            "minecraft:npc_spawn_egg"
         ]
     }
 };
