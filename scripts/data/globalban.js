@@ -22,5 +22,6 @@ export const banList = [
    "OIlllIIlIIlO",
    "Economydev",
    "HostingEconomy",
-   "EcoAutomod"
+   "EcoAutomod",
+   "WieldyAtol86717"
 ];
