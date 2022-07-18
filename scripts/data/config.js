@@ -97,7 +97,8 @@ export default
             "reach": 4.7,
             "entities_blacklist": [
                 "minecraft:enderman",
-                "minecraft:fireball"
+                "minecraft:fireball",
+                "minecraft:ender_dragon"
             ],
             "punishment": "none",
             "minVlbeforeBan": 0
