@@ -111,7 +111,7 @@ To ban a player use: ```/execute <playername> ~~~ function ban```
 
 To freeze a player use: ```/execute <playername> ~~~ function tools/freeze```
 
-To enter vanish use: ```/function tools/vanish```,
+To enter vanish use: ```/function tools/vanish```
 
 To be able to fly in survival mode use: ```/function tools/fly```
 
