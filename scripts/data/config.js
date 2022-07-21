@@ -424,6 +424,9 @@ export default
             "minecraft:cave_vines_head_with_berries",
             "minecraft:real_double_stone_slab2",
             "minecraft:spawn_egg",
+			"minecraft:coral_fan_hang",
+			"minecraft:coral_fan_hang2",
+			"minecraft:coral_fan_hang3"
         ]
     }
 };
