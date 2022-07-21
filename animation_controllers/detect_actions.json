@@ -256,7 +256,8 @@
 						"sleeping": "query.is_sleeping"
 					}],
 					"on_entry": [
-						"/tag @s remove sleeping"
+						"/tag @s remove sleeping",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"sleeping": {
@@ -264,7 +265,8 @@
 						"default": "!query.is_sleeping"
 					}],
 					"on_entry": [
-						"/tag @s add sleeping"
+						"/tag @s add sleeping",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
