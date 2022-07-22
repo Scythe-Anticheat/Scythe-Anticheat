@@ -66,6 +66,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!freeze <username>�
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!stats <username>§r - View a specific players anticheat logs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!fullreport§r - View everyones anticheat logs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!oldvanish§r - Enables/disables old vanish (Used for spying on suspects)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> [reason]§r - Report a player."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gui - Opens the Scythe Management UI."}]}
@@ -77,5 +78,6 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username>
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/stats§r - View a specific players anticheat logs."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute @a ~~~ function tools/stats§r - View everyones anticheat logs."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/oldvanish§r - Enables/disables old vanish (Used for spying on suspects)."}]}
 
 tellraw @s {"rawtext":[{"text":"\n"}]}

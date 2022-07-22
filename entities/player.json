@@ -666,6 +666,30 @@
 					]
 				}
 			},
+			"unvanish": {
+				"add": {
+					"component_groups": [
+						"unvanished"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"vanished"
+					]
+				}
+			},
+			"vanish": {
+				"add": {
+					"component_groups": [
+						"vanished"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"unvanished"
+					]
+				}
+			},
 			"minecraft:entity_spawn": {
 				"add": {
 					"component_groups": [
