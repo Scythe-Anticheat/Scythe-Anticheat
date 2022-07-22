@@ -236,7 +236,7 @@
 										"test": "has_tag",
 										"operator": "==",
 										"subject": "self",
-										"value": "vanish"
+										"value": "oldvanish"
 									}
 								]
 							}
