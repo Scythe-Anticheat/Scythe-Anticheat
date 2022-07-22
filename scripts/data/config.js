@@ -32,7 +32,7 @@ export default
         "notify": true,
         "tag": true,
         "vanish": true,
-		"oldvanish": true,
+	"oldvanish": true,
         "report": true,
         "unban": true,
         "gui": true
