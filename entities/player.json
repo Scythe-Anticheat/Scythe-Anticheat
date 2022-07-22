@@ -115,12 +115,37 @@
 					"value": 2
 				}
 			},
+			"unvanished": {
+				"minecraft:scale": {
+					"value": 1
+				},
+				"minecraft:breathable": {
+					"breathes_solids": false,
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false
+				}
+			},
+			"vanished": {
+				"minecraft:scale": {
+					"value": 0
+				},
+				"minecraft:breathable": {
+					"breathes_solids": true,
+					"total_supply": 15,
+					"suffocate_time": -1,
+					"inhale_time": 3.75,
+					"generates_bubbles": false
+				}
+			},
 			"scythe:kick": {
 				"minecraft:instant_despawn": {
 					"remove_child_entities": true
 				}
 			}
 		},
+		
 		"components": {
 			"minecraft:experience_reward": {
 				"on_death": "Math.Min(query.player_level * 7, 100)"
@@ -206,6 +231,12 @@
 										"operator": "==",
 										"subject": "self",
 										"value": "mayfly"
+									},
+									{
+										"test": "has_tag",
+										"operator": "==",
+										"subject": "self",
+										"value": "vanish"
 									}
 								]
 							}
