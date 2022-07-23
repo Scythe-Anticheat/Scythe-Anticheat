@@ -1,6 +1,7 @@
 export default
 {
     "debug": true,
+    "flagWhitelist": [],
     "customcommands": {
         "prefix": "!",
         "ban": true,
