@@ -70,7 +70,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.ban && commandName === "ban") ban(message, args);
         else if (config.customcommands.notify && commandName === "notify") notify(message);
         else if (config.customcommands.vanish && commandName === "vanish" || commandName === "v") vanish(message);
-	else if (config.customcommands.oldvanish && commandName === "oldvanish" || commandName === "ov") vanish(message);
+	else if (config.customcommands.oldvanish && commandName === "oldvanish" || commandName === "ov") oldvanish(message);
         else if (config.customcommands.fly && commandName === "fly" || commandName === "birdmode") fly(message, args);
         else if (config.customcommands.mute && commandName === "mute") mute(message, args);
         else if (config.customcommands.unmute && commandName === "unmute") unmute(message, args);
