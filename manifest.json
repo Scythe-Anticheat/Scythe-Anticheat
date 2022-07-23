@@ -3,7 +3,7 @@
 	"header": {
 		"name": "Scythe AntiCheat",
 		"description": "The best minecraft bedrock anticheat, designed for realms and servers.",
-		"uuid": "c68ba0c1-b9e4-46ad-b6c8-88bbd28f1fa5",
+		"uuid": "25e9a6c4-00c3-47e3-9dbf-91bda26092c8",
 		"version": [2, 6, 0],
 		"min_engine_version": [1, 16, 210]
 	},
@@ -13,7 +13,7 @@
 	},
 	"modules": [{
 			"type": "data",
-			"uuid": "d059cc96-9272-4a33-90c8-f572bcc7fa56",
+			"uuid": "4d8c1cf7-047e-495b-9fee-f4d9cb30ba3f",
 			"version": [
 				1,
 				0,
@@ -24,21 +24,21 @@
 			"description": "Scythe AntiCheat Gametest Features",
 			"language": "javascript",
 			"type": "script",
-			"uuid": "ab31620b-f498-4355-9bea-498922f5940e",
+			"uuid": "14496b15-db6e-4fe1-a813-8358390d6381",
 			"version": [0, 0, 1],
 			"entry": "scripts/main.js"
 		}
 	],
 	"dependencies": [{
-			"uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
+			"uuid": "9beb3e35-2e4b-4bae-9599-3cd5f8ddfd8a",
 			"version": [0, 1, 0]
 		},
 		{
-			"uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+			"uuid": "20b83fb8-8139-4c74-a56c-01375634599d",
 			"version": [0, 1, 0]
 		},
         {
-			"uuid": "2BD50A27-AB5F-4F40-A596-3641627C635E",
+			"uuid": "83d752f3-d921-4a68-8ae0-05a2e8d5cf9e",
 			"version": [0, 1, 0]
 		}
 	]
