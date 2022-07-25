@@ -57,6 +57,7 @@
 					"/scoreboard objectives add xPos dummy",
 					"/scoreboard objectives add yPos dummy",
 					"/scoreboard objectives add zPos dummy",
+					"/scoreboard objectives add anglevl dummy",
 					"/scoreboard objectives add invalidsprintvl dummy",
 					"/scoreboard objectives add flyvl dummy",
 					"/scoreboard objectives add last_attack dummy",
