@@ -32,10 +32,10 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(debug) debug = String(debug).replace(/"|\\/g, "");
 
     if(shouldTP && check !== "Crasher") player.runCommand(`tp @s @s`);
-    else if(shouldTP && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
+        else if(shouldTP && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
 
     if(check !== "CommandBlockExploit") try {
-        player.runCommand(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
+        player.runCommandAsync(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
     } catch {}
 
     if (check != "CommandBlockExploit") player.runCommand(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
@@ -100,7 +100,7 @@ export function banMessage(player) {
         player.removeTag("isBanned");
 
         try {
-            player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been found in the unban queue and has been unbanned."}]}`);
+            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been found in the unban queue and has been unbanned."}]}`);
         } catch {}
 
         player.getTags().forEach(t => {
