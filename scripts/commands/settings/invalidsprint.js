@@ -4,7 +4,7 @@
  */
  export function invalidsprint(message) {
     // validate that required params are defined
-    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/settings/npc.js:7)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/settings/invalidsprint.js:7)");
 
     message.cancel = true;
 
