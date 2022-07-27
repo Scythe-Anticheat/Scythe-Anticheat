@@ -269,6 +269,27 @@
 					]
 				}
 			}
+		},
+		"controller.animation.trident": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"trident": "query.get_equipped_item_name == 'trident'"
+					}],
+					"on_entry": [
+						"/tag @s remove trident",
+						"/scoreboard players set @s last_attack 0"
+					]
+				},
+				"trident": {
+					"transitions": [{
+						"default": "query.get_equipped_item_name != 'trident'"
+					}],
+					"on_entry": [
+						"/tag @s add trident"
+					]
+				}
+			}
 		}
 	}
 }
