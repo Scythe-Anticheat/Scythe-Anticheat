@@ -98,7 +98,8 @@ export default
             "entities_blacklist": [
                 "minecraft:enderman",
                 "minecraft:fireball",
-                "minecraft:ender_dragon"
+                "minecraft:ender_dragon",
+                "minecraft:ghast"
             ],
             "punishment": "none",
             "minVlbeforeBan": 0
