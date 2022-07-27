@@ -379,6 +379,10 @@ World.events.entityCreate.subscribe(entityCreate => {
     if(entity.id === "minecraft:player") {
         entity.removeTag("attack");
         entity.removeTag("hasGUIopen");
+        entity.removeTag("right");
+        entity.removeTag("left");
+        entity.removeTag("ground");
+        entity.removeTag("gliding");
     }
 
     if(config.modules.itemSpawnRateLimit.enabled) {
