@@ -21,7 +21,7 @@ export function unban(message, args) {
 
     if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to ban!"}]}`);
     
-    let member = args[0];
+    let member = args[0].replace(/"|\\/g, "");
 
     if(data.unbanQueue.includes(member)) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Error: ${member} is already queued for an unban."}]}`);
 
