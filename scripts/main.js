@@ -75,7 +75,13 @@ World.events.tick.subscribe(() => {
         player.blocksBroken = 0;
         player.entitiesHit = [];
 
-        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) == 0.4200 && player.velocity.x == 0) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
+
+        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) == 0.4200) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
+
+        if(!player.isLoaded && player.velocity.y.toFixed(6) == -0.078400) player.isLoaded = true;
+
+        if(config.modules.badpackets6.enabled && player.isLoaded && player.velocity.x == 0 && player.velocity.y == 0 && player.velocity.z == 0)
+            flag(player, "BadPackets", "6", "Exploit", false, false, true);
 
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
