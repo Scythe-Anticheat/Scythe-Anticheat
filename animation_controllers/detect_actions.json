@@ -161,7 +161,8 @@
 			"states": {
 				"default": {
 					"transitions": [{
-						"right": "query.is_using_item"
+            // wacky solution at fixing a false positive, but whatever
+						"right": "query.is_using_item && query.get_equipped_item_name != 'fishing_rod'"
 					}],
 					"on_entry": [
 						"/tag @s remove right",
