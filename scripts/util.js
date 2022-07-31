@@ -152,6 +152,9 @@ export function banMessage(player) {
 
     try {
         player.runCommand(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
+        try {
+            player.runCommand('tellraw @a[tag=op] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" was kicked for: You are banned!"}]}');
+        } catch {}
     } catch {
         player.triggerEvent("scythe:kick");
     }
