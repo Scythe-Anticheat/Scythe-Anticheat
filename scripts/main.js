@@ -337,7 +337,6 @@ World.events.playerJoin.subscribe(playerJoin => {
     if(!data.loaded) {
         try {
             World.getDimension("overworld").runCommand(`scoreboard players set scythe:config gametestapi 1`);
-            World.getDimension("overworld").runCommand(`scoreboard players operation @a gametestapi = scythe:config gametestapi`);
             data.loaded = true;
         } catch {}
     }
