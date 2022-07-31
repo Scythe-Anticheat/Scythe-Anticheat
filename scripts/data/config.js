@@ -253,7 +253,7 @@ export default
         },
         "badpackets6": {
             "enabled": true,
-            "punishment": "kick",
+            "punishment": "none",
             "minVLbeforeBan": 0
         }
     },
