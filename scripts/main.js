@@ -342,6 +342,14 @@ World.events.playerJoin.subscribe(playerJoin => {
         } catch {}
     }
 
+    // remove tags
+    player.removeTag("attack");
+    player.removeTag("hasGUIopen");
+    player.removeTag("right");
+    player.removeTag("left");
+    player.removeTag("ground");
+    player.removeTag("gliding");
+    
     // fix a weird crash that happens when the player has an extremely long name
     if(player.nameTag.length > 100) player.triggerEvent("scythe:kick");
 
@@ -375,15 +383,6 @@ World.events.playerJoin.subscribe(playerJoin => {
 
 World.events.entityCreate.subscribe(entityCreate => {
     let entity = entityCreate.entity;
-    
-    if(entity.id === "minecraft:player") {
-        entity.removeTag("attack");
-        entity.removeTag("hasGUIopen");
-        entity.removeTag("right");
-        entity.removeTag("left");
-        entity.removeTag("ground");
-        entity.removeTag("gliding");
-    }
 
     if(config.modules.itemSpawnRateLimit.enabled) {
         data.entitiesSpawnedInLastTick++;
