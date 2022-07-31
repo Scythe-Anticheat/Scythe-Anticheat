@@ -75,7 +75,6 @@ World.events.tick.subscribe(() => {
         player.blocksBroken = 0;
         player.entitiesHit = [];
 
-
         // BadPackets[5] = checks for horion freecam
         if(!player.badpackets5Ticks) player.badpackets5Ticks = 0;
         if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) == 0.4200) {
@@ -91,8 +90,6 @@ World.events.tick.subscribe(() => {
             player.badpackets6Ticks++;
             if(player.badpackets6Ticks > 2) flag(player, "BadPackets", "6", "Exploit", false, false, true);
         } else if(player.badpackets6Ticks  != 0) player.badpackets6Ticks--;
-
-        console.warn(player.badpackets5Ticks, player.badpackets6Ticks);
 
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
