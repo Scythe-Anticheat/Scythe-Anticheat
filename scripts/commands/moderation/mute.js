@@ -15,7 +15,7 @@ export function mute(message, args) {
     message.cancel = true;
 
     let player = message.sender;
-    let reason = args.slice(1).join(" ") || "No reason specified";
+    let reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
     // make sure the user has permissions to run the command
     if(!player.hasTag("op")) 
