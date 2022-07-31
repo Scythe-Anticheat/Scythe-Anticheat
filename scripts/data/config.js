@@ -245,6 +245,11 @@ export default
             "maximuim_protection_types": 1,
             "punishment": "none",
             "minVLbeforeBan": 0
+        },
+        "badpackets5": {
+            "enabled": true,
+            "punishment": "none",
+            "minVLbeforeBan": 0
         }
     },
     "itemLists": {

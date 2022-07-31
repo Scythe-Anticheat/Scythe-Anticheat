@@ -37,6 +37,7 @@ To receive anti-cheat alerts use: ```/function notify```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) => Checks for invalid chat message lenghts. (Requires GameTest Framework)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) => Checks for self-hurt. (Requires GameTest Framework)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) => Checks for invalid selected slot. (Requires GameTest Framework)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(5) => Checks for Horion Freecam. (Requires GameTest Framework)<br />
 
   Command Block Exploit -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Clears animal buckets/beehives.<br />

@@ -75,6 +75,8 @@ World.events.tick.subscribe(() => {
         player.blocksBroken = 0;
         player.entitiesHit = [];
 
+        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) == 0.4200 && player.velocity.x == 0) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
+
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
             Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) 
@@ -336,7 +338,7 @@ World.events.playerJoin.subscribe(playerJoin => {
 
     if(!data.loaded) {
         try {
-            World.getDimension("overworld").runCommand(`scoreboard players set scythe:config gametestapi 1`);
+            player.runCommand(`scoreboard players set scythe:config gametestapi 1`);
             data.loaded = true;
         } catch {}
     }
@@ -462,8 +464,8 @@ World.events.entityHit.subscribe(entityHit => {
         }
     }
 
-     // autoclicker/a = check for high cps
-     if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
+    // autoclicker/a = check for high cps
+    if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
         // if anti-autoclicker is disabled in game then disable it in config.js
         if(!data.checkedModules.autoclicker) {
             try {

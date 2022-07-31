@@ -5,6 +5,6 @@ export default
     loaded: false,
     currentTick: 0,
     checkedModules: {
-        autoclicker: false,
+        autoclicker: false
     }
 };
