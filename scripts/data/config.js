@@ -250,6 +250,11 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVLbeforeBan": 0
+        },
+        "namespoofC": {
+            "enabled": true,
+            "punishment": "kick",
+            "minVLbeforeBan": 0
         }
     },
     "itemLists": {

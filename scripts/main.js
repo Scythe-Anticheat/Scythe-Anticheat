@@ -91,8 +91,9 @@ World.events.tick.subscribe(() => {
 
         // anti-namespoof
         // these values are set in the playerJoin config
-        if(player.flagNamespoofA) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
-        if(player.flagNamespoofB) flag(player, "Namespoof", "B", "Exploit");
+        if(player.flagNamespoofA === true) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
+        if(player.flagNamespoofB === true) flag(player, "Namespoof", "B", "Exploit");
+        if(player.flagNamespoofC === true) flag(player, "Namespoof", "C", "Exploit", "oldName", player.oldName);
 
         // player position shit
         if(player.hasTag("moving")) {
@@ -365,11 +366,27 @@ World.events.playerJoin.subscribe(playerJoin => {
     player.nameTag = player.nameTag.replace(/"|\\/g, "");
 
     // load custom nametag
+    let foundName;
+
     player.getTags().forEach(t => {
+        // Namespoof/C
+        // adding a double qoute makes it so commands cant remove the tag, and cant add the tag to other people
+        if(config.modules.namespoofC.enabled && t.startsWith("\"name:")) foundName = t.replace("\"name:", "");
+
+        // load custom nametag
         t = t.replace(/"|\\/g, "");
         if(t.startsWith("tag:"))
             player.nameTag = `§8[§r${t.slice(4)}§8]§r ${player.name}`;
     });
+
+    if(config.modules.namespoofC.enabled) {
+        if(!foundName) {
+            player.addTag(`"name:${player.name}`);
+        } else if(foundName !== player.name) {
+            player.flagNamespoofC = true;
+            player.oldName = foundName;
+        }
+    }
 
     // Namespoof/A = username length check.
     if (config.modules.namespoofA.enabled) {

@@ -29,7 +29,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if (message) message.cancel = true;
 
     // remove characters that may break commands
-    if(debug) debug = String(debug).replace(/"|\\/g, "");
+    if(debug) debug = String(debug).replace(/"|\\/gm, "");
 
     if(shouldTP && check !== "Crasher") player.runCommand(`tp @s @s`);
         else if(shouldTP && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
@@ -43,7 +43,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     try {
         if(debug && check != "CommandBlockExploit") player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
-            else if (debug) player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
+            else if (debugName && debug) player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug})§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
             else player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
     } catch {}
 
@@ -55,6 +55,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 	}
 
     let checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
+    if(!checkData) return;
 
     // punishment stuff
     if(checkData.punishment.toLowerCase() == "kick") {
