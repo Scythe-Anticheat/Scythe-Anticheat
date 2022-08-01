@@ -84,13 +84,6 @@ World.events.tick.subscribe(() => {
 
         if(!player.isLoaded && player.velocity.y.toFixed(6) == -0.078400) player.isLoaded = true;
 
-        // BadPackets[6] = checks if the player does not update velocity
-        if(!player.badpackets6Ticks) player.badpackets6Ticks = 0;
-        if(config.modules.badpackets6.enabled && player.isLoaded && player.velocity.x == 0 && player.velocity.y == 0 && player.velocity.z == 0) {
-            player.badpackets6Ticks++;
-            if(player.badpackets6Ticks > 2) flag(player, "BadPackets", "6", "Exploit", false, false, true);
-        } else if(player.badpackets6Ticks  != 0) player.badpackets6Ticks--;
-
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
             Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) 

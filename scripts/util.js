@@ -6,14 +6,14 @@ const World = Minecraft.world;
 
 /**
  * @name flag
- * @param {object} player - The player object
+ * @param {Player} player - The player object
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string} debugName - Name for the debug value.
  * @param {string} debug - Debug info.
  * @param {boolean} shouldTP - Whever to tp the player to itself.
- * @param {object} message - The message object, used to cancel the message.
+ * @param {Message} message - The message object, used to cancel the message.
  * @param {number} slot - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", false, false, false, msg, false);
  * @remarks Alerts staff if a player is hacking.
@@ -88,7 +88,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
 /**
  * @name banMessage
- * @param {object} player - The player object
+ * @param {Player} player - The player object
  * @example banMessage(player);
  * @remarks Bans the player from the game.
  */
@@ -162,10 +162,10 @@ export function banMessage(player) {
 
 /**
  * @name getClosestPlayer
- * @param {object} entity - The entity to check
+ * @param {Entity} entity - The entity to check
  * @example getClosestPlayer(entity);
  * @remarks Gets the nearest player to an entity.
- * @returns {object} player - The player that was found
+ * @returns {Player} player - The player that was found
  */
  export function getClosestPlayer(entity) {
     // validate that required params are defined
@@ -225,7 +225,7 @@ export function parseTime(str) {
     // parse time values like 12h, 1d, 10m into milliseconds
 
     // code from github co-pilot, thanks ai!
-    const time = str.match(/^(\d+)([smhdw])$/);
+    const time = str.match(/^(\d+)([smhdwy])$/);
     if (time) {
         const [, num, unit] = time;
         const ms = {
@@ -233,7 +233,8 @@ export function parseTime(str) {
             m: 60000,
             h: 3600000,
             d: 86400000,
-            w: 604800000
+            w: 604800000,
+            y: 31536000000
         }[unit];
         return ms * num;
     }

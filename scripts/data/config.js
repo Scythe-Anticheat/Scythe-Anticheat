@@ -250,11 +250,6 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVLbeforeBan": 0
-        },
-        "badpackets6": {
-            "enabled": true,
-            "punishment": "none",
-            "minVLbeforeBan": 0
         }
     },
     "itemLists": {
