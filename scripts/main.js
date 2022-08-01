@@ -219,8 +219,8 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
         
-        if(config.modules.autoclickerA.enabled && player.cps > 0 && new Date().getTime() - player.firstAttack > config.modules.autoclickerA.checkCPSAfter) {
-            player.cps = player.cps / ((new Date().getTime() - player.firstAttack) / 1000);
+        if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack > config.modules.autoclickerA.checkCPSAfter) {
+            player.cps = player.cps / ((Date.now() - player.firstAttack) / 1000);
             // autoclicker/A = checks for high cps
             if(player.cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", "CPS", player.cps);
             
@@ -232,7 +232,7 @@ World.events.tick.subscribe(() => {
             player.lastCPS = player.cps;
             */
 
-            player.firstAttack = new Date().getTime();
+            player.firstAttack = Date.now();
             player.cps = 0;
         }
 
@@ -483,7 +483,7 @@ World.events.entityHit.subscribe(entityHit => {
             data.checkedModules.autoclicker = true;
         }
 
-        if(!player.firstAttack) player.firstAttack = new Date().getTime();
+        if(!player.firstAttack) player.firstAttack = Date.now();
         if(!player.cps) player.cps = 0;
         player.cps++;
     }

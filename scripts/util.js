@@ -130,7 +130,7 @@ export function banMessage(player) {
 
 
     if(time) {
-        if(time < new Date().getTime()) {
+        if(time < Date.now()) {
             try {
                 player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"'s ban has expired and has now been unbanned."}]}`);
             } catch {}
@@ -252,7 +252,7 @@ export function msToTime(ms) {
     // validate that required params are defined
     if (!ms) return console.warn(`${new Date()} | ` + "Error: ${ms} isnt defined. Did you forget to pass it? (./util.js:242)");
 
-    if(ms > new Date().getTime()) ms = ms - new Date().getTime();
+    if(ms > Date.now()) ms = ms - Date.now();
 
     // turn miliseconds into days, minutes, seconds, etc
     const w = Math.floor(ms / (1000 * 60 * 60 * 24 * 7));
