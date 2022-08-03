@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { flag, banMessage, getClosestPlayer, snakeToCamel} from "./util.js";
+import { flag, banMessage, getClosestPlayer} from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
@@ -195,7 +195,7 @@ World.events.tick.subscribe(() => {
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
                         // just dont ask.
                         if(config.modules.badenchantsD.enabled) {
-                            let item2 = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes[snakeToCamel(item.id)], 1, item.data);
+                            let item2 = new Minecraft.ItemStack(Minecraft.Items.get(item.id), 1, item.data);
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
                                 flag(player, "BadEnchants", "C", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
                             }

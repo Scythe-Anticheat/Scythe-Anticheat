@@ -193,26 +193,6 @@ export function banMessage(player) {
 }
 
 /**
- * @name snakeToCamel
- * @param {string} str - The string to convert
- * @example str("minecraft:enchanted_golden_apple"); // returns "enchantedGoldenApple"
- * @remarks Converts a snake_case string to camelCase
- * @returns {string} str - The converted string
- */
-export function snakeToCamel(str) {
-    // validate that required params are defined
-    if (!str) return console.warn(`${new Date()} | ` + "Error: ${str} isnt defined. Did you forget to pass it? (./util.js:196)");
-
-    // thanks https://stackoverflow.com/a/52551910
-    str = str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
-
-    str = str.replace("minecraft", "");
-
-    // https://stackoverflow.com/a/7224605
-    return str.charAt(0).toLowerCase() + str.slice(1);
-}
-
-/**
  * @name parseTime
  * @param {string} str - The time value to convert to milliseconds
  * @example str("24d"); // returns 2073600000
