@@ -47,6 +47,7 @@
 					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
 					// Anticheat Objectives
 					"/scoreboard objectives add autototemvl dummy",
+					"/scoreboard objectives add autoshieldvl dummy",
 					"/scoreboard objectives add invmovevl dummy",
 					"/scoreboard objectives add autoclickervl dummy",
 					"/scoreboard objectives add right dummy",

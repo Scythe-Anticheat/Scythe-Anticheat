@@ -23,6 +23,28 @@
 				}
 			}
 		},
+		"controller.animation.autoshield": {
+			"states": {
+				"autoshield": {
+					"transitions": [{
+						"shield": "query.get_equipped_item_name('off_hand') == 'shield'"
+					}]
+				},
+				"shield": {
+					"on_entry": [
+						"/scoreboard players add @s[tag=moving,tag=ground] autoshield 1",
+						"/execute @s[tag=moving,tag=ground] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoShield/A VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autoshieldvl\"}}]}",
+						"/scoreboard players add @s[tag=right] autoshield 1",
+						"/execute @s[tag=right] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoShield/B VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autoshieldvl\"}}]}",
+						"/scoreboard players add @s[tag=left] autoshield 1",
+						"/execute @s[tag=left] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoShield/C VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autoshieldvl\"}}]}"
+					],
+					"transitions": [{
+						"autoshield": "query.get_equipped_item_name('off_hand') != 'shield'"
+					}]
+				}
+			}
+		},
 		"controller.animation.invmove": {
 			"states": {
 				"default": {
