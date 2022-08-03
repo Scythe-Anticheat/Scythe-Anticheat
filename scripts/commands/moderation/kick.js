@@ -27,20 +27,20 @@ export function kick(message, args) {
     if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to kick!"}]}`);
 	
     // try to find the player requested
-    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl.name;
+    for (let pl of World.getPlayers()) if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl;
 
     if (!member) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
     // make sure they dont kick themselves
-    if (member === player.name) return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot kick yourself."}]}`);
+    if (member.name === player.name) return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot kick yourself."}]}`);
 
 
     try {
-        if (!isSilent) player.runCommand(`kick "${member}" ${reason}`);
+        if (!isSilent) player.runCommand(`kick "${member.name}" ${reason}`);
             else member.runCommand(`event entity @s scythe:kick`);
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to ban that player! Error: ${error}.replace(/"|\\/g, "")"}]}`);
     }
-    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${member} (Silent:${isSilent}). Reason: ${reason}"}]}`);
+    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${member.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);
 }
