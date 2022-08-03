@@ -34,7 +34,6 @@ export function kick(message, args) {
     // make sure they dont kick themselves
     if (member.name === player.name) return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot kick yourself."}]}`);
 
-
     try {
         if (!isSilent) player.runCommand(`kick "${member.name}" ${reason}`);
             else member.runCommand(`event entity @s scythe:kick`);
