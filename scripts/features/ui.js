@@ -106,7 +106,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         if(response.selection === 1) {
             if(!config.customcommands.kick) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Kicking players is disabled in config.js."}]}`);
             try {
-                player.runCommand(`kick "${playerSelected.nameTag}" You have been kicked from the game by ${player.name}.`);
+                player.runCommand(`kick "${playerSelected.name}" You have been kicked from the game by ${player.name}.`);
             } catch {
                 playerSelected.triggerEvent("scythe:kick");
             }
