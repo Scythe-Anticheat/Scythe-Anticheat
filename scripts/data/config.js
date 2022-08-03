@@ -253,7 +253,7 @@ export default
         },
         "namespoofC": {
             "enabled": true,
-            "punishment": "kick",
+            "punishment": "none",
             "minVLbeforeBan": 0
         }
     },
