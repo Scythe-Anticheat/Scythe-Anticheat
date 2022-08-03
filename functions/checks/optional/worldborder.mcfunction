@@ -27,7 +27,7 @@ tag @s[scores={worldborder=4,zPos=..-25000}] add worldborder
 # 50k
 tag @s[scores={worldborder=5,xPos=50000..}] add worldborder
 tag @s[scores={worldborder=5,zPos=50000..}] add worldborder
-tag @s[scores={worldborder=5,xPos=..-50000}]  add worldborder
+tag @s[scores={worldborder=5,xPos=..-50000}] add worldborder
 tag @s[scores={worldborder=5,zPos=..-50000}] add worldborder
 
 # 100k
