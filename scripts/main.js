@@ -82,8 +82,6 @@ World.events.tick.subscribe(() => {
             if(player.badpackets5Ticks > 2) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
         } else if(player.badpackets5Ticks  != 0) player.badpackets5Ticks--;
 
-        if(!player.isLoaded && player.velocity.y.toFixed(6) == -0.078400) player.isLoaded = true;
-
         // Crasher/A = invalid pos check
         if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
             Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) 
