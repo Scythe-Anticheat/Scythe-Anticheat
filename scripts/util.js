@@ -96,7 +96,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 export function banMessage(player) {
     // validate that required params are defined
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./util.js:97)");
-    if(config.flagWhitelist.includes(player.name)) return;
+    if(config.flagWhitelist.includes(player.name) && !player.oldName) return;
     if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
 
