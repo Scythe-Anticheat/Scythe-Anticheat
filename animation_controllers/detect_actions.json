@@ -161,7 +161,8 @@
 			"states": {
 				"default": {
 					"transitions": [{
-						"right": "query.is_using_item"
+            // wacky solution at fixing a false positive, but whatever
+						"right": "query.is_using_item && query.get_equipped_item_name != 'fishing_rod'"
 					}],
 					"on_entry": [
 						"/tag @s remove right",
@@ -176,8 +177,7 @@
 					"on_entry": [
 						"/tag @s add right",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aRIGHT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start,ticks=0)\"}]}",
-						"/scoreboard players add @s[tag=hasGUIopen] invmovevl 1",
-						"/execute @s[tag=hasGUIopen] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMods/C §7(is_using)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}"
+						"/execute @s[tag=hasGUIopen] ~~~ function checks/alerts/invmove"
 					]
 				}
 			}
@@ -267,6 +267,27 @@
 					"on_entry": [
 						"/tag @s add sleeping",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+					]
+				}
+			}
+		},
+		"controller.animation.trident": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"trident": "query.get_equipped_item_name == 'trident'"
+					}],
+					"on_entry": [
+						"/tag @s remove trident",
+						"/scoreboard players set @s last_attack 0"
+					]
+				},
+				"trident": {
+					"transitions": [{
+						"default": "query.get_equipped_item_name != 'trident'"
+					}],
+					"on_entry": [
+						"/tag @s add trident"
 					]
 				}
 			}
