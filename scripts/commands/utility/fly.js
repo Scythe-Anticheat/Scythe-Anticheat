@@ -26,8 +26,16 @@ export function fly(message, args) {
     
     if (!member) var member = player;
 
-    member.runCommand(`function tools/fly`);
+    try {
+        member.runCommand(`function tools/fly`);
+    } catch (error) {
+        if(JSON.parse(error).statusMessage === "Function tools/fly not found.")
+            player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"For this command to function, please enable Education Edition in world settings."}]}`);
+
+        console.warn(error);
+        return;
+    }
     
-    if(member === player) return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has toggled fly mode for themselves."}]}`);
-        else return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has toggled fly mode for ${member.nameTag}."}]}`);
+    if(member === player) player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has toggled fly mode for themselves."}]}`);
+        else player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has toggled fly mode for ${member.nameTag}."}]}`);
 }

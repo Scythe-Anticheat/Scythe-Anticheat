@@ -18,5 +18,6 @@ export function notify(message) {
     if(!player.hasTag("op")) 
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
-    return player.runCommand(`function notify`);
+
+    player.runCommand(`function notify`);
 }
