@@ -77,7 +77,7 @@ World.events.tick.subscribe(() => {
 
         // BadPackets[5] = checks for horion freecam
         if(!player.badpackets5Ticks) player.badpackets5Ticks = 0;
-        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) == 0.4200) {
+        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) == 0.4200 && !player.hasTag("dead")) {
             player.badpackets5Ticks++;
             if(player.badpackets5Ticks > 2) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
         } else if(player.badpackets5Ticks  != 0) player.badpackets5Ticks--;
