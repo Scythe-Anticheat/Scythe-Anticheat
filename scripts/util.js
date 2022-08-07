@@ -58,14 +58,14 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(!checkData) return;
 
     // punishment stuff
-    if(checkData.punishment.toLowerCase() == "kick") {
+    if(checkData.punishment.toLowerCase() === "kick") {
         try {
             player.runCommand(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
         } catch {
             // if we cant /kick them then we despawn them
             player.triggerEvent("scythe:kick");
         }
-    } else if(checkData.punishment.toLowerCase() == "ban") {
+    } else if(checkData.punishment.toLowerCase() === "ban") {
         try {
             player.runCommand(`testfor @s[scores={autoban=1..,${check.toLowerCase()}vl=${checkData.minVlbeforeBan}..}]`);
             try {

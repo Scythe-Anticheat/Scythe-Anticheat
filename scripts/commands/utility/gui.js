@@ -22,7 +22,7 @@ import * as Minecraft from "mojang-minecraft";
     // make sure they dont have the UI item in their current slot
     let currentItem = container.getItem(player.selectedSlot);
 
-    if(currentItem?.id === "minecraft:wooden_axe" && currentItem?.nameTag == "§r§l§aRight click to Open the UI")
+    if(currentItem?.id === "minecraft:wooden_axe" && currentItem?.nameTag === "§r§l§aRight click to Open the UI")
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You already have the UI item in your inventory."}]}`);
 
     // creating the item that opens the UI

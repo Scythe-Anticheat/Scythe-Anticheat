@@ -77,7 +77,7 @@ World.events.tick.subscribe(() => {
 
         // BadPackets[5] = checks for horion freecam
         if(!player.badpackets5Ticks) player.badpackets5Ticks = 0;
-        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) == 0.4200 && !player.hasTag("dead")) {
+        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) === "0.420000" && !player.hasTag("dead")) {
             player.badpackets5Ticks++;
             if(player.badpackets5Ticks > 2) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
         } else if(player.badpackets5Ticks  != 0) player.badpackets5Ticks--;
@@ -108,7 +108,7 @@ World.events.tick.subscribe(() => {
         if(config.modules.bedrockValidate.enabled) {
             try {
                 player.runCommand("testfor @s[scores={bedrock=1..}]");
-                if (config.modules.bedrockValidate.overworld && player.dimension.id == "minecraft:overworld") {
+                if (config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
                     try {
                         player.runCommandAsync(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
                     } catch {}
@@ -118,7 +118,7 @@ World.events.tick.subscribe(() => {
                     } catch {}
                 }
 
-                if (config.modules.bedrockValidate.nether && player.dimension.id == "minecraft:nether") { 
+                if (config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
                     try {
                         player.runCommandAsync(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
                     } catch {}
@@ -214,7 +214,7 @@ World.events.tick.subscribe(() => {
             flag(player, "InvalidSprint", "A", "Movement", false, false, true);
 
         // fly/a
-        if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) == 0.1552 && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("ground") && player.hasTag("moving")) {
+        if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("ground") && player.hasTag("moving")) {
             try {
                 player.runCommand("execute @s ~~~ detect ~~~ air -1 execute @s ~~~ detect ~1~~ air -1 execute @s ~~~ detect ~~~1 air -1 execute @s ~~~ detect ~1~~1 air -1 execute @s ~~~ detect ~-1~~ air -1 execute @s ~~~ detect ~~~-1 air -1 execute @s ~~~ detect ~-1~~-1 air -1 execute @s ~~~ detect ~1~~-1 air -1 testforblock ~-1~~1 air -1");
                 flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
@@ -230,7 +230,7 @@ World.events.tick.subscribe(() => {
 
             // autoclicker/B = checks if cps is similar to last cps (WIP)
             /*
-            if(String(player.cps).substring(0, 3) == String(player.lastCPS)?.substring(0, 4)) flag(player, "AutoClicker", "B", "Combat", "CPS", `${player.cps},last_cps=${player.lastCPS}`);
+            if(String(player.cps).substring(0, 3) === String(player.lastCPS)?.substring(0, 4)) flag(player, "AutoClicker", "B", "Combat", "CPS", `${player.cps},last_cps=${player.lastCPS}`);
             player.lastCPS = player.cps;
             */
 
@@ -462,7 +462,7 @@ World.events.entityHit.subscribe(entityHit => {
             }
         }
 
-        // reach/A = check if a player hits an entity more then 4.5 block away
+        // reach/A = check if a player hits an entity more then 5.1 block away
         if(config.modules.reachA.enabled) {
             // get the difference between 2 three dimensional coordinates
             let distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
@@ -477,14 +477,15 @@ World.events.entityHit.subscribe(entityHit => {
             }
         }
 
-        // badpackets/3 = checks if a player attacks themselves
+        // badpackets[3] = checks if a player attacks themselves
         // some (bad) hacks use this to bypass anti-movement cheat checks
         if(config.modules.badpackets3.enabled && entity === player) flag(player, "BadPackets", "3", "Exploit");
     
         // check if the player was hit with the UI item, and if so open the UI for that player
         let container = player.getComponent("inventory").container;
 
-        if(config.customcommands.gui && entity.id == "minecraft:player" && container.getItem(player.selectedSlot)?.id == "minecraft:wooden_axe" && player.hasTag("op") && container.getItem(player.selectedSlot)?.nameTag == "§r§l§aRight click to Open the UI") {
+        let item = container.getItem(player.selectedSlot);
+        if(config.customcommands.gui && entity.id === "minecraft:player" && item?.id === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
         }
     }
@@ -512,7 +513,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     let player = beforeItemUse.source;
 
     // GUI stuff
-    if(config.customcommands.gui && item.id == "minecraft:wooden_axe" && item.nameTag == "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
+    if(config.customcommands.gui && item.id === "minecraft:wooden_axe" && item.nameTag === "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
         mainGui(player);
         beforeItemUse.cancel = true;
     }

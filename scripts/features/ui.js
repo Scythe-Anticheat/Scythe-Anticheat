@@ -50,7 +50,7 @@ function banMenu(player) {
     banMenu.show(player).then((response) => {
         if(response.selection === 3 || response.isCanceled) return mainGui(player);
 
-        if(response.selection == 2) return unbanPlayerMenu(player);
+        if(response.selection === 2) return unbanPlayerMenu(player);
         
         banMenuSelect(player, response.selection);
     });
@@ -95,7 +95,7 @@ function kickPlayerMenu(player, playerSelected) {
         let isSilent = data.pop();
         let reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
-        if (isSilent == false) player.runCommand(`kick "${playerSelected.name}" ${reason}`);
+        if (isSilent === false) player.runCommand(`kick "${playerSelected.name}" ${reason}`);
             else playerSelected.runCommand(`event entity @s scythe:kick`);
 
         player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);
