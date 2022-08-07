@@ -35,7 +35,8 @@ export default
         "vanish": true,
         "report": true,
         "unban": true,
-        "gui": true
+        "gui": true,
+        "resetwarns": true
     },
     "modules": {
         "itemSpawnRateLimit": {

@@ -33,6 +33,7 @@ import { invsee } from "./utility/invsee.js";
 import { report } from "./other/report.js";
 import { unban } from "./moderation/unban.js";
 import { gui } from "./utility/gui.js";
+import { resetwarns } from "./moderation/resetwarns.js";
 
 /**
  * @name commandHandler
@@ -96,6 +97,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.report && commandName === "report") report(message, args);
         else if (config.customcommands.unban && commandName === "unban") unban(message, args);
         else if (config.customcommands.gui && commandName === "gui") gui(message);
+        else if (config.customcommands.resetwarns && commandName === "resetwarns" || commandName === "rw") resetwarns(message, args);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + `${error} ${error.stack}`);

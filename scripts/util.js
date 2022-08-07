@@ -133,7 +133,7 @@ export function banMessage(player) {
     if(time) {
         if(time < Date.now()) {
             try {
-                player.runCommand(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"'s ban has expired and has now been unbanned."}]}`);
+                player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"'s ban has expired and has now been unbanned."}]}`);
             } catch {}
 
             // ban expired, woo
@@ -154,7 +154,7 @@ export function banMessage(player) {
     try {
         player.runCommand(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§r\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
         try {
-            player.runCommand('tellraw @a[tag=op] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" was kicked for: You are banned!"}]}');
+            player.runCommandAsync('tellraw @a[tag=op] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" was kicked for: You are banned!"}]}');
         } catch {}
     } catch {
         player.triggerEvent("scythe:kick");
