@@ -9,8 +9,8 @@ const World = Minecraft.world;
  */
 export function resetwarns(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/moderation/op.js:12)");
-    if (!args) return console.warn(`${new Date()} | ` + "Error: ${args} isnt defined. Did you forget to pass it? (./commands/moderation/op.js:13)");
+    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/moderation/resetwarns.js:12)");
+    if (!args) return console.warn(`${new Date()} | ` + "Error: ${args} isnt defined. Did you forget to pass it? (./commands/moderation/resetwarns.js:13)");
 
     message.cancel = true;
 
