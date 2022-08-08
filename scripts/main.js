@@ -248,8 +248,20 @@ World.events.tick.subscribe(() => {
     }
 });
 
-World.events.blockPlace.subscribe(block => {
-    if(config.debug) console.warn(`${block.player.nameTag} has placed ${block.block.id}. Player Tags: ${block.player.getTags()}`);
+World.events.blockPlace.subscribe(blockPlace => {
+    let block = blockPlace.block;
+    let player = blockPlace.player;
+    if(config.debug) console.warn(`${player.nameTag} has placed ${block.id}. Player Tags: ${player.getTags()}`);
+
+    // IllegalItems/H = checks for pistons that can break any block
+    if(block.id === "minecraft:piston" || block.id === "minecraft:sticky_piston") {
+        let piston = block.getComponent("piston");
+    
+        if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpandeding || piston.isExpanded) {
+            flag(player, "IllegalItems", "H", "Exploit", "isRetracted", `${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`);
+            player.runCommand(`setblock ${block.location.x} ${block.location.y} ${block.location.z} air`);
+        }
+    }
 });
 
 World.events.blockBreak.subscribe(block => {
