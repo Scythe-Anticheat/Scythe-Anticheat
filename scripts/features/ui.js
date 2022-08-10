@@ -25,12 +25,14 @@ export function mainGui(player) {
         .button("Player Options", "textures/ui/FriendsDiversity.png")
         .button("Server Options", "textures/ui/servers.png")
         .button("Exit", "textures/ui/redX1.png");
+    if(config.debug) mainGui.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
     mainGui.show(player).then((response) => {
         if(response.selection === 0) banMenu(player);
         if(response.selection === 1) settingsMenu(player);
         if(response.selection === 2) playerSettingsMenu(player);
         if(response.selection === 3) worldSettingsMenu(player);
         if(response.selection === 4) return;
+        if(config.debug && response.selection === 5) debugSettingsMenu(player);
     });
 }
 
@@ -168,7 +170,7 @@ function unbanPlayerMenu(player) {
 //     Settings Menu      //
 // ====================== //
 function settingsMenu(player) {
-    player.playSound("mob.chicken.plop");
+    // player.playSound("mob.chicken.plop");
     mainGui(player);
 }
 
@@ -347,7 +349,18 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
     });
 }
 
+// ====================== //
+//       World Menu       //
+// ====================== //
 function worldSettingsMenu(player) {
-    player.playSound("mob.chicken.plop");
+    // player.playSound("mob.chicken.plop");
+    mainGui(player);
+}
+
+// ====================== //
+//       Debug Menu       //
+// ====================== //
+function debugSettingsMenu(player) {
+    // player.playSound("mob.chicken.plop");
     mainGui(player);
 }

@@ -272,7 +272,8 @@ export default
             "minecraft:pufferfish_bucket",
             "minecraft:salmon_bucket",
             "minecraft:tropical_fish_bucket",
-            "minecraft:tadpole_bucket"
+            "minecraft:tadpole_bucket",
+            "minecraft:dispenser"
         ],
         "items_semi_illegal": [
             "minecraft:bedrock",
