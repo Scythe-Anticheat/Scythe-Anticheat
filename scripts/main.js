@@ -534,3 +534,9 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     if(item.id === "minecraft:milk_bucket" && player.hasTag("freeze"))
         beforeItemUse.cancel = true;
 });
+
+World.events.beforeWatchdogTerminateEvent.subscribe((beforeWatchdogTerminateEvent) => {
+    // We try to stop any watchdog crashes incase malicous users try to make the scripts lag
+    // and causing the server to crash
+    beforeWatchdogTerminateEvent.cancel = true;
+});
