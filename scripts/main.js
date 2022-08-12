@@ -535,10 +535,8 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
         beforeItemUse.cancel = true;
 });
 
-/*
-World.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTerminate) => {
+Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTerminate) => {
     // We try to stop any watchdog crashes incase malicous users try to make the scripts lag
     // and causing the server to crash
     beforeWatchdogTerminate.cancel = true;
 });
-*/
