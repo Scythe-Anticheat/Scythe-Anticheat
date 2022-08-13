@@ -302,6 +302,12 @@
 							"coral_fan_hang3": "query.get_equipped_item_name == 'coral_fan_hang3' || query.get_equipped_item_name('off_hand') == 'coral_fan_hang3'"
 						},
 						{
+							"mangrove_standing_sign": "query.get_equipped_item_name == 'mangrove_standing_sign' || query.get_equipped_item_name('off_hand') == 'mangrove_standing_sign'"
+						},
+						{
+							"coral_fan_hang3": "query.get_equipped_item_name == 'mangrove_wall_sign' || query.get_equipped_item_name('off_hand') == 'mangrove_wall_sign'"
+						},
+						{
 							"other": "query.skin_id == 2"
 						}
 					]
@@ -1389,10 +1395,32 @@
 						"/replaceitem entity @s slot.weapon.mainhand 0 air",
 						"/replaceitem entity @s slot.weapon.offhand 0 air",
 						"/scoreboard players add @s illegalitemsvl 1",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(coral_fan_hang3)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'coral_fan_hang3' || query.get_equipped_item_name('off_hand') != 'coral_fan_hang3'"
+					}]
+				},
+				"mangrove_standing_sign": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mangrove_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'mangrove_standing_sign' || query.get_equipped_item_name('off_hand') != 'mangrove_standing_sign'"
+					}]
+				},
+				"mangrove_wall_sign": {
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 air",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mangrove_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'mangrove_wall_sign' || query.get_equipped_item_name('off_hand') != 'mangrove_wall_sign'"
 					}]
 				},
 				"other": {

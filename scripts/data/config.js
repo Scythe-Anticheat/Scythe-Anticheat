@@ -430,9 +430,13 @@ export default
             "minecraft:cave_vines_head_with_berries",
             "minecraft:real_double_stone_slab2",
             "minecraft:spawn_egg",
-			"minecraft:coral_fan_hang",
-			"minecraft:coral_fan_hang2",
-			"minecraft:coral_fan_hang3"
+            "minecraft:coral_fan_hang",
+            "minecraft:coral_fan_hang2",
+            "minecraft:coral_fan_hang3",
+            "minecraft:cocoa",
+            "minecraft:mangrove_standing_sign",
+            "minecraft:item.mangrove_door",
+            "minecraft:mangrove_wall_sign"
         ]
     }
 };

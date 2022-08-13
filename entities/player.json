@@ -588,6 +588,12 @@
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:arrow:5"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:item.mangrove_door"
 								}
 							]
 						},
