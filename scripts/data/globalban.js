@@ -23,5 +23,6 @@ export const banList = [
    "Economydev",
    "HostingEconomy",
    "EcoAutomod",
-   "WieldyAtol86717"
+   "WieldyAtol86717",
+   "Ctrlaltf44"
 ];
