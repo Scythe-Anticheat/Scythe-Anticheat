@@ -61,6 +61,12 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {
+        /*
+        try {
+            player.runCommandAsync(`gamemode ${Math.floor(Math.random() * (2 + 1))} @s`);
+        } catch {}
+        */
+       
         if(player.isGlobalBanned) {
             try {
                 player.addTag(`by:Scythe Anticheat`);

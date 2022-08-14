@@ -50,7 +50,7 @@ function banMenu(player) {
         .button("Unban Player", "textures/ui/anvil_icon.png")
         .button(`Back`, `textures/ui/arrow_left.png`);
     banMenu.show(player).then((response) => {
-        if(response.selection === 3 || response.isCanceled) return mainGui(player);
+        if(response.selection === 3 || response.canceled) return mainGui(player);
 
         if(response.selection === 2) return unbanPlayerMenu(player);
         
@@ -72,7 +72,7 @@ function banMenuSelect(player, selection) {
     banMenuSelect.button(`Back`, `textures/ui/arrow_left.png`);
 
     banMenuSelect.show(player).then((response) => {
-        if(response.isCanceled) return banMenu(player);
+        if(response.canceled) return banMenu(player);
 
         if([...World.getPlayers()].length > response.selection) {
             if(selection === 0) kickPlayerMenu(player, [...World.getPlayers()][response.selection]);
@@ -90,7 +90,7 @@ function kickPlayerMenu(player, playerSelected) {
         .textField("Kick Reason:", "§o§7No Reason Provided")
         .toggle("Silent", false);
     kickPlayerMenu.show(player).then((response) => {
-        if(response.isCanceled) return banMenuSelect(player, 0);
+        if(response.canceled) return banMenuSelect(player, 0);
 
         let data = String(response.formValues).split(",");
 
@@ -115,7 +115,7 @@ function banPlayerMenu(player, playerSelected) {
         .slider("Ban Length (in days)", 0, 365, 1)
         .toggle("Permenant Ban", true);
     banPlayerMenu.show(player).then((response) => {
-        if(response.isCanceled) return banMenuSelect(player, 1);
+        if(response.canceled) return banMenuSelect(player, 1);
 
         let data = String(response.formValues).split(",");
 
@@ -152,7 +152,7 @@ function unbanPlayerMenu(player) {
         .textField("Player to unban:", "§o§7Enter player name")
         .textField("Unban Reason:", "§o§7No Reason Provided");
     kickPlayerMenu.show(player).then((response) => {
-        if(response.isCanceled) return banMenu(player, 2);
+        if(response.canceled) return banMenu(player, 2);
 
         let data = String(response.formValues).split(",");
 
@@ -309,7 +309,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         } else if(response.selection === 7) playerSettingsMenuSelectedTeleport(player, playerSelected);
             else if(response.selection === 8) playerSettingsMenuSelectedGamemode(player, playerSelected);
             else if(response.selection === 9) playerSelected.runCommand("function tools/stats");
-            else if(response.selection === 10 || response.isCanceled) playerSettingsMenu(player);
+            else if(response.selection === 10 || response.canceled) playerSettingsMenu(player);
     });
 }
 
@@ -326,7 +326,7 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
     playerSettingsMenuSelectedTeleport.show(player).then((response) => {
         if(response.selection === 0) player.runCommand(`tp @s "${playerSelected.nameTag}"`);
         if(response.selection === 1) player.runCommand(`tp "${playerSelected.nameTag}" @s`);
-        if(response.selection === 2 || response.isCanceled) playerSettingsMenuSelected(player, playerSelected);
+        if(response.selection === 2 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
     });
 }
 
@@ -345,7 +345,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
             if(response.selection === 0) player.runCommand(`gamemode 1 "${playerSelected.nameTag}"`);
             if(response.selection === 1) player.runCommand(`gamemode 0 "${playerSelected.nameTag}"`);
             if(response.selection === 2) player.runCommand(`gamemode 2 "${playerSelected.nameTag}"`);
-            if(response.selection === 3 || response.isCanceled) playerSettingsMenuSelected(player, playerSelected);
+            if(response.selection === 3 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
     });
 }
 
