@@ -15,6 +15,7 @@ let playerIcons = [
 // this is the function that will be called when the player wants to open the GUI
 // all other GUI functions will be called from here
 export function mainGui(player) {
+    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const mainGui = new MinecraftUI.ActionFormData()
@@ -40,6 +41,7 @@ export function mainGui(player) {
 //        Ban Menu        //
 // ====================== //
 function banMenu(player) {
+    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const banMenu = new MinecraftUI.ActionFormData()
@@ -59,6 +61,7 @@ function banMenu(player) {
 }
 
 function banMenuSelect(player, selection) {
+    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const banMenuSelect = new MinecraftUI.ActionFormData()
@@ -82,6 +85,7 @@ function banMenuSelect(player, selection) {
 }
 
 function kickPlayerMenu(player, playerSelected) {
+    if(!player.hasTag("op")) return;
     if(!config.customcommands.kick) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Kicking players is disabled in config.js."}]}`);
     player.playSound("mob.chicken.plop");
 
@@ -105,6 +109,7 @@ function kickPlayerMenu(player, playerSelected) {
 }
 
 function banPlayerMenu(player, playerSelected) {
+    if(!player.hasTag("op")) return;
     if(!config.customcommands.kick) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Banning players is disabled in config.js."}]}`);
 
     player.playSound("mob.chicken.plop");
@@ -144,6 +149,7 @@ function banPlayerMenu(player, playerSelected) {
 }
 
 function unbanPlayerMenu(player) {
+    if(!player.hasTag("op")) return;
     if(!config.customcommands.unban) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Kicking players is disabled in config.js."}]}`);
     player.playSound("mob.chicken.plop");
 
@@ -170,6 +176,7 @@ function unbanPlayerMenu(player) {
 //     Settings Menu      //
 // ====================== //
 function settingsMenu(player) {
+    if(!player.hasTag("op")) return;
     // player.playSound("mob.chicken.plop");
     mainGui(player);
 }
@@ -178,6 +185,7 @@ function settingsMenu(player) {
 //       Player Menu      //
 // ====================== //
 function playerSettingsMenu(player) {
+    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenu = new MinecraftUI.ActionFormData()
@@ -197,6 +205,7 @@ function playerSettingsMenu(player) {
 }
 
 export function playerSettingsMenuSelected(player, playerSelected) {
+    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenuSelected = new MinecraftUI.ActionFormData()
@@ -314,6 +323,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 }
 
 function playerSettingsMenuSelectedTeleport(player, playerSelected) {
+    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenuSelectedTeleport = new MinecraftUI.ActionFormData()
@@ -331,6 +341,7 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
 }
 
 function playerSettingsMenuSelectedGamemode(player, playerSelected) {
+    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenuSelectedGamemode = new MinecraftUI.ActionFormData()
@@ -341,11 +352,11 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         .button(`Gamemode Adventure`, "textures/ui/permissions_visitor_hand.png")
         .button(`Back`, `textures/ui/arrow_left.png`);
 
-        playerSettingsMenuSelectedGamemode.show(player).then((response) => {
-            if(response.selection === 0) player.runCommand(`gamemode 1 "${playerSelected.nameTag}"`);
-            if(response.selection === 1) player.runCommand(`gamemode 0 "${playerSelected.nameTag}"`);
-            if(response.selection === 2) player.runCommand(`gamemode 2 "${playerSelected.nameTag}"`);
-            if(response.selection === 3 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
+    playerSettingsMenuSelectedGamemode.show(player).then((response) => {
+        if(response.selection === 0) player.runCommand(`gamemode 1 "${playerSelected.nameTag}"`);
+        if(response.selection === 1) player.runCommand(`gamemode 0 "${playerSelected.nameTag}"`);
+        if(response.selection === 2) player.runCommand(`gamemode 2 "${playerSelected.nameTag}"`);
+        if(response.selection === 3 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
     });
 }
 
@@ -353,6 +364,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 //       World Menu       //
 // ====================== //
 function worldSettingsMenu(player) {
+    if(!player.hasTag("op")) return;
     // player.playSound("mob.chicken.plop");
     mainGui(player);
 }
@@ -361,6 +373,7 @@ function worldSettingsMenu(player) {
 //       Debug Menu       //
 // ====================== //
 function debugSettingsMenu(player) {
+    if(!player.hasTag("op") || !config.debug) return;
     // player.playSound("mob.chicken.plop");
     mainGui(player);
 }

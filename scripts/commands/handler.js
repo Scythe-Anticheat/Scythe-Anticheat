@@ -96,7 +96,7 @@ export function commandHandler(player, message) {
         else if (config.customcommands.autoban && commandName === "autoban") autoban(message);
         else if (config.customcommands.report && commandName === "report") report(message, args);
         else if (config.customcommands.unban && commandName === "unban") unban(message, args);
-        else if (config.customcommands.gui && commandName === "gui") gui(message);
+        else if (config.customcommands.gui && commandName === "gui" || commandName === "ui") gui(message);
         else if (config.customcommands.resetwarns && commandName === "resetwarns" || commandName === "rw") resetwarns(message, args);
         else return;
     } catch (error) {
