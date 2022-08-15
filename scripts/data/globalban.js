@@ -24,5 +24,6 @@ export const banList = [
    "HostingEconomy",
    "EcoAutomod",
    "WieldyAtol86717",
-   "Ctrlaltf44"
+   "Ctrlaltf44",
+   "BlazerLoop"
 ];
