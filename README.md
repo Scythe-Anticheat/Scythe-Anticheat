@@ -15,6 +15,8 @@ To install this anticheat to your realm/world you need to install the .mcpack, a
 
 To receive anti-cheat alerts use: ```/function notify```
 
+To run any chat commands or be able to use certian blocks run ```/function op```
+
 # List of hacks detected by Scythe AntiCheat
 
   AutoClicker -><br />
