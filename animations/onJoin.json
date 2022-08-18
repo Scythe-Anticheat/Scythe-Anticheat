@@ -64,7 +64,9 @@
 					"/scoreboard objectives add last_attack dummy",
 					// If enabled from previous login then activate
 					"/event entity @s[tag=vanish] vanish",
-					"/ability @s[tag=flying] mayfly true"
+					"/ability @s[tag=flying] mayfly true",
+					// incase uac is applied alongside scythe, we help the user out and disable its watermark
+					"/scoreboard players set @s[scores={welcomed=-1..}] welcomed -2147483646"
 				]
 			},
 			"animation_length": 9.9,
