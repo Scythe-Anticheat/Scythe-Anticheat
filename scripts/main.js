@@ -24,29 +24,29 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     // BadPackets/2 = chat message length check
-    if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, false, msg);
+    if(config.modules.badpackets2.enabled === true && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, false, msg);
 
     // Spammer/A = checks if someone sends a message while moving and on ground
-    if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
+    if(config.modules.spammerA.enabled === true && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
         flag(player, "Spammer", "A", "Movement", false, false, true, msg);
 
     // Spammer/B = checks if someone sends a message while swinging their hand
-    if(config.modules.spammerB.enabled && player.hasTag('left'))
+    if(config.modules.spammerB.enabled === true && player.hasTag('left'))
         flag(player, "Spammer", "B", "Combat", false, false, false, msg);
 
     // Spammer/C = checks if someone sends a message while using an item
-    if(config.modules.spammerC.enabled && player.hasTag('right'))
+    if(config.modules.spammerC.enabled === true && player.hasTag('right'))
         flag(player, "Spammer", "C", "Misc", false, false, false, msg);
 
     // Spammer/D = checks if someone sends a message while having a GUI open
-    if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen'))
+    if(config.modules.spammerD.enabled === true && player.hasTag('hasGUIopen'))
         flag(player, "Spammer", "D", "Misc", false, false, false, msg);
 
     commandHandler(player, msg);
 
     // add's user custom tags to their messages if it exists or we fall back
     // also filter for non ASCII characters and remove them in messages
-    if(player.name !== player.nameTag && !msg.cancel && !config.modules.filterUnicodeChat) {
+    if(player.name !== player.nameTag && msg.cancel === false && !config.modules.filterUnicodeChat) {
         player.runCommandAsync(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
     } else if((player.name === player.nameTag || config.modules.filterUnicodeChat) && !msg.cancel) {
@@ -61,7 +61,7 @@ World.events.tick.subscribe(() => {
 
     // run as each player
     for (let player of World.getPlayers()) {       
-        if(player.isGlobalBanned) {
+        if(player.isGlobalBanned === true) {
             try {
                 player.addTag(`by:Scythe Anticheat`);
                 player.addTag(`reason:You are Scythe Anticheat global banned!`);
@@ -70,7 +70,7 @@ World.events.tick.subscribe(() => {
         }
 
         // sexy looking ban message
-        if(player.hasTag("isBanned")) banMessage(player);
+        if(player.hasTag("isBanned") === true) banMessage(player);
 
         player.blocksBroken = 0;
         player.entitiesHit = [];
@@ -97,7 +97,7 @@ World.events.tick.subscribe(() => {
         }
 
         // player position shit
-        if(player.hasTag("moving")) {
+        if(player.hasTag("moving") === true) {
             try {
                 player.runCommandAsync(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
                 player.runCommandAsync(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
@@ -105,7 +105,7 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
-        if(config.modules.bedrockValidate.enabled) {
+        if(config.modules.bedrockValidate.enabled === true) {
             try {
                 player.runCommand("testfor @s[scores={bedrock=1..}]");
                 if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
@@ -145,8 +145,10 @@ World.events.tick.subscribe(() => {
         }
 
         let container = player.getComponent('inventory').container;
-        for (let i = 0; i < container.size; i++) if(container.getItem(i)) {
+        for (let i = 0; i < container.size; i++) {
             let item = container.getItem(i);
+            if(!item) continue;
+
             // Illegalitems/C = item stacked over 64 check
             if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
                 flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
@@ -177,7 +179,7 @@ World.events.tick.subscribe(() => {
                 for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
                     let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
         
-                    if(enchantData) {
+                    if(typeof enchantData === "object") {
                         if(config.modules.badenchantsE.enabled && enchantData.type.id.toLowerCase().endsWith("protection"))
                             protection_types.push(enchantData.type.id);
 
@@ -254,7 +256,7 @@ World.events.blockPlace.subscribe(blockPlace => {
     if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.id}.`);
 
     // IllegalItems/H = checks for pistons that can break any block
-    if(block.id === "minecraft:piston" || block.id === "minecraft:sticky_piston") {
+    if(config.modules.illegalitemsH.enabled === true && block.id === "minecraft:piston" || block.id === "minecraft:sticky_piston") {
         let piston = block.getComponent("piston");
     
         if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpandeding || piston.isExpanded) {
@@ -286,7 +288,7 @@ World.events.blockBreak.subscribe(block => {
 
             let droppedItems = dimension.getEntities(EntityQueryOptions);
 
-            for(let item of droppedItems) item.kill();
+            for (let item of droppedItems) item.kill();
 
             block.block.setPermutation(block.brokenBlockPermutation);
         }

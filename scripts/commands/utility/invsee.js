@@ -31,8 +31,10 @@ export function invsee(message, args) {
     let container = member.getComponent('inventory').container;
     
     player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${member.nameTag}'s inventory:\n\n"}]}`);
-    for (let i = 0; i < container.size; i++) if(container.getItem(i)) {
-        let o = container.getItem(i);
-        player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${o.id}:${o.data} x${o.amount}"}]}`);
+    for (let i = 0; i < container.size; i++) {
+        let item = container.getItem(i);
+        if(!item) continue;
+
+        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${item.id}:${item.data} x${item.amount}"}]}`);
     }
 }

@@ -68,7 +68,7 @@ function banMenuSelect(player, selection) {
         .title("Ban Menu")
         .body(`Please select a player to manage.`);
     
-    for(let plr of World.getPlayers()) {
+    for (let plr of World.getPlayers()) {
         banMenuSelect.button(plr.name, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
 
@@ -192,7 +192,7 @@ function playerSettingsMenu(player) {
         .title("Player Menu")
         .body(`Please select a player to manage.`);
     
-    for(let plr of World.getPlayers()) {
+    for (let plr of World.getPlayers()) {
         playerSettingsMenu.button(plr.name, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
 

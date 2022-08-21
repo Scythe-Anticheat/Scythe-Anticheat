@@ -257,6 +257,11 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVLbeforeBan": 0
+        },
+        "illegalitemsH": {
+            "enabled": true,
+            "punishment": "none",
+            "minVLbeforeBan": 0
         }
     },
     "itemLists": {
