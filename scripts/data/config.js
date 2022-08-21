@@ -2,42 +2,207 @@ export default
 {
     "debug": true,
     "flagWhitelist": [],
-    "customcommands": {
-        "prefix": "!",
-        "ban": true,
-        "help": true,
-        "op": true,
-        "credits": true,
-        "allowgma": true,
-        "allowgmc": true,
-        "allowgms": true,
-        "bedrockvalidate": true,
-        "modules": true,
-        "npc": true,
-        "overidecommandblocksenabled": true,
-        "removecommandblocks": true,
-        "worldborder": true,
-        "xray": true,
-        "autoclicker": true,
-        "autoban": true,
-        "invalidsprint": true,
-        "ecwipe": true,
-        "freeze": true,
-        "stats": true,
-        "fullreport": true,
-        "kick": true,
-        "mute": true,
-        "unmute": true,
-        "fly": true,
-        "invsee": true,
-        "notify": true,
-        "tag": true,
-        "vanish": true,
-        "report": true,
-        "unban": true,
-        "gui": true,
-        "resetwarns": true
-    },
+    "prefix": "!",
+    "customcommands": [
+        {
+            "name": "ban",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "help",
+            "enabled": true,
+            "requiredTags": ["op","test"],
+            "aliases": []
+        },
+        {
+            "name": "op",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "credits",
+            "enabled": true,
+            "requiredTags": [],
+            "aliases": []
+        },
+        {
+            "name": "allowgma",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "allowgmc",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "allowgms",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "bedrockvalidate",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["bv"]
+        },
+        {
+            "name": "modules",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "npc",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "overidecommandblocksenabled",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["overidecbe"]
+        },
+        {
+            "name": "removecommandblocks",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["removecb"]
+        },
+        {
+            "name": "worldborder",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["wb"]
+        },
+        {
+            "name": "xray",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "autoclicker",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["ac"]
+        },
+        {
+            "name": "autoban",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["ab"]
+        },
+        {
+            "name": "invalidsprint",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["is"]
+        },
+        {
+            "name": "ecwipe",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["enderchestwipe"]
+        },
+        {
+            "name": "freeze",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "stats",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "fullreport",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["fr"]
+        },
+        {
+            "name": "kick",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "mute",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "unmute",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "fly",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "invsee",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["inv"]
+        },
+        {
+            "name": "notify",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "tag",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "vanish",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["v"]
+        },
+        {
+            "name": "report",
+            "enabled": true,
+            "requiredTags": [],
+            "aliases": []
+        },
+        {
+            "name": "unban",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": []
+        },
+        {
+            "name": "gui",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["ui"]
+        },
+        {
+            "name": "resetwarns",
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["rw"]
+        },
+    ],
     "modules": {
         "itemSpawnRateLimit": {
             "enabled": false,

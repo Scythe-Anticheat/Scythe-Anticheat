@@ -16,10 +16,6 @@ export function resetwarns(message, args) {
 
     let player = message.sender;
     
-    // make sure the user has permissions to run the command
-    if(player.hasTag("op") === false) 
-        return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
-    
     if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who's warns to reset!"}]}`);
 
     // try to find the player requested

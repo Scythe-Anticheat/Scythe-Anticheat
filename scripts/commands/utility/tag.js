@@ -17,10 +17,6 @@ export function tag(message, args) {
 
     let player = message.sender;
 
-    // make sure the user has permissions to run the command
-    if(player.hasTag("op") === false) 
-        return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command. (./utility/tag.js:22)"}]}`);
-
     if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag! (./utility/tag.js:24)"}]}`);
 
     for (let pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
