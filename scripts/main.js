@@ -147,7 +147,7 @@ World.events.tick.subscribe(() => {
         let container = player.getComponent('inventory').container;
         for (let i = 0; i < container.size; i++) {
             let item = container.getItem(i);
-            if(!item) continue;
+            if(typeof item === "undefined") continue;
 
             // Illegalitems/C = item stacked over 64 check
             if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
@@ -259,7 +259,7 @@ World.events.blockPlace.subscribe(blockPlace => {
     if(config.modules.illegalitemsH.enabled === true && block.id === "minecraft:piston" || block.id === "minecraft:sticky_piston") {
         let piston = block.getComponent("piston");
     
-        if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpandeding || piston.isExpanded) {
+        if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpanding || piston.isExpanded) {
             flag(player, "IllegalItems", "H", "Exploit", "isRetracted", `${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`, false, false, player.selectedSlot);
             block.setType(Minecraft.MinecraftBlockTypes.air);
         }

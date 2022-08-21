@@ -34,7 +34,7 @@ export function invsee(message, args) {
     
     for (let i = 0; i < container.size; i++) {
         let item = container.getItem(i);
-        if(!item) continue;
+        if(typeof item === "undefined") continue;
 
         player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Slot ${i}: ${item.id}:${item.data} x${item.amount}"}]}`);
     }
