@@ -314,9 +314,7 @@
 				},
 				"flowing_water": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(flowing_water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -325,9 +323,7 @@
 				},
 				"water": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -336,9 +332,7 @@
 				},
 				"flowing_lava": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(flowing_lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -347,9 +341,7 @@
 				},
 				"lava": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -358,9 +350,7 @@
 				},
 				"fire": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -369,9 +359,7 @@
 				},
 				"lit_furnace": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -380,9 +368,7 @@
 				},
 				"standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -391,9 +377,7 @@
 				},
 				"wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -402,9 +386,7 @@
 				},
 				"lit_redstone_ore": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -413,9 +395,7 @@
 				},
 				"unlit_redstone_torch": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unlit_redstone_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -424,9 +404,7 @@
 				},
 				"portal": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -435,9 +413,7 @@
 				},
 				"unpowered_repeater": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unpowered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -446,9 +422,7 @@
 				},
 				"powered_repeater": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -457,9 +431,7 @@
 				},
 				"pumpkin_stem": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(pumpkin_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -468,9 +440,7 @@
 				},
 				"melon_stem": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(melon_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -479,9 +449,7 @@
 				},
 				"end_portal": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(end_portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -490,9 +458,7 @@
 				},
 				"lit_redstone_lamp": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_redstone_lamp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -501,9 +467,7 @@
 				},
 				"cocoa": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(cocoa)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -512,9 +476,7 @@
 				},
 				"carrots": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(carrots)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -523,9 +485,7 @@
 				},
 				"potatoes": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(potatoes)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -534,9 +494,7 @@
 				},
 				"unpowered_comparator": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unpowered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -545,9 +503,7 @@
 				},
 				"powered_comparator": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -556,9 +512,7 @@
 				},
 				"double_wooden_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -567,9 +521,7 @@
 				},
 				"standing_banner": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(standing_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -578,9 +530,7 @@
 				},
 				"wall_banner": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(wall_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -589,9 +539,7 @@
 				},
 				"daylight_detector_inverted": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(daylight_detector_inverted)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -600,9 +548,7 @@
 				},
 				"chemical_heat": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(chemical_heat)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -611,9 +557,7 @@
 				},
 				"underwater_torch": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(underwater_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -622,9 +566,7 @@
 				},
 				"end_gateway": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(end_gateway)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -633,9 +575,7 @@
 				},
 				"stonecutter": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(stonecutter)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -644,9 +584,7 @@
 				},
 				"glowingobsidian": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(glowingobsidian)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -655,9 +593,7 @@
 				},
 				"netherreactor": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(netherreactor)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -666,9 +602,7 @@
 				},
 				"bubble_column": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bubble_column)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -677,9 +611,7 @@
 				},
 				"bamboo_sapling": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bamboo_sapling)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -688,9 +620,7 @@
 				},
 				"spruce_standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(spruce_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -699,9 +629,7 @@
 				},
 				"spruce_wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(spruce_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -710,9 +638,7 @@
 				},
 				"birch_standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(birch_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -721,9 +647,7 @@
 				},
 				"birch_wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(birch_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -732,9 +656,7 @@
 				},
 				"jungle_standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(jungle_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -743,9 +665,7 @@
 				},
 				"jungle_wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(jungle_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -754,9 +674,7 @@
 				},
 				"acacia_standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(acacia_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -765,9 +683,7 @@
 				},
 				"acacia_wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(acacia_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -776,9 +692,7 @@
 				},
 				"darkoak_standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(darkoak_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -787,9 +701,7 @@
 				},
 				"darkoak_wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(darkoak_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -798,9 +710,7 @@
 				},
 				"lit_smoker": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_smoker)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -809,9 +719,7 @@
 				},
 				"lava_cauldron": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lava_cauldron)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -820,9 +728,7 @@
 				},
 				"soul_fire": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(soul_fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -831,9 +737,7 @@
 				},
 				"crimson_standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -842,9 +746,7 @@
 				},
 				"warped_standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -853,9 +755,7 @@
 				},
 				"crimson_wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -864,9 +764,7 @@
 				},
 				"warped_wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -875,9 +773,7 @@
 				},
 				"blackstone_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -886,9 +782,7 @@
 				},
 				"polished_blackstone_brick_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_blackstone_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -897,9 +791,7 @@
 				},
 				"polished_blackstone_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -908,9 +800,7 @@
 				},
 				"unknown": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unknown)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -919,9 +809,7 @@
 				},
 				"camera": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(camera)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -930,9 +818,7 @@
 				},
 				"reserved6": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(reserved6)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -941,9 +827,7 @@
 				},
 				"info_update": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(info_update)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -952,9 +836,7 @@
 				},
 				"info_update2": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(info_update2)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -963,9 +845,7 @@
 				},
 				"lit_deepslate_redstone_ore": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_deepslate_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -974,9 +854,7 @@
 				},
 				"hard_stained_glass_pane": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_stained_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -985,9 +863,7 @@
 				},
 				"colored_torch_rg": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(colored_torch_rg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -996,9 +872,7 @@
 				},
 				"colored_torch_bp": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(colored_torch_bp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1007,9 +881,7 @@
 				},
 				"hard_stained_glass": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_stained_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1018,9 +890,7 @@
 				},
 				"balloon": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(balloon)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1029,9 +899,7 @@
 				},
 				"ice_bomb": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(ice_bomb)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1040,9 +908,7 @@
 				},
 				"bleach": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bleach)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1051,9 +917,7 @@
 				},
 				"medicine": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(medicine)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1062,9 +926,7 @@
 				},
 				"sparkler": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(sparkler)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1073,9 +935,7 @@
 				},
 				"glow_stick": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(glow_stick)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1084,9 +944,7 @@
 				},
 				"compound": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(compound)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1095,9 +953,7 @@
 				},
 				"powder_snow": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powder_snow)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1106,9 +962,7 @@
 				},
 				"sweat_berry_bush": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(sweet_berry_bush)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1117,9 +971,7 @@
 				},
 				"lit_blast_furnace": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_blast_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1128,9 +980,7 @@
 				},
 				"redstone_wire": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(redstone_wire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1139,9 +989,7 @@
 				},
 				"crimson_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1150,9 +998,7 @@
 				},
 				"warped_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1161,9 +1007,7 @@
 				},
 				"cobbled_deepslate_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(cobbled_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1172,9 +1016,7 @@
 				},
 				"polished_deepslate_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1183,9 +1025,7 @@
 				},
 				"deepslate_tile_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(deepslate_tile_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1194,9 +1034,7 @@
 				},
 				"deepslate_brick_double_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(deepslate_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1205,9 +1043,7 @@
 				},
 				"agent_spawn_egg": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(agent_spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1216,9 +1052,7 @@
 				},
 				"client_request_placeholder_block": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(client_request_placeholder_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1227,9 +1061,7 @@
 				},
 				"rapid_fertilizer": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(rapid_fertilizer)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1238,9 +1070,7 @@
 				},
 				"hard_glass": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1249,9 +1079,7 @@
 				},
 				"hard_glass_pane": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1260,9 +1088,7 @@
 				},
 				"exposed_double_cut_copper_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(exposed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1271,9 +1097,7 @@
 				},
 				"oxidized_double_cut_copper_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(oxidized_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1282,9 +1106,7 @@
 				},
 				"waxed_double_cut_copper_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1293,9 +1115,7 @@
 				},
 				"waxed_exposed_double_cut_copper_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_exposed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1304,9 +1124,7 @@
 				},
 				"waxed_oxidized_double_cut_copper_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_oxidized_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1315,9 +1133,7 @@
 				},
 				"waxed_weathered_double_cut_copper_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_weathered_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1326,9 +1142,7 @@
 				},
 				"weathered_double_cut_copper_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(weathered_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1337,9 +1151,7 @@
 				},
 				"double_stone_slab4": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1348,9 +1160,7 @@
 				},
 				"double_cut_copper_slab": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1359,9 +1169,7 @@
 				},
 				"moving_block": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(moving_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1370,9 +1178,7 @@
 				},
 				"coral_fan_hang": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(coral_fan_hang)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1381,9 +1187,7 @@
 				},
 				"coral_fan_hang2": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(coral_fan_hang2)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1392,9 +1196,7 @@
 				},
 				"coral_fan_hang3": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(coral_fan_hang3)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1403,9 +1205,7 @@
 				},
 				"mangrove_standing_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mangrove_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1414,9 +1214,7 @@
 				},
 				"mangrove_wall_sign": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mangrove_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
@@ -1425,8 +1223,7 @@
 				},
 				"other": {
 					"on_entry": [
-						"/replaceitem entity @s slot.weapon.mainhand 0 air",
-						"/scoreboard players add @s illegalitemsvl 1",
+						"/function checks/alerts/illegalitems2",
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(other)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
 						"@s scythe:reset_skinid"
 					],
