@@ -42,8 +42,8 @@ import { resetwarns } from "./moderation/resetwarns.js";
  */
 export function commandHandler(player, message) {
     // validate that required params are defined
-    if(!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./commands/handler.js:13)");
-    if(!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/handler.js:14)");
+    if (typeof player !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/handler.js:45)`);
+    if (typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: args is type of ${typeof args}. Expected "object' (./commands/handler.js:46)`);
 
     if(config.debug === true) console.warn(`${new Date()} | ` + "did run command handler");
 
@@ -101,6 +101,6 @@ export function commandHandler(player, message) {
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + `${error} ${error.stack}`);
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\nError: ${String(error).replace(/"|\\/g, "")}\n${error.stack}\n-------------------------"}]}`);
+        player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\nError: ${String(error).replace(/"|\\/g, "")}\n${error.stack}\n-------------------------"}]}`);
     }
 }
