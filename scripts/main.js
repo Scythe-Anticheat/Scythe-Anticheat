@@ -49,7 +49,7 @@ World.events.beforeChat.subscribe(msg => {
     if(player.name !== player.nameTag && msg.cancel === false && !config.modules.filterUnicodeChat) {
         player.runCommandAsync(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
-    } else if((player.name === player.nameTag || config.modules.filterUnicodeChat) && !msg.cancel) {
+    } else if((player.name === player.nameTag || config.modules.filterUnicodeChat) && msg.cancel === false) {
         player.runCommandAsync(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
     }
@@ -80,7 +80,7 @@ World.events.tick.subscribe(() => {
         if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) === "0.420000" && !player.hasTag("dead")) {
             player.badpackets5Ticks++;
             if(player.badpackets5Ticks > 2) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
-        } else if(player.badpackets5Ticks  != 0) player.badpackets5Ticks--;
+        } else if(player.badpackets5Ticks !== 0) player.badpackets5Ticks--;
 
         // Crasher/A = invalid pos check
         if(config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
@@ -359,6 +359,9 @@ World.events.beforeItemUseOn.subscribe(block => {
 World.events.playerJoin.subscribe(playerJoin => {
     let player = playerJoin.player;
 
+    // fix a disabler method
+    player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "");
+
     if(!data.loaded) {
         try {
             player.runCommand(`scoreboard players set scythe:config gametestapi 1`);
@@ -373,12 +376,6 @@ World.events.playerJoin.subscribe(playerJoin => {
     player.removeTag("left");
     player.removeTag("ground");
     player.removeTag("gliding");
-    
-    // fix a weird crash that happens when the player has an extremely long name
-    if(player.nameTag.length > 100) player.triggerEvent("scythe:kick");
-
-    // fix a disabler method
-    player.nameTag = player.nameTag.replace(/"|\\/g, "");
 
     // load custom nametag
     let foundName;

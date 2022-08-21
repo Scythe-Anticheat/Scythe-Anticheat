@@ -42,8 +42,8 @@ import { resetwarns } from "./moderation/resetwarns.js";
  */
 export function commandHandler(player, message) {
     // validate that required params are defined
-    if (typeof player !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/handler.js:45)`);
-    if (typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: args is type of ${typeof args}. Expected "object' (./commands/handler.js:46)`);
+    if (typeof player !== "object") return console.warn(`${new Date()} | ` + `Error: player is type of ${typeof player}. Expected "object' (./commands/handler.js:45)`);
+    if (typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/handler.js:46)`);
 
     if(config.debug === true) console.warn(`${new Date()} | ` + "did run command handler");
 
@@ -115,9 +115,9 @@ export function commandHandler(player, message) {
         else if(commandName === "unban") unban(message, args);
         else if(commandName === "gui") gui(message);
         else if(commandName === "resetwarns") resetwarns(message, args);
-        else return;
+        else return console.warn(`${new Date()} | ` + `Error: Command ${commandName} was found in config.js but no handler for it was found (./commands/handler.js:118)`);
     } catch (error) {
         console.warn(`${new Date()} | ` + `${error} ${error.stack}`);
-        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\nError: ${String(error).replace(/"|\\/g, "")}\n${error.stack}\n-------------------------"}]}`);
+        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\nError: ${String(error).replace(/"|\\/g, "")}\n${error.stack || ""}\n-------------------------"}]}`);
     }
 }

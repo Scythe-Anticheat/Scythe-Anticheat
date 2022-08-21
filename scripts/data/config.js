@@ -13,7 +13,7 @@ export default
         {
             "name": "help",
             "enabled": true,
-            "requiredTags": ["op","test"],
+            "requiredTags": ["op"],
             "aliases": []
         },
         {
@@ -170,7 +170,7 @@ export default
             "name": "tag",
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": []
+            "aliases": ["rank"]
         },
         {
             "name": "vanish",
