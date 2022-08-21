@@ -12,7 +12,7 @@ export function fullreport(message) {
     
     // make sure the user has permissions to run the command
     if(player.hasTag("op") === false) 
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
+        return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
     player.runCommand(`execute @a ~~~ function tools/stats`);
 }

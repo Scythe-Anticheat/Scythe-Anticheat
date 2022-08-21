@@ -261,7 +261,7 @@ World.events.blockPlace.subscribe(blockPlace => {
     
         if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpandeding || piston.isExpanded) {
             flag(player, "IllegalItems", "H", "Exploit", "isRetracted", `${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`, false, false, player.selectedSlot);
-            player.runCommand(`setblock ${block.location.x} ${block.location.y} ${block.location.z} air`);
+            block.setType(Minecraft.MinecraftBlockTypes.air);
         }
     }
 });
@@ -317,7 +317,7 @@ World.events.beforeItemUseOn.subscribe(block => {
     */
     if(config.modules.illegalitemsE.enabled) {
         // items that are obtainble using commands
-        if(!block.source.hasTag("op")) {
+        if(block.source.hasTag("op") === false) {
             if(config.itemLists.items_semi_illegal.includes(block.item.id)) {
                 // dont affect gmc players
                 try {
@@ -463,7 +463,7 @@ World.events.entityHit.subscribe(entityHit => {
 
     if(player.id !== "minecraft:player") return;
 
-    if(entity) {
+    if(typeof entity === "object") {
         let entityHitName = entity.nameTag || entity.id;
         
         // killaura/C = checks for multi-aura

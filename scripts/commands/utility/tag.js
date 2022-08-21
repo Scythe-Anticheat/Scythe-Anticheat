@@ -19,9 +19,9 @@ export function tag(message, args) {
 
     // make sure the user has permissions to run the command
     if(player.hasTag("op") === false) 
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command. (./utility/tag.js:22)"}]}`);
+        return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command. (./utility/tag.js:22)"}]}`);
 
-    if(args.length === 0) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag! (./utility/tag.js:24)"}]}`);
+    if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag! (./utility/tag.js:24)"}]}`);
 
     for (let pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
         var member = pl;
@@ -30,7 +30,7 @@ export function tag(message, args) {
 
     if(typeof member === "undefined") var member = player;
 
-    if(!args[0]) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag! (./utility/tag.js:32)"}]}`);
+    if(!args[0]) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag! (./utility/tag.js:32)"}]}`);
 
     // reset user nametag
     if(args[0].includes("reset") === true) {
@@ -40,7 +40,7 @@ export function tag(message, args) {
         });
 
         member.nameTag = member.name;
-        return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset ${member.name}'s nametag."}]}`);
+        return player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset ${member.name}'s nametag."}]}`);
     }
 
     let nametag = `§8[§r${args.join(" ")}§8]§r ${member.name}`.replace(/"|\\/g, "");
@@ -54,5 +54,5 @@ export function tag(message, args) {
 
     member.addTag(`tag:${args.join(" ").replace(/"|\\/g, "")}`);
 
-    player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has changed ${member.name}'s nametag to ${nametag}."}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has changed ${member.name}'s nametag to ${nametag}."}]}`);
 }

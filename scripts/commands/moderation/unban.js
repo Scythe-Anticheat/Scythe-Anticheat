@@ -16,15 +16,15 @@ export function unban(message, args) {
 
     // make sure the user has permissions to run the command
     if(player.hasTag("op") === false) 
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
+        return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
-    if(args.length === 0) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to ban!"}]}`);
+    if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to ban!"}]}`);
 
     let reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
     
     let member = args[0].replace(/"|\\/g, "");
 
-    if(data.unbanQueue.includes(member)) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Error: ${member} is already queued for an unban."}]}`);
+    if(data.unbanQueue.includes(member)) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Error: ${member} is already queued for an unban."}]}`);
 
     data.unbanQueue.push(member.toLowerCase());
     

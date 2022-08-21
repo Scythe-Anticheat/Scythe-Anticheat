@@ -14,7 +14,7 @@ import * as Minecraft from "mojang-minecraft";
     
     // make sure the user has permissions to run the command
     if(player.hasTag("op") === false) 
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
+        return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
     // get the player's inventory component
     let container = player.getComponent("inventory").container;
@@ -23,7 +23,7 @@ import * as Minecraft from "mojang-minecraft";
     let currentItem = container.getItem(player.selectedSlot);
 
     if(currentItem?.id === "minecraft:wooden_axe" && currentItem?.nameTag === "§r§l§aRight click to Open the UI")
-        return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You already have the UI item in your inventory."}]}`);
+        return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You already have the UI item in your inventory."}]}`);
 
     // creating the item that opens the UI
     let item = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.woodenAxe, 1, 0);
