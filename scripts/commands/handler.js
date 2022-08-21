@@ -42,19 +42,19 @@ import { resetwarns } from "./moderation/resetwarns.js";
  */
 export function commandHandler(player, message) {
     // validate that required params are defined
-    if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./commands/handler.js:13)");
-    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/handler.js:14)");
+    if(!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./commands/handler.js:13)");
+    if(!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/handler.js:14)");
 
-    if (config.debug === true) console.warn(`${new Date()} | ` + "did run command handler");
+    if(config.debug === true) console.warn(`${new Date()} | ` + "did run command handler");
 
     // checks if the message starts with our prefix, if not exit
-    if (!message.message.startsWith(config.customcommands.prefix)) return;
+    if(!message.message.startsWith(config.customcommands.prefix)) return;
 
     let args = message.message.slice(config.customcommands.prefix.length).split(/ +/);
 
     const commandName = args.shift().toLowerCase();
 
-    if (config.debug === true) console.warn(`${new Date()} | ${player.name} used the command: ${config.customcommands.prefix}${commandName} ${args.join(" ")}`);
+    if(config.debug === true) console.warn(`${new Date()} | ${player.name} used the command: ${config.customcommands.prefix}${commandName} ${args.join(" ")}`);
 
     // this wont work if you use a command alias
     if(config.customcommands[commandName] === false) {
@@ -65,39 +65,39 @@ export function commandHandler(player, message) {
 
     // we could much easily get rid of the if/else chain only if we have npm support...
     try {
-        if (config.customcommands.kick && commandName === "kick") kick(message, args);
-        else if (config.customcommands.tag && commandName === "tag" || commandName === "rank") tag(message, args);
-        else if (config.customcommands.ban && commandName === "ban") ban(message, args);
-        else if (config.customcommands.notify && commandName === "notify") notify(message);
-        else if (config.customcommands.vanish && commandName === "vanish" || commandName === "v") vanish(message);
-        else if (config.customcommands.fly && commandName === "fly" || commandName === "birdmode") fly(message, args);
-        else if (config.customcommands.mute && commandName === "mute") mute(message, args);
-        else if (config.customcommands.unmute && commandName === "unmute") unmute(message, args);
-        else if (config.customcommands.invsee && commandName === "invsee" || commandName === "inv") invsee(message, args);
-        else if (config.customcommands.ecwipe && commandName === "ecwipe") ecwipe(message, args);
-        else if (config.customcommands.freeze && commandName === "freeze") freeze(message, args);
-        else if (config.customcommands.stats && commandName === "stats") stats(message, args);
-        else if (config.customcommands.fullreport && commandName === "fullreport") fullreport(message);
-        else if (config.customcommands.allowgma && commandName === "allowgma") allowgma(message);
-        else if (config.customcommands.allowgmc && commandName === "allowgmc") allowgmc(message);
-        else if (config.customcommands.allowgms && commandName === "allowgms") allowgms(message);
-        else if (config.customcommands.bedrockvalidate && commandName === "bedrockvalidate") bedrockvalidate(message);
-        else if (config.customcommands.modules && commandName === "modules") modules(message);
-        else if (config.customcommands.npc && commandName === "npc") npc(message);
-        else if (config.customcommands.invalidsprint && commandName === "invalidsprint") invalidsprint(message);
-        else if (config.customcommands.overidecommandblocksenabled && commandName === "overridecbe" || commandName === "overidecommandblocksenabled") overidecommandblocksenabled(message);
-        else if (config.customcommands.removecommandblocks && commandName === "removecb" || commandName === "removecommandblocks") removecommandblocks(message);
-        else if (config.customcommands.worldborder && commandName === "worldborder" || commandName === "wb") worldborder(message);
-        else if (config.customcommands.xray && commandName === "xray") xray(message);
-        else if (config.customcommands.help && commandName === "help") help(message);
-        else if (config.customcommands.credits && commandName === "credits") credits(message);
-        else if (config.customcommands.op && commandName === "op") op(message, args);
-        else if (config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message);
-        else if (config.customcommands.autoban && commandName === "autoban") autoban(message);
-        else if (config.customcommands.report && commandName === "report") report(message, args);
-        else if (config.customcommands.unban && commandName === "unban") unban(message, args);
-        else if (config.customcommands.gui && commandName === "gui" || commandName === "ui") gui(message);
-        else if (config.customcommands.resetwarns && commandName === "resetwarns" || commandName === "rw") resetwarns(message, args);
+        if(config.customcommands.kick && commandName === "kick") kick(message, args);
+        else if(config.customcommands.tag && commandName === "tag" || commandName === "rank") tag(message, args);
+        else if(config.customcommands.ban && commandName === "ban") ban(message, args);
+        else if(config.customcommands.notify && commandName === "notify") notify(message);
+        else if(config.customcommands.vanish && commandName === "vanish" || commandName === "v") vanish(message);
+        else if(config.customcommands.fly && commandName === "fly" || commandName === "birdmode") fly(message, args);
+        else if(config.customcommands.mute && commandName === "mute") mute(message, args);
+        else if(config.customcommands.unmute && commandName === "unmute") unmute(message, args);
+        else if(config.customcommands.invsee && commandName === "invsee" || commandName === "inv") invsee(message, args);
+        else if(config.customcommands.ecwipe && commandName === "ecwipe") ecwipe(message, args);
+        else if(config.customcommands.freeze && commandName === "freeze") freeze(message, args);
+        else if(config.customcommands.stats && commandName === "stats") stats(message, args);
+        else if(config.customcommands.fullreport && commandName === "fullreport") fullreport(message);
+        else if(config.customcommands.allowgma && commandName === "allowgma") allowgma(message);
+        else if(config.customcommands.allowgmc && commandName === "allowgmc") allowgmc(message);
+        else if(config.customcommands.allowgms && commandName === "allowgms") allowgms(message);
+        else if(config.customcommands.bedrockvalidate && commandName === "bedrockvalidate") bedrockvalidate(message);
+        else if(config.customcommands.modules && commandName === "modules") modules(message);
+        else if(config.customcommands.npc && commandName === "npc") npc(message);
+        else if(config.customcommands.invalidsprint && commandName === "invalidsprint") invalidsprint(message);
+        else if(config.customcommands.overidecommandblocksenabled && commandName === "overridecbe" || commandName === "overidecommandblocksenabled") overidecommandblocksenabled(message);
+        else if(config.customcommands.removecommandblocks && commandName === "removecb" || commandName === "removecommandblocks") removecommandblocks(message);
+        else if(config.customcommands.worldborder && commandName === "worldborder" || commandName === "wb") worldborder(message);
+        else if(config.customcommands.xray && commandName === "xray") xray(message);
+        else if(config.customcommands.help && commandName === "help") help(message);
+        else if(config.customcommands.credits && commandName === "credits") credits(message);
+        else if(config.customcommands.op && commandName === "op") op(message, args);
+        else if(config.customcommands.autoclicker && commandName === "autoclicker") autoclicker(message);
+        else if(config.customcommands.autoban && commandName === "autoban") autoban(message);
+        else if(config.customcommands.report && commandName === "report") report(message, args);
+        else if(config.customcommands.unban && commandName === "unban") unban(message, args);
+        else if(config.customcommands.gui && commandName === "gui" || commandName === "ui") gui(message);
+        else if(config.customcommands.resetwarns && commandName === "resetwarns" || commandName === "rw") resetwarns(message, args);
         else return;
     } catch (error) {
         console.warn(`${new Date()} | ` + `${error} ${error.stack}`);

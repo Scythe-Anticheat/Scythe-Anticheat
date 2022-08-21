@@ -7,19 +7,20 @@ import data from "../../data/data.js";
  */
 export function unban(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? ./commands/moderation/unban.js:12)");
-    if (!args) return console.warn(`${new Date()} | ` + "Error: ${args} isnt defined. Did you forget to pass it? (./commands/moderation/unban.js:13)");
+    if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/moderation/unban.js:12)`);
+    if(typeof args !== "object") return console.warn(`${new Date()} | ` + `Error: args is type of ${typeof args}. Expected "object' (./commands/moderation/unban.js:13)`);
 
     message.cancel = true;
 
     let player = message.sender;
-    let reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
     // make sure the user has permissions to run the command
-    if(!player.hasTag("op")) 
+    if(player.hasTag("op") === false) 
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
 
-    if (!args.length) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to ban!"}]}`);
+    if(args.length === 0) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to ban!"}]}`);
+
+    let reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
     
     let member = args[0].replace(/"|\\/g, "");
 
@@ -27,5 +28,5 @@ export function unban(message, args) {
 
     data.unbanQueue.push(member.toLowerCase());
     
-    return player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has added ${member} into the unban queue. Reason: ${reason}"}]}`);
+    player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has added ${member} into the unban queue. Reason: ${reason}"}]}`);
 }

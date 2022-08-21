@@ -14,9 +14,9 @@ World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase();
     const player = msg.sender;
 
-    if (config.debug === true && message === "ping") console.warn(`${new Date()} | Pong!`);
+    if(config.debug === true && message === "ping") console.warn(`${new Date()} | Pong!`);
 
-    if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
+    if(message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
     if(player.hasTag("isMuted")) {
         msg.cancel = true;
@@ -24,32 +24,32 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     // BadPackets/2 = chat message length check
-    if (config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, false, msg);
+    if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, false, msg);
 
     // Spammer/A = checks if someone sends a message while moving and on ground
-    if (config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
+    if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
         flag(player, "Spammer", "A", "Movement", false, false, true, msg);
 
     // Spammer/B = checks if someone sends a message while swinging their hand
-    if (config.modules.spammerB.enabled && player.hasTag('left'))
+    if(config.modules.spammerB.enabled && player.hasTag('left'))
         flag(player, "Spammer", "B", "Combat", false, false, false, msg);
 
     // Spammer/C = checks if someone sends a message while using an item
-    if (config.modules.spammerC.enabled && player.hasTag('right'))
+    if(config.modules.spammerC.enabled && player.hasTag('right'))
         flag(player, "Spammer", "C", "Misc", false, false, false, msg);
 
     // Spammer/D = checks if someone sends a message while having a GUI open
-    if (config.modules.spammerD.enabled && player.hasTag('hasGUIopen'))
+    if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen'))
         flag(player, "Spammer", "D", "Misc", false, false, false, msg);
 
     commandHandler(player, msg);
 
     // add's user custom tags to their messages if it exists or we fall back
     // also filter for non ASCII characters and remove them in messages
-    if (player.name !== player.nameTag && !msg.cancel && !config.modules.filterUnicodeChat) {
+    if(player.name !== player.nameTag && !msg.cancel && !config.modules.filterUnicodeChat) {
         player.runCommandAsync(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
-    } else if ((player.name === player.nameTag || config.modules.filterUnicodeChat) && !msg.cancel) {
+    } else if((player.name === player.nameTag || config.modules.filterUnicodeChat) && !msg.cancel) {
         player.runCommandAsync(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
     }
@@ -83,7 +83,7 @@ World.events.tick.subscribe(() => {
         } else if(player.badpackets5Ticks  != 0) player.badpackets5Ticks--;
 
         // Crasher/A = invalid pos check
-        if (config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
+        if(config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
             Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) 
                 flag(player, "Crasher", "A", "Exploit", "x_pos", `${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 
@@ -108,7 +108,7 @@ World.events.tick.subscribe(() => {
         if(config.modules.bedrockValidate.enabled) {
             try {
                 player.runCommand("testfor @s[scores={bedrock=1..}]");
-                if (config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
+                if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
                     try {
                         player.runCommandAsync(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
                     } catch {}
@@ -118,7 +118,7 @@ World.events.tick.subscribe(() => {
                     } catch {}
                 }
 
-                if (config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
+                if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
                     try {
                         player.runCommandAsync(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
                     } catch {}
@@ -132,11 +132,11 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
-        // if (config.debug === true) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(4)} Vertical Speed: ${player.velocity.y.toFixed(4)}`);
+        // if(config.debug === true) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(4)} Vertical Speed: ${player.velocity.y.toFixed(4)}`);
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
-            if (!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident")) {
+            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident")) {
                 try {
                     player.runCommand("testfor @s[scores={right=5..}]");
                     flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true);
@@ -145,14 +145,14 @@ World.events.tick.subscribe(() => {
         }
 
         let container = player.getComponent('inventory').container;
-        for (let i = 0; i < container.size; i++) if (container.getItem(i)) {
+        for (let i = 0; i < container.size; i++) if(container.getItem(i)) {
             let item = container.getItem(i);
             // Illegalitems/C = item stacked over 64 check
             if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
                 flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
                 
             // Illegalitems/D = additional item clearing check
-            if (config.modules.illegalitemsD.enabled && config.itemLists.items_very_illegal.includes(item.id))
+            if(config.modules.illegalitemsD.enabled && config.itemLists.items_very_illegal.includes(item.id))
                 flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
 
             // CommandBlockExploit/H = clear items
@@ -210,7 +210,7 @@ World.events.tick.subscribe(() => {
         }
 
         // invalidsprint/a = checks for sprinting with the blindness effect
-        if (config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint'))
+        if(config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint'))
             flag(player, "InvalidSprint", "A", "Movement", false, false, true);
 
         // fly/a
@@ -402,7 +402,7 @@ World.events.playerJoin.subscribe(playerJoin => {
     }
 
     // Namespoof/A = username length check.
-    if (config.modules.namespoofA.enabled) {
+    if(config.modules.namespoofA.enabled) {
         // checks if 2 players are logged in with the same name
         // minecraft adds a sufix to the end of the name which we detect
         if(player.name?.endsWith(')') && (player.name?.length > config.modules.namespoofA.maxNameLength + 3 || player.name?.length < config.modules.namespoofA.minNameLength))
@@ -413,10 +413,10 @@ World.events.playerJoin.subscribe(playerJoin => {
     }
 
     // Namespoof/B = regex check
-    if (config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
+    if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
 
     // check if the player is in the global ban list
-    if (banList.includes(player.name)) player.isGlobalBanned = true;
+    if(banList.includes(player.name)) player.isGlobalBanned = true;
 });
 
 World.events.entityCreate.subscribe(entityCreate => {

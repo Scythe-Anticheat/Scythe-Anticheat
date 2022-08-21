@@ -10,21 +10,21 @@ const World = Minecraft.world;
  */
 export function fly(message, args) {
     // validate that required params are defined
-    if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/utility/fly.js:10)");
+    if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/utility/fly.js:12)`);
 
     message.cancel = true;
 
     let player = message.sender;
 
     // make sure the user has permissions to run the command
-    if(!player.hasTag("op")) 
+    if(player.hasTag("op") === false) 
         return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
     
     // try to find the player requested
     if(args.length) for (let pl of World.getPlayers())
-        if (pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl; 
+        if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl; 
     
-    if (!member) var member = player;
+    if(typeof member === "undefined") var member = player;
 
     try {
         member.runCommand(`function tools/fly`);
