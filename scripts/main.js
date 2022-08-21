@@ -8,13 +8,13 @@ import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 
 const World = Minecraft.world;
 
-if (config.debug) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
+if(config.debug === true) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase();
     const player = msg.sender;
 
-    if (config.debug && message === "ping") console.warn(`${new Date()} | Pong!`);
+    if (config.debug === true && message === "ping") console.warn(`${new Date()} | Pong!`);
 
     if (message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
 
@@ -57,7 +57,7 @@ World.events.beforeChat.subscribe(msg => {
 
 World.events.tick.subscribe(() => {
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
-    if(config.debug) data.currentTick++;
+    if(config.debug === true) data.currentTick++;
 
     // run as each player
     for (let player of World.getPlayers()) {       
@@ -132,7 +132,7 @@ World.events.tick.subscribe(() => {
             } catch {}
         }
 
-        // if (config.debug) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(4)} Vertical Speed: ${player.velocity.y.toFixed(4)}`);
+        // if (config.debug === true) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(4)} Vertical Speed: ${player.velocity.y.toFixed(4)}`);
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
@@ -238,20 +238,20 @@ World.events.tick.subscribe(() => {
             player.cps = 0;
         }
 
-        // if(config.debug) console.warn(`${new Date()} | reached end of tick event. current tick: ${data.currentTick}`);
-    
-        // BadPackets[4] = checks for invalid selected slot
+		// BadPackets[4] = checks for invalid selected slot
         if(config.modules.badpackets4.enabled && player.selectedSlot < 0 || player.selectedSlot > 8) {
             flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
             player.selectedSlot = 0;
         }
+
+        // if(config.debug === true) console.warn(`${new Date()} | reached end of tick event. current tick: ${data.currentTick}`);
     }
 });
 
 World.events.blockPlace.subscribe(blockPlace => {
     let block = blockPlace.block;
     let player = blockPlace.player;
-    if(config.debug) console.warn(`${player.nameTag} has placed ${block.id}.`);
+    if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.id}.`);
 
     // IllegalItems/H = checks for pistons that can break any block
     if(block.id === "minecraft:piston" || block.id === "minecraft:sticky_piston") {
@@ -268,7 +268,7 @@ World.events.blockBreak.subscribe(block => {
     let player = block.player;
     let dimension = block.dimension;
 
-    if(config.debug) console.warn(`${player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
+    if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
 
     // nuker/a = checks if a player breaks more than 3 blocks in a tick
     if(config.modules.nukerA.enabled) {
@@ -426,7 +426,7 @@ World.events.entityCreate.subscribe(entityCreate => {
         data.entitiesSpawnedInLastTick++;
 
         if(data.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
-            if(config.debug) console.warn(`Killed "${entity.id}" due to item spawn ratelimit reached.`);
+            if(config.debug === true) console.warn(`Killed "${entity.id}" due to item spawn ratelimit reached.`);
             entity.kill();
         }
     }
@@ -478,7 +478,7 @@ World.events.entityHit.subscribe(entityHit => {
         if(config.modules.reachA.enabled) {
             // get the difference between 2 three dimensional coordinates
             let distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
-            if(config.debug) console.warn(`${player.name} attacked ${entityHitName} with a distance of ${distance}`);
+            if(config.debug === true) console.warn(`${player.name} attacked ${entityHitName} with a distance of ${distance}`);
 
             if(distance > config.modules.reachA.reach && entity.id.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.id)) {
                 // we ignore gmc players as they get increased reach

@@ -26,14 +26,14 @@ export function mainGui(player) {
         .button("Player Options", "textures/ui/FriendsDiversity.png")
         .button("Server Options", "textures/ui/servers.png")
         .button("Exit", "textures/ui/redX1.png");
-    if(config.debug) mainGui.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
+    if(config.debug === true) mainGui.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
     mainGui.show(player).then((response) => {
         if(response.selection === 0) banMenu(player);
         if(response.selection === 1) settingsMenu(player);
         if(response.selection === 2) playerSettingsMenu(player);
         if(response.selection === 3) worldSettingsMenu(player);
         if(response.selection === 4) return;
-        if(config.debug && response.selection === 5) debugSettingsMenu(player);
+        if(config.debug === true && response.selection === 5) debugSettingsMenu(player);
     });
 }
 
@@ -373,7 +373,7 @@ function worldSettingsMenu(player) {
 //       Debug Menu       //
 // ====================== //
 function debugSettingsMenu(player) {
-    if(!player.hasTag("op") || !config.debug) return;
+    if(!player.hasTag("op") || config.debug === false) return;
     // player.playSound("mob.chicken.plop");
     mainGui(player);
 }

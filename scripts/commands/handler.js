@@ -45,7 +45,7 @@ export function commandHandler(player, message) {
     if (!player) return console.warn(`${new Date()} | ` + "Error: ${player} isnt defined. Did you forget to pass it? (./commands/handler.js:13)");
     if (!message) return console.warn(`${new Date()} | ` + "Error: ${message} isnt defined. Did you forget to pass it? (./commands/handler.js:14)");
 
-    if (config.debug) console.warn(`${new Date()} | ` + "did run command handler");
+    if (config.debug === true) console.warn(`${new Date()} | ` + "did run command handler");
 
     // checks if the message starts with our prefix, if not exit
     if (!message.message.startsWith(config.customcommands.prefix)) return;
@@ -54,7 +54,7 @@ export function commandHandler(player, message) {
 
     const commandName = args.shift().toLowerCase();
 
-    if (config.debug) console.warn(`${new Date()} | ${player.name} used the command: ${config.customcommands.prefix}${commandName} ${args.join(" ")}`);
+    if (config.debug === true) console.warn(`${new Date()} | ${player.name} used the command: ${config.customcommands.prefix}${commandName} ${args.join(" ")}`);
 
     // this wont work if you use a command alias
     if(config.customcommands[commandName] === false) {
