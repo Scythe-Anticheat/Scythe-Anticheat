@@ -49,8 +49,8 @@ World.events.beforeChat.subscribe(msg => {
     if(player.name !== player.nameTag && msg.cancel === false && !config.modules.filterUnicodeChat) {
         player.runCommandAsync(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
-    } else if((player.name === player.nameTag || config.modules.filterUnicodeChat) && msg.cancel === false) {
-        player.runCommandAsync(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"/g, "").replace(/\\/g, "")}"}]}`);
+    } else if(player.name === player.nameTag && config.modules.filterUnicodeChat && msg.cancel === false) {
+        player.runCommandAsync(`tellraw @a {"rawtext":[{"text":"<${player.nameTag}> 1 ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"/g, "").replace(/\\/g, "")}"}]}`);
         msg.cancel = true;
     }
 });
