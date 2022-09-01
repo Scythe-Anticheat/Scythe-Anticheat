@@ -5,6 +5,7 @@
 			"timeline": {
 				"0.0": [
 					"/gamerule functioncommandlimit 10000",
+					"/gamerule randomtickspeed 1",
 					"/function main"
 				]
 			},

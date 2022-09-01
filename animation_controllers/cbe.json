@@ -58,6 +58,9 @@
 							"tadpole_bucket": "query.get_equipped_item_name == 'tadpole_bucket' || query.get_equipped_item_name('off_hand') == 'tadpole_bucket'"
 						},
 						{
+							"dispenser": "query.get_equipped_item_name == 'dispenser' || query.get_equipped_item_name('off_hand') == 'dispenser'"
+						},
+						{
 							"beehive": "query.get_equipped_item_name == 'beehive' || query.get_equipped_item_name('off_hand') == 'beehive'"
 						},
 						{
@@ -119,6 +122,14 @@
 					],
 					"transitions": [{
 						"cbeitems": "query.get_equipped_item_name != 'tadpole_bucket' || query.get_equipped_item_name('off_hand') != 'tadpole_bucket'"
+					}]
+				},
+				"dispenser": {
+					"on_entry": [
+						"/clear @s dispenser"
+					],
+					"transitions": [{
+						"cbeitems": "query.get_equipped_item_name != 'dispenser' || query.get_equipped_item_name('off_hand') != 'dispenser'"
 					}]
 				},
 				"beehive": {

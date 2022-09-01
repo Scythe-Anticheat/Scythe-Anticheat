@@ -310,8 +310,7 @@
 				},
 				"npc_spawn_egg": {
 					"on_entry": [
-						"/replaceitem entity @s[tag=!op] slot.weapon.mainhand 0 air",
-						"/replaceitem entity @s[tag=!op] slot.weapon.offhand 0 air",
+						"/clear @s[tag=!op] spawn_egg 51",
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(npc_spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],

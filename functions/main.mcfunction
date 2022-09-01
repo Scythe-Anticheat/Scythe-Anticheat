@@ -1,6 +1,3 @@
-# Prevents disabler hacks from possibly disabling the anticheat
-gamerule randomtickspeed 1
-
 # Run all the checks
 function checks/angle
 function checks/cbe
