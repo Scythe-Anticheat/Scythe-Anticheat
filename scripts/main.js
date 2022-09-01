@@ -107,27 +107,28 @@ World.events.tick.subscribe(() => {
 
         if(config.modules.bedrockValidate.enabled === true) {
             try {
-                player.runCommand("testfor @s[scores={bedrock=1..}]");
-                if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
-                    try {
-                        player.runCommandAsync(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
-                    } catch {}
+                if(World.scoreboard.getObjective("bedrock").getScore(player.scoreboard) >= 1) {
+                    if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
+                        try {
+                            player.runCommandAsync(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
+                        } catch {}
 
-                    try {
-                        player.runCommandAsync(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
-                    } catch {}
-                }
+                        try {
+                            player.runCommandAsync(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
+                        } catch {}
+                    }
 
-                if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
-                    try {
-                        player.runCommandAsync(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
-                    } catch {}
-                    try {
-                        player.runCommandAsync(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
-                    } catch {}
-                    try {
-                        player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
-                    } catch {}
+                    if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
+                        try {
+                            player.runCommandAsync(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
+                        } catch {}
+                        try {
+                            player.runCommandAsync(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
+                        } catch {}
+                        try {
+                            player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
+                        } catch {}
+                    }
                 }
             } catch {}
         }
@@ -506,11 +507,11 @@ World.events.entityHit.subscribe(entityHit => {
         // if anti-autoclicker is disabled in game then disable it in config.js
         if(!data.checkedModules.autoclicker) {
             try {
-                player.runCommand("testfor @s[scores={autoclicker=..0}]");
-            } catch {
-                config.modules.autoclickerA.enabled = false;
-            }
-            data.checkedModules.autoclicker = true;
+                if(World.scoreboard.getObjective("autoclicker").getScore(player.scoreboard) <= 0) {
+                    config.modules.autoclickerA.enabled = false;
+                }
+                data.checkedModules.autoclicker = true;
+            } catch {}
         }
 
         if(!player.firstAttack) player.firstAttack = Date.now();
