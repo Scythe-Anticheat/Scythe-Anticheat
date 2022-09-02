@@ -33,6 +33,9 @@
 				"family": ["npc", "mob"]
 			},
 			"minecraft:fire_immune": true,
+			"minecraft:movement": {
+				"value": 0.5
+			},
 			"minecraft:loot": {
 				"table": "loot_tables/empty.json"
 			},
@@ -117,6 +120,36 @@
 							"variant": 19
 						},
 						{
+							"variant": 25
+						},
+						{
+							"variant": 26
+						},
+						{
+							"variant": 27
+						},
+						{
+							"variant": 28
+						},
+						{
+							"variant": 29
+						},
+						{
+							"variant": 30
+						},
+						{
+							"variant": 31
+						},
+						{
+							"variant": 32
+						},
+						{
+							"variant": 33
+						},
+						{
+							"variant": 34
+						},
+						{
 							"variant": 20
 						},
 						{
@@ -135,11 +168,10 @@
 				}
 			},
 			"minecraft:nameable": {
-				"always_show": false,
+				"always_show": true,
 				"allow_name_tag_renaming": false
 			},
-			"minecraft:physics": {},
-			"minecraft:conditional_bandwidth_optimization": {}
+			"minecraft:physics": {}
 		},
 		"events": {
 			"scythe:despawn": {
