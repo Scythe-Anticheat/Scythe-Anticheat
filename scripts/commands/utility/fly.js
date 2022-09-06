@@ -23,6 +23,13 @@ export function fly(message, args) {
     if(typeof member === "undefined") var member = player;
 
     try {
+        member.runCommand("testfor @s[m=!c]");
+    } catch {
+        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"No need! This player is in creative which allows flying by default."}]}`);
+        return;
+    }
+
+    try {
         member.runCommand(`function tools/fly`);
     } catch (error) {
         if(JSON.parse(error).statusMessage === "Function tools/fly not found.")
