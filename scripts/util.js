@@ -25,6 +25,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof checkType !== "string") return console.warn(`${new Date()} | ` + `Error: checkType is type of ${typeof checkType}. Expected "string' (./util.js:25)`);
     if(typeof hackType !== "string") return console.warn(`${new Date()} | ` + `Error: player is type of ${typeof hackType}. Expected "string' (./util.js:26)`);
 
+    // If debug is enabled, then we log everything we know about the player.
+    if(config.debug === true) console.warn(`{"check":"${check}","checkType":"${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}","playerNameTag":"${player.nameTag}","lastPlayerName":"${player.oldName}","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}"}}`);
+
     // cancel the message
     if(typeof message === "object") message.cancel = true;
 

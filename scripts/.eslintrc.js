@@ -11,6 +11,7 @@ module.exports = {
     },
     "rules": {
         "no-compare-neg-zero": "error",
+        "no-cond-assign": "error",
         "no-const-assign": "error",
         "no-dupe-args": "error",
         "no-dupe-else-if": "error",
@@ -31,6 +32,7 @@ module.exports = {
         "spaced-comment": "warn",
         "yoda": "error",
         "semi": "warn",
+        "semi-style": ["error", "last"],
         "no-control-regex": "off"
     }
 };

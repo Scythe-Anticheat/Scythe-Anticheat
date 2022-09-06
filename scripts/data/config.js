@@ -213,8 +213,8 @@ export default
             "enabled": true,
             "minLength": 1,
             "maxlength": 512,
-            "punishment": "none",
-            "minVlbeforeBan": 0
+            "punishment": "ban",
+            "minVlbeforeBan": 1
         },
         "spammerA": {
             "enabled": true,
