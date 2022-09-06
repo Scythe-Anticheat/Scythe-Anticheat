@@ -76,7 +76,7 @@ export function commandHandler(player, message) {
         player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"This command has been disabled in config.js."}]}`);
         return message.cancel = true;
     }
-    if(commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
+    if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
         player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
         return message.cancel = true;
     }

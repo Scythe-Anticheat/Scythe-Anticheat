@@ -1,5 +1,5 @@
 import * as Minecraft from "mojang-minecraft";
-import { flag, banMessage, getClosestPlayer} from "./util.js";
+import { flag, banMessage, getClosestPlayer } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
