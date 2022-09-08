@@ -222,7 +222,9 @@
 					"on_entry": [
 						"/tag @s add moving",
 						"/tellraw @a[tag=packetlogger,tag=packetlogger2] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/execute @s[scores={worldborder=1..,gametestapi=1..}] ~~~ function checks/optional/worldborder"
+						"/execute @s[scores={worldborder=1..,gametestapi=1..}] ~~~ function checks/optional/worldborder",
+						"/tp @s[tag=freeze] ~~~",
+						"/tp @s[y=-105,dy=-205] ~ -104 ~"
 					]
 				}
 			}

@@ -1,5 +1,6 @@
 tag @s[tag=freeze] add nofreeze
 tag @s[tag=nofreeze] remove freeze
+
 effect @s[tag=nofreeze] clear
 tellraw @s[tag=nofreeze] {"rawtext":[{"text":"§r§6[§aScythe§6] §r You are no longer frozen!"}]}
 execute @s[type=player,tag=nofreeze] ~~~ detect ~~2~ barrier 0 setblock ~~2~ air
