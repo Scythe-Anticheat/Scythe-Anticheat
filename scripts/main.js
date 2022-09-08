@@ -74,6 +74,10 @@ World.events.tick.subscribe(() => {
 
         player.blocksBroken = 0;
         player.entitiesHit = [];
+        if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay) {
+            // console.warn(1, player.lastSelectedSlot, player.selectedSlot);
+            if(player.lastSelectedSlot !== player.selectedSlot) player.flagAutotoolA = true;
+        }
 
         // BadPackets[5] = checks for horion freecam
         if(!player.badpackets5Ticks) player.badpackets5Ticks = 0;
@@ -251,7 +255,7 @@ World.events.tick.subscribe(() => {
     }
 });
 
-World.events.blockPlace.subscribe(blockPlace => {
+World.events.blockPlace.subscribe((blockPlace) => {
     let block = blockPlace.block;
     let player = blockPlace.player;
     if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.id}.`);
@@ -267,7 +271,7 @@ World.events.blockPlace.subscribe(blockPlace => {
     }
 });
 
-World.events.blockBreak.subscribe(block => {
+World.events.blockBreak.subscribe((block) => {
     let player = block.player;
     let dimension = block.dimension;
 
@@ -302,13 +306,25 @@ World.events.blockBreak.subscribe(block => {
             block.block.setPermutation(block.brokenBlockPermutation);
         }
     }
+
+    // Autotool/A = checks for player slot mismatch
+    // This was a nightmare to debug...
+    if(config.modules.autotoolA.enabled) {
+        // console.warn("block break ", Date.now() - player.startBreakTime);
+        if(player.flagAutotoolA === true) {
+            flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},startBreakDelay=${Date.now() - player.startBreakTime}`);
+        }
+    }
 });
 
-World.events.beforeItemUseOn.subscribe(block => {
+World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
+    let player = beforeItemUseOn.source;
+    let item = beforeItemUseOn.item;
+
     // commandblockexploit/f = cancels the placement of cbe items
-    if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(block.item.id)) {
-        flag(block.source, "CommandBlockExploit","F", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
-        block.cancel = true;
+    if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(item.id)) {
+        flag(player, "CommandBlockExploit","F", "Exploit", "block", item.id, false, false, player.selectedSlot);
+        beforeItemUseOn.cancel = true;
     }
 
     /*
@@ -318,46 +334,46 @@ World.events.beforeItemUseOn.subscribe(block => {
     */
     if(config.modules.illegalitemsE.enabled) {
         // items that are obtainble using commands
-        if(block.source.hasTag("op") === false) {
-            if(config.itemLists.items_semi_illegal.includes(block.item.id)) {
+        if(player.hasTag("op") === false) {
+            if(config.itemLists.items_semi_illegal.includes(item.id)) {
                 // dont affect gmc players
                 try {
-                    block.source.runCommand("testfor @s[m=!c]");
-                    flag(block.source, "IllegalItems", "E", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
-                    block.cancel = true;
+                    player.runCommand("testfor @s[m=!c]");
+                    flag(player, "IllegalItems", "E", "Exploit", "block", item.id, false, false, player.selectedSlot);
+                    beforeItemUseOn.cancel = true;
                 } catch {}
             }
 
             // patch element blocks
-            if(config.itemLists.elements && block.item.id.startsWith("minecraft:element_")) {
+            if(config.itemLists.elements && item.id.startsWith("minecraft:element_")) {
                 // dont affect gmc players
                 try {
-                    block.source.runCommand("testfor @s[m=!c]");
-                    flag(block.source, "IllegalItems", "E", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
-                    block.cancel = true;
+                    player.runCommand("testfor @s[m=!c]");
+                    flag(player.source, "IllegalItems", "E", "Exploit", "block", item.id, false, false, player.selectedSlot);
+                    beforeItemUseOn.cancel = true;
                 } catch {}
             }
             
             // patch spawn eggs
-            if(config.itemLists.spawnEggs && block.item.id.endsWith("_spawn_egg")) {
+            if(config.itemLists.spawnEggs && item.id.endsWith("_spawn_egg")) {
                 // dont affect gmc players
                 try {
-                    block.source.runCommand("testfor @s[m=!c]");
-                    flag(block.source, "IllegalItems", "E", "Exploit", "block", block.item.id, false, false, block.source.selectedSlot);
-                    block.cancel = true;
+                    player.runCommand("testfor @s[m=!c]");
+                    flag(player, "IllegalItems", "E", "Exploit", "block", item.id, false, false, player.selectedSlot);
+                    beforeItemUseOn.cancel = true;
                 } catch {}
             }
         }
     
         // items that cannot be obtained normally
-        if(config.itemLists.items_very_illegal.includes(block.item.id)) {
-            flag(block.source, "IllegalItems", "E", "Exploit", "item", block.item.id, false, false, block.source.selectedSlot);
-            block.cancel = true;
+        if(config.itemLists.items_very_illegal.includes(item.id)) {
+            flag(player, "IllegalItems", "E", "Exploit", "item", item.id, false, false, player.selectedSlot);
+            beforeItemUseOn.cancel = true;
         }
     }
 });
 
-World.events.playerJoin.subscribe(playerJoin => {
+World.events.playerJoin.subscribe((playerJoin) => {
     let player = playerJoin.player;
 
     // fix a disabler method
@@ -419,7 +435,7 @@ World.events.playerJoin.subscribe(playerJoin => {
     if(banList.includes(player.name)) player.isGlobalBanned = true;
 });
 
-World.events.entityCreate.subscribe(entityCreate => {
+World.events.entityCreate.subscribe((entityCreate) => {
     let entity = entityCreate.entity;
 
     if(config.modules.itemSpawnRateLimit.enabled) {
@@ -455,8 +471,9 @@ World.events.entityCreate.subscribe(entityCreate => {
     }
 });
 
-World.events.entityHit.subscribe(entityHit => {
+World.events.entityHit.subscribe((entityHit) => {
     let entity = entityHit.hitEntity;
+    let block = entityHit.hitBlock;
     let player = entityHit.entity;
 
     if(player.id !== "minecraft:player") return;
@@ -499,6 +516,15 @@ World.events.entityHit.subscribe(entityHit => {
         let item = container.getItem(player.selectedSlot);
         if(config.customcommands.gui && entity.id === "minecraft:player" && item?.id === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
+        }
+    }
+
+    if(typeof block === "object") {
+        if(config.modules.autotoolA.enabled) {
+            // console.warn("hit block", Date.now() - player.startBreakTime);
+            player.flagAutotoolA = false;
+            player.lastSelectedSlot = player.selectedSlot;
+            player.startBreakTime = Date.now();
         }
     }
 

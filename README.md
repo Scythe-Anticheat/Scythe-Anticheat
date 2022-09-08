@@ -22,6 +22,9 @@ To run any chat commands or be able to use certian blocks run ```/function op```
   AutoClicker -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS. (Requires GameTest Framework).
 
+  AutoTool -><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for player slot selection mismatch (Requires GameTest Framework).
+
   AutoShield -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player equips a shield while moving.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if a player equips a shield while using an item.<br />

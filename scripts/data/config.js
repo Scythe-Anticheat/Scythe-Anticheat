@@ -427,6 +427,12 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVLbeforeBan": 0
+        },
+        "autotoolA": {
+            "enabled": true,
+            "startBreakDelay": 85,
+            "punishment": "none",
+            "minVLbeforeBan": 0
         }
     },
     "itemLists": {
