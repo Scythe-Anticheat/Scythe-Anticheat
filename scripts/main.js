@@ -110,42 +110,39 @@ World.events.tick.subscribe(() => {
         }
 
         if(config.modules.bedrockValidate.enabled === true) {
-            try {
-                if(World.scoreboard.getObjective("bedrock").getScore(player.scoreboard) >= 1) {
-                    if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
-                        try {
-                            player.runCommandAsync(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
-                        } catch {}
+            if(World.scoreboard.getObjective("bedrock")?.getScore(player.scoreboard) >= 1) {
+                if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
+                    try {
+                        player.runCommandAsync(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
+                    } catch {}
 
-                        try {
-                            player.runCommandAsync(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
-                        } catch {}
-                    }
-
-                    if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
-                        try {
-                            player.runCommandAsync(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
-                        } catch {}
-                        try {
-                            player.runCommandAsync(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
-                        } catch {}
-                        try {
-                            player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
-                        } catch {}
-                    }
+                    try {
+                        player.runCommandAsync(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
+                    } catch {}
                 }
-            } catch {}
+
+                if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
+                    try {
+                        player.runCommandAsync(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
+                    } catch {}
+                    try {
+                        player.runCommandAsync(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
+                    } catch {}
+                    try {
+                        player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
+                    } catch {}
+                }
+            }
         }
 
-        // if(config.debug === true) console.warn(`${new Date()} | ${player.name}'s speed: ${Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(4)} Vertical Speed: ${player.velocity.y.toFixed(4)}`);
+        let playerSpeed = Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2));
+
+        // if(config.debug === true) console.warn(`${new Date()} | ${player.name}'s speed: ${playerSpeed.toFixed(4)} Vertical Speed: ${player.velocity.y}`);
 
         // NoSlow/A = speed limit check
-        if(config.modules.noslowA.enabled && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) >= config.modules.noslowA.speed && Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2) <= config.modules.noslowA.maxSpeed) {
-            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident")) {
-                try {
-                    player.runCommand("testfor @s[scores={right=5..}]");
-                    flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true);
-                } catch {}
+        if(config.modules.noslowA.enabled && playerSpeed.toFixed(2) >= config.modules.noslowA.speed && playerSpeed.toFixed(2) <= config.modules.noslowA.maxSpeed) {
+            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && World.scoreboard.getObjective("right")?.getScore(player.scoreboard) >= 5) {
+                flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true);
             }
         }
 
@@ -258,6 +255,7 @@ World.events.tick.subscribe(() => {
 World.events.blockPlace.subscribe((blockPlace) => {
     let block = blockPlace.block;
     let player = blockPlace.player;
+
     if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.id}.`);
 
     // IllegalItems/H = checks for pistons that can break any block
@@ -271,11 +269,12 @@ World.events.blockPlace.subscribe((blockPlace) => {
     }
 });
 
-World.events.blockBreak.subscribe((block) => {
-    let player = block.player;
-    let dimension = block.dimension;
+World.events.blockBreak.subscribe((blockBreak) => {
+    let player = blockBreak.player;
+    let dimension = blockBreak.dimension;
+    let block = blockBreak.block;
 
-    if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${block.brokenBlockPermutation.type.id}`);
+    if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${blockBreak.brokenBlockPermutation.type.id}`);
 
     // nuker/a = checks if a player breaks more than 3 blocks in a tick
     if(config.modules.nukerA.enabled) {
@@ -286,7 +285,7 @@ World.events.blockBreak.subscribe((block) => {
 
             // killing all the items it drops
             let EntityQueryOptions = new Minecraft.EntityQueryOptions();
-            EntityQueryOptions.location = new Minecraft.Location(block.block.location.x, block.block.location.y, block.block.location.z);
+            EntityQueryOptions.location = new Minecraft.Location(block.location.x, block.location.y, block.location.z);
             EntityQueryOptions.minDistance = 0;
             EntityQueryOptions.maxDistance = 2;
             EntityQueryOptions.type = "item";
@@ -295,15 +294,15 @@ World.events.blockBreak.subscribe((block) => {
 
             for (let item of droppedItems) item.kill();
 
-            block.block.setPermutation(block.brokenBlockPermutation);
+            block.setPermutation(blockBreak.brokenBlockPermutation);
         }
     }
 
     // liquidinteract/a = checks if a player breaks a liquid source block
     if(config.modules.liquidinteractA.enabled) {
-        if(config.modules.liquidinteractA.liquids.includes(block.brokenBlockPermutation.type.id)) {
-            flag(player, "LiquidInteract", "A", "Misc", "block", block.brokenBlockPermutation.type.id);
-            block.block.setPermutation(block.brokenBlockPermutation);
+        if(config.modules.liquidinteractA.liquids.includes(blockBreak.brokenBlockPermutation.type.id)) {
+            flag(player, "LiquidInteract", "A", "Misc", "block", blockBreak.brokenBlockPermutation.type.id);
+            block.setPermutation(blockBreak.brokenBlockPermutation);
         }
     }
 
@@ -532,12 +531,10 @@ World.events.entityHit.subscribe((entityHit) => {
     if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
         // if anti-autoclicker is disabled in game then disable it in config.js
         if(!data.checkedModules.autoclicker) {
-            try {
-                if(World.scoreboard.getObjective("autoclicker").getScore(player.scoreboard) <= 0) {
-                    config.modules.autoclickerA.enabled = false;
-                }
-                data.checkedModules.autoclicker = true;
-            } catch {}
+            if(World.scoreboard.getObjective("autoclicker")?.getScore(player.scoreboard) <= 0) {
+                config.modules.autoclickerA.enabled = false;
+            }
+            data.checkedModules.autoclicker = true;
         }
 
         if(!player.firstAttack) player.firstAttack = Date.now();
