@@ -339,12 +339,12 @@ export default
             "enabled": true,
             "levelExclusions": {
                 /*
-                "efficiency": {
-                    "maxLevel": 69
-                },
-                "sharpness": {
-                   "maxLevel": 420
-               }
+                If your realm uses enchantments with levels higher then vanilla then you need to exclude them here.
+                To add an exclusion, add ' "<enchantment name>": <max level> ' below the examples
+                Anything in this area will be considered as a comment, and wont take affect
+
+                "efficiency": 69,
+                "sharpness": 420
                 */
             },
             "punishment": "none",

@@ -70,7 +70,7 @@ World.events.tick.subscribe(() => {
         }
 
         // sexy looking ban message
-        if(player.hasTag("isBanned") === true) banMessage(player);
+        if(player.hasTag("isBanned")) banMessage(player);
 
         player.blocksBroken = 0;
         player.entitiesHit = [];
@@ -80,7 +80,7 @@ World.events.tick.subscribe(() => {
         }
 
         // BadPackets[5] = checks for horion freecam
-        if(!player.badpackets5Ticks) player.badpackets5Ticks = 0;
+        if(typeof player.badpackets5Ticks !== "number") player.badpackets5Ticks = 0;
         if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) === "0.420000" && !player.hasTag("dead")) {
             player.badpackets5Ticks++;
             if(player.badpackets5Ticks > 2) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
@@ -101,7 +101,7 @@ World.events.tick.subscribe(() => {
         }
 
         // player position shit
-        if(player.hasTag("moving") === true) {
+        if(player.hasTag("moving")) {
             try {
                 player.runCommandAsync(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
                 player.runCommandAsync(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
@@ -186,7 +186,7 @@ World.events.tick.subscribe(() => {
                             protection_types.push(enchantData.type.id);
 
                         // badenchants/A = checks for items with invalid enchantment levels
-                        let maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id]?.maxLevel;
+                        let maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
                         if(config.modules.badenchantsA.enabled && maxLevel) {
                             if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
                         } else 
