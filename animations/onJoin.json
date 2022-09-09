@@ -6,31 +6,31 @@
 				"9.0": [
 					// Settings Objectives
 					"/scoreboard objectives add cmds dummy",
-					"/scoreboard players add @s cmds 0",
+					"/scoreboard players add scythe:config cmds 0",
 					"/scoreboard objectives add gma dummy",
-					"/scoreboard players add @s gma 0",
+					"/scoreboard players add scythe:config gma 0",
 					"/scoreboard objectives add gms dummy",
-					"/scoreboard players add @s gms 0",
+					"/scoreboard players add scythe:config gms 0",
 					"/scoreboard objectives add gmc dummy",
-					"/scoreboard players add @s gmc 0",
+					"/scoreboard players add scythe:config gmc 0",
 					"/scoreboard objectives add commandblocks dummy",
-					"/scoreboard players add @s commandblocks 0",
+					"/scoreboard players add scythe:config commandblocks 0",
 					"/scoreboard objectives add bedrock dummy",
-					"/scoreboard players add @s bedrock 0",
+					"/scoreboard players add scythe:config bedrock 0",
 					"/scoreboard objectives add worldborder dummy",
-					"/scoreboard players add @s worldborder 0",
+					"/scoreboard players add scythe:config worldborder 0",
 					"/scoreboard objectives add npc dummy",
-					"/scoreboard players add @s npc 0",
+					"/scoreboard players add scythe:config npc 0",
 					"/scoreboard objectives add xray dummy",
-					"/scoreboard players add @s xray 0",
+					"/scoreboard players add scythe:config xray 0",
 					"/scoreboard objectives add autoclicker dummy",
-					"/scoreboard players add @s autoclicker 0",
+					"/scoreboard players add scythe:config autoclicker 0",
 					"/scoreboard objectives add gametestapi dummy",
-					"/scoreboard players add @s gametestapi 0",
+					"/scoreboard players add scythe:config gametestapi 0",
 					"/scoreboard objectives add autoban dummy",
-					"/scoreboard players add @s autoban 0",
+					"/scoreboard players add scythe:config autoban 0",
 					"/scoreboard objectives add invalidsprint dummy",
-					"/scoreboard players add @s invalidsprint 0",
+					"/scoreboard players add scythe:config invalidsprint 0",
 					// Setting Operations For Objective Types
 					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",
@@ -65,7 +65,9 @@
 					// If enabled from previous login then activate
 					"/ability @s[tag=flying,m=!c] mayfly true",
 					// incase uac is applied alongside scythe, we help the user out and disable its watermark
-					"/scoreboard players set @s[scores={welcomed=-1..}] welcomed -2147483646"
+					"/scoreboard players set @s[scores={welcomed=-1..}] welcomed -2147483646",
+					// alert the user if Gametest Framework is not enabled
+					"/tellraw @s[tag=op,scores={gametestapi=..0}] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 				]
 			},
 			"animation_length": 9.9,

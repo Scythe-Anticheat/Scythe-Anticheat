@@ -312,7 +312,7 @@ World.events.blockBreak.subscribe((block) => {
     if(config.modules.autotoolA.enabled) {
         // console.warn("block break ", Date.now() - player.startBreakTime);
         if(player.flagAutotoolA === true) {
-            flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},startBreakDelay=${Date.now() - player.startBreakTime}`);
+            flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot}`);
         }
     }
 });

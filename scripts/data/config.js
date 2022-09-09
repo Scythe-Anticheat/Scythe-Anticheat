@@ -32,19 +32,19 @@ export default
             "name": "allowgma",
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": []
+            "aliases": ["antigma"]
         },
         {
             "name": "allowgmc",
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": []
+            "aliases": ["antigmc"]
         },
         {
             "name": "allowgms",
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": []
+            "aliases": ["antigms"]
         },
         {
             "name": "bedrockvalidate",
@@ -146,7 +146,7 @@ export default
             "name": "unmute",
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": []
+            "aliases": ["un"]
         },
         {
             "name": "fly",
