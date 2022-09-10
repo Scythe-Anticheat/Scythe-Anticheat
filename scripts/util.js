@@ -64,14 +64,18 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(checkData.enabled === false) console.warn(`${new Date()} | ` + `Error: ${check}/${checkType} was flagged but the module was disabled. (./util.js:64)`);
 
     // punishment stuff
-    if(checkData.punishment.toLowerCase() === "kick") {
+    let punishment = checkData.punishment.toLowerCase();
+    if(punishment === "none") return;
+
+    if(punishment === "kick") {
         try {
             player.runCommand(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
+            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
         } catch {
             // if we cant /kick them then we despawn them
             player.triggerEvent("scythe:kick");
         }
-    } else if(checkData.punishment.toLowerCase() === "ban") {
+    } else if(punishment === "ban") {
         if(World.scoreboard.getObjective("autoban")?.getScore(player.scoreboard) >= 1 && World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard) >= checkData.minVlbeforeBan) {
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
                 
@@ -87,6 +91,14 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
             player.addTag(`isBanned`);
         }
+    } else if(punishment === "mute") {
+        player.addTag("isMuted");
+        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+    
+        // remove chat ability
+        player.runCommandAsync("ability @s mute true");
+
+        player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
     }
 }
 
