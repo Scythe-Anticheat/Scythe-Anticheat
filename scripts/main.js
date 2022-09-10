@@ -113,7 +113,7 @@ World.events.tick.subscribe(() => {
             if(World.scoreboard.getObjective("bedrock")?.getScore(player.scoreboard) >= 1) {
                 if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
                     try {
-                        player.runCommandAsync(`fill ~-10 -64 ~-10 ~10 -64 ~10 bedrock`);
+                        player.runCommandAsync(`fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock`);
                     } catch {}
 
                     try {
@@ -123,10 +123,10 @@ World.events.tick.subscribe(() => {
 
                 if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
                     try {
-                        player.runCommandAsync(`fill ~-10 0 ~-10 ~10 0 ~10 bedrock`);
+                        player.runCommandAsync(`fill ~-5 0 ~-5 ~5 0 ~5 bedrock`);
                     } catch {}
                     try {
-                        player.runCommandAsync(`fill ~-10 127 ~-10 ~10 127 ~10 bedrock`);
+                        player.runCommandAsync(`fill ~-5 127 ~-5 ~5 127 ~5 bedrock`);
                     } catch {}
                     try {
                         player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
