@@ -216,8 +216,8 @@ World.events.tick.subscribe(() => {
             if(isNotInAir === false) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
                 else if(config.debug === true) console.warn(`${new Date()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
         }
-        
-        if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack > config.modules.autoclickerA.checkCPSAfter) {
+
+        if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
             player.cps = player.cps / ((Date.now() - player.firstAttack) / 1000);
             // autoclicker/A = checks for high cps
             if(player.cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", "CPS", player.cps);
@@ -522,15 +522,15 @@ World.events.entityHit.subscribe((entityHit) => {
     // autoclicker/a = check for high cps
     if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
         // if anti-autoclicker is disabled in game then disable it in config.js
-        if(!data.checkedModules.autoclicker) {
-            if(World.scoreboard.getObjective("autoclicker")?.getScore(player.scoreboard) <= 0) {
+        if(data.checkedModules.autoclicker === false) {
+            if(World.scoreboard.getObjective("autoclicker")?.getScore(player.scoreboard) >= 1) {
                 config.modules.autoclickerA.enabled = false;
             }
             data.checkedModules.autoclicker = true;
         }
 
-        if(!player.firstAttack) player.firstAttack = Date.now();
-        if(!player.cps) player.cps = 0;
+        if(typeof player.firstAttack !== "number") player.firstAttack = Date.now();
+        if(typeof player.cps !== "number") player.cps = 0;
         player.cps++;
     }
 });
