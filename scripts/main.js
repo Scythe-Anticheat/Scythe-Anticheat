@@ -219,14 +219,14 @@ World.events.tick.subscribe(() => {
 
         // fly/a
         if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("ground") && player.hasTag("moving")) {
-            let pos1 = new Minecraft.BlockLocation(player.location.x + 1, player.location.y + 1, player.location.z + 1);
-            let pos2 = new Minecraft.BlockLocation(player.location.x - 1, player.location.y - 1, player.location.z - 1);
+            let pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 1, player.location.z + 2);
+            let pos2 = new Minecraft.BlockLocation(player.location.x - 2, player.location.y - 1, player.location.z - 2);
 
             let blocksBetween = pos1.blocksBetween(pos2);
 
-            let isInAir = blocksBetween.some(block => player.dimension.getBlock(block).id !== "minecraft:air");
+            let isNotInAir = blocksBetween.some(block => player.dimension.getBlock(block).id !== "minecraft:air");
 
-            if(isInAir === true) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
+            if(isNotInAir === false) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
         }
         
         if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack > config.modules.autoclickerA.checkCPSAfter) {
