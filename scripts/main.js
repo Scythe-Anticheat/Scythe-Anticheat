@@ -129,7 +129,7 @@ World.events.tick.subscribe(() => {
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && playerSpeed.toFixed(2) >= config.modules.noslowA.speed && playerSpeed.toFixed(2) <= config.modules.noslowA.maxSpeed) {
             if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && World.scoreboard.getObjective("right")?.getScore(player.scoreboard) >= 5) {
-                flag(player, "NoSlow", "A", "Movement", "speed", Math.sqrt(Math.abs(player.velocity.x **2 + player.velocity.z **2)).toFixed(3), true);
+                flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed.toFixed(3), true);
             }
         }
 
@@ -176,16 +176,14 @@ World.events.tick.subscribe(() => {
                         let maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
                         if(config.modules.badenchantsA.enabled && maxLevel) {
                             if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
-                        } else 
-                            if(config.modules.badenchantsA.enabled && enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
+                        } else if(config.modules.badenchantsA.enabled && enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
                                 flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
                         // badenchants/B = checks for negative enchantment levels
-                        if(config.modules.badenchantsB.enabled && enchantData.level < 0) 
+                        if(config.modules.badenchantsB.enabled && enchantData.level <= 0) 
                             flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
-                        // just dont ask.
                         if(config.modules.badenchantsD.enabled) {
                             let item2 = new Minecraft.ItemStack(Minecraft.Items.get(item.id), 1, item.data);
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
@@ -221,12 +219,13 @@ World.events.tick.subscribe(() => {
             player.cps = player.cps / ((Date.now() - player.firstAttack) / 1000);
             // autoclicker/A = checks for high cps
             if(player.cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", "CPS", player.cps);
-            
-            // player.runCommand(`say ${player.cps} ${player.lastCPS}`);
+
+            // player.runCommand(`say ${player.cps}, ${player.lastCPS}. ${player.cps - player.lastCPS}`);
 
             // autoclicker/B = checks if cps is similar to last cps (WIP)
             /*
-            if(String(player.cps).substring(0, 3) === String(player.lastCPS)?.substring(0, 4)) flag(player, "AutoClicker", "B", "Combat", "CPS", `${player.cps},last_cps=${player.lastCPS}`);
+            let cpsDiff = Math.abs(player.cps - player.lastCPS);
+            if(player.cps > 3 && cpsDiff > 0.81 && cpsDiff < 0.96) flag(player, "AutoClicker", "B", "Combat", "CPS", `${player.cps},last_cps=${player.lastCPS}`);
             player.lastCPS = player.cps;
             */
 
