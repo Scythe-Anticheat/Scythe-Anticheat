@@ -102,35 +102,22 @@ World.events.tick.subscribe(() => {
 
         // player position shit
         if(player.hasTag("moving")) {
-            try {
-                player.runCommandAsync(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
-                player.runCommandAsync(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
-                player.runCommandAsync(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
-            } catch {}
+            player.runCommandAsync(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
+            player.runCommandAsync(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
+            player.runCommandAsync(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
         }
 
         if(config.modules.bedrockValidate.enabled === true) {
             if(World.scoreboard.getObjective("bedrock")?.getScore(player.scoreboard) >= 1) {
                 if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
-                    try {
-                        player.runCommandAsync(`fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock`);
-                    } catch {}
-
-                    try {
-                        player.runCommandAsync(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
-                    } catch {}
+                    player.runCommandAsync(`fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock`);
+                    player.runCommandAsync(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
                 }
 
                 if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
-                    try {
-                        player.runCommandAsync(`fill ~-5 0 ~-5 ~5 0 ~5 bedrock`);
-                    } catch {}
-                    try {
-                        player.runCommandAsync(`fill ~-5 127 ~-5 ~5 127 ~5 bedrock`);
-                    } catch {}
-                    try {
-                        player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
-                    } catch {}
+                    player.runCommandAsync(`fill ~-5 0 ~-5 ~5 0 ~5 bedrock`);
+                    player.runCommandAsync(`fill ~-5 127 ~-5 ~5 127 ~5 bedrock`);
+                    player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
                 }
             }
         }
@@ -227,6 +214,7 @@ World.events.tick.subscribe(() => {
             let isNotInAir = blocksBetween.some(block => player.dimension.getBlock(block).id !== "minecraft:air");
 
             if(isNotInAir === false) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
+                else if(config.debug === true) console.warn(`${new Date()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
         }
         
         if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack > config.modules.autoclickerA.checkCPSAfter) {
@@ -566,4 +554,6 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
     // We try to stop any watchdog crashes incase malicous users try to make the scripts lag
     // and causing the server to crash
     beforeWatchdogTerminate.cancel = true;
+
+    console.warn(`${new Date()} | A Watchdog Exception has been detected and has been cancelled sucessfully. Reason: ${beforeWatchdogTerminate.terminateReason}`);
 });
