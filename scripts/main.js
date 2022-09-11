@@ -55,9 +55,8 @@ World.events.beforeChat.subscribe(msg => {
     }
 });
 
-World.events.tick.subscribe(() => {
+World.events.tick.subscribe(({ currentTick }) => {
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
-    if(config.debug === true) data.currentTick++;
 
     // run as each player
     for (let player of World.getPlayers()) {       
@@ -160,7 +159,7 @@ World.events.tick.subscribe(() => {
                     flag(player, "BadEnchants", "D", "Exploit", "lore", String(item.getLore()), false, false, i);
             }
 
-            if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
+            if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && currentTick % 2) {
                 let itemEnchants = item.getComponent("enchantments").enchantments;
 
                 let protection_types = [];
@@ -239,7 +238,7 @@ World.events.tick.subscribe(() => {
             player.selectedSlot = 0;
         }
 
-        // if(config.debug === true) console.warn(`${new Date()} | reached end of tick event. current tick: ${data.currentTick}`);
+        // if(config.debug === true) console.warn(`${new Date()} | reached end of tick event. current tick: ${currentTick}`);
     }
 });
 
