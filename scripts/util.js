@@ -35,8 +35,6 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         if(debug.length > 256) {
             let extraLength = debug.length - 256;
             debug = debug.slice(0, -extraLength) + ` (+${extraLength} additional characters)`;
-
-            console.warn(debug.length);
         }
     }
 
