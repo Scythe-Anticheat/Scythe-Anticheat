@@ -157,7 +157,7 @@ World.events.tick.subscribe(() => {
             // BadEnchants/D = checks if an item has a lore
             if(config.modules.badenchantsD.enabled && item.getLore().length) {
                 if(!config.modules.badenchantsD.exclusions.includes(String(item.getLore())))
-                    flag(player, "BadEnchants", "D", "Exploit", "lore", item.getLore(), false, false, i);
+                    flag(player, "BadEnchants", "D", "Exploit", "lore", String(item.getLore()), false, false, i);
             }
 
             if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {

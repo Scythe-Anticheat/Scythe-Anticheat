@@ -26,14 +26,25 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof hackType !== "string") return console.warn(`${new Date()} | ` + `Error: hackType is type of ${typeof hackType}. Expected "string' (./util.js:26)`);
     if(typeof shouldTP !== "boolean") return console.warn(`${new Date()} | ` + `Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean' (./util.js:28)`);
 
+    if(typeof debug === "string") {
+        // remove characters that may break commands
+        debug = debug.replace(/"|\\/gm, "");
+
+        // malicous users may try make the debug field ridiclously large to lag any clients that may try to view the alert
+        // (anybody with the 'notify' tag)
+        if(debug.length > 256) {
+            let extraLength = debug.length - 256;
+            debug = debug.slice(0, -extraLength) + ` (+${extraLength} additional characters)`;
+
+            console.warn(debug.length);
+        }
+    }
+
     // If debug is enabled, then we log everything we know about the player.
     if(config.debug === true) console.warn(`{"timestamp":${Date.now()},"time":"${Date()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}","playerNameTag":"${player.nameTag}","lastPlayerName":"${player.oldName}","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id || "minecraft:air"}:${player.getComponent("inventory").container.getItem(player.selectedSlot)?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit.length || -1},"badpackets5Ticks":${player.badpackets5Ticks || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1}}}}`);
 
     // cancel the message
     if(typeof message === "object") message.cancel = true;
-
-    // remove characters that may break commands
-    if(typeof debug === "string") debug = String(debug).replace(/"|\\/gm, "");
 
     if(shouldTP === true && check !== "Crasher") player.runCommand(`tp @s @s`);
         else if(shouldTP === true && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
