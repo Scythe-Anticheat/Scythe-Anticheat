@@ -214,45 +214,45 @@ export default
             "minLength": 1,
             "maxlength": 512,
             "punishment": "ban",
-            "minVlbeforeBan": 1
+            "minVlbeforePunishment": 1
         },
         "spammerA": {
             "enabled": true,
-            "punishment": "none",
-            "minVlbeforeBan": 0
+            "punishment": "mute",
+            "minVlbeforePunishment": 0
         },
         "spammerB": {
             "enabled": true,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "spammerC": {
             "enabled": true,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "spammerD": {
             "enabled": true,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "crasherA": {
             "enabled": true,
             "punishment": "ban",
-            "minVlbeforeBan": 1
+            "minVlbeforePunishment": 1
         },
         "namespoofA": {
             "enabled": true,
             "minNameLength": 3,
             "maxNameLength": 16,
             "punishment": "kick",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 1
         },
         "namespoofB": {
             "enabled": true,
             "regex": /[^A-Za-z0-9_\-() ]/,
             "punishment": "kick",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 1
         },
         "bedrockValidate": {
             "enabled": true,
@@ -269,41 +269,41 @@ export default
                 "minecraft:ghast"
             ],
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "noslowA": {
             "enabled": true,
             "speed": 0.12,
             "maxSpeed": 0.16,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "illegalitemsC": {
             "enabled": true,
             "maxStack": 64,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "invalidsprintA": {
             "enabled": true,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "illegalitemsD": {
             "enabled": true,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "commandblockexploitF": {
             "enabled": true,
             "punishment": "ban",
-            "minVlbeforeBan": 1
+            "minVlbeforePunishment": 1
         },
         "nukerA": {
             "enabled": false,
             "maxBlocks": 3,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "liquidinteractA": {
             "enabled": true,
@@ -314,17 +314,17 @@ export default
                 "minecraft:flowing_lava"
             ],
             "punishment": "ban",
-            "minVlbeforeBan": 1
+            "minVlbeforePunishment": 1
         },
         "flyA": {
             "enabled": false,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "illegalitemsE": {
             "enabled": true,
             "punishment": "ban",
-            "minVlbeforeBan": 1
+            "minVlbeforePunishment": 1
         },
         "commandblockexploitG": {
             "enabled": true,
@@ -333,7 +333,7 @@ export default
                 "minecraft:command_block_minecart"
             ],
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "badenchantsA": {
             "enabled": true,
@@ -348,17 +348,17 @@ export default
                 */
             },
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "badenchantsB": {
             "enabled": true,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "badenchantsC": {
             "enabled": true,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "badenchantsD": {
             "enabled": true,
@@ -366,73 +366,73 @@ export default
                 "(+DATA)"
             ],
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "killauraC": {
             "enabled": true,
             "entities": 2,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "illegalitemsF": {
             "enabled": true,
             "length": 32,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "badpackets3": {
             "enabled": true,
             "punishment": "ban",
-            "minVlbeforeBan": 1
+            "minVlbeforePunishment": 1
         },
         "autoclickerA": {
             "enabled": true,
             "maxCPS": 12,
             "checkCPSAfter": 1000,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "commandblockexploitH": {
             "enabled": true,
             "punishment": "none",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "badpackets4": {
             "enabled": true,
             "punishment": "kick",
-            "minVlbeforeBan": 0
+            "minVlbeforePunishment": 1
         },
         "crasherB": {
             "enabled": true,
             "punishment": "none",
-            "minVLbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "badenchantsE": {
             "enabled": true,
             "maximuim_protection_types": 1,
             "punishment": "none",
-            "minVLbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "badpackets5": {
             "enabled": true,
             "punishment": "none",
-            "minVLbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "namespoofC": {
             "enabled": true,
             "punishment": "none",
-            "minVLbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "illegalitemsH": {
             "enabled": true,
             "punishment": "none",
-            "minVLbeforeBan": 0
+            "minVlbeforePunishment": 0
         },
         "autotoolA": {
             "enabled": true,
             "startBreakDelay": 85,
             "punishment": "none",
-            "minVLbeforeBan": 0
+            "minVlbeforePunishment": 0
         }
     },
     "itemLists": {

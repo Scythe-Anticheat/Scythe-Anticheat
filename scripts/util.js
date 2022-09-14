@@ -39,7 +39,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
 
     // If debug is enabled, then we log everything we know about the player.
-    if(config.debug === true) console.warn(`{"timestamp":${Date.now()},"time":"${Date()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}","playerNameTag":"${player.nameTag}","lastPlayerName":"${player.oldName}","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id || "minecraft:air"}:${player.getComponent("inventory").container.getItem(player.selectedSlot)?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit.length || -1},"badpackets5Ticks":${player.badpackets5Ticks || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1}}}}`);
+    if(config.debug === true) console.warn(`{"timestamp":${Date.now()},"time":"${Date()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}","playerNameTag":"${player.nameTag}","lastPlayerName":"${player.oldName}","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id || "minecraft:air"}:${player.getComponent("inventory").container.getItem(player.selectedSlot)?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit.length || -1},"badpackets5Ticks":${player.badpackets5Ticks || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1}}}}`);
 
     // cancel the message
     if(typeof message === "object") message.cancel = true;
@@ -74,9 +74,12 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     // punishment stuff
     let punishment = checkData.punishment.toLowerCase();
-    if(punishment === "none") return;
+    if(punishment === "none" || punishment === "") return;
+    if(typeof punishment !== "string") return console.warn(`${new Date()} | ` + `Error: punishment is type of ${typeof punishment}. Expected "string' (./util.js:78)`);
 
-    if(punishment === "kick") {
+    let currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
+
+    if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
         try {
             player.runCommand(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
@@ -84,8 +87,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             // if we cant /kick them then we despawn them
             player.triggerEvent("scythe:kick");
         }
-    } else if(punishment === "ban") {
-        if(World.scoreboard.getObjective("autoban")?.getScore(player.scoreboard) >= 1 && World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard) >= checkData.minVlbeforeBan) {
+    }
+    if(punishment === "ban" && currentVL >= checkData.minVlbeforePunishment) {
+        if(World.scoreboard.getObjective("autoban")?.getScore(player.scoreboard) >= 1) {
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
                 
             // this removes old ban stuff
@@ -100,7 +104,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
             player.addTag(`isBanned`);
         }
-    } else if(punishment === "mute") {
+    }
+    if(punishment === "mute" && currentVL >= checkData.minVlbeforePunishment) {
         player.addTag("isMuted");
         player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
     
