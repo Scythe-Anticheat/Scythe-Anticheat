@@ -77,7 +77,7 @@ export function commandHandler(player, message) {
         return message.cancel = true;
     }
     if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
-        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command."}]}`);
+        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op"}]}`);
         return message.cancel = true;
     }
     // we could much easily get rid of the if/else chain only if we have npm support...
