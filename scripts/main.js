@@ -92,8 +92,14 @@ World.events.tick.subscribe(({ currentTick }) => {
 
         // anti-namespoof
         // these values are set in the playerJoin config
-        if(player.flagNamespoofA === true) flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
-        if(player.flagNamespoofB === true) flag(player, "Namespoof", "B", "Exploit");
+        if(player.flagNamespoofA === true) {
+            flag(player, "Namespoof", "A", "Exploit", "nameLength", player.name.length);
+            player.flagNamespoofA = false;
+        }
+        if(player.flagNamespoofB === true) {
+            flag(player, "Namespoof", "B", "Exploit");
+            player.flagNamespoofB = false;
+        }
         if(player.flagNamespoofC === true) {
             flag(player, "Namespoof", "C", "Exploit", "oldName", player.oldName);
             player.flagNamespoofC = false;
