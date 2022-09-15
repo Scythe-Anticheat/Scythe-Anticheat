@@ -23,5 +23,5 @@ export function ecwipe(message, args) {
     
     if(typeof member === "undefined") return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
-    member.runCommand(`function tools/ecwipe`);
+    member.runCommand("function tools/ecwipe");
 }

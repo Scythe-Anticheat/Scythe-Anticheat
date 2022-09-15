@@ -115,14 +115,14 @@ World.events.tick.subscribe(({ currentTick }) => {
         if(config.modules.bedrockValidate.enabled === true) {
             if(World.scoreboard.getObjective("bedrock")?.getScore(player.scoreboard) >= 1) {
                 if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
-                    player.runCommandAsync(`fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock`);
-                    player.runCommandAsync(`fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock`);
+                    player.runCommandAsync("fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock");
+                    player.runCommandAsync("fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock");
                 }
 
                 if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
-                    player.runCommandAsync(`fill ~-5 0 ~-5 ~5 0 ~5 bedrock`);
-                    player.runCommandAsync(`fill ~-5 127 ~-5 ~5 127 ~5 bedrock`);
-                    player.runCommandAsync(`fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock`);
+                    player.runCommandAsync("fill ~-5 0 ~-5 ~5 0 ~5 bedrock");
+                    player.runCommandAsync("fill ~-5 127 ~-5 ~5 127 ~5 bedrock");
+                    player.runCommandAsync("fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock");
                 }
             }
         }
@@ -376,7 +376,7 @@ World.events.playerJoin.subscribe((playerJoin) => {
 
     if(!data.loaded) {
         try {
-            player.runCommand(`scoreboard players set scythe:config gametestapi 1`);
+            player.runCommand("scoreboard players set scythe:config gametestapi 1");
             data.loaded = true;
         } catch {}
     }

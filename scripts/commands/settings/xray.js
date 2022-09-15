@@ -10,5 +10,5 @@ export function xray(message) {
 
     let player = message.sender;
 
-    player.runCommand(`function settings/xray`);
+    player.runCommand("function settings/xray");
 }

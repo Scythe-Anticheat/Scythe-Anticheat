@@ -10,5 +10,5 @@ export function worldborder(message) {
 
     let player = message.sender;
 
-    player.runCommand(`function settings/worldborder`);
+    player.runCommand("function settings/worldborder");
 }

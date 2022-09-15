@@ -10,5 +10,5 @@ export function removecommandblocks(message) {
 
     let player = message.sender;
     
-    player.runCommand(`function settings/removeCommandBlocks`);
+    player.runCommand("function settings/removeCommandBlocks");
 }

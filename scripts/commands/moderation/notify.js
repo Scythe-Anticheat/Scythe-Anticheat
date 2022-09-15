@@ -10,5 +10,5 @@ export function notify(message) {
 
     let player = message.sender;
 
-    player.runCommand(`function notify`);
+    player.runCommand("function notify");
 }

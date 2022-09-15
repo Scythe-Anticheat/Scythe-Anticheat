@@ -10,5 +10,5 @@ export function vanish(message) {
 
     let player = message.sender;
     
-    player.runCommand(`function tools/vanish`);
+    player.runCommand("function tools/vanish");
 }

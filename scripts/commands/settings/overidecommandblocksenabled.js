@@ -10,5 +10,5 @@ export function overidecommandblocksenabled(message) {
 
     let player = message.sender;
 
-    player.runCommand(`function settings/overideCommandBlocksEnabled`);
+    player.runCommand("function settings/overideCommandBlocksEnabled");
 }

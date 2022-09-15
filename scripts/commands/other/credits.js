@@ -10,5 +10,5 @@ export function credits(message) {
 
     let player = message.sender;
 
-    player.runCommand(`function credits`);
+    player.runCommand("function credits");
 }

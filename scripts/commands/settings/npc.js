@@ -10,5 +10,5 @@ export function npc(message) {
 
     let player = message.sender;
 
-    player.runCommand(`function settings/npc`);
+    player.runCommand("function settings/npc");
 }

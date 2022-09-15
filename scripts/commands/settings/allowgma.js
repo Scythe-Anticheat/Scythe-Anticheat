@@ -10,5 +10,5 @@ export function allowgma(message) {
 
     let player = message.sender;
     
-    player.runCommand(`function settings/allowGMA`);
+    player.runCommand("function settings/allowGMA");
 }

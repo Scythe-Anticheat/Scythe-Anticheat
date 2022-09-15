@@ -44,15 +44,15 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // cancel the message
     if(typeof message === "object") message.cancel = true;
 
-    if(shouldTP === true && check !== "Crasher") player.runCommand(`tp @s @s`);
-        else if(shouldTP === true && check === "Crasher") player.runCommand(`tp @s 30000000 30000000 30000000`);
+    if(shouldTP === true && check !== "Crasher") player.runCommand("tp @s @s");
+        else if(shouldTP === true && check === "Crasher") player.runCommand("tp @s 30000000 30000000 30000000");
 
     if(check !== "CommandBlockExploit") {
         player.runCommandAsync(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
     } 
 
     if(check !== "CommandBlockExploit") player.runCommand(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
-        else player.runCommand(`scoreboard players add @s cbevl 1`);
+        else player.runCommand("scoreboard players add @s cbevl 1");
 
     if(debug && check !== "CommandBlockExploit") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
         else if(debugName && debug) player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
@@ -158,9 +158,9 @@ export function banMessage(player) {
 
     player.getTags().forEach(t => {
         t = t.replace(/"/g, "");
-        if(t.startsWith(`by:`)) by = t.slice(3);
-            else if(t.startsWith(`reason:`)) reason = t.slice(7);
-            else if(t.startsWith(`time:`)) time = t.slice(5);
+        if(t.startsWith("by:")) by = t.slice(3);
+            else if(t.startsWith("reason:")) reason = t.slice(7);
+            else if(t.startsWith("time:")) time = t.slice(5);
     });
 
 

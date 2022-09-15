@@ -10,5 +10,5 @@ export function allowgms(message) {
 
     let player = message.sender;
     
-    player.runCommand(`function settings/allowGMS`);
+    player.runCommand("function settings/allowGMS");
 }

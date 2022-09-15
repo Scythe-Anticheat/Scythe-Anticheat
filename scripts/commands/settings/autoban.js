@@ -10,5 +10,5 @@
 
     let player = message.sender;
     
-    player.runCommand(`function settings/autoban`);
+    player.runCommand("function settings/autoban");
 }

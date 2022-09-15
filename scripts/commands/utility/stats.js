@@ -16,12 +16,12 @@ export function stats(message, args) {
 
     let player = message.sender;
     
-    if(args.length === 0) player.runCommand(`function tools/stats`);
+    if(args.length === 0) player.runCommand("function tools/stats");
     
     // try to find the player requested
     for (let pl of World.getPlayers()) if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl; 
     
     if(typeof member === "undefined") return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
 
-    member.runCommand(`function tools/stats`);
+    member.runCommand("function tools/stats");
 }

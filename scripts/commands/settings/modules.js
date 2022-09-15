@@ -10,5 +10,5 @@ export function modules(message) {
 
     let player = message.sender;
     
-    player.runCommand(`function settings/modules`);
+    player.runCommand("function settings/modules");
 }

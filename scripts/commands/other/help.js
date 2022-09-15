@@ -10,5 +10,5 @@ export function help(message) {
 
     let player = message.sender;
 
-    player.runCommand(`function help`);
+    player.runCommand("function help");
 }

@@ -10,5 +10,5 @@ export function bedrockvalidate(message) {
 
     let player = message.sender;
     
-    player.runCommand(`function settings/bedrockValidate`);
+    player.runCommand("function settings/bedrockValidate");
 }

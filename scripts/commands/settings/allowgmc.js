@@ -10,5 +10,5 @@ export function allowgmc(message) {
 
     let player = message.sender;
     
-    player.runCommand(`function settings/allowGMC`);
+    player.runCommand("function settings/allowGMC");
 }
