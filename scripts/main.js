@@ -62,9 +62,9 @@ World.events.tick.subscribe(({ currentTick }) => {
     for (let player of World.getPlayers()) {       
         if(player.isGlobalBanned === true) {
             try {
-                player.addTag(`by:Scythe Anticheat`);
-                player.addTag(`reason:You are Scythe Anticheat global banned!`);
-                player.addTag(`isBanned`);
+                player.addTag("by:Scythe Anticheat");
+                player.addTag("reason:You are Scythe Anticheat global banned!");
+                player.addTag("isBanned");
             } catch {}
         }
 

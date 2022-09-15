@@ -48,7 +48,7 @@ export function ban(message, args) {
     member.addTag(`reason:${reason}`);
     member.addTag(`by:${player.nameTag}`);
     if(typeof time !== "undefined") member.addTag(`time:${Date.now() + time}`);
-    member.addTag(`isBanned`);
+    member.addTag("isBanned");
 
     player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member.nameTag}. Reason: ${reason}"}]}`);
 }

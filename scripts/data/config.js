@@ -214,11 +214,16 @@ export default
             "minLength": 1,
             "maxlength": 512,
             "punishment": "ban",
+            /*
+            PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
+            or to just perm ban the user (set value to nothing)
+            */
+            "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
         "spammerA": {
             "enabled": true,
-            "punishment": "mute",
+            "punishment": "none",
             "minVlbeforePunishment": 0
         },
         "spammerB": {
@@ -239,6 +244,7 @@ export default
         "crasherA": {
             "enabled": true,
             "punishment": "ban",
+            "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
         "namespoofA": {
@@ -297,6 +303,7 @@ export default
         "commandblockexploitF": {
             "enabled": true,
             "punishment": "ban",
+            "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
         "nukerA": {
@@ -314,6 +321,7 @@ export default
                 "minecraft:flowing_lava"
             ],
             "punishment": "ban",
+            "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
         "flyA": {
@@ -324,6 +332,7 @@ export default
         "illegalitemsE": {
             "enabled": true,
             "punishment": "ban",
+            "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
         "commandblockexploitG": {
@@ -383,6 +392,7 @@ export default
         "badpackets3": {
             "enabled": true,
             "punishment": "ban",
+            "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
         "autoclickerA": {

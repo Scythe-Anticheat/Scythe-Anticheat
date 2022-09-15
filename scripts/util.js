@@ -54,11 +54,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(check !== "CommandBlockExploit") player.runCommand(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
         else player.runCommand(`scoreboard players add @s cbevl 1`);
 
-    try {
-        if(debug && check !== "CommandBlockExploit") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
-            else if(debugName && debug) player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
-            else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
-    } catch {}
+    if(debug && check !== "CommandBlockExploit") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
+        else if(debugName && debug) player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
+        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
 
     if(typeof slot === "number") {
 		let container = player.getComponent("inventory").container;
@@ -78,6 +76,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof punishment !== "string") return console.warn(`${new Date()} | ` + `Error: punishment is type of ${typeof punishment}. Expected "string' (./util.js:78)`);
 
     let currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
+    let punishmentLength = checkData.punishmentLength?.toLowerCase();
 
     if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
         try {
@@ -100,9 +99,16 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
                     else if(t.startsWith("time:")) player.removeTag(t);
             });
 
-            player.addTag(`by:Scythe Anticheat`);
+            let banLength;
+
+            if(typeof punishmentLength !== "undefined" && isNaN(punishmentLength) && punishment !== "") {
+                banLength = parseTime(punishmentLength);
+            }
+
+            player.addTag("by:Scythe Anticheat");
             player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
-            player.addTag(`isBanned`);
+            if(typeof punishmentLength !== "undefined") player.addTag(`time:${Date.now() + banLength}`);
+            player.addTag("isBanned");
         }
     }
     if(punishment === "mute" && currentVL >= checkData.minVlbeforePunishment) {
@@ -146,9 +152,9 @@ export function banMessage(player) {
         return;
     }
 
-    var reason;
-    var by;
-    var time;
+    let reason;
+    let by;
+    let time;
 
     player.getTags().forEach(t => {
         t = t.replace(/"/g, "");
@@ -219,7 +225,7 @@ export function banMessage(player) {
 /**
  * @name parseTime
  * @param {string} str - The time value to convert to milliseconds
- * @example str("24d"); // returns 2073600000
+ * @example parseTime("24d"); // returns 2073600000
  * @remarks Parses a time string into milliseconds.
  * @returns {string} str - The converted string
  */
