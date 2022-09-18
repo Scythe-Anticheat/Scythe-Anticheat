@@ -384,12 +384,21 @@ function debugSettingsMenu(player) {
     mainGui.show(player).then((response) => {
         if(response.selection === 0) {
             let container = player.getComponent("inventory").container;
+
+            let totalItems = [];
             for (let i = 0; i < container.size; i++) {
                 if(container.getItem(i)?.nameTag === "§r§l§aRight click to Open the UI") continue;
 
                 let allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
                 let randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
                 let randomItem = Minecraft.MinecraftItemTypes[randomItemName];
+
+                if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
+                    i--;
+                    continue;
+                }
+                totalItems.push(randomItem.id);
+
                 container.setItem(i, new Minecraft.ItemStack(randomItem, 1, 0));
             }
         }

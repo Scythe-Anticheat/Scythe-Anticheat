@@ -547,7 +547,7 @@ export default
             "minecraft:invisible_bedrock",
             "minecraft:piston_arm_collision",
             "minecraft:sticky_piston_arm_collision",
-            "minecraft:tripwire",
+            "minecraft:trip_wire",
             "minecraft:brewingstandblock",
             "minecraft:real_double_stone_slab",
             "minecraft:item.acacia_door",
@@ -555,6 +555,7 @@ export default
             "minecraft:item.beetroot",
             "minecraft:item.birch_door",
             "minecraft:item.cake",
+            "minecraft:item.camera",
             "minecraft:item.campfire",
             "minecraft:item.cauldron",
             "minecraft:item.chain",
@@ -591,7 +592,13 @@ export default
             "minecraft:item.mangrove_door",
             "minecraft:mangrove_wall_sign",
             "minecraft:mud_brick_double_slab",
-            "minecraft:mangrove_double_slab"
+            "minecraft:mangrove_double_slab",
+            "minecraft:item.brewing_stand",
+            "minecraft:double_stone_block_slab",
+            "minecraft:bleach",
+            "minecraft:double_stone_block_slab2",
+            "minecraft:double_stone_block_slab3",
+            "minecraft:double_stone_block_slab4",
         ]
     }
 };

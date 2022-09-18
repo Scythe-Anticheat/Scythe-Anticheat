@@ -379,6 +379,12 @@
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
+									"value": "minecraft:item.camera"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
 									"value": "minecraft:item.campfire"
 								},
 								{
@@ -505,6 +511,12 @@
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
+									"value": "minecraft:item.brewing_stand"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
 									"value": "minecraft:tnt:2"
 								},
 								{
@@ -608,6 +620,12 @@
 									"domain": "any",
 									"operator": "==",
 									"value": "minecraft:item.mangrove_door"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"operator": "==",
+									"value": "minecraft:double_stone_block_slab"
 								}
 							]
 						},
