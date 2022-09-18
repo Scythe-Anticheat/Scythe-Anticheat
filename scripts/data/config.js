@@ -3,206 +3,173 @@ export default
     "debug": true,
     "flagWhitelist": [],
     "prefix": "!",
-    "customcommands": [
-        {
-            "name": "ban",
+    "customcommands": {
+        "ban": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "help",
+        "help": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "op",
+        "op": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "credits",
+        "credits": {
             "enabled": true,
             "requiredTags": [],
             "aliases": []
         },
-        {
-            "name": "allowgma",
+        "allowgma": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["antigma"]
         },
-        {
-            "name": "allowgmc",
+        "allowgmc": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["antigmc"]
         },
-        {
-            "name": "allowgms",
+        "allowgms": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["antigms"]
         },
-        {
-            "name": "bedrockvalidate",
+        "bedrockvalidate": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["bv"]
         },
-        {
-            "name": "modules",
+        "modules": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "npc",
+        "npc": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "overidecommandblocksenabled",
+        "overidecommandblocksenabled": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["overidecbe"]
         },
-        {
-            "name": "removecommandblocks",
+        "removecommandblocks": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["removecb"]
         },
-        {
-            "name": "worldborder",
+        "worldborder": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["wb"]
         },
-        {
-            "name": "xray",
+        "xray": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "autoclicker",
+        "autoclicker": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["ac"]
         },
-        {
-            "name": "autoban",
+        "autoban": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["ab"]
         },
-        {
-            "name": "invalidsprint",
+        "invalidsprint": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["is"]
         },
-        {
-            "name": "ecwipe",
+        "ecwipe": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["enderchestwipe"]
         },
-        {
-            "name": "freeze",
+        "freeze": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "stats",
+        "stats": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "fullreport",
+        "fullreport": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["fr"]
         },
-        {
-            "name": "kick",
+        "kick": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "mute",
+        "mute": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "unmute",
+        "unmute": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["un"]
         },
-        {
-            "name": "fly",
+        "fly": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "invsee",
+        "invsee": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["inv"]
         },
-        {
-            "name": "notify",
+        "notify": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "tag",
+        "tag": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["rank"]
         },
-        {
-            "name": "vanish",
+        "vanish": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["v"]
         },
-        {
-            "name": "report",
+        "report": {
             "enabled": true,
             "requiredTags": [],
             "aliases": []
         },
-        {
-            "name": "unban",
+        "unban": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": []
         },
-        {
-            "name": "gui",
+        "gui": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["ui"]
         },
-        {
-            "name": "resetwarns",
+        "resetwarns": {
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["rw"]
-        },
-    ],
+        }
+    },
     "modules": {
         "itemSpawnRateLimit": {
             "enabled": false,

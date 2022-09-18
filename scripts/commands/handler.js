@@ -56,24 +56,29 @@ export function commandHandler(player, message) {
 
     if(config.debug === true) console.warn(`${new Date()} | ${player.name} used the command: ${config.prefix}${command} ${args.join(" ")}`);
 
-    let commandName;
     let commandData;
+    let commandName;
 
-    let findCommandName = config.customcommands.find(cmd => cmd.name === command);
-    if(typeof findCommandName === "object") {
-        commandName = findCommandName.name;
-        commandData = findCommandName;
+    if(typeof config.customcommands[command] === "object") {
+        commandData = config.customcommands[command];
+        commandName = command;
     } else {
         // check if the command is an alias
-        let aliasName = config.customcommands.find(cmd => cmd.aliases.includes(command));
-        if(typeof aliasName === "undefined") return;
-        
-        commandData = aliasName;
-        commandName = aliasName.name;
+        for(let cmd of Object.keys(config.customcommands)) {
+            let data = config.customcommands[cmd];
+
+            if(!data.aliases.includes(command)) continue;
+
+            commandData = data;
+            commandName = cmd;
+        }
+
+        // command does not exist
+        if(typeof commandData === "undefined") return;
     }
 
     if(commandData.enabled === false) {
-        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"This command has been disabled in config.js."}]}`);
+        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"This command has been disabled. Please contact your server admistrator for assistance."}]}`);
         return message.cancel = true;
     }
     if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {

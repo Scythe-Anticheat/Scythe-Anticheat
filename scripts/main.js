@@ -214,7 +214,7 @@ World.events.tick.subscribe(({ currentTick }) => {
 
             let blocksBetween = pos1.blocksBetween(pos2);
 
-            let isNotInAir = blocksBetween.some(block => player.dimension.getBlock(block).id !== "minecraft:air");
+            let isNotInAir = blocksBetween.some((block) => player.dimension.getBlock(block).id !== "minecraft:air");
 
             if(isNotInAir === false) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
                 else if(config.debug === true) console.warn(`${new Date()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
@@ -544,7 +544,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     let player = beforeItemUse.source;
 
     // GUI stuff
-    if(config.customcommands.gui && item.id === "minecraft:wooden_axe" && item.nameTag === "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
+    if(config.customcommands.gui.enabled && item.id === "minecraft:wooden_axe" && item.nameTag === "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
         mainGui(player);
         beforeItemUse.cancel = true;
     }
