@@ -589,7 +589,9 @@ export default
             "minecraft:cocoa",
             "minecraft:mangrove_standing_sign",
             "minecraft:item.mangrove_door",
-            "minecraft:mangrove_wall_sign"
+            "minecraft:mangrove_wall_sign",
+            "minecraft:mud_brick_double_slab",
+            "minecraft:mangrove_double_slab"
         ]
     }
 };
