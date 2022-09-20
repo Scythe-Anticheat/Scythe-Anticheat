@@ -113,7 +113,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
     if(punishment === "mute" && currentVL >= checkData.minVlbeforePunishment) {
         player.addTag("isMuted");
-        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+        player.tell(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
     
         // remove chat ability
         player.runCommandAsync("ability @s mute true");

@@ -78,11 +78,11 @@ export function commandHandler(player, message) {
     }
 
     if(commandData.enabled === false) {
-        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"This command has been disabled. Please contact your server admistrator for assistance."}]}`);
+        player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server admistrator for assistance.");
         return message.cancel = true;
     }
     if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
-        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op"}]}`);
+        player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op");
         return message.cancel = true;
     }
     // we could much easily get rid of the if/else chain only if we have npm support...
@@ -123,6 +123,6 @@ export function commandHandler(player, message) {
         else return console.warn(`${new Date()} | ` + `Error: Command ${commandName} was found in config.js but no handler for it was found (./commands/handler.js:118)`);
     } catch (error) {
         console.warn(`${new Date()} | ` + `${error} ${error.stack}`);
-        player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\nError: ${String(error).replace(/"|\\/g, "")}\n${error.stack || ""}\n-------------------------"}]}`);
+        player.tell(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\nError: ${String(error).replace(/"|\\/g, "")}\n${error.stack || ""}\n-------------------------`);
     }
 }

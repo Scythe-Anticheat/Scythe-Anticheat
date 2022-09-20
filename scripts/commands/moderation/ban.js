@@ -17,7 +17,7 @@ export function ban(message, args) {
 
     let player = message.sender;
 
-    if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to ban!"}]}`);
+    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to ban!");
 
     let time;
     if(typeof args[1] === "string") time = parseTime(args[1]);
@@ -29,13 +29,13 @@ export function ban(message, args) {
     // try to find the player requested
     for (let pl of World.getPlayers()) if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl; 
 
-    if(typeof member === "undefined") return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
+    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
 
     // make sure they dont ban themselves
-    if(member.nameTag === player.nameTag) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban yourself."}]}`);
+    if(member.nameTag === player.nameTag) return player.tell("§r§6[§aScythe§6]§r You cannot ban yourself.");
 
     // cannot ban staff members
-    if(member.hasTag("op") === true) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot ban other staff members!."}]}`);
+    if(member.hasTag("op") === true) return player.tell("§r§6[§aScythe§6]§r You cannot ban other staff members!.");
 
     // this removes old ban stuff
     member.getTags().forEach(t => {

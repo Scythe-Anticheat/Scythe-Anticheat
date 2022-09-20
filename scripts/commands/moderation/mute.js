@@ -23,7 +23,7 @@ export function mute(message, args) {
     // try to find the player requested
     for (let pl of World.getPlayers()) if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl; 
 
-    if(typeof member === "undefined") return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Couldnt find that player!"}]}`);
+    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
 
     // make sure they dont mute themselves
     if(member === player.nameTag) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You cannot mute yourself."}]}`);
