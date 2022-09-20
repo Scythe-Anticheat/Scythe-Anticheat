@@ -122,6 +122,7 @@
 			},
 			"scythe:kick": {
 				"minecraft:despawn": {}
+			}
 		},
 		"components": {
 			"minecraft:experience_reward": {

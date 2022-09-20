@@ -61,7 +61,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof slot === "number") {
 		let container = player.getComponent("inventory").container;
 		try {
-			container.setItem(slot, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.air, 0, 0));
+			container.setItem(slot, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
 		} catch {}
 	}
 
