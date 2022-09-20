@@ -190,7 +190,7 @@ World.events.tick.subscribe(({ currentTick }) => {
 
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
                         if(config.modules.badenchantsC.enabled) {
-                            let item2 = new Minecraft.ItemStack(Minecraft.Items.get(item.id), 1, item.data);
+                            let item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(item.id), 1, item.data);
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
                                 flag(player, "BadEnchants", "C", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
                             }
