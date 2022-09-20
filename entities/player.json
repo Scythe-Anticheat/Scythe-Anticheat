@@ -121,10 +121,7 @@
 				}
 			},
 			"scythe:kick": {
-				"minecraft:instant_despawn": {
-					"remove_child_entities": true
-				}
-			}
+				"minecraft:despawn": {}
 		},
 		"components": {
 			"minecraft:experience_reward": {
