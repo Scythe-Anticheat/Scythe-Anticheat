@@ -23,7 +23,7 @@ export function mainGui(player) {
 		.body(`Hello ${player.name},\n\nPlease select an option below.`)
 		.button("Ban Menu", "textures/ui/anvil_icon.png")
         .button("Configure Settings", "textures/ui/gear.png")
-        .button("Player Options", "textures/ui/FriendsDiversity.png")
+        .button(`Manage Players\n§8§o${[...World.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
         .button("Server Options", "textures/ui/servers.png")
         .button("Exit", "textures/ui/redX1.png");
     if(config.debug === true) mainGui.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
@@ -69,7 +69,10 @@ function banMenuSelect(player, selection) {
         .body("Please select a player to manage.");
     
     for (let plr of World.getPlayers()) {
-        banMenuSelect.button(plr.name, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
+        let playerName = `${plr.name}`;
+        if(plr === player) playerName += " §1[YOU]";
+        if(plr.hasTag("op")) playerName += " §1[OP]";
+        banMenuSelect.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
 
     banMenuSelect.button("Back", "textures/ui/arrow_left.png");
@@ -85,8 +88,8 @@ function banMenuSelect(player, selection) {
 }
 
 function kickPlayerMenu(player, playerSelected) {
-    if(player.hasTag("op") === false) return;
-    if(!config.customcommands.kick.enabled) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Kicking players is disabled in config.js."}]}`);
+    if(!player.hasTag("op")) return;
+    if(config.customcommands.kick.enabled === false) return player.runCommand(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Kicking players is disabled in config.js."}]}`);
     player.playSound("mob.chicken.plop");
 
     const kickPlayerMenu = new MinecraftUI.ModalFormData()
@@ -193,7 +196,10 @@ function playerSettingsMenu(player) {
         .body("Please select a player to manage.");
     
     for (let plr of World.getPlayers()) {
-        playerSettingsMenu.button(plr.name, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
+        let playerName = `${plr.name}`;
+        if(plr === player) playerName += " §1[YOU]";
+        if(plr.hasTag("op")) playerName += " §1[OP]";
+        playerSettingsMenu.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
 
     playerSettingsMenu.button("Back", "textures/ui/arrow_left.png");

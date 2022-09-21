@@ -46,10 +46,10 @@ World.events.beforeChat.subscribe(msg => {
 
     // add's user custom tags to their messages if it exists or we fall back
     // also filter for non ASCII characters and remove them in messages
-    if(player.name !== player.nameTag && msg.cancel === false && !config.modules.filterUnicodeChat) {
+    if(player.name !== player.nameTag && !msg.cancel && !config.modules.filterUnicodeChat) {
         World.say(`<${player.nameTag}> ${msg.message.replace(/"/g, "").replace(/\\/g, "")}`);
         msg.cancel = true;
-    } else if(player.name === player.nameTag && config.modules.filterUnicodeChat && msg.cancel === false) {
+    } else if(player.name === player.nameTag && config.modules.filterUnicodeChat && !msg.cancel) {
         World.say(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"/g, "").replace(/\\/g, "")}`);
         msg.cancel = true;
     }
