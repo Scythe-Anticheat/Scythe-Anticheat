@@ -121,7 +121,15 @@
 				}
 			},
 			"scythe:kick": {
-				"minecraft:despawn": {}
+				// https://discord.com/channels/879970475483217940/933913999765024818/1022005158865031188
+				// new kick method by Tutinoko9900#1841
+				"minecraft:explode": {
+					"fuse_length": 0,
+					"fuse_lit": true,
+					"power": 0,
+					"causes_fire": false,
+					"breaks_blocks": false
+				}
 			}
 		},
 		"components": {
