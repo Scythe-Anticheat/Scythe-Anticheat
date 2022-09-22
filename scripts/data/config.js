@@ -599,6 +599,25 @@ export default
             "minecraft:double_stone_block_slab2",
             "minecraft:double_stone_block_slab3",
             "minecraft:double_stone_block_slab4",
+			"minecraft:black_candle_cake",
+            "minecraft:blue_candle_cake",
+            "minecraft:brown_candle_cake",
+            "minecraft:candle_cake",
+            "minecraft:cyan_candle_cake",
+            "minecraft:gray_candle_cake",
+            "minecraft:green_candle_cake",
+            "minecraft:light_blue_candle_cake",
+            "minecraft:light_gray_candle_cake",
+            "minecraft:lime_candle_cake",
+            "minecraft:magenta_candle_cake",
+            "minecraft:orange_candle_cake",
+            "minecraft:pink_candle_cake",
+            "minecraft:purple_candle_cake",
+            "minecraft:red_candle_cake",
+            "minecraft:sweet_berry_bush",
+            "minecraft:unlit_redstone_torch",
+            "minecraft:white_candle_cake",
+            "minecraft:yellow_candle_cake"
         ]
     }
 };
