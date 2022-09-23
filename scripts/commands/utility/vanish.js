@@ -10,5 +10,13 @@ export function vanish(message) {
 
     let player = message.sender;
     
-    player.runCommand("function tools/vanish");
+    try {
+        player.runCommand("function tools/vanish");
+    } catch (error) {
+        if(JSON.parse(error).statusMessage === "Function tools/vanish not found.")
+            player.tell("§r§6[§aScythe§6]§r For this command to function, please enable Spectator Mode in world settings.");
+
+        console.warn(error);
+        return;
+    }
 }

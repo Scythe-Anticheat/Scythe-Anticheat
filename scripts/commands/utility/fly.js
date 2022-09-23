@@ -34,7 +34,7 @@ export function fly(message, args) {
         member.runCommand(`function tools/fly`);
     } catch (error) {
         if(JSON.parse(error).statusMessage === "Function tools/fly not found.")
-            player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"For this command to function, please enable Education Edition in world settings."}]}`);
+            player.tell("§r§6[§aScythe§6]§r For this command to function, please enable Education Edition in world settings.");
 
         console.warn(error);
         return;
