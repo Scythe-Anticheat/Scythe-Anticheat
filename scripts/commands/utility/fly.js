@@ -15,12 +15,13 @@ export function fly(message, args) {
     message.cancel = true;
 
     let player = message.sender;
+    let member;
     
     // try to find the player requested
     if(args.length) for (let pl of World.getPlayers())
-        if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl; 
+        if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) member = pl; 
     
-    if(typeof member === "undefined") var member = player;
+    if(typeof member === "undefined") member = player;
 
     try {
         member.runCommand("testfor @s[m=!c]");

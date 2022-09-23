@@ -72,8 +72,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     // punishment stuff
     let punishment = checkData.punishment.toLowerCase();
+    if(typeof punishment !== "string") return console.warn(`${new Date()} | ` + `Error: punishment is type of ${typeof punishment}. Expected "string' (./util.js:75)`);
     if(punishment === "none" || punishment === "") return;
-    if(typeof punishment !== "string") return console.warn(`${new Date()} | ` + `Error: punishment is type of ${typeof punishment}. Expected "string' (./util.js:78)`);
 
     let currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
     let punishmentLength = checkData.punishmentLength?.toLowerCase();

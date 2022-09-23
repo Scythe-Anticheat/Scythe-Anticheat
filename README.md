@@ -18,12 +18,12 @@ To receive anti-cheat alerts use: ```/function notify```
 To run any chat commands or be able to use certian blocks run ```/function op```
 
 # List of hacks detected by Scythe AntiCheat
-*\* = indicates that the check requires GameTest Framework to be enabled in world settings.*<br />
+*\* indicates that the check requires GameTest Framework to be enabled in world settings.*<br />
   AutoClicker -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS.\*<br />
 
   AutoTool -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for player slot selection mismatch .\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player switches their slot right after they start breaking a block.\*<br />
 
   AutoShield -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player equips a shield while moving.<br />

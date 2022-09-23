@@ -16,15 +16,16 @@ export function tag(message, args) {
     message.cancel = true;
 
     let player = message.sender;
+    let member;
 
     if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag! (./utility/tag.js:24)"}]}`);
 
     for (let pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+    member = pl;
         args.shift();
     }
 
-    if(typeof member === "undefined") var member = player;
+    if(typeof member === "undefined") member = player;
 
     if(!args[0]) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag! (./utility/tag.js:32)"}]}`);
 
