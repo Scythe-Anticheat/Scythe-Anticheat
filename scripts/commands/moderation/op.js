@@ -12,8 +12,6 @@ export function op(message, args) {
     if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/moderation/op.js:12)`);
     if(typeof args !== "object") return console.warn(`${new Date()} | ` + `Error: args is type of ${typeof args}. Expected "object' (./commands/moderation/op.js:13)`);
 
-    message.cancel = true;
-
     let player = message.sender;
     
     if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to op!");

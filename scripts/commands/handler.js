@@ -77,13 +77,15 @@ export function commandHandler(player, message) {
         if(typeof commandData === "undefined") return;
     }
 
+    message.cancel = true;
+
     if(commandData.enabled === false) {
         player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server admistrator for assistance.");
-        return message.cancel = true;
+        return;
     }
     if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
         player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op");
-        return message.cancel = true;
+        return;
     }
     // we could much easily get rid of the if/else chain only if we have npm support...
     try {

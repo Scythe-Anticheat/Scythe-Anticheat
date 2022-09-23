@@ -13,8 +13,6 @@ export function tag(message, args) {
     if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/utility/tag.js:13)`);
     if(typeof args !== "object") return console.warn(`${new Date()} | ` + `Error: args is type of ${typeof args}. Expected "object' (./commands/utility/tag.js:14)`);
 
-    message.cancel = true;
-
     let player = message.sender;
     let member;
 

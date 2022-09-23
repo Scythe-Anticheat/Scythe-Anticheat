@@ -8,8 +8,6 @@ import * as Minecraft from "mojang-minecraft";
     // validate that required params are defined
     if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/utility/gui.js:12)`);
     
-    message.cancel = true;
-
     let player = message.sender;
     
     // get the player's inventory component
