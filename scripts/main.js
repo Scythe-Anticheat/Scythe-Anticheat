@@ -113,7 +113,7 @@ World.events.tick.subscribe(({ currentTick }) => {
         }
 
         if(config.modules.bedrockValidate.enabled === true) {
-            if(World.scoreboard.getObjective("bedrock")?.getScore(player.scoreboard) >= 1) {
+            if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("bedrock")?.getScore(player.scoreboard) >= 1) {
                 if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
                     player.runCommandAsync("fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock");
                     player.runCommandAsync("fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock");
@@ -133,7 +133,7 @@ World.events.tick.subscribe(({ currentTick }) => {
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && playerSpeed.toFixed(2) >= config.modules.noslowA.speed && playerSpeed.toFixed(2) <= config.modules.noslowA.maxSpeed) {
-            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && World.scoreboard.getObjective("right")?.getScore(player.scoreboard) >= 5) {
+            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("right")?.getScore(player.scoreboard) >= 5) {
                 flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed.toFixed(3), true);
             }
         }
@@ -527,7 +527,7 @@ World.events.entityHit.subscribe((entityHit) => {
     if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
         // if anti-autoclicker is disabled in game then disable it in config.js
         if(data.checkedModules.autoclicker === false) {
-            if(World.scoreboard.getObjective("autoclicker")?.getScore(player.scoreboard) >= 1) {
+            if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("autoclicker")?.getScore(player.scoreboard) >= 1) {
                 config.modules.autoclickerA.enabled = false;
             }
             data.checkedModules.autoclicker = true;
