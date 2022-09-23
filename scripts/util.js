@@ -79,9 +79,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     let punishmentLength = checkData.punishmentLength?.toLowerCase();
 
     if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
+        player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
         try {
             player.runCommand(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
-            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
         } catch {
             // if we cant /kick them then we despawn them
             player.triggerEvent("scythe:kick");
@@ -162,7 +162,7 @@ export function banMessage(player) {
 
     if(typeof time !== "undefined") {
         if(time < Date.now()) {
-            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"'s ban has expired and has now been unbanned."}]}`);
+            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name}'s ban has expired and has now been unbanned."}]}`);
 
             // ban expired, woo
             player.removeTag("isBanned");
@@ -176,10 +176,11 @@ export function banMessage(player) {
         time = msToTime(Number(time));
         time = `${time.w} weeks, ${time.d} days, ${time.h} hours, ${time.m} minutes, ${time.s} seconds`;
     }
+    
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} was kicked for: ${reason}."}]}`);
 
     try {
         player.runCommand(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
-        player.runCommandAsync('tellraw @a[tag=op] {"rawtext":[{"text":"§߈§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" was kicked for: You are banned!"}]}');
     } catch {
         player.triggerEvent("scythe:kick");
     }
@@ -228,7 +229,6 @@ export function parseTime(str) {
     if(typeof str !== "string") throw TypeError(`Error: str is type of ${typeof str}. Expected "string"`);
 
     // parse time values like 12h, 1d, 10m into milliseconds
-    // code from github co-pilot, thanks ai!
     const time = str.match(/^(\d+)([smhdwy])$/);
     if(time) {
         const [, num, unit] = time;
