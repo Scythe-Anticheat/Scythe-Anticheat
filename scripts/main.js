@@ -31,7 +31,7 @@ World.events.beforeChat.subscribe(msg => {
         flag(player, "Spammer", "A", "Movement", false, false, true, msg);
 
     // Spammer/B = checks if someone sends a message while swinging their hand
-    if(config.modules.spammerB.enabled === true && player.hasTag('left'))
+    if(config.modules.spammerB.enabled === true && player.hasTag('left') && !player.getEffect(Minecraft.MinecraftEffectTypes.miningFatigue))
         flag(player, "Spammer", "B", "Combat", false, false, false, msg);
 
     // Spammer/C = checks if someone sends a message while using an item
