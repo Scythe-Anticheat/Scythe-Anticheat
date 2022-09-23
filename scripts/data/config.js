@@ -599,7 +599,7 @@ export default
             "minecraft:double_stone_block_slab2",
             "minecraft:double_stone_block_slab3",
             "minecraft:double_stone_block_slab4",
-	    "minecraft:black_candle_cake",
+            "minecraft:black_candle_cake",
             "minecraft:blue_candle_cake",
             "minecraft:brown_candle_cake",
             "minecraft:candle_cake",
