@@ -59,7 +59,7 @@ World.events.tick.subscribe(({ currentTick }) => {
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
     // run as each player
-    for (let player of World.getPlayers()) {       
+    for (let player of World.getPlayers()) {
         if(player.isGlobalBanned === true) {
             try {
                 player.addTag("by:Scythe Anticheat");
@@ -421,13 +421,18 @@ World.events.playerJoin.subscribe((playerJoin) => {
 
         if(!player.name?.endsWith(')') && (player.name?.length < config.modules.namespoofA.minNameLength || player.name?.length > config.modules.namespoofA.maxNameLength))
             player.flagNamespoofA = true;
+
+        if(player.flagNamespoofA) {
+            let extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
+            player.nameTag = player.name.slice(0, -extraLength) + "...";
+        }
     }
 
     // Namespoof/B = regex check
     if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
 
     // check if the player is in the global ban list
-    if(banList.includes(player.name)) player.isGlobalBanned = true;
+    if(banList.includes(player.name) || banList.includes(player.oldName)) player.isGlobalBanned = true;
 });
 
 World.events.entityCreate.subscribe((entityCreate) => {
