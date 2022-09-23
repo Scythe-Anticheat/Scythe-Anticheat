@@ -20,9 +20,9 @@ export function kick(message, args) {
 
     let isSilent = false;
 
-    if(args[1] === "-s") isSilent = true;
+    if(args[1] === "-s" || args[1] === "-silent") isSilent = true;
 
-    let reason = args.slice(1).join(" ").replace("-s", "").replace(/"|\\/g, "") || "No reason specified";
+    let reason = args.slice(1).join(" ").replace(/-s|-silent/, "").replace(/"|\\/g, "") || "No reason specified";
 	
     // try to find the player requested
     for (let pl of World.getPlayers()) if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl;

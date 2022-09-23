@@ -19,9 +19,11 @@ export function op(message, args) {
     if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to op!");
 
     // try to find the player requested
-    if(args.length) for (let pl of World.getPlayers()) if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl;
+    if(args.length >= 1) for (let pl of World.getPlayers()) if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl;
     
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
+    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player.");
+
+    if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r This player already has scythe-op status.");
 
     member.runCommand("function op");
 }
