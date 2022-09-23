@@ -94,9 +94,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             // this removes old ban stuff
             player.getTags().forEach(t => {
                 t = t.replace(/"/g, "");
-                if(t.startsWith("reason:")) player.removeTag(t);
-                    else if(t.startsWith("by:")) player.removeTag(t);
-                    else if(t.startsWith("time:")) player.removeTag(t);
+                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
             });
 
             let banLength;
@@ -140,9 +138,7 @@ export function banMessage(player) {
 
         player.getTags().forEach(t => {
             t = t.replace(/"/g, "");
-            if(t.startsWith("reason:")) player.removeTag(t);
-                else if(t.startsWith("by:")) player.removeTag(t);
-                else if(t.startsWith("time:")) player.removeTag(t);
+            if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
         });
 
         // remove the player from the unban queue
@@ -172,9 +168,7 @@ export function banMessage(player) {
             player.removeTag("isBanned");
             player.getTags().forEach(t => {
                 t = t.replace(/"/g, "");
-                if(t.startsWith("reason:")) player.removeTag(t);
-                    else if(t.startsWith("by:")) player.removeTag(t);
-                    else if(t.startsWith("time:")) player.removeTag(t);
+                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
             });
             return;
         }
