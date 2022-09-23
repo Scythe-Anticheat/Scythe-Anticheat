@@ -10,8 +10,8 @@ const World = Minecraft.world;
  */
 export function tag(message, args) {
     // validate that required params are defined
-    if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/utility/tag.js:13)`);
-    if(typeof args !== "object") return console.warn(`${new Date()} | ` + `Error: args is type of ${typeof args}. Expected "object' (./commands/utility/tag.js:14)`);
+    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+    if(typeof args !== "object") throw TypeError(`args is type of ${typeof args}. Expected "object".`);
 
     let player = message.sender;
     let member;
@@ -19,7 +19,7 @@ export function tag(message, args) {
     if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide a tag! (./utility/tag.js:24)"}]}`);
 
     for (let pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-    member = pl;
+        member = pl;
         args.shift();
     }
 

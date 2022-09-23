@@ -9,8 +9,8 @@ const World = Minecraft.world;
  */
 export function stats(message, args) {
     // validate that required params are defined
-    if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/utility/stats.js:12)`);
-    if(typeof args !== "object") return console.warn(`${new Date()} | ` + `Error: args is type of ${typeof args}. Expected "object' (./commands/utility/stats.js:13)`);
+    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+    if(typeof args !== "object") throw TypeError(`args is type of ${typeof args}. Expected "object".`);
 
     let player = message.sender;
     

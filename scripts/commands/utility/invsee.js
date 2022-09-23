@@ -10,8 +10,7 @@ const World = Minecraft.world;
  */
 export function invsee(message, args) {
     // validate that required params are defined
-    if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/utility/invsee.js:13)`);
-    if(typeof args !== "object") return console.warn(`${new Date()} | ` + `Error: args is type of ${typeof args}. Expected "object' (./commands/utility/invsee.js:14)`);
+    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
 
     let player = message.sender;
 

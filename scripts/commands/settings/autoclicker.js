@@ -6,7 +6,7 @@ import data from "../../data/data.js";
  */
 export function autoclicker(message) {
     // validate that required params are defined
-    if(typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/settings/autoclicker.js:9)`);
+    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
 
     let player = message.sender;
     

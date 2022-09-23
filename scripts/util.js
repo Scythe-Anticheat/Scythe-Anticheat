@@ -20,11 +20,11 @@ const World = Minecraft.world;
  */
 export function flag(player, check, checkType, hackType, debugName, debug, shouldTP = false, message, slot) {
     // validate that required params are defined
-    if(typeof player !== "object") return console.warn(`${new Date()} | ` + `Error: player is type of ${typeof player}. Expected "object' (./util.js:23)`);
-    if(typeof check !== "string") return console.warn(`${new Date()} | ` + `Error: check is type of ${typeof check}. Expected "string' (./util.js:24)`);
-    if(typeof checkType !== "string") return console.warn(`${new Date()} | ` + `Error: checkType is type of ${typeof checkType}. Expected "string' (./util.js:25)`);
-    if(typeof hackType !== "string") return console.warn(`${new Date()} | ` + `Error: hackType is type of ${typeof hackType}. Expected "string' (./util.js:26)`);
-    if(typeof shouldTP !== "boolean") return console.warn(`${new Date()} | ` + `Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean' (./util.js:28)`);
+    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
+    if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
+    if(typeof checkType !== "string") throw TypeError(`Error: checkType is type of ${typeof checkType}. Expected "string"`);
+    if(typeof hackType !== "string") throw TypeError(`Error: hackType is type of ${typeof hackType}. Expected "string"`);
+    if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
 
     if(typeof debug === "string") {
         // remove characters that may break commands
@@ -66,13 +66,13 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 	}
 
     let checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
-    if(typeof checkData !== "object") return console.warn(`${new Date()} | ` + `Error: No valid check data found for ${check}/${checkType}. (./util.js:62)`);
+    if(typeof checkData !== "object") throw Error(`No valid check data found for ${check}/${checkType}.`);
 
-    if(checkData.enabled === false) console.warn(`${new Date()} | ` + `Error: ${check}/${checkType} was flagged but the module was disabled. (./util.js:64)`);
+    if(checkData.enabled === false) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 
     // punishment stuff
     let punishment = checkData.punishment.toLowerCase();
-    if(typeof punishment !== "string") return console.warn(`${new Date()} | ` + `Error: punishment is type of ${typeof punishment}. Expected "string' (./util.js:75)`);
+    if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
     if(punishment === "none" || punishment === "") return;
 
     let currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
@@ -128,7 +128,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
  */
 export function banMessage(player) {
     // validate that required params are defined
-    if(typeof player !== "object") return console.warn(`${new Date()} | ` + `Error: player is type of ${typeof player}. Expected "object' (./util.js:96)`);
+    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     
     if(config.flagWhitelist.includes(player.name) && player.hasTag("op") && typeof player.oldName === "undefined") return;
     if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
@@ -194,7 +194,7 @@ export function banMessage(player) {
  */
  export function getClosestPlayer(entity) {
     // validate that required params are defined
-    if(typeof entity !== "object") return console.warn(`${new Date()} | ` + `Error: entity is type of ${typeof entity}. Expected "object' (./util.js:166)`);
+    if(typeof entity !== "object") return TypeError(`Error: entity is type of ${typeof entity}. Expected "object"`);
 
     // thx https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
 
@@ -225,7 +225,7 @@ export function banMessage(player) {
  */
 export function parseTime(str) {
     // validate that required params are defined
-    if(typeof str !== "string") return console.warn(`${new Date()} | ` + `Error: str is type of ${typeof str}. Expected "string' (./util.js:197)`);
+    if(typeof str !== "string") throw TypeError(`Error: str is type of ${typeof str}. Expected "string"`);
 
     // parse time values like 12h, 1d, 10m into milliseconds
     // code from github co-pilot, thanks ai!
@@ -254,7 +254,7 @@ export function parseTime(str) {
  */
 export function msToTime(ms) {
     // validate that required params are defined
-    if(typeof ms !== "number") return console.warn(`${new Date()} | ` + `Error: ms is type of ${typeof ms}. Expected "number' (./util.js:227)`);
+    if(typeof ms !== "number") throw TypeError(`Error: ms is type of ${typeof ms}. Expected "number"`);
 
     if(ms > Date.now()) ms = ms - Date.now();
 

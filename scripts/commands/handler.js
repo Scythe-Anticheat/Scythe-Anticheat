@@ -42,8 +42,8 @@ import { resetwarns } from "./moderation/resetwarns.js";
  */
 export function commandHandler(player, message) {
     // validate that required params are defined
-    if (typeof player !== "object") return console.warn(`${new Date()} | ` + `Error: player is type of ${typeof player}. Expected "object' (./commands/handler.js:45)`);
-    if (typeof message !== "object") return console.warn(`${new Date()} | ` + `Error: message is type of ${typeof message}. Expected "object' (./commands/handler.js:46)`);
+    if (typeof player !== "object") throw TypeError(`player is type of ${typeof player}. Expected "object"`);
+    if (typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object"`);
 
     if(config.debug === true) console.warn(`${new Date()} | ` + "did run command handler");
 
@@ -122,9 +122,9 @@ export function commandHandler(player, message) {
         else if(commandName === "unban") unban(message, args);
         else if(commandName === "gui") gui(message);
         else if(commandName === "resetwarns") resetwarns(message, args);
-        else return console.warn(`${new Date()} | ` + `Error: Command ${commandName} was found in config.js but no handler for it was found (./commands/handler.js:118)`);
+        else throw Error(`Command ${commandName} was found in config.js but no handler for it was found`);
     } catch (error) {
-        console.warn(`${new Date()} | ` + `${error} ${error.stack}`);
-        player.tell(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\nError: ${String(error).replace(/"|\\/g, "")}\n${error.stack || ""}\n-------------------------`);
+        console.warn(`${new Date()} | ${error} ${error.stack}`);
+        player.tell(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to support.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\n${String(error).replace(/"|\\/g, "")}\n${error.stack || ""}\n-------------------------`);
     }
 }
