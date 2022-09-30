@@ -514,7 +514,7 @@ World.events.entityHit.subscribe((entityHit) => {
         let container = player.getComponent("inventory").container;
 
         let item = container.getItem(player.selectedSlot);
-        if(config.customcommands.gui && entity.id === "minecraft:player" && item?.id === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
+        if(config.customcommands.gui.enabled && entity.id === "minecraft:player" && item?.id === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
         }
 
