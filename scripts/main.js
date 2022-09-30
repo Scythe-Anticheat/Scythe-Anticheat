@@ -208,7 +208,7 @@ World.events.tick.subscribe(({ currentTick }) => {
             flag(player, "InvalidSprint", "A", "Movement", false, false, true);
 
         // fly/a
-        if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("ground") && player.hasTag("moving")) {
+        if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
             let pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 1, player.location.z + 2);
             let pos2 = new Minecraft.BlockLocation(player.location.x - 2, player.location.y - 1, player.location.z - 2);
 
