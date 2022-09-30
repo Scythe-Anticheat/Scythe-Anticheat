@@ -432,7 +432,7 @@ World.events.playerJoin.subscribe((playerJoin) => {
     if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
 
     // check if the player is in the global ban list
-    if(banList.includes(player.name) || banList.includes(player.oldName)) player.isGlobalBanned = true;
+    if(banList.includes(player.name.toLowerCase()) || banList.includes(player.oldName.toLowerCase())) player.isGlobalBanned = true;
 });
 
 World.events.entityCreate.subscribe((entityCreate) => {
