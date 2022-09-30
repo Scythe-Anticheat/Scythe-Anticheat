@@ -93,7 +93,7 @@ function kickPlayerMenu(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
     const kickPlayerMenu = new MinecraftUI.ModalFormData()
-        .title("Kick Player Menu")
+        .title("Kick Player Menu - " + playerSelected.name)
         .textField("Kick Reason:", "§o§7No Reason Provided")
         .toggle("Silent", false);
     kickPlayerMenu.show(player).then((response) => {
@@ -118,7 +118,7 @@ function banPlayerMenu(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
     const banPlayerMenu = new MinecraftUI.ModalFormData()
-        .title("Ban Player Menu")
+        .title("Ban Player Menu - " + playerSelected.name)
         .textField("Ban Reason:", "§o§7No Reason Provided")
         .slider("Ban Length (in days)", 0, 365, 1)
         .toggle("Permenant Ban", true);
@@ -213,7 +213,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenuSelected = new MinecraftUI.ActionFormData()
-        .title("Player Menu")
+        .title("Player Menu - " + player.name)
         .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("frozen")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
         .button("Clear EnderChest", "textures/blocks/ender_chest_front.png")
         .button("Kick Player", "textures/ui/anvil_icon.png");

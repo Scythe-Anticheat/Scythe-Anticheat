@@ -517,6 +517,21 @@ World.events.entityHit.subscribe((entityHit) => {
         if(config.customcommands.gui && entity.id === "minecraft:player" && item?.id === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
         }
+
+        // autoclicker/a = check for high cps
+        if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
+            // if anti-autoclicker is disabled in game then disable it in config.js
+            if(data.checkedModules.autoclicker === false) {
+                if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("autoclicker")?.getScore(player.scoreboard) >= 1) {
+                    config.modules.autoclickerA.enabled = false;
+                }
+                data.checkedModules.autoclicker = true;
+            }
+
+            if(typeof player.firstAttack !== "number") player.firstAttack = Date.now();
+            if(typeof player.cps !== "number") player.cps = 0;
+            player.cps++;
+        }
     }
 
     if(typeof block === "object") {
@@ -526,21 +541,6 @@ World.events.entityHit.subscribe((entityHit) => {
             player.lastSelectedSlot = player.selectedSlot;
             player.startBreakTime = Date.now();
         }
-    }
-
-    // autoclicker/a = check for high cps
-    if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
-        // if anti-autoclicker is disabled in game then disable it in config.js
-        if(data.checkedModules.autoclicker === false) {
-            if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("autoclicker")?.getScore(player.scoreboard) >= 1) {
-                config.modules.autoclickerA.enabled = false;
-            }
-            data.checkedModules.autoclicker = true;
-        }
-
-        if(typeof player.firstAttack !== "number") player.firstAttack = Date.now();
-        if(typeof player.cps !== "number") player.cps = 0;
-        player.cps++;
     }
 });
 
