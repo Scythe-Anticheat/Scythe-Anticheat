@@ -14,7 +14,7 @@ export function unmute(message, args) {
 
     let player = message.sender;
 
-    if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide who to mute!"}]}`);
+    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to unmute!");
 
     let reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
     
@@ -25,13 +25,13 @@ export function unmute(message, args) {
 
     try {
         member.removeTag("isMuted");
-        member.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You have been unmuted."}]}`);
+        member.tell("§r§6[§aScythe§6]§r You have been unmuted.");
     
         // add chat ability
         member.runCommandAsync("ability @s mute false");
     } catch (error) {
         console.warn(`${new Date()} | ` + error);
-        return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"I was unable to unmute that player."}]}`);
+        return player.tell("§r§6[§aScythe§6]§r I was unable to unmute that player.");
     }
     player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has unmuted ${member.nameTag}. Reason: ${reason}"}]}`);
 }

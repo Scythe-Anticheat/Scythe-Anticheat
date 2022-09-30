@@ -14,7 +14,7 @@ export function ecwipe(message, args) {
 
     let player = message.sender;
     
-    if(args.length === 0) return player.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"You need to provide whos ender chest inventory to wipe!"}]}`);
+    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide whos ender chest inventory to wipe!");
     
     // try to find the player requested
     for (let pl of World.getPlayers()) if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) var member = pl;
