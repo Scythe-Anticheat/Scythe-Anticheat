@@ -280,13 +280,12 @@ World.events.blockBreak.subscribe((blockBreak) => {
             flag(player, "Nuker", "A", "Misc", "blocksBroken", player.blocksBroken);
 
             // killing all the items it drops
-            let EntityQueryOptions = new Minecraft.EntityQueryOptions();
-            EntityQueryOptions.location = new Minecraft.Location(block.location.x, block.location.y, block.location.z);
-            EntityQueryOptions.minDistance = 0;
-            EntityQueryOptions.maxDistance = 2;
-            EntityQueryOptions.type = "item";
-
-            let droppedItems = dimension.getEntities(EntityQueryOptions);
+            let droppedItems = dimension.getEntities({
+                location: block.location,
+                minDistance: 0,
+                maxDistance: 2,
+                type: "item"
+            });
 
             for (let item of droppedItems) item.kill();
 
