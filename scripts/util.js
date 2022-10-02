@@ -199,15 +199,11 @@ export function banMessage(player) {
 
     // thx https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
 
-    const query = new Minecraft.EntityQueryOptions();
-    query.closest = 1;
-
     let closestPlayer;
 
     for (let player of World.getPlayers()) {
-        query.location = player.location;
     
-        const nearestPlayer = [...player.dimension.getPlayers(query)][0];
+        const nearestPlayer = [...player.dimension.getPlayers({closest: 1, location: player.location})][0];
     
         if(!nearestPlayer) continue;
 
