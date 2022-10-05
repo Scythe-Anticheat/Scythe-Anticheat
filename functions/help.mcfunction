@@ -71,6 +71,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r -
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <player> <nametag>§r - Adds tag to username in chat window for specific users."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> [reason]§r - Report a player."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gui§r - Opens the Scythe Management UI."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invsee§r - View another players inventory."}]}
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/ecwipe§r - Clears a players ender chest."}]}
