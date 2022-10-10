@@ -34,6 +34,7 @@ import { report } from "./other/report.js";
 import { unban } from "./moderation/unban.js";
 import { gui } from "./utility/gui.js";
 import { resetwarns } from "./moderation/resetwarns.js";
+import { version } from "./other/version.js";
 
 const prefix = config.customcommands.prefix;
 
@@ -68,7 +69,7 @@ export function commandHandler(player, message) {
         // check if the command is an alias
         for(const cmd of Object.keys(config.customcommands)) {
             const data = config.customcommands[cmd];
-            if(typeof data !== "object") continue;
+            if(typeof data !== "object" || typeof data.aliases === "undefined") continue;
 
             if(!data.aliases.includes(command)) continue;
 
@@ -125,6 +126,7 @@ export function commandHandler(player, message) {
         else if(commandName === "unban") unban(message, args);
         else if(commandName === "gui") gui(message);
         else if(commandName === "resetwarns") resetwarns(message, args);
+        else if(commandName === "version") version(message);
         else throw Error(`Command ${commandName} was found in config.js but no handler for it was found`);
     } catch (error) {
         console.warn(`${new Date()} | ${error} ${error.stack}`);

@@ -6,13 +6,11 @@ export default
         "prefix": "!",
         "ban": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "help": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "op": {
             "enabled": true,
@@ -21,8 +19,7 @@ export default
         },
         "credits": {
             "enabled": true,
-            "requiredTags": [],
-            "aliases": []
+            "requiredTags": []
         },
         "allowgma": {
             "enabled": true,
@@ -46,13 +43,11 @@ export default
         },
         "modules": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "npc": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "overidecommandblocksenabled": {
             "enabled": true,
@@ -71,8 +66,7 @@ export default
         },
         "xray": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "autoclicker": {
             "enabled": true,
@@ -96,13 +90,11 @@ export default
         },
         "freeze": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "stats": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "fullreport": {
             "enabled": true,
@@ -111,13 +103,11 @@ export default
         },
         "kick": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "mute": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "unmute": {
             "enabled": true,
@@ -126,8 +116,7 @@ export default
         },
         "fly": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "invsee": {
             "enabled": true,
@@ -136,8 +125,7 @@ export default
         },
         "notify": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "tag": {
             "enabled": true,
@@ -151,13 +139,11 @@ export default
         },
         "report": {
             "enabled": true,
-            "requiredTags": [],
-            "aliases": []
+            "requiredTags": []
         },
         "unban": {
             "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": []
+            "requiredTags": ["op"]
         },
         "gui": {
             "enabled": true,
@@ -168,6 +154,10 @@ export default
             "enabled": true,
             "requiredTags": ["op"],
             "aliases": ["rw"]
+        },
+        "version": {
+            "enabled": true,
+            "requiredTags": ["op"]
         }
     },
     "modules": {
