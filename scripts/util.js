@@ -47,7 +47,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(shouldTP === true && check !== "Crasher") player.runCommand("tp @s @s");
         else if(shouldTP === true && check === "Crasher") player.runCommand("tp @s 30000000 30000000 30000000");
 
-    if(check !== "CommandBlockExploit" && World.scoreboard.getObjective(`${check.toLowerCase()}vl`) !== null) {
+    if(check !== "CommandBlockExploit" && World.scoreboard.getObjective(`${check.toLowerCase()}vl`) === null) {
         player.runCommandAsync(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
     } 
 
