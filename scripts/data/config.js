@@ -17,7 +17,7 @@ export default
         "op": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": []
+            "aliases": ["staff"]
         },
         "credits": {
             "enabled": true,
@@ -92,7 +92,7 @@ export default
         "ecwipe": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["enderchestwipe"]
+            "aliases": ["enderchestwipe", "ecw"]
         },
         "freeze": {
             "enabled": true,
