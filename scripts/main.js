@@ -60,6 +60,8 @@ World.events.tick.subscribe(({ currentTick }) => {
 
     // run as each player
     for (const player of World.getPlayers()) {
+        try {
+
         if(player.isGlobalBanned === true) {
             try {
                 player.addTag("by:Scythe Anticheat");
@@ -244,8 +246,10 @@ World.events.tick.subscribe(({ currentTick }) => {
             flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
             player.selectedSlot = 0;
         }
-
-        // if(config.debug === true) console.warn(`${new Date()} | reached end of tick event. current tick: ${currentTick}`);
+    
+        } catch (error) {
+            console.warn(error, error.stack);
+        }
     }
 });
 

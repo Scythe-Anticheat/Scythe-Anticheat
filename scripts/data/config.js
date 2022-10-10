@@ -2,8 +2,8 @@ export default
 {
     "debug": true,
     "flagWhitelist": [],
-    "prefix": "!",
     "customcommands": {
+        "prefix": "!",
         "ban": {
             "enabled": true,
             "requiredTags": ["op"],

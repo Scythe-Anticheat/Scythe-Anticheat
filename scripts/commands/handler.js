@@ -35,6 +35,8 @@ import { unban } from "./moderation/unban.js";
 import { gui } from "./utility/gui.js";
 import { resetwarns } from "./moderation/resetwarns.js";
 
+const prefix = config.customcommands.prefix;
+
 /**
  * @name commandHandler
  * @param {object} player - The player that has sent the message
@@ -48,13 +50,13 @@ export function commandHandler(player, message) {
     if(config.debug === true) console.warn(`${new Date()} | ` + "did run command handler");
 
     // checks if the message starts with our prefix, if not exit
-    if(!message.message.startsWith(config.prefix)) return;
+    if(!message.message.startsWith(prefix)) return;
 
-    const args = message.message.slice(config.prefix.length).split(/ +/);
+    const args = message.message.slice(prefix.length).split(/ +/);
 
     const command = args.shift().toLowerCase();
 
-    if(config.debug === true) console.warn(`${new Date()} | ${player.name} used the command: ${config.prefix}${command} ${args.join(" ")}`);
+    if(config.debug === true) console.warn(`${new Date()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
 
     let commandData;
     let commandName;
@@ -66,6 +68,7 @@ export function commandHandler(player, message) {
         // check if the command is an alias
         for(const cmd of Object.keys(config.customcommands)) {
             const data = config.customcommands[cmd];
+            if(typeof data !== "object") continue;
 
             if(!data.aliases.includes(command)) continue;
 
