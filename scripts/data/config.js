@@ -384,12 +384,6 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
-        "badenchantsE": {
-            "enabled": true,
-            "maximuim_protection_types": 1,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
-        },
         "badpackets5": {
             "enabled": true,
             "punishment": "none",

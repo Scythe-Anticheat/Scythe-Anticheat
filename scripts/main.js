@@ -168,38 +168,39 @@ World.events.tick.subscribe(({ currentTick }) => {
             if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && currentTick % 2) {
                 let itemEnchants = item.getComponent("enchantments").enchantments;
 
-                let protection_types = [];
+                let item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(item.id), 1, item.data);
+                let item2Enchants = item2.getComponent("enchantments").enchantments;
 
                 for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
                     let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
         
                     if(typeof enchantData === "object") {
-                        if(config.modules.badenchantsE.enabled && enchantData.type.id.toLowerCase().endsWith("protection"))
-                            protection_types.push(enchantData.type.id);
-
                         // badenchants/A = checks for items with invalid enchantment levels
-                        let maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
-                        if(config.modules.badenchantsA.enabled && maxLevel) {
-                            if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
-                        } else if(config.modules.badenchantsA.enabled && enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
-                                flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
-
+						if(config.modules.badenchantsA.enabled === true) {
+							let maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
+							if(typeof maxLevel === "number") {
+								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+							} else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
+                               flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+						}
+						
                         // badenchants/B = checks for negative enchantment levels
                         if(config.modules.badenchantsB.enabled && enchantData.level <= 0) 
                             flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
                         if(config.modules.badenchantsC.enabled) {
-                            let item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(item.id), 1, item.data);
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
                                 flag(player, "BadEnchants", "C", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
                             }
                         }
+
+                        if(config.modules.badenchantsC.enabled) {
+                            item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
+                            item2.getComponent("enchantments").enchantments = item2Enchants;
+                        }
                     }
                 }
-                // BadEnchants/E = checks for multi-protection armor
-                if(config.modules.badenchantsE.enabled && protection_types.length > config.modules.badenchantsE.maximuim_protection_types) 
-                    flag(player, "BadEnchants", "E", "Exploit", "protection_types", String(protection_types), false, false, i);
             }
         }
 
