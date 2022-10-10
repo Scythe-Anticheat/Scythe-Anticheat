@@ -59,7 +59,7 @@ World.events.tick.subscribe(({ currentTick }) => {
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
     // run as each player
-    for (let player of World.getPlayers()) {
+    for (const player of World.getPlayers()) {
         if(player.isGlobalBanned === true) {
             try {
                 player.addTag("by:Scythe Anticheat");
@@ -127,7 +127,7 @@ World.events.tick.subscribe(({ currentTick }) => {
             }
         }
 
-        let playerSpeed = Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2));
+        const playerSpeed = Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2));
 
         // if(config.debug === true) console.warn(`${new Date()} | ${player.name}'s speed: ${playerSpeed.toFixed(4)} Vertical Speed: ${player.velocity.y}`);
 
@@ -138,9 +138,9 @@ World.events.tick.subscribe(({ currentTick }) => {
             }
         }
 
-        let container = player.getComponent('inventory').container;
+        const container = player.getComponent('inventory').container;
         for (let i = 0; i < container.size; i++) {
-            let item = container.getItem(i);
+            const item = container.getItem(i);
             if(typeof item === "undefined") continue;
 
             // Illegalitems/C = item stacked over 64 check
@@ -166,18 +166,18 @@ World.events.tick.subscribe(({ currentTick }) => {
             }
 
             if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && currentTick % 2) {
-                let itemEnchants = item.getComponent("enchantments").enchantments;
+                const itemEnchants = item.getComponent("enchantments").enchantments;
 
-                let item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(item.id), 1, item.data);
-                let item2Enchants = item2.getComponent("enchantments").enchantments;
+                const item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(item.id), 1, item.data);
+                const item2Enchants = item2.getComponent("enchantments").enchantments;
 
-                for (let enchantment in Minecraft.MinecraftEnchantmentTypes) {
-                    let enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
+                for (const enchantment in Minecraft.MinecraftEnchantmentTypes) {
+                    const enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
         
                     if(typeof enchantData === "object") {
                         // badenchants/A = checks for items with invalid enchantment levels
 						if(config.modules.badenchantsA.enabled === true) {
-							let maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
+							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
 							if(typeof maxLevel === "number") {
 								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 							} else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
@@ -210,12 +210,12 @@ World.events.tick.subscribe(({ currentTick }) => {
 
         // fly/a
         if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
-            let pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 1, player.location.z + 2);
-            let pos2 = new Minecraft.BlockLocation(player.location.x - 2, player.location.y - 1, player.location.z - 2);
+            const pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 1, player.location.z + 2);
+            const pos2 = new Minecraft.BlockLocation(player.location.x - 2, player.location.y - 1, player.location.z - 2);
 
-            let blocksBetween = pos1.blocksBetween(pos2);
+            const blocksBetween = pos1.blocksBetween(pos2);
 
-            let isNotInAir = blocksBetween.some((block) => player.dimension.getBlock(block).id !== "minecraft:air");
+            const isNotInAir = blocksBetween.some((block) => player.dimension.getBlock(block).id !== "minecraft:air");
 
             if(isNotInAir === false) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
                 else if(config.debug === true) console.warn(`${new Date()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
@@ -250,14 +250,14 @@ World.events.tick.subscribe(({ currentTick }) => {
 });
 
 World.events.blockPlace.subscribe((blockPlace) => {
-    let block = blockPlace.block;
-    let player = blockPlace.player;
+    const block = blockPlace.block;
+    const player = blockPlace.player;
 
     if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.id}.`);
 
     // IllegalItems/H = checks for pistons that can break any block
     if(config.modules.illegalitemsH.enabled === true && block.id === "minecraft:piston" || block.id === "minecraft:sticky_piston") {
-        let piston = block.getComponent("piston");
+        const piston = block.getComponent("piston");
     
         if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpanding || piston.isExpanded) {
             flag(player, "IllegalItems", "H", "Exploit", "isRetracted", `${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`, false, false, player.selectedSlot);
@@ -267,9 +267,9 @@ World.events.blockPlace.subscribe((blockPlace) => {
 });
 
 World.events.blockBreak.subscribe((blockBreak) => {
-    let player = blockBreak.player;
-    let dimension = blockBreak.dimension;
-    let block = blockBreak.block;
+    const player = blockBreak.player;
+    const dimension = blockBreak.dimension;
+    const block = blockBreak.block;
 
     if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${blockBreak.brokenBlockPermutation.type.id}`);
 
@@ -281,14 +281,14 @@ World.events.blockBreak.subscribe((blockBreak) => {
             flag(player, "Nuker", "A", "Misc", "blocksBroken", player.blocksBroken);
 
             // killing all the items it drops
-            let droppedItems = dimension.getEntities({
+            const droppedItems = dimension.getEntities({
                 location: block.location,
                 minDistance: 0,
                 maxDistance: 2,
                 type: "item"
             });
 
-            for (let item of droppedItems) item.kill();
+            for (const item of droppedItems) item.kill();
 
             block.setPermutation(blockBreak.brokenBlockPermutation);
         }
@@ -313,8 +313,8 @@ World.events.blockBreak.subscribe((blockBreak) => {
 });
 
 World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
-    let player = beforeItemUseOn.source;
-    let item = beforeItemUseOn.item;
+    const player = beforeItemUseOn.source;
+    const item = beforeItemUseOn.item;
 
     // commandblockexploit/f = cancels the placement of cbe items
     if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(item.id)) {
@@ -369,12 +369,12 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 });
 
 World.events.playerJoin.subscribe((playerJoin) => {
-    let player = playerJoin.player;
+    const player = playerJoin.player;
 
     // fix a disabler method
     player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "");
 
-    if(!data.loaded) {
+    if(data.loaded === false) {
         try {
             player.runCommand("scoreboard players set scythe:config gametestapi 1");
             data.loaded = true;
@@ -423,7 +423,7 @@ World.events.playerJoin.subscribe((playerJoin) => {
             player.flagNamespoofA = true;
 
         if(player.flagNamespoofA) {
-            let extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
+            const extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
             player.nameTag = player.name.slice(0, -extraLength) + "...";
         }
     }
@@ -436,7 +436,7 @@ World.events.playerJoin.subscribe((playerJoin) => {
 });
 
 World.events.entityCreate.subscribe((entityCreate) => {
-    let entity = entityCreate.entity;
+    const entity = entityCreate.entity;
 
     if(config.modules.itemSpawnRateLimit.enabled) {
         data.entitiesSpawnedInLastTick++;
@@ -462,7 +462,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
         }
     }
     if(config.modules.crasherB.enabled && entity.id === "minecraft:item") {
-        let itemData = entity.getComponent("item").itemStack;
+        const itemData = entity.getComponent("item").itemStack;
 
         if(itemData.id === "minecraft:arrow" && itemData.data > 43) {
             flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${itemData.id},data=${itemData.data}`);
@@ -472,14 +472,14 @@ World.events.entityCreate.subscribe((entityCreate) => {
 });
 
 World.events.entityHit.subscribe((entityHit) => {
-    let entity = entityHit.hitEntity;
-    let block = entityHit.hitBlock;
-    let player = entityHit.entity;
+    const entity = entityHit.hitEntity;
+    const block = entityHit.hitBlock;
+    const player = entityHit.entity;
 
     if(player.id !== "minecraft:player") return;
 
     if(typeof entity === "object") {
-        let entityHitName = entity.nameTag || entity.id;
+        const entityHitName = entity.nameTag || entity.id;
         
         // killaura/C = checks for multi-aura
         if(config.modules.killauraC.enabled) {
@@ -494,7 +494,7 @@ World.events.entityHit.subscribe((entityHit) => {
         // reach/A = check if a player hits an entity more then 5.1 block away
         if(config.modules.reachA.enabled) {
             // get the difference between 2 three dimensional coordinates
-            let distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
+            const distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
             if(config.debug === true) console.warn(`${player.name} attacked ${entityHitName} with a distance of ${distance}`);
 
             if(distance > config.modules.reachA.reach && entity.id.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.id)) {
@@ -511,9 +511,9 @@ World.events.entityHit.subscribe((entityHit) => {
         if(config.modules.badpackets3.enabled && entity === player) flag(player, "BadPackets", "3", "Exploit");
     
         // check if the player was hit with the UI item, and if so open the UI for that player
-        let container = player.getComponent("inventory").container;
+        const container = player.getComponent("inventory").container;
 
-        let item = container.getItem(player.selectedSlot);
+        const item = container.getItem(player.selectedSlot);
         if(config.customcommands.gui.enabled && entity.id === "minecraft:player" && item?.id === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
         }
@@ -545,8 +545,8 @@ World.events.entityHit.subscribe((entityHit) => {
 });
 
 World.events.beforeItemUse.subscribe((beforeItemUse) => {
-    let item = beforeItemUse.item;
-    let player = beforeItemUse.source;
+    const item = beforeItemUse.item;
+    const player = beforeItemUse.source;
 
     // GUI stuff
     if(config.customcommands.gui.enabled && item.id === "minecraft:wooden_axe" && item.nameTag === "§r§l§aRight click to Open the UI" && player.hasTag("op")) {

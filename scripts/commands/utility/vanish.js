@@ -6,7 +6,7 @@ export function vanish(message) {
     // validate that required params are defined
     if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
 
-    let player = message.sender;
+    const player = message.sender;
     
     try {
         player.runCommand("function tools/vanish");

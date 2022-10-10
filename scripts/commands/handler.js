@@ -50,7 +50,7 @@ export function commandHandler(player, message) {
     // checks if the message starts with our prefix, if not exit
     if(!message.message.startsWith(config.prefix)) return;
 
-    let args = message.message.slice(config.prefix.length).split(/ +/);
+    const args = message.message.slice(config.prefix.length).split(/ +/);
 
     const command = args.shift().toLowerCase();
 
@@ -64,8 +64,8 @@ export function commandHandler(player, message) {
         commandName = command;
     } else {
         // check if the command is an alias
-        for(let cmd of Object.keys(config.customcommands)) {
-            let data = config.customcommands[cmd];
+        for(const cmd of Object.keys(config.customcommands)) {
+            const data = config.customcommands[cmd];
 
             if(!data.aliases.includes(command)) continue;
 

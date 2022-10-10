@@ -33,6 +33,7 @@ module.exports = {
         "yoda": "error",
         "semi": "warn",
         "semi-style": ["error", "last"],
-        "no-control-regex": "off"
+        "no-control-regex": "off",
+        "prefer-const": "warn"
     }
 };

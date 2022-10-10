@@ -13,12 +13,12 @@ export function tag(message, args) {
     if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
     if(typeof args !== "object") throw TypeError(`args is type of ${typeof args}. Expected "object".`);
 
-    let player = message.sender;
+    const player = message.sender;
     let member;
 
     if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide a tag!");
 
-    for (let pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+    for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl;
         args.shift();
     }
@@ -38,8 +38,8 @@ export function tag(message, args) {
         return player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset ${member.name}'s nametag."}]}`);
     }
 
-    let tag = args.join(" ").replace(/"|\\/g, "");
-    let nametag = `§8[§r${tag}§8]§r ${member.name}`.replace(/"|\\/g, "");
+    const tag = args.join(" ").replace(/"|\\/g, "");
+    const nametag = `§8[§r${tag}§8]§r ${member.name}`.replace(/"|\\/g, "");
 
     member.nameTag = nametag;
 

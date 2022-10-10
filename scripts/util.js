@@ -33,7 +33,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         // malicous users may try make the debug field ridiclously large to lag any clients that may try to view the alert
         // (anybody with the 'notify' tag)
         if(debug.length > 256) {
-            let extraLength = debug.length - 256;
+            const extraLength = debug.length - 256;
             debug = debug.slice(0, -extraLength) + ` (+${extraLength} additional characters)`;
         }
     }
@@ -59,24 +59,24 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
 
     if(typeof slot === "number") {
-		let container = player.getComponent("inventory").container;
+		const container = player.getComponent("inventory").container;
 		try {
 			container.setItem(slot, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
 		} catch {}
 	}
 
-    let checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
+    const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
     if(typeof checkData !== "object") throw Error(`No valid check data found for ${check}/${checkType}.`);
 
     if(checkData.enabled === false) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 
     // punishment stuff
-    let punishment = checkData.punishment.toLowerCase();
+    const punishment = checkData.punishment.toLowerCase();
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
     if(punishment === "none" || punishment === "") return;
 
-    let currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
-    let punishmentLength = checkData.punishmentLength?.toLowerCase();
+    const currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
+    const punishmentLength = checkData.punishmentLength?.toLowerCase();
 
     if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
@@ -201,7 +201,7 @@ export function banMessage(player) {
 
     let closestPlayer;
 
-    for (let player of World.getPlayers()) {
+    for (const player of World.getPlayers()) {
     
         const nearestPlayer = [...player.dimension.getPlayers({closest: 1, location: player.location})][0];
     

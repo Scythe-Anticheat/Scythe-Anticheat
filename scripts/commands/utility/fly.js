@@ -12,11 +12,11 @@ export function fly(message, args) {
     // validate that required params are defined
     if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
 
-    let player = message.sender;
+    const player = message.sender;
     let member;
     
     // try to find the player requested
-    if(args.length) for (let pl of World.getPlayers())
+    if(args.length) for (const pl of World.getPlayers())
         if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) member = pl; 
     
     if(typeof member === "undefined") member = player;
