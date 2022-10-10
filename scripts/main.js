@@ -212,12 +212,10 @@ World.events.tick.subscribe(({ currentTick }) => {
 
         // fly/a
         if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
-            const pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 1, player.location.z + 2);
+            const pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 2, player.location.z + 2);
             const pos2 = new Minecraft.BlockLocation(player.location.x - 2, player.location.y - 1, player.location.z - 2);
 
-            const blocksBetween = pos1.blocksBetween(pos2);
-
-            const isNotInAir = blocksBetween.some((block) => player.dimension.getBlock(block).id !== "minecraft:air");
+            const isNotInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).id !== "minecraft:air");
 
             if(isNotInAir === false) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
                 else if(config.debug === true) console.warn(`${new Date()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
