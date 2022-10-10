@@ -80,4 +80,4 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username>
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/stats§r - View a specific players anticheat logs."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
 
-tellraw @s {"rawtext":[{"text":"\n"}]}
+tellraw @s {"rawtext":[{"text":"\nNeed extra help? Ask your question in the support server: https://discord.gg/9m9TbgJ973.\n"}]}
