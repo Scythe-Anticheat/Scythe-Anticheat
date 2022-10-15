@@ -282,6 +282,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
         const blockInventory = block.getComponent("inventory").container;
 
         let startNumber = 0;
+        let didFindItems = false;
         if(blockInventory.size > 27) startNumber = blockInventory -26;
     
         for(let i = startNumber; i < blockInventory.size; i++) {
@@ -289,9 +290,13 @@ World.events.blockPlace.subscribe((blockPlace) => {
             if(typeof item === "undefined") continue;
 
             // an item exists within the container, get fucked hacker!
-            i = 100;
-            block.setType(Minecraft.MinecraftBlockTypes.air);
+            blockInventory.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
+            didFindItems = true;
+        }
+
+        if(didFindItems === true) {
             flag(player, "IllegalItems", "I", "Exploit", "containerBlock", block.id, false, undefined, player.selectedSlot);
+            block.setType(Minecraft.MinecraftBlockTypes.air);
         }
     }
 });
