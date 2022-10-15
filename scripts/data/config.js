@@ -394,6 +394,15 @@ export default
             "startBreakDelay": 85,
             "punishment": "none",
             "minVlbeforePunishment": 0
+        },
+        "illegalitemsI": {
+            "enabled": true,
+            "container_blocks": [
+                "minecraft:chest",
+                "minecraft:trapped_chest"
+            ],
+            "punishment": "none",
+            "minVlbeforePunishment": 0
         }
     },
     "itemLists": {

@@ -178,7 +178,7 @@ World.events.tick.subscribe(({ currentTick }) => {
                     leading to a Scythe Gametest Disabler method.
                 */
                 let itemId;
-                if(item.id === "minecraft:written_book") itemId = "minecraft:writeable_book";
+                if(item.id === "minecraft:written_book") itemId = "minecraft:book";
                     else itemId = item.id;
 
                 const item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(itemId), 1, item.data);
@@ -275,6 +275,23 @@ World.events.blockPlace.subscribe((blockPlace) => {
         if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpanding || piston.isExpanded) {
             flag(player, "IllegalItems", "H", "Exploit", "isRetracted", `${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`, false, false, player.selectedSlot);
             block.setType(Minecraft.MinecraftBlockTypes.air);
+        }
+    }
+
+    if(config.modules.illegalitemsI.enabled === true && config.modules.illegalitemsI.container_blocks.includes(block.id)) {
+        const blockInventory = block.getComponent("inventory").container;
+
+        let startNumber = 0;
+        if(blockInventory.size > 27) startNumber = blockInventory -26;
+    
+        for(let i = startNumber; i < blockInventory.size; i++) {
+            const item = blockInventory.getItem(i);
+            if(typeof item === "undefined") continue;
+
+            // an item exists within the container, get fucked hacker!
+            i = 100;
+            block.setType(Minecraft.MinecraftBlockTypes.air);
+            flag(player, "IllegalItems", "I", "Exploit", "containerBlock", block.id, false, undefined, player.selectedSlot);
         }
     }
 });
