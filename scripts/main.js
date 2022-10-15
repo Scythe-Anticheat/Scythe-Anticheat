@@ -170,7 +170,18 @@ World.events.tick.subscribe(({ currentTick }) => {
             if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && currentTick % 2) {
                 const itemEnchants = item.getComponent("enchantments").enchantments;
 
-                const item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(item.id), 1, item.data);
+                /*
+                    As of 1.19.30, Mojang removed all illegal items from MinecraftItemTypes, although this change
+                    doesnt matter, they mistakenly removed 'written_book', which can be obtained normally.
+                    Written books will make this code error out, and make any items that havent been check bypass
+                    anti32k checks. In older versions, this error will also make certian players not get checked
+                    leading to a Scythe Gametest Disabler method.
+                */
+                let itemId;
+                if(item.id === "minecraft:written_book") itemId = "minecraft:writeable_book";
+                    else itemId = item.id;
+
+                const item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(itemId), 1, item.data);
                 const item2Enchants = item2.getComponent("enchantments").enchantments;
 
                 for (const enchantment in Minecraft.MinecraftEnchantmentTypes) {
