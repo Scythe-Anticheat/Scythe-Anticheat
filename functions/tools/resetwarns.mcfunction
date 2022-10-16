@@ -7,7 +7,6 @@ scoreboard players set @s[type=player,tag=!op,scores={autoclickervl=1..}] autocl
 scoreboard players set @s[type=player,tag=!op,scores={autoshieldvl=1..}] autoshieldvl 0
 scoreboard players set @s[type=player,tag=!op,scores={autototemvl=1..}] autototemvl 0
 scoreboard players set @s[type=player,tag=!op,scores={badenchants=1..}] badenchants 0
-scoreboard players set @s[type=player,tag=!op,scores={anglevl=1..}] anglevl 0
 scoreboard players set @s[type=player,tag=!op,scores={badpacketsvl=1..}] badpacketsvl 0
 # scoreboard players set @s[type=player,tag=!op,scores={cbevl=1..}] cbevl 0
 scoreboard players set @s[type=player,tag=!op,scores={crashervl=1..}] crashervl 0
