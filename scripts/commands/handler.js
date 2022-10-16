@@ -75,6 +75,7 @@ export function commandHandler(player, message) {
 
             commandData = data;
             commandName = cmd;
+            break;
         }
 
         // command does not exist

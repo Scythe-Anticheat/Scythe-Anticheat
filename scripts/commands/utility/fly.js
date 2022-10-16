@@ -16,8 +16,10 @@ export function fly(message, args) {
     let member;
     
     // try to find the player requested
-    if(args.length) for (const pl of World.getPlayers())
-        if(pl.nameTag.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) member = pl; 
+    if(args.length) for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+        member = pl; 
+        break;
+    }
     
     if(typeof member === "undefined") member = player;
 

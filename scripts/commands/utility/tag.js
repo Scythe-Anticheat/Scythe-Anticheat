@@ -21,6 +21,7 @@ export function tag(message, args) {
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl;
         args.shift();
+        break;
     }
 
     if(typeof member === "undefined") member = player;

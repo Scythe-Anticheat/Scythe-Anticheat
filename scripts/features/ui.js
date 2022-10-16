@@ -5,9 +5,9 @@ import config from "../data/config.js";
 import { parseTime } from "../util.js";
 import data2 from "../data/data.js";
 
-let World = Minecraft.world;
+const World = Minecraft.world;
 
-let playerIcons = [
+const playerIcons = [
     "textures/ui/icon_alex.png",
     "textures/ui/icon_steve.png",
 ];
@@ -68,7 +68,7 @@ function banMenuSelect(player, selection) {
         .title("Ban Menu")
         .body("Please select a player to manage.");
     
-    for (let plr of World.getPlayers()) {
+    for (const plr of World.getPlayers()) {
         let playerName = `${plr.name}`;
         if(plr === player) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
@@ -99,10 +99,10 @@ function kickPlayerMenu(player, playerSelected) {
     kickPlayerMenu.show(player).then((response) => {
         if(response.canceled) return banMenuSelect(player, 0);
 
-        let data = String(response.formValues).split(",");
+        const data = String(response.formValues).split(",");
 
-        let isSilent = data.pop();
-        let reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
+        const isSilent = data.pop();
+        const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
         if(isSilent === false) player.runCommand(`kick "${playerSelected.name}" ${reason}`);
             else playerSelected.runCommand("event entity @s scythe:kick");
@@ -125,14 +125,14 @@ function banPlayerMenu(player, playerSelected) {
     banPlayerMenu.show(player).then((response) => {
         if(response.canceled) return banMenuSelect(player, 1);
 
-        let data = String(response.formValues).split(",");
+        const data = String(response.formValues).split(",");
 
-        let shouldPermBan = data.pop();
+        const shouldPermBan = data.pop();
 
         let banLength = data.pop();
         if(banLength != 0) banLength = parseTime(`${banLength}d`);
 
-        let reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
         // remove old ban tags
         playerSelected.getTags().forEach(t => {
@@ -161,11 +161,11 @@ function unbanPlayerMenu(player) {
     kickPlayerMenu.show(player).then((response) => {
         if(response.canceled) return banMenu(player, 2);
 
-        let data = String(response.formValues).split(",");
+        const data = String(response.formValues).split(",");
 
-        let playerToUnban = data.shift().split(" ")[0];
+        const playerToUnban = data.shift().split(" ")[0];
 
-        let reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
         data2.unbanQueue.push(playerToUnban.toLowerCase());
 
@@ -193,7 +193,7 @@ function playerSettingsMenu(player) {
         .title("Player Menu")
         .body("Please select a player to manage.");
     
-    for (let plr of World.getPlayers()) {
+    for (const plr of World.getPlayers()) {
         let playerName = `${plr.name}`;
         if(plr === player) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
@@ -387,15 +387,15 @@ function debugSettingsMenu(player) {
         .button("Exit", "textures/ui/redX1.png");
     mainGui.show(player).then((response) => {
         if(response.selection === 0) {
-            let container = player.getComponent("inventory").container;
+            const container = player.getComponent("inventory").container;
 
-            let totalItems = [];
+            const totalItems = [];
             for (let i = 0; i < container.size; i++) {
                 if(container.getItem(i)?.nameTag === "§r§l§aRight click to Open the UI") continue;
 
-                let allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
-                let randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
-                let randomItem = Minecraft.MinecraftItemTypes[randomItemName];
+                const allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
+                const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
+                const randomItem = Minecraft.MinecraftItemTypes[randomItemName];
 
                 if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
                     i--;
