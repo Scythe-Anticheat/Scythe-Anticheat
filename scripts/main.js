@@ -256,7 +256,7 @@ World.events.tick.subscribe(({ currentTick }) => {
         }
 
         // InvalidSprint/E = checks if a player is sprinting without actually moving
-        if(config.modules.invalidsprintE.enabled === true && player.velocity.x === 0 && player.velocity.z === 0 && player.hasTag("sprint")) {
+        if(config.modules.invalidsprintE.enabled === true && player.velocity.x === 0 && player.velocity.z === 0 && player.hasTag("sprint") && player.hasTag("ground")) {
             if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("invalidsprint")?.getScore(player.scoreboard) >= 1)
                 flag(player, "InvalidSprint", "E", "Movement", undefined, undefined, true);
         }
