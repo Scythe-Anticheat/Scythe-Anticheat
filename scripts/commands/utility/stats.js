@@ -14,7 +14,7 @@ export function stats(message, args) {
 
     const player = message.sender;
     
-    if(args.length === 0) player.runCommand("function tools/stats");
+    if(args.length === 0) return player.runCommand("function tools/stats");
     
     // try to find the player requested
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
