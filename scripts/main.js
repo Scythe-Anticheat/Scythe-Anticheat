@@ -177,9 +177,8 @@ World.events.tick.subscribe(({ currentTick }) => {
                     anti32k checks. In older versions, this error will also make certian players not get checked
                     leading to a Scythe Semi-Gametest Disabler method.
                 */
-                let itemId;
-                if(item.id === "minecraft:written_book") itemId = "minecraft:book";
-                    else itemId = item.id;
+                let itemId = item.id;
+                if(typeof Minecraft.ItemTypes.get(itemId) === "undefined") itemId = "minecraft:book";
 
                 const item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(itemId), 1, item.data);
                 const item2Enchants = item2.getComponent("enchantments").enchantments;
