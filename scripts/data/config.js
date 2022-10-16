@@ -408,6 +408,11 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVlbeforePunishment": 0
+        },
+        "killauraD": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
         }
     },
     "itemLists": {

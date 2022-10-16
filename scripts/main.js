@@ -429,8 +429,9 @@ World.events.playerJoin.subscribe((playerJoin) => {
     player.removeTag("left");
     player.removeTag("ground");
     player.removeTag("gliding");
-    player.removeTag("sprting");
+    player.removeTag("sprinting");
     player.removeTag("moving");
+    player.removeTag("sleeping");
 
     // load custom nametag
     let foundName;
@@ -575,6 +576,10 @@ World.events.entityHit.subscribe((entityHit) => {
             if(typeof player.cps !== "number") player.cps = 0;
             player.cps++;
         }
+        
+        // Check if the player attacks an entity while sleeping
+        if(config.modules.killauraD.enabled === true && player.hasTag("sleeping"))
+            flag(player, "Killaura", "D", "Combat");
     }
 
     if(typeof block === "object") {
