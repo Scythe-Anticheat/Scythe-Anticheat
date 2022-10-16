@@ -403,6 +403,11 @@ export default
             ],
             "punishment": "none",
             "minVlbeforePunishment": 0
+        },
+        "invalidsprintE": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
         }
     },
     "itemLists": {

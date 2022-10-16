@@ -175,7 +175,7 @@ World.events.tick.subscribe(({ currentTick }) => {
                     doesnt matter, they mistakenly removed 'written_book', which can be obtained normally.
                     Written books will make this code error out, and make any items that havent been check bypass
                     anti32k checks. In older versions, this error will also make certian players not get checked
-                    leading to a Scythe Gametest Disabler method.
+                    leading to a Scythe Semi-Gametest Disabler method.
                 */
                 let itemId;
                 if(item.id === "minecraft:written_book") itemId = "minecraft:book";
@@ -254,6 +254,12 @@ World.events.tick.subscribe(({ currentTick }) => {
         if(config.modules.badpackets4.enabled && player.selectedSlot < 0 || player.selectedSlot > 8) {
             flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
             player.selectedSlot = 0;
+        }
+
+        // InvalidSprint/E = checks if a player is sprinting without actually moving
+        if(config.modules.invalidsprintE.enabled === true && player.velocity.x === 0 && player.velocity.z === 0 && player.hasTag("sprint")) {
+            if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("invalidsprint")?.getScore(player.scoreboard) >= 1)
+                flag(player, "InvalidSprint", "E", "Movement", undefined, undefined, true);
         }
     
         } catch (error) {
@@ -423,6 +429,8 @@ World.events.playerJoin.subscribe((playerJoin) => {
     player.removeTag("left");
     player.removeTag("ground");
     player.removeTag("gliding");
+    player.removeTag("sprting");
+    player.removeTag("moving");
 
     // load custom nametag
     let foundName;
