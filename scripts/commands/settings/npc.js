@@ -8,5 +8,5 @@ export function npc(message) {
 
     const player = message.sender;
 
-    player.runCommand("function settings/npc");
+    player.runCommandAsync("function settings/npc");
 }

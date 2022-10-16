@@ -8,5 +8,5 @@ export function overidecommandblocksenabled(message) {
 
     const player = message.sender;
 
-    player.runCommand("function settings/overideCommandBlocksEnabled");
+    player.runCommandAsync("function settings/overideCommandBlocksEnabled");
 }

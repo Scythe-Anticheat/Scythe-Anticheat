@@ -8,5 +8,5 @@
 
     const player = message.sender;
     
-    player.runCommand("function version");
+    player.runCommandAsync("function version");
 }

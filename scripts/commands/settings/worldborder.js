@@ -8,5 +8,5 @@ export function worldborder(message) {
 
     const player = message.sender;
 
-    player.runCommand("function settings/worldborder");
+    player.runCommandAsync("function settings/worldborder");
 }

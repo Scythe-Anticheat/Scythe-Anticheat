@@ -8,5 +8,5 @@ export function notify(message) {
 
     const player = message.sender;
     
-    player.runCommand("function notify");
+    player.runCommandAsync("function notify");
 }

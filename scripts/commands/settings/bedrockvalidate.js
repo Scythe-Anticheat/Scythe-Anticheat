@@ -8,5 +8,5 @@ export function bedrockvalidate(message) {
 
     const player = message.sender;
     
-    player.runCommand("function settings/bedrockValidate");
+    player.runCommandAsync("function settings/bedrockValidate");
 }

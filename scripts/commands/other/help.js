@@ -8,5 +8,5 @@ export function help(message) {
 
     const player = message.sender;
 
-    player.runCommand("function help");
+    player.runCommandAsync("function help");
 }

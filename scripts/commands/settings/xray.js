@@ -8,5 +8,5 @@ export function xray(message) {
 
     const player = message.sender;
 
-    player.runCommand("function settings/xray");
+    player.runCommandAsync("function settings/xray");
 }

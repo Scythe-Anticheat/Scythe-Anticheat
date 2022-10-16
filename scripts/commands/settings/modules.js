@@ -8,5 +8,5 @@ export function modules(message) {
 
     const player = message.sender;
     
-    player.runCommand("function settings/modules");
+    player.runCommandAsync("function settings/modules");
 }

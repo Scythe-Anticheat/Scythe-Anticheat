@@ -8,5 +8,5 @@ export function credits(message) {
 
     const player = message.sender;
 
-    player.runCommand("function credits");
+    player.runCommandAsync("function credits");
 }

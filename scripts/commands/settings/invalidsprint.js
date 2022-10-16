@@ -8,5 +8,5 @@
 
     const player = message.sender;
     
-    player.runCommand("function settings/invalidsprint");
+    player.runCommandAsync("function settings/invalidsprint");
 }

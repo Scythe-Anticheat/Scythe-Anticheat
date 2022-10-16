@@ -8,5 +8,5 @@
 
     const player = message.sender;
     
-    player.runCommand("function settings/autoban");
+    player.runCommandAsync("function settings/autoban");
 }

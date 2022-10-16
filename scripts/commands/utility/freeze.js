@@ -24,5 +24,5 @@ export function freeze(message, args) {
     
     if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
 
-    member.runCommand("function tools/freeze");
+    member.runCommandAsync("function tools/freeze");
 }

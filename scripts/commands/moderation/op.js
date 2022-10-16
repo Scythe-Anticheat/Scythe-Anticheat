@@ -26,5 +26,5 @@ export function op(message, args) {
 
     if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r This player already has scythe-op status.");
 
-    member.runCommand("function op");
+    member.runCommandAsync("function op");
 }

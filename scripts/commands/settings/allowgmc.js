@@ -8,5 +8,5 @@ export function allowgmc(message) {
 
     const player = message.sender;
     
-    player.runCommand("function settings/allowGMC");
+    player.runCommandAsync("function settings/allowGMC");
 }

@@ -8,5 +8,5 @@ export function removecommandblocks(message) {
 
     const player = message.sender;
     
-    player.runCommand("function settings/removeCommandBlocks");
+    player.runCommandAsync("function settings/removeCommandBlocks");
 }

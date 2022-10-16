@@ -27,5 +27,5 @@ export function resetwarns(message, args) {
 
     player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has reset ${member.nameTag}'s warns."}]}`);
 
-    member.runCommand("function tools/resetwarns");
+    member.runCommandAsync("function tools/resetwarns");
 }

@@ -36,5 +36,5 @@ export function unmute(message, args) {
         console.warn(`${new Date()} | ` + error);
         return player.tell("§r§6[§aScythe§6]§r I was unable to unmute that player.");
     }
-    player.runCommand(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has unmuted ${member.nameTag}. Reason: ${reason}"}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has unmuted ${member.nameTag}. Reason: ${reason}"}]}`);
 }

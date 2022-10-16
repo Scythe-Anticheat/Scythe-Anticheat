@@ -237,7 +237,7 @@ World.events.tick.subscribe(({ currentTick }) => {
             // autoclicker/A = checks for high cps
             if(player.cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", "CPS", player.cps);
 
-            // player.runCommand(`say ${player.cps}, ${player.lastCPS}. ${player.cps - player.lastCPS}`);
+            // player.runCommandAsync(`say ${player.cps}, ${player.lastCPS}. ${player.cps - player.lastCPS}`);
 
             // autoclicker/B = checks if cps is similar to last cps (WIP)
             /*
@@ -416,10 +416,8 @@ World.events.playerJoin.subscribe((playerJoin) => {
     player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "");
 
     if(data.loaded === false) {
-        try {
-            player.runCommand("scoreboard players set scythe:config gametestapi 1");
-            data.loaded = true;
-        } catch {}
+        player.runCommandAsync("scoreboard players set scythe:config gametestapi 1");
+        data.loaded = true;
     }
 
     // remove tags

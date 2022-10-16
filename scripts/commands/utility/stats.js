@@ -14,7 +14,7 @@ export function stats(message, args) {
 
     const player = message.sender;
     
-    if(args.length === 0) return player.runCommand("function tools/stats");
+    if(args.length === 0) return player.runCommandAsync("function tools/stats");
     
     // try to find the player requested
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
@@ -24,5 +24,5 @@ export function stats(message, args) {
     
     if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
 
-    member.runCommand("function tools/stats");
+    member.runCommandAsync("function tools/stats");
 }

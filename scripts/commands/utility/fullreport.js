@@ -8,5 +8,5 @@ export function fullreport(message) {
 
     const player = message.sender;
     
-    player.runCommand(`execute @a ~~~ function tools/stats`);
+    player.runCommandAsync(`execute @a ~~~ function tools/stats`);
 }

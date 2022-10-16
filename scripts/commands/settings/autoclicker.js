@@ -12,5 +12,5 @@ export function autoclicker(message) {
     
     data.checkedModules.autoclicker = false;
 
-    player.runCommand("function settings/autoclicker");
+    player.runCommandAsync("function settings/autoclicker");
 }

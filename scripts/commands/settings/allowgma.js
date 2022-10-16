@@ -8,5 +8,5 @@ export function allowgma(message) {
 
     const player = message.sender;
     
-    player.runCommand("function settings/allowGMA");
+    player.runCommandAsync("function settings/allowGMA");
 }

@@ -8,5 +8,5 @@ export function allowgms(message) {
 
     const player = message.sender;
     
-    player.runCommand("function settings/allowGMS");
+    player.runCommandAsync("function settings/allowGMS");
 }
