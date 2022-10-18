@@ -106,6 +106,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add dead",
+						"/tag @s remove right",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aDEATH§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
