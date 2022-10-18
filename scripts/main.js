@@ -1,4 +1,4 @@
-import * as Minecraft from "mojang-minecraft";
+import * as Minecraft from "@minecraft/server";
 import { flag, banMessage, getClosestPlayer } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
@@ -55,7 +55,9 @@ World.events.beforeChat.subscribe(msg => {
     }
 });
 
-World.events.tick.subscribe(({ currentTick }) => {
+function checkPlayer() {
+Minecraft.system.run(({ currentTick }) => {
+    console.warn(currentTick);
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
     // run as each player
@@ -116,12 +118,12 @@ World.events.tick.subscribe(({ currentTick }) => {
 
         if(config.modules.bedrockValidate.enabled === true) {
             if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("bedrock")?.getScore(player.scoreboard) >= 1) {
-                if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
+                if(config.modules.bedrockValidate.overworld && player.dimension.typeId === "minecraft:overworld") {
                     player.runCommandAsync("fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock");
                     player.runCommandAsync("fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock");
                 }
 
-                if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
+                if(config.modules.bedrockValidate.nether && player.dimension.typeId === "minecraft:nether") { 
                     player.runCommandAsync("fill ~-5 0 ~-5 ~5 0 ~5 bedrock");
                     player.runCommandAsync("fill ~-5 127 ~-5 ~5 127 ~5 bedrock");
                     player.runCommandAsync("fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock");
@@ -150,12 +152,12 @@ World.events.tick.subscribe(({ currentTick }) => {
                 flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
                 
             // Illegalitems/D = additional item clearing check
-            if(config.modules.illegalitemsD.enabled && config.itemLists.items_very_illegal.includes(item.id))
-                flag(player, "IllegalItems", "D", "Exploit", "item", item.id, false, false, i);
+            if(config.modules.illegalitemsD.enabled && config.itemLists.items_very_illegal.includes(item.typeId))
+                flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, false, false, i);
 
             // CommandBlockExploit/H = clear items
-            if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.id))
-                flag(player, "CommandBlockExploit", "H", "Exploit", "item", item.id, false, false, i);
+            if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.typeId))
+                flag(player, "CommandBlockExploit", "H", "Exploit", "item", item.typeId, false, false, i);
                 
             // Illegalitems/F = Checks if an item has a name longer then 32 characters
             if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
@@ -177,7 +179,7 @@ World.events.tick.subscribe(({ currentTick }) => {
                     anti32k checks. In older versions, this error will also make certian players not get checked
                     leading to a Scythe Semi-Gametest Disabler method.
                 */
-                let itemId = item.id;
+                let itemId = item.typeId;
                 if(typeof Minecraft.ItemTypes.get(itemId) === "undefined") itemId = "minecraft:book";
 
                 const item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(itemId), 1, item.data);
@@ -189,26 +191,26 @@ World.events.tick.subscribe(({ currentTick }) => {
                     if(typeof enchantData === "object") {
                         // badenchants/A = checks for items with invalid enchantment levels
 						if(config.modules.badenchantsA.enabled === true) {
-							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
+							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.typeId];
 							if(typeof maxLevel === "number") {
-								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
 							} else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
-                               flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                               flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
 						}
 						
                         // badenchants/B = checks for negative enchantment levels
                         if(config.modules.badenchantsB.enabled && enchantData.level <= 0) 
-                            flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                            flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
 
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
                         if(config.modules.badenchantsC.enabled) {
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
-                                flag(player, "BadEnchants", "C", "Exploit", "item", `${item.id},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                                flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
                             }
                         }
 
                         if(config.modules.badenchantsC.enabled) {
-                            item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
+                            item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.typeId], 1));
                             item2.getComponent("enchantments").enchantments = item2Enchants;
                         }
                     }
@@ -225,7 +227,7 @@ World.events.tick.subscribe(({ currentTick }) => {
             const pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 2, player.location.z + 2);
             const pos2 = new Minecraft.BlockLocation(player.location.x - 2, player.location.y - 1, player.location.z - 2);
 
-            const isNotInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).id !== "minecraft:air");
+            const isNotInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).typeId !== "minecraft:air");
 
             if(isNotInAir === false) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
                 else if(config.debug === true) console.warn(`${new Date()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
@@ -259,16 +261,20 @@ World.events.tick.subscribe(({ currentTick }) => {
             console.warn(error, error.stack);
         }
     }
+    checkPlayer();
 });
+}
+
+checkPlayer();
 
 World.events.blockPlace.subscribe((blockPlace) => {
     const block = blockPlace.block;
     const player = blockPlace.player;
 
-    if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.id}.`);
+    if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.typeId}.`);
 
     // IllegalItems/H = checks for pistons that can break any block
-    if(config.modules.illegalitemsH.enabled === true && block.id === "minecraft:piston" || block.id === "minecraft:sticky_piston") {
+    if(config.modules.illegalitemsH.enabled === true && block.typeId === "minecraft:piston" || block.typeId === "minecraft:sticky_piston") {
         const piston = block.getComponent("piston");
     
         if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpanding || piston.isExpanded) {
@@ -277,7 +283,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
         }
     }
 
-    if(config.modules.illegalitemsI.enabled === true && config.modules.illegalitemsI.container_blocks.includes(block.id)) {
+    if(config.modules.illegalitemsI.enabled === true && config.modules.illegalitemsI.container_blocks.includes(block.typeId)) {
         const blockInventory = block.getComponent("inventory").container;
 
         let startNumber = 0;
@@ -294,7 +300,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
         }
 
         if(didFindItems === true) {
-            flag(player, "IllegalItems", "I", "Exploit", "containerBlock", block.id, false, undefined, player.selectedSlot);
+            flag(player, "IllegalItems", "I", "Exploit", "containerBlock", block.typeId, false, undefined, player.selectedSlot);
             block.setType(Minecraft.MinecraftBlockTypes.air);
         }
     }
@@ -305,7 +311,7 @@ World.events.blockBreak.subscribe((blockBreak) => {
     const dimension = blockBreak.dimension;
     const block = blockBreak.block;
 
-    if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${blockBreak.brokenBlockPermutation.type.id}`);
+    if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${blockBreak.brokenBlockPermutation.type.typeId}`);
 
     // nuker/a = checks if a player breaks more than 3 blocks in a tick
     if(config.modules.nukerA.enabled) {
@@ -330,8 +336,8 @@ World.events.blockBreak.subscribe((blockBreak) => {
 
     // liquidinteract/a = checks if a player breaks a liquid source block
     if(config.modules.liquidinteractA.enabled) {
-        if(config.modules.liquidinteractA.liquids.includes(blockBreak.brokenBlockPermutation.type.id)) {
-            flag(player, "LiquidInteract", "A", "Misc", "block", blockBreak.brokenBlockPermutation.type.id);
+        if(config.modules.liquidinteractA.liquids.includes(blockBreak.brokenBlockPermutation.type.typeId)) {
+            flag(player, "LiquidInteract", "A", "Misc", "block", blockBreak.brokenBlockPermutation.type.typeId);
             block.setPermutation(blockBreak.brokenBlockPermutation);
         }
     }
@@ -351,8 +357,8 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
     const item = beforeItemUseOn.item;
 
     // commandblockexploit/f = cancels the placement of cbe items
-    if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(item.id)) {
-        flag(player, "CommandBlockExploit","F", "Exploit", "block", item.id, false, false, player.selectedSlot);
+    if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(item.typeId)) {
+        flag(player, "CommandBlockExploit","F", "Exploit", "block", item.typeId, false, false, player.selectedSlot);
         beforeItemUseOn.cancel = true;
     }
 
@@ -364,39 +370,39 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
     if(config.modules.illegalitemsE.enabled) {
         // items that are obtainble using commands
         if(player.hasTag("op") === false) {
-            if(config.itemLists.items_semi_illegal.includes(item.id)) {
+            if(config.itemLists.items_semi_illegal.includes(item.typeId)) {
                 // dont affect gmc players
                 try {
                     player.runCommand("testfor @s[m=!c]");
-                    flag(player, "IllegalItems", "E", "Exploit", "block", item.id, false, false, player.selectedSlot);
+                    flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, false, false, player.selectedSlot);
                     beforeItemUseOn.cancel = true;
                 } catch {}
             }
 
             // patch element blocks
-            if(config.itemLists.elements && item.id.startsWith("minecraft:element_")) {
+            if(config.itemLists.elements && item.typeId.startsWith("minecraft:element_")) {
                 // dont affect gmc players
                 try {
                     player.runCommand("testfor @s[m=!c]");
-                    flag(player.source, "IllegalItems", "E", "Exploit", "block", item.id, false, false, player.selectedSlot);
+                    flag(player.source, "IllegalItems", "E", "Exploit", "block", item.typeId, false, false, player.selectedSlot);
                     beforeItemUseOn.cancel = true;
                 } catch {}
             }
             
             // patch spawn eggs
-            if(config.itemLists.spawnEggs && item.id.endsWith("_spawn_egg")) {
+            if(config.itemLists.spawnEggs && item.typeId.endsWith("_spawn_egg")) {
                 // dont affect gmc players
                 try {
                     player.runCommand("testfor @s[m=!c]");
-                    flag(player, "IllegalItems", "E", "Exploit", "block", item.id, false, false, player.selectedSlot);
+                    flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, false, false, player.selectedSlot);
                     beforeItemUseOn.cancel = true;
                 } catch {}
             }
         }
     
         // items that cannot be obtained normally
-        if(config.itemLists.items_very_illegal.includes(item.id)) {
-            flag(player, "IllegalItems", "E", "Exploit", "item", item.id, false, false, player.selectedSlot);
+        if(config.itemLists.items_very_illegal.includes(item.typeId)) {
+            flag(player, "IllegalItems", "E", "Exploit", "item", item.typeId, false, false, player.selectedSlot);
             beforeItemUseOn.cancel = true;
         }
     }
@@ -477,30 +483,33 @@ World.events.entityCreate.subscribe((entityCreate) => {
         data.entitiesSpawnedInLastTick++;
 
         if(data.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
-            if(config.debug === true) console.warn(`Killed "${entity.id}" due to item spawn ratelimit reached.`);
+            if(config.debug === true) console.warn(`Killed "${entity.typeId}" due to item spawn ratelimit reached.`);
             entity.kill();
         }
     }
     if(config.modules.commandblockexploitG.enabled) {
-        if(config.modules.commandblockexploitG.entities.includes(entity.id.toLowerCase())) {
-            flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.id);
+        if(config.modules.commandblockexploitG.entities.includes(entity.typeId.toLowerCase())) {
+            flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
             entity.kill();
         }
 
-        if(config.modules.commandblockexploitG.npc && entity.id === "minecraft:npc") {
+        if(config.modules.commandblockexploitG.npc && entity.typeId === "minecraft:npc") {
             try {
                 entity.runCommand("scoreboard players operation @s npc = scythe:config npc");
                 entity.runCommand("testfor @s[scores={npc=1..}]");
-                flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.id);
+                flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
                 entity.kill();
             } catch {}
         }
     }
-    if(config.modules.crasherB.enabled && entity.id === "minecraft:item") {
+
+    // Although the crash method this detects has been patched, we can keep it here just to screw other
+    // people who dont know it got patched
+    if(config.modules.crasherB.enabled && entity.typeId === "minecraft:item") {
         const itemData = entity.getComponent("item").itemStack;
 
-        if(itemData.id === "minecraft:arrow" && itemData.data > 43) {
-            flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${itemData.id},data=${itemData.data}`);
+        if(itemData.typeId === "minecraft:arrow" && itemData.data > 43) {
+            flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${itemData.typeId},data=${itemData.data}`);
             entity.kill();
         }
     }
@@ -511,15 +520,13 @@ World.events.entityHit.subscribe((entityHit) => {
     const block = entityHit.hitBlock;
     const player = entityHit.entity;
 
-    if(player.id !== "minecraft:player") return;
+    if(player.typeId !== "minecraft:player") return;
 
     if(typeof entity === "object") {
-        const entityHitName = entity.nameTag || entity.id;
-        
         // killaura/C = checks for multi-aura
         if(config.modules.killauraC.enabled) {
-            if(!player.entitiesHit.includes(entityHitName)) {
-                player.entitiesHit.push(entityHitName);
+            if(!player.entitiesHit.includes(entity.id)) {
+                player.entitiesHit.push(entity.id);
                 if(player.entitiesHit.length >= config.modules.killauraC.entities) {
                     flag(player, "KillAura", "C", "Combat", "entitiesHit", player.entitiesHit.length);
                 }
@@ -530,13 +537,13 @@ World.events.entityHit.subscribe((entityHit) => {
         if(config.modules.reachA.enabled) {
             // get the difference between 2 three dimensional coordinates
             const distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
-            if(config.debug === true) console.warn(`${player.name} attacked ${entityHitName} with a distance of ${distance}`);
+            if(config.debug === true) console.warn(`${player.name} attacked ${entity.nameTag || entity.typeId} with a distance of ${distance}`);
 
-            if(distance > config.modules.reachA.reach && entity.id.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.id)) {
+            if(distance > config.modules.reachA.reach && entity.typeId.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.typeId)) {
                 // we ignore gmc players as they get increased reach
                 try {
                     player.runCommand("testfor @s[m=!c]");
-                    flag(player, "Reach", "A", "Combat", "entity", `${entity.id},distance=${distance}`);
+                    flag(player, "Reach", "A", "Combat", "entity", `${entity.typeId},distance=${distance}`);
                 } catch {}
             }
         }
@@ -549,7 +556,7 @@ World.events.entityHit.subscribe((entityHit) => {
         const container = player.getComponent("inventory").container;
 
         const item = container.getItem(player.selectedSlot);
-        if(config.customcommands.gui.enabled && entity.id === "minecraft:player" && item?.id === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
+        if(config.customcommands.gui.enabled && entity.typeId === "minecraft:player" && item?.typeId === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
             playerSettingsMenuSelected(player, entity);
         }
 
@@ -581,6 +588,8 @@ World.events.entityHit.subscribe((entityHit) => {
             player.startBreakTime = Date.now();
         }
     }
+
+    console.warn(player.getTags());
 });
 
 World.events.beforeItemUse.subscribe((beforeItemUse) => {
@@ -588,13 +597,13 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     const player = beforeItemUse.source;
 
     // GUI stuff
-    if(config.customcommands.gui.enabled && item.id === "minecraft:wooden_axe" && item.nameTag === "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
+    if(config.customcommands.gui.enabled && item.typeId === "minecraft:wooden_axe" && item.nameTag === "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
         mainGui(player);
         beforeItemUse.cancel = true;
     }
 
     // patch a bypass for the freeze system
-    if(item.id === "minecraft:milk_bucket" && player.hasTag("freeze"))
+    if(item.typeId === "minecraft:milk_bucket" && player.hasTag("freeze"))
         beforeItemUse.cancel = true;
 });
 

@@ -1,5 +1,5 @@
-import * as Minecraft from "mojang-minecraft";
-import * as MinecraftUI from "mojang-minecraft-ui";
+import * as Minecraft from "@minecraft/server";
+import * as MinecraftUI from "@minecraft/server-ui";
 
 import config from "../data/config.js";
 import { parseTime } from "../util.js";
@@ -214,7 +214,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     const playerSettingsMenuSelected = new MinecraftUI.ActionFormData()
         .title("Player Menu - " + player.name)
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("frozen")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
+        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.typeId).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("frozen")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
         .button("Clear EnderChest", "textures/blocks/ender_chest_front.png")
         .button("Kick Player", "textures/ui/anvil_icon.png");
 
@@ -393,11 +393,11 @@ function debugSettingsMenu(player) {
                 const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
                 const randomItem = Minecraft.MinecraftItemTypes[randomItemName];
 
-                if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
+                if(totalItems.includes(randomItem.typeId) || config.itemLists.cbe_items.includes(randomItem.typeId) || config.itemLists.items_semi_illegal.includes(randomItem.typeId) || config.itemLists.items_very_illegal.includes(randomItem.typeId) || randomItemName.includes("element")) {
                     i--;
                     continue;
                 }
-                totalItems.push(randomItem.id);
+                totalItems.push(randomItem.typeId);
 
                 container.setItem(i, new Minecraft.ItemStack(randomItem, 1, 0));
             }
