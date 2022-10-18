@@ -57,7 +57,6 @@ World.events.beforeChat.subscribe(msg => {
 
 function checkPlayer() {
 Minecraft.system.run(({ currentTick }) => {
-    console.warn(currentTick);
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
     // run as each player
@@ -210,7 +209,7 @@ Minecraft.system.run(({ currentTick }) => {
                         }
 
                         if(config.modules.badenchantsC.enabled) {
-                            item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.typeId], 1));
+                            item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
                             item2.getComponent("enchantments").enchantments = item2Enchants;
                         }
                     }
