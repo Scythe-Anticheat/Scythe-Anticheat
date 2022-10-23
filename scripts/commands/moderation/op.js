@@ -22,9 +22,9 @@ export function op(message, args) {
         break;
     }
     
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player.");
+    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-    if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r This player already has scythe-op status.");
+    if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r This player already has scythe-op.");
 
     member.runCommandAsync("function op");
 }
