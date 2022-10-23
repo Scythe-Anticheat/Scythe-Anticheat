@@ -603,5 +603,5 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
     // and causing the server to crash
     beforeWatchdogTerminate.cancel = true;
 
-    console.warn(`${new Date()} | A Watchdog Exception has been detected and has been canceled successfully. Reason: ${beforeWatchdogTerminate.terminateReason}`);
+    console.warn(`${new Date()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${beforeWatchdogTerminate.terminateReason}`);
 });
