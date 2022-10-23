@@ -1,7 +1,7 @@
 execute @s[type=player,tag=!op] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"'s warns has been reset."}]}
 tellraw @s[tag=op] {"rawtext":[{"text":"To reset someone's warns please use this command \"/execute [playername] ~~~ function tools/resetwarns\""}]}
 
-execute @s[type=!player] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r §cA non player tried to use the resetwarns command. §7("},{"selector":"@s"},{"text":")"}]}
+execute @s[type=!player] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r §cA player tried to use the resetwarns command. §7("},{"selector":"@s"},{"text":")"}]}
 
 scoreboard players set @s[type=player,tag=!op,scores={autoclickervl=1..}] autoclickervl 0
 scoreboard players set @s[type=player,tag=!op,scores={autoshieldvl=1..}] autoshieldvl 0
