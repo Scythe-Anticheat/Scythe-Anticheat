@@ -22,5 +22,5 @@ export function unban(message, args) {
 
     data.unbanQueue.push(member.toLowerCase());
     
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has added ${member} into the unban queue. Reason: ${reason}"}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has added ${member} to the unban queue. Reason: ${reason}"}]}`);
 }
