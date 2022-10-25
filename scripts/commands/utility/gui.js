@@ -1,4 +1,4 @@
-import * as Minecraft from "mojang-minecraft";
+import * as Minecraft from "@minecraft/server";
 
 /**
  * @name gui
@@ -16,7 +16,7 @@ import * as Minecraft from "mojang-minecraft";
     // make sure they dont have the UI item in their current slot
     const currentItem = container.getItem(player.selectedSlot);
 
-    if(currentItem?.id === "minecraft:wooden_axe" && currentItem?.nameTag === "§r§l§aRight click to Open the UI")
+    if(currentItem?.typeId === "minecraft:wooden_axe" && currentItem?.nameTag === "§r§l§aRight click to Open the UI")
         return player.tell("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 
     // creating the item that opens the UI
