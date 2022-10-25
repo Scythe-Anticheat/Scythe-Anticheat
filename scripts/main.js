@@ -194,7 +194,7 @@ Minecraft.system.run(({ currentTick }) => {
 							if(typeof maxLevel === "number") {
 								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
 							} else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
-                               flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
+                               flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 						}
 						
                         // badenchants/B = checks for negative enchantment levels
