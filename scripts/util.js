@@ -75,8 +75,10 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
     if(punishment === "none" || punishment === "") return;
 
-    const currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
+    let currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
     const punishmentLength = checkData.punishmentLength?.toLowerCase();
+
+    if(check === "CommandBlockExploit") currrentVL = World.scoreboard.getObjective(`cbevl`)?.getScore(player.scoreboard);
 
     if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
