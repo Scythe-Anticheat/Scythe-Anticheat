@@ -49,10 +49,10 @@ export default
             "enabled": true,
             "requiredTags": ["op"]
         },
-        "overidecommandblocksenabled": {
+        "overridecommandblocksenabled": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["overidecbe"]
+            "aliases": ["overidecbe","overidecommandblocksenabled"]
         },
         "removecommandblocks": {
             "enabled": true,

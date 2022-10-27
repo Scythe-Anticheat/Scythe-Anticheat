@@ -1,4 +1,4 @@
-import * as Minecraft from "mojang-minecraft";
+import * as Minecraft from "@minecraft/server";
 import { parseTime } from "../../util.js";
 
 const World = Minecraft.world;

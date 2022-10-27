@@ -1,4 +1,4 @@
-import * as Minecraft from "mojang-minecraft";
+import * as Minecraft from "@minecraft/server";
 
 const World = Minecraft.world;
 
@@ -32,6 +32,6 @@ export function invsee(message, args) {
         const item = container.getItem(i);
         if(typeof item === "undefined") continue;
 
-        player.tell(`§r§6[§aScythe§6]§r Slot ${i}: ${item.id}:${item.data} x${item.amount}`);
+        player.tell(`§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId}:${item.data} x${item.amount}`);
     }
 }

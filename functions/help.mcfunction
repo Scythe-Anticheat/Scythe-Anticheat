@@ -37,8 +37,8 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!allowgmc§r - Enab
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!allowgms§r - Enables/disables gamemode 0 (Survival) to be used."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!removecommandblocks§r - Enables/disables clearing nearby command blocks."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!bedrockvalidate§r - Enables/disables validation of bedrock (Such as in the nether roof or at y=0)."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overidecommandblocksenabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/disables killing all NPCs."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overridecommandblocksenabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/disables killing all NPC's."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!xray§r - Enables/disables the anti-xray check."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables anti-autoclicker."}]}
