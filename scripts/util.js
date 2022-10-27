@@ -71,14 +71,18 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(checkData.enabled === false) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 
     // punishment stuff
-    const punishment = checkData.punishment.toLowerCase();
+    const punishment = checkData.punishment?.toLowerCase();
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
     if(punishment === "none" || punishment === "") return;
 
-    let currentVL = World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
+    let currentVL;
+    try {
+        if(check === "CommandBlockExploit") currentVL = World.scoreboard.getObjective(`cbevl`)?.getScore(player.scoreboard);
+              else World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
+} catch {
+        currentVL = 1;
+    }
     const punishmentLength = checkData.punishmentLength?.toLowerCase();
-
-    if(check === "CommandBlockExploit") currentVL = World.scoreboard.getObjective(`cbevl`)?.getScore(player.scoreboard);
 
     if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
