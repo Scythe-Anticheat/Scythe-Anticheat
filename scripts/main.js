@@ -264,8 +264,6 @@ Minecraft.system.run(({ currentTick }) => {
 });
 }
 
-checkPlayer();
-
 World.events.blockPlace.subscribe((blockPlace) => {
     const block = blockPlace.block;
     const player = blockPlace.player;
@@ -613,3 +611,5 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
 
     console.warn(`${new Date()} | A Watchdog Exception has been detected and has been cancelled sucessfully. Reason: ${beforeWatchdogTerminate.terminateReason}`);
 });
+
+checkPlayer();
