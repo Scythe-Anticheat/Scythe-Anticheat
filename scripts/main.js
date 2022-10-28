@@ -24,23 +24,23 @@ World.events.beforeChat.subscribe(msg => {
     }
 
     // BadPackets/2 = chat message length check
-    if(config.modules.badpackets2.enabled === true && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, false, msg);
+    if(config.modules.badpackets2.enabled === true && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
 
     // Spammer/A = checks if someone sends a message while moving and on ground
     if(config.modules.spammerA.enabled === true && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
-        flag(player, "Spammer", "A", "Movement", false, false, true, msg);
+        flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
 
     // Spammer/B = checks if someone sends a message while swinging their hand
     if(config.modules.spammerB.enabled === true && player.hasTag('left') && !player.getEffect(Minecraft.MinecraftEffectTypes.miningFatigue))
-        flag(player, "Spammer", "B", "Combat", false, false, false, msg);
+        flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
 
     // Spammer/C = checks if someone sends a message while using an item
     if(config.modules.spammerC.enabled === true && player.hasTag('right'))
-        flag(player, "Spammer", "C", "Misc", false, false, false, msg);
+        flag(player, "Spammer", "C", "Misc", undefined, undefined, undefined, msg);
 
     // Spammer/D = checks if someone sends a message while having a GUI open
     if(config.modules.spammerD.enabled === true && player.hasTag('hasGUIopen'))
-        flag(player, "Spammer", "D", "Misc", false, false, false, msg);
+        flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
 
     commandHandler(player, msg);
 
@@ -148,24 +148,24 @@ Minecraft.system.run(({ currentTick }) => {
 
             // Illegalitems/C = item stacked over 64 check
             if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
-                flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, false, false, i);
+                flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, undefined, undefined, i);
                 
             // Illegalitems/D = additional item clearing check
             if(config.modules.illegalitemsD.enabled && config.itemLists.items_very_illegal.includes(item.typeId))
-                flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, false, false, i);
+                flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, undefined, undefined, i);
 
             // CommandBlockExploit/H = clear items
             if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.typeId))
-                flag(player, "CommandBlockExploit", "H", "Exploit", "item", item.typeId, false, false, i);
+                flag(player, "CommandBlockExploit", "H", "Exploit", "item", item.typeId, undefined, undefined, i);
                 
             // Illegalitems/F = Checks if an item has a name longer then 32 characters
             if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
-                flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, false, false, i);
+                flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, undefined, undefined, i);
 
             // BadEnchants/D = checks if an item has a lore
             if(config.modules.badenchantsD.enabled && item.getLore().length) {
                 if(!config.modules.badenchantsD.exclusions.includes(String(item.getLore())))
-                    flag(player, "BadEnchants", "D", "Exploit", "lore", String(item.getLore()), false, false, i);
+                    flag(player, "BadEnchants", "D", "Exploit", "lore", String(item.getLore()), undefined, undefined, i);
             }
 
             if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && currentTick % 2) {
@@ -192,19 +192,19 @@ Minecraft.system.run(({ currentTick }) => {
                         if(config.modules.badenchantsA.enabled === true) {
                             const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
                             if(typeof maxLevel === "number") {
-                                if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                                if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
                             } else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
-                                flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                                flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
                         }
 						
                         // badenchants/B = checks for negative enchantment levels
                         if(config.modules.badenchantsB.enabled && enchantData.level <= 0) 
-                            flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                            flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
 
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
                         if(config.modules.badenchantsC.enabled) {
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
-                                flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                                flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
                             }
                         }
 
@@ -219,7 +219,7 @@ Minecraft.system.run(({ currentTick }) => {
 
         // invalidsprint/a = checks for sprinting with the blindness effect
         if(config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint'))
-            flag(player, "InvalidSprint", "A", "Movement", false, false, true);
+            flag(player, "InvalidSprint", "A", "Movement", undefined, undefined, true);
 
         // fly/a
         if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
@@ -298,7 +298,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
         }
 
         if(didFindItems === true) {
-            flag(player, "IllegalItems", "I", "Exploit", "containerBlock", block.typeId, false, undefined, player.selectedSlot);
+            flag(player, "IllegalItems", "I", "Exploit", "containerBlock", block.typeId, undefined, undefined, player.selectedSlot);
             block.setType(Minecraft.MinecraftBlockTypes.air);
         }
     }
@@ -356,7 +356,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 
     // commandblockexploit/f = cancels the placement of cbe items
     if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(item.typeId)) {
-        flag(player, "CommandBlockExploit","F", "Exploit", "block", item.typeId, false, false, player.selectedSlot);
+        flag(player, "CommandBlockExploit","F", "Exploit", "block", item.typeId, undefined, undefined, player.selectedSlot);
         beforeItemUseOn.cancel = true;
     }
 
@@ -372,7 +372,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
                 // dont affect gmc players
                 try {
                     player.runCommand("testfor @s[m=!c]");
-                    flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, false, false, player.selectedSlot);
+                    flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, undefined, undefined, player.selectedSlot);
                     beforeItemUseOn.cancel = true;
                 } catch {}
             }
@@ -382,7 +382,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
                 // dont affect gmc players
                 try {
                     player.runCommand("testfor @s[m=!c]");
-                    flag(player.source, "IllegalItems", "E", "Exploit", "block", item.typeId, false, false, player.selectedSlot);
+                    flag(player.source, "IllegalItems", "E", "Exploit", "block", item.typeId, undefined, undefined, player.selectedSlot);
                     beforeItemUseOn.cancel = true;
                 } catch {}
             }
@@ -392,7 +392,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
                 // dont affect gmc players
                 try {
                     player.runCommand("testfor @s[m=!c]");
-                    flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, false, false, player.selectedSlot);
+                    flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, undefined, undefined, player.selectedSlot);
                     beforeItemUseOn.cancel = true;
                 } catch {}
             }
@@ -400,7 +400,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
     
         // items that cannot be obtained normally
         if(config.itemLists.items_very_illegal.includes(item.typeId)) {
-            flag(player, "IllegalItems", "E", "Exploit", "item", item.typeId, false, false, player.selectedSlot);
+            flag(player, "IllegalItems", "E", "Exploit", "item", item.typeId, undefined, undefined, player.selectedSlot);
             beforeItemUseOn.cancel = true;
         }
     }
