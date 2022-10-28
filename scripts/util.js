@@ -65,8 +65,11 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 		} catch {}
 	}
 
+
     const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
     if(typeof checkData !== "object") throw Error(`No valid check data found for ${check}/${checkType}.`);
+
+    console.warn(check, checkData.punishment);
 
     if(checkData.enabled === false) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 

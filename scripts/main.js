@@ -258,6 +258,7 @@ Minecraft.system.run(({ currentTick }) => {
     
         } catch (error) {
             console.warn(error, error.stack);
+            if(player.hasTag("errorlogger")) player.tell(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
         }
     }
     checkPlayer();
@@ -470,7 +471,7 @@ World.events.playerJoin.subscribe((playerJoin) => {
     if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
 
     // check if the player is in the global ban list
-    if(banList.includes(player.name.toLowerCase()) || banList.includes(player.oldName.toLowerCase())) player.isGlobalBanned = true;
+    if(banList.includes(player.name.toLowerCase()) || banList.includes(player.oldName?.toLowerCase())) player.isGlobalBanned = true;
 });
 
 World.events.entityCreate.subscribe((entityCreate) => {
