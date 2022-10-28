@@ -1,6 +1,6 @@
 # sometimes the gametestapi scoreboard value doesnt apply correctly so we apply it again
+scoreboard players add scythe:config gametestapi 0
 scoreboard players operation @s gametestapi = scythe:config gametestapi
-scoreboard players add @s gametestapi 0
 
 tellraw @s {"rawtext":[{"text":"\n§l§aScythe AntiCheat Command Help"}]}
 

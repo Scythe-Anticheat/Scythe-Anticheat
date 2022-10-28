@@ -189,13 +189,13 @@ Minecraft.system.run(({ currentTick }) => {
         
                     if(typeof enchantData === "object") {
                         // badenchants/A = checks for items with invalid enchantment levels
-						if(config.modules.badenchantsA.enabled === true) {
-							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
-							if(typeof maxLevel === "number") {
-								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
-							} else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
-                               flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
-						}
+                        if(config.modules.badenchantsA.enabled === true) {
+                            const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
+                            if(typeof maxLevel === "number") {
+                                if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                            } else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
+                                flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
+                        }
 						
                         // badenchants/B = checks for negative enchantment levels
                         if(config.modules.badenchantsB.enabled && enchantData.level <= 0) 
