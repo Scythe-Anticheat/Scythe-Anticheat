@@ -443,7 +443,7 @@ World.events.playerJoin.subscribe((playerJoin) => {
     });
 
     if(config.modules.namespoofC.enabled) {
-        if(!foundName) {
+        if(typeof foundName === "undefined") {
             player.addTag(`"name:\n${player.name}`);
         } else if(foundName !== player.name) {
             player.flagNamespoofC = true;
