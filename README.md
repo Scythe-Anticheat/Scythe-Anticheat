@@ -133,7 +133,7 @@ To view a players anticheat logs use: ```/execute <playername> ~~~ function tool
 
 To clear someones ender chest use: ```/execute <playername> ~~~ function tools/ecwipe```
 
-Additionally, there are custom features you can enable like anti-gamemode change to enhance your realm security further, these options can be used by /function settings/<name>
+Additionally, there are custom features you can enable like anti-gamemode change to further enhance your realm security, these options can be used by /function settings/<name>
 
 # FAQ
 
