@@ -10,12 +10,12 @@ const World = Minecraft.world;
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
- * @param {string} debugName - Name for the debug value.
- * @param {string} debug - Debug info.
+ * @param {string | undefined} debugName - Name for the debug value.
+ * @param {string | undefined} debug - Debug info.
  * @param {boolean} shouldTP - Whever to tp the player to itself.
- * @param {Message} message - The message object, used to cancel the message.
- * @param {number} slot - Slot to clear an item out.
- * @example flag(player, "Spammer", "B", "Combat", false, false, false, msg, false);
+ * @param {Message | undefined} message - The message object, used to cancel the message.
+ * @param {number | undefined} slot - Slot to clear an item out.
+ * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg, undefined);
  * @remarks Alerts staff if a player is hacking.
  */
 export function flag(player, check, checkType, hackType, debugName, debug, shouldTP = false, message, slot) {
@@ -24,7 +24,11 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
     if(typeof checkType !== "string") throw TypeError(`Error: checkType is type of ${typeof checkType}. Expected "string"`);
     if(typeof hackType !== "string") throw TypeError(`Error: hackType is type of ${typeof hackType}. Expected "string"`);
+    if(typeof debugName !== "string" && typeof debugName !== "undefined") throw TypeError(`Error: debugName is type of ${typeof debugName}. Expected "string" or "undefined"`);
+    if(typeof debug !== "string" && typeof debug !== "undefined") throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string" or "undefined"`);
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
+    if(typeof message !== "object" && typeof message !== "undefined") throw TypeError(`Error: message is type of ${typeof message}. Expected "object" or "undefined`);
+    if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "nunber" or "undefined`);
 
     if(typeof debug === "string") {
         // remove characters that may break commands
@@ -54,8 +58,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(check !== "CommandBlockExploit") player.runCommandAsync(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
         else player.runCommandAsync("scoreboard players add @s cbevl 1");
 
-    if(debug && check !== "CommandBlockExploit") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
-        else if(debugName && debug) player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
+    if(typeof debug === "string" && check !== "CommandBlockExploit") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
+        else if(typeof debugName === "string") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
         else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
 
     if(typeof slot === "number") {
@@ -76,12 +80,10 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(punishment === "none" || punishment === "") return;
 
     let currentVL;
-    try {
-        if(check === "CommandBlockExploit") currentVL = World.scoreboard.getObjective(`cbevl`)?.getScore(player.scoreboard);
-              else World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
-} catch {
-        currentVL = 1;
-    }
+
+    if(check === "CommandBlockExploit") currentVL = getScore(player, "cbevl", 1);
+        else currentVL = getScore(player, `${check.toLowerCase()}vl`, 1);
+
     const punishmentLength = checkData.punishmentLength?.toLowerCase();
 
     if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
@@ -94,7 +96,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         }
     }
     if(punishment === "ban" && currentVL >= checkData.minVlbeforePunishment) {
-        if(World.scoreboard.getObjective("autoban")?.getScore(player.scoreboard) >= 1) {
+        if(getScore(player, "autoban", 0) >= 1) {
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
                 
             // this removes old ban stuff
@@ -276,4 +278,24 @@ export function msToTime(ms) {
         m: m,
         s: s
     };
+}
+
+/**
+ * @name getScore
+ * @param {Player} player - The player to get the scoreboard value from
+ * @param {string} objective - The player to get the scoreboard value from
+ * @param {number} defaultValue? - Default value to return if unable to get scoreboard score
+ * @example getScore(player, "cbevl", 0)
+ * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
+ * @returns {number} score - The scoreboard objective value
+ */
+export function getScore(player, objective, defaultValue) {
+    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
+    if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
+
+    try {
+       return World.scoreboard.getObjective(objective).getScore(player.scoreboard);
+    } catch {
+        return defaultValue || 0;
+    }
 }

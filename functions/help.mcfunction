@@ -1,6 +1,6 @@
 # sometimes the gametestapi scoreboard value doesnt apply correctly so we apply it again
+scoreboard players add scythe:config gametestapi 0
 scoreboard players operation @s gametestapi = scythe:config gametestapi
-scoreboard players add @s gametestapi 0
 
 tellraw @s {"rawtext":[{"text":"\n§l§aScythe AntiCheat Command Help"}]}
 
@@ -75,9 +75,9 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invsee§r - View a
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/ecwipe§r - Clears a players ender chest."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/fly§r - Enables/disables fly mode in survival."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/freeze§r - Freeze a player and make it so they can't move."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/stats§r - View a specific players anticheat logs."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ tools/vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/fly§r - Enables/disables fly mode in survival."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/freeze§r - Freeze a player and make it so they cant move."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/stats§r - View a specific players anticheat logs."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
 
 tellraw @s {"rawtext":[{"text":"\nNeed extra help? Ask your question in the support server: https://discord.gg/9m9TbgJ973.\n"}]}
