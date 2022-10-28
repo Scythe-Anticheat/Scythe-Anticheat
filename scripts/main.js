@@ -117,12 +117,12 @@ Minecraft.system.run(({ currentTick }) => {
 
         if(config.modules.bedrockValidate.enabled === true) {
             if(getScore(player, "bedrock", 0) >= 1) {
-                if(config.modules.bedrockValidate.overworld && player.dimension.typeId === "minecraft:overworld") {
+                if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
                     player.runCommandAsync("fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock");
                     player.runCommandAsync("fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock");
                 }
 
-                if(config.modules.bedrockValidate.nether && player.dimension.typeId === "minecraft:nether") { 
+                if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
                     player.runCommandAsync("fill ~-5 0 ~-5 ~5 0 ~5 bedrock");
                     player.runCommandAsync("fill ~-5 127 ~-5 ~5 127 ~5 bedrock");
                     player.runCommandAsync("fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock");
@@ -309,7 +309,7 @@ World.events.blockBreak.subscribe((blockBreak) => {
     const dimension = blockBreak.dimension;
     const block = blockBreak.block;
 
-    if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${blockBreak.brokenBlockPermutation.type.typeId}`);
+    if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${blockBreak.brokenBlockPermutation.type.id}`);
 
     // nuker/a = checks if a player breaks more than 3 blocks in a tick
     if(config.modules.nukerA.enabled) {
@@ -334,8 +334,8 @@ World.events.blockBreak.subscribe((blockBreak) => {
 
     // liquidinteract/a = checks if a player breaks a liquid source block
     if(config.modules.liquidinteractA.enabled) {
-        if(config.modules.liquidinteractA.liquids.includes(blockBreak.brokenBlockPermutation.type.typeId)) {
-            flag(player, "LiquidInteract", "A", "Misc", "block", blockBreak.brokenBlockPermutation.type.typeId);
+        if(config.modules.liquidinteractA.liquids.includes(blockBreak.brokenBlockPermutation.type.id)) {
+            flag(player, "LiquidInteract", "A", "Misc", "block", blockBreak.brokenBlockPermutation.type.id);
             block.setPermutation(blockBreak.brokenBlockPermutation);
         }
     }
@@ -501,8 +501,8 @@ World.events.entityCreate.subscribe((entityCreate) => {
         }
     }
 
-    // Although the crash method this detects has been patched, we can keep it here just to screw other
-    // people who dont know it got patched
+    // Although the crash method this detects has been patched with mineraft version 1.19.40, we
+    // can keep it here just to screw other people who dont know it got patched
     if(config.modules.crasherB.enabled && entity.typeId === "minecraft:item") {
         const itemData = entity.getComponent("item").itemStack;
 

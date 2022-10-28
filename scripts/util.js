@@ -95,7 +95,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         }
     }
     if(punishment === "ban" && currentVL >= checkData.minVlbeforePunishment) {
-        if(World.scoreboard.getObjective("autoban")?.getScore(player.scoreboard) >= 1) {
+        if(getScore(player, "autoban", 0) >= 1) {
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
                 
             // this removes old ban stuff
