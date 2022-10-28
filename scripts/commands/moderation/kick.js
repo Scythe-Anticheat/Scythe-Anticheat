@@ -28,7 +28,7 @@ export function kick(message, args) {
         break;
     }
 
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
+    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
 
     // make sure they dont kick themselves
     if(member.name === player.name) return player.tell("§r§6[§aScythe§6]§r You cannot kick yourself.");

@@ -6,7 +6,7 @@ execute @s[tag=noflying] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aS
 
 ability @s[tag=!noflying] mayfly true
 tag @s[tag=!noflying] add flying
-tellraw @s[tag=flying,tag=!noflying] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Fly has been enabled.."}]}
+tellraw @s[tag=flying,tag=!noflying] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Fly has been enabled."}]}
 execute @s[tag=flying,tag=!noflying] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has entered Fly Mode."}]}
 
 tag @s[tag=noflying] remove noflying

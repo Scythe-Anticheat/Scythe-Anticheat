@@ -15,7 +15,7 @@ export function report(message, args) {
     const player = message.sender;
     const reason = args.slice(1).join(" ") || "No reason specified";
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to report!");
+    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to report.");
     
     // try to find the player requested
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
@@ -23,7 +23,7 @@ export function report(message, args) {
         break;
     }
 
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
+    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
 
     // make sure they dont report themselves
     if(member.nameTag === player.nameTag) return player.tell("§r§6[§aScythe§6]§r You cannot report yourself.");
