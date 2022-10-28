@@ -76,12 +76,10 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(punishment === "none" || punishment === "") return;
 
     let currentVL;
-    try {
-        if(check === "CommandBlockExploit") currentVL = World.scoreboard.getObjective(`cbevl`)?.getScore(player.scoreboard);
-              else World.scoreboard.getObjective(`${check.toLowerCase()}vl`)?.getScore(player.scoreboard);
-} catch {
-        currentVL = 1;
-    }
+
+    if(check === "CommandBlockExploit") currentVL = getScore(player, "cbevl", 1);
+        else currentVL = getScore(player, `${check.toLowerCase()}vl`, 1);
+
     const punishmentLength = checkData.punishmentLength?.toLowerCase();
 
     if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
@@ -276,4 +274,24 @@ export function msToTime(ms) {
         m: m,
         s: s
     };
+}
+
+/**
+ * @name getScore
+ * @param {Player} player - The player to get the scoreboard value from
+ * @param {string} objective - The player to get the scoreboard value from
+ * @param {number} defaultValue? - Default value to return if unable to get scoreboard score
+ * @example getScore(player, "cbevl", 0)
+ * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
+ * @returns {number} score - The scoreboard objective value
+ */
+export function getScore(player, objective, defaultValue) {
+    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
+    if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
+
+    try {
+       return World.scoreboard.getObjective(objective).getScore(player.scoreboard);
+    } catch {
+        return defaultValue || 0;
+    }
 }

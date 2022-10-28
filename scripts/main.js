@@ -1,5 +1,5 @@
 import * as Minecraft from "@minecraft/server";
-import { flag, banMessage, getClosestPlayer } from "./util.js";
+import { flag, banMessage, getClosestPlayer, getScore } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
 import config from "./data/config.js";
 import { banList } from "./data/globalban.js";
@@ -116,7 +116,7 @@ Minecraft.system.run(({ currentTick }) => {
         }
 
         if(config.modules.bedrockValidate.enabled === true) {
-            if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("bedrock")?.getScore(player.scoreboard) >= 1) {
+            if(getScore(player, "bedrock", 0) >= 1) {
                 if(config.modules.bedrockValidate.overworld && player.dimension.typeId === "minecraft:overworld") {
                     player.runCommandAsync("fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock");
                     player.runCommandAsync("fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock");
@@ -136,7 +136,7 @@ Minecraft.system.run(({ currentTick }) => {
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && playerSpeed.toFixed(2) >= config.modules.noslowA.speed && playerSpeed.toFixed(2) <= config.modules.noslowA.maxSpeed) {
-            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("right")?.getScore(player.scoreboard) >= 5) {
+            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && getScore(player, "right", 0) >= 5) {
                 flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed.toFixed(3), true);
             }
         }
@@ -192,19 +192,19 @@ Minecraft.system.run(({ currentTick }) => {
 						if(config.modules.badenchantsA.enabled === true) {
 							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
 							if(typeof maxLevel === "number") {
-								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
+								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 							} else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
                                flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 						}
 						
                         // badenchants/B = checks for negative enchantment levels
                         if(config.modules.badenchantsB.enabled && enchantData.level <= 0) 
-                            flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
+                            flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
 
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
                         if(config.modules.badenchantsC.enabled) {
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
-                                flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.typeId},level=${enchantData.level}`, false, false, i);
+                                flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, false, i);
                             }
                         }
 
@@ -561,7 +561,7 @@ World.events.entityHit.subscribe((entityHit) => {
         if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
             // if anti-autoclicker is disabled in game then disable it in config.js
             if(data.checkedModules.autoclicker === false) {
-                if(typeof player.scoreboard !== "undefined" && World.scoreboard.getObjective("autoclicker")?.getScore(player.scoreboard) >= 1) {
+                if(getScore(player, "autoclicker", 1) >= 1) {
                     config.modules.autoclickerA.enabled = false;
                 }
                 data.checkedModules.autoclicker = true;
@@ -573,8 +573,9 @@ World.events.entityHit.subscribe((entityHit) => {
         }
         
         // Check if the player attacks an entity while sleeping
-        if(config.modules.killauraD.enabled === true && player.hasTag("sleeping"))
+        if(config.modules.killauraD.enabled === true && player.hasTag("sleeping")) {
             flag(player, "Killaura", "D", "Combat");
+        }
     }
 
     if(typeof block === "object") {
