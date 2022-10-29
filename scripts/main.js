@@ -23,7 +23,7 @@ World.events.beforeChat.subscribe(msg => {
         player.tell("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
     }
 
-    // BadPackets/2 = chat message length check
+    // BadPackets/2 = checks for invalid chat message lengths
     if(config.modules.badpackets2.enabled === true && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
 
     // Spammer/A = checks if someone sends a message while moving and on ground
@@ -186,7 +186,7 @@ Minecraft.system.run(({ currentTick }) => {
 
                 for (const enchantment in Minecraft.MinecraftEnchantmentTypes) {
                     const enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
-        
+
                     if(typeof enchantData === "object") {
                         // badenchants/A = checks for items with invalid enchantment levels
                         if(config.modules.badenchantsA.enabled === true) {
@@ -198,7 +198,7 @@ Minecraft.system.run(({ currentTick }) => {
                         }
 						
                         // badenchants/B = checks for negative enchantment levels
-                        if(config.modules.badenchantsB.enabled && enchantData.level <= 0) 
+                        if(config.modules.badenchantsB.enabled && enchantData.level <= 0)
                             flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
 
                         // badenchants/C = checks if an item has an enchantment which isnt support by the item
@@ -206,9 +206,7 @@ Minecraft.system.run(({ currentTick }) => {
                             if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
                                 flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
                             }
-                        }
 
-                        if(config.modules.badenchantsC.enabled) {
                             item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
                             item2.getComponent("enchantments").enchantments = item2Enchants;
                         }
