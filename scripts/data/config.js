@@ -241,6 +241,11 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
+        "illegalitemsB": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
+        },
         "illegalitemsC": {
             "enabled": true,
             "maxStack": 64,
