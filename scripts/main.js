@@ -503,12 +503,18 @@ World.events.entityCreate.subscribe((entityCreate) => {
 
     // Although the crash method this detects has been patched with mineraft version 1.19.40, we
     // can keep it here just to screw other people who dont know it got patched
-    if(config.modules.crasherB.enabled && entity.typeId === "minecraft:item") {
-        const itemData = entity.getComponent("item").itemStack;
+    if(entity.typeId === "minecraft:item") {
+        const item = entity.getComponent("item").itemStack;
 
-        if(itemData.typeId === "minecraft:arrow" && itemData.data > 43) {
-            flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${itemData.typeId},data=${itemData.data}`);
-            entity.kill();
+        if(config.modules.crasherB.enabled === true) {
+            if(item.typeId === "minecraft:arrow" && item.data > 43) {
+                flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${item.typeId},data=${item.data}`);
+                entity.kill();
+            }
+        }
+        if(config.modules.illegalitemsD.enabled === true) {
+            if(config.itemLists.items_very_illegal.includes(item.id) || config.itemLists.items_semi_illegal.includes(item.id))
+                entity.kill();
         }
     }
 });
