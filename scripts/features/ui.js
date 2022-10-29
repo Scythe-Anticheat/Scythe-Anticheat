@@ -393,11 +393,11 @@ function debugSettingsMenu(player) {
                 const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
                 const randomItem = Minecraft.MinecraftItemTypes[randomItemName];
 
-                if(totalItems.includes(randomItem.typeId) || config.itemLists.cbe_items.includes(randomItem.typeId) || config.itemLists.items_semi_illegal.includes(randomItem.typeId) || config.itemLists.items_very_illegal.includes(randomItem.typeId) || randomItemName.includes("element")) {
+                if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.typeId) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
                     i--;
                     continue;
                 }
-                totalItems.push(randomItem.typeId);
+                totalItems.push(randomItem.id);
 
                 container.setItem(i, new Minecraft.ItemStack(randomItem, 1, 0));
             }
