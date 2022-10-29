@@ -92,7 +92,7 @@ export function commandHandler(player, message) {
         player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op");
         return;
     }
-    // we could much easily get rid of the if/else chain only if we have npm support...
+
     try {
         if(commandName === "kick") kick(message, args);
         else if(commandName === "tag") tag(message, args);

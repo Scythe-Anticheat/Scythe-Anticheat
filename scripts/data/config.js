@@ -413,6 +413,11 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVlbeforePunishment": 0
+        },
+        "illegalitemsJ": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
         }
     },
     "itemLists": {

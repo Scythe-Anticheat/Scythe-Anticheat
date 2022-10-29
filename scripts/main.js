@@ -300,6 +300,18 @@ World.events.blockPlace.subscribe((blockPlace) => {
             block.setType(Minecraft.MinecraftBlockTypes.air);
         }
     }
+
+    if(config.modules.illegalitemsJ.enabled === true && block.typeId.includes("sign")) {
+        // we need to wait 1 tick before we can get the sign text
+        Minecraft.system.run(() => {
+            const text = block.getComponent("sign").text;
+
+            if(text.length >= 1) {
+                flag(player, "IllegalItems", "J", "Exploit", "signText", text, undefined, undefined, player.selectedSlot);
+                block.setType(Minecraft.MinecraftBlockTypes.air);
+            }
+        });
+    }
 });
 
 World.events.blockBreak.subscribe((blockBreak) => {

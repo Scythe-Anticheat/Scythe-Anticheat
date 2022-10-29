@@ -31,7 +31,7 @@ export function mute(message, args) {
 
     try {
         member.addTag("isMuted");
-        member.tell("§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}");
+        member.tell(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
 
         // remove chat ability
         member.runCommandAsync("ability @s mute true");
