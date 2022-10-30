@@ -530,6 +530,31 @@ World.events.entityCreate.subscribe((entityCreate) => {
         if(config.modules.illegalitemsB.enabled === true && config.itemLists.cbe_items.includes(item.id))
             entity.kill();
     }
+
+    // IllegalItems/K = checks if a player places a chest boat with items already inside it
+    if(config.modules.illegalitemsK.enabled === true && entity.typeId === "minecraft:chest_boat") {
+        Minecraft.system.run(() => {
+            const player = getClosestPlayer(entity);
+            if(config.modules.illegalitemsK.exclude_scythe_op === true && player.hasTag("op")) return;
+
+            const container = entity.getComponent("inventory").container;
+
+            let didFindItems = false;
+            for(let i = 0; i < container.size; i++) {
+                const item = container.getItem(i);
+                if(typeof item === "undefined") continue;
+    
+                // an item exists within the container, get fucked hacker!
+                container.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
+                didFindItems = true;
+            }
+    
+            if(didFindItems === true) {
+                flag(player, "IllegalItems", "K", "Exploit", undefined, undefined, undefined, undefined, player.selectedSlot);
+                entity.kill();
+            }
+        });
+    }
 });
 
 World.events.entityHit.subscribe((entityHit) => {

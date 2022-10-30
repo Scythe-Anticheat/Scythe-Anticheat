@@ -420,6 +420,12 @@ export default
             "exclude_scythe_op": true,
             "punishment": "none",
             "minVlbeforePunishment": 0
+        },
+        "illegalitemsK": {
+            "enabled": true,
+            "exclude_scythe_op": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
         }
     },
     "itemLists": {
