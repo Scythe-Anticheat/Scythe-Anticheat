@@ -289,13 +289,14 @@ export function msToTime(ms) {
  * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
  * @returns {number} score - The scoreboard objective value
  */
-export function getScore(player, objective, defaultValue) {
+ export function getScore(player, objective, defaultValue = 0) {
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
+    if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
 
     try {
        return World.scoreboard.getObjective(objective).getScore(player.scoreboard);
     } catch {
-        return defaultValue || 0;
+        return defaultValue;
     }
 }

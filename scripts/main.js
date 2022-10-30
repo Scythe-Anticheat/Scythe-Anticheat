@@ -116,7 +116,7 @@ Minecraft.system.run(({ currentTick }) => {
         }
 
         if(config.modules.bedrockValidate.enabled === true) {
-            if(getScore(player, "bedrock", 0) >= 1) {
+            if(getScore(player, "bedrock") >= 1) {
                 if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
                     player.runCommandAsync("fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock");
                     player.runCommandAsync("fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock");

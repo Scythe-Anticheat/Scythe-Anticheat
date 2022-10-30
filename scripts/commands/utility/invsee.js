@@ -25,13 +25,19 @@ export function invsee(message, args) {
     if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
 
     const container = member.getComponent('inventory').container;
-    
-    player.tell(`§r§6[§aScythe§6]§r ${member.nameTag}'s inventory:\n\n`);
+
+    if(container.size === container.emptySlotsCount) {
+        return player.tell(`§r§6[§aScythe§6]§r ${player.nameTag}'s inventory is empty.`);
+    }
+
+    let inventory = `§r§6[§aScythe§6]§r ${member.nameTag}'s inventory:\n\n`;
     
     for (let i = 0; i < container.size; i++) {
         const item = container.getItem(i);
         if(typeof item === "undefined") continue;
 
-        player.tell(`§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId}:${item.data} x${item.amount}`);
+        inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId}:${item.data} x${item.amount}\n`;
     }
+
+    player.tell(inventory);
 }

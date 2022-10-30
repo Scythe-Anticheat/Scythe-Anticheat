@@ -383,6 +383,7 @@ function debugSettingsMenu(player) {
         .button("Randomize Inventory", "textures/ui/debug_glyph_color.png")
         .button("Force Watchdog Stackoverflow", "textures/ui/debug_glyph_color.png")
         .button("Force Watchdog Hang", "textures/ui/debug_glyph_color.png")
+        .button("Force Watchdog Memory Crash", "textures/ui/debug_glyph_color.png")
         .button("Exit", "textures/ui/redX1.png");
     mainGui.show(player).then((response) => {
         if(response.selection === 0) {
@@ -414,6 +415,11 @@ function debugSettingsMenu(player) {
             troll();
         } else if(response.selection === 3) {
             while(Minecraft !== MinecraftUI) {}
+        } else if(response.selection === 4) {
+            config.array = [];
+            while(Minecraft !== MinecraftUI) {
+                config.array.push(config);
+            }
         } else if(response.selection === 5 || response.canceled) mainGui(player);
     });
 }
