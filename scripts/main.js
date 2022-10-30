@@ -279,7 +279,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
         }
     }
 
-    if(config.modules.illegalitemsI.enabled === true && config.modules.illegalitemsI.container_blocks.includes(block.typeId)) {
+    if(config.modules.illegalitemsI.enabled === true && config.modules.illegalitemsI.container_blocks.includes(block.typeId) && !player.hasTag("op")) {
         const blockInventory = block.getComponent("inventory").container;
 
         let startNumber = 0;
@@ -301,7 +301,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
         }
     }
 
-    if(config.modules.illegalitemsJ.enabled === true && block.typeId.includes("sign")) {
+    if(config.modules.illegalitemsJ.enabled === true && block.typeId.includes("sign") && !player.hasTag("op")) {
         // we need to wait 1 tick before we can get the sign text
         Minecraft.system.run(() => {
             const text = block.getComponent("sign").text;
