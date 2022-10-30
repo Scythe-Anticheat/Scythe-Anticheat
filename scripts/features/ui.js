@@ -379,10 +379,16 @@ function debugSettingsMenu(player) {
     const mainGui = new MinecraftUI.ActionFormData()
         .title("Scythe Anticheat UI")
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
+        .button("Disable Debug Intents", "textures/ui/debug_glyph_color.png")
         .button("Randomize Inventory", "textures/ui/debug_glyph_color.png")
+        .button("Force Watchdog Stackoverflow", "textures/ui/debug_glyph_color.png")
+        .button("Force Watchdog Hang", "textures/ui/debug_glyph_color.png")
         .button("Exit", "textures/ui/redX1.png");
     mainGui.show(player).then((response) => {
         if(response.selection === 0) {
+            config.debug = false;
+            mainGui(player);
+        } else if(response.selection === 1) {
             const container = player.getComponent("inventory").container;
 
             const totalItems = [];
@@ -401,7 +407,13 @@ function debugSettingsMenu(player) {
 
                 container.setItem(i, new Minecraft.ItemStack(randomItem, 1, 0));
             }
-        }
-        if(response.selection === 1 || response.canceled) mainGui(player);
+        } else if(response.selection === 2) {
+            const troll = function() {
+                troll();
+            };
+            troll();
+        } else if(response.selection === 3) {
+            while(Minecraft !== MinecraftUI) {}
+        } else if(response.selection === 5 || response.canceled) mainGui(player);
     });
 }

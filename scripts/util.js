@@ -31,11 +31,11 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "nunber" or "undefined`);
 
     if(typeof debug === "string") {
-        // remove characters that may break commands
-        debug = debug.replace(/"|\\/gm, "");
+        // remove characters that may break commands, and newlines
+        debug = debug.replace(/"|\\|\n/gm, "");
 
-        // malicous users may try make the debug field ridiclously large to lag any clients that may try to view the alert
-        // (anybody with the 'notify' tag)
+        // malicous users may try make the debug field ridiclously large to lag any clients that may
+        // try to view the alert (anybody with the 'notify' tag)
         if(debug.length > 256) {
             const extraLength = debug.length - 256;
             debug = debug.slice(0, -extraLength) + ` (+${extraLength} additional characters)`;
