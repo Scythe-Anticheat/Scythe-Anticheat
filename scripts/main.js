@@ -284,7 +284,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
 
         let startNumber = 0;
         let didFindItems = false;
-        if(blockInventory.size > 27) startNumber = blockInventory -26;
+        if(blockInventory.size > 27) startNumber = blockInventory.size - 27;
     
         for(let i = startNumber; i < blockInventory.size; i++) {
             const item = blockInventory.getItem(i);
@@ -532,6 +532,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
     }
 
     // IllegalItems/K = checks if a player places a chest boat with items already inside it
+    // temporarily disabled because of false positive
     if(config.modules.illegalitemsK.enabled === true && entity.typeId === "minecraft:chest_boat") {
         Minecraft.system.run(() => {
             const player = getClosestPlayer(entity);
@@ -539,17 +540,11 @@ World.events.entityCreate.subscribe((entityCreate) => {
 
             const container = entity.getComponent("inventory").container;
 
-            let didFindItems = false;
-            for(let i = 0; i < container.size; i++) {
-                const item = container.getItem(i);
-                if(typeof item === "undefined") continue;
-    
-                // an item exists within the container, get fucked hacker!
-                container.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
-                didFindItems = true;
-            }
-    
-            if(didFindItems === true) {
+            if(container.size !== container.emptySlotsCount) {
+                for(let i = 0; i < container.size; i++) {
+                    container.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
+                }
+
                 flag(player, "IllegalItems", "K", "Exploit", undefined, undefined, undefined, undefined, player.selectedSlot);
                 entity.kill();
             }
