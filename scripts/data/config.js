@@ -385,7 +385,7 @@ export default
             "minVlbeforePunishment": 0
         },
         "namespoofC": {
-            "enabled": true,
+            "enabled": false,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },

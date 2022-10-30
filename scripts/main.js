@@ -16,7 +16,7 @@ World.events.beforeChat.subscribe(msg => {
 
     if(config.debug === true && message === "ping") console.warn(`${new Date()} | Pong!`);
 
-    if(message.includes("the best minecraft bedrock utility mod")) msg.cancel = true;
+    if(message.includes("the best minecraft bedrock utility mod") || message.includes("disepi/ambrosial")) msg.cancel = true;
 
     if(player.hasTag("isMuted")) {
         msg.cancel = true;
@@ -273,7 +273,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
     if(config.modules.illegalitemsH.enabled === true && block.typeId === "minecraft:piston" || block.typeId === "minecraft:sticky_piston") {
         const piston = block.getComponent("piston");
     
-        if(!piston.isRetracted || piston.isRetracting || piston.isMoving || piston.isExpanding || piston.isExpanded) {
+        if(!piston.isRetracted || piston.isMoving || piston.isExpanded) {
             flag(player, "IllegalItems", "H", "Exploit", "isRetracted", `${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`, false, false, player.selectedSlot);
             block.setType(Minecraft.MinecraftBlockTypes.air);
         }
