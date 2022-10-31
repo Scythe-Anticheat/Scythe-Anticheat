@@ -84,12 +84,13 @@ export function commandHandler(player, message) {
 
     message.cancel = true;
 
-    if(commandData.enabled === false) {
-        player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server admistrator for assistance.");
-        return;
-    }
     if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
         player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op");
+        return;
+    }
+
+    if(commandData.enabled === false) {
+        player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server admistrator for assistance.");
         return;
     }
 
@@ -128,7 +129,7 @@ export function commandHandler(player, message) {
         else if(commandName === "gui") gui(message);
         else if(commandName === "resetwarns") resetwarns(message, args);
         else if(commandName === "version") version(message);
-        else throw Error(`Command ${commandName} was found in config.js but no handler for it was found`);
+        else throw Error(`Command ${commandName} was found in config.js but no handler for it was found.`);
     } catch (error) {
         console.warn(`${new Date()} | ${error} ${error.stack}`);
         player.tell(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);

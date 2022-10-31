@@ -147,6 +147,7 @@ export default
         },
         "gui": {
             "enabled": true,
+            "gui_item_name": "§r§l§aRight click to Open the UI",
             "requiredTags": ["op"],
             "aliases": ["ui"]
         },
@@ -323,6 +324,7 @@ export default
         },
         "badenchantsB": {
             "enabled": true,
+            "multi_protection": true,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
@@ -417,6 +419,7 @@ export default
         },
         "illegalitemsJ": {
             "enabled": true,
+            "max_sign_characters": 1,
             "exclude_scythe_op": true,
             "punishment": "none",
             "minVlbeforePunishment": 0

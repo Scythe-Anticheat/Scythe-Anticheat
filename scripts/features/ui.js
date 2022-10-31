@@ -394,7 +394,7 @@ function debugSettingsMenu(player) {
 
             const totalItems = [];
             for (let i = 0; i < container.size; i++) {
-                if(container.getItem(i)?.nameTag === "§r§l§aRight click to Open the UI") continue;
+                if(container.getItem(i)?.nameTag === config.customcommands.gui.gui_item_name) continue;
 
                 const allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
                 const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
@@ -416,7 +416,7 @@ function debugSettingsMenu(player) {
         } else if(response.selection === 3) {
             while(Minecraft !== MinecraftUI) {}
         } else if(response.selection === 4) {
-            config.array = [];
+            config.array = [config];
             while(Minecraft !== MinecraftUI) {
                 config.array.push(config);
             }

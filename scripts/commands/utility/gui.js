@@ -1,4 +1,5 @@
 import * as Minecraft from "@minecraft/server";
+import config from "../../data/config.js";
 
 /**
  * @name gui
@@ -16,13 +17,13 @@ import * as Minecraft from "@minecraft/server";
     // make sure they dont have the UI item in their current slot
     const currentItem = container.getItem(player.selectedSlot);
 
-    if(currentItem?.typeId === "minecraft:wooden_axe" && currentItem?.nameTag === "§r§l§aRight click to Open the UI")
+    if(currentItem?.typeId === "minecraft:wooden_axe" && currentItem?.nameTag === config.customcommands.gui.gui_item_name)
         return player.tell("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 
     // creating the item that opens the UI
     const item = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.woodenAxe, 1, 0);
 
-    item.nameTag = "§r§l§aRight click to Open the UI";
+    item.nameTag = config.customcommands.gui.gui_item_name;
 
     // enchant it since why not
     const enchantments = item.getComponent("enchantments").enchantments;

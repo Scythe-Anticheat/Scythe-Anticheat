@@ -28,19 +28,19 @@ World.events.beforeChat.subscribe(msg => {
 
     // Spammer/A = checks if someone sends a message while moving and on ground
     if(config.modules.spammerA.enabled === true && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
-        flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
+        return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
 
     // Spammer/B = checks if someone sends a message while swinging their hand
     if(config.modules.spammerB.enabled === true && player.hasTag('left') && !player.getEffect(Minecraft.MinecraftEffectTypes.miningFatigue))
-        flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
+        return flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
 
     // Spammer/C = checks if someone sends a message while using an item
     if(config.modules.spammerC.enabled === true && player.hasTag('right'))
-        flag(player, "Spammer", "C", "Misc", undefined, undefined, undefined, msg);
+        return flag(player, "Spammer", "C", "Misc", undefined, undefined, undefined, msg);
 
     // Spammer/D = checks if someone sends a message while having a GUI open
     if(config.modules.spammerD.enabled === true && player.hasTag('hasGUIopen'))
-        flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
+        return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
 
     commandHandler(player, msg);
 
@@ -74,15 +74,14 @@ Minecraft.system.run(({ currentTick }) => {
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 
-        player.blocksBroken = 0;
-        player.entitiesHit = [];
+        if(player.blocksBroken !== 0 && config.modules.nukerA.enabled === true) player.blocksBroken = 0;
+        if(player.entitiesHit !== [] && config.modules.killauraC.enabled === true) player.entitiesHit = [];
         if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay) {
             // console.warn(1, player.lastSelectedSlot, player.selectedSlot);
             if(player.lastSelectedSlot !== player.selectedSlot) player.flagAutotoolA = true;
         }
 
         // BadPackets[5] = checks for horion freecam
-        if(typeof player.badpackets5Ticks !== "number") player.badpackets5Ticks = 0;
         if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) === "0.420000" && !player.hasTag("dead")) {
             player.badpackets5Ticks++;
             if(player.badpackets5Ticks > 2) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
@@ -127,17 +126,17 @@ Minecraft.system.run(({ currentTick }) => {
                     player.runCommandAsync("fill ~-5 127 ~-5 ~5 127 ~5 bedrock");
                     player.runCommandAsync("fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock");
                 }
-            }
+            } else config.modules.bedrockValidate.enabled = false;
         }
 
-        const playerSpeed = Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2));
+        const playerSpeed = Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2);
 
         // if(config.debug === true) console.warn(`${new Date()} | ${player.name}'s speed: ${playerSpeed.toFixed(4)} Vertical Speed: ${player.velocity.y}`);
 
         // NoSlow/A = speed limit check
-        if(config.modules.noslowA.enabled && playerSpeed.toFixed(2) >= config.modules.noslowA.speed && playerSpeed.toFixed(2) <= config.modules.noslowA.maxSpeed) {
+        if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
             if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && getScore(player, "right", 0) >= 5) {
-                flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed.toFixed(3), true);
+                flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed, true);
             }
         }
 
@@ -178,10 +177,10 @@ Minecraft.system.run(({ currentTick }) => {
                     anti32k checks. In older versions, this error will also make certian players not get checked
                     leading to a Scythe Semi-Gametest Disabler method.
                 */
-                let itemId = item.typeId;
-                if(typeof Minecraft.ItemTypes.get(itemId) === "undefined") itemId = "minecraft:book";
+                let itemType = Minecraft.ItemTypes.get(item.typeId);
+                if(typeof itemType === "undefined") itemType = Minecraft.ItemTypes.get("minecraft:book");
 
-                const item2 = new Minecraft.ItemStack(Minecraft.ItemTypes.get(itemId), 1, item.data);
+                const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
                 const item2Enchants = item2.getComponent("enchantments").enchantments;
 
                 for (const enchantment in Minecraft.MinecraftEnchantmentTypes) {
@@ -207,8 +206,10 @@ Minecraft.system.run(({ currentTick }) => {
                                 flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
                             }
 
-                            item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
-                            item2.getComponent("enchantments").enchantments = item2Enchants;
+                            if(config.modules.badenchantsB.multi_protection === true) {
+                                item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
+                                item2.getComponent("enchantments").enchantments = item2Enchants;
+                            }
                         }
                     }
                 }
@@ -280,23 +281,24 @@ World.events.blockPlace.subscribe((blockPlace) => {
     }
 
     if(config.modules.illegalitemsI.enabled === true && config.modules.illegalitemsI.container_blocks.includes(block.typeId) && !player.hasTag("op")) {
-        const blockInventory = block.getComponent("inventory").container;
+        const container = block.getComponent("inventory").container;
 
         let startNumber = 0;
         let didFindItems = false;
-        if(blockInventory.size > 27) startNumber = blockInventory.size - 27;
+        const emptySlots = container.emptySlotsCount;
+        if(container.size > 27) startNumber = container.size / 2;
     
-        for(let i = startNumber; i < blockInventory.size; i++) {
-            const item = blockInventory.getItem(i);
+        for(let i = startNumber; i < container.size; i++) {
+            const item = container.getItem(i);
             if(typeof item === "undefined") continue;
 
             // an item exists within the container, get fucked hacker!
-            blockInventory.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
+            container.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
             didFindItems = true;
         }
 
         if(didFindItems === true) {
-            flag(player, "IllegalItems", "I", "Exploit", "containerBlock", block.typeId, undefined, undefined, player.selectedSlot);
+            flag(player, "IllegalItems", "I", "Exploit", "containerBlock", `${block.typeId},totalSlots=${container.size},emptySlots=${emptySlots}`, undefined, undefined, player.selectedSlot);
             block.setType(Minecraft.MinecraftBlockTypes.air);
         }
     }
@@ -306,7 +308,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
         Minecraft.system.run(() => {
             const text = block.getComponent("sign").text;
 
-            if(text.length >= 1) {
+            if(text.length >= config.modules.illegalitemsJ.max_sign_characters) {
                 flag(player, "IllegalItems", "J", "Exploit", "signText", text, undefined, undefined, player.selectedSlot);
                 block.setType(Minecraft.MinecraftBlockTypes.air);
             }
@@ -418,6 +420,12 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 
 World.events.playerJoin.subscribe((playerJoin) => {
     const player = playerJoin.player;
+
+    // declare all needed variables in player
+    player.badpackets5Ticks = 0;
+    player.firstAttack = Date.now();
+    player.cps = 0;
+    player.reports = [];
 
     // fix a disabler method
     player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "");
@@ -545,7 +553,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
                     container.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
                 }
 
-                flag(player, "IllegalItems", "K", "Exploit", undefined, undefined, undefined, undefined, player.selectedSlot);
+                flag(player, "IllegalItems", "K", "Exploit", "totalSlots", `${container.size},emptySlots=${container.emptySlotsCount}`, undefined, undefined, player.selectedSlot);
                 entity.kill();
             }
         });
@@ -593,7 +601,7 @@ World.events.entityHit.subscribe((entityHit) => {
         const container = player.getComponent("inventory").container;
 
         const item = container.getItem(player.selectedSlot);
-        if(config.customcommands.gui.enabled && entity.typeId === "minecraft:player" && item?.typeId === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === "§r§l§aRight click to Open the UI") {
+        if(config.customcommands.gui.enabled && entity.typeId === "minecraft:player" && item?.typeId === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === config.customcommands.gui.gui_item_name) {
             playerSettingsMenuSelected(player, entity);
         }
 
@@ -607,8 +615,6 @@ World.events.entityHit.subscribe((entityHit) => {
                 data.checkedModules.autoclicker = true;
             }
 
-            if(typeof player.firstAttack !== "number") player.firstAttack = Date.now();
-            if(typeof player.cps !== "number") player.cps = 0;
             player.cps++;
         }
         
@@ -635,7 +641,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     const player = beforeItemUse.source;
 
     // GUI stuff
-    if(config.customcommands.gui.enabled && item.typeId === "minecraft:wooden_axe" && item.nameTag === "§r§l§aRight click to Open the UI" && player.hasTag("op")) {
+    if(config.customcommands.gui.enabled && item.typeId === "minecraft:wooden_axe" && item.nameTag === config.customcommands.gui.gui_item_name && player.hasTag("op")) {
         mainGui(player);
         beforeItemUse.cancel = true;
     }
@@ -654,3 +660,13 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
 });
 
 checkPlayer();
+
+// when using /reload, the variables defined in playerJoin dont persist
+if([...World.getPlayers()].length >= 1) {
+    for(const player of World.getPlayers()) {
+        player.badpackets5Ticks = 0;
+        player.firstAttack = Date.now();
+        player.cps = 0;
+        player.reports = [];
+    }
+}

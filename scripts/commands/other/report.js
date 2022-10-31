@@ -29,7 +29,6 @@ export function report(message, args) {
     if(member.nameTag === player.nameTag) return player.tell("§r§6[§aScythe§6]§r You cannot report yourself.");
 
     // prevent report spam
-    if(typeof player.reports !== "object") player.reports = [];
     if(player.reports.includes(member.nameTag) === true) return player.tell("§r§6[§aScythe§6]§r You have already reported this player!");
     player.reports.push(member.nameTag);
 
