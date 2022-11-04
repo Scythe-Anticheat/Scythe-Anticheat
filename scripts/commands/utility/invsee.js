@@ -27,7 +27,7 @@ export function invsee(message, args) {
     const container = member.getComponent('inventory').container;
 
     if(container.size === container.emptySlotsCount) {
-        return player.tell(`§r§6[§aScythe§6]§r ${player.nameTag}'s inventory is empty.`);
+        return player.tell(`§r§6[§aScythe§6]§r ${member.nameTag}'s inventory is empty.`);
     }
 
     let inventory = `§r§6[§aScythe§6]§r ${member.nameTag}'s inventory:\n\n`;

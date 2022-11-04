@@ -425,7 +425,7 @@ export default
             "minVlbeforePunishment": 0
         },
         "illegalitemsK": {
-            "enabled": false,
+            "enabled": true,
             "exclude_scythe_op": true,
             "punishment": "none",
             "minVlbeforePunishment": 0

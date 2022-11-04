@@ -231,7 +231,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         else playerSettingsMenuSelected.button("Remove Player as Scythe-Op", "textures/ui/permissions_member_star.png");
 
     if(!playerSelected.hasTag("vanish")) playerSettingsMenuSelected.button("Vanish Player", "textures/ui/invisibility_effect.png");
-        else playerSettingsMenuSelected.button("Un-Vanish Player", "textures/ui/invisibility_effect.png");
+        else playerSettingsMenuSelected.button("Unvanish Player", "textures/ui/invisibility_effect.png");
 
     playerSettingsMenuSelected
         .button("Teleport", "textures/ui/arrow.png")

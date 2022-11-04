@@ -540,8 +540,9 @@ World.events.entityCreate.subscribe((entityCreate) => {
     }
 
     // IllegalItems/K = checks if a player places a chest boat with items already inside it
-    // temporarily disabled because of false positive
-    if(config.modules.illegalitemsK.enabled === true && entity.typeId === "minecraft:chest_boat") {
+
+    if(config.modules.illegalitemsK.enabled === true && entity.typeId === "minecraft:chest_boat" && !entity.hasTag("didCheck")) {
+        entity.addTag("didCheck");
         Minecraft.system.run(() => {
             const player = getClosestPlayer(entity);
             if(config.modules.illegalitemsK.exclude_scythe_op === true && player.hasTag("op")) return;
@@ -633,7 +634,7 @@ World.events.entityHit.subscribe((entityHit) => {
         }
     }
 
-    console.warn(player.getTags());
+    if(config.debug === true) console.warn(player.getTags());
 });
 
 World.events.beforeItemUse.subscribe((beforeItemUse) => {
