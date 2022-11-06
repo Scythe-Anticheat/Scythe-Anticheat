@@ -90,7 +90,7 @@ export function commandHandler(player, message) {
     }
 
     if(commandData.enabled === false) {
-        player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server admistrator for assistance.");
+        player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server administrator for assistance.");
         return;
     }
 

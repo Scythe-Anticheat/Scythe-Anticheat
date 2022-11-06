@@ -39,7 +39,7 @@ export default
         "bedrockvalidate": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["bv"]
+            "aliases": ["bedrock","bv"]
         },
         "modules": {
             "enabled": true,
@@ -349,7 +349,7 @@ export default
         },
         "illegalitemsF": {
             "enabled": true,
-            "length": 32,
+            "length": 33,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
