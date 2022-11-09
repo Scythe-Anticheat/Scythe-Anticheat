@@ -302,7 +302,11 @@ export default
             "enabled": true,
             "npc": true,
             "entities": [
-                "minecraft:command_block_minecart"
+                "minecraft:command_block_minecart",
+                "minecraft:agent",
+                "minecraft:balloon",
+                "minecraft:ice_bomb",
+                "minecraft:tripod_camera"
             ],
             "punishment": "none",
             "minVlbeforePunishment": 0
