@@ -27,7 +27,7 @@ World.events.beforeChat.subscribe(msg => {
     if(config.modules.badpackets2.enabled === true && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
 
     // Spammer/A = checks if someone sends a message while moving and on ground
-    if(config.modules.spammerA.enabled === true && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
+    if(config.modules.spammerA.enabled === true && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump') && player.velocity.y.toFixed(4) === "-0.0784")
         return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
 
     // Spammer/B = checks if someone sends a message while swinging their hand
@@ -313,6 +313,14 @@ World.events.blockPlace.subscribe((blockPlace) => {
                 block.setType(Minecraft.MinecraftBlockTypes.air);
             }
         });
+    }
+
+    if(config.modules.commandblockexploitH.enabled === true && block.typeId === "minecraft:hopper") {
+        // i would use runCommandAsync here, however there is a noticable delay which may allow
+        // the hopper to be able to transfer the items into the dispenser.
+        try {
+            player.runCommand("fill ~-15 ~-15 ~-15 ~15 ~15 ~15 air 0 replace dispenser -1");
+        } catch {}
     }
 });
 
