@@ -317,11 +317,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
     }
 
     if(config.modules.commandblockexploitH.enabled === true && block.typeId === "minecraft:hopper") {
-        // i would use runCommandAsync here, however there is a noticable delay which may allow
-        // the hopper to be able to transfer the items into the dispenser.
-        try {
-            player.runCommand("fill ~-15 ~-15 ~-15 ~15 ~15 ~15 air 0 replace dispenser -1");
-        } catch {}
+        player.runCommandAsync("fill ~-15 ~-15 ~-15 ~15 ~15 ~15 air 0 replace dispenser -1");
     }
 });
 
@@ -389,33 +385,28 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
     if(config.modules.illegalitemsE.enabled) {
         // items that are obtainble using commands
         if(player.hasTag("op") === false) {
-            if(config.itemLists.items_semi_illegal.includes(item.typeId)) {
-                // dont affect gmc players
-                try {
-                    player.runCommand("testfor @s[m=!c]");
-                    flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, undefined, undefined, player.selectedSlot);
-                    beforeItemUseOn.cancel = true;
-                } catch {}
-            }
+            let flagPlayer = false;
+            if(config.itemLists.items_semi_illegal.includes(item.typeId))
+                flagPlayer = true;
 
             // patch element blocks
-            if(config.itemLists.elements && item.typeId.startsWith("minecraft:element_")) {
-                // dont affect gmc players
-                try {
-                    player.runCommand("testfor @s[m=!c]");
-                    flag(player.source, "IllegalItems", "E", "Exploit", "block", item.typeId, undefined, undefined, player.selectedSlot);
-                    beforeItemUseOn.cancel = true;
-                } catch {}
-            }
+            if(config.itemLists.elements && item.typeId.startsWith("minecraft:element_"))
+                flagPlayer = true;
             
             // patch spawn eggs
-            if(config.itemLists.spawnEggs && item.typeId.endsWith("_spawn_egg")) {
-                // dont affect gmc players
-                try {
-                    player.runCommand("testfor @s[m=!c]");
+            if(config.itemLists.spawnEggs && item.typeId.endsWith("_spawn_egg"))
+                flagPlayer = true;
+
+            if(flagPlayer === true) {
+                const checkGmc = World.getPlayers({
+                    excludeGameModes: [Minecraft.GameMode.creative],
+                    name: player.name
+                });
+            
+                if([...checkGmc].length !== 0) {
                     flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, undefined, undefined, player.selectedSlot);
                     beforeItemUseOn.cancel = true;
-                } catch {}
+                }
             }
         }
     
@@ -519,12 +510,10 @@ World.events.entityCreate.subscribe((entityCreate) => {
         }
 
         if(config.modules.commandblockexploitG.npc && entity.typeId === "minecraft:npc") {
-            try {
-                entity.runCommand("scoreboard players operation @s npc = scythe:config npc");
-                entity.runCommand("testfor @s[scores={npc=1..}]");
-                flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
-                entity.kill();
-            } catch {}
+            entity.runCommandAsync("scoreboard players operation @s npc = scythe:config npc");
+            entity.runCommandAsync("testfor @s[scores={npc=1..}]");
+            flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
+            entity.kill();
         }
     }
 
@@ -588,17 +577,19 @@ World.events.entityHit.subscribe((entityHit) => {
         }
 
         // reach/A = check if a player hits an entity more then 5.1 block away
-        if(config.modules.reachA.enabled) {
+        if(config.modules.reachA.enabled === true) {
             // get the difference between 2 three dimensional coordinates
             const distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
             if(config.debug === true) console.warn(`${player.name} attacked ${entity.nameTag || entity.typeId} with a distance of ${distance}`);
 
             if(distance > config.modules.reachA.reach && entity.typeId.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.typeId)) {
-                // we ignore gmc players as they get increased reach
-                try {
-                    player.runCommand("testfor @s[m=!c]");
+                const checkGmc = World.getPlayers({
+                    excludeGameModes: [Minecraft.GameMode.creative],
+                    name: player.name
+                });
+            
+                if([...checkGmc].length !== 0)
                     flag(player, "Reach", "A", "Combat", "entity", `${entity.typeId},distance=${distance}`);
-                } catch {}
             }
         }
 

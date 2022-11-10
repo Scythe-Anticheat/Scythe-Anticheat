@@ -108,8 +108,8 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         const isSilent = data.pop();
         const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
-        if(isSilent === false) player.runCommand(`kick "${playerSelected.name}" ${reason}`);
-            else playerSelected.runCommand("event entity @s scythe:kick");
+        if(isSilent === false) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
+        playerSelected.triggerEvent("scythe:kick");
 
         player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);
     });
