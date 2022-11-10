@@ -56,8 +56,9 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 function checkPlayer() {
-Minecraft.system.run(({ currentTick }) => {
+Minecraft.system.run(() => {
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
+    data.currentTick++;
 
     // run as each player
     for (const player of World.getPlayers()) {
@@ -167,7 +168,7 @@ Minecraft.system.run(({ currentTick }) => {
                     flag(player, "BadEnchants", "D", "Exploit", "lore", String(item.getLore()), undefined, undefined, i);
             }
 
-            if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && currentTick % 2) {
+            if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && data.currentTick % 2) {
                 const itemEnchants = item.getComponent("enchantments").enchantments;
 
                 /*
@@ -268,7 +269,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
     const block = blockPlace.block;
     const player = blockPlace.player;
 
-    if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.typeId}.`);
+    if(config.debug === true) console.warn(`${player.nameTag} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
 
     // IllegalItems/H = checks for pistons that can break any block
     if(config.modules.illegalitemsH.enabled === true && block.typeId === "minecraft:piston" || block.typeId === "minecraft:sticky_piston") {
