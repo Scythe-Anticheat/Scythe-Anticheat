@@ -26,5 +26,7 @@ export const banList = [
    "ecoautomod",
    "wieldyatol86717",
    "ctrlaltf44",
-   "blazerloop"
+   "blazerloop",
+   // No it doesnt
+   "scythesucks"
 ];
