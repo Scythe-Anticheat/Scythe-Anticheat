@@ -8,7 +8,7 @@ import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 
 const World = Minecraft.world;
 
-if(config.debug === true) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
+if(config.debug === true) console.warn(`${new Date()} | Im not a ******* and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase();
