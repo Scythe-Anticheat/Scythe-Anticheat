@@ -307,9 +307,11 @@ World.events.blockPlace.subscribe((blockPlace) => {
         }
     }
 
-    if(config.modules.illegalitemsJ.enabled === true && block.typeId.includes("sign") && !player.hasTag("op")) {
+    if(config.modules.illegalitemsJ.enabled === true && block.typeId.includes("sign")) {
         // we need to wait 1 tick before we can get the sign text
         Minecraft.system.run(() => {
+            if(config.modules.illegalitemsJ.exclude_scythe_op === true && player.hasTag("op")) return;
+
             const text = block.getComponent("sign").text;
 
             if(text.length >= config.modules.illegalitemsJ.max_sign_characters) {
@@ -553,7 +555,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
     }
 
     // IllegalItems/K = checks if a player places a chest boat with items already inside it
-    if(config.modules.illegalitemsK.enabled === true && entity.typeId === "minecraft:chest_boat" && !entity.hasTag("didCheck")) {
+    if(config.modules.illegalitemsK.enabled === true && config.modules.illegalitemsK.includes(entity.typeId) && !entity.hasTag("didCheck")) {
         entity.addTag("didCheck");
         Minecraft.system.run(() => {
             const player = getClosestPlayer(entity);

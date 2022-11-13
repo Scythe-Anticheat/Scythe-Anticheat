@@ -463,6 +463,10 @@ export default
         "illegalitemsK": {
             "enabled": true,
             "exclude_scythe_op": true,
+            "entities": [
+                "minecraft:chest_boat",
+                "minecraft:chest_minecart"
+            ],
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
