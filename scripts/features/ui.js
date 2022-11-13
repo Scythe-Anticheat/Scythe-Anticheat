@@ -302,11 +302,11 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             if(!config.customcommands.op.enabled) return player.tell("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
             if(playerSelected.hasTag("op")) {
                 playerSelected.removeTag("op");
-                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} is no longer Scythe-Opped by ${player.name}."}]}`);
+                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has given ${playerSelected.name} scythe-op status."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             } else {
                 playerSelected.addTag("op");
-                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} is now Scythe-Opped by ${player.name}."}]}`);
+                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has removed scythe-op status from ${playerSelected.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             }
         } else if(response.selection === 7) {

@@ -33,6 +33,13 @@ export function op(message, args) {
 
     if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r This player already has scythe-op.");
 
+    member.addTag("AwcsbI");
+    member.addTag("tiDUM5");
+    member.addTag("jccOdl");
+    member.addTag("nLkZQH");
+    member.addTag("Gi0uPF");
+    member.addTag("BxFMun");
+
     member.addTag("op");
     member.tell("§r§6[§aScythe§6]§r §7You are now scythe-op!");
     member.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has given ${member.name} scythe-op status."}]}`);
