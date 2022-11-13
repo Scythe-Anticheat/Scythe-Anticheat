@@ -84,7 +84,7 @@ Minecraft.system.run(({ currentTick }) => {
         // BadPackets[5] = checks for horion freecam
         if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) === "0.420000" && !player.hasTag("dead")) {
             player.badpackets5Ticks++;
-            if(player.badpackets5Ticks > 2) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
+            if(player.badpackets5Ticks > config.modules.badpackets5.sample_size) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
         } else if(player.badpackets5Ticks !== 0) player.badpackets5Ticks--;
 
         // Crasher/A = invalid pos check
@@ -130,8 +130,6 @@ Minecraft.system.run(({ currentTick }) => {
         }
 
         const playerSpeed = Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2);
-
-        // if(config.debug === true) console.warn(`${new Date()} | ${player.name}'s speed: ${playerSpeed.toFixed(4)} Vertical Speed: ${player.velocity.y}`);
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
@@ -430,10 +428,11 @@ World.events.playerJoin.subscribe((playerJoin) => {
     const player = playerJoin.player;
 
     // declare all needed variables in player
-    player.badpackets5Ticks = 0;
-    player.firstAttack = Date.now();
-    player.cps = 0;
-    player.reports = [];
+    if(config.modules.badpackets5.enabled) player.badpackets5Ticks = 0;
+    if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
+    if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
+    if(config.modules.autoclickerA.enabled) player.cps = 0;
+    if(config.customcommands.report.enabled) player.reports = [];
 
     // fix a disabler method
     player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "");
@@ -654,6 +653,15 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
         beforeItemUse.cancel = true;
     }
 
+    if(config.modules.fastuseA.enabled === true) {
+        const lastThrowTime = Date.now() - player.lastThrow;
+        if(lastThrowTime < config.modules.fastuseA.use_delay) {
+            flag(player, "FastUse", "A", "Combat", "lastThrowTime", `${lastThrowTime}`);
+            beforeItemUse.cancel = true;
+        }
+        player.lastThrow = Date.now();
+    }
+
     // patch a bypass for the freeze system
     if(item.typeId === "minecraft:milk_bucket" && player.hasTag("freeze"))
         beforeItemUse.cancel = true;
@@ -672,9 +680,10 @@ checkPlayer();
 // when using /reload, the variables defined in playerJoin dont persist
 if([...World.getPlayers()].length >= 1) {
     for(const player of World.getPlayers()) {
-        player.badpackets5Ticks = 0;
-        player.firstAttack = Date.now();
-        player.cps = 0;
-        player.reports = [];
+        if(config.modules.badpackets5.enabled) player.badpackets5Ticks = 0;
+        if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
+        if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
+        if(config.modules.autoclickerA.enabled) player.cps = 0;
+        if(config.customcommands.report.enabled) player.reports = [];
     }
 }

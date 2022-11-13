@@ -387,6 +387,7 @@ export default
         },
         "badpackets5": {
             "enabled": true,
+            "sample_size": 2,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
@@ -431,6 +432,12 @@ export default
         "illegalitemsK": {
             "enabled": true,
             "exclude_scythe_op": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
+        },
+        "fastuseA": {
+            "enabled": true,
+            "use_delay": 150,
             "punishment": "none",
             "minVlbeforePunishment": 0
         }
