@@ -168,11 +168,33 @@ export default
         },
         // Enabling this module is higly not recommended, as it breaks items names, enchantments, durability
         // and item data relating to it.
+        // These items can contain large nbt data which can cause the world file size to dramatically increase.
+        // In anarchy enviorments, this module can help greatly.
         // Your welcome, Carthe.
         "resetItemData": {
             "enabled": false,
             "items": [
-                "example:block",
+                "minecraft:armor_stand",
+                "minecraft:barrel",
+                "minecraft:blast_furnace",
+                "minecraft:brewing_stand",
+                "minecraft:campfire",
+                "minecraft:soul_campfire",
+                "minecraft:cauldron",
+                "minecraft:chest",
+                "minecraft:trapped_chest",
+                "minecraft:dropper",
+                "minecraft:flower_pot",
+                "minecraft:hopper",
+                "minecraft:frame",
+                "minecraft:glow_frame",
+                "minecraft:jukebox",
+                "minecraft:lectern",
+                "minecraft:chest_minecart",
+                "minecraft:hopper_minecart",
+                "minecraft:smoker",
+                "minecraft:end_gateway",
+                "minecraft:sponge"
             ]
         },
         "filterUnicodeChat": false,
