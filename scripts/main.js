@@ -317,7 +317,21 @@ World.events.blockPlace.subscribe((blockPlace) => {
     }
 
     if(config.modules.commandblockexploitH.enabled === true && block.typeId === "minecraft:hopper") {
-        player.runCommandAsync("fill ~-15 ~-15 ~-15 ~15 ~15 ~15 air 0 replace dispenser -1");
+        const pos1 = new Minecraft.BlockLocation(block.location.x + 2, block.location.y + 2, block.location.z + 2);
+        const pos2 = new Minecraft.BlockLocation(block.location.x - 2, block.location.y - 2, block.location.z - 2);
+
+        let foundDispenser = false;
+        pos1.blocksBetween(pos2).some(function(block) {
+            const blockType = player.dimension.getBlock(block);
+            if(blockType.typeId !== "minecraft:dispenser") return;
+
+            blockType.setType(Minecraft.MinecraftBlockTypes.air);
+            foundDispenser = true;
+        });
+
+        if(foundDispenser === true)
+            player.dimension.getBlock(new Minecraft.BlockLocation(block.location.x, block.location.y, block.location.z))
+                .setType(Minecraft.MinecraftBlockTypes.air);
     }
 });
 
@@ -507,13 +521,24 @@ World.events.entityCreate.subscribe((entityCreate) => {
         if(config.modules.commandblockexploitG.entities.includes(entity.typeId.toLowerCase())) {
             flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
             entity.kill();
-        }
-
-        if(config.modules.commandblockexploitG.npc && entity.typeId === "minecraft:npc") {
+        } else if(config.modules.commandblockexploitG.npc && entity.typeId === "minecraft:npc") {
             entity.runCommandAsync("scoreboard players operation @s npc = scythe:config npc");
             entity.runCommandAsync("testfor @s[scores={npc=1..}]");
             flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
             entity.kill();
+        }
+
+        if(config.modules.commandblockexploitG.blockSummonCheck.includes(entity.typeId)) {
+            const pos1 = new Minecraft.BlockLocation(entity.location.x + 2, entity.location.y + 2, entity.location.z + 2);
+            const pos2 = new Minecraft.BlockLocation(entity.location.x - 2, entity.location.y - 2, entity.location.z - 2);
+
+            pos1.blocksBetween(pos2).some(function(block) {
+                const blockType = block.dimension.getBlock(block);
+                if(!config.modules.commandblockexploitG.blockSummonCheck.includes(entity.typeId)) return;
+
+                blockType.setType(Minecraft.MinecraftBlockTypes.air);
+                entity.kill();
+            });
         }
     }
 
