@@ -166,6 +166,15 @@ export default
             "enabled": false,
             "entitiesBeforeRateLimit": 10
         },
+        // Enabling this module is higly not recommended, as it breaks items names, enchantments, durability
+        // and item data relating to it.
+        // Your welcome, Carthe.
+        "resetItemData": {
+            "enabled": false,
+            "items": [
+                "example:block",
+            ]
+        },
         "filterUnicodeChat": false,
         "badpackets2": {
             "enabled": true,

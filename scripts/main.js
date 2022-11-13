@@ -165,6 +165,12 @@ Minecraft.system.run(({ currentTick }) => {
                     flag(player, "BadEnchants", "D", "Exploit", "lore", String(item.getLore()), undefined, undefined, i);
             }
 
+            if(config.modules.resetItemData.enabled === true && config.modules.resetItemData.items.includes(item.typeId)) {
+                // This creates a duplicate version of the item, with just its amount and data.
+                const item2 = new Minecraft.ItemStack(Minecraft.Items.get(item.typeId), item.amount, item.data);
+                container.setItem(i, item2);
+            }
+
             if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && currentTick % 2) {
                 const itemEnchants = item.getComponent("enchantments").enchantments;
 
@@ -236,8 +242,8 @@ Minecraft.system.run(({ currentTick }) => {
 
             // player.runCommandAsync(`say ${player.cps}, ${player.lastCPS}. ${player.cps - player.lastCPS}`);
 
-            // autoclicker/B = checks if cps is similar to last cps (WIP)
             /*
+            // autoclicker/B = checks if cps is similar to last cps (WIP)
             let cpsDiff = Math.abs(player.cps - player.lastCPS);
             if(player.cps > 3 && cpsDiff > 0.81 && cpsDiff < 0.96) flag(player, "AutoClicker", "B", "Combat", "CPS", `${player.cps},last_cps=${player.lastCPS}`);
             player.lastCPS = player.cps;

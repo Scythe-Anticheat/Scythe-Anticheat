@@ -14,6 +14,9 @@ import config from "../../data/config.js";
     // get the player's inventory component
     const container = player.getComponent("inventory").container;
 
+    if(container.size === container.emptySlotsCount)
+        return player.tell("§r§6[§aScythe§6]§r Your inventory is full! Try removing some items and try again.");
+
     // make sure they dont have the UI item in their current slot
     const currentItem = container.getItem(player.selectedSlot);
 
