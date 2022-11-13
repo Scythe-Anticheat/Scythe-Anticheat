@@ -1,6 +1,2 @@
 # if the player is already op
-tellraw @s[tag=op] {"rawtext":[{"text":"To Scythe-Op someone, please use this command: \"/execute <player_name> ~~~ function op\"."}]}
-
-tellraw @s[tag=!op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r §7You are now op!"}]}
-execute @s[tag=!op] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" is now Scythe-Opped."}]}
-tag @s[type=player,tag=!op] add op
+tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r This command has been deprecated in favour of !op.\n§r§6[§aScythe§6]§r If your unable to run the command please confirm that Beta APIs is enabled in world settings and you have operator permissions on the server."}]}

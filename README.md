@@ -11,14 +11,14 @@
 </div>
 
 # How To Setup
-To install this anticheat to your realm/world you need to install the .mcpack, apply it to your world and enable GameTest Framework, once you have done this the anticheat should be fully up and running.
+To install this anticheat to your server, you wll need to install the .mcpack to your device, apply it to your server and enable Beta APIs in world settings. Once you have done the instructions, the anticheat should be fully up and running.
 
-To receive anti-cheat alerts use: ```/function notify```
+To be able to receive anti-cheat alerts, run the command: ```/function notify```.
 
-To run any chat commands or be able to use certain blocks run ```/function op```
+To run any chat commands or be able to use certain blocks please type ```!op``` in chat. This command requires you to have operator permissions on the server and have Beta APIs enabled.
 
 # List of hacks detected by Scythe AntiCheat
-*\* indicates that the check requires GameTest Framework to be enabled in world settings.*<br />
+*\* indicates that the check requires Beta APIs to be enabled in world settings.*<br />
   AutoClicker -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS.\*<br />
 
