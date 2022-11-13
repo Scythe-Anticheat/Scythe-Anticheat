@@ -10,6 +10,7 @@ scoreboard players set @s[type=player,tag=!op,scores={badenchants=1..}] badencha
 scoreboard players set @s[type=player,tag=!op,scores={badpacketsvl=1..}] badpacketsvl 0
 # scoreboard players set @s[type=player,tag=!op,scores={cbevl=1..}] cbevl 0
 scoreboard players set @s[type=player,tag=!op,scores={crashervl=1..}] crashervl 0
+scoreboard players set @s[type=player,tag=!op,scores={fastusevl=1..}] fastusevl 0
 scoreboard players set @s[type=player,tag=!op,scores={flyvl=1..}] flyvl 0
 scoreboard players set @s[type=player,tag=!op,scores={illegalitemsvl=1..}] illegalitemsvl 0
 scoreboard players set @s[type=player,tag=!op,scores={invalidsprintvl=1..}] invalidsprintvl 0
