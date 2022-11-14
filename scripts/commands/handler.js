@@ -55,7 +55,7 @@ export function commandHandler(player, message) {
 
     const args = message.message.slice(prefix.length).split(/ +/);
 
-    const command = args.shift().toLowerCase();
+    const command = args.shift().toLowerCase().trim();
 
     if(config.debug === true) console.warn(`${new Date()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
 
@@ -69,9 +69,7 @@ export function commandHandler(player, message) {
         // check if the command is an alias
         for(const cmd of Object.keys(config.customcommands)) {
             const data = config.customcommands[cmd];
-            if(typeof data !== "object" || typeof data.aliases === "undefined") continue;
-
-            if(!data.aliases.includes(command)) continue;
+            if(typeof data !== "object" || typeof data.aliases === "undefined" || !data.aliases.includes(command)) continue;
 
             commandData = data;
             commandName = cmd;

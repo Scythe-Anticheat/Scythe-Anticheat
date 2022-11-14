@@ -11,7 +11,7 @@ const World = Minecraft.world;
 if(config.debug === true) console.warn(`${new Date()} | Im not a dumbass and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
-    const message = msg.message.toLowerCase();
+    const message = msg.message.toLowerCase().trim();
     const player = msg.sender;
 
     if(config.debug === true && message === "ping") console.warn(`${new Date()} | Pong!`);
@@ -76,9 +76,8 @@ Minecraft.system.run(({ currentTick }) => {
 
         if(player.blocksBroken !== 0 && config.modules.nukerA.enabled === true) player.blocksBroken = 0;
         if(player.entitiesHit !== [] && config.modules.killauraC.enabled === true) player.entitiesHit = [];
-        if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay) {
-            // console.warn(1, player.lastSelectedSlot, player.selectedSlot);
-            if(player.lastSelectedSlot !== player.selectedSlot) player.flagAutotoolA = true;
+        if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
+            player.flagAutotoolA = true;
         }
 
         // BadPackets[5] = checks for horion freecam
@@ -359,20 +358,15 @@ World.events.blockBreak.subscribe((blockBreak) => {
     }
 
     // liquidinteract/a = checks if a player breaks a liquid source block
-    if(config.modules.liquidinteractA.enabled) {
-        if(config.modules.liquidinteractA.liquids.includes(blockBreak.brokenBlockPermutation.type.id)) {
-            flag(player, "LiquidInteract", "A", "Misc", "block", blockBreak.brokenBlockPermutation.type.id);
-            block.setPermutation(blockBreak.brokenBlockPermutation);
-        }
+    if(config.modules.liquidinteractA.enabled && config.modules.liquidinteractA.liquids.includes(blockBreak.brokenBlockPermutation.type.id)) {
+        flag(player, "LiquidInteract", "A", "Misc", "block", blockBreak.brokenBlockPermutation.type.id);
+        block.setPermutation(blockBreak.brokenBlockPermutation);
     }
 
     // Autotool/A = checks for player slot mismatch
     // This was a nightmare to debug...
-    if(config.modules.autotoolA.enabled) {
-        // console.warn("block break ", Date.now() - player.startBreakTime);
-        if(player.flagAutotoolA === true) {
-            flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot}`);
-        }
+    if(config.modules.autotoolA.enabled === true && player.flagAutotoolA === true) {
+        flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot}`);
     }
 });
 
@@ -443,7 +437,7 @@ World.events.playerJoin.subscribe((playerJoin) => {
     if(config.customcommands.report.enabled) player.reports = [];
 
     // fix a disabler method
-    player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "");
+    player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
 
     if(data.loaded === false) {
         player.runCommandAsync("scoreboard players set scythe:config gametestapi 1");
@@ -501,7 +495,8 @@ World.events.playerJoin.subscribe((playerJoin) => {
     }
 
     // Namespoof/B = regex check
-    if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) player.flagNamespoofB = true;
+    if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name))
+        player.flagNamespoofB = true;
 
     // check if the player is in the global ban list
     if(banList.includes(player.name.toLowerCase()) || banList.includes(player.oldName?.toLowerCase())) player.isGlobalBanned = true;
@@ -621,7 +616,7 @@ World.events.entityHit.subscribe((entityHit) => {
         }
 
         // autoclicker/a = check for high cps
-        if(config.modules.autoclickerA.enabled || !data.checkedModules.autoclicker) {
+        if(config.modules.autoclickerA.enabled === true) {
             // if anti-autoclicker is disabled in game then disable it in config.js
             if(data.checkedModules.autoclicker === false) {
                 if(getScore(player, "autoclicker", 1) >= 1) {
@@ -639,13 +634,10 @@ World.events.entityHit.subscribe((entityHit) => {
         }
     }
 
-    if(typeof block === "object") {
-        if(config.modules.autotoolA.enabled) {
-            // console.warn("hit block", Date.now() - player.startBreakTime);
-            player.flagAutotoolA = false;
-            player.lastSelectedSlot = player.selectedSlot;
-            player.startBreakTime = Date.now();
-        }
+    if(typeof block === "object" && config.modules.autotoolA.enabled === true) {
+        player.flagAutotoolA = false;
+        player.lastSelectedSlot = player.selectedSlot;
+        player.startBreakTime = Date.now();
     }
 
     if(config.debug === true) console.warn(player.getTags());
