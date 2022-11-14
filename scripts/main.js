@@ -656,7 +656,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     if(config.modules.fastuseA.enabled === true) {
         const lastThrowTime = Date.now() - player.lastThrow;
         if(lastThrowTime < config.modules.fastuseA.use_delay) {
-            flag(player, "FastUse", "A", "Combat", "lastThrowTime", `${lastThrowTime}`);
+            flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
             beforeItemUse.cancel = true;
         }
         player.lastThrow = Date.now();
