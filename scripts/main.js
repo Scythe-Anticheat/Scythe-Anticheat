@@ -555,7 +555,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
     }
 
     // IllegalItems/K = checks if a player places a chest boat with items already inside it
-    if(config.modules.illegalitemsK.enabled === true && config.modules.illegalitemsK.includes(entity.typeId) && !entity.hasTag("didCheck")) {
+    if(config.modules.illegalitemsK.enabled === true && config.modules.illegalitemsK.entities.includes(entity.typeId) && !entity.hasTag("didCheck")) {
         entity.addTag("didCheck");
         Minecraft.system.run(() => {
             const player = getClosestPlayer(entity);
