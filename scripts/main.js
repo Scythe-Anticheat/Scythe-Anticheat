@@ -558,7 +558,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
 
             pos1.blocksBetween(pos2).some(function(block) {
                 const blockType = block.dimension.getBlock(block);
-                if(!config.modules.commandblockexploitG.blockSummonCheck.includes(block.id)) return;
+                if(!config.modules.commandblockexploitG.blockSummonCheck.includes(blockType.id)) return;
 
                 blockType.setType(Minecraft.MinecraftBlockTypes.air);
                 entity.kill();
