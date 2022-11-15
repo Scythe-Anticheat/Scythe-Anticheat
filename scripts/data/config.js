@@ -6,11 +6,13 @@ export default
         "prefix": "!",
         "ban": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["b"]
         },
         "help": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["support","commands"]
         },
         "op": {
             "enabled": true,
@@ -24,17 +26,17 @@ export default
         "allowgma": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigma"]
+            "aliases": ["antigma","agma"]
         },
         "allowgmc": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigmc"]
+            "aliases": ["antigmc","agmc"]
         },
         "allowgms": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigms"]
+            "aliases": ["antigms","agms"]
         },
         "bedrockvalidate": {
             "enabled": true,
@@ -52,12 +54,12 @@ export default
         "overridecommandblocksenabled": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["overidecbe","overidecommandblocksenabled"]
+            "aliases": ["overidecbe","overidecommandblocksenabled","ocbe"]
         },
         "removecommandblocks": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["removecb"]
+            "aliases": ["removecb","rcb"]
         },
         "worldborder": {
             "enabled": true,
@@ -94,7 +96,8 @@ export default
         },
         "stats": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["info"]
         },
         "fullreport": {
             "enabled": true,
@@ -103,16 +106,18 @@ export default
         },
         "kick": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["r"]
         },
         "mute": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["m"]
         },
         "unmute": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["un"]
+            "aliases": ["um"]
         },
         "fly": {
             "enabled": true,
@@ -143,7 +148,8 @@ export default
         },
         "unban": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["ub"]
         },
         "ui": {
             "enabled": true,
@@ -159,7 +165,8 @@ export default
         },
         "version": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["ver","about"]
         }
     },
     "modules": {
@@ -167,11 +174,13 @@ export default
             "enabled": false,
             "entitiesBeforeRateLimit": 10
         },
-        // Enabling this module is higly not recommended, as it breaks items names, enchantments, durability
-        // and item data relating to it.
-        // These items can contain large nbt data which can cause the world file size to dramatically increase.
-        // In anarchy enviorments, this module can help greatly.
-        // Your welcome, Carthe.
+        /*
+        Enabling this module is higly discouraged, as it breaks items names, enchantments, durability
+        and item data relating to it.
+        These items can contain large nbt data which can cause the world file size to dramatically increase.
+        In anarchy enviorments, this module can help greatly to prevent world corruption.
+        Your welcome, Carthe.
+        */
         "resetItemData": {
             "enabled": false,
             "items": [
@@ -206,7 +215,7 @@ export default
             "punishment": "ban",
             /*
             PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
-            or to just perm ban the user (set value to nothing)
+            or to just perm ban the user (set value to nothing).
             */
             "punishmentLength": "",
             "minVlbeforePunishment": 1
@@ -349,7 +358,7 @@ export default
                 /*
                 If your realm uses enchantments with levels higher then vanilla then you need to exclude them here.
                 To add an exclusion, add ' "<enchantment name>": <max level> ' below the examples
-                Anything in this area will be considered as a comment, and wont take affect
+                Anything in this area will be considered as a comment, and wont take effect,
 
                 "efficiency": 69,
                 "sharpness": 420
@@ -517,7 +526,8 @@ export default
             "minecraft:frosted_ice",
             "minecraft:npc_spawn_egg",
             "minecraft:reinforced_deepslate",
-            "minecraft:farmland"
+            "minecraft:farmland",
+            "minecraft:monster_egg"
         ],
         "items_very_illegal": [
             "minecraft:flowing_water",

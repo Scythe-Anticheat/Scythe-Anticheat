@@ -62,37 +62,37 @@ export function commandHandler(player, message) {
     let commandData;
     let commandName;
 
-    if(typeof config.customcommands[command] === "object") {
-        commandData = config.customcommands[command];
-        commandName = command;
-    } else {
-        // check if the command is an alias
-        for(const cmd of Object.keys(config.customcommands)) {
-            const data = config.customcommands[cmd];
-            if(typeof data !== "object" || typeof data.aliases === "undefined" || !data.aliases.includes(command)) continue;
+    try {
+        if(typeof config.customcommands[command] === "object") {
+            commandData = config.customcommands[command];
+            commandName = command;
+        } else {
+            // check if the command is an alias
+            for(const cmd of Object.keys(config.customcommands)) {
+                const data = config.customcommands[cmd];
+                if(typeof data !== "object" || typeof data.aliases === "undefined" || !data.aliases.includes(command)) continue;
 
-            commandData = data;
-            commandName = cmd;
-            break;
+                commandData = data;
+                commandName = cmd;
+                break;
+            }
+
+            // command does not exist
+            if(typeof commandData === "undefined") return;
         }
 
-        // command does not exist
-        if(typeof commandData === "undefined") return;
-    }
+        message.cancel = true;
 
-    message.cancel = true;
+        if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
+            player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op");
+            return;
+        }
 
-    if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
-        player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op");
-        return;
-    }
+        if(commandData.enabled === false) {
+            player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server administrator for assistance.");
+            return;
+        }
 
-    if(commandData.enabled === false) {
-        player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server administrator for assistance.");
-        return;
-    }
-
-    try {
         if(commandName === "kick") kick(message, args);
         else if(commandName === "tag") tag(message, args);
         else if(commandName === "ban") ban(message, args);
