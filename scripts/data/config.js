@@ -515,7 +515,8 @@ export default
             "minecraft:chemistry_table",
             "minecraft:frosted_ice",
             "minecraft:npc_spawn_egg",
-            "minecraft:reinforced_deepslate"
+            "minecraft:reinforced_deepslate",
+            "minecraft:farmland"
         ],
         "items_very_illegal": [
             "minecraft:flowing_water",

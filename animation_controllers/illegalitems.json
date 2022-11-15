@@ -77,6 +77,9 @@
 							"reinforced_deepslate": "query.get_equipped_item_name == 'reinforced_deepslate' || query.get_equipped_item_name('off_hand') == 'reinforced_deepslate'"
 						},
 						{
+							"farmland": "query.get_equipped_item_name == 'farmland' || query.get_equipped_item_name('off_hand') == 'farmland'"
+						},
+						{
 							"npc_spawn_egg": "query.get_equipped_item_name == 'npc_spawn_egg' || query.get_equipped_item_name('off_hand') == 'npc_spawn_egg'"
 						}
 					]
@@ -319,6 +322,16 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'reinforced_deepslate' || query.get_equipped_item_name('off_hand') != 'reinforced_deepslate'"
+					}]
+				},
+				"farmland": {
+					"on_entry": [
+						"/clear @s[tag=!op] farmland",
+						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
+						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(farmland)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name != 'farmland' || query.get_equipped_item_name('off_hand') != 'farmland'"
 					}]
 				},
 				"npc_spawn_egg": {
