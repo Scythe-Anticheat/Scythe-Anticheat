@@ -602,11 +602,11 @@ World.events.entityHit.subscribe((entityHit) => {
         if(config.modules.badpackets3.enabled && entity.typeId === player.typeId) flag(player, "BadPackets", "3", "Exploit");
     
         // check if the player was hit with the UI item, and if so open the UI for that player
-        if(config.customcommands.gui.enabled === true) {
+        if(config.customcommands.ui.enabled === true) {
             const container = player.getComponent("inventory").container;
 
             const item = container.getItem(player.selectedSlot);
-            if(entity.typeId === "minecraft:player" && item?.typeId === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === config.customcommands.gui.gui_item_name) {
+            if(entity.typeId === "minecraft:player" && item?.typeId === config.customcommands.ui.ui_item && player.hasTag("op") && item?.nameTag === config.customcommands.ui.ui_item_name) {
                 playerSettingsMenuSelected(player, entity);
             }
         }
@@ -645,7 +645,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     const player = beforeItemUse.source;
 
     // GUI stuff
-    if(config.customcommands.gui.enabled && item.typeId === "minecraft:wooden_axe" && item.nameTag === config.customcommands.gui.gui_item_name && player.hasTag("op")) {
+    if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && player.hasTag("op")) {
         mainGui(player);
         beforeItemUse.cancel = true;
     }

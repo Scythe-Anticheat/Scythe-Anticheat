@@ -32,7 +32,7 @@ import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
 import { report } from "./other/report.js";
 import { unban } from "./moderation/unban.js";
-import { gui } from "./utility/gui.js";
+import { ui } from "./utility/ui.js";
 import { resetwarns } from "./moderation/resetwarns.js";
 import { version } from "./other/version.js";
 
@@ -124,7 +124,7 @@ export function commandHandler(player, message) {
         else if(commandName === "autoban") autoban(message);
         else if(commandName === "report") report(message, args);
         else if(commandName === "unban") unban(message, args);
-        else if(commandName === "gui") gui(message);
+        else if(commandName === "ui") ui(message);
         else if(commandName === "resetwarns") resetwarns(message, args);
         else if(commandName === "version") version(message);
         else throw Error(`Command ${commandName} was found in config.js but no handler for it was found.`);

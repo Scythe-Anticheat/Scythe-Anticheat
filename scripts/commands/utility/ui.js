@@ -2,10 +2,10 @@ import * as Minecraft from "@minecraft/server";
 import config from "../../data/config.js";
 
 /**
- * @name gui
+ * @name ui
  * @param {object} message - Message object
  */
- export function gui(message) {
+ export function ui(message) {
     // validate that required params are defined
     if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
     
@@ -20,13 +20,13 @@ import config from "../../data/config.js";
     // make sure they dont have the UI item in their current slot
     const currentItem = container.getItem(player.selectedSlot);
 
-    if(currentItem?.typeId === "minecraft:wooden_axe" && currentItem?.nameTag === config.customcommands.gui.gui_item_name)
+    if(currentItem?.typeId === config.customcommands.ui.ui_item && currentItem?.nameTag === config.customcommands.ui.ui_item_name)
         return player.tell("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 
     // creating the item that opens the UI
-    const item = new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.woodenAxe, 1, 0);
+    const item = new Minecraft.ItemStack(Minecraft.Items.get(config.customcommands.ui.ui_item), 1, 0);
 
-    item.nameTag = config.customcommands.gui.gui_item_name;
+    item.nameTag = config.customcommands.ui.ui_item_name;
 
     // enchant it since why not
     const enchantments = item.getComponent("enchantments").enchantments;

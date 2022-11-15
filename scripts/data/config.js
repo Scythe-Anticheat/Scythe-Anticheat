@@ -145,11 +145,12 @@ export default
             "enabled": true,
             "requiredTags": ["op"]
         },
-        "gui": {
+        "ui": {
             "enabled": true,
-            "gui_item_name": "§r§l§aRight click to Open the UI",
+            "ui_item_name": "§r§l§aRight click to Open the AI",
+            "ui_item": "minecraft:wooden_axe",
             "requiredTags": ["op"],
-            "aliases": ["ui"]
+            "aliases": ["gui"]
         },
         "resetwarns": {
             "enabled": true,
