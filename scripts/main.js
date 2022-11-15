@@ -64,11 +64,9 @@ Minecraft.system.run(({ currentTick }) => {
         try {
 
         if(player.isGlobalBanned === true) {
-            try {
-                player.addTag("by:Scythe Anticheat");
-                player.addTag("reason:You are Scythe Anticheat global banned!");
-                player.addTag("isBanned");
-            } catch {}
+            player.addTag("by:Scythe Anticheat");
+            player.addTag("reason:You are Scythe Anticheat global banned!");
+            player.addTag("isBanned");
         }
 
         // sexy looking ban message
@@ -78,6 +76,7 @@ Minecraft.system.run(({ currentTick }) => {
         if(player.entitiesHit !== [] && config.modules.killauraC.enabled === true) player.entitiesHit = [];
         if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
             player.flagAutotoolA = true;
+            player.autotoolSwitchDelay = Date.now() - player.startBreakTime;
         }
 
         // BadPackets[5] = checks for horion freecam
@@ -364,9 +363,8 @@ World.events.blockBreak.subscribe((blockBreak) => {
     }
 
     // Autotool/A = checks for player slot mismatch
-    // This was a nightmare to debug...
     if(config.modules.autotoolA.enabled === true && player.flagAutotoolA === true) {
-        flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot}`);
+        flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
     }
 });
 
@@ -534,11 +532,9 @@ World.events.entityCreate.subscribe((entityCreate) => {
 
         // Although the crash method this detects has been patched with mineraft version 1.19.40, we
         // can keep it here just to screw other people who dont know it got patched
-        if(config.modules.crasherB.enabled === true) {
-            if(item.typeId === "minecraft:arrow" && item.data > 43) {
-                flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${item.typeId},data=${item.data}`);
-                entity.kill();
-            }
+        if(config.modules.crasherB.enabled === true && item.typeId === "minecraft:arrow" && item.data > 43) {
+            flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${item.typeId},data=${item.data}`);
+            entity.kill();
         }
         if(config.modules.illegalitemsB.enabled === true) {
             if(config.itemLists.items_very_illegal.includes(item.id) || config.itemLists.items_semi_illegal.includes(item.id))
@@ -579,12 +575,10 @@ World.events.entityHit.subscribe((entityHit) => {
 
     if(typeof entity === "object") {
         // killaura/C = checks for multi-aura
-        if(config.modules.killauraC.enabled) {
-            if(!player.entitiesHit.includes(entity.id)) {
-                player.entitiesHit.push(entity.id);
-                if(player.entitiesHit.length >= config.modules.killauraC.entities) {
-                    flag(player, "KillAura", "C", "Combat", "entitiesHit", player.entitiesHit.length);
-                }
+        if(config.modules.killauraC.enabled === true && !player.entitiesHit.includes(entity.id)) {
+            player.entitiesHit.push(entity.id);
+            if(player.entitiesHit.length >= config.modules.killauraC.entities) {
+                flag(player, "KillAura", "C", "Combat", "entitiesHit", player.entitiesHit.length);
             }
         }
 
@@ -605,14 +599,16 @@ World.events.entityHit.subscribe((entityHit) => {
 
         // badpackets[3] = checks if a player attacks themselves
         // some (bad) hacks use this to bypass anti-movement cheat checks
-        if(config.modules.badpackets3.enabled && entity === player) flag(player, "BadPackets", "3", "Exploit");
+        if(config.modules.badpackets3.enabled && entity.typeId === player.typeId) flag(player, "BadPackets", "3", "Exploit");
     
         // check if the player was hit with the UI item, and if so open the UI for that player
-        const container = player.getComponent("inventory").container;
+        if(config.customcommands.gui.enabled === true) {
+            const container = player.getComponent("inventory").container;
 
-        const item = container.getItem(player.selectedSlot);
-        if(config.customcommands.gui.enabled && entity.typeId === "minecraft:player" && item?.typeId === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === config.customcommands.gui.gui_item_name) {
-            playerSettingsMenuSelected(player, entity);
+            const item = container.getItem(player.selectedSlot);
+            if(entity.typeId === "minecraft:player" && item?.typeId === "minecraft:wooden_axe" && player.hasTag("op") && item?.nameTag === config.customcommands.gui.gui_item_name) {
+                playerSettingsMenuSelected(player, entity);
+            }
         }
 
         // autoclicker/a = check for high cps
@@ -638,6 +634,7 @@ World.events.entityHit.subscribe((entityHit) => {
         player.flagAutotoolA = false;
         player.lastSelectedSlot = player.selectedSlot;
         player.startBreakTime = Date.now();
+        player.autotoolSwitchDelay = 0;
     }
 
     if(config.debug === true) console.warn(player.getTags());

@@ -434,7 +434,7 @@ export default
         },
         "autotoolA": {
             "enabled": true,
-            "startBreakDelay": 85,
+            "startBreakDelay": 90,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
@@ -514,7 +514,8 @@ export default
             "minecraft:border_block",
             "minecraft:chemistry_table",
             "minecraft:frosted_ice",
-            "minecraft:npc_spawn_egg"
+            "minecraft:npc_spawn_egg",
+            "minecraft:reinforced_deepslate"
         ],
         "items_very_illegal": [
             "minecraft:flowing_water",
