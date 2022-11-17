@@ -43,7 +43,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
 
     // If debug is enabled, then we log everything we know about the player.
-    if(config.debug === true) console.warn(`{"timestamp":${Date.now()},"time":"${Date()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}","playerNameTag":"${player.nameTag}","lastPlayerName":"${player.oldName}","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id || "minecraft:air"}:${player.getComponent("inventory").container.getItem(player.selectedSlot)?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"badpackets5Ticks":${player.badpackets5Ticks || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
+    if(config.debug === true) console.warn(`{"timestamp":${Date.now()},"time":"${Date()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","lastPlayerName":"${player.oldName}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id || "minecraft:air"}:${player.getComponent("inventory").container.getItem(player.selectedSlot)?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"badpackets5Ticks":${player.badpackets5Ticks || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
 
     // cancel the message
     if(typeof message === "object") message.cancel = true;
@@ -51,16 +51,17 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(shouldTP === true && check !== "Crasher") player.runCommandAsync("tp @s @s");
         else if(shouldTP === true && check === "Crasher") player.runCommand("tp @s 30000000 30000000 30000000");
 
-    if(check !== "CommandBlockExploit" && World.scoreboard.getObjective(`${check.toLowerCase()}vl`) === null) {
-        player.runCommandAsync(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
+    let scoreboardObjective = `${check.toLowerCase()}vl`;
+    if(check === "CommandBlockExploit") scoreboardObjective = "cbevl";
+
+    if(World.scoreboard.getObjective(scoreboardObjective) === null) {
+        player.runCommandAsync(`scoreboard objectives add ${scoreboardObjective} dummy`);
     } 
 
-    if(check !== "CommandBlockExploit") player.runCommandAsync(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
-        else player.runCommandAsync("scoreboard players add @s cbevl 1");
+    player.runCommandAsync(`scoreboard players add @s ${scoreboardObjective} 1`);
 
-    if(typeof debug === "string" && check !== "CommandBlockExploit") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
-        else if(typeof debugName === "string") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
-        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
+    if(typeof debug !== "undefined") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
+        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
@@ -79,10 +80,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
     if(punishment === "none" || punishment === "") return;
 
-    let currentVL;
-
-    if(check === "CommandBlockExploit") currentVL = getScore(player, "cbevl", 1);
-        else currentVL = getScore(player, `${check.toLowerCase()}vl`, 1);
+    const currentVL = getScore(player, scoreboardObjective, 1);
 
     const punishmentLength = checkData.punishmentLength?.toLowerCase();
 

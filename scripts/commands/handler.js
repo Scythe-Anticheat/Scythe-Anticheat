@@ -129,7 +129,7 @@ export function commandHandler(player, message) {
         else if(commandName === "version") version(message);
         else throw Error(`Command ${commandName} was found in config.js but no handler for it was found.`);
     } catch (error) {
-        console.warn(`${new Date()} | ${error} ${error.stack}`);
+        console.error(`${new Date()} | ${error} ${error.stack}`);
         player.tell(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
     }
 }

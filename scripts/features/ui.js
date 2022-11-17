@@ -380,7 +380,7 @@ function worldSettingsMenu(player) {
 function debugSettingsMenu(player) {
     if(!player.hasTag("op") || config.debug === false) return;
     player.playSound("mob.chicken.plop");
-    
+
     const debugSettingsMenu = new MinecraftUI.ActionFormData()
         .title("Scythe Anticheat UI")
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
