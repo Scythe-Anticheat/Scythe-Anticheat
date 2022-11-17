@@ -55,7 +55,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(check === "CommandBlockExploit") scoreboardObjective = "cbevl";
 
     if(World.scoreboard.getObjective(scoreboardObjective) === null) {
-        player.runCommandAsync(`scoreboard objectives add ${scoreboardObjective} dummy`);
+        World.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
     } 
 
     player.runCommandAsync(`scoreboard players add @s ${scoreboardObjective} 1`);
