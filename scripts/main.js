@@ -56,7 +56,7 @@ World.events.beforeChat.subscribe(msg => {
 });
 
 function checkPlayer() {
-Minecraft.system.run(({ currentTick }) => {
+Minecraft.system.run(() => {
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
     // run as each player
@@ -169,7 +169,7 @@ Minecraft.system.run(({ currentTick }) => {
                 container.setItem(i, item2);
             }
 
-            if((config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) && currentTick % 2) {
+            if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
                 const itemEnchants = item.getComponent("enchantments").enchantments;
 
                 /*
@@ -652,6 +652,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
     if(config.modules.fastuseA.enabled === true) {
         const lastThrowTime = Date.now() - player.lastThrow;
+        if(lastThrowTime < 184) console.warn("detected fastthrow4", lastThrowTime);
         if(lastThrowTime < config.modules.fastuseA.use_delay) {
             flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
             beforeItemUse.cancel = true;
@@ -662,6 +663,43 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     // patch a bypass for the freeze system
     if(item.typeId === "minecraft:milk_bucket" && player.hasTag("freeze"))
         beforeItemUse.cancel = true;
+
+    if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
+        const itemEnchants = item.getComponent("enchantments").enchantments;
+        let itemType = Minecraft.ItemTypes.get(item.typeId);
+        if(typeof itemType === "undefined") itemType = Minecraft.ItemTypes.get("minecraft:book");
+
+        const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
+        const item2Enchants = item2.getComponent("enchantments").enchantments;
+
+        for (const enchantment in Minecraft.MinecraftEnchantmentTypes) {
+            const enchantData = itemEnchants.getEnchantment(Minecraft.MinecraftEnchantmentTypes[enchantment]);
+
+            if(typeof enchantData === "object") {
+                if(config.modules.badenchantsA.enabled === true) {
+                    const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
+                    if(typeof maxLevel === "number") {
+                        if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, beforeItemUse, player.selectedSlot);
+                    } else if(enchantData.level > Minecraft.MinecraftEnchantmentTypes[enchantment].maxLevel)
+                        flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, beforeItemUse, player.selectedSlot);
+                }
+
+                if(config.modules.badenchantsB.enabled && enchantData.level <= 0)
+                    flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, beforeItemUse, player.selectedSlot);
+
+                if(config.modules.badenchantsC.enabled) {
+                    if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantment], 1))) {
+                        flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, beforeItemUse, player.selectedSlot);
+                    }
+
+                    if(config.modules.badenchantsB.multi_protection === true) {
+                        item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
+                        item2.getComponent("enchantments").enchantments = item2Enchants;
+                    }
+                }
+            }
+        }
+    }
 });
 
 Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTerminate) => {

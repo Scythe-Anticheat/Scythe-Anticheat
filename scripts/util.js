@@ -13,12 +13,12 @@ const World = Minecraft.world;
  * @param {string | undefined} debugName - Name for the debug value.
  * @param {string | undefined} debug - Debug info.
  * @param {boolean} shouldTP - Whever to tp the player to itself.
- * @param {Message | undefined} message - The message object, used to cancel the message.
+ * @param {object | undefined} cancelObject - object with property "cancel" to cancel.
  * @param {number | undefined} slot - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg, undefined);
  * @remarks Alerts staff if a player is hacking.
  */
-export function flag(player, check, checkType, hackType, debugName, debug, shouldTP = false, message, slot) {
+export function flag(player, check, checkType, hackType, debugName, debug, shouldTP = false, cancelObject, slot) {
     // validate that required params are defined
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
@@ -46,7 +46,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(config.debug === true) console.warn(`{"timestamp":${Date.now()},"time":"${Date()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","lastPlayerName":"${player.oldName}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id || "minecraft:air"}:${player.getComponent("inventory").container.getItem(player.selectedSlot)?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"badpackets5Ticks":${player.badpackets5Ticks || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
 
     // cancel the message
-    if(typeof message === "object") message.cancel = true;
+    if(typeof cancelObject === "object") cancelObject.cancel = true;
 
     if(shouldTP === true && check !== "Crasher") player.runCommandAsync("tp @s @s");
         else if(shouldTP === true && check === "Crasher") player.runCommand("tp @s 30000000 30000000 30000000");

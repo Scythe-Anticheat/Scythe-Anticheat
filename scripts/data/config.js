@@ -482,7 +482,7 @@ export default
         },
         "fastuseA": {
             "enabled": true,
-            "use_delay": 150,
+            "use_delay": 170,
             "punishment": "none",
             "minVlbeforePunishment": 0
         }
