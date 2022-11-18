@@ -531,17 +531,17 @@ World.events.entityCreate.subscribe((entityCreate) => {
         const item = entity.getComponent("item").itemStack;
 
         // Although the crash method this detects has been patched with mineraft version 1.19.40, we
-        // can keep it here just to screw other people who dont know it got patched
+        // can keep it here just to screw with hackers who dont know it got patched
         if(config.modules.crasherB.enabled === true && item.typeId === "minecraft:arrow" && item.data > 43) {
             flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${item.typeId},data=${item.data}`);
             entity.kill();
         }
         if(config.modules.illegalitemsB.enabled === true) {
-            if(config.itemLists.items_very_illegal.includes(item.id) || config.itemLists.items_semi_illegal.includes(item.id))
+            if(config.itemLists.items_very_illegal.includes(item.typeId) || config.itemLists.items_semi_illegal.includes(item.typeId))
                 entity.kill();
         }
 
-        if(config.modules.illegalitemsB.enabled === true && config.itemLists.cbe_items.includes(item.id))
+        if(config.modules.illegalitemsB.enabled === true && config.itemLists.cbe_items.includes(item.typeId))
             entity.kill();
     }
 
@@ -652,7 +652,6 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
     if(config.modules.fastuseA.enabled === true) {
         const lastThrowTime = Date.now() - player.lastThrow;
-        if(lastThrowTime < 184) console.warn("detected fastthrow4", lastThrowTime);
         if(lastThrowTime < config.modules.fastuseA.use_delay) {
             flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
             beforeItemUse.cancel = true;

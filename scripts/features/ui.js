@@ -222,7 +222,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     const playerSettingsMenuSelected = new MinecraftUI.ActionFormData()
         .title("Player Menu - " + player.name)
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("frozen")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
+        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("freeze")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
         .button("Clear EnderChest", "textures/blocks/ender_chest_front.png")
         .button("Kick Player", "textures/ui/anvil_icon.png")
         .button("Ban Player", "textures/ui/anvil_icon.png");
@@ -230,7 +230,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     if(!playerSelected.hasTag("flying")) playerSettingsMenuSelected.button("Enable Fly Mode", "textures/ui/levitation_effect.png");
         else playerSettingsMenuSelected.button("Disable Fly Mode", "textures/ui/levitation_effect.png");
 
-    if(!playerSelected.hasTag("frozen")) playerSettingsMenuSelected.button("Freeze Player", "textures/ui/icon_winter.png");
+    if(!playerSelected.hasTag("freeze")) playerSettingsMenuSelected.button("Freeze Player", "textures/ui/icon_winter.png");
         else playerSettingsMenuSelected.button("Unfreeze Player", "textures/ui/icon_winter.png");
     
     if(!playerSelected.hasTag("isMuted")) playerSettingsMenuSelected.button("Mute Player", "textures/ui/mute_on.png");
@@ -276,7 +276,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             }
         } else if(response.selection === 4) {
             if(!config.customcommands.freeze.enabled) return player.tell("§r§6[§aScythe§6]§r Toggling Frozen State is disabled in config.js.");
-            if(playerSelected.hasTag("frozen")) {
+            if(playerSelected.hasTag("freeze")) {
                 playerSelected.runCommandAsync("function tools/freeze");
                 player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has unfrozen for ${playerSelected.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
