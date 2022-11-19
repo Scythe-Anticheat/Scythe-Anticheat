@@ -16,7 +16,6 @@ scoreboard players set @s[type=player,tag=!op,scores={illegalitemsvl=1..}] illeg
 scoreboard players set @s[type=player,tag=!op,scores={invalidsprintvl=1..}] invalidsprintvl 0
 scoreboard players set @s[type=player,tag=!op,scores={killauravl=1..}] killauravl 0
 scoreboard players set @s[type=player,tag=!op,scores={invmovevl=1..}] invmovevl 0
-scoreboard players set @s[type=player,tag=!op,scores={liquidinteractvl=1..}] liquidinteractvl 0
 scoreboard players set @s[type=player,tag=!op,scores={namespoofvl=1..}] namespoofvl 0
 scoreboard players set @s[type=player,tag=!op,scores={noslowvl=1..}] noslowvl 0
 scoreboard players set @s[type=player,tag=!op,scores={nukervl=1..}] nukervl 0

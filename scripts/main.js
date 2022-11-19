@@ -356,12 +356,6 @@ World.events.blockBreak.subscribe((blockBreak) => {
         }
     }
 
-    // liquidinteract/a = checks if a player breaks a liquid source block
-    if(config.modules.liquidinteractA.enabled && config.modules.liquidinteractA.liquids.includes(blockBreak.brokenBlockPermutation.type.id)) {
-        flag(player, "LiquidInteract", "A", "Misc", "block", blockBreak.brokenBlockPermutation.type.id);
-        block.setPermutation(blockBreak.brokenBlockPermutation);
-    }
-
     // Autotool/A = checks for player slot mismatch
     if(config.modules.autotoolA.enabled === true && player.flagAutotoolA === true) {
         flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
@@ -550,6 +544,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
         entity.addTag("didCheck");
         Minecraft.system.run(() => {
             const player = getClosestPlayer(entity);
+            if(typeof player === "undefined") return;
             if(config.modules.illegalitemsK.exclude_scythe_op === true && player.hasTag("op")) return;
 
             const container = entity.getComponent("inventory").container;

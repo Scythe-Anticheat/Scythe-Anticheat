@@ -316,18 +316,6 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
-        "liquidinteractA": {
-            "enabled": true,
-            "liquids": [
-                "minecraft:water",
-                "minecraft:flowing_water",
-                "minecraft:lava",
-                "minecraft:flowing_lava"
-            ],
-            "punishment": "ban",
-            "punishmentLength": "",
-            "minVlbeforePunishment": 1
-        },
         "flyA": {
             "enabled": false,
             "punishment": "none",
