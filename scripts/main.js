@@ -80,7 +80,7 @@ Minecraft.system.run(() => {
         }
 
         // BadPackets[5] = checks for horion freecam
-        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) === "0.420000" && !player.hasTag("dead")) {
+        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) === "0.420000" && !player.hasTag("dead") && !player.hasTag("sleeping")) {
             player.badpackets5Ticks++;
             if(player.badpackets5Ticks > config.modules.badpackets5.sample_size) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
         } else if(player.badpackets5Ticks !== 0) player.badpackets5Ticks--;
