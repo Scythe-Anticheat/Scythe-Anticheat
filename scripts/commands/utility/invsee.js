@@ -40,20 +40,20 @@ export function invsee(message, args) {
         inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId}:${item.data} x${item.amount}\n`;
 
         if(config.customcommands.invsee.show_enchantments === true) {
-        const loopIterator = (iterator) => {
-            const iteratorResult = iterator.next();
-            if(iteratorResult.done === true) return;
-            const enchantData = iteratorResult.value;
+            const loopIterator = (iterator) => {
+                const iteratorResult = iterator.next();
+                if(iteratorResult.done === true) return;
+                const enchantData = iteratorResult.value;
 
-            let enchantmentName = enchantData.type.id;
-            enchantmentName = enchantmentName.charAt(0).toUpperCase() + enchantmentName.slice(1);
+                let enchantmentName = enchantData.type.id;
+                enchantmentName = enchantmentName.charAt(0).toUpperCase() + enchantmentName.slice(1);
 
-            inventory += `    | ${enchantmentName} ${enchantData.level}\n`;
+                inventory += `    | ${enchantmentName} ${enchantData.level}\n`;
 
-            loopIterator(iterator);
-        };
-        loopIterator(item.getComponent("enchantments").enchantments[Symbol.iterator]());
-    }
+                loopIterator(iterator);
+            };
+            loopIterator(item.getComponent("enchantments").enchantments[Symbol.iterator]());
+        }
     }
 
     player.tell(inventory);
