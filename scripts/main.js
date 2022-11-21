@@ -185,8 +185,6 @@ Minecraft.system.run(() => {
                 const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
                 const item2Enchants = item2.getComponent("enchantments").enchantments;
                 const enchantments = [];
-
-                const iterator = itemEnchants[Symbol.iterator]();
                 
                 const loopIterator = (iterator) => {
                     const iteratorResult = iterator.next();
@@ -229,7 +227,7 @@ Minecraft.system.run(() => {
 
                     loopIterator(iterator);
                 };
-                loopIterator(iterator);
+                loopIterator(itemEnchants[Symbol.iterator]());
             }
         }
 
@@ -682,8 +680,6 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
             const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
             const item2Enchants = item2.getComponent("enchantments").enchantments;
             const enchantments = [];
-
-            const iterator = itemEnchants[Symbol.iterator]();
             
             const loopIterator = (iterator) => {
                 const iteratorResult = iterator.next();
@@ -726,7 +722,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
                 loopIterator(iterator);
             };
-            loopIterator(iterator);
+            loopIterator(itemEnchants[Symbol.iterator]());
         }
 });
 

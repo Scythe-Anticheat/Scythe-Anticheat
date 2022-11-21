@@ -125,6 +125,7 @@ export default
         },
         "invsee": {
             "enabled": true,
+            "show_enchantments": true,
             "requiredTags": ["op"],
             "aliases": ["inv"]
         },
