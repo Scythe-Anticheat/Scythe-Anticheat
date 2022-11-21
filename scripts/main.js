@@ -654,8 +654,8 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
         player.lastThrow = Date.now();
     }
 
-    // patch a bypass for the freeze system
-    if(item.typeId === "minecraft:milk_bucket" && player.hasTag("freeze"))
+    // patch bypasses for the freeze system
+    if(player.hasTag("freeze"))
         beforeItemUse.cancel = true;
 
     if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {

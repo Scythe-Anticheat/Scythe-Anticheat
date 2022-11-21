@@ -85,9 +85,7 @@
 					"on_entry": [
 						"/tag @s add sprint",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/execute @s[tag=right,scores={right=4..,invalidsprint=1..}] ~~~ function checks/alerts/invalidsprintB",
-						"/execute @s[tag=sneak,m=!c,tag=!flying,scores={invalidsprint=1..}] ~~~ function checks/alerts/invalidsprintC",
-						"/execute @s[tag=gliding,tag=!right,scores={invalidsprint=1..}] ~~~ function checks/alerts/invalidsprintD"
+						"/execute @s[scores={invalidsprint=1..}] ~~~ function checks/invalidsprint"
 					]
 				}
 			}
@@ -114,7 +112,6 @@
 						"/scoreboard players add @s[tag=hasGUIopen] invmovevl 1",
 						"/execute @s[tag=hasGUIopen] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMods/B §7(is_attacking)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}",
 						"/execute @s[tag=right,scores={right=3..}] ~~~ function checks/alerts/interactuse",
-						"/scoreboard players add @s last_attack 1",
 						"@s scythe:reset_skinid"
 					]
 				}

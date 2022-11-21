@@ -129,7 +129,8 @@
 					}],
 					"on_entry": [
 						"/tag @s add riding",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aRIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aRIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/tag @s remove moving"
 					]
 				}
 			}
@@ -213,7 +214,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove moving",
-						"/tellraw @a[tag=packetlogger,tag=packetlogger2] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"move": {
@@ -222,10 +223,11 @@
 					}],
 					"on_entry": [
 						"/tag @s add moving",
-						"/tellraw @a[tag=packetlogger,tag=packetlogger2] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"/execute @s[scores={worldborder=1..,gametestapi=1..}] ~~~ function checks/optional/worldborder",
 						"/tp @s[tag=freeze] ~~~",
-						"/tp @s[y=-105,dy=-205] ~ -104 ~"
+						"/tp @s[y=-105,dy=-205] ~ -104 ~",
+						"/scoreboard players set @s last_move 0"
 					]
 				}
 			}
