@@ -473,6 +473,11 @@ export default
             "use_delay": 170,
             "punishment": "none",
             "minVlbeforePunishment": 0
+        },
+        "badEnchantsD": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
         }
     },
     "itemLists": {
