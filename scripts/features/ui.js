@@ -2,8 +2,9 @@ import * as Minecraft from "@minecraft/server";
 import * as MinecraftUI from "@minecraft/server-ui";
 
 import config from "../data/config.js";
-import { parseTime } from "../util.js";
 import data2 from "../data/data.js";
+import { parseTime } from "../util.js";
+import { addOp, removeOp } from "../commands/moderation/op.js";
 
 const World = Minecraft.world;
 
@@ -254,11 +255,12 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             let isOp;
             if(playerSelected.hasTag("op")) {
                 isOp = true;
-                playerSelected.removeTag("op");
+                removeOp(playerSelected);
             }
-            playerSelected.runCommandAsync("function tools/ecwipe");
+            playerSelected.runCommandAsync("function tools/ecwipe")
+                .then(() => isOp && addOp(playerSelected));
+
             player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has cleared ${player.name}'s enderchest."}]}`);
-            if(isOp) playerSelected.addTag("op");
         } else if(response.selection === 1) {
            kickPlayerMenu(player, playerSelected, 1);
         } else if(response.selection === 2) {
@@ -301,11 +303,11 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         } else if(response.selection === 6) {
             if(!config.customcommands.op.enabled) return player.tell("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
             if(playerSelected.hasTag("op")) {
-                playerSelected.removeTag("op");
+                removeOp(playerSelected);
                 player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has given ${playerSelected.name} scythe-op status."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             } else {
-                playerSelected.addTag("op");
+                addOp(playerSelected);
                 player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has removed scythe-op status from ${playerSelected.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             }
