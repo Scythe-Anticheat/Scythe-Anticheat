@@ -27,7 +27,7 @@ export function mute(message, args) {
     if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
 
     // make sure they dont mute themselves
-    if(member === player.nameTag) return player.tell("§r§6[§aScythe§6]§r You cannot mute yourself.");
+    if(member.id === player.id) return player.tell("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
     try {
         member.addTag("isMuted");
