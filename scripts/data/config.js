@@ -475,7 +475,7 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
-        "badEnchantsD": {
+        "badenchantsE": {
             "enabled": true,
             "punishment": "none",
             "minVlbeforePunishment": 0

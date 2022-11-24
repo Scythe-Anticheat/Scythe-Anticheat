@@ -216,11 +216,11 @@ Minecraft.system.run(() => {
                         }
                     }
 
-                    // BadEnchants/D = checks if an item has duplicated enchantments
-                    if(config.modules.badenchantsD.enabled === true) {
+                    // BadEnchants/E = checks if an item has duplicated enchantments
+                    if(config.modules.badenchantsE.enabled === true) {
                         if(enchantments.includes(enchantData.type.id)) {
                             enchantments.push(enchantData.type.id);
-                            flag(player, "BadEnchants", "D", "Exploit", "enchantments", enchantments.join(", "), false, undefined , i);
+                            flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(", "), false, undefined , i);
                         }
                         enchantments.push(enchantData.type.id);
                     }
@@ -269,6 +269,7 @@ Minecraft.system.run(() => {
             flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
             player.selectedSlot = 0;
         }
+        if(player.hasTag("freeze") && player.selectedSlot !== 0) player.selectedSlot = 0;
     
         } catch (error) {
             console.error(error, error.stack);
@@ -429,6 +430,8 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
             beforeItemUseOn.cancel = true;
         }
     }
+
+    if(player.hasTag("freeze")) beforeItemUseOn.cancel = true;
 });
 
 World.events.playerJoin.subscribe((playerJoin) => {
@@ -668,62 +671,61 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     }
 
     // patch bypasses for the freeze system
-    if(player.hasTag("freeze"))
-        beforeItemUse.cancel = true;
+    if(player.hasTag("freeze")) beforeItemUse.cancel = true;
 
-        if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
-            const itemEnchants = item.getComponent("enchantments").enchantments;
+    if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
+        const itemEnchants = item.getComponent("enchantments").enchantments;
 
-            let itemType = Minecraft.ItemTypes.get(item.typeId);
-            if(typeof itemType === "undefined") itemType = Minecraft.ItemTypes.get("minecraft:book");
+        let itemType = Minecraft.ItemTypes.get(item.typeId);
+        if(typeof itemType === "undefined") itemType = Minecraft.ItemTypes.get("minecraft:book");
 
-            const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
-            const item2Enchants = item2.getComponent("enchantments").enchantments;
-            const enchantments = [];
+        const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
+        const item2Enchants = item2.getComponent("enchantments").enchantments;
+        const enchantments = [];
             
-            const loopIterator = (iterator) => {
-                const iteratorResult = iterator.next();
-                if(iteratorResult.done === true) return;
-                const enchantData = iteratorResult.value;
+        const loopIterator = (iterator) => {
+            const iteratorResult = iterator.next();
+            if(iteratorResult.done === true) return;
+            const enchantData = iteratorResult.value;
 
-                // badenchants/A = checks for items with invalid enchantment levels
-                if(config.modules.badenchantsA.enabled === true) {
-                    const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
-                    if(typeof maxLevel === "number") {
-                        if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-                    } else if(enchantData.level > enchantData.type.maxLevel)
-                        flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
+            // badenchants/A = checks for items with invalid enchantment levels
+            if(config.modules.badenchantsA.enabled === true) {
+                const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
+                if(typeof maxLevel === "number") {
+                    if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
+                } else if(enchantData.level > enchantData.type.maxLevel)
+                    flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
+            }
+
+            // badenchants/B = checks for negative enchantment levels
+            if(config.modules.badenchantsB.enabled && enchantData.level <= 0)
+                flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
+
+            // badenchants/C = checks if an item has an enchantment which isnt support by the item
+            if(config.modules.badenchantsC.enabled) {
+                if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1))) {
+                    flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
                 }
 
-                // badenchants/B = checks for negative enchantment levels
-                if(config.modules.badenchantsB.enabled && enchantData.level <= 0)
-                    flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-
-                // badenchants/C = checks if an item has an enchantment which isnt support by the item
-                if(config.modules.badenchantsC.enabled) {
-                    if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1))) {
-                        flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-                    }
-
-                    if(config.modules.badenchantsB.multi_protection === true) {
-                        item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
-                        item2.getComponent("enchantments").enchantments = item2Enchants;
-                    }
+                if(config.modules.badenchantsB.multi_protection === true) {
+                    item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
+                    item2.getComponent("enchantments").enchantments = item2Enchants;
                 }
+            }
 
-                // BadEnchants/D = checks if an item has duplicated enchantments
-                if(config.modules.badenchantsD.enabled === true) {
-                    if(enchantments.includes(enchantData.type.id)) {
-                        enchantments.push(enchantData.type.id);
-                        flag(player, "BadEnchants", "D", "Exploit", "enchantments", enchantments.join(", "), false, undefined , player.selectedSlot);
-                    }
+            // BadEnchants/D = checks if an item has duplicated enchantments
+            if(config.modules.badenchantsE.enabled === true) {
+                if(enchantments.includes(enchantData.type.id)) {
                     enchantments.push(enchantData.type.id);
+                    flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(", "), false, undefined , player.selectedSlot);
                 }
+                enchantments.push(enchantData.type.id);
+            }
 
-                loopIterator(iterator);
-            };
-            loopIterator(itemEnchants[Symbol.iterator]());
-        }
+            loopIterator(iterator);
+        };
+        loopIterator(itemEnchants[Symbol.iterator]());
+    }
 });
 
 Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTerminate) => {

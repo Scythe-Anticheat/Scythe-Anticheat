@@ -130,6 +130,24 @@
 					"causes_fire": false,
 					"breaks_blocks": false
 				}
+			},
+			"scythe:freeze": {
+				"minecraft:movement": {
+					"value": 0
+				},
+				"minecraft:pushable": {
+					"is_pushable": false,
+					"is_pushable_by_piston": false
+				}
+			},
+			"scythe:unfreeze": {
+				"minecraft:movement": {
+					"value": 0.1
+				},
+				"minecraft:pushable": {
+					"is_pushable": false,
+					"is_pushable_by_piston": false
+				}
 			}
 		},
 		"components": {
@@ -229,6 +247,27 @@
 										"operator": "==",
 										"subject": "self",
 										"value": "mayfly"
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"cause": "all",
+						"on_damage": {
+							"filters": {
+								"any_of": [{
+										"test": "has_tag",
+										"operator": "==",
+										"subject": "self",
+										"value": "freeze"
+									},
+									{
+										"test": "has_tag",
+										"operator": "==",
+										"subject": "other",
+										"value": "freeze"
 									}
 								]
 							}
@@ -707,10 +746,29 @@
 					"component_groups": [
 						"scythe:kick"
 					]
+				}
+			},
+			"scythe:freeze": {
+				"add": {
+					"component_groups": [
+						"scythe:freeze"
+					]
 				},
 				"remove": {
 					"component_groups": [
-						"scythe:kick"
+						"scythe:unfreeze"
+					]
+				}
+			},
+			"scythe:unfreeze": {
+				"add": {
+					"component_groups": [
+						"scythe:unfreeze"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:freeze"
 					]
 				}
 			},
