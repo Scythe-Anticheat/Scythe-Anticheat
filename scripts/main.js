@@ -85,7 +85,6 @@ Minecraft.system.run(() => {
             player.removeTag("Gi0uPF");
             player.removeTag("BxFMun");
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been detected with invalid scythe op."}]}`);
-            player.triggerEvent("scythe:kick");
         }
 
         if(player.isGlobalBanned) {
@@ -175,8 +174,32 @@ Minecraft.system.run(() => {
                 flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, undefined, undefined, i);
                 
             // Illegalitems/D = additional item clearing check
-            if(config.modules.illegalitemsD.enabled && config.itemLists.items_very_illegal.includes(item.typeId))
-                flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, undefined, undefined, i);
+            if(config.modules.illegalitemsD.enabled === true) {
+                if(config.itemLists.items_very_illegal.includes(item.typeId)) flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, undefined, undefined, i);
+                
+                // semi illegal items
+                if(!player.hasTag("op")) {
+                    let flagPlayer = false;
+                    // patch element blocks
+                    if(config.itemLists.elements && item.typeId.startsWith("minecraft:element_"))
+                        flagPlayer = true;
+                    
+                    // patch spawn eggs
+                    if(config.itemLists.spawnEggs && item.typeId.endsWith("_spawn_egg"))
+                        flagPlayer = true;
+        
+                    if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer === true) {
+                        const checkGmc = World.getPlayers({
+                            excludeGameModes: [Minecraft.GameMode.creative],
+                            name: player.name
+                        });
+                    
+                        if([...checkGmc].length !== 0) {
+                            flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, undefined, undefined, player.selectedSlot);
+                        }
+                    }
+                }
+            }
 
             // CommandBlockExploit/H = clear items
             if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.typeId))
@@ -422,10 +445,8 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
     */
     if(config.modules.illegalitemsE.enabled) {
         // items that are obtainble using commands
-        if(player.hasTag("op") === false) {
+        if(!player.hasTag("op")) {
             let flagPlayer = false;
-            if(config.itemLists.items_semi_illegal.includes(item.typeId))
-                flagPlayer = true;
 
             // patch element blocks
             if(config.itemLists.elements && item.typeId.startsWith("minecraft:element_"))
@@ -435,7 +456,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
             if(config.itemLists.spawnEggs && item.typeId.endsWith("_spawn_egg"))
                 flagPlayer = true;
 
-            if(flagPlayer === true) {
+            if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer === true) {
                 const checkGmc = World.getPlayers({
                     excludeGameModes: [Minecraft.GameMode.creative],
                     name: player.name
