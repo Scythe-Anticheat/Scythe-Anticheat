@@ -68,7 +68,7 @@ Minecraft.system.run(() => {
             player.addTag("reason:You are Scythe Anticheat global banned!");
             player.addTag("isBanned");
         }
-
+        
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 

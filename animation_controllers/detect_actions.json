@@ -226,7 +226,7 @@
 						"/tag @s add moving",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"/execute @s[scores={worldborder=1..,gametestapi=1..}] ~~~ function checks/optional/worldborder",
-						"/tp @s[tag=freeze] @s",
+						"/tp @s[tag=freeze] ~~~",
 						"/tp @s[y=-105,dy=-205] ~ -104 ~",
 						"/scoreboard players set @s last_move 0"
 					]

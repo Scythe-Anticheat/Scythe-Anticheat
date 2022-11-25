@@ -27,5 +27,6 @@ export const banList = [
    "ctrlaltf44",
    "blazerloop",
    // No it doesnt
-   "scythesucks1396"
+   "scythesucks1396",
+   "Darkstalker8352"
 ];
