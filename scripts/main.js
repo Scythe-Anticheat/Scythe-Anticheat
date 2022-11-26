@@ -68,7 +68,7 @@ Minecraft.system.run(() => {
             player.addTag("reason:You are Scythe Anticheat global banned!");
             player.addTag("isBanned");
         }
-        
+
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 
@@ -472,9 +472,10 @@ World.events.playerJoin.subscribe((playerJoin) => {
         if(config.modules.namespoofC.enabled && t.startsWith("\"name:\n")) foundName = t.replace("\"name:\n", "");
 
         // load custom nametag
-        t = t.replace(/"|\\/g, "");
-        if(t.startsWith("tag:"))
+        if(t.includes("tag:")) {
+            t = t.replace(/"|\\/g, "");
             player.nameTag = `§8[§r${t.slice(4)}§8]§r ${player.name}`;
+        }
     });
 
     if(config.modules.namespoofC.enabled) {
@@ -703,7 +704,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
             // badenchants/C = checks if an item has an enchantment which isnt support by the item
             if(config.modules.badenchantsC.enabled) {
-                if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1))) {
+                if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1))) {
                     flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
                 }
 
@@ -717,7 +718,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
             if(config.modules.badenchantsE.enabled === true) {
                 if(enchantments.includes(enchantData.type.id)) {
                     enchantments.push(enchantData.type.id);
-                    flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(", "), false, undefined , player.selectedSlot);
+                    flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(","), false, undefined , player.selectedSlot);
                 }
                 enchantments.push(enchantData.type.id);
             }
@@ -725,6 +726,26 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
             loopIterator(iterator);
         };
         loopIterator(itemEnchants[Symbol.iterator]());
+    }
+});
+
+World.events.entityHurt.subscribe((entityHurt) => {
+    const player = entityHurt.hurtEntity;
+    const attacker = entityHurt.damagingEntity;
+
+    if(attacker.typeId !== "minecraft:player" || entityHurt.cause !== "entityAttack") return;
+
+    if(config.modules.illegalitemsL.enabled === true && !player.hasTag("keepInventory")) {
+        const health = player.getComponent("health").current;
+        
+        if(health <= 0) {
+            const container = player.getComponent("inventory").container;
+
+            if(container.size !== container.emptySlotsCount) flag(player, "IllegalItems", "L", "Exploit");
+
+            // incase the player has keep on death armor, we clear their inventory
+            player.runCommandAsync("clear @s");
+        }
     }
 });
 
@@ -745,6 +766,7 @@ if([...World.getPlayers()].length >= 1) {
         if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
         if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
         if(config.modules.autoclickerA.enabled) player.cps = 0;
+        if(config.modules.killauraC.enabled) player.entitiesHit = [];
         if(config.customcommands.report.enabled) player.reports = [];
     }
 }

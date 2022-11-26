@@ -116,6 +116,26 @@
 					]
 				}
 			}
+		},
+		"controller.animation.keepInventory": {
+			"states": {
+				"default": {
+					"transitions": [{
+						"keepInventory": "query.mark_variant == 1"
+					}],
+					"on_entry": [
+						"/tag @a[tag=keepInventory] remove keepInventory"
+					]
+				},
+				"keepInventory": {
+					"transitions": [{
+						"default": "query.mark_variant != 1"
+					}],
+					"on_entry": [
+						"/tag @a[tag=!keepInventory] add keepInventory"
+					]
+				}
+			}
 		}
 	}
 }

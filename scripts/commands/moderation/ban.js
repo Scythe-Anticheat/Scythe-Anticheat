@@ -36,17 +36,15 @@ export function ban(message, args) {
     if(member.id === player.id) return player.tell("§r§6[§aScythe§6]§r You cannot ban yourself.");
 
     // cannot ban staff members
-    if(member.hasTag("op") === true) return player.tell("§r§6[§aScythe§6]§r You cannot ban other staff members!.");
+    if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r You cannot ban other staff members!.");
 
-    // this removes old ban stuff
+    // removes old ban data
     member.getTags().forEach(t => {
-        t = t.replace(/"/g, "");
-        if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) member.removeTag(t);
+        if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) member.removeTag(t);
     });
 
     member.addTag(`reason:${reason}`);
     member.addTag(`by:${player.nameTag}`);
-    console.warn(typeof time, time);
     if(typeof time === "number") member.addTag(`time:${Date.now() + time}`);
     member.addTag("isBanned");
 

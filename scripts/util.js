@@ -99,8 +99,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
                 
             // this removes old ban stuff
             player.getTags().forEach(t => {
-                t = t.replace(/"/g, "");
-                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
+                if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
             });
 
             let banLength;
@@ -143,8 +142,7 @@ export function banMessage(player) {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been found in the unban queue and has been unbanned."}]}`);
 
         player.getTags().forEach(t => {
-            t = t.replace(/"/g, "");
-            if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
+            if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
         });
 
         // remove the player from the unban queue
@@ -162,10 +160,9 @@ export function banMessage(player) {
     let time;
 
     player.getTags().forEach(t => {
-        t = t.replace(/"/g, "");
-        if(t.startsWith("by:")) by = t.slice(3);
-            else if(t.startsWith("reason:")) reason = t.slice(7);
-            else if(t.startsWith("time:")) time = t.slice(5);
+        if(t.includes("by:")) by = t.slice(3);
+            else if(t.includes("reason:")) reason = t.slice(7);
+            else if(t.includes("time:")) time = t.slice(5);
     });
 
 
@@ -176,8 +173,7 @@ export function banMessage(player) {
             // ban expired, woo
             player.removeTag("isBanned");
             player.getTags().forEach(t => {
-                t = t.replace(/"/g, "");
-                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
+                if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
             });
             return;
         }
