@@ -48,7 +48,7 @@ export function commandHandler(player, message) {
     if (typeof player !== "object") throw TypeError(`player is type of ${typeof player}. Expected "object"`);
     if (typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object"`);
 
-    if(config.debug === true) console.warn(`${new Date()} | ` + "did run command handler");
+    if(config.debug === true) console.warn(`${new Date()} | did run command handler`);
 
     // checks if the message starts with our prefix, if not exit
     if(!message.message.startsWith(prefix)) return;
