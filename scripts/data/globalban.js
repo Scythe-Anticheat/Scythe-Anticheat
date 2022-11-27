@@ -29,4 +29,5 @@ export const banList = [
    // No it doesnt
    "scythesucks1396",
    "Darkstalker8352"
+   "takenyan"
 ];
