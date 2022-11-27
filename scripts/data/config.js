@@ -353,19 +353,19 @@ export default
                 "sharpness": 420
                 */
             },
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "badenchantsB": {
             "enabled": true,
             "multi_protection": true,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "badenchantsC": {
             "enabled": true,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "badenchantsD": {
             "enabled": true,
@@ -402,8 +402,8 @@ export default
         },
         "commandblockexploitH": {
             "enabled": true,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "badpackets4": {
             "enabled": true,
@@ -477,8 +477,8 @@ export default
         },
         "badenchantsE": {
             "enabled": true,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "illegalitemsL": {
             "enabled": true,
