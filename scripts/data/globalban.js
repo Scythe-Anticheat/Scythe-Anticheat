@@ -8,14 +8,13 @@ export const banList = [
    "xilshnagslix",
    "samdesap",
    "volantsubset630",
-   "rushinBDev",
+   "rushinbdev",
    "infernogod4473",
    "spanishick9762",
    "toxic1320",
    "tubaexperte5221",
    "tudoufan",
    "quandaledgngle",
-   "darkflash123456",
    "pointnetwork341",
    "m1tchellpzdc",
    "night8515",
@@ -28,5 +27,8 @@ export const banList = [
    "ctrlaltf44",
    "blazerloop",
    // No it doesnt
-   "scythesucks"
+   "scythesucks1396",
+   "Darkstalker8352",
+   "takenyan",
+   "Smell of curry"
 ];

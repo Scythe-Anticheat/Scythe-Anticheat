@@ -6,11 +6,13 @@ export default
         "prefix": "!",
         "ban": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["b"]
         },
         "help": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["support","commands"]
         },
         "op": {
             "enabled": true,
@@ -24,17 +26,17 @@ export default
         "allowgma": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigma"]
+            "aliases": ["antigma","agma"]
         },
         "allowgmc": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigmc"]
+            "aliases": ["antigmc","agmc"]
         },
         "allowgms": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigms"]
+            "aliases": ["antigms","agms"]
         },
         "bedrockvalidate": {
             "enabled": true,
@@ -52,12 +54,12 @@ export default
         "overridecommandblocksenabled": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["overidecbe","overidecommandblocksenabled"]
+            "aliases": ["overidecbe","overidecommandblocksenabled","ocbe"]
         },
         "removecommandblocks": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["removecb"]
+            "aliases": ["removecb","rcb"]
         },
         "worldborder": {
             "enabled": true,
@@ -94,7 +96,8 @@ export default
         },
         "stats": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["info"]
         },
         "fullreport": {
             "enabled": true,
@@ -103,16 +106,18 @@ export default
         },
         "kick": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["k"]
         },
         "mute": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["m"]
         },
         "unmute": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["un"]
+            "aliases": ["um"]
         },
         "fly": {
             "enabled": true,
@@ -120,6 +125,7 @@ export default
         },
         "invsee": {
             "enabled": true,
+            "show_enchantments": true,
             "requiredTags": ["op"],
             "aliases": ["inv"]
         },
@@ -143,13 +149,15 @@ export default
         },
         "unban": {
             "enabled": true,
-            "requiredTags": ["op"]
-        },
-        "gui": {
-            "enabled": true,
-            "gui_item_name": "§r§l§aRight click to Open the UI",
             "requiredTags": ["op"],
-            "aliases": ["ui"]
+            "aliases": ["ub"]
+        },
+        "ui": {
+            "enabled": true,
+            "ui_item_name": "§r§l§aRight click to Open the UI",
+            "ui_item": "minecraft:wooden_axe",
+            "requiredTags": ["op"],
+            "aliases": ["gui"]
         },
         "resetwarns": {
             "enabled": true,
@@ -158,13 +166,47 @@ export default
         },
         "version": {
             "enabled": true,
-            "requiredTags": ["op"]
+            "requiredTags": ["op"],
+            "aliases": ["ver","about"]
         }
     },
     "modules": {
         "itemSpawnRateLimit": {
+            "enabled": true,
+            "entitiesBeforeRateLimit": 30
+        },
+        /*
+        Enabling this module is higly discouraged, as it breaks items names, enchantments, durability
+        and item data relating to it.
+        These items can contain large nbt data which can cause the world file size to dramatically increase.
+        In anarchy enviorments, this module can help greatly to prevent world corruption.
+        Your welcome, Carthe.
+        */
+        "resetItemData": {
             "enabled": false,
-            "entitiesBeforeRateLimit": 10
+            "items": [
+                "minecraft:armor_stand",
+                "minecraft:barrel",
+                "minecraft:blast_furnace",
+                "minecraft:brewing_stand",
+                "minecraft:campfire",
+                "minecraft:soul_campfire",
+                "minecraft:cauldron",
+                "minecraft:chest",
+                "minecraft:trapped_chest",
+                "minecraft:dropper",
+                "minecraft:flower_pot",
+                "minecraft:hopper",
+                "minecraft:frame",
+                "minecraft:glow_frame",
+                "minecraft:jukebox",
+                "minecraft:lectern",
+                "minecraft:chest_minecart",
+                "minecraft:hopper_minecart",
+                "minecraft:smoker",
+                "minecraft:end_gateway",
+                "minecraft:sponge"
+            ]
         },
         "filterUnicodeChat": false,
         "badpackets2": {
@@ -174,7 +216,7 @@ export default
             "punishment": "ban",
             /*
             PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
-            or to just perm ban the user (set value to nothing)
+            or to just perm ban the user (set value to nothing).
             */
             "punishmentLength": "",
             "minVlbeforePunishment": 1
@@ -275,18 +317,6 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
-        "liquidinteractA": {
-            "enabled": true,
-            "liquids": [
-                "minecraft:water",
-                "minecraft:flowing_water",
-                "minecraft:lava",
-                "minecraft:flowing_lava"
-            ],
-            "punishment": "ban",
-            "punishmentLength": "",
-            "minVlbeforePunishment": 1
-        },
         "flyA": {
             "enabled": false,
             "punishment": "none",
@@ -324,25 +354,25 @@ export default
                 /*
                 If your realm uses enchantments with levels higher then vanilla then you need to exclude them here.
                 To add an exclusion, add ' "<enchantment name>": <max level> ' below the examples
-                Anything in this area will be considered as a comment, and wont take affect
+                Anything in this area will be considered as a comment, and wont take effect,
 
                 "efficiency": 69,
                 "sharpness": 420
                 */
             },
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "badenchantsB": {
             "enabled": true,
             "multi_protection": true,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "badenchantsC": {
             "enabled": true,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "badenchantsD": {
             "enabled": true,
@@ -379,8 +409,8 @@ export default
         },
         "commandblockexploitH": {
             "enabled": true,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         },
         "badpackets4": {
             "enabled": true,
@@ -394,6 +424,7 @@ export default
         },
         "badpackets5": {
             "enabled": true,
+            "sample_size": 2,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
@@ -409,7 +440,7 @@ export default
         },
         "autotoolA": {
             "enabled": true,
-            "startBreakDelay": 85,
+            "startBreakDelay": 90,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
@@ -438,8 +469,35 @@ export default
         "illegalitemsK": {
             "enabled": true,
             "exclude_scythe_op": true,
+            "entities": [
+                "minecraft:chest_boat",
+                "minecraft:chest_minecart"
+            ],
             "punishment": "none",
             "minVlbeforePunishment": 0
+        },
+        "fastuseA": {
+            "enabled": true,
+            "use_delay": 170,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
+        },
+        "badenchantsE": {
+            "enabled": true,
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
+        },
+        "illegalitemsL": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
+        }
+    },
+    "misc_modules": {
+        "antiArmorStandCluster": {
+            "enabled": true,
+            "radius": 5,
+            "max_armor_stand_count": 50
         }
     },
     "itemLists": {
@@ -479,7 +537,10 @@ export default
             "minecraft:border_block",
             "minecraft:chemistry_table",
             "minecraft:frosted_ice",
-            "minecraft:npc_spawn_egg"
+            "minecraft:npc_spawn_egg",
+            "minecraft:reinforced_deepslate",
+            "minecraft:farmland",
+            "minecraft:monster_egg"
         ],
         "items_very_illegal": [
             "minecraft:flowing_water",

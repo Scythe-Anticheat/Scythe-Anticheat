@@ -33,20 +33,19 @@ export function ban(message, args) {
     if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
 
     // make sure they dont ban themselves
-    if(member.nameTag === player.nameTag) return player.tell("§r§6[§aScythe§6]§r You cannot ban yourself.");
+    if(member.id === player.id) return player.tell("§r§6[§aScythe§6]§r You cannot ban yourself.");
 
     // cannot ban staff members
-    if(member.hasTag("op") === true) return player.tell("§r§6[§aScythe§6]§r You cannot ban other staff members!.");
+    if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r You cannot ban other staff members!.");
 
-    // this removes old ban stuff
+    // removes old ban data
     member.getTags().forEach(t => {
-        t = t.replace(/"/g, "");
-        if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) member.removeTag(t);
+        if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) member.removeTag(t);
     });
 
     member.addTag(`reason:${reason}`);
     member.addTag(`by:${player.nameTag}`);
-    if(typeof time !== "undefined") member.addTag(`time:${Date.now() + time}`);
+    if(typeof time === "number") member.addTag(`time:${Date.now() + time}`);
     member.addTag("isBanned");
 
     player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member.nameTag}. Reason: ${reason}"}]}`);

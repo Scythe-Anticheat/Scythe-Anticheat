@@ -29,7 +29,7 @@ export function tag(message, args) {
     if(!args[0]) return player.tell("§r§6[§aScythe§6]§r You need to provide a tag!");
 
     // reset user nametag
-    if(args[0].includes("reset") === true) {
+    if(args[0].includes("reset")) {
         // remove old tags
         member.getTags().forEach(t => {
             if(t.replace(/"|\\/g, "").startsWith("tag:")) member.removeTag(t);

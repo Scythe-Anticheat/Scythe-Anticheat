@@ -6,28 +6,28 @@ const World = Minecraft.world;
 
 /**
  * @name flag
- * @param {Player} player - The player object
+ * @param {object} player - The player object
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string | undefined} debugName - Name for the debug value.
  * @param {string | undefined} debug - Debug info.
  * @param {boolean} shouldTP - Whever to tp the player to itself.
- * @param {Message | undefined} message - The message object, used to cancel the message.
+ * @param {object | undefined} cancelObject - object with property "cancel" to cancel.
  * @param {number | undefined} slot - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg, undefined);
  * @remarks Alerts staff if a player is hacking.
  */
-export function flag(player, check, checkType, hackType, debugName, debug, shouldTP = false, message, slot) {
+export function flag(player, check, checkType, hackType, debugName, debug, shouldTP = false, cancelObject, slot) {
     // validate that required params are defined
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
     if(typeof checkType !== "string") throw TypeError(`Error: checkType is type of ${typeof checkType}. Expected "string"`);
     if(typeof hackType !== "string") throw TypeError(`Error: hackType is type of ${typeof hackType}. Expected "string"`);
     if(typeof debugName !== "string" && typeof debugName !== "undefined") throw TypeError(`Error: debugName is type of ${typeof debugName}. Expected "string" or "undefined"`);
-    if(typeof debug !== "string" && typeof debug !== "undefined") throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string" or "undefined"`);
+    if(typeof debug !== "string" && typeof debug !== "number" && typeof debug !== "undefined") throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string", "number" or "undefined"`);
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
-    if(typeof message !== "object" && typeof message !== "undefined") throw TypeError(`Error: message is type of ${typeof message}. Expected "object" or "undefined`);
+    if(typeof cancelObject !== "object" && typeof cancelObject !== "undefined") throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined`);
     if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "nunber" or "undefined`);
 
     if(typeof debug === "string") {
@@ -43,24 +43,25 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
 
     // If debug is enabled, then we log everything we know about the player.
-    if(config.debug === true) console.warn(`{"timestamp":${Date.now()},"time":"${Date()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}","playerNameTag":"${player.nameTag}","lastPlayerName":"${player.oldName}","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id || "minecraft:air"}:${player.getComponent("inventory").container.getItem(player.selectedSlot)?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit.length || -1},"badpackets5Ticks":${player.badpackets5Ticks || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1}}}}`);
+    if(config.debug === true) console.warn(`{"timestamp":${Date.now()},"time":"${Date()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","lastPlayerName":"${player.oldName}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${player.getComponent("inventory").container.getItem(player.selectedSlot)?.id || "minecraft:air"}:${player.getComponent("inventory").container.getItem(player.selectedSlot)?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"badpackets5Ticks":${player.badpackets5Ticks || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
 
     // cancel the message
-    if(typeof message === "object") message.cancel = true;
+    if(typeof cancelObject === "object") cancelObject.cancel = true;
 
     if(shouldTP === true && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.z), player.dimension, player.rotation.x, player.rotation.y, false);
         else if(shouldTP === true && check === "Crasher") player.teleport(new Minecraft.Location(30000000, 30000000, 30000000), player.dimension, 0, 0);
 
-    if(check !== "CommandBlockExploit" && World.scoreboard.getObjective(`${check.toLowerCase()}vl`) === null) {
-        player.runCommandAsync(`scoreboard objectives add ${check.toLowerCase()}vl dummy`);
+    let scoreboardObjective = `${check.toLowerCase()}vl`;
+    if(check === "CommandBlockExploit") scoreboardObjective = "cbevl";
+
+    if(World.scoreboard.getObjective(scoreboardObjective) === null) {
+        World.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
     } 
 
-    if(check !== "CommandBlockExploit") player.runCommandAsync(`scoreboard players add @s ${check.toLowerCase()}vl 1`);
-        else player.runCommandAsync("scoreboard players add @s cbevl 1");
+    player.runCommandAsync(`scoreboard players add @s ${scoreboardObjective} 1`);
 
-    if(typeof debug === "string" && check !== "CommandBlockExploit") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
-        else if(typeof debugName === "string") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"cbevl"}}]}`);
-        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${check.toLowerCase()}vl"}}]}`);
+    if(typeof debug !== "undefined") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
+        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
@@ -79,10 +80,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
     if(punishment === "none" || punishment === "") return;
 
-    let currentVL;
-
-    if(check === "CommandBlockExploit") currentVL = getScore(player, "cbevl", 1);
-        else currentVL = getScore(player, `${check.toLowerCase()}vl`, 1);
+    const currentVL = getScore(player, scoreboardObjective, 1);
 
     const punishmentLength = checkData.punishmentLength?.toLowerCase();
 
@@ -98,8 +96,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
                 
             // this removes old ban stuff
             player.getTags().forEach(t => {
-                t = t.replace(/"/g, "");
-                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
+                if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
             });
 
             let banLength;
@@ -110,7 +107,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
             player.addTag("by:Scythe Anticheat");
             player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
-            if(typeof punishmentLength !== "undefined") player.addTag(`time:${Date.now() + banLength}`);
+            if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
             player.addTag("isBanned");
         }
     }
@@ -127,7 +124,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
 /**
  * @name banMessage
- * @param {Player} player - The player object
+ * @param {object} player - The player object
  * @example banMessage(player);
  * @remarks Bans the player from the game.
  */
@@ -142,8 +139,7 @@ export function banMessage(player) {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been found in the unban queue and has been unbanned."}]}`);
 
         player.getTags().forEach(t => {
-            t = t.replace(/"/g, "");
-            if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
+            if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
         });
 
         // remove the player from the unban queue
@@ -161,10 +157,9 @@ export function banMessage(player) {
     let time;
 
     player.getTags().forEach(t => {
-        t = t.replace(/"/g, "");
-        if(t.startsWith("by:")) by = t.slice(3);
-            else if(t.startsWith("reason:")) reason = t.slice(7);
-            else if(t.startsWith("time:")) time = t.slice(5);
+        if(t.includes("by:")) by = t.slice(3);
+            else if(t.includes("reason:")) reason = t.slice(7);
+            else if(t.includes("time:")) time = t.slice(5);
     });
 
 
@@ -175,8 +170,7 @@ export function banMessage(player) {
             // ban expired, woo
             player.removeTag("isBanned");
             player.getTags().forEach(t => {
-                t = t.replace(/"/g, "");
-                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
+                if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
             });
             return;
         }
@@ -185,7 +179,7 @@ export function banMessage(player) {
         time = `${time.w} weeks, ${time.d} days, ${time.h} hours, ${time.m} minutes, ${time.s} seconds`;
     }
     
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} was kicked for: ${reason}."}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason || "You are banned!"}."}]}`);
 
     player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
     player.triggerEvent("scythe:kick");
@@ -193,16 +187,16 @@ export function banMessage(player) {
 
 /**
  * @name getClosestPlayer
- * @param {Entity} entity - The entity to check
+ * @param {object} entity - The entity to check
  * @example getClosestPlayer(entity);
  * @remarks Gets the nearest player to an entity.
- * @returns {Player} player - The player that was found
+ * @returns {object} player - The player that was found
  */
  export function getClosestPlayer(entity) {
     // validate that required params are defined
     if(typeof entity !== "object") return TypeError(`Error: entity is type of ${typeof entity}. Expected "object"`);
 
-    // thx https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
+    // https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
 
     let closestPlayer;
 
@@ -223,7 +217,7 @@ export function banMessage(player) {
  * @param {string} str - The time value to convert to milliseconds
  * @example parseTime("24d"); // returns 2073600000
  * @remarks Parses a time string into milliseconds.
- * @returns {string} str - The converted string
+ * @returns {number} str - The converted string
  */
 export function parseTime(str) {
     // validate that required params are defined
@@ -248,10 +242,10 @@ export function parseTime(str) {
 
 /**
  * @name msToTime
- * @param {string} ms - The string to convert
+ * @param {number} ms - The string to convert
  * @example str(88200000); // Returns { d: 1, h: 0, m: 30, s: 0 }
  * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
- * @returns {string} str - The converted string
+ * @returns {object} str - The converted string
  */
 export function msToTime(ms) {
     // validate that required params are defined
@@ -276,7 +270,7 @@ export function msToTime(ms) {
 
 /**
  * @name getScore
- * @param {Player} player - The player to get the scoreboard value from
+ * @param {object} player - The player to get the scoreboard value from
  * @param {string} objective - The player to get the scoreboard value from
  * @param {number} defaultValue? - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl", 0)

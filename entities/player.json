@@ -30,7 +30,8 @@
 					"invmove",
 					"swim",
 					"sleep",
-					"trident"
+					"trident",
+					"keepInventory"
 				]
 			},
 			"animations": {
@@ -56,7 +57,8 @@
 				"invmove": "controller.animation.invmove",
 				"swim": "controller.animation.swim",
 				"sleep": "controller.animation.sleep",
-				"trident": "controller.animation.trident"
+				"trident": "controller.animation.trident",
+				"keepInventory": "controller.animation.keepInventory"
 			}
 		},
 		"component_groups": {
@@ -105,6 +107,11 @@
 					"value": 0
 				}
 			},
+			"scythe:reset_mark_variant": {
+				"minecraft:mark_variant": {
+					"value": 0
+				}
+			},
 			"scythe:onAttack": {
 				"minecraft:skin_id": {
 					"value": 1
@@ -120,6 +127,11 @@
 					"value": 2
 				}
 			},
+			"scythe:keepInventory": {
+				"minecraft:mark_variant": {
+					"value": 1
+				}
+			},
 			"scythe:kick": {
 				// https://discord.com/channels/879970475483217940/933913999765024818/1022005158865031188
 				// new kick method by Tutinoko9900#1841
@@ -129,6 +141,24 @@
 					"power": 0,
 					"causes_fire": false,
 					"breaks_blocks": false
+				}
+			},
+			"scythe:freeze": {
+				"minecraft:movement": {
+					"value": 0
+				},
+				"minecraft:pushable": {
+					"is_pushable": false,
+					"is_pushable_by_piston": false
+				}
+			},
+			"scythe:unfreeze": {
+				"minecraft:movement": {
+					"value": 0.1
+				},
+				"minecraft:pushable": {
+					"is_pushable": false,
+					"is_pushable_by_piston": false
 				}
 			}
 		},
@@ -229,6 +259,27 @@
 										"operator": "==",
 										"subject": "self",
 										"value": "mayfly"
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"cause": "all",
+						"on_damage": {
+							"filters": {
+								"any_of": [{
+										"test": "has_tag",
+										"operator": "==",
+										"subject": "self",
+										"value": "freeze"
+									},
+									{
+										"test": "has_tag",
+										"operator": "==",
+										"subject": "other",
+										"value": "freeze"
 									}
 								]
 							}
@@ -636,6 +687,40 @@
 							]
 						},
 						"event": "scythe:illegal"
+					},
+					{
+						"filters": {
+							"all_of": [{
+								"test": "is_game_rule",
+								"operator": "==",
+								"domain": "keepinventory",
+								"subject": "self",
+								"value": true
+							},
+							// check if player is moving to make sure they have fully loaded into the world
+							{
+								"test": "is_moving", 
+								"value": true
+							}]
+						},
+						"event": "scythe:keepInventory"
+					},
+					{
+						"filters": {
+							"all_of": [{
+								"test": "is_game_rule",
+								"operator": "==",
+								"domain": "keepinventory",
+								"subject": "self",
+								"value": false
+							},
+							// check if player is moving to make sure they have fully loaded into the world
+							{
+								"test": "is_moving", 
+								"value": true
+							}]
+						},
+						"event": "scythe:reset_mark_variant"
 					}
 				]
 			}
@@ -702,15 +787,58 @@
 					]
 				}
 			},
+			"scythe:reset_mark_variant": {
+				"add": {
+					"component_groups": [
+						"scythe:reset_mark_variant"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:keepinventory"
+					]
+				}
+			},
+			"scythe:keepInventory": {
+				"add": {
+					"component_groups": [
+						"scythe:keepInventory"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:reset_mark_variant"
+					]
+				}
+			},
 			"scythe:kick": {
 				"add": {
 					"component_groups": [
 						"scythe:kick"
 					]
+				}
+			},
+			"scythe:freeze": {
+				"add": {
+					"component_groups": [
+						"scythe:freeze"
+					]
 				},
 				"remove": {
 					"component_groups": [
-						"scythe:kick"
+						"scythe:unfreeze"
+					]
+				}
+			},
+			"scythe:unfreeze": {
+				"add": {
+					"component_groups": [
+						"scythe:unfreeze"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"scythe:freeze"
 					]
 				}
 			},

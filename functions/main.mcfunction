@@ -1,15 +1,15 @@
 # Run all the checks
 function checks/angle
-function checks/cbe
+execute @a ~~~ function checks/cbe
 function checks/illegalitems
 function checks/others
 
 # Specific criteria checks
-execute @s[type=player,tag=isBanned,scores={gametestapi=..0}] ~~~ function checks/ban
+execute @a[tag=isBanned,scores={gametestapi=..0}] ~~~ function checks/ban
 
 # Optional checks
-execute @s[type=player,tag=!op,m=a,scores={gma=1..}] ~~~ function checks/optional/gamemodeA
-execute @s[type=player,tag=!op,m=c,scores={gmc=1..}] ~~~ function checks/optional/gamemodeC
-execute @s[type=player,tag=!op,m=s,scores={gmc=1..}] ~~~ function checks/optional/gamemodeS
-execute @s[scores={commandblocks=1..}] ~~~ function checks/optional/nocommandblocks
-execute @s[scores={cmds=1..}] ~~~ function checks/optional/overridecommandblocksenabled
+execute @a[tag=!op,m=a,scores={gma=1..}] ~~~ function checks/optional/gamemodeA
+execute @a[tag=!op,m=c,scores={gmc=1..}] ~~~ function checks/optional/gamemodeC
+execute @a[tag=!op,m=s,scores={gmc=1..}] ~~~ function checks/optional/gamemodeS
+execute @a[scores={commandblocks=1..}] ~~~ function checks/optional/nocommandblocks
+execute @r[scores={cmds=1..}] ~~~ function checks/optional/overridecommandblocksenabled
