@@ -338,7 +338,14 @@ export default
                 "minecraft:ice_bomb",
                 "minecraft:tripod_camera"
             ],
-            "punishment": "none",
+            // Checks if a certain type of block is near where the entity summoned
+            // This helps against more advanced bypasses
+            "blockSummonCheck": [
+                "minecraft:beehive",
+                "minecraft:bee_nest",
+                "minecraft:dispenser"
+            ],
+            "punishment": "kick",
             "minVlbeforePunishment": 0
         },
         "badenchantsA": {

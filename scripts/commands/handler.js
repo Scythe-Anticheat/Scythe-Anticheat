@@ -82,11 +82,13 @@ export function commandHandler(player, message) {
         }
 
         message.cancel = true;
+      
+    if(commandName === "op" && player.isOp()) return op(message, args);
 
-        if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
-            player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op run: /function op");
-            return;
-        }
+    if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
+        player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: !op");
+        return;
+    }
 
         if(commandData.enabled === false) {
             player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server administrator for assistance.");

@@ -2,8 +2,9 @@ import * as Minecraft from "@minecraft/server";
 import * as MinecraftUI from "@minecraft/server-ui";
 
 import config from "../data/config.js";
-import { parseTime } from "../util.js";
 import data2 from "../data/data.js";
+import { parseTime } from "../util.js";
+import { addOp, removeOp } from "../commands/moderation/op.js";
 
 const World = Minecraft.world;
 
@@ -108,8 +109,8 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         const isSilent = data.pop();
         const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
-        if(isSilent === false) player.runCommand(`kick "${playerSelected.name}" ${reason}`);
-            else playerSelected.runCommand("event entity @s scythe:kick");
+        if(isSilent === false) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
+        playerSelected.triggerEvent("scythe:kick");
 
         player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);
     });
@@ -254,11 +255,12 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             let isOp;
             if(playerSelected.hasTag("op")) {
                 isOp = true;
-                playerSelected.removeTag("op");
+                removeOp(playerSelected);
             }
-            playerSelected.runCommandAsync("function tools/ecwipe");
+            playerSelected.runCommandAsync("function tools/ecwipe")
+                .then(() => isOp && addOp(playerSelected));
+
             player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} has cleared ${player.name}'s enderchest."}]}`);
-            if(isOp) playerSelected.addTag("op");
         } else if(response.selection === 1) {
            kickPlayerMenu(player, playerSelected, 1);
         } else if(response.selection === 2) {
@@ -301,12 +303,12 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         } else if(response.selection === 6) {
             if(!config.customcommands.op.enabled) return player.tell("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
             if(playerSelected.hasTag("op")) {
-                playerSelected.removeTag("op");
-                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} is no longer Scythe-Opped by ${player.name}."}]}`);
+                removeOp(playerSelected);
+                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has given ${playerSelected.name} scythe-op status."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             } else {
-                playerSelected.addTag("op");
-                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${playerSelected.name} is now Scythe-Opped by ${player.name}."}]}`);
+                addOp(playerSelected);
+                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has removed scythe-op status from ${playerSelected.name}."}]}`);
                 playerSettingsMenuSelected(player, playerSelected);
             }
         } else if(response.selection === 7) {

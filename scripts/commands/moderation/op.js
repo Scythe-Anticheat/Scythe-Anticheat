@@ -14,17 +14,49 @@ export function op(message, args) {
 
     const player = message.sender;
     
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to op!");
+    if(args.length === 0) {
+        if(!player.isOp() && !player.hasTag("op"))
+            return player.tell("§r§6[§aScythe§6]§r You need to provide who to op!");
+    }
 
     // try to find the player requested
-    for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+    let member;
+    for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0]?.toLowerCase().replace(/"|\\|@/g, ""))) {
+        member = pl;
         break;
     }
-    
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+
+    if(typeof member === "undefined") {
+        if(player.isOp() && player.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+        member = player;
+    }
 
     if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r This player already has scythe-op.");
 
-    member.runCommandAsync("function op");
+    addOp(member);
+
+    member.tell("§r§6[§aScythe§6]§r §7You are now scythe-op!");
+    member.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has given ${member.name} scythe-op status."}]}`);
+}
+
+export function addOp(player) {
+    player.addTag("op");
+
+    player.addTag("AwcsbI");
+    player.addTag("tiDUM5");
+    player.addTag("jccOdl");
+    player.addTag("nLkZQH");
+    player.addTag("Gi0uPF");
+    player.addTag("BxFMun");
+}
+
+export function removeOp(player) {
+    player.removeTag("op");
+
+    player.removeTag("AwcsbI");
+    player.removeTag("tiDUM5");
+    player.removeTag("jccOdl");
+    player.removeTag("nLkZQH");
+    player.removeTag("Gi0uPF");
+    player.removeTag("BxFMun");
 }

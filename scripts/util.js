@@ -48,8 +48,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // cancel the message
     if(typeof cancelObject === "object") cancelObject.cancel = true;
 
-    if(shouldTP === true && check !== "Crasher") player.runCommandAsync("tp @s @s");
-        else if(shouldTP === true && check === "Crasher") player.runCommand("tp @s 30000000 30000000 30000000");
+    if(shouldTP === true && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.z), player.dimension, player.rotation.x, player.rotation.y, false);
+        else if(shouldTP === true && check === "Crasher") player.teleport(new Minecraft.Location(30000000, 30000000, 30000000), player.dimension, 0, 0);
 
     let scoreboardObjective = `${check.toLowerCase()}vl`;
     if(check === "CommandBlockExploit") scoreboardObjective = "cbevl";
@@ -86,12 +86,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
-        try {
-            player.runCommand(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
-        } catch {
-            // if we cant /kick them then we despawn them
-            player.triggerEvent("scythe:kick");
-        }
+        player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
+        // incase /kick fails, we despawn them from the world
+        player.triggerEvent("scythe:kick");
     }
     if(punishment === "ban" && currentVL >= checkData.minVlbeforePunishment) {
         if(getScore(player, "autoban", 0) >= 1) {
@@ -184,11 +181,8 @@ export function banMessage(player) {
     
     player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason || "You are banned!"}."}]}`);
 
-    try {
-        player.runCommand(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
-    } catch {
-        player.triggerEvent("scythe:kick");
-    }
+    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
+    player.triggerEvent("scythe:kick");
 }
 
 /**
