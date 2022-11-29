@@ -107,7 +107,7 @@ export default
         "kick": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["r"]
+            "aliases": ["k"]
         },
         "mute": {
             "enabled": true,
@@ -172,8 +172,8 @@ export default
     },
     "modules": {
         "itemSpawnRateLimit": {
-            "enabled": false,
-            "entitiesBeforeRateLimit": 10
+            "enabled": true,
+            "entitiesBeforeRateLimit": 30
         },
         /*
         Enabling this module is higly discouraged, as it breaks items names, enchantments, durability

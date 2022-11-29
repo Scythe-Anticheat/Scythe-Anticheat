@@ -731,9 +731,6 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
 World.events.entityHurt.subscribe((entityHurt) => {
     const player = entityHurt.hurtEntity;
-    const attacker = entityHurt.damagingEntity;
-
-    if(attacker?.typeId !== "minecraft:player" || entityHurt.cause !== "entityAttack") return;
 
     if(config.modules.illegalitemsL.enabled === true && !player.hasTag("keepInventory")) {
         const health = player.getComponent("health").current;
