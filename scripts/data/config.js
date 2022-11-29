@@ -172,8 +172,8 @@ export default
     },
     "modules": {
         "itemSpawnRateLimit": {
-            "enabled": true,
-            "entitiesBeforeRateLimit": 30
+            "enabled": false,
+            "entitiesBeforeRateLimit": 45
         },
         /*
         Enabling this module is higly discouraged, as it breaks items names, enchantments, durability
