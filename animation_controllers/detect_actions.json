@@ -215,6 +215,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove moving",
+						"/execute @s[scores={worldborder=1..,gametestapi=1..}] ~~~ function checks/optional/worldborder",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},

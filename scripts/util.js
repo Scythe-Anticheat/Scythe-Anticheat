@@ -6,7 +6,7 @@ const World = Minecraft.world;
 
 /**
  * @name flag
- * @param {Player} player - The player object
+ * @param {object} player - The player object
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
@@ -27,7 +27,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof debugName !== "string" && typeof debugName !== "undefined") throw TypeError(`Error: debugName is type of ${typeof debugName}. Expected "string" or "undefined"`);
     if(typeof debug !== "string" && typeof debug !== "number" && typeof debug !== "undefined") throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string", "number" or "undefined"`);
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
-    if(typeof message !== "object" && typeof message !== "undefined") throw TypeError(`Error: message is type of ${typeof message}. Expected "object" or "undefined`);
+    if(typeof cancelObject !== "object" && typeof cancelObject !== "undefined") throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined`);
     if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "nunber" or "undefined`);
 
     if(typeof debug === "string") {
@@ -110,7 +110,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
             player.addTag("by:Scythe Anticheat");
             player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
-            if(typeof punishmentLength !== "undefined") player.addTag(`time:${Date.now() + banLength}`);
+            if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
             player.addTag("isBanned");
         }
     }
@@ -127,7 +127,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
 /**
  * @name banMessage
- * @param {Player} player - The player object
+ * @param {object} player - The player object
  * @example banMessage(player);
  * @remarks Bans the player from the game.
  */
@@ -193,16 +193,16 @@ export function banMessage(player) {
 
 /**
  * @name getClosestPlayer
- * @param {Entity} entity - The entity to check
+ * @param {object} entity - The entity to check
  * @example getClosestPlayer(entity);
  * @remarks Gets the nearest player to an entity.
- * @returns {Player} player - The player that was found
+ * @returns {object} player - The player that was found
  */
  export function getClosestPlayer(entity) {
     // validate that required params are defined
     if(typeof entity !== "object") return TypeError(`Error: entity is type of ${typeof entity}. Expected "object"`);
 
-    // thx https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
+    // https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
 
     let closestPlayer;
 
@@ -223,7 +223,7 @@ export function banMessage(player) {
  * @param {string} str - The time value to convert to milliseconds
  * @example parseTime("24d"); // returns 2073600000
  * @remarks Parses a time string into milliseconds.
- * @returns {string} str - The converted string
+ * @returns {number} str - The converted string
  */
 export function parseTime(str) {
     // validate that required params are defined
@@ -248,10 +248,10 @@ export function parseTime(str) {
 
 /**
  * @name msToTime
- * @param {string} ms - The string to convert
+ * @param {number} ms - The string to convert
  * @example str(88200000); // Returns { d: 1, h: 0, m: 30, s: 0 }
  * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
- * @returns {string} str - The converted string
+ * @returns {object} str - The converted string
  */
 export function msToTime(ms) {
     // validate that required params are defined
@@ -276,7 +276,7 @@ export function msToTime(ms) {
 
 /**
  * @name getScore
- * @param {Player} player - The player to get the scoreboard value from
+ * @param {object} player - The player to get the scoreboard value from
  * @param {string} objective - The player to get the scoreboard value from
  * @param {number} defaultValue? - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl", 0)

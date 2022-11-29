@@ -72,8 +72,8 @@ Minecraft.system.run(() => {
         // sexy looking ban message
         if(player.hasTag("isBanned")) banMessage(player);
 
-        if(player.blocksBroken !== 0 && config.modules.nukerA.enabled === true) player.blocksBroken = 0;
-        if(player.entitiesHit !== [] && config.modules.killauraC.enabled === true) player.entitiesHit = [];
+        if(player.blocksBroken >= 1 && config.modules.nukerA.enabled === true) player.blocksBroken = 0;
+        if(player.entitiesHit?.length >= 1 && config.modules.killauraC.enabled === true) player.entitiesHit = [];
         if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
             player.flagAutotoolA = true;
             player.autotoolSwitchDelay = Date.now() - player.startBreakTime;
@@ -127,7 +127,7 @@ Minecraft.system.run(() => {
             } else config.modules.bedrockValidate.enabled = false;
         }
 
-        const playerSpeed = Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2);
+        const playerSpeed = Number(Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2));
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
@@ -518,7 +518,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
         data.entitiesSpawnedInLastTick++;
 
         if(data.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
-            if(config.debug === true) console.warn(`Killed "${entity.typeId}" due to item spawn ratelimit reached.`);
+            if(config.debug === true) console.warn(`Killed "${entity.typeId}" due to entity spawn ratelimit reached.`);
             entity.kill();
         }
     }
@@ -575,6 +575,22 @@ World.events.entityCreate.subscribe((entityCreate) => {
                 entity.kill();
             }
         });
+    }
+
+    if(config.misc_modules.antiArmorStandCluster.enabled === true && entity.typeId === "minecraft:armor_stand") {
+        const entities = [...entity.dimension.getEntities({
+            location: entity.location,
+            maxDistance: config.misc_modules.antiArmorStandCluster.radius,
+            type: "armor_stand"
+        })];
+
+        console.warn(entities.length);
+
+        if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
+            entity.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area."}]}`);
+
+            for(const entityLoop of entities) entityLoop.kill();
+        }
     }
 });
 

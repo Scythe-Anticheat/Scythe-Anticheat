@@ -486,6 +486,13 @@ export default
             "minVlbeforePunishment": 0
         }
     },
+    "misc_modules": {
+        "antiArmorStandCluster": {
+            "enabled": true,
+            "radius": 5,
+            "max_armor_stand_count": 50
+        }
+    },
     "itemLists": {
         "spawnEggs": true,
         "elements": true,
