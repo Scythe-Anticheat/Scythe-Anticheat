@@ -63,30 +63,7 @@ Minecraft.system.run(() => {
     // run as each player
     for (const player of World.getPlayers()) {
         try {
-        // validate scythe-op
-        const hasScytheOp = player.hasTag("op");
-        let invalidScytheOp = false;
-        if(player.hasTag("AwcsbI") && !hasScytheOp) invalidScytheOp = true;
-        if(player.hasTag("tiDUM5") && !hasScytheOp) invalidScytheOp = true;
-        if(player.hasTag("jccOdl") && !hasScytheOp) invalidScytheOp = true;
-        if(player.hasTag("nLkZQH") && !hasScytheOp) invalidScytheOp = true;
-        if(player.hasTag("Gi0uPF") && !hasScytheOp) invalidScytheOp = true;
-        if(player.hasTag("BxFMun") && !hasScytheOp) invalidScytheOp = true;
-        if(hasScytheOp) {
-            if(!player.hasTag("AwcsbI") || !player.hasTag("tiDUM5") || !player.hasTag("jccOdl") || !player.hasTag("nLkZQH") || !player.hasTag("Gi0uPF") || !player.hasTag("BxFMun")) invalidScytheOp = true;
-        }
-
-        if(invalidScytheOp) {
-            player.removeTag("op");
-            player.removeTag("AwcsbI");
-            player.removeTag("tiDUM5");
-            player.removeTag("jccOdl");
-            player.removeTag("nLkZQH");
-            player.removeTag("Gi0uPF");
-            player.removeTag("BxFMun");
-            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been detected with invalid scythe op."}]}`);
-        }
-
+            
         if(player.isGlobalBanned === true) {
             player.addTag("by:Scythe Anticheat");
             player.addTag("reason:You are Scythe Anticheat global banned!");

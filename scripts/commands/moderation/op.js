@@ -14,10 +14,7 @@ export function op(message, args) {
 
     const player = message.sender;
     
-    if(args.length === 0) {
-        if(!player.isOp() && !player.hasTag("op"))
-            return player.tell("§r§6[§aScythe§6]§r You need to provide who to op!");
-    }
+    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to op!");
 
     // try to find the player requested
     let member;
@@ -26,10 +23,7 @@ export function op(message, args) {
         break;
     }
 
-    if(typeof member === "undefined") {
-        if(player.isOp() && player.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
-        member = player;
-    }
+    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r This player already has scythe-op.");
 
@@ -41,22 +35,8 @@ export function op(message, args) {
 
 export function addOp(player) {
     player.addTag("op");
-
-    player.addTag("AwcsbI");
-    player.addTag("tiDUM5");
-    player.addTag("jccOdl");
-    player.addTag("nLkZQH");
-    player.addTag("Gi0uPF");
-    player.addTag("BxFMun");
 }
 
 export function removeOp(player) {
     player.removeTag("op");
-
-    player.removeTag("AwcsbI");
-    player.removeTag("tiDUM5");
-    player.removeTag("jccOdl");
-    player.removeTag("nLkZQH");
-    player.removeTag("Gi0uPF");
-    player.removeTag("BxFMun");
 }
