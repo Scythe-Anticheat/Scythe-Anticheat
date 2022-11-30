@@ -124,7 +124,8 @@
 						"keepInventory": "query.mark_variant == 1"
 					}],
 					"on_entry": [
-						"/tag @a[tag=keepInventory] remove keepInventory"
+						"/scoreboard players set scythe:config keepinventory 0",
+						"/scoreboard players set @a keepinventory 0"
 					]
 				},
 				"keepInventory": {
@@ -132,7 +133,8 @@
 						"default": "query.mark_variant != 1"
 					}],
 					"on_entry": [
-						"/tag @a[tag=!keepInventory] add keepInventory"
+						"/scoreboard players set scythe:config keepinventory 1",
+						"/scoreboard players set @a keepinventory 1"
 					]
 				}
 			}

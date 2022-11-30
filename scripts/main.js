@@ -810,16 +810,19 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 World.events.entityHurt.subscribe((entityHurt) => {
     const player = entityHurt.hurtEntity;
 
-    if(config.modules.illegalitemsL.enabled === true && !player.hasTag("keepInventory")) {
-        const health = player.getComponent("health").current;
+    if(config.modules.illegalitemsL.enabled === true && getScore(player, "keepinventory") <= 0) {
+        player.runCommandAsync("scoreboard players operation @a keepinventory = scythe:config keepinventory");
+        if(getScore(player, "keepinventory") <= 0) {
+            const health = player.getComponent("health").current;
         
-        if(health <= 0) {
-            const container = player.getComponent("inventory").container;
+            if(health <= 0) {
+                const container = player.getComponent("inventory").container;
 
-            if(container.size !== container.emptySlotsCount) flag(player, "IllegalItems", "L", "Exploit");
+                if(container.size !== container.emptySlotsCount) flag(player, "IllegalItems", "L", "Exploit");
 
-            // incase the player has keep on death armor, we clear their inventory
-            player.runCommandAsync("clear @s");
+                // incase the player has keep on death armor, we clear their inventory
+                player.runCommandAsync("clear @s");
+            }
         }
     }
 });
