@@ -168,7 +168,7 @@ function unbanPlayerMenu(player) {
         .textField("Player to unban:", "§o§7Enter player name")
         .textField("Unban Reason:", "§o§7No Reason Provided");
         unbanPlayerMenu.show(player).then((response) => {
-        if(response.canceled) return banMenu(player, 2);
+        if(response.canceled) return banMenu(player);
 
         const data = String(response.formValues).split(",");
 
@@ -430,7 +430,7 @@ function debugSettingsMenu(player) {
             }
         } else if(response.selection === 5) {
             while(Minecraft !== "a") {
-                import("./main.js");
+                import("../main.js");
             }
         } else if(response.selection === 6 || response.canceled) mainGui(player);
     });

@@ -787,6 +787,8 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 World.events.entityHurt.subscribe((entityHurt) => {
     const player = entityHurt.hurtEntity;
 
+    if(player.typeId !== "minecraft:player") return;
+
     if(config.modules.illegalitemsL.enabled === true && getScore(player, "keepinventory") <= 0) {
         player.runCommandAsync("scoreboard players operation @a keepinventory = scythe:config keepinventory");
         if(getScore(player, "keepinventory") <= 0) {

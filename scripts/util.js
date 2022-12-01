@@ -10,11 +10,11 @@ const World = Minecraft.world;
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
- * @param {string | undefined} debugName - Name for the debug value.
- * @param {string | undefined} debug - Debug info.
- * @param {boolean} shouldTP - Whever to tp the player to itself.
- * @param {object | undefined} cancelObject - object with property "cancel" to cancel.
- * @param {number | undefined} slot - Slot to clear an item out.
+ * @param {string | undefined} [debugName] - Name for the debug value.
+ * @param {string | number | undefined} [debug] - Debug info.
+ * @param {boolean} [shouldTP] - Whever to tp the player to itself.
+ * @param {object | undefined} [cancelObject] - object with property "cancel" to cancel.
+ * @param {number | undefined} [slot] - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg, undefined);
  * @remarks Alerts staff if a player is hacking.
  */
@@ -29,6 +29,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
     if(typeof cancelObject !== "object" && typeof cancelObject !== "undefined") throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined`);
     if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "nunber" or "undefined`);
+
+    if(config.disable_flags_from_scythe_op === true && player.hasTag("op")) return;
 
     if(typeof debug === "string") {
         // remove characters that may break commands, and newlines
@@ -217,7 +219,7 @@ export function banMessage(player) {
  * @param {string} str - The time value to convert to milliseconds
  * @example parseTime("24d"); // returns 2073600000
  * @remarks Parses a time string into milliseconds.
- * @returns {number} str - The converted string
+ * @returns {number | null} str - The converted string
  */
 export function parseTime(str) {
     // validate that required params are defined
@@ -235,7 +237,7 @@ export function parseTime(str) {
             w: 604800000,
             y: 31536000000
         }[unit];
-        return ms * num;
+        return ms * Number(num);
     }
     return time;
 }

@@ -2,6 +2,12 @@ export default
 {
     "debug": true,
     "flagWhitelist": [],
+    /*
+    By enabling this toggle, you can prevent anybody will scythe op from getting flagged from the anticheat
+    Although this may be a useful feature, it can be exploited by hackers to completely disable the anticheat for themselves.
+    Enable with caution.
+    */
+    "disable_flags_from_scythe_op": false,
     "customcommands": {
         "prefix": "!",
         "ban": {

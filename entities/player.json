@@ -696,11 +696,6 @@
 								"domain": "keepinventory",
 								"subject": "self",
 								"value": true
-							},
-							// check if player is moving to make sure they have fully loaded into the world
-							{
-								"test": "is_moving", 
-								"value": true
 							}]
 						},
 						"event": "scythe:keepInventory"
@@ -713,11 +708,6 @@
 								"domain": "keepinventory",
 								"subject": "self",
 								"value": false
-							},
-							// check if player is moving to make sure they have fully loaded into the world
-							{
-								"test": "is_moving", 
-								"value": true
 							}]
 						},
 						"event": "scythe:reset_mark_variant"
