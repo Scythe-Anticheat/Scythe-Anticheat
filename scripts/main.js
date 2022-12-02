@@ -556,9 +556,12 @@ World.events.entityCreate.subscribe((entityCreate) => {
             entity.kill();
         } else if(config.modules.commandblockexploitG.npc && entity.typeId === "minecraft:npc") {
             entity.runCommandAsync("scoreboard players operation @s npc = scythe:config npc");
-            entity.runCommandAsync("testfor @s[scores={npc=1..}]");
-            flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
-            entity.kill();
+            entity.runCommandAsync("testfor @s[scores={npc=1..}]")
+                .then((commandResult) => {
+                    if(commandResult.successCount < 1) return;
+                    flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
+                    entity.kill();
+                });
         }
 
         if(config.modules.commandblockexploitG.blockSummonCheck.includes(entity.typeId)) {
