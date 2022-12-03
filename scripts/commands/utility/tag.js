@@ -1,4 +1,3 @@
-/* eslint no-redeclare: "off"*/
 import * as Minecraft from "@minecraft/server";
 
 const World = Minecraft.world;

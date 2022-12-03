@@ -363,7 +363,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
         const pos2 = new Minecraft.BlockLocation(block.location.x - 2, block.location.y - 2, block.location.z - 2);
 
         let foundDispenser = false;
-        pos1.blocksBetween(pos2).some(function(block) {
+        pos1.blocksBetween(pos2).some((block) => {
             const blockType = player.dimension.getBlock(block);
             if(blockType.typeId !== "minecraft:dispenser") return;
 
@@ -393,7 +393,7 @@ World.events.blockBreak.subscribe((blockBreak) => {
 
             // killing all the items it drops
             const droppedItems = dimension.getEntities({
-                location: block.location,
+                location: new Minecraft.Location(block.location.x, block.location.y, block.location.z),
                 minDistance: 0,
                 maxDistance: 2,
                 type: "item"
@@ -467,10 +467,12 @@ World.events.playerJoin.subscribe((playerJoin) => {
 
     // declare all needed variables in player
     if(config.modules.badpackets5.enabled) player.badpackets5Ticks = 0;
+    if(config.modules.nukerA.enabled) player.blocksBroken = 0;
     if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
     if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
     if(config.modules.autoclickerA.enabled) player.cps = 0;
     if(config.customcommands.report.enabled) player.reports = [];
+    if(config.modules.killauraC.enabled) player.entitiesHit = [];
 
     // fix a disabler method
     player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
@@ -619,7 +621,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
 
     if(config.misc_modules.antiArmorStandCluster.enabled === true && entity.typeId === "minecraft:armor_stand") {
         const entities = [...entity.dimension.getEntities({
-            location: entity.location,
+            location: new Minecraft.Location(entity.location.x, entity.location.y, entity.location.z),
             maxDistance: config.misc_modules.antiArmorStandCluster.radius,
             type: "armor_stand"
         })];
@@ -823,8 +825,9 @@ checkPlayer();
 if([...World.getPlayers()].length >= 1) {
     for(const player of World.getPlayers()) {
         if(config.modules.badpackets5.enabled) player.badpackets5Ticks = 0;
+        if(config.modules.nukerA.enabled) player.blocksBroken = 0;
         if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
-        if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
+        if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;
         if(config.modules.autoclickerA.enabled) player.cps = 0;
         if(config.modules.killauraC.enabled) player.entitiesHit = [];
         if(config.customcommands.report.enabled) player.reports = [];

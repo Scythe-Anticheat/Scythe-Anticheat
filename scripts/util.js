@@ -198,20 +198,12 @@ export function banMessage(player) {
     // validate that required params are defined
     if(typeof entity !== "object") return TypeError(`Error: entity is type of ${typeof entity}. Expected "object"`);
 
-    // https://discord.com/channels/523663022053392405/854033525546942464/948349809746669629
+    const nearestPlayer = [...entity.dimension.getPlayers({
+        closest: 1,
+        location: new Minecraft.Location(entity.location.x, entity.location.y, entity.location.z)
+    })][0];
 
-    let closestPlayer;
-
-    for (const player of World.getPlayers()) {
-    
-        const nearestPlayer = [...player.dimension.getPlayers({closest: 1, location: player.location})][0];
-    
-        if(!nearestPlayer) continue;
-
-        closestPlayer = player;
-    }
-
-    return closestPlayer;
+    return nearestPlayer;
 }
 
 /**
