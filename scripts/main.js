@@ -800,12 +800,15 @@ World.events.entityHurt.subscribe((entityHurt) => {
             const health = player.getComponent("health").current;
         
             if(health <= 0) {
-                const container = player.getComponent("inventory").container;
+                Minecraft.system.run(() => Minecraft.system.run(() => {
+                    if(!player.hasTag("dead")) return;
+                    const container = player.getComponent("inventory").container;
 
-                if(container.size !== container.emptySlotsCount) flag(player, "IllegalItems", "L", "Exploit");
+                    if(container.size !== container.emptySlotsCount) flag(player, "IllegalItems", "L", "Exploit");
 
-                // incase the player has keep on death armor, we clear their inventory
-                player.runCommandAsync("clear @s");
+                    // incase the player has keep on death armor, we clear their inventory
+                    player.runCommandAsync("clear @s");
+                }));
             }
         }
     }
