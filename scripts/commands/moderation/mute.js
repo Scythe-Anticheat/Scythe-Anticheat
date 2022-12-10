@@ -29,15 +29,11 @@ export function mute(message, args) {
     // make sure they dont mute themselves
     if(member.id === player.id) return player.tell("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
-    try {
-        member.addTag("isMuted");
-        member.tell(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
+    member.addTag("isMuted");
+    member.tell(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
 
-        // remove chat ability
-        member.runCommandAsync("ability @s mute true");
-    } catch (error) {
-        console.warn(`${new Date()} | ` + error);
-        return player.tell("§r§6[§aScythe§6]§r I was unable to mute that player.");
-    }
+    // remove chat ability
+    member.runCommandAsync("ability @s mute true");
+
     player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has muted ${member.nameTag}. Reason: ${reason}"}]}`);
 }

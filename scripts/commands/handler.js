@@ -48,7 +48,7 @@ export function commandHandler(player, message) {
     if (typeof player !== "object") throw TypeError(`player is type of ${typeof player}. Expected "object"`);
     if (typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object"`);
 
-    if(config.debug === true) console.warn(`${new Date()} | did run command handler`);
+    if(config.debug === true) console.warn(`${new Date().toISOString()} | did run command handler`);
 
     // checks if the message starts with our prefix, if not exit
     if(!message.message.startsWith(prefix)) return;
@@ -57,7 +57,7 @@ export function commandHandler(player, message) {
 
     const command = args.shift().toLowerCase().trim();
 
-    if(config.debug === true) console.warn(`${new Date()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
+    if(config.debug === true) console.warn(`${new Date().toISOString()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
 
     let commandData;
     let commandName;
@@ -83,7 +83,7 @@ export function commandHandler(player, message) {
 
         message.cancel = true;
 
-        if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => player.hasTag(tag)) === false) {
+        if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => !player.hasTag(tag))) {
             player.tell("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: /function op");
             return;
         }
@@ -129,7 +129,7 @@ export function commandHandler(player, message) {
         else if(commandName === "version") version(message);
         else throw Error(`Command ${commandName} was found in config.js but no handler for it was found.`);
     } catch (error) {
-        console.error(`${new Date()} | ${error} ${error.stack}`);
+        console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
         player.tell(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message.message).replace(/"|\\/g, "")}\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
     }
 }

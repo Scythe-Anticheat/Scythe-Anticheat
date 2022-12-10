@@ -8,13 +8,13 @@ import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 
 const World = Minecraft.world;
 
-if(config.debug === true) console.warn(`${new Date()} | Im not a ******* and this actually worked :sunglasses:`);
+if(config.debug === true) console.warn(`${new Date().toISOString()} | Im not a ******* and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
     const message = msg.message.toLowerCase().trim();
     const player = msg.sender;
 
-    if(config.debug === true && message === "ping") console.warn(`${new Date()} | Pong!`);
+    if(config.debug === true && message === "ping") console.warn(`${new Date().toISOString()} | Pong!`);
 
     if(message.includes("the best minecraft bedrock utility mod") || message.includes("disepi/ambrosial")) msg.cancel = true;
 
@@ -268,7 +268,7 @@ Minecraft.system.run(() => {
             const isNotInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).typeId !== "minecraft:air");
 
             if(isNotInAir === false) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
-                else if(config.debug === true) console.warn(`${new Date()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
+                else if(config.debug === true) console.warn(`${new Date().toISOString()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
         }
 
         if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
@@ -382,6 +382,8 @@ World.events.blockBreak.subscribe((blockBreak) => {
     const dimension = blockBreak.dimension;
     const block = blockBreak.block;
 
+    let revertBlock = false;
+
     if(config.debug === true) console.warn(`${player.nameTag} has broken the block ${blockBreak.brokenBlockPermutation.type.id}`);
 
     // nuker/a = checks if a player breaks more than 3 blocks in a tick
@@ -389,25 +391,45 @@ World.events.blockBreak.subscribe((blockBreak) => {
         player.blocksBroken++;
 
         if(player.blocksBroken > config.modules.nukerA.maxBlocks) {
+            revertBlock = true;
             flag(player, "Nuker", "A", "Misc", "blocksBroken", player.blocksBroken);
-
-            // killing all the items it drops
-            const droppedItems = dimension.getEntities({
-                location: new Minecraft.Location(block.location.x, block.location.y, block.location.z),
-                minDistance: 0,
-                maxDistance: 2,
-                type: "item"
-            });
-
-            for (const item of droppedItems) item.kill();
-
-            block.setPermutation(blockBreak.brokenBlockPermutation);
         }
     }
 
     // Autotool/A = checks for player slot mismatch
     if(config.modules.autotoolA.enabled === true && player.flagAutotoolA === true) {
         flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
+    }
+
+    /*
+        InstaBreak/A = checks if a player in survival breaks an unbreakable block
+        While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasses
+        that can be used
+    */
+    if(config.modules.instabreakA.enabled === true && config.modules.instabreakA.unbreakable_blocks.includes(blockBreak.brokenBlockPermutation.type.id)) {
+        const checkGmc = World.getPlayers({
+            excludeGameModes: [Minecraft.GameMode.creative],
+            name: player.name
+        });
+
+        if([...checkGmc].length !== 0) {
+            revertBlock = true;
+            flag(player, "InstaBreak", "A", "Exploit", "block", blockBreak.brokenBlockPermutation.type.id);
+        }
+    }
+
+    if(revertBlock === true) {
+        // killing all the items it drops
+        const droppedItems = dimension.getEntities({
+            location: new Minecraft.Location(block.location.x, block.location.y, block.location.z),
+            minDistance: 0,
+            maxDistance: 2,
+            type: "item"
+        });
+
+        for (const item of droppedItems) item.kill();
+
+        block.setPermutation(blockBreak.brokenBlockPermutation);
     }
 });
 
@@ -819,7 +841,7 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
     // and causing the server to crash
     beforeWatchdogTerminate.cancel = true;
 
-    console.warn(`${new Date()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${beforeWatchdogTerminate.terminateReason}`);
+    console.warn(`${new Date().toISOString()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${beforeWatchdogTerminate.terminateReason}`);
 });
 
 checkPlayer();

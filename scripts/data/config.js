@@ -497,6 +497,22 @@ export default
             "enabled": true,
             "punishment": "none",
             "minVlbeforePunishment": 0
+        },
+        "instabreakA": {
+            "enabled": true,
+            "unbreakable_blocks": [
+                "minecraft:bedrock",
+                "minecraft:end_portal",
+                "minecraft:end_portal_gateway",
+                "minecraft:barrier",
+                "minecraft:command_block",
+                "minecraft:chain_command_block",
+                "minecraft:repeating_command_block",
+                "minecraft:end_gateway",
+                "minecraft:light_block"
+            ],
+            "punishment": "kick",
+            "minVlbeforePunishment": 1
         }
     },
     "misc_modules": {

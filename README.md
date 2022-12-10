@@ -83,6 +83,9 @@ To run any chat commands or be able to use certain blocks please type ```!op``` 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(K) => Checks if a player places a chest boat/minecart with items already inside it.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(L) => Checks for keep on death items (Disabled if gamerule keep inventory is enabled).<br />
 
+  InstaBreak -><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player breaks an unbreakable block whilst in survival.\*<br />
+
   InvalidSprint -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for sprinting while having the blindness effect.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for sprinting while using an item.<br />

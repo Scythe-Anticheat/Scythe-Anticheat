@@ -15,13 +15,16 @@ const playerIcons = [
 
 // this is the function that will be called when the player wants to open the GUI
 // all other GUI functions will be called from here
-export function mainGui(player) {
+export function mainGui(player, error) {
     if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
+    let text = `Hello ${player.name},\n\nPlease select an option below.`;
+    if(error) text += `\n\n§c${error}`;
+
     const mainGui = new MinecraftUI.ActionFormData()
 		.title("Scythe Anticheat UI")
-		.body(`Hello ${player.name},\n\nPlease select an option below.`)
+		.body(text)
 		.button("Ban Menu", "textures/ui/anvil_icon.png")
         .button("Configure Settings", "textures/ui/gear.png")
         .button(`Manage Players\n§8§o${[...World.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
@@ -188,7 +191,7 @@ function unbanPlayerMenu(player) {
 function settingsMenu(player) {
     if(!player.hasTag("op")) return;
     // player.playSound("mob.chicken.plop");
-    mainGui(player);
+    mainGui(player, "This menu is currently under development, check back later!");
 }
 
 // ====================== //
@@ -373,7 +376,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 function worldSettingsMenu(player) {
     if(!player.hasTag("op")) return;
     // player.playSound("mob.chicken.plop");
-    mainGui(player);
+    mainGui(player, "This menu is currently under development, check back later!");
 }
 
 // ====================== //
