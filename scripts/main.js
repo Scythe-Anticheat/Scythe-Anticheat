@@ -749,6 +749,8 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     const item = beforeItemUse.item;
     const player = beforeItemUse.source;
 
+    console.warn(1);
+
     // GUI stuff
     if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && player.hasTag("op")) {
         mainGui(player);
@@ -757,7 +759,8 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
     if(config.modules.fastuseA.enabled === true) {
         const lastThrowTime = Date.now() - player.lastThrow;
-        if(lastThrowTime < config.modules.fastuseA.use_delay) {
+        console.warn(lastThrowTime);
+        if(lastThrowTime > config.modules.fastuseA.min_use_delay && lastThrowTime < config.modules.fastuseA.use_delay) {
             flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
             beforeItemUse.cancel = true;
         }

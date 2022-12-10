@@ -58,14 +58,14 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     let scoreboardObjective = `${check.toLowerCase()}vl`;
     if(check === "CommandBlockExploit") scoreboardObjective = "cbevl";
 
-    if(World.scoreboard.getObjective(scoreboardObjective) === null) {
+    if(!World.scoreboard.getObjective(scoreboardObjective)) {
         World.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
     } 
 
     player.runCommandAsync(`scoreboard players add @s ${scoreboardObjective} 1`);
 
-    if(typeof debug !== "undefined") player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
-        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":"§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
+    if(debug) player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
+        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
