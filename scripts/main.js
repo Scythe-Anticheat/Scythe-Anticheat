@@ -158,8 +158,13 @@ Minecraft.system.run(() => {
                         flagPlayer = true;
                     
                     // patch spawn eggs
-                    if(config.itemLists.spawnEggs && item.typeId.endsWith("_spawn_egg"))
-                        flagPlayer = true;
+                    if(item.typeId.endsWith("_spawn_egg")) {
+                        if(config.itemLists.spawnEggs.clearVanillaSpawnEggs && item.typeId.startsWith("minecraft:"))
+                           flagPlayer = true;
+
+                        if(config.itemLists.spawnEggs.clearCustomSpawnEggs && !item.typeId.startsWith("minecraft:"))
+                            flagPlayer = true;
+                    }
         
                     if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer === true) {
                         const checkGmc = World.getPlayers({
@@ -458,8 +463,14 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
                 flagPlayer = true;
             
             // patch spawn eggs
-            if(config.itemLists.spawnEggs && item.typeId.endsWith("_spawn_egg"))
-                flagPlayer = true;
+            // patch spawn eggs
+            if(item.typeId.endsWith("_spawn_egg")) {
+                if(config.itemLists.spawnEggs.clearVanillaSpawnEggs && item.typeId.startsWith("minecraft:"))
+                   flagPlayer = true;
+
+                if(config.itemLists.spawnEggs.clearCustomSpawnEggs && !item.typeId.startsWith("minecraft:"))
+                    flagPlayer = true;
+            }
 
             if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer === true) {
                 const checkGmc = World.getPlayers({

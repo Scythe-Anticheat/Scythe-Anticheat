@@ -523,7 +523,10 @@ export default
         }
     },
     "itemLists": {
-        "spawnEggs": true,
+        "spawnEggs": {
+            "clearVanillaSpawnEggs": true,
+            "clearCustomSpawnEggs": false
+        },
         "elements": true,
         "cbe_items": [
             "minecraft:beehive",
