@@ -173,7 +173,7 @@ Minecraft.system.run(() => {
                         });
                     
                         if([...checkGmc].length !== 0) {
-                            flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, undefined, undefined, player.selectedSlot);
+                            flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, undefined, undefined, i);
                         }
                     }
                 }
