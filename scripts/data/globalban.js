@@ -31,5 +31,7 @@ export const banList = [
    "Darkstalker8352",
    "takenyan",
    "Smell of curry",
-   "blinkzy5915"
+   "blinkzy5915",
+   "astolfodev2",
+   "adgods"
 ];
