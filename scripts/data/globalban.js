@@ -33,5 +33,13 @@ export const banList = [
    "Smell of curry",
    "blinkzy5915",
    "astolfodev2",
-   "adgods"
+   "adgods",
+   "h3xatr0n",
+   "acktun",
+   "qjamesfrom6b",
+   "grandfiber56034",
+   "shrekballoon",
+   "greasyaccount2",
+   "xjqcob",
+   "budgingermine38"
 ];
