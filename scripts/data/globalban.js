@@ -41,5 +41,6 @@ export const banList = [
    "shrekballoon",
    "greasyaccount2",
    "xjqcob",
-   "budgingermine38"
+   "budgingermine38",
+   "esotericaliy"
 ];
