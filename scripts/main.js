@@ -55,10 +55,8 @@ World.events.beforeChat.subscribe(msg => {
     }
 });
 
-function checkPlayer() {
-Minecraft.system.run(() => {
+Minecraft.system.runSchedule(() => {
     if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
-    data.currentTick++;
 
     // run as each player
     for (const player of World.getPlayers()) {
@@ -132,7 +130,7 @@ Minecraft.system.run(() => {
 
         // NoSlow/A = speed limit check
         if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
-            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && getScore(player, "right", 0) >= 5) {
+            if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
                 flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed, true);
             }
         }
@@ -193,24 +191,24 @@ Minecraft.system.run(() => {
                     flag(player, "BadEnchants", "D", "Exploit", "lore", String(item.getLore()), undefined, undefined, i);
             }
 
+            /*
+                As of 1.19.30, Mojang removed all illegal items from MinecraftItemTypes, although this change
+                doesnt matter, they mistakenly removed 'written_book', which can be obtained normally.
+                Written books will make this code error out, and make any items that havent been check bypass
+                anti32k checks. In older versions, this error will also make certian players not get checked
+                leading to a Scythe Semi-Gametest Disabler method.
+            */
+            let itemType = Minecraft.ItemTypes.get(item.typeId);
+            if(typeof itemType === "undefined") itemType = Minecraft.ItemTypes.get("minecraft:book");
+
             if(config.modules.resetItemData.enabled === true && config.modules.resetItemData.items.includes(item.typeId)) {
                 // This creates a duplicate version of the item, with just its amount and data.
-                const item2 = new Minecraft.ItemStack(Minecraft.Items.get(item.typeId), item.amount, item.data);
+                const item2 = new Minecraft.ItemStack(itemType, item.amount, item.data);
                 container.setItem(i, item2);
             }
 
             if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
                 const itemEnchants = item.getComponent("enchantments").enchantments;
-
-                /*
-                    As of 1.19.30, Mojang removed all illegal items from MinecraftItemTypes, although this change
-                    doesnt matter, they mistakenly removed 'written_book', which can be obtained normally.
-                    Written books will make this code error out, and make any items that havent been check bypass
-                    anti32k checks. In older versions, this error will also make certian players not get checked
-                    leading to a Scythe Semi-Gametest Disabler method.
-                */
-                let itemType = Minecraft.ItemTypes.get(item.typeId);
-                if(typeof itemType === "undefined") itemType = Minecraft.ItemTypes.get("minecraft:book");
 
                 const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
                 const item2Enchants = item2.getComponent("enchantments").enchantments;
@@ -236,7 +234,7 @@ Minecraft.system.run(() => {
 
                     // badenchants/C = checks if an item has an enchantment which isnt support by the item
                     if(config.modules.badenchantsC.enabled) {
-                        if(!item2.getComponent("enchantments").enchantments.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1))) {
+                        if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1))) {
                             flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
                         }
 
@@ -251,8 +249,7 @@ Minecraft.system.run(() => {
                         if(enchantments.includes(enchantData.type.id)) {
                             enchantments.push(enchantData.type.id);
                             flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(", "), false, undefined , i);
-                        }
-                        enchantments.push(enchantData.type.id);
+                        } else enchantments.push(enchantData.type.id);
                     }
 
                     loopIterator(iterator);
@@ -306,9 +303,7 @@ Minecraft.system.run(() => {
             if(player.hasTag("errorlogger")) player.tell(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
         }
     }
-    checkPlayer();
-});
-}
+}, 0);
 
 World.events.blockPlace.subscribe((blockPlace) => {
     const block = blockPlace.block;
@@ -377,7 +372,8 @@ World.events.blockPlace.subscribe((blockPlace) => {
         });
 
         if(foundDispenser === true)
-            player.dimension.getBlock(new Minecraft.BlockLocation(block.location.x, block.location.y, block.location.z))
+            player.dimension
+                .getBlock(new Minecraft.BlockLocation(block.location.x, block.location.y, block.location.z))
                 .setType(Minecraft.MinecraftBlockTypes.air);
     }
 });
@@ -403,6 +399,7 @@ World.events.blockBreak.subscribe((blockBreak) => {
 
     // Autotool/A = checks for player slot mismatch
     if(config.modules.autotoolA.enabled === true && player.flagAutotoolA === true) {
+        revertBlock = true;
         flag(player, "AutoTool", "A", "Misc", "selectedSlot", `${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
     }
 
@@ -554,10 +551,10 @@ World.events.playerJoin.subscribe((playerJoin) => {
     if(config.modules.namespoofA.enabled) {
         // checks if 2 players are logged in with the same name
         // minecraft adds a sufix to the end of the name which we detect
-        if(player.name?.endsWith(')') && (player.name?.length > config.modules.namespoofA.maxNameLength + 3 || player.name?.length < config.modules.namespoofA.minNameLength))
+        if(player.name.endsWith(')') && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
             player.flagNamespoofA = true;
 
-        if(!player.name?.endsWith(')') && (player.name?.length < config.modules.namespoofA.minNameLength || player.name?.length > config.modules.namespoofA.maxNameLength))
+        if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
             player.flagNamespoofA = true;
 
         if(player.flagNamespoofA) {
@@ -659,8 +656,6 @@ World.events.entityCreate.subscribe((entityCreate) => {
             type: "armor_stand"
         })];
 
-        console.warn(entities.length);
-
         if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
             entity.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area."}]}`);
 
@@ -749,8 +744,6 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     const item = beforeItemUse.item;
     const player = beforeItemUse.source;
 
-    console.warn(1);
-
     // GUI stuff
     if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && player.hasTag("op")) {
         mainGui(player);
@@ -759,7 +752,6 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
     if(config.modules.fastuseA.enabled === true) {
         const lastThrowTime = Date.now() - player.lastThrow;
-        console.warn(lastThrowTime);
         if(lastThrowTime > config.modules.fastuseA.min_use_delay && lastThrowTime < config.modules.fastuseA.use_delay) {
             flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
             beforeItemUse.cancel = true;
@@ -857,8 +849,6 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
 
     console.warn(`${new Date().toISOString()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${beforeWatchdogTerminate.terminateReason}`);
 });
-
-checkPlayer();
 
 // when using /reload, the variables defined in playerJoin dont persist
 if([...World.getPlayers()].length >= 1) {

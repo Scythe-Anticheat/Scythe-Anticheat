@@ -136,7 +136,7 @@ export function banMessage(player) {
     // validate that required params are defined
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     
-    if(config.flagWhitelist.includes(player.name) && player.hasTag("op") && typeof player.oldName === "undefined") return;
+    if(config.flagWhitelist.includes(player.name) && player.hasTag("op") && player.oldName) return;
     if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
 

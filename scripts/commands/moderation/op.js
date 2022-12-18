@@ -14,7 +14,7 @@ export function op(message, args) {
 
     const player = message.sender;
     
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to op!");
+    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to op.");
 
     // try to find the player requested
     let member;
@@ -29,7 +29,7 @@ export function op(message, args) {
 
     addOp(member);
 
-    member.tell("§r§6[§aScythe§6]§r §7You are now scythe-op!");
+    member.tell("§r§6[§aScythe§6]§r §7You are now scythe-op.");
     member.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has given ${member.name} scythe-op status."}]}`);
 }
 
