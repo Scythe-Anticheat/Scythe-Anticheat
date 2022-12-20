@@ -135,6 +135,11 @@ export default
             "requiredTags": ["op"],
             "aliases": ["inv"]
         },
+        "cloneinv": {
+            "enabled": true,
+            "requiredTags": ["op"],
+            "aliases": ["invclone", "invc"]
+        },
         "notify": {
             "enabled": true,
             "requiredTags": ["op"]

@@ -30,6 +30,7 @@ import { fullreport } from "./utility/fullreport.js";
 import { vanish } from "./utility/vanish.js";
 import { fly } from "./utility/fly.js";
 import { invsee } from "./utility/invsee.js";
+import { cloneinv } from "./utility/cloneinv.js";
 import { report } from "./other/report.js";
 import { unban } from "./moderation/unban.js";
 import { ui } from "./utility/ui.js";
@@ -102,6 +103,7 @@ export function commandHandler(player, message) {
         else if(commandName === "mute") mute(message, args);
         else if(commandName === "unmute") unmute(message, args);
         else if(commandName === "invsee" ) invsee(message, args);
+        else if(commandName === "cloneinv" ) cloneinv(message, args);
         else if(commandName === "ecwipe") ecwipe(message, args);
         else if(commandName === "freeze") freeze(message, args);
         else if(commandName === "stats") stats(message, args);

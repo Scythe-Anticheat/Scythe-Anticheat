@@ -23,7 +23,7 @@ export function invsee(message, args) {
         break;
     }
     
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldnt find that player!");
+    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     const container = member.getComponent('inventory').container;
 

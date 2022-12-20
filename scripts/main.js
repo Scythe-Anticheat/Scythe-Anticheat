@@ -234,12 +234,12 @@ Minecraft.system.runSchedule(() => {
 
                     // badenchants/C = checks if an item has an enchantment which isnt support by the item
                     if(config.modules.badenchantsC.enabled) {
-                        if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1))) {
+                        if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(enchantData.type, 1))) {
                             flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
                         }
 
                         if(config.modules.badenchantsB.multi_protection === true) {
-                            item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
+                            item2Enchants.addEnchantment(new Minecraft.Enchantment(enchantData.type, 1));
                             item2.getComponent("enchantments").enchantments = item2Enchants;
                         }
                     }
@@ -792,12 +792,12 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
             // badenchants/C = checks if an item has an enchantment which isnt support by the item
             if(config.modules.badenchantsC.enabled) {
-                if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1))) {
+                if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(enchantData.type, 1))) {
                     flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
                 }
 
                 if(config.modules.badenchantsB.multi_protection === true) {
-                    item2Enchants.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes[enchantData.type.id], 1));
+                    item2Enchants.addEnchantment(new Minecraft.Enchantment(enchantData.type, 1));
                     item2.getComponent("enchantments").enchantments = item2Enchants;
                 }
             }
