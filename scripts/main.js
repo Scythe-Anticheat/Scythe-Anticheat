@@ -492,7 +492,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
     if(player.hasTag("freeze")) beforeItemUseOn.cancel = true;
 });
 
-World.events.playerJoin.subscribe((playerJoin) => {
+World.events.playerSpawn.subscribe((playerJoin) => {
     const player = playerJoin.player;
 
     // declare all needed variables in player
@@ -571,7 +571,7 @@ World.events.playerJoin.subscribe((playerJoin) => {
     if(banList.includes(player.name.toLowerCase()) || banList.includes(player.oldName?.toLowerCase())) player.isGlobalBanned = true;
 });
 
-World.events.entityCreate.subscribe((entityCreate) => {
+World.events.entitySpawn.subscribe((entityCreate) => {
     const entity = entityCreate.entity;
 
     if(config.modules.itemSpawnRateLimit.enabled) {
