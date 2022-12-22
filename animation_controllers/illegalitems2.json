@@ -5,316 +5,319 @@
 			"states": {
 				"check_illegal": {
 					"transitions": [{
-							"flowing_water": "query.get_equipped_item_name == 'flowing_water' || query.get_equipped_item_name('off_hand') == 'flowing_water'"
+							"flowing_water": "query.get_equipped_item_name == 'flowing_water'"
 						},
 						{
-							"water": "query.get_equipped_item_name == 'water' || query.get_equipped_item_name('off_hand') == 'water'"
+							"water": "query.get_equipped_item_name == 'water'"
 						},
 						{
-							"lava": "query.get_equipped_item_name == 'lava' || query.get_equipped_item_name('off_hand') == 'lava'"
+							"lava": "query.get_equipped_item_name == 'lava'"
 						},
 						{
-							"flowing_lava": "query.get_equipped_item_name == 'flowing_lava' || query.get_equipped_item_name('off_hand') == 'flowing_lava'"
+							"flowing_lava": "query.get_equipped_item_name == 'flowing_lava'"
 						},
 						{
-							"fire": "query.get_equipped_item_name == 'fire' || query.get_equipped_item_name('off_hand') == 'fire'"
+							"fire": "query.get_equipped_item_name == 'fire'"
 						},
 						{
-							"lit_furnace": "query.get_equipped_item_name == 'lit_furnace' || query.get_equipped_item_name('off_hand') == 'lit_furnace'"
+							"lit_furnace": "query.get_equipped_item_name == 'lit_furnace'"
 						},
 						{
-							"standing_sign": "query.get_equipped_item_name == 'standing_sign' || query.get_equipped_item_name('off_hand') == 'standing_sign'"
+							"standing_sign": "query.get_equipped_item_name == 'standing_sign'"
 						},
 						{
-							"wall_sign": "query.get_equipped_item_name == 'wall_sign' || query.get_equipped_item_name('off_hand') == 'wall_sign'"
+							"wall_sign": "query.get_equipped_item_name == 'wall_sign'"
 						},
 						{
-							"lit_redstone_ore": "query.get_equipped_item_name == 'lit_redstone_ore' || query.get_equipped_item_name('off_hand') == 'lit_redstone_ore'"
+							"lit_redstone_ore": "query.get_equipped_item_name == 'lit_redstone_ore'"
 						},
 						{
-							"unlit_redstone_torch": "query.get_equipped_item_name == 'unlit_redstone_torch' || query.get_equipped_item_name('off_hand') == 'unlit_redstone_torch'"
+							"unlit_redstone_torch": "query.get_equipped_item_name == 'unlit_redstone_torch'"
 						},
 						{
-							"portal": "query.get_equipped_item_name == 'portal' || query.get_equipped_item_name('off_hand') == 'portal'"
+							"portal": "query.get_equipped_item_name == 'portal'"
 						},
 						{
-							"unpowered_repeater": "query.get_equipped_item_name == 'unpowered_repeater' || query.get_equipped_item_name('off_hand') == 'unpowered_repeater'"
+							"unpowered_repeater": "query.get_equipped_item_name == 'unpowered_repeater'"
 						},
 						{
-							"powered_repeater": "query.get_equipped_item_name == 'powered_repeater' || query.get_equipped_item_name('off_hand') == 'powered_repeater'"
+							"powered_repeater": "query.get_equipped_item_name == 'powered_repeater'"
 						},
 						{
-							"pumpkin_stem": "query.get_equipped_item_name == 'pumpkin_stem' || query.get_equipped_item_name('off_hand') == 'pumpkin_stem'"
+							"pumpkin_stem": "query.get_equipped_item_name == 'pumpkin_stem'"
 						},
 						{
-							"melon_stem": "query.get_equipped_item_name == 'melon_stem' || query.get_equipped_item_name('off_hand') == 'melon_stem'"
+							"melon_stem": "query.get_equipped_item_name == 'melon_stem'"
 						},
 						{
-							"end_portal": "query.get_equipped_item_name == 'end_portal' || query.get_equipped_item_name('off_hand') == 'end_portal'"
+							"end_portal": "query.get_equipped_item_name == 'end_portal'"
 						},
 						{
-							"lit_redstone_lamp": "query.get_equipped_item_name == 'lit_redstone_lamp' || query.get_equipped_item_name('off_hand') == 'lit_redstone_lamp'"
+							"lit_redstone_lamp": "query.get_equipped_item_name == 'lit_redstone_lamp'"
 						},
 						{
-							"cocoa": "query.get_equipped_item_name == 'cocoa' || query.get_equipped_item_name('off_hand') == 'cocoa'"
+							"cocoa": "query.get_equipped_item_name == 'cocoa'"
 						},
 						{
-							"carrots": "query.get_equipped_item_name == 'carrots' || query.get_equipped_item_name('off_hand') == 'carrots'"
+							"carrots": "query.get_equipped_item_name == 'carrots'"
 						},
 						{
-							"potatoes": "query.get_equipped_item_name == 'potatoes' || query.get_equipped_item_name('off_hand') == 'potatoes'"
+							"potatoes": "query.get_equipped_item_name == 'potatoes'"
 						},
 						{
-							"unpowered_comparator": "query.get_equipped_item_name == 'unpowered_comparator' || query.get_equipped_item_name('off_hand') == 'unpowered_comparator'"
+							"unpowered_comparator": "query.get_equipped_item_name == 'unpowered_comparator'"
 						},
 						{
-							"powered_comparator": "query.get_equipped_item_name == 'powered_comparator' || query.get_equipped_item_name('off_hand') == 'powered_comparator'"
+							"powered_comparator": "query.get_equipped_item_name == 'powered_comparator'"
 						},
 						{
-							"double_wooden_slab": "query.get_equipped_item_name == 'double_wooden_slab' || query.get_equipped_item_name('off_hand') == 'double_wooden_slab'"
+							"double_wooden_slab": "query.get_equipped_item_name == 'double_wooden_slab'"
 						},
 						{
-							"standing_banner": "query.get_equipped_item_name == 'standing_banner' || query.get_equipped_item_name('off_hand') == 'standing_banner'"
+							"standing_banner": "query.get_equipped_item_name == 'standing_banner'"
 						},
 						{
-							"wall_banner": "query.get_equipped_item_name == 'wall_banner' || query.get_equipped_item_name('off_hand') == 'wall_banner'"
+							"wall_banner": "query.get_equipped_item_name == 'wall_banner'"
 						},
 						{
-							"daylight_detector_inverted": "query.get_equipped_item_name == 'daylight_detector_inverted' || query.get_equipped_item_name('off_hand') == 'daylight_detector_inverted'"
+							"daylight_detector_inverted": "query.get_equipped_item_name == 'daylight_detector_inverted'"
 						},
 						{
-							"chemical_heat": "query.get_equipped_item_name == 'chemical_heat' || query.get_equipped_item_name('off_hand') == 'chemical_heat'"
+							"chemical_heat": "query.get_equipped_item_name == 'chemical_heat'"
 						},
 						{
-							"underwater_torch": "query.get_equipped_item_name == 'underwater_torch' || query.get_equipped_item_name('off_hand') == 'underwater_torch'"
+							"underwater_torch": "query.get_equipped_item_name == 'underwater_torch'"
 						},
 						{
-							"end_gateway": "query.get_equipped_item_name == 'end_gateway' || query.get_equipped_item_name('off_hand') == 'end_gateway'"
+							"end_gateway": "query.get_equipped_item_name == 'end_gateway'"
 						},
 						{
-							"stonecutter": "query.get_equipped_item_name == 'stonecutter' || query.get_equipped_item_name('off_hand') == 'stonecutter'"
+							"stonecutter": "query.get_equipped_item_name == 'stonecutter'"
 						},
 						{
-							"glowingobsidian": "query.get_equipped_item_name == 'glowingobsidian' || query.get_equipped_item_name('off_hand') == 'glowingobsidian'"
+							"glowingobsidian": "query.get_equipped_item_name == 'glowingobsidian'"
 						},
 						{
-							"netherreactor": "query.get_equipped_item_name == 'netherreactor' || query.get_equipped_item_name('off_hand') == 'netherreactor'"
+							"netherreactor": "query.get_equipped_item_name == 'netherreactor'"
 						},
 						{
-							"bubble_column": "query.get_equipped_item_name == 'bubble_column' || query.get_equipped_item_name('off_hand') == 'bubble_column'"
+							"bubble_column": "query.get_equipped_item_name == 'bubble_column'"
 						},
 						{
-							"bamboo_sapling": "query.get_equipped_item_name == 'bamboo_sapling' || query.get_equipped_item_name('off_hand') == 'bamboo_sapling'"
+							"bamboo_sapling": "query.get_equipped_item_name == 'bamboo_sapling'"
 						},
 						{
-							"spruce_standing_sign": "query.get_equipped_item_name == 'spruce_standing_sign' || query.get_equipped_item_name('off_hand') == 'spruce_standing_sign'"
+							"spruce_standing_sign": "query.get_equipped_item_name == 'spruce_standing_sign'"
 						},
 						{
-							"spruce_wall_sign": "query.get_equipped_item_name == 'spruce_wall_sign' || query.get_equipped_item_name('off_hand') == 'spruce_wall_sign'"
+							"spruce_wall_sign": "query.get_equipped_item_name == 'spruce_wall_sign'"
 						},
 						{
-							"birch_standing_sign": "query.get_equipped_item_name == 'birch_standing_sign' || query.get_equipped_item_name('off_hand') == 'birch_standing_sign'"
+							"birch_standing_sign": "query.get_equipped_item_name == 'birch_standing_sign'"
 						},
 						{
-							"birch_wall_sign": "query.get_equipped_item_name == 'birch_wall_sign' || query.get_equipped_item_name('off_hand') == 'birch_wall_sign'"
+							"birch_wall_sign": "query.get_equipped_item_name == 'birch_wall_sign'"
 						},
 						{
-							"jungle_standing_sign": "query.get_equipped_item_name == 'jungle_standing_sign' || query.get_equipped_item_name('off_hand') == 'jungle_standing_sign'"
+							"jungle_standing_sign": "query.get_equipped_item_name == 'jungle_standing_sign'"
 						},
 						{
-							"jungle_wall_sign": "query.get_equipped_item_name == 'jungle_wall_sign' || query.get_equipped_item_name('off_hand') == 'jungle_wall_sign'"
+							"jungle_wall_sign": "query.get_equipped_item_name == 'jungle_wall_sign'"
 						},
 						{
-							"acacia_standing_sign": "query.get_equipped_item_name == 'acacia_standing_sign' || query.get_equipped_item_name('off_hand') == 'acacia_standing_sign'"
+							"acacia_standing_sign": "query.get_equipped_item_name == 'acacia_standing_sign'"
 						},
 						{
-							"acacia_wall_sign": "query.get_equipped_item_name == 'acacia_wall_sign' || query.get_equipped_item_name('off_hand') == 'acacia_wall_sign'"
+							"acacia_wall_sign": "query.get_equipped_item_name == 'acacia_wall_sign'"
 						},
 						{
-							"darkoak_standing_sign": "query.get_equipped_item_name == 'darkoak_standing_sign' || query.get_equipped_item_name('off_hand') == 'darkoak_standing_sign'"
+							"darkoak_standing_sign": "query.get_equipped_item_name == 'darkoak_standing_sign'"
 						},
 						{
-							"darkoak_wall_sign": "query.get_equipped_item_name == 'darkoak_wall_sign' || query.get_equipped_item_name('off_hand') == 'darkoak_wall_sign'"
+							"darkoak_wall_sign": "query.get_equipped_item_name == 'darkoak_wall_sign'"
 						},
 						{
-							"lit_smoker": "query.get_equipped_item_name == 'lit_smoker' || query.get_equipped_item_name('off_hand') == 'lit_smoker'"
+							"lit_smoker": "query.get_equipped_item_name == 'lit_smoker'"
 						},
 						{
-							"lava_cauldron": "query.get_equipped_item_name == 'lava_cauldron' || query.get_equipped_item_name('off_hand') == 'lava_cauldron'"
+							"lava_cauldron": "query.get_equipped_item_name == 'lava_cauldron'"
 						},
 						{
-							"soul_fire": "query.get_equipped_item_name == 'soul_fire' || query.get_equipped_item_name('off_hand') == 'soul_fire'"
+							"soul_fire": "query.get_equipped_item_name == 'soul_fire'"
 						},
 						{
-							"crimson_standing_sign": "query.get_equipped_item_name == 'crimson_standing_sign' || query.get_equipped_item_name('off_hand') == 'crimson_standing_sign'"
+							"crimson_standing_sign": "query.get_equipped_item_name == 'crimson_standing_sign'"
 						},
 						{
-							"crimson_wall_sign": "query.get_equipped_item_name == 'crimson_wall_sign' || query.get_equipped_item_name('off_hand') == 'crimson_wall_sign'"
+							"crimson_wall_sign": "query.get_equipped_item_name == 'crimson_wall_sign'"
 						},
 						{
-							"warped_standing_sign": "query.get_equipped_item_name == 'warped_standing_sign' || query.get_equipped_item_name('off_hand') == 'warped_standing_sign'"
+							"warped_standing_sign": "query.get_equipped_item_name == 'warped_standing_sign'"
 						},
 						{
-							"warped_wall_sign": "query.get_equipped_item_name == 'warped_wall_sign' || query.get_equipped_item_name('off_hand') == 'warped_wall_sign'"
+							"warped_wall_sign": "query.get_equipped_item_name == 'warped_wall_sign'"
 						},
 						{
-							"blackstone_double_slab": "query.get_equipped_item_name == 'blackstone_double_slab' || query.get_equipped_item_name('off_hand') == 'blackstone_double_slab'"
+							"blackstone_double_slab": "query.get_equipped_item_name == 'blackstone_double_slab'"
 						},
 						{
-							"polished_blackstone_brick_double_slab": "query.get_equipped_item_name == 'polished_blackstone_brick_double_slab' || query.get_equipped_item_name('off_hand') == 'polished_blackstone_brick_double_slab'"
+							"polished_blackstone_brick_double_slab": "query.get_equipped_item_name == 'polished_blackstone_brick_double_slab'"
 						},
 						{
-							"polished_blackstone_double_slab": "query.get_equipped_item_name == 'polished_blackstone_double_slab' || query.get_equipped_item_name('off_hand') == 'polished_blackstone_double_slab'"
+							"polished_blackstone_double_slab": "query.get_equipped_item_name == 'polished_blackstone_double_slab'"
 						},
 						{
-							"unknown": "query.get_equipped_item_name == 'unknown' || query.get_equipped_item_name('off_hand') == 'unknown'"
+							"unknown": "query.get_equipped_item_name == 'unknown'"
 						},
 						{
-							"camera": "query.get_equipped_item_name == 'camera' || query.get_equipped_item_name('off_hand') == 'camera'"
+							"camera": "query.get_equipped_item_name == 'camera'"
 						},
 						{
-							"reserved6": "query.get_equipped_item_name == 'reserved6' || query.get_equipped_item_name('off_hand') == 'reserved6'"
+							"reserved6": "query.get_equipped_item_name == 'reserved6'"
 						},
 						{
-							"info_update": "query.get_equipped_item_name == 'info_update' || query.get_equipped_item_name('off_hand') == 'info_update'"
+							"info_update": "query.get_equipped_item_name == 'info_update'"
 						},
 						{
-							"info_update2": "query.get_equipped_item_name == 'info_update2' || query.get_equipped_item_name('off_hand') == 'info_update2'"
+							"info_update2": "query.get_equipped_item_name == 'info_update2'"
 						},
 						{
-							"lit_deepslate_redstone_ore": "query.get_equipped_item_name == 'lit_deepslate_redstone_ore' || query.get_equipped_item_name('off_hand') == 'lit_deepslate_redstone_ore'"
+							"lit_deepslate_redstone_ore": "query.get_equipped_item_name == 'lit_deepslate_redstone_ore'"
 						},
 						{
-							"hard_stained_glass_pane": "query.get_equipped_item_name == 'hard_stained_glass_pane' || query.get_equipped_item_name('off_hand') == 'hard_stained_glass_pane'"
+							"hard_stained_glass_pane": "query.get_equipped_item_name == 'hard_stained_glass_pane'"
 						},
 						{
-							"hard_stained_glass": "query.get_equipped_item_name == 'hard_stained_glass' || query.get_equipped_item_name('off_hand') == 'hard_stained_glass'"
+							"hard_stained_glass": "query.get_equipped_item_name == 'hard_stained_glass'"
 						},
 						{
-							"colored_torch_rg": "query.get_equipped_item_name == 'colored_torch_rg' || query.get_equipped_item_name('off_hand') == 'colored_torch_rg'"
+							"colored_torch_rg": "query.get_equipped_item_name == 'colored_torch_rg'"
 						},
 						{
-							"colored_torch_bp": "query.get_equipped_item_name == 'colored_torch_bp' || query.get_equipped_item_name('off_hand') == 'colored_torch_bp'"
+							"colored_torch_bp": "query.get_equipped_item_name == 'colored_torch_bp'"
 						},
 						{
-							"balloon": "query.get_equipped_item_name == 'balloon' || query.get_equipped_item_name('off_hand') == 'balloon'"
+							"balloon": "query.get_equipped_item_name == 'balloon'"
 						},
 						{
-							"ice_bomb": "query.get_equipped_item_name == 'ice_bomb' || query.get_equipped_item_name('off_hand') == 'ice_bomb'"
+							"ice_bomb": "query.get_equipped_item_name == 'ice_bomb'"
 						},
 						{
-							"bleach": "query.get_equipped_item_name == 'bleach' || query.get_equipped_item_name('off_hand') == 'bleach'"
+							"bleach": "query.get_equipped_item_name == 'bleach'"
 						},
 						{
-							"medicine": "query.get_equipped_item_name == 'medicine' || query.get_equipped_item_name('off_hand') == 'medicine'"
+							"medicine": "query.get_equipped_item_name == 'medicine'"
 						},
 						{
-							"sparkler": "query.get_equipped_item_name == 'sparkler' || query.get_equipped_item_name('off_hand') == 'sparkler'"
+							"sparkler": "query.get_equipped_item_name == 'sparkler'"
 						},
 						{
-							"glow_stick": "query.get_equipped_item_name == 'glow_stick' || query.get_equipped_item_name('off_hand') == 'glow_stick'"
+							"glow_stick": "query.get_equipped_item_name == 'glow_stick'"
 						},
 						{
-							"compound": "query.get_equipped_item_name == 'compound' || query.get_equipped_item_name('off_hand') == 'compound'"
+							"compound": "query.get_equipped_item_name == 'compound'"
 						},
 						{
-							"powder_snow": "query.get_equipped_item_name == 'powder_snow' || query.get_equipped_item_name('off_hand') == 'powder_snow'"
+							"powder_snow": "query.get_equipped_item_name == 'powder_snow'"
 						},
 						{
-							"sweat_berry_bush": "query.get_equipped_item_name == 'sweet_berry_bush' || query.get_equipped_item_name('off_hand') == 'sweet_berry_bush'"
+							"sweat_berry_bush": "query.get_equipped_item_name == 'sweet_berry_bush'"
 						},
 						{
-							"lit_blast_furnace": "query.get_equipped_item_name == 'lit_blast_furnace' || query.get_equipped_item_name('off_hand') == 'lit_blast_furnace'"
+							"lit_blast_furnace": "query.get_equipped_item_name == 'lit_blast_furnace'"
 						},
 						{
-							"redstone_wire": "query.get_equipped_item_name == 'redstone_wire' || query.get_equipped_item_name('off_hand') == 'redstone_wire'"
+							"redstone_wire": "query.get_equipped_item_name == 'redstone_wire'"
 						},
 						{
-							"crimson_double_slab": "query.get_equipped_item_name == 'crimson_double_slab' || query.get_equipped_item_name('off_hand') == 'crimson_double_slab'"
+							"crimson_double_slab": "query.get_equipped_item_name == 'crimson_double_slab'"
 						},
 						{
-							"warped_double_slab": "query.get_equipped_item_name == 'warped_double_slab' || query.get_equipped_item_name('off_hand') == 'warped_double_slab'"
+							"warped_double_slab": "query.get_equipped_item_name == 'warped_double_slab'"
 						},
 						{
-							"cobbled_deepslate_double_slab": "query.get_equipped_item_name == 'cobbled_deepslate_double_slab' || query.get_equipped_item_name('off_hand') == 'cobbled_deepslate_double_slab'"
+							"cobbled_deepslate_double_slab": "query.get_equipped_item_name == 'cobbled_deepslate_double_slab'"
 						},
 						{
-							"polished_deepslate_double_slab": "query.get_equipped_item_name == 'polished_deepslate_double_slab' || query.get_equipped_item_name('off_hand') == 'polished_deepslate_double_slab'"
+							"polished_deepslate_double_slab": "query.get_equipped_item_name == 'polished_deepslate_double_slab'"
 						},
 						{
-							"deepslate_tile_double_slab": "query.get_equipped_item_name == 'deepslate_tile_double_slab' || query.get_equipped_item_name('off_hand') == 'deepslate_tile_double_slab'"
+							"deepslate_tile_double_slab": "query.get_equipped_item_name == 'deepslate_tile_double_slab'"
 						},
 						{
-							"deepslate_brick_double_slab": "query.get_equipped_item_name == 'deepslate_brick_double_slab' || query.get_equipped_item_name('off_hand') == 'deepslate_brick_double_slab'"
+							"deepslate_brick_double_slab": "query.get_equipped_item_name == 'deepslate_brick_double_slab'"
 						},
 						{
-							"agent_spawn_egg": "query.get_equipped_item_name == 'agent_spawn_egg' || query.get_equipped_item_name('off_hand') == 'agent_spawn_egg'"
+							"agent_spawn_egg": "query.get_equipped_item_name == 'agent_spawn_egg'"
 						},
 						{
-							"client_request_placeholder_block": "query.get_equipped_item_name == 'client_request_placeholder_block' || query.get_equipped_item_name('off_hand') == 'client_request_placeholder_block'"
+							"client_request_placeholder_block": "query.get_equipped_item_name == 'client_request_placeholder_block'"
 						},
 						{
-							"rapid_fertilizer": "query.get_equipped_item_name == 'rapid_fertilizer' || query.get_equipped_item_name('off_hand') == 'rapid_fertilizer'"
+							"rapid_fertilizer": "query.get_equipped_item_name == 'rapid_fertilizer'"
 						},
 						{
-							"hard_glass": "query.get_equipped_item_name == 'hard_glass' || query.get_equipped_item_name('off_hand') == 'hard_glass'"
+							"hard_glass": "query.get_equipped_item_name == 'hard_glass'"
 						},
 						{
-							"hard_glass_pane": "query.get_equipped_item_name == 'hard_glass_pane' || query.get_equipped_item_name('off_hand') == 'hard_glass_pane'"
+							"hard_glass_pane": "query.get_equipped_item_name == 'hard_glass_pane'"
 						},
 						{
-							"exposed_double_cut_copper_slab": "query.get_equipped_item_name == 'exposed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'exposed_double_cut_copper_slab'"
+							"exposed_double_cut_copper_slab": "query.get_equipped_item_name == 'exposed_double_cut_copper_slab'"
 						},
 						{
-							"oxidized_double_cut_copper_slab": "query.get_equipped_item_name == 'oxidized_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'oxidized_double_cut_copper_slab'"
+							"oxidized_double_cut_copper_slab": "query.get_equipped_item_name == 'oxidized_double_cut_copper_slab'"
 						},
 						{
-							"waxed_double_cut_copper_slab": "query.get_equipped_item_name == 'waxed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'waxed_double_cut_copper_slab'"
+							"waxed_double_cut_copper_slab": "query.get_equipped_item_name == 'waxed_double_cut_copper_slab'"
 						},
 						{
-							"waxed_exposed_double_cut_copper_slab": "query.get_equipped_item_name == 'waxed_exposed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'waxed_exposed_double_cut_copper_slab'"
+							"waxed_exposed_double_cut_copper_slab": "query.get_equipped_item_name == 'waxed_exposed_double_cut_copper_slab'"
 						},
 						{
-							"waxed_oxidized_double_cut_copper_slab": "query.get_equipped_item_name == 'waxed_oxidized_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'waxed_oxidized_double_cut_copper_slab'"
+							"waxed_oxidized_double_cut_copper_slab": "query.get_equipped_item_name == 'waxed_oxidized_double_cut_copper_slab'"
 						},
 						{
-							"waxed_weathered_double_cut_copper_slab": "query.get_equipped_item_name == 'waxed_weathered_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'waxed_weathered_double_cut_copper_slab'"
+							"waxed_weathered_double_cut_copper_slab": "query.get_equipped_item_name == 'waxed_weathered_double_cut_copper_slab'"
 						},
 						{
-							"weathered_double_cut_copper_slab": "query.get_equipped_item_name == 'weathered_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'weathered_double_cut_copper_slab'"
+							"weathered_double_cut_copper_slab": "query.get_equipped_item_name == 'weathered_double_cut_copper_slab'"
 						},
 						{
-							"double_wooden_slab": "query.get_equipped_item_name == 'double_wooden_slab' || query.get_equipped_item_name('off_hand') == 'double_wooden_slab'"
+							"double_wooden_slab": "query.get_equipped_item_name == 'double_wooden_slab'"
 						},
 						{
-							"double_cut_copper_slab": "query.get_equipped_item_name == 'double_cut_copper_slab' || query.get_equipped_item_name('off_hand') == 'double_cut_copper_slab'"
+							"double_cut_copper_slab": "query.get_equipped_item_name == 'double_cut_copper_slab'"
 						},
 						{
-							"moving_block": "query.get_equipped_item_name == 'moving_block' || query.get_equipped_item_name('off_hand') == 'moving_block'"
+							"moving_block": "query.get_equipped_item_name == 'moving_block'"
 						},
 						{
-							"coral_fan_hang": "query.get_equipped_item_name == 'coral_fan_hang' || query.get_equipped_item_name('off_hand') == 'coral_fan_hang'"
+							"coral_fan_hang": "query.get_equipped_item_name == 'coral_fan_hang'"
 						},
 						{
-							"coral_fan_hang2": "query.get_equipped_item_name == 'coral_fan_hang2' || query.get_equipped_item_name('off_hand') == 'coral_fan_hang2'"
+							"coral_fan_hang2": "query.get_equipped_item_name == 'coral_fan_hang2'"
 						},
 						{
-							"coral_fan_hang3": "query.get_equipped_item_name == 'coral_fan_hang3' || query.get_equipped_item_name('off_hand') == 'coral_fan_hang3'"
+							"coral_fan_hang3": "query.get_equipped_item_name == 'coral_fan_hang3'"
 						},
 						{
-							"mangrove_standing_sign": "query.get_equipped_item_name == 'mangrove_standing_sign' || query.get_equipped_item_name('off_hand') == 'mangrove_standing_sign'"
+							"mangrove_standing_sign": "query.get_equipped_item_name == 'mangrove_standing_sign'"
 						},
 						{
-							"coral_fan_hang3": "query.get_equipped_item_name == 'mangrove_wall_sign' || query.get_equipped_item_name('off_hand') == 'mangrove_wall_sign'"
+							"coral_fan_hang3": "query.get_equipped_item_name == 'mangrove_wall_sign'"
 						},
 						{
-							"mud_brick_double_slab": "query.get_equipped_item_name == 'mud_brick_double_slab' || query.get_equipped_item_name('off_hand') == 'mud_brick_double_slab'"
+							"mud_brick_double_slab": "query.get_equipped_item_name == 'mud_brick_double_slab'"
 						},
 						{
-							"mangrove_double_slab": "query.get_equipped_item_name == 'mangrove_double_slab' || query.get_equipped_item_name('off_hand') == 'mangrove_double_slab'"
+							"mangrove_double_slab": "query.get_equipped_item_name == 'mangrove_double_slab'"
 						},
 						{
 							"other": "query.skin_id == 2"
+						},
+						{
+							"invalid_offhand": "query.get_equipped_item_name('off_hand') != '' && query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name('off_hand') != 'totem_of_undying' && query.get_equipped_item_name('off_hand') != 'filled_map' && query.get_equipped_item_name('off_hand') != 'arrow' && query.get_equipped_item_name('off_hand') != 'firework_rocket'"
 						}
 					]
 				},
@@ -324,7 +327,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(flowing_water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'flowing_water' || query.get_equipped_item_name('off_hand') != 'flowing_water'"
+						"check_illegal": "query.get_equipped_item_name != 'flowing_water'"
 					}]
 				},
 				"water": {
@@ -333,7 +336,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(water)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'water' || query.get_equipped_item_name('off_hand') != 'water'"
+						"check_illegal": "query.get_equipped_item_name != 'water'"
 					}]
 				},
 				"flowing_lava": {
@@ -342,7 +345,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(flowing_lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'flowing_lava' || query.get_equipped_item_name('off_hand') != 'flowing_lava'"
+						"check_illegal": "query.get_equipped_item_name != 'flowing_lava'"
 					}]
 				},
 				"lava": {
@@ -351,7 +354,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lava)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'lava' || query.get_equipped_item_name('off_hand') != 'lava'"
+						"check_illegal": "query.get_equipped_item_name != 'lava'"
 					}]
 				},
 				"fire": {
@@ -360,7 +363,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'fire' || query.get_equipped_item_name('off_hand') != 'fire'"
+						"check_illegal": "query.get_equipped_item_name != 'fire'"
 					}]
 				},
 				"lit_furnace": {
@@ -369,7 +372,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'lit_furnace' || query.get_equipped_item_name('off_hand') != 'lit_furnace'"
+						"check_illegal": "query.get_equipped_item_name != 'lit_furnace'"
 					}]
 				},
 				"standing_sign": {
@@ -378,7 +381,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'standing_sign' || query.get_equipped_item_name('off_hand') != 'standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'standing_sign'"
 					}]
 				},
 				"wall_sign": {
@@ -387,7 +390,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'wall_sign' || query.get_equipped_item_name('off_hand') != 'wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'wall_sign'"
 					}]
 				},
 				"lit_redstone_ore": {
@@ -396,7 +399,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'lit_redstone_ore' || query.get_equipped_item_name('off_hand') != 'lit_redstone_ore'"
+						"check_illegal": "query.get_equipped_item_name != 'lit_redstone_ore'"
 					}]
 				},
 				"unlit_redstone_torch": {
@@ -405,7 +408,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unlit_redstone_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'unlit_redstone_torch' || query.get_equipped_item_name('off_hand') != 'unlit_redstone_torch'"
+						"check_illegal": "query.get_equipped_item_name != 'unlit_redstone_torch'"
 					}]
 				},
 				"portal": {
@@ -414,7 +417,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'portal' || query.get_equipped_item_name('off_hand') != 'portal'"
+						"check_illegal": "query.get_equipped_item_name != 'portal'"
 					}]
 				},
 				"unpowered_repeater": {
@@ -423,7 +426,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unpowered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'unpowered_repeater' || query.get_equipped_item_name('off_hand') != 'unpowered_repeater'"
+						"check_illegal": "query.get_equipped_item_name != 'unpowered_repeater'"
 					}]
 				},
 				"powered_repeater": {
@@ -432,7 +435,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powered_repeater)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'powered_repeater' || query.get_equipped_item_name('off_hand') != 'powered_repeater'"
+						"check_illegal": "query.get_equipped_item_name != 'powered_repeater'"
 					}]
 				},
 				"pumpkin_stem": {
@@ -441,7 +444,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(pumpkin_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'pumpkin_stem' || query.get_equipped_item_name('off_hand') != 'pumpkin_stem'"
+						"check_illegal": "query.get_equipped_item_name != 'pumpkin_stem'"
 					}]
 				},
 				"melon_stem": {
@@ -450,7 +453,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(melon_stem)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'melon_stem' || query.get_equipped_item_name('off_hand') != 'melon_stem'"
+						"check_illegal": "query.get_equipped_item_name != 'melon_stem'"
 					}]
 				},
 				"end_portal": {
@@ -459,7 +462,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(end_portal)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'end_portal' || query.get_equipped_item_name('off_hand') != 'end_portal'"
+						"check_illegal": "query.get_equipped_item_name != 'end_portal'"
 					}]
 				},
 				"lit_redstone_lamp": {
@@ -468,7 +471,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_redstone_lamp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'lit_redstone_lamp' || query.get_equipped_item_name('off_hand') != 'lit_redstone_lamp'"
+						"check_illegal": "query.get_equipped_item_name != 'lit_redstone_lamp'"
 					}]
 				},
 				"cocoa": {
@@ -477,7 +480,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(cocoa)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'cocoa' || query.get_equipped_item_name('off_hand') != 'cocoa'"
+						"check_illegal": "query.get_equipped_item_name != 'cocoa'"
 					}]
 				},
 				"carrots": {
@@ -486,7 +489,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(carrots)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'carrots' || query.get_equipped_item_name('off_hand') != 'carrots'"
+						"check_illegal": "query.get_equipped_item_name != 'carrots'"
 					}]
 				},
 				"potatoes": {
@@ -495,7 +498,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(potatoes)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'potatoes' || query.get_equipped_item_name('off_hand') != 'potatoes'"
+						"check_illegal": "query.get_equipped_item_name != 'potatoes'"
 					}]
 				},
 				"unpowered_comparator": {
@@ -504,7 +507,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unpowered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'unpowered_comparator' || query.get_equipped_item_name('off_hand') != 'unpowered_comparator'"
+						"check_illegal": "query.get_equipped_item_name != 'unpowered_comparator'"
 					}]
 				},
 				"powered_comparator": {
@@ -513,7 +516,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powered_comparator)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'powered_comparator' || query.get_equipped_item_name('off_hand') != 'powered_comparator'"
+						"check_illegal": "query.get_equipped_item_name != 'powered_comparator'"
 					}]
 				},
 				"double_wooden_slab": {
@@ -522,7 +525,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'double_wooden_slab' || query.get_equipped_item_name('off_hand') != 'double_wooden_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'double_wooden_slab'"
 					}]
 				},
 				"standing_banner": {
@@ -531,7 +534,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(standing_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'standing_banner' || query.get_equipped_item_name('off_hand') != 'standing_banner'"
+						"check_illegal": "query.get_equipped_item_name != 'standing_banner'"
 					}]
 				},
 				"wall_banner": {
@@ -540,7 +543,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(wall_banner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'wall_banner' || query.get_equipped_item_name('off_hand') != 'wall_banner'"
+						"check_illegal": "query.get_equipped_item_name != 'wall_banner'"
 					}]
 				},
 				"daylight_detector_inverted": {
@@ -549,7 +552,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(daylight_detector_inverted)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'daylight_detector_inverted' || query.get_equipped_item_name('off_hand') != 'daylight_detector_inverted'"
+						"check_illegal": "query.get_equipped_item_name != 'daylight_detector_inverted'"
 					}]
 				},
 				"chemical_heat": {
@@ -558,7 +561,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(chemical_heat)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'chemical_heat' || query.get_equipped_item_name('off_hand') != 'chemical_heat'"
+						"check_illegal": "query.get_equipped_item_name != 'chemical_heat'"
 					}]
 				},
 				"underwater_torch": {
@@ -567,7 +570,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(underwater_torch)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'underwater_torch' || query.get_equipped_item_name('off_hand') != 'underwater_torch'"
+						"check_illegal": "query.get_equipped_item_name != 'underwater_torch'"
 					}]
 				},
 				"end_gateway": {
@@ -576,7 +579,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(end_gateway)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'end_gateway' || query.get_equipped_item_name('off_hand') != 'end_gateway'"
+						"check_illegal": "query.get_equipped_item_name != 'end_gateway'"
 					}]
 				},
 				"stonecutter": {
@@ -585,7 +588,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(stonecutter)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'stonecutter' || query.get_equipped_item_name('off_hand') != 'stonecutter'"
+						"check_illegal": "query.get_equipped_item_name != 'stonecutter'"
 					}]
 				},
 				"glowingobsidian": {
@@ -594,7 +597,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(glowingobsidian)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'glowingobsidian' || query.get_equipped_item_name('off_hand') != 'glowingobsidian'"
+						"check_illegal": "query.get_equipped_item_name != 'glowingobsidian'"
 					}]
 				},
 				"netherreactor": {
@@ -603,7 +606,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(netherreactor)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'netherreactor' || query.get_equipped_item_name('off_hand') != 'netherreactor'"
+						"check_illegal": "query.get_equipped_item_name != 'netherreactor'"
 					}]
 				},
 				"bubble_column": {
@@ -612,7 +615,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bubble_column)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'bubble_column' || query.get_equipped_item_name('off_hand') != 'bubble_column'"
+						"check_illegal": "query.get_equipped_item_name != 'bubble_column'"
 					}]
 				},
 				"bamboo_sapling": {
@@ -621,7 +624,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bamboo_sapling)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'bamboo_sapling' || query.get_equipped_item_name('off_hand') != 'bamboo_sapling'"
+						"check_illegal": "query.get_equipped_item_name != 'bamboo_sapling'"
 					}]
 				},
 				"spruce_standing_sign": {
@@ -630,7 +633,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(spruce_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'spruce_standing_sign' || query.get_equipped_item_name('off_hand') != 'spruce_standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'spruce_standing_sign'"
 					}]
 				},
 				"spruce_wall_sign": {
@@ -639,7 +642,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(spruce_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'spruce_wall_sign' || query.get_equipped_item_name('off_hand') != 'spruce_wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'spruce_wall_sign'"
 					}]
 				},
 				"birch_standing_sign": {
@@ -648,7 +651,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(birch_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'birch_standing_sign' || query.get_equipped_item_name('off_hand') != 'birch_standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'birch_standing_sign'"
 					}]
 				},
 				"birch_wall_sign": {
@@ -657,7 +660,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(birch_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'birch_wall_sign' || query.get_equipped_item_name('off_hand') != 'birch_wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'birch_wall_sign'"
 					}]
 				},
 				"jungle_standing_sign": {
@@ -666,7 +669,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(jungle_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'jungle_standing_sign' || query.get_equipped_item_name('off_hand') != 'jungle_standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'jungle_standing_sign'"
 					}]
 				},
 				"jungle_wall_sign": {
@@ -675,7 +678,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(jungle_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'jungle_wall_sign' || query.get_equipped_item_name('off_hand') != 'jungle_wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'jungle_wall_sign'"
 					}]
 				},
 				"acacia_standing_sign": {
@@ -684,7 +687,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(acacia_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'acacia_standing_sign' || query.get_equipped_item_name('off_hand') != 'acacia_standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'acacia_standing_sign'"
 					}]
 				},
 				"acacia_wall_sign": {
@@ -693,7 +696,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(acacia_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'acacia_wall_sign' || query.get_equipped_item_name('off_hand') != 'acacia_wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'acacia_wall_sign'"
 					}]
 				},
 				"darkoak_standing_sign": {
@@ -702,7 +705,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(darkoak_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'darkoak_standing_sign' || query.get_equipped_item_name('off_hand') != 'darkoak_standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'darkoak_standing_sign'"
 					}]
 				},
 				"darkoak_wall_sign": {
@@ -711,7 +714,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(darkoak_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'darkoak_wall_sign' || query.get_equipped_item_name('off_hand') != 'darkoak_wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'darkoak_wall_sign'"
 					}]
 				},
 				"lit_smoker": {
@@ -720,7 +723,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_smoker)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'lit_smoker' || query.get_equipped_item_name('off_hand') != 'lit_smoker'"
+						"check_illegal": "query.get_equipped_item_name != 'lit_smoker'"
 					}]
 				},
 				"lava_cauldron": {
@@ -729,7 +732,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lava_cauldron)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'lava_cauldron' || query.get_equipped_item_name('off_hand') != 'lava_cauldron'"
+						"check_illegal": "query.get_equipped_item_name != 'lava_cauldron'"
 					}]
 				},
 				"soul_fire": {
@@ -738,7 +741,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(soul_fire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'soul_fire' || query.get_equipped_item_name('off_hand') != 'soul_fire'"
+						"check_illegal": "query.get_equipped_item_name != 'soul_fire'"
 					}]
 				},
 				"crimson_standing_sign": {
@@ -747,7 +750,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'crimson_standing_sign' || query.get_equipped_item_name('off_hand') != 'crimson_standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'crimson_standing_sign'"
 					}]
 				},
 				"warped_standing_sign": {
@@ -756,7 +759,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'warped_standing_sign' || query.get_equipped_item_name('off_hand') != 'warped_standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'warped_standing_sign'"
 					}]
 				},
 				"crimson_wall_sign": {
@@ -765,7 +768,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'crimson_wall_sign' || query.get_equipped_item_name('off_hand') != 'crimson_wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'crimson_wall_sign'"
 					}]
 				},
 				"warped_wall_sign": {
@@ -774,7 +777,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'warped_wall_sign' || query.get_equipped_item_name('off_hand') != 'warped_wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'warped_wall_sign'"
 					}]
 				},
 				"blackstone_double_slab": {
@@ -783,7 +786,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'blackstone_double_slab' || query.get_equipped_item_name('off_hand') != 'blackstone_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'blackstone_double_slab'"
 					}]
 				},
 				"polished_blackstone_brick_double_slab": {
@@ -792,7 +795,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_blackstone_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'polished_blackstone_brick_double_slab' || query.get_equipped_item_name('off_hand') != 'polished_blackstone_brick_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'polished_blackstone_brick_double_slab'"
 					}]
 				},
 				"polished_blackstone_double_slab": {
@@ -801,7 +804,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_blackstone_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'polished_blackstone_double_slab' || query.get_equipped_item_name('off_hand') != 'polished_blackstone_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'polished_blackstone_double_slab'"
 					}]
 				},
 				"unknown": {
@@ -810,7 +813,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(unknown)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'unknown' || query.get_equipped_item_name('off_hand') != 'unknown'"
+						"check_illegal": "query.get_equipped_item_name != 'unknown'"
 					}]
 				},
 				"camera": {
@@ -819,7 +822,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(camera)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'camera' || query.get_equipped_item_name('off_hand') != 'camera'"
+						"check_illegal": "query.get_equipped_item_name != 'camera'"
 					}]
 				},
 				"reserved6": {
@@ -828,7 +831,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(reserved6)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'reserved6' || query.get_equipped_item_name('off_hand') != 'reserved6'"
+						"check_illegal": "query.get_equipped_item_name != 'reserved6'"
 					}]
 				},
 				"info_update": {
@@ -837,7 +840,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(info_update)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'info_update' || query.get_equipped_item_name('off_hand') != 'info_update'"
+						"check_illegal": "query.get_equipped_item_name != 'info_update'"
 					}]
 				},
 				"info_update2": {
@@ -846,7 +849,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(info_update2)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'info_update2' || query.get_equipped_item_name('off_hand') != 'info_update2'"
+						"check_illegal": "query.get_equipped_item_name != 'info_update2'"
 					}]
 				},
 				"lit_deepslate_redstone_ore": {
@@ -855,7 +858,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_deepslate_redstone_ore)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'lit_deepslate_redstone_ore' || query.get_equipped_item_name('off_hand') != 'lit_deepslate_redstone_ore'"
+						"check_illegal": "query.get_equipped_item_name != 'lit_deepslate_redstone_ore'"
 					}]
 				},
 				"hard_stained_glass_pane": {
@@ -864,7 +867,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_stained_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass_pane' || query.get_equipped_item_name('off_hand') != 'hard_stained_glass_pane'"
+						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass_pane'"
 					}]
 				},
 				"colored_torch_rg": {
@@ -873,7 +876,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(colored_torch_rg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'colored_torch_rg' || query.get_equipped_item_name('off_hand') != 'colored_torch_rg'"
+						"check_illegal": "query.get_equipped_item_name != 'colored_torch_rg'"
 					}]
 				},
 				"colored_torch_bp": {
@@ -882,7 +885,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(colored_torch_bp)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'colored_torch_bp' || query.get_equipped_item_name('off_hand') != 'colored_torch_bp'"
+						"check_illegal": "query.get_equipped_item_name != 'colored_torch_bp'"
 					}]
 				},
 				"hard_stained_glass": {
@@ -891,7 +894,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_stained_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass' || query.get_equipped_item_name('off_hand') != 'hard_stained_glass'"
+						"check_illegal": "query.get_equipped_item_name != 'hard_stained_glass'"
 					}]
 				},
 				"balloon": {
@@ -900,7 +903,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(balloon)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'balloon' || query.get_equipped_item_name('off_hand') != 'balloon'"
+						"check_illegal": "query.get_equipped_item_name != 'balloon'"
 					}]
 				},
 				"ice_bomb": {
@@ -909,7 +912,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(ice_bomb)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'ice_bomb' || query.get_equipped_item_name('off_hand') != 'ice_bomb'"
+						"check_illegal": "query.get_equipped_item_name != 'ice_bomb'"
 					}]
 				},
 				"bleach": {
@@ -918,7 +921,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bleach)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'bleach' || query.get_equipped_item_name('off_hand') != 'bleach'"
+						"check_illegal": "query.get_equipped_item_name != 'bleach'"
 					}]
 				},
 				"medicine": {
@@ -927,7 +930,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(medicine)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'medicine' || query.get_equipped_item_name('off_hand') != 'medicine'"
+						"check_illegal": "query.get_equipped_item_name != 'medicine'"
 					}]
 				},
 				"sparkler": {
@@ -936,7 +939,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(sparkler)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'sparkler' || query.get_equipped_item_name('off_hand') != 'sparkler'"
+						"check_illegal": "query.get_equipped_item_name != 'sparkler'"
 					}]
 				},
 				"glow_stick": {
@@ -945,7 +948,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(glow_stick)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'glow_stick' || query.get_equipped_item_name('off_hand') != 'glow_stick'"
+						"check_illegal": "query.get_equipped_item_name != 'glow_stick'"
 					}]
 				},
 				"compound": {
@@ -954,7 +957,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(compound)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'compound' || query.get_equipped_item_name('off_hand') != 'compound'"
+						"check_illegal": "query.get_equipped_item_name != 'compound'"
 					}]
 				},
 				"powder_snow": {
@@ -963,7 +966,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(powder_snow)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'powder_snow' || query.get_equipped_item_name('off_hand') != 'powder_snow'"
+						"check_illegal": "query.get_equipped_item_name != 'powder_snow'"
 					}]
 				},
 				"sweat_berry_bush": {
@@ -972,7 +975,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(sweet_berry_bush)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'sweet_berry_bush' || query.get_equipped_item_name('off_hand') != 'sweet_berry_bush'"
+						"check_illegal": "query.get_equipped_item_name != 'sweet_berry_bush'"
 					}]
 				},
 				"lit_blast_furnace": {
@@ -981,7 +984,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(lit_blast_furnace)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'lit_blast_furnace' || query.get_equipped_item_name('off_hand') != 'lit_blast_furnace'"
+						"check_illegal": "query.get_equipped_item_name != 'lit_blast_furnace'"
 					}]
 				},
 				"redstone_wire": {
@@ -990,7 +993,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(redstone_wire)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'redstone_wire' || query.get_equipped_item_name('off_hand') != 'redstone_wire'"
+						"check_illegal": "query.get_equipped_item_name != 'redstone_wire'"
 					}]
 				},
 				"crimson_double_slab": {
@@ -999,7 +1002,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(crimson_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'crimson_double_slab' || query.get_equipped_item_name('off_hand') != 'crimson_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'crimson_double_slab'"
 					}]
 				},
 				"warped_double_slab": {
@@ -1008,7 +1011,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(warped_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'warped_double_slab' || query.get_equipped_item_name('off_hand') != 'warped_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'warped_double_slab'"
 					}]
 				},
 				"cobbled_deepslate_double_slab": {
@@ -1017,7 +1020,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(cobbled_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'cobbled_deepslate_double_slab' || query.get_equipped_item_name('off_hand') != 'cobbled_deepslate_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'cobbled_deepslate_double_slab'"
 					}]
 				},
 				"polished_deepslate_double_slab": {
@@ -1026,7 +1029,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(polished_deepslate_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'polished_deepslate_double_slab' || query.get_equipped_item_name('off_hand') != 'polished_deepslate_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'polished_deepslate_double_slab'"
 					}]
 				},
 				"deepslate_tile_double_slab": {
@@ -1035,7 +1038,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(deepslate_tile_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'deepslate_tile_double_slab' || query.get_equipped_item_name('off_hand') != 'deepslate_tile_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'deepslate_tile_double_slab'"
 					}]
 				},
 				"deepslate_brick_double_slab": {
@@ -1044,7 +1047,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(deepslate_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'deepslate_brick_double_slab' || query.get_equipped_item_name('off_hand') != 'deepslate_brick_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'deepslate_brick_double_slab'"
 					}]
 				},
 				"agent_spawn_egg": {
@@ -1053,7 +1056,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(agent_spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'agent_spawn_egg' || query.get_equipped_item_name('off_hand') != 'agent_spawn_egg'"
+						"check_illegal": "query.get_equipped_item_name != 'agent_spawn_egg'"
 					}]
 				},
 				"client_request_placeholder_block": {
@@ -1062,7 +1065,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(client_request_placeholder_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'client_request_placeholder_block' || query.get_equipped_item_name('off_hand') != 'client_request_placeholder_block'"
+						"check_illegal": "query.get_equipped_item_name != 'client_request_placeholder_block'"
 					}]
 				},
 				"rapid_fertilizer": {
@@ -1071,7 +1074,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(rapid_fertilizer)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'rapid_fertilizer' || query.get_equipped_item_name('off_hand') != 'rapid_fertilizer'"
+						"check_illegal": "query.get_equipped_item_name != 'rapid_fertilizer'"
 					}]
 				},
 				"hard_glass": {
@@ -1080,7 +1083,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_glass)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'hard_glass' || query.get_equipped_item_name('off_hand') != 'hard_glass'"
+						"check_illegal": "query.get_equipped_item_name != 'hard_glass'"
 					}]
 				},
 				"hard_glass_pane": {
@@ -1089,7 +1092,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(hard_glass_pane)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'hard_glass_pane' || query.get_equipped_item_name('off_hand') != 'hard_glass_pane'"
+						"check_illegal": "query.get_equipped_item_name != 'hard_glass_pane'"
 					}]
 				},
 				"exposed_double_cut_copper_slab": {
@@ -1098,7 +1101,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(exposed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'exposed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'exposed_double_cut_copper_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'exposed_double_cut_copper_slab'"
 					}]
 				},
 				"oxidized_double_cut_copper_slab": {
@@ -1107,7 +1110,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(oxidized_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'oxidized_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'oxidized_double_cut_copper_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'oxidized_double_cut_copper_slab'"
 					}]
 				},
 				"waxed_double_cut_copper_slab": {
@@ -1116,7 +1119,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'waxed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'waxed_double_cut_copper_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'waxed_double_cut_copper_slab'"
 					}]
 				},
 				"waxed_exposed_double_cut_copper_slab": {
@@ -1125,7 +1128,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_exposed_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'waxed_exposed_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'waxed_exposed_double_cut_copper_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'waxed_exposed_double_cut_copper_slab'"
 					}]
 				},
 				"waxed_oxidized_double_cut_copper_slab": {
@@ -1134,7 +1137,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_oxidized_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'waxed_oxidized_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'waxed_oxidized_double_cut_copper_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'waxed_oxidized_double_cut_copper_slab'"
 					}]
 				},
 				"waxed_weathered_double_cut_copper_slab": {
@@ -1143,7 +1146,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(waxed_weathered_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'waxed_weathered_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'waxed_weathered_double_cut_copper_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'waxed_weathered_double_cut_copper_slab'"
 					}]
 				},
 				"weathered_double_cut_copper_slab": {
@@ -1152,7 +1155,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(weathered_double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'weathered_double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'weathered_double_cut_copper_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'weathered_double_cut_copper_slab'"
 					}]
 				},
 				"double_stone_slab4": {
@@ -1161,7 +1164,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_wooden_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'double_wooden_slab' || query.get_equipped_item_name('off_hand') != 'double_wooden_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'double_wooden_slab'"
 					}]
 				},
 				"double_cut_copper_slab": {
@@ -1170,7 +1173,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(double_cut_copper_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'double_cut_copper_slab' || query.get_equipped_item_name('off_hand') != 'double_cut_copper_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'double_cut_copper_slab'"
 					}]
 				},
 				"moving_block": {
@@ -1179,7 +1182,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(moving_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'moving_block' || query.get_equipped_item_name('off_hand') != 'moving_block'"
+						"check_illegal": "query.get_equipped_item_name != 'moving_block'"
 					}]
 				},
 				"coral_fan_hang": {
@@ -1188,7 +1191,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(coral_fan_hang)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'coral_fan_hang' || query.get_equipped_item_name('off_hand') != 'coral_fan_hang'"
+						"check_illegal": "query.get_equipped_item_name != 'coral_fan_hang'"
 					}]
 				},
 				"coral_fan_hang2": {
@@ -1197,7 +1200,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(coral_fan_hang2)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'coral_fan_hang2' || query.get_equipped_item_name('off_hand') != 'coral_fan_hang2'"
+						"check_illegal": "query.get_equipped_item_name != 'coral_fan_hang2'"
 					}]
 				},
 				"coral_fan_hang3": {
@@ -1206,7 +1209,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(coral_fan_hang3)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'coral_fan_hang3' || query.get_equipped_item_name('off_hand') != 'coral_fan_hang3'"
+						"check_illegal": "query.get_equipped_item_name != 'coral_fan_hang3'"
 					}]
 				},
 				"mangrove_standing_sign": {
@@ -1215,7 +1218,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mangrove_standing_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'mangrove_standing_sign' || query.get_equipped_item_name('off_hand') != 'mangrove_standing_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'mangrove_standing_sign'"
 					}]
 				},
 				"mangrove_wall_sign": {
@@ -1224,7 +1227,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mangrove_wall_sign)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'mangrove_wall_sign' || query.get_equipped_item_name('off_hand') != 'mangrove_wall_sign'"
+						"check_illegal": "query.get_equipped_item_name != 'mangrove_wall_sign'"
 					}]
 				},
 				"mud_brick_double_slab": {
@@ -1233,7 +1236,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mud_brick_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'mud_brick_double_slab' || query.get_equipped_item_name('off_hand') != 'mud_brick_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'mud_brick_double_slab'"
 					}]
 				},
 				"mangrove_double_slab": {
@@ -1242,7 +1245,7 @@
 						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mangrove_double_slab)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
 					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'mangrove_double_slab' || query.get_equipped_item_name('off_hand') != 'mangrove_double_slab'"
+						"check_illegal": "query.get_equipped_item_name != 'mangrove_double_slab'"
 					}]
 				},
 				"other": {
@@ -1253,6 +1256,16 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.skin_id != 3"
+					}]
+				},
+				"invalid_offhand": {
+					"on_entry": [
+						"/scoreboard players add @s illegalitemsvl 1",
+						"/replaceitem entity @s slot.weapon.offhand 0 air",
+						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/M. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
+					],
+					"transitions": [{
+						"check_illegal": "query.get_equipped_item_name('off_hand') == '' || query.get_equipped_item_name('off_hand') == 'shield' || query.get_equipped_item_name('off_hand') == 'totem_of_undying' || query.get_equipped_item_name('off_hand') == 'filled_map' || query.get_equipped_item_name('off_hand') == 'arrow' || query.get_equipped_item_name('off_hand') == 'firework_rocket'"
 					}]
 				}
 			}

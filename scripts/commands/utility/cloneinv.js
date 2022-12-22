@@ -23,7 +23,7 @@ export function cloneinv(message, args) {
     
     if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-    const playerInv = member.getComponent('inventory').container;
+    const playerInv = player.getComponent('inventory').container;
     const memberInv = member.getComponent('inventory').container;
 
     for(let i = 0; i < memberInv.size; i++) {
