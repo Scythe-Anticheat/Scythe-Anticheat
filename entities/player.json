@@ -31,7 +31,8 @@
 					"swim",
 					"sleep",
 					"trident",
-					"keepInventory"
+					"keepInventory",
+					"invalid_offhand"
 				]
 			},
 			"animations": {
@@ -58,7 +59,8 @@
 				"swim": "controller.animation.swim",
 				"sleep": "controller.animation.sleep",
 				"trident": "controller.animation.trident",
-				"keepInventory": "controller.animation.keepInventory"
+				"keepInventory": "controller.animation.keepInventory",
+				"invalid_offhand": "controller.animation.invalid_offhand"
 			}
 		},
 		"component_groups": {
