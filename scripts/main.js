@@ -334,7 +334,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
             if(typeof item === "undefined") continue;
 
             // an item exists within the container, get fucked hacker!
-            container.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
+            container.clearItem(i);
             didFindItems = true;
         }
 
@@ -640,7 +640,7 @@ World.events.entitySpawn.subscribe((entityCreate) => {
 
             if(container.size !== container.emptySlotsCount) {
                 for(let i = 0; i < container.size; i++) {
-                    container.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
+                    container.clearItem(i);
                 }
 
                 flag(player, "IllegalItems", "K", "Exploit", "totalSlots", `${container.size},emptySlots=${container.emptySlotsCount}`, undefined, undefined, player.selectedSlot);

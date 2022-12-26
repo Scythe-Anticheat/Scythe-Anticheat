@@ -29,7 +29,7 @@ export function cloneinv(message, args) {
     for(let i = 0; i < memberInv.size; i++) {
         const item = memberInv.getItem(i);
         if(typeof item === "undefined") {
-            playerInv.setItem(i, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
+            playerInv.clearItem(i);
             continue;
         }
 
