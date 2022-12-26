@@ -4,7 +4,6 @@ execute @a ~~~ function checks/cbe
 function checks/illegalitems
 function checks/others
 
-# Specific criteria checks
 execute @a[tag=isBanned,scores={gametestapi=..0}] ~~~ function checks/ban
 
 # Optional checks

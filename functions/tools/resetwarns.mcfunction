@@ -14,11 +14,12 @@ scoreboard players set @s[type=player,tag=!op,scores={fastusevl=1..}] fastusevl 
 scoreboard players set @s[type=player,tag=!op,scores={flyvl=1..}] flyvl 0
 scoreboard players set @s[type=player,tag=!op,scores={illegalitemsvl=1..}] illegalitemsvl 0
 scoreboard players set @s[type=player,tag=!op,scores={invalidsprintvl=1..}] invalidsprintvl 0
-scoreboard players set @s[type=player,tag=!op,scores={killauravl=1..}] killauravl 0
 scoreboard players set @s[type=player,tag=!op,scores={invmovevl=1..}] invmovevl 0
+scoreboard players set @s[type=player,tag=!op,scores={killauravl=1..}] killauravl 0
 scoreboard players set @s[type=player,tag=!op,scores={namespoofvl=1..}] namespoofvl 0
 scoreboard players set @s[type=player,tag=!op,scores={noslowvl=1..}] noslowvl 0
 scoreboard players set @s[type=player,tag=!op,scores={nukervl=1..}] nukervl 0
-scoreboard players set @s[type=player,tag=!op,scores={spammervl=1..}] spammervl 0
 scoreboard players set @s[type=player,tag=!op,scores={reachvl=1..}] reachvl 0
+scoreboard players set @s[type=player,tag=!op,scores={spammervl=1..}] spammervl 0
+scoreboard players set @s[type=player,tag=!op,scores={towervl=1..}] towervl 0
 scoreboard players set @s[type=player,tag=!op,scores={gamemodevl=1..}] gamemodevl 0

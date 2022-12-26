@@ -84,18 +84,18 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
     if(punishment === "none" || punishment === "") return;
 
-    const currentVL = getScore(player, scoreboardObjective, 1);
+    if(getScore(player, scoreboardObjective, 1) < checkData.minVlbeforePunishment) return;
 
-    const punishmentLength = checkData.punishmentLength?.toLowerCase();
-
-    if(punishment === "kick" && currentVL >= checkData.minVlbeforePunishment) {
+    if(punishment === "kick") {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
         player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
         // incase /kick fails, we despawn them from the world
         player.triggerEvent("scythe:kick");
     }
-    if(punishment === "ban" && currentVL >= checkData.minVlbeforePunishment) {
+    if(punishment === "ban") {
         if(getScore(player, "autoban") >= 1) {
+            const punishmentLength = checkData.punishmentLength?.toLowerCase();
+            
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
                 
             // this removes old ban stuff
@@ -115,7 +115,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             player.addTag("isBanned");
         }
     }
-    if(punishment === "mute" && currentVL >= checkData.minVlbeforePunishment) {
+    if(punishment === "mute") {
         player.addTag("isMuted");
         player.tell(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
     

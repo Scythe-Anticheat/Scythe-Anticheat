@@ -519,6 +519,12 @@ export default
             ],
             "punishment": "kick",
             "minVlbeforePunishment": 1
+        },
+        "towerA": {
+            "enabled": true,
+            "max_y_pos_diff": 0.35,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
         }
     },
     "misc_modules": {

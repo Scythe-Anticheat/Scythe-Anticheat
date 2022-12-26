@@ -376,6 +376,27 @@ World.events.blockPlace.subscribe((blockPlace) => {
                 .getBlock(new Minecraft.BlockLocation(block.location.x, block.location.y, block.location.z))
                 .setType(Minecraft.MinecraftBlockTypes.air);
     }
+
+    if(config.modules.towerA.enabled) {
+        // get block under player
+        const blockUnder = player.dimension.getBlock(new Minecraft.BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y) - 1, Math.floor(player.location.z)));
+        
+        if(!player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost) && !player.hasTag("flying") && player.hasTag("jump") && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
+            const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
+            
+            if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
+                const checkGmc = World.getPlayers({
+                    excludeGameModes: [Minecraft.GameMode.creative],
+                    name: player.name
+                });
+
+                if([...checkGmc].length > 0) {
+                    flag(player, "Tower", "A", "World", "yPosDiff", yPosDiff, true);
+                    block.setType(Minecraft.MinecraftBlockTypes.air);
+                }
+            }
+        }
+    }
 });
 
 World.events.blockBreak.subscribe((blockBreak) => {
