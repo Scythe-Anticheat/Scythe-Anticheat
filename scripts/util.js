@@ -88,7 +88,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     if(punishment === "kick") {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
-        player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType}`);
+        player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType} (${debugName}=${debug})`);
         // incase /kick fails, we despawn them from the world
         player.triggerEvent("scythe:kick");
     }
