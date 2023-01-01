@@ -198,8 +198,7 @@ Minecraft.system.runSchedule(() => {
                 anti32k checks. In older versions, this error will also make certian players not get checked
                 leading to a Scythe Semi-Gametest Disabler method.
             */
-            let itemType = Minecraft.ItemTypes.get(item.typeId);
-            if(typeof itemType === "undefined") itemType = Minecraft.ItemTypes.get("minecraft:book");
+            const itemType = Minecraft.ItemTypes.get(item.typeId) ?? Minecraft.ItemTypes.get("minecraft:book");
 
             if(config.modules.resetItemData.enabled === true && config.modules.resetItemData.items.includes(item.typeId)) {
                 // This creates a duplicate version of the item, with just its amount and data.
@@ -634,12 +633,6 @@ World.events.entityCreate.subscribe((entityCreate) => {
     if(entity.typeId === "minecraft:item") {
         const item = entity.getComponent("item").itemStack;
 
-        // Although the crash method this detects has been patched with mineraft version 1.19.40, we
-        // can keep it here just to screw with hackers who dont know it got patched
-        if(config.modules.crasherB.enabled === true && item.typeId === "minecraft:arrow" && item.data > 43) {
-            flag(getClosestPlayer(entity), "Crasher", "B", "Exploit", "item", `${item.typeId},data=${item.data}`);
-            entity.kill();
-        }
         if(config.modules.illegalitemsB.enabled === true) {
             if(config.itemLists.items_very_illegal.includes(item.typeId) || config.itemLists.items_semi_illegal.includes(item.typeId))
                 entity.kill();
@@ -786,8 +779,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
     if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
         const itemEnchants = item.getComponent("enchantments").enchantments;
 
-        let itemType = Minecraft.ItemTypes.get(item.typeId);
-        if(typeof itemType === "undefined") itemType = Minecraft.ItemTypes.get("minecraft:book");
+        const itemType = Minecraft.ItemTypes.get(item.typeId) ?? Minecraft.ItemTypes.get("minecraft:book");
 
         const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
         const item2Enchants = item2.getComponent("enchantments").enchantments;

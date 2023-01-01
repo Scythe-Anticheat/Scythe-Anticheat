@@ -428,11 +428,6 @@ export default
             "punishment": "kick",
             "minVlbeforePunishment": 1
         },
-        "crasherB": {
-            "enabled": true,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
-        },
         "badpackets5": {
             "enabled": true,
             "sample_size": 2,
