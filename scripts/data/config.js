@@ -428,12 +428,6 @@ export default
             "punishment": "kick",
             "minVlbeforePunishment": 1
         },
-        "badpackets5": {
-            "enabled": true,
-            "sample_size": 2,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
-        },
         "namespoofC": {
             "enabled": false,
             "punishment": "none",

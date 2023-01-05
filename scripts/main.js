@@ -78,12 +78,6 @@ Minecraft.system.runSchedule(() => {
             player.autotoolSwitchDelay = Date.now() - player.startBreakTime;
         }
 
-        // BadPackets[5] = checks for horion freecam
-        if(config.modules.badpackets5.enabled && player.velocity.y.toFixed(6) === "0.420000" && !player.hasTag("dead") && !player.hasTag("sleeping")) {
-            player.badpackets5Ticks++;
-            if(player.badpackets5Ticks > config.modules.badpackets5.sample_size) flag(player, "BadPackets", "5", "Exploit", "yVelocity", player.velocity.y.toFixed(6), true);
-        } else if(player.badpackets5Ticks !== 0) player.badpackets5Ticks--;
-
         // Crasher/A = invalid pos check
         if(config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
             Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) 
@@ -516,7 +510,6 @@ World.events.playerJoin.subscribe((playerJoin) => {
     const player = playerJoin.player;
 
     // declare all needed variables in player
-    if(config.modules.badpackets5.enabled) player.badpackets5Ticks = 0;
     if(config.modules.nukerA.enabled) player.blocksBroken = 0;
     if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
     if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
@@ -620,7 +613,7 @@ World.events.entityCreate.subscribe((entityCreate) => {
             const pos1 = new Minecraft.BlockLocation(entity.location.x + 2, entity.location.y + 2, entity.location.z + 2);
             const pos2 = new Minecraft.BlockLocation(entity.location.x - 2, entity.location.y - 2, entity.location.z - 2);
 
-            pos1.blocksBetween(pos2).some(function(block) {
+            pos1.blocksBetween(pos2).some((block) => {
                 const blockType = block.dimension.getBlock(block);
                 if(!config.modules.commandblockexploitG.blockSummonCheck.includes(blockType.typeId)) return;
 
@@ -866,7 +859,6 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
 // when using /reload, the variables defined in playerJoin dont persist
 if([...World.getPlayers()].length >= 1) {
     for(const player of World.getPlayers()) {
-        if(config.modules.badpackets5.enabled) player.badpackets5Ticks = 0;
         if(config.modules.nukerA.enabled) player.blocksBroken = 0;
         if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
         if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;
