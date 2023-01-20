@@ -489,7 +489,7 @@ export default
             "minVlbeforePunishment": 1
         },
         "illegalitemsL": {
-            "enabled": true,
+            "enabled": false,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
