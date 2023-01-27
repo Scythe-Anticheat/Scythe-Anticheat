@@ -23,10 +23,10 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unban <username> [
 
 # Gametest Disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function help§r - Shows this help page."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function ban§r - Ban the specified user."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function ban§r - Ban the specified user."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function notify§r - Enables/Disables cheat notifications."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function credits§r - Shows credits, that's it."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function op§r - Op's a player in Scythe AntiCheat features."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function op§r - Op's a player in Scythe AntiCheat features."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
@@ -67,17 +67,19 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!freeze <username>�
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!stats <username>§r - View a specific players anticheat logs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!fullreport§r - View everyones anticheat logs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <player> <nametag>§r - Adds tag to username in chat window for specific users."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window (use "reset" to get rid of it)."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <player> <nametag>§r - Adds tag to username in chat window for specific users (use "reset" to get rid of it)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> [reason]§r - Report a player."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gui§r - Opens the Scythe Management UI."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invsee§r - View another players inventory."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invsee <player>§r - View another players inventory."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!resetwarns <player>§r - Reset a players violations."}]}
 
 # Gametest disabled
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/ecwipe§r - Clears a players ender chest."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/fly§r - Enables/disables fly mode in survival."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/freeze§r - Freeze a player and make it so they cant move."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/stats§r - View a specific players anticheat logs."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute <username> ~~~ function tools/vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/ecwipe§r - Clears a players ender chest."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/fly§r - Enables/disables fly mode in survival."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/freeze§r - Freeze a player and make it so they cant move."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/stats§r - View a specific players anticheat logs."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as<username> run function tools/vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as<username> run function tools/resetwarns§r - Reset a players violations."}]}
 
 tellraw @s {"rawtext":[{"text":"\nNeed extra help? Ask your question in the support server: https://discord.gg/9m9TbgJ973.\n"}]}
