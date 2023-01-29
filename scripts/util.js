@@ -55,8 +55,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(shouldTP === true && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.z), player.dimension, player.rotation.x, player.rotation.y, false);
         else if(shouldTP === true && check === "Crasher") player.teleport(new Minecraft.Location(30000000, 30000000, 30000000), player.dimension, 0, 0);
 
-    let scoreboardObjective = `${check.toLowerCase()}vl`;
-    if(check === "CommandBlockExploit") scoreboardObjective = "cbevl";
+    const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 
     if(!World.scoreboard.getObjective(scoreboardObjective)) {
         World.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);

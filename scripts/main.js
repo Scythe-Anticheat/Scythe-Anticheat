@@ -11,7 +11,7 @@ const World = Minecraft.world;
 if(config.debug === true) console.warn(`${new Date().toISOString()} | Im not a ******* and this actually worked :sunglasses:`);
 
 World.events.beforeChat.subscribe(msg => {
-    const message = msg.message.toLowerCase().trim();
+    const message = msg.message.toLowerCase();
     const player = msg.sender;
 
     if(config.debug === true && message === "ping") console.warn(`${new Date().toISOString()} | Pong!`);
@@ -42,7 +42,7 @@ World.events.beforeChat.subscribe(msg => {
     if(config.modules.spammerD.enabled === true && player.hasTag('hasGUIopen'))
         return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
 
-    commandHandler(player, msg);
+    commandHandler(player, msg.trim());
 
     // add's user custom tags to their messages if it exists or we fall back
     // also filter for non ASCII characters and remove them in messages
