@@ -67,8 +67,8 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!freeze <username>�
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!stats <username>§r - View a specific players anticheat logs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!fullreport§r - View everyones anticheat logs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!vanish§r - Enables/disables vanish (Used for spying on suspects)."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window (use "reset" to get rid of it)."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <player> <nametag>§r - Adds tag to username in chat window for specific users (use "reset" to get rid of it)."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window (use \"reset\" to get rid of it)."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <player> <nametag>§r - Adds tag to username in chat window for specific users (use \"reset\" to get rid of it)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> [reason]§r - Report a player."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gui§r - Opens the Scythe Management UI."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invsee <player>§r - View another players inventory."}]}
