@@ -93,10 +93,6 @@ Minecraft.system.runSchedule(() => {
             flag(player, "Namespoof", "B", "Exploit");
             player.flagNamespoofB = false;
         }
-        if(player.flagNamespoofC === true) {
-            flag(player, "Namespoof", "C", "Exploit", "oldName", player.oldName);
-            player.flagNamespoofC = false;
-        }
 
         // player position shit
         if(player.hasTag("moving")) {
@@ -539,28 +535,13 @@ World.events.playerJoin.subscribe((playerJoin) => {
     player.removeTag("sleeping");
 
     // load custom nametag
-    let foundName;
-
     player.getTags().forEach(t => {
-        // Namespoof/C
-        // adding a double qoute makes it so commands cant remove the tag, and cant add the tag to other people
-        if(config.modules.namespoofC.enabled && t.startsWith("\"name:\n")) foundName = t.replace("\"name:\n", "");
-
         // load custom nametag
         if(t.includes("tag:")) {
             t = t.replace(/"|\\/g, "");
             player.nameTag = `§8[§r${t.slice(4)}§8]§r ${player.name}`;
         }
     });
-
-    if(config.modules.namespoofC.enabled) {
-        if(typeof foundName === "undefined") {
-            player.addTag(`"name:\n${player.name}`);
-        } else if(foundName !== player.name) {
-            player.flagNamespoofC = true;
-            player.oldName = foundName;
-        }
-    }
 
     // Namespoof/A = username length check.
     if(config.modules.namespoofA.enabled) {

@@ -253,20 +253,20 @@ export default
             "minVlbeforePunishment": 0
         },
         "crasherA": {
-            "enabled": true,
+            "enabled": false,
             "punishment": "ban",
             "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
         "namespoofA": {
-            "enabled": true,
+            "enabled": false,
             "minNameLength": 3,
             "maxNameLength": 16,
             "punishment": "kick",
             "minVlbeforePunishment": 1
         },
         "namespoofB": {
-            "enabled": true,
+            "enabled": false,
             "regex": /[^A-Za-z0-9_\-() ]/,
             "punishment": "kick",
             "minVlbeforePunishment": 1
@@ -427,11 +427,6 @@ export default
             "enabled": true,
             "punishment": "kick",
             "minVlbeforePunishment": 1
-        },
-        "namespoofC": {
-            "enabled": false,
-            "punishment": "none",
-            "minVlbeforePunishment": 0
         },
         "illegalitemsH": {
             "enabled": true,
