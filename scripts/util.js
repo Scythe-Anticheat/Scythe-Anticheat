@@ -68,9 +68,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
-		try {
-			container.setItem(slot, new Minecraft.ItemStack(Minecraft.MinecraftItemTypes.dirt, 0, 0));
-		} catch {}
+		container.clearItem(slot);
 	}
 
     const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
