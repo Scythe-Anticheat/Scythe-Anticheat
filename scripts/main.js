@@ -180,9 +180,11 @@ Minecraft.system.runSchedule(() => {
                 flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, undefined, undefined, i);
 
             // BadEnchants/D = checks if an item has a lore
-            if(config.modules.badenchantsD.enabled && item.getLore().length) {
-                if(!config.modules.badenchantsD.exclusions.includes(String(item.getLore())))
-                    flag(player, "BadEnchants", "D", "Exploit", "lore", String(item.getLore()), undefined, undefined, i);
+            if(config.modules.badenchantsD.enabled) {
+                const lore = String(item.getLore());
+
+                if(lore.length > 1&& !config.modules.badenchantsD.exclusions.includes(lore))
+                    flag(player, "BadEnchants", "D", "Exploit", "lore", lore, undefined, undefined, i);
             }
 
             /*
