@@ -42,7 +42,7 @@ World.events.beforeChat.subscribe(msg => {
     if(config.modules.spammerD.enabled === true && player.hasTag('hasGUIopen'))
         return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
 
-    commandHandler(player, msg.trim());
+    commandHandler(player, msg);
 
     // add's user custom tags to their messages if it exists or we fall back
     // also filter for non ASCII characters and remove them in messages

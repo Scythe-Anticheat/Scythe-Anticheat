@@ -4,7 +4,7 @@
 		"name": "Scythe AntiCheat",
 		"description": "The best minecraft bedrock anticheat, designed for realms and servers.",
 		"uuid": "c68ba0c1-b9e4-46ad-b6c8-88bbd28f1fa5",
-		"version": [2, 11, 0],
+		"version": [2, 12, 0],
 		"min_engine_version": [1, 19, 0]
 	},
 	"metadata": {
