@@ -47,7 +47,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // If debug is enabled, then we log everything we know about the player.
     if(config.debug === true) {
         const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
-        console.warn(`{"timestamp":${Date.now()},"time":"${new Date().toISOString()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","lastPlayerName":"${player.oldName}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${currentItem?.typeId || "minecraft:air"}:${currentItem?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
+        console.warn(`{"timestamp":${Date.now()},"time":"${new Date().toISOString()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${currentItem?.typeId || "minecraft:air"}:${currentItem?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
     }
     // cancel the message
     if(typeof cancelObject === "object") cancelObject.cancel = true;
@@ -133,7 +133,7 @@ export function banMessage(player) {
     // validate that required params are defined
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     
-    if(config.flagWhitelist.includes(player.name) && player.hasTag("op") && player.oldName) return;
+    if(config.flagWhitelist.includes(player.name) && player.hasTag("op")) return;
     if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
 

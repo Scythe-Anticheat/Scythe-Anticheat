@@ -21,7 +21,7 @@ export const banList = [
    "altanormalom",
    "oillliiliilo",
    "economydev",
-   "optic wolfiezzz"
+   "optic wolfiezzz",
    "hostingeconomy",
    "ecoautomod",
    "wieldyatol86717",
