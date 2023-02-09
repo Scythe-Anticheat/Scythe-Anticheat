@@ -4,6 +4,7 @@ tag @s[tag=nofreeze] remove freeze
 effect @s[tag=nofreeze] clear
 tellraw @s[tag=nofreeze] {"rawtext":[{"text":"§r§6[§aScythe§6]§r You are no longer frozen!"}]}
 execute @s[tag=nofreeze] ~~~ detect ~~2~ barrier 0 setblock ~~2~ air
+event entity @s[tag=nofreeze] scythe:unfreeze
 execute @s[tag=nofreeze] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" is no longer frozen."}]}
 
 effect @s[tag=!nofreeze] slowness 9999 255 true
