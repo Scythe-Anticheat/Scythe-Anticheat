@@ -32,9 +32,9 @@ tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
 # Gametest enabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!modules§r - View all enabled or disabled modules."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!allowGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!allowGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!allowGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!autoban§r - Enables/disables auto-banning."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables anti-autoclicker."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!bedrockValidate§r - Enables/disables validation of bedrock (Such as in the nether roof or at y=-64)."}]}
@@ -47,9 +47,9 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!xray§r - Enables/
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/modules§r - View all enabled or disabled modules."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/allowGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/allowGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/allowGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoban§r - Enables/disables auto-banning."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoclicker§r - Enables/disables anti-autoclicker."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/bedrockValidate§r - Enables/disables validation of bedrock (Such as in the nether roof or at y=-64)."}]}

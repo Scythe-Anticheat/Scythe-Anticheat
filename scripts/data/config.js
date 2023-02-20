@@ -29,20 +29,20 @@ export default
             "enabled": true,
             "requiredTags": []
         },
-        "allowgma": {
+        "antigma": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigma","agma"]
+            "aliases": ["allowgma","agma"]
         },
-        "allowgmc": {
+        "antigmc": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigmc","agmc"]
+            "aliases": ["allowgmc","agmc"]
         },
-        "allowgms": {
+        "antigms": {
             "enabled": true,
             "requiredTags": ["op"],
-            "aliases": ["antigms","agms"]
+            "aliases": ["allowgms","agms"]
         },
         "bedrockvalidate": {
             "enabled": true,
