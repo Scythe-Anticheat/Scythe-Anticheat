@@ -14,17 +14,19 @@ export function unmute(message, args) {
 
     const player = message.sender;
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to unmute!");
+    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to unmute!");
 
     const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
     
     // try to find the player requested
+    let member;
+
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+        member = pl;
         break;
     }
     
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
+    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
 
     member.removeTag("isMuted");
     member.tell("§r§6[§aScythe§6]§r You have been unmuted.");

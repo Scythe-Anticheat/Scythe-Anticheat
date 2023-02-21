@@ -15,21 +15,23 @@ export function report(message, args) {
     const player = message.sender;
     const reason = args.slice(1).join(" ") || "No reason specified";
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to report.");
+    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to report.");
     
     // try to find the player requested
+    let member;
+
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+        member = pl;
         break;
     }
 
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
+    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
 
     // make sure they dont report themselves
     if(member.nameTag === player.nameTag) return player.tell("§r§6[§aScythe§6]§r You cannot report yourself.");
 
     // prevent report spam
-    if(player.reports.includes(member.nameTag)) return player.tell("§r§6[§aScythe§6]§r You have already reported this player!");
+    if(player.reports.includes(member.nameTag)) return player.tell("§r§6[§aScythe§6]§r You have already reported this player.");
     player.reports.push(member.nameTag);
 
     player.tell(`§r§6[§aScythe§6]§r You have reported ${member.nameTag} for: ${reason}.`);

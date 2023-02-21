@@ -13,22 +13,24 @@ export function cloneinv(message, args) {
 
     const player = message.sender;
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide whos inventory to view.");
+    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide whos inventory to view.");
     
     // try to find the player requested
+    let member;
+
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+        member = pl;
         break;
     }
     
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     const playerInv = player.getComponent('inventory').container;
     const memberInv = member.getComponent('inventory').container;
 
     for(let i = 0; i < memberInv.size; i++) {
         const item = memberInv.getItem(i);
-        if(typeof item === "undefined") {
+        if(!item) {
             playerInv.clearItem(i);
             continue;
         }

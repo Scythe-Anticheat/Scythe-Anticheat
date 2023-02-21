@@ -12,7 +12,7 @@ export function unban(message, args) {
 
     const player = message.sender;
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to unban!");
+    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to unban!");
 
     const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
     

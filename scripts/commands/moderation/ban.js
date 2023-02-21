@@ -15,22 +15,24 @@ export function ban(message, args) {
 
     const player = message.sender;
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to ban!");
+    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to ban!");
 
     let time;
     if(typeof args[1] === "string") time = parseTime(args[1]);
 
-    if(typeof time !== "undefined") args.splice(1, 1);
+    if(!time) args.splice(1, 1);
 
     const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
     
     // try to find the player requested
+    let member;
+
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+        member = pl;
         break;
     }
 
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
+    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
 
     // make sure they dont ban themselves
     if(member.id === player.id) return player.tell("§r§6[§aScythe§6]§r You cannot ban yourself.");

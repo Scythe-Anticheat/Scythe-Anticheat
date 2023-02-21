@@ -14,7 +14,7 @@ export function kick(message, args) {
 
     const player = message.sender;
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide who to kick!");
+    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to kick!");
 
     let isSilent = false;
 
@@ -23,17 +23,19 @@ export function kick(message, args) {
     const reason = args.slice(1).join(" ").replace(/-s|-silent/, "").replace(/"|\\/g, "") || "No reason specified";
 	
     // try to find the player requested
+    let member;
+
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+        member = pl;
         break;
     }
 
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
+    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
 
     // make sure they dont kick themselves
     if(member.name === player.name) return player.tell("§r§6[§aScythe§6]§r You cannot kick yourself.");
 
-    if(isSilent === false) player.runCommandAsync(`kick "${member.name}" ${reason}`);
+    if(!isSilent) player.runCommandAsync(`kick "${member.name}" ${reason}`);
     member.triggerEvent("scythe:kick");
     
     player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${member.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);

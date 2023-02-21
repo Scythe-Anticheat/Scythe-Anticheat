@@ -15,15 +15,17 @@ export function invsee(message, args) {
 
     const player = message.sender;
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide whos inventory to view!");
+    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide whos inventory to view!");
     
     // try to find the player requested
+    let member;
+
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+        member = pl;
         break;
     }
     
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     const container = member.getComponent('inventory').container;
 
@@ -35,14 +37,14 @@ export function invsee(message, args) {
     
     for (let i = 0; i < container.size; i++) {
         const item = container.getItem(i);
-        if(typeof item === "undefined") continue;
+        if(!item) continue;
 
         inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId}:${item.data} x${item.amount}\n`;
 
-        if(config.customcommands.invsee.show_enchantments === true) {
+        if(config.customcommands.invsee.show_enchantments) {
             const loopIterator = (iterator) => {
                 const iteratorResult = iterator.next();
-                if(iteratorResult.done === true) return;
+                if(iteratorResult.done) return;
                 const enchantData = iteratorResult.value;
 
                 let enchantmentName = enchantData.type.id;

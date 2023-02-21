@@ -49,7 +49,7 @@ export function commandHandler(player, message) {
     if (typeof player !== "object") throw TypeError(`player is type of ${typeof player}. Expected "object"`);
     if (typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object"`);
 
-    if(config.debug === true) console.warn(`${new Date().toISOString()} | did run command handler`);
+    if(config.debug) console.warn(`${new Date().toISOString()} | did run command handler`);
 
     // checks if the message starts with our prefix, if not exit
     if(!message.message.startsWith(prefix)) return;
@@ -58,7 +58,7 @@ export function commandHandler(player, message) {
 
     const command = args.shift().toLowerCase().trim();
 
-    if(config.debug === true) console.warn(`${new Date().toISOString()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
+    if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
 
     let commandData;
     let commandName;
@@ -71,7 +71,7 @@ export function commandHandler(player, message) {
             // check if the command is an alias
             for(const cmd of Object.keys(config.customcommands)) {
                 const data = config.customcommands[cmd];
-                if(typeof data !== "object" || typeof data.aliases === "undefined" || !data.aliases.includes(command)) continue;
+                if(typeof data !== "object" || !data.aliases || !data.aliases.includes(command)) continue;
 
                 commandData = data;
                 commandName = cmd;
@@ -79,7 +79,7 @@ export function commandHandler(player, message) {
             }
 
             // command does not exist
-            if(typeof commandData === "undefined") return;
+            if(!commandData) return;
         }
 
         message.cancel = true;
@@ -89,7 +89,7 @@ export function commandHandler(player, message) {
             return;
         }
 
-        if(commandData.enabled === false) {
+        if(!commandData.enabled) {
             player.tell("§r§6[§aScythe§6]§r This command has been disabled. Please contact your server administrator for assistance.");
             return;
         }

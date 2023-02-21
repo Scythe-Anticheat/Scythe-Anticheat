@@ -30,14 +30,14 @@ export function mainGui(player, error) {
         .button(`Manage Players\n§8§o${[...World.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
         .button("Server Options", "textures/ui/servers.png")
         .button("Exit", "textures/ui/redX1.png");
-    if(config.debug === true) mainGui.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
+    if(config.debug) mainGui.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
     mainGui.show(player).then((response) => {
         if(response.selection === 0) banMenu(player);
         if(response.selection === 1) settingsMenu(player);
         if(response.selection === 2) playerSettingsMenu(player);
         if(response.selection === 3) worldSettingsMenu(player);
         if(response.selection === 4) return;
-        if(config.debug === true && response.selection === 5) debugSettingsMenu(player);
+        if(config.debug && response.selection === 5) debugSettingsMenu(player);
     });
 }
 
@@ -93,7 +93,7 @@ function banMenuSelect(player, selection) {
 
 function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
     if(!player.hasTag("op")) return;
-    if(config.customcommands.kick.enabled === false) return player.tell("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
+    if(!config.customcommands.kick.enabled) return player.tell("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
     const kickPlayerMenu = new MinecraftUI.ModalFormData()
@@ -112,7 +112,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         const isSilent = data.pop();
         const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
-        if(isSilent === false) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
+        if(!isSilent) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
         playerSelected.triggerEvent("scythe:kick");
 
         player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);
@@ -383,7 +383,7 @@ function worldSettingsMenu(player) {
 //       Debug Menu       //
 // ====================== //
 function debugSettingsMenu(player) {
-    if(!player.hasTag("op") || config.debug === false) return;
+    if(!player.hasTag("op") || !config.debug) return;
     player.playSound("mob.chicken.plop");
 
     const debugSettingsMenu = new MinecraftUI.ActionFormData()

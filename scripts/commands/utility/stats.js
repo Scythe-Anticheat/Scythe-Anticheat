@@ -14,15 +14,17 @@ export function stats(message, args) {
 
     const player = message.sender;
     
-    if(args.length === 0) return player.runCommandAsync("function tools/stats");
+    if(!args.length) return player.runCommandAsync("function tools/stats");
     
     // try to find the player requested
+    let member;
+
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        var member = pl;
+        member = pl;
         break;
     }
     
-    if(typeof member === "undefined") return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     member.runCommandAsync("function tools/stats");
 }

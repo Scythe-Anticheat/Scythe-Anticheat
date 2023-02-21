@@ -13,9 +13,11 @@ export function tag(message, args) {
     if(typeof args !== "object") throw TypeError(`args is type of ${typeof args}. Expected "object".`);
 
     const player = message.sender;
-    let member;
 
-    if(args.length === 0) return player.tell("§r§6[§aScythe§6]§r You need to provide a tag!");
+    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide a tag to add.");
+
+    // try to find the player requested
+    let member;
 
     for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl;
@@ -23,9 +25,9 @@ export function tag(message, args) {
         break;
     }
 
-    if(typeof member === "undefined") member = player;
+    if(!member) member = player;
 
-    if(!args[0]) return player.tell("§r§6[§aScythe§6]§r You need to provide a tag!");
+    if(!args[0]) return player.tell("§r§6[§aScythe§6]§r You need to provide a tag to add.");
 
     // reset user nametag
     if(args[0].includes("reset")) {

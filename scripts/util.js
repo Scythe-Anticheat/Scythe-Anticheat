@@ -30,11 +30,11 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof cancelObject !== "object" && typeof cancelObject !== "undefined") throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined`);
     if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "nunber" or "undefined`);
 
-    if(config.disable_flags_from_scythe_op === true && player.hasTag("op")) return;
+    if(config.disable_flags_from_scythe_op && player.hasTag("op")) return;
 
-    if(typeof debug === "string") {
+    if(debug) {
         // remove characters that may break commands, and newlines
-        debug = debug.replace(/"|\\|\n/gm, "");
+        debug = String(debug).replace(/"|\\|\n/gm, "");
 
         // malicous users may try make the debug field ridiclously large to lag any clients that may
         // try to view the alert (anybody with the 'notify' tag)
@@ -45,15 +45,16 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
 
     // If debug is enabled, then we log everything we know about the player.
-    if(config.debug === true) {
+    if(config.debug) {
         const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
         console.warn(`{"timestamp":${Date.now()},"time":"${new Date().toISOString()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${currentItem?.typeId || "minecraft:air"}:${currentItem?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
     }
+
     // cancel the message
     if(typeof cancelObject === "object") cancelObject.cancel = true;
 
-    if(shouldTP === true && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.z), player.dimension, player.rotation.x, player.rotation.y, false);
-        else if(shouldTP === true && check === "Crasher") player.teleport(new Minecraft.Location(30000000, 30000000, 30000000), player.dimension, 0, 0);
+    if(shouldTP && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.z), player.dimension, player.rotation.x, player.rotation.y, false);
+        else if(shouldTP && check === "Crasher") player.teleport(new Minecraft.Location(30000000, 30000000, 30000000), player.dimension, 0, 0);
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 
@@ -72,9 +73,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 	}
 
     const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
-    if(typeof checkData !== "object") throw Error(`No valid check data found for ${check}/${checkType}.`);
+    if(!checkData) throw Error(`No valid check data found for ${check}/${checkType}.`);
 
-    if(checkData.enabled === false) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
+    if(!checkData.enabled) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 
     // punishment stuff
     const punishment = checkData.punishment?.toLowerCase();
@@ -265,7 +266,7 @@ export function msToTime(ms) {
  * @name getScore
  * @param {object} player - The player to get the scoreboard value from
  * @param {string} objective - The player to get the scoreboard value from
- * @param {number} defaultValue? - Default value to return if unable to get scoreboard score
+ * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl", 0)
  * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
  * @returns {number} score - The scoreboard objective value

@@ -456,7 +456,6 @@ export default
         },
         "illegalitemsJ": {
             "enabled": true,
-            "max_sign_characters": 1,
             "exclude_scythe_op": true,
             "punishment": "none",
             "minVlbeforePunishment": 0
