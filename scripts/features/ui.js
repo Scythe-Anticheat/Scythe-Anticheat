@@ -2,7 +2,7 @@ import * as Minecraft from "@minecraft/server";
 import * as MinecraftUI from "@minecraft/server-ui";
 
 import config from "../data/config.js";
-import data2 from "../data/data.js";
+import data from "../data/data.js";
 import { parseTime } from "../util.js";
 import { addOp, removeOp } from "../commands/moderation/op.js";
 
@@ -16,7 +16,6 @@ const playerIcons = [
 // this is the function that will be called when the player wants to open the GUI
 // all other GUI functions will be called from here
 export function mainGui(player, error) {
-    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     let text = `Hello ${player.name},\n\nPlease select an option below.`;
@@ -45,7 +44,6 @@ export function mainGui(player, error) {
 //        Ban Menu        //
 // ====================== //
 function banMenu(player) {
-    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const banMenu = new MinecraftUI.ActionFormData()
@@ -65,7 +63,6 @@ function banMenu(player) {
 }
 
 function banMenuSelect(player, selection) {
-    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const banMenuSelect = new MinecraftUI.ActionFormData()
@@ -74,7 +71,7 @@ function banMenuSelect(player, selection) {
     
     for (const plr of World.getPlayers()) {
         let playerName = `${plr.name}`;
-        if(plr === player) playerName += " §1[YOU]";
+        if(plr.id === player.id) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
         banMenuSelect.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
@@ -92,7 +89,6 @@ function banMenuSelect(player, selection) {
 }
 
 function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
-    if(!player.hasTag("op")) return;
     if(!config.customcommands.kick.enabled) return player.tell("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
@@ -120,7 +116,6 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
 }
 
 function banPlayerMenu(player, playerSelected, lastMenu = 0) {
-    if(!player.hasTag("op")) return;
     if(!config.customcommands.kick.enabled) return player.tell("§r§6[§aScythe§6]§r Banning players is disabled in config.js.");
 
     player.playSound("mob.chicken.plop");
@@ -162,7 +157,6 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
 }
 
 function unbanPlayerMenu(player) {
-    if(!player.hasTag("op")) return;
     if(!config.customcommands.unban.enabled) return player.tell("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
@@ -173,13 +167,13 @@ function unbanPlayerMenu(player) {
         unbanPlayerMenu.show(player).then((response) => {
         if(response.canceled) return banMenu(player);
 
-        const data = String(response.formValues).split(",");
+        const responseData = String(response.formValues).split(",");
 
-        const playerToUnban = data.shift().split(" ")[0];
+        const playerToUnban = responseData.shift().split(" ")[0];
 
-        const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = responseData.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
-        data2.unbanQueue.push(playerToUnban.toLowerCase());
+        data.unbanQueue.push(playerToUnban.toLowerCase());
 
         player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has added ${playerToUnban} into the unban queue. Reason: ${reason}"}]}`);
     });
@@ -189,7 +183,6 @@ function unbanPlayerMenu(player) {
 //     Settings Menu      //
 // ====================== //
 function settingsMenu(player) {
-    if(!player.hasTag("op")) return;
     // player.playSound("mob.chicken.plop");
     mainGui(player, "This menu is currently under development, check back later!");
 }
@@ -198,7 +191,6 @@ function settingsMenu(player) {
 //       Player Menu      //
 // ====================== //
 function playerSettingsMenu(player) {
-    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenu = new MinecraftUI.ActionFormData()
@@ -207,7 +199,7 @@ function playerSettingsMenu(player) {
     
     for (const plr of World.getPlayers()) {
         let playerName = `${plr.name}`;
-        if(plr === player) playerName += " §1[YOU]";
+        if(plr.id === player.id) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
         playerSettingsMenu.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
@@ -221,7 +213,6 @@ function playerSettingsMenu(player) {
 }
 
 export function playerSettingsMenuSelected(player, playerSelected) {
-    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenuSelected = new MinecraftUI.ActionFormData()
@@ -333,7 +324,6 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 }
 
 function playerSettingsMenuSelectedTeleport(player, playerSelected) {
-    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenuSelectedTeleport = new MinecraftUI.ActionFormData()
@@ -351,7 +341,6 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
 }
 
 function playerSettingsMenuSelectedGamemode(player, playerSelected) {
-    if(!player.hasTag("op")) return;
     player.playSound("mob.chicken.plop");
 
     const playerSettingsMenuSelectedGamemode = new MinecraftUI.ActionFormData()
@@ -374,7 +363,6 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 //       World Menu       //
 // ====================== //
 function worldSettingsMenu(player) {
-    if(!player.hasTag("op")) return;
     // player.playSound("mob.chicken.plop");
     mainGui(player, "This menu is currently under development, check back later!");
 }
@@ -383,7 +371,6 @@ function worldSettingsMenu(player) {
 //       Debug Menu       //
 // ====================== //
 function debugSettingsMenu(player) {
-    if(!player.hasTag("op") || !config.debug) return;
     player.playSound("mob.chicken.plop");
 
     const debugSettingsMenu = new MinecraftUI.ActionFormData()

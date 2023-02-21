@@ -685,11 +685,11 @@ World.events.entityHit.subscribe((entityHit) => {
 		if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
 	
 		// check if the player was hit with the UI item, and if so open the UI for that player
-		if(config.customcommands.ui.enabled) {
+		if(config.customcommands.ui.enabled && player.hasTag("op") && entity.typeId === "minecraft:player") {
 			const container = player.getComponent("inventory").container;
 
 			const item = container.getItem(player.selectedSlot);
-			if(entity.typeId === "minecraft:player" && item?.typeId === config.customcommands.ui.ui_item && player.hasTag("op") && item?.nameTag === config.customcommands.ui.ui_item_name) {
+			if(item?.typeId === config.customcommands.ui.ui_item && item?.nameTag === config.customcommands.ui.ui_item_name) {
 				playerSettingsMenuSelected(player, entity);
 			}
 		}
