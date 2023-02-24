@@ -24,7 +24,7 @@ import config from "../../data/config.js";
         return player.sendMessage("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 
     // creating the item that opens the UI
-    const item = new Minecraft.ItemStack(Minecraft.Items.get(config.customcommands.ui.ui_item), 1, 0);
+    const item = new Minecraft.ItemStack(Minecraft.Items.get(config.customcommands.ui.ui_item), 1);
 
     item.nameTag = config.customcommands.ui.ui_item_name;
 

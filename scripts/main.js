@@ -756,7 +756,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 
 		const itemType = Minecraft.ItemTypes.get(item.typeId) ?? Minecraft.ItemTypes.get("minecraft:book");
 
-		const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
+		const item2 = new Minecraft.ItemStack(itemType, 1);
 		const item2Enchants = item2.getComponent("enchantments").enchantments;
 		const enchantments = [];
 			

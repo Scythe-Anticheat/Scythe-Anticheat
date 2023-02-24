@@ -404,7 +404,7 @@ function debugSettingsMenu(player) {
                 }
                 totalItems.push(randomItem.id);
 
-                container.setItem(i, new Minecraft.ItemStack(randomItem, 1, 0));
+                container.setItem(i, new Minecraft.ItemStack(randomItem, 1));
             }
         } else if(response.selection === 2) {
             const troll = function() {
