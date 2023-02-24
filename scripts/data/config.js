@@ -302,7 +302,6 @@ export default
         },
         "illegalitemsC": {
             "enabled": true,
-            "maxStack": 64,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
@@ -493,7 +492,7 @@ export default
             "minVlbeforePunishment": 1
         },
         "illegalitemsL": {
-            "enabled": false,
+            "enabled": true,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },

@@ -48,10 +48,10 @@ World.events.beforeChat.subscribe(msg => {
 	// also filter for non ASCII characters and remove them in messages
 	if(!msg.cancel) {
 		if(player.name !== player.nameTag && !config.modules.filterUnicodeChat) {
-			World.sendMessage(`<${player.nameTag}> ${msg.message.replace(/"|\\/g, "")}`);
+			World.sendMessage(`<${player.nameTag}> ${msg.message}`);
 			msg.cancel = true;
 		} else if(player.name === player.nameTag && config.modules.filterUnicodeChat) {
-			World.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"|\\/g, "")}`);
+			World.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
 			msg.cancel = true;
 		}
 	}
@@ -134,7 +134,7 @@ Minecraft.system.runInterval(() => {
 				if(!item) continue;
 
 				// Illegalitems/C = item stacked over 64 check
-				if(config.modules.illegalitemsC.enabled && item.amount > config.modules.illegalitemsC.maxStack)
+				if(config.modules.illegalitemsC.enabled && item.amount > item.maxAmount)
 					flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, undefined, undefined, i);
 					
 				// Illegalitems/D = additional item clearing check
@@ -325,7 +325,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
 			if(!item) continue;
 
 			// an item exists within the container, get fucked hacker!
-			container.setItem(undefined);
+			container.setItem(i, undefined);
 			didFindItems = true;
 		}
 
@@ -629,7 +629,7 @@ World.events.entitySpawn.subscribe((entityCreate) => {
 
 			if(container.size !== container.emptySlotsCount) {
 				for(let i = 0; i < container.size; i++) {
-					container.setItem(undefined);
+					container.setItem(i, undefined);
 				}
 
 				flag(player, "IllegalItems", "K", "Exploit", "totalSlots", `${container.size},emptySlots=${container.emptySlotsCount}`, undefined, undefined, player.selectedSlot);

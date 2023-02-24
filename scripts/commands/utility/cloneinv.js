@@ -31,7 +31,7 @@ export function cloneinv(message, args) {
     for(let i = 0; i < memberInv.size; i++) {
         const item = memberInv.getItem(i);
         if(!item) {
-            playerInv.setItem(undefined);
+            playerInv.setItem(i, undefined);
             continue;
         }
 

@@ -52,8 +52,6 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         const playerVelocity = player.getVelocity();
         const playerHeadRotation = player.getHeadLocation();
 
-        console.warn(playerVelocity);
-
         console.warn(`{"timestamp":${Date.now()},"time":"${new Date().toISOString()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${playerHeadRotation.x},"y":${playerHeadRotation.y},"z":${playerHeadRotation.z}},"velocity":{"x":${playerVelocity.x},"y":${playerVelocity.y},"z":${playerVelocity.z}},"rotation":{"x":${playerRotation.x},"y":${playerRotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${currentItem?.typeId || "minecraft:air"}:${currentItem?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
     }
 
@@ -76,7 +74,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
-		container.setItem(undefined);
+		container.setItem(slot, undefined);
 	}
 
     const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
