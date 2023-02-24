@@ -14,7 +14,7 @@ export function op(message, args) {
 
     const player = message.sender;
     
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to op.");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide who to op.");
 
     // try to find the player requested
     let member;
@@ -24,9 +24,9 @@ export function op(message, args) {
         break;
     }
 
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-    if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r This player already has scythe-op.");
+    if(member.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r This player already has scythe-op.");
 
     addOp(member);
 
@@ -36,7 +36,7 @@ export function op(message, args) {
 export function addOp(player) {
     player.addTag("op");
 
-    player.tell("§r§6[§aScythe§6]§r §7You are now scythe-op.");
+    player.sendMessage("§r§6[§aScythe§6]§r §7You are now scythe-op.");
 }
 
 export function removeOp(player) {

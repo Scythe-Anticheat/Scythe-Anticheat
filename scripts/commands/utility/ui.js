@@ -15,13 +15,13 @@ import config from "../../data/config.js";
     const container = player.getComponent("inventory").container;
 
     if(container.emptySlotsCount === 0)
-        return player.tell("§r§6[§aScythe§6]§r Your inventory is full! Try removing some items and try again.");
+        return player.sendMessage("§r§6[§aScythe§6]§r Your inventory is full! Try removing some items and try again.");
 
     // make sure they dont have the UI item in their current slot
     const currentItem = container.getItem(player.selectedSlot);
 
     if(currentItem?.typeId === config.customcommands.ui.ui_item && currentItem?.nameTag === config.customcommands.ui.ui_item_name)
-        return player.tell("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
+        return player.sendMessage("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 
     // creating the item that opens the UI
     const item = new Minecraft.ItemStack(Minecraft.Items.get(config.customcommands.ui.ui_item), 1, 0);
@@ -36,5 +36,5 @@ import config from "../../data/config.js";
 
     container.addItem(item);
 
-    player.tell("§r§6[§aScythe§6]§r The UI item has been added to your inventory.");
+    player.sendMessage("§r§6[§aScythe§6]§r The UI item has been added to your inventory.");
 }

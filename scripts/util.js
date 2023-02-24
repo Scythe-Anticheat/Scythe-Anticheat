@@ -44,16 +44,20 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         }
     }
 
+    const playerRotation = player.getRotation();
+
     // If debug is enabled, then we log everything we know about the player.
     if(config.debug) {
         const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
-        console.warn(`{"timestamp":${Date.now()},"time":"${new Date().toISOString()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${player.velocity.x},"y":${player.velocity.y},"z":${player.velocity.z}},"rotation":{"x":${player.rotation.x},"y":${player.rotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${currentItem?.typeId || "minecraft:air"}:${currentItem?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
+        const playerVelocity = player.getVelocity();
+
+        console.warn(`{"timestamp":${Date.now()},"time":"${new Date().toISOString()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${player.headLocation.x},"y":${player.headLocation.y},"z":${player.headLocation.z}},"velocity":{"x":${playerVelocity.x},"y":${playerVelocity.y},"z":${playerVelocity.z}},"rotation":{"x":${playerRotation.x},"y":${playerRotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${currentItem?.typeId || "minecraft:air"}:${currentItem?.data || 0}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
     }
 
     // cancel the message
     if(typeof cancelObject === "object") cancelObject.cancel = true;
 
-    if(shouldTP && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.z), player.dimension, player.rotation.x, player.rotation.y, false);
+    if(shouldTP && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.z), player.dimension, playerRotation.x, playerRotation.y, false);
         else if(shouldTP && check === "Crasher") player.teleport(new Minecraft.Location(30000000, 30000000, 30000000), player.dimension, 0, 0);
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
@@ -69,7 +73,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
-		container.clearItem(slot);
+		container.setItem(undefined);
 	}
 
     const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
@@ -115,7 +119,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     }
     if(punishment === "mute") {
         player.addTag("isMuted");
-        player.tell(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
+        player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
     
         // remove chat ability
         player.runCommandAsync("ability @s mute true");

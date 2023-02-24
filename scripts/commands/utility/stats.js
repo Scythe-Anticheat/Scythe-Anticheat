@@ -24,7 +24,7 @@ export function stats(message, args) {
         break;
     }
     
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     member.runCommandAsync("function tools/stats");
 }

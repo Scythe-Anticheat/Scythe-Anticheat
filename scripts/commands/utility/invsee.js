@@ -15,7 +15,7 @@ export function invsee(message, args) {
 
     const player = message.sender;
 
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide whos inventory to view!");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide whos inventory to view.");
     
     // try to find the player requested
     let member;
@@ -25,12 +25,12 @@ export function invsee(message, args) {
         break;
     }
     
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     const container = member.getComponent('inventory').container;
 
     if(container.size === container.emptySlotsCount) {
-        return player.tell(`§r§6[§aScythe§6]§r ${member.nameTag}'s inventory is empty.`);
+        return player.sendMessage(`§r§6[§aScythe§6]§r ${member.nameTag}'s inventory is empty.`);
     }
 
     let inventory = `§r§6[§aScythe§6]§r ${member.nameTag}'s inventory:\n\n`;
@@ -58,5 +58,5 @@ export function invsee(message, args) {
         }
     }
 
-    player.tell(inventory);
+    player.sendMessage(inventory);
 }

@@ -13,7 +13,7 @@ export function resetwarns(message, args) {
 
     const player = message.sender;
     
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who's warns to reset!");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide who's warns to reset.");
 
     // try to find the player requested
     let member;
@@ -23,9 +23,9 @@ export function resetwarns(message, args) {
         break;
     }
     
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-    if(member.id === player.id) return player.tell("§r§6[§aScythe§6]§r You cannot reset your own warns.");
+    if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot reset your own warns.");
 
     player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has reset ${member.nameTag}'s warns."}]}`);
 

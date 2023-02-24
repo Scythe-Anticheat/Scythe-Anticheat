@@ -444,7 +444,17 @@ export default
             "exclude_scythe_op": true,
             "container_blocks": [
                 "minecraft:chest",
-                "minecraft:trapped_chest"
+                "minecraft:trapped_chest",
+                "minecraft:barrel",
+                "minecraft:beacon",
+                "minecraft:blast_furnace",
+                "minecraft:brewing_stand",
+                "minecraft:dispenser",
+                "minecraft:dropper",
+                "minecraft:hopper",
+                "minecraft:jukebox",
+                "minecraft:lectern",
+                "minecraft:smoker"
             ],
             "punishment": "none",
             "minVlbeforePunishment": 0

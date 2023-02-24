@@ -15,7 +15,7 @@ export function ban(message, args) {
 
     const player = message.sender;
 
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to ban!");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide who to ban.");
 
     let time;
     if(typeof args[1] === "string") time = parseTime(args[1]);
@@ -32,13 +32,13 @@ export function ban(message, args) {
         break;
     }
 
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     // make sure they dont ban themselves
-    if(member.id === player.id) return player.tell("§r§6[§aScythe§6]§r You cannot ban yourself.");
+    if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban yourself.");
 
     // cannot ban staff members
-    if(member.hasTag("op")) return player.tell("§r§6[§aScythe§6]§r You cannot ban other staff members!.");
+    if(member.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban other staff members!.");
 
     // removes old ban data
     member.getTags().forEach(t => {

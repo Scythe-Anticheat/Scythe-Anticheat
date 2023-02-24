@@ -28,7 +28,7 @@ export function fly(message, args) {
         name: member.name
     });
 
-    if(![...checkGmc].length) return player.tell("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
+    if(![...checkGmc].length) return player.sendMessage("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
 
     member.runCommandAsync(`function tools/fly`);
 

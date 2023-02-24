@@ -14,7 +14,7 @@ export function mute(message, args) {
 
     const player = message.sender;
 
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to mute!");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide who to mute.");
 
     const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
     
@@ -26,13 +26,13 @@ export function mute(message, args) {
         break;
     }
 
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     // make sure they dont mute themselves
-    if(member.id === player.id) return player.tell("§r§6[§aScythe§6]§r You cannot mute yourself.");
+    if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
     member.addTag("isMuted");
-    member.tell(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
+    member.sendMessage(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
 
     // remove chat ability
     member.runCommandAsync("ability @s mute true");

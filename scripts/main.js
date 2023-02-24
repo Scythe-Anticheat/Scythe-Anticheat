@@ -20,14 +20,14 @@ World.events.beforeChat.subscribe(msg => {
 
 	if(player.hasTag("isMuted")) {
 		msg.cancel = true;
-		player.tell("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
+		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
 	}
 
 	// BadPackets/2 = checks for invalid chat message lengths
 	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
 
 	// Spammer/A = checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump') && player.velocity.y.toFixed(4) === "-0.0784")
+	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
 		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
 
 	// Spammer/B = checks if someone sends a message while swinging their hand
@@ -48,16 +48,16 @@ World.events.beforeChat.subscribe(msg => {
 	// also filter for non ASCII characters and remove them in messages
 	if(!msg.cancel) {
 		if(player.name !== player.nameTag && !config.modules.filterUnicodeChat) {
-			World.say(`<${player.nameTag}> ${msg.message.replace(/"|\\/g, "")}`);
+			World.sendMessage(`<${player.nameTag}> ${msg.message.replace(/"|\\/g, "")}`);
 			msg.cancel = true;
 		} else if(player.name === player.nameTag && config.modules.filterUnicodeChat) {
-			World.say(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"|\\/g, "")}`);
+			World.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "").replace(/"|\\/g, "")}`);
 			msg.cancel = true;
 		}
 	}
 });
 
-Minecraft.system.runSchedule(() => {
+Minecraft.system.runInterval(() => {
 	if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
 	// run as each player
@@ -117,7 +117,9 @@ Minecraft.system.runSchedule(() => {
 				} else config.modules.bedrockValidate.enabled = false;
 			}
 
-			const playerSpeed = Number(Math.sqrt(Math.abs(player.velocity.x**2 + player.velocity.z**2)).toFixed(2));
+			const playerVelocity = player.getVelocity();
+
+			const playerSpeed = Number(Math.sqrt(Math.abs(playerVelocity.x**2 +playerVelocity.z**2)).toFixed(2));
 
 			// NoSlow/A = speed limit check
 			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
@@ -176,6 +178,10 @@ Minecraft.system.runSchedule(() => {
 				// Illegalitems/F = Checks if an item has a name longer then 32 characters
 				if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
 					flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, undefined, undefined, i);
+				
+				// IllegalItems/L = check for keep on death items
+				if(config.modules.illegalitemsL.enabled && item.keepOnDeath)
+					flag(player, "IllegalItems", "L", "Exploit", undefined, undefined, false, undefined, i);
 
 				// BadEnchants/D = checks if an item has a lore
 				if(config.modules.badenchantsD.enabled) {
@@ -196,14 +202,14 @@ Minecraft.system.runSchedule(() => {
 
 				if(config.modules.resetItemData.enabled && config.modules.resetItemData.items.includes(item.typeId)) {
 					// This creates a duplicate version of the item, with just its amount and data.
-					const item2 = new Minecraft.ItemStack(itemType, item.amount, item.data);
+					const item2 = new Minecraft.ItemStack(itemType, item.amount);
 					container.setItem(i, item2);
 				}
 
 				if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled || config.modules.badenchantsE.enabled) {
 					const itemEnchants = item.getComponent("enchantments").enchantments;
 
-					const item2 = new Minecraft.ItemStack(itemType, 1, item.data);
+					const item2 = new Minecraft.ItemStack(itemType, 1);
 					const item2Enchants = item2.getComponent("enchantments").enchantments;
 					const enchantments = [];
 					
@@ -257,13 +263,13 @@ Minecraft.system.runSchedule(() => {
 				flag(player, "InvalidSprint", "A", "Movement", undefined, undefined, true);
 
 			// fly/a
-			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
+			if(config.modules.flyA.enabled && Math.abs(playerVelocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
 				const pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 2, player.location.z + 2);
 				const pos2 = new Minecraft.BlockLocation(player.location.x - 2, player.location.y - 1, player.location.z - 2);
 
 				const isNotInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).typeId !== "minecraft:air");
 
-				if(!isNotInAir) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(player.velocity.y).toFixed(4), true);
+				if(!isNotInAir) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(playerVelocity.y).toFixed(4), true);
 					else if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
 			}
 
@@ -285,7 +291,7 @@ Minecraft.system.runSchedule(() => {
 			if(player.hasTag("freeze") && player.selectedSlot !== 0) player.selectedSlot = 0;
 		} catch (error) {
 			console.error(error, error.stack);
-			if(player.hasTag("errorlogger")) player.tell(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
+			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
 		}
 	}
 }, 0);
@@ -319,7 +325,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
 			if(!item) continue;
 
 			// an item exists within the container, get fucked hacker!
-			container.clearItem(i);
+			container.setItem(undefined);
 			didFindItems = true;
 		}
 
@@ -331,7 +337,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
 
 	if(config.modules.illegalitemsJ.enabled && block.typeId.includes("sign")) {
 		// we need to wait 1 tick before we can get the sign text
-		Minecraft.system.run(() => {
+		Minecraft.system.runTimeout(() => {
 			if(config.modules.illegalitemsJ.exclude_scythe_op && player.hasTag("op")) return;
 
 			const text = block.getComponent("sign").text;
@@ -340,7 +346,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
 				flag(player, "IllegalItems", "J", "Exploit", "signText", text, undefined, undefined, player.selectedSlot);
 				block.setType(Minecraft.MinecraftBlockTypes.air);
 			}
-		});
+		}, 1);
 	}
 
 	if(config.modules.commandblockexploitH.enabled && block.typeId === "minecraft:hopper") {
@@ -613,7 +619,7 @@ World.events.entitySpawn.subscribe((entityCreate) => {
 
 	// IllegalItems/K = checks if a player places a chest boat with items already inside it
 	if(config.modules.illegalitemsK.enabled && config.modules.illegalitemsK.entities.includes(entity.typeId)) {
-		Minecraft.system.run(() => {
+		Minecraft.system.runTimeout(() => {
 			const player = getClosestPlayer(entity);
 			if(!player) return;
 
@@ -623,13 +629,13 @@ World.events.entitySpawn.subscribe((entityCreate) => {
 
 			if(container.size !== container.emptySlotsCount) {
 				for(let i = 0; i < container.size; i++) {
-					container.clearItem(i);
+					container.setItem(undefined);
 				}
 
 				flag(player, "IllegalItems", "K", "Exploit", "totalSlots", `${container.size},emptySlots=${container.emptySlotsCount}`, undefined, undefined, player.selectedSlot);
 				entity.kill();
 			}
-		});
+		}, 1);
 	}
 
 	if(config.misc_modules.antiArmorStandCluster.enabled && entity.typeId === "minecraft:armor_stand") {
@@ -797,31 +803,6 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 			loopIterator(iterator);
 		};
 		loopIterator(itemEnchants[Symbol.iterator]());
-	}
-});
-
-World.events.entityHurt.subscribe((entityHurt) => {
-	const player = entityHurt.hurtEntity;
-
-	if(player.typeId !== "minecraft:player") return;
-
-	if(config.modules.illegalitemsL.enabled && getScore(player, "keepinventory") <= 0) {
-		player.runCommandAsync("scoreboard players operation @a keepinventory = scythe:config keepinventory");
-		if(getScore(player, "keepinventory") <= 0) {
-			const health = player.getComponent("health").current;
-		
-			if(health <= 0) {
-				Minecraft.system.run(() => Minecraft.system.run(() => {
-					if(!player.hasTag("dead")) return;
-					const container = player.getComponent("inventory").container;
-
-					if(container.size !== container.emptySlotsCount) flag(player, "IllegalItems", "L", "Exploit");
-
-					// incase the player has keep on death armor, we clear their inventory
-					player.runCommandAsync("clear @s");
-				}));
-			}
-		}
 	}
 });
 

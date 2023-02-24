@@ -14,7 +14,7 @@ export function tag(message, args) {
 
     const player = message.sender;
 
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide a tag to add.");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide a tag to add.");
 
     // try to find the player requested
     let member;
@@ -27,7 +27,7 @@ export function tag(message, args) {
 
     if(!member) member = player;
 
-    if(!args[0]) return player.tell("§r§6[§aScythe§6]§r You need to provide a tag to add.");
+    if(!args[0]) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide a tag to add.");
 
     // reset user nametag
     if(args[0].includes("reset")) {

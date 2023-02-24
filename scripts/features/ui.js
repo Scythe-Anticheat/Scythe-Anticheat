@@ -89,7 +89,7 @@ function banMenuSelect(player, selection) {
 }
 
 function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
-    if(!config.customcommands.kick.enabled) return player.tell("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
+    if(!config.customcommands.kick.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
     const kickPlayerMenu = new MinecraftUI.ModalFormData()
@@ -116,7 +116,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
 }
 
 function banPlayerMenu(player, playerSelected, lastMenu = 0) {
-    if(!config.customcommands.kick.enabled) return player.tell("§r§6[§aScythe§6]§r Banning players is disabled in config.js.");
+    if(!config.customcommands.kick.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Banning players is disabled in config.js.");
 
     player.playSound("mob.chicken.plop");
 
@@ -157,7 +157,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
 }
 
 function unbanPlayerMenu(player) {
-    if(!config.customcommands.unban.enabled) return player.tell("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
+    if(!config.customcommands.unban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
     const unbanPlayerMenu = new MinecraftUI.ModalFormData()
@@ -245,7 +245,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     playerSettingsMenuSelected.show(player).then((response) => {
         if(response.selection === 0) {
-            if(!config.customcommands.ecwipe.enabled) return player.tell("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
+            if(!config.customcommands.ecwipe.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
             let isOp;
             if(playerSelected.hasTag("op")) {
                 isOp = true;
@@ -260,7 +260,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         } else if(response.selection === 2) {
             banPlayerMenu(player, playerSelected, 1);
         } else if(response.selection === 3) {
-            if(!config.customcommands.fly.enabled) return player.tell("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
+            if(!config.customcommands.fly.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
             if(playerSelected.hasTag("flying")) {
                 playerSelected.runCommandAsync("function tools/fly");
                 player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has disabled fly mode for ${playerSelected.name}."}]}`);
@@ -271,7 +271,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         } else if(response.selection === 4) {
-            if(!config.customcommands.freeze.enabled) return player.tell("§r§6[§aScythe§6]§r Toggling Frozen State is disabled in config.js.");
+            if(!config.customcommands.freeze.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Toggling Frozen State is disabled in config.js.");
             if(playerSelected.hasTag("freeze")) {
                 playerSelected.runCommandAsync("function tools/freeze");
                 player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has unfrozen for ${playerSelected.name}."}]}`);
@@ -282,7 +282,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         } else if(response.selection === 5) {
-            if(!config.customcommands.mute.enabled) return player.tell("§r§6[§aScythe§6]§r Muting players is disabled in config.js.");
+            if(!config.customcommands.mute.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Muting players is disabled in config.js.");
             if(playerSelected.hasTag("isMuted")) {
                 playerSelected.removeTag("isMuted");
                 playerSelected.runCommandAsync("ability @s mute false");
@@ -295,7 +295,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         } else if(response.selection === 6) {
-            if(!config.customcommands.op.enabled) return player.tell("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
+            if(!config.customcommands.op.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
             if(playerSelected.hasTag("op")) {
                 removeOp(playerSelected);
                 player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has given ${playerSelected.name} scythe-op status."}]}`);
@@ -306,7 +306,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
             }
         } else if(response.selection === 7) {
-            if(!config.customcommands.vanish.enabled) return player.tell("§r§6[§aScythe§6]§r Toggling Vanish is disabled in config.js.");
+            if(!config.customcommands.vanish.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Toggling Vanish is disabled in config.js.");
             if(playerSelected.hasTag("vanished")) {
                 playerSelected.runCommandAsync("function tools/vanish");
                 player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has put ${playerSelected.name} into vanish."}]}`);
