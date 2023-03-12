@@ -29,13 +29,13 @@ export function invsee(message, args) {
 
     const container = member.getComponent('inventory').container;
 
-    if(container.size === container.emptySlotsCount) {
+    if(container.emptySlotsCount === 36) {
         return player.tell(`§r§6[§aScythe§6]§r ${member.nameTag}'s inventory is empty.`);
     }
 
     let inventory = `§r§6[§aScythe§6]§r ${member.nameTag}'s inventory:\n\n`;
     
-    for (let i = 0; i < container.size; i++) {
+    for (let i = 0; i < 36; i++) {
         const item = container.getItem(i);
         if(!item) continue;
 

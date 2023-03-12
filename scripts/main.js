@@ -127,7 +127,7 @@ Minecraft.system.runSchedule(() => {
 			}
 
 			const container = player.getComponent('inventory').container;
-			for (let i = 0; i < container.size; i++) {
+			for (let i = 0; i < 36; i++) {
 				const item = container.getItem(i);
 				if(!item) continue;
 
