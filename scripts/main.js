@@ -200,7 +200,8 @@ Minecraft.system.runInterval(() => {
 					anti32k checks. In older versions, this error will also make certian players not get checked
 					leading to a Scythe Semi-Gametest Disabler method.
 				*/
-				const itemType = Minecraft.ItemTypes.get(item.typeId) ?? Minecraft.ItemTypes.get("minecraft:book");
+
+				const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
 
 				if(config.modules.resetItemData.enabled && config.modules.resetItemData.items.includes(item.typeId)) {
 					// This creates a duplicate version of the item, with just its amount and data.
