@@ -79,7 +79,7 @@ To run any chat commands or be able to use certain blocks please type ```!op``` 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(I) => Checks if a player places a chest with items already inside it.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(J) => Checks if a player places a sign with text already inside it.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(K) => Checks if a player places a chest boat/minecart with items already inside it.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(L) => Checks for keep on death items (Disabled if gamerule keep inventory is enabled).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(L) => Checks for keep on death items.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(M) => Checks for unexpected item in offhand.<br />
 
   InstaBreak -><br />

@@ -14,7 +14,7 @@ export function unmute(message, args) {
 
     const player = message.sender;
 
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide who to unmute!");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide who to unmute.");
 
     const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
     
@@ -26,10 +26,10 @@ export function unmute(message, args) {
         break;
     }
     
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player!");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     member.removeTag("isMuted");
-    member.tell("§r§6[§aScythe§6]§r You have been unmuted.");
+    member.sendMessage("§r§6[§aScythe§6]§r You have been unmuted.");
     
     // add chat ability
     member.runCommandAsync("ability @s mute false");

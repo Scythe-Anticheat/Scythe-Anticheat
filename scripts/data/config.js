@@ -302,7 +302,6 @@ export default
         },
         "illegalitemsC": {
             "enabled": true,
-            "maxStack": 64,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
@@ -444,7 +443,17 @@ export default
             "exclude_scythe_op": true,
             "container_blocks": [
                 "minecraft:chest",
-                "minecraft:trapped_chest"
+                "minecraft:trapped_chest",
+                "minecraft:barrel",
+                "minecraft:beacon",
+                "minecraft:blast_furnace",
+                "minecraft:brewing_stand",
+                "minecraft:dispenser",
+                "minecraft:dropper",
+                "minecraft:hopper",
+                "minecraft:jukebox",
+                "minecraft:lectern",
+                "minecraft:smoker"
             ],
             "punishment": "none",
             "minVlbeforePunishment": 0
@@ -483,7 +492,7 @@ export default
             "minVlbeforePunishment": 1
         },
         "illegalitemsL": {
-            "enabled": false,
+            "enabled": true,
             "punishment": "none",
             "minVlbeforePunishment": 0
         },

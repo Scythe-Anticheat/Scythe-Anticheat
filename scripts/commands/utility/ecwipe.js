@@ -14,7 +14,7 @@ export function ecwipe(message, args) {
 
     const player = message.sender;
     
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide whos ender chest inventory to wipe!");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide whos ender chest inventory to wipe.");
     
     // try to find the player requested
     let member;
@@ -24,7 +24,7 @@ export function ecwipe(message, args) {
         break;
     }
     
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     member.runCommandAsync("function tools/ecwipe");
 }

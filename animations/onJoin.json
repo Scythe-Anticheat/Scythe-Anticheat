@@ -31,8 +31,6 @@
 					"/scoreboard players add scythe:config autoban 0",
 					"/scoreboard objectives add invalidsprint dummy",
 					"/scoreboard players add scythe:config invalidsprint 0",
-					"/scoreboard objectives add keepinventory dummy",
-					"/scoreboard players add scythe:config keepinventory 0",
 					// Setting Operations For Objective Types
 					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a commandblocks = scythe:config commandblocks",
@@ -47,7 +45,6 @@
 					"/scoreboard players operation @a gametestapi = scythe:config gametestapi",
 					"/scoreboard players operation @a autoban = scythe:config autoban",
 					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
-					"/scoreboard players operation @a keepinventory = scythe:config keepinventory",
 					// Anticheat Objectives
 					"/scoreboard objectives add autototemvl dummy",
 					"/scoreboard objectives add autoshieldvl dummy",

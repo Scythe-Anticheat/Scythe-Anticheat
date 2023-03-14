@@ -117,28 +117,6 @@
 				}
 			}
 		},
-		"controller.animation.keepInventory": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"keepInventory": "query.mark_variant == 1"
-					}],
-					"on_entry": [
-						"/scoreboard players set scythe:config keepinventory 0",
-						"/scoreboard players set @a keepinventory 0"
-					]
-				},
-				"keepInventory": {
-					"transitions": [{
-						"default": "query.mark_variant != 1"
-					}],
-					"on_entry": [
-						"/scoreboard players set scythe:config keepinventory 1",
-						"/scoreboard players set @a keepinventory 1"
-					]
-				}
-			}
-		},
 		"controller.animation.invalid_offhand": {
 			"states": {
 				"default": {

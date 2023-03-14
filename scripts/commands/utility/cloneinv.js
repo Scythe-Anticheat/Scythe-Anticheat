@@ -13,7 +13,7 @@ export function cloneinv(message, args) {
 
     const player = message.sender;
 
-    if(!args.length) return player.tell("§r§6[§aScythe§6]§r You need to provide whos inventory to view.");
+    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide whos inventory to view.");
     
     // try to find the player requested
     let member;
@@ -23,7 +23,7 @@ export function cloneinv(message, args) {
         break;
     }
     
-    if(!member) return player.tell("§r§6[§aScythe§6]§r Couldn't find that player.");
+    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     const playerInv = player.getComponent('inventory').container;
     const memberInv = member.getComponent('inventory').container;
@@ -31,12 +31,12 @@ export function cloneinv(message, args) {
     for(let i = 0; i < memberInv.size; i++) {
         const item = memberInv.getItem(i);
         if(!item) {
-            playerInv.clearItem(i);
+            playerInv.setItem(i, undefined);
             continue;
         }
 
         playerInv.setItem(i, item);
     }
 
-    player.tell(`§r§6[§aScythe§6]§r You have cloned ${member.name}'s inventory.`);
+    player.sendMessage(`§r§6[§aScythe§6]§r You have cloned ${member.name}'s inventory.`);
 }
