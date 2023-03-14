@@ -268,8 +268,8 @@ Minecraft.system.runInterval(() => {
 
 			// fly/a
 			if(config.modules.flyA.enabled && Math.abs(playerVelocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
-				const pos1 = new Minecraft.BlockLocation(player.location.x + 2, player.location.y + 2, player.location.z + 2);
-				const pos2 = new Minecraft.BlockLocation(player.location.x - 2, player.location.y - 1, player.location.z - 2);
+				const pos1 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
+				const pos2 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 
 				const isNotInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).typeId !== "minecraft:air");
 
@@ -354,8 +354,8 @@ World.events.blockPlace.subscribe((blockPlace) => {
 	}
 
 	if(config.modules.commandblockexploitH.enabled && block.typeId === "minecraft:hopper") {
-		const pos1 = new Minecraft.BlockLocation(block.location.x + 2, block.location.y + 2, block.location.z + 2);
-		const pos2 = new Minecraft.BlockLocation(block.location.x - 2, block.location.y - 2, block.location.z - 2);
+		const pos1 = {x: block.location.x + 2, y: block.location.y + 2, z: block.location.z + 2};
+		const pos2 = {x: block.location.x - 2, y: block.location.y - 2, z: block.location.z - 2};
 
 		let foundDispenser = false;
 		pos1.blocksBetween(pos2).some((block) => {
@@ -368,13 +368,13 @@ World.events.blockPlace.subscribe((blockPlace) => {
 
 		if(foundDispenser)
 			player.dimension
-				.getBlock(new Minecraft.BlockLocation(block.location.x, block.location.y, block.location.z))
+				.getBlock({x:block.location.x, y: block.location.y, z: block.location.z})
 				.setType(Minecraft.MinecraftBlockTypes.air);
 	}
 
 	if(config.modules.towerA.enabled) {
 		// get block under player
-		const blockUnder = player.dimension.getBlock(new Minecraft.BlockLocation(Math.floor(player.location.x), Math.floor(player.location.y) - 1, Math.floor(player.location.z)));
+		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 		
 		if(!player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost) && !player.hasTag("flying") && player.hasTag("jump") && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
@@ -439,7 +439,7 @@ World.events.blockBreak.subscribe((blockBreak) => {
 	if(revertBlock) {
 		// killing all the items it drops
 		const droppedItems = dimension.getEntities({
-			location: new Minecraft.Location(block.location.x, block.location.y, block.location.z),
+			location:{x: block.location.x, y: block.location.y, z: block.location.z},
 			minDistance: 0,
 			maxDistance: 2,
 			type: "item"
@@ -596,8 +596,8 @@ World.events.entitySpawn.subscribe((entityCreate) => {
 		}
 
 		if(config.modules.commandblockexploitG.blockSummonCheck.includes(entity.typeId)) {
-			const pos1 = new Minecraft.BlockLocation(entity.location.x + 2, entity.location.y + 2, entity.location.z + 2);
-			const pos2 = new Minecraft.BlockLocation(entity.location.x - 2, entity.location.y - 2, entity.location.z - 2);
+			const pos1 = {x: entity.location.x + 2, y: entity.location.y + 2, z: entity.location.z + 2};
+			const pos2 = {x: entity.location.x - 2, y: entity.location.y - 2, z: entity.location.z - 2};
 
 			pos1.blocksBetween(pos2).some((block) => {
 				const blockType = block.dimension.getBlock(block);
@@ -644,7 +644,7 @@ World.events.entitySpawn.subscribe((entityCreate) => {
 
 	if(config.misc_modules.antiArmorStandCluster.enabled && entity.typeId === "minecraft:armor_stand") {
 		const entities = [...entity.dimension.getEntities({
-			location: new Minecraft.Location(entity.location.x, entity.location.y, entity.location.z),
+			location: {x: entity.location.x, y: entity.location.y, z: entity.location.z},
 			maxDistance: config.misc_modules.antiArmorStandCluster.radius,
 			type: "armor_stand"
 		})];

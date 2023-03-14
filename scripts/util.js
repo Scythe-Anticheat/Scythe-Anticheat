@@ -58,8 +58,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // cancel the message
     if(typeof cancelObject === "object") cancelObject.cancel = true;
 
-    if(shouldTP && check !== "Crasher") player.teleport(new Minecraft.Location(player.location.x, player.location.y, player.location.z), player.dimension, playerRotation.x, playerRotation.y, false);
-        else if(shouldTP && check === "Crasher") player.teleport(new Minecraft.Location(30000000, 30000000, 30000000), player.dimension, 0, 0);
+    if(shouldTP && check !== "Crasher") player.teleport({x: player.location.x, y: player.location.y, z: player.location.z}, player.dimension, playerRotation.x, playerRotation.y, false);
+        else if(shouldTP && check === "Crasher") player.teleport({x: 30000000, y: 30000000, z: 30000000}, player.dimension, 0, 0);
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 
@@ -205,7 +205,7 @@ export function banMessage(player) {
 
     const nearestPlayer = [...entity.dimension.getPlayers({
         closest: 1,
-        location: new Minecraft.Location(entity.location.x, entity.location.y, entity.location.z)
+        location: {x: entity.location.x, y: entity.location.y, z: entity.location.z}
     })][0];
 
     return nearestPlayer;
