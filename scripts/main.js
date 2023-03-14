@@ -63,6 +63,8 @@ Minecraft.system.runInterval(() => {
 	// run as each player
 	for (const player of World.getPlayers()) {
 		try {
+			const selectedSlot = player.selectedSlot;
+
 			if(player.isGlobalBanned) {
 				player.addTag("by:Scythe Anticheat");
 				player.addTag("reason:You are Scythe Anticheat global banned!");
@@ -74,7 +76,7 @@ Minecraft.system.runInterval(() => {
 
 			if(player.blocksBroken >= 1 && config.modules.nukerA.enabled) player.blocksBroken = 0;
 			if(player.entitiesHit?.length >= 1 && config.modules.killauraC.enabled) player.entitiesHit = [];
-			if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
+			if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== selectedSlot) {
 				player.flagAutotoolA = true;
 				player.autotoolSwitchDelay = Date.now() - player.startBreakTime;
 			}
@@ -129,7 +131,7 @@ Minecraft.system.runInterval(() => {
 			}
 
 			const container = player.getComponent('inventory').container;
-			for (let i = 0; i < container.size; i++) {
+			for (let i = 0; i < 36; i++) {
 				const item = container.getItem(i);
 				if(!item) continue;
 
@@ -209,7 +211,9 @@ Minecraft.system.runInterval(() => {
 				if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled || config.modules.badenchantsE.enabled) {
 					const itemEnchants = item.getComponent("enchantments").enchantments;
 
+
 					const item2 = new Minecraft.ItemStack(itemType, 1);
+          
 					const item2Enchants = item2.getComponent("enchantments").enchantments;
 					const enchantments = [];
 					
@@ -283,12 +287,12 @@ Minecraft.system.runInterval(() => {
 			}
 
 			// BadPackets[4] = checks for invalid selected slot
-			if(config.modules.badpackets4.enabled && player.selectedSlot < 0 || player.selectedSlot > 8) {
-				flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${player.selectedSlot}`);
+			if(config.modules.badpackets4.enabled && selectedSlot < 0 || selectedSlot > 8) {
+				flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${selectedSlot}`);
 				player.selectedSlot = 0;
 			}
 
-			if(player.hasTag("freeze") && player.selectedSlot !== 0) player.selectedSlot = 0;
+			if(player.hasTag("freeze") && selectedSlot !== 0) player.selectedSlot = 0;
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
