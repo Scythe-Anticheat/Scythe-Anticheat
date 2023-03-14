@@ -39,7 +39,7 @@ export function invsee(message, args) {
         const item = container.getItem(i);
         if(!item) continue;
 
-        inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId}:${item.data} x${item.amount}\n`;
+        inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId} x${item.amount}\n`;
 
         if(config.customcommands.invsee.show_enchantments) {
             const loopIterator = (iterator) => {

@@ -517,7 +517,12 @@ export default
             "max_y_pos_diff": 0.35,
             "punishment": "none",
             "minVlbeforePunishment": 0
-        }
+        },
+        "illegalitemsN": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
+        },
     },
     "misc_modules": {
         "antiArmorStandCluster": {

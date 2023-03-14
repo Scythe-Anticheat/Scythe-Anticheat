@@ -75,12 +75,13 @@ To run any chat commands or be able to use certain blocks please type ```!op``` 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Cancel placement of illegal items.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(F) => Checks if an item has a name longer than 32 characters.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(G) => Checks if a player used fireworks rocket with flight duration greater than 3.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(H) => Checks if a player places an invalid piston.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(I) => Checks if a player places a chest with items already inside it.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(J) => Checks if a player places a sign with text already inside it.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(K) => Checks if a player places a chest boat/minecart with items already inside it.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(L) => Checks for keep on death items.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(H) => Checks if a player places an invalid piston.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(I) => Checks if a player places a chest with items already inside it.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(J) => Checks if a player places a sign with text already inside it.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(K) => Checks if a player places a chest boat/minecart with items already inside it\*.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(L) => Checks for keep on death items.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(M) => Checks for unexpected item in offhand.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(N) => Checks for placing a shulker box with illegal items.\*<br />
 
   InstaBreak -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player breaks an unbreakable block whilst in survival.\*<br />

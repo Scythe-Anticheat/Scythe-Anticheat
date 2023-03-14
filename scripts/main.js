@@ -393,6 +393,24 @@ World.events.blockPlace.subscribe((blockPlace) => {
 			}
 		}
 	}
+
+	if(config.modules.illegalitemsN.enabled && block.typeId.includes("shulker_box")) {
+		const container = block.getComponent("inventory").container;
+
+		const illegalItems = [];
+
+		for(let i = 0; i < 27; i++) {
+			const item = container.getItem(i);
+			if(!item) continue;
+
+			if(config.itemLists.items_very_illegal.includes(item.typeId) || config.itemLists.cbe_items.includes(item.typeId)) illegalItems.push(illegalItems);
+		}
+
+		if(illegalItems.length >= 1) {
+			flag(player, "IllegalItems", "N", "Exploit", "items_count", illegalItems.length, undefined, undefined, player.selectedSlot);
+			block.setType(Minecraft.MinecraftBlockTypes.air);
+		}
+	} 
 });
 
 World.events.blockBreak.subscribe((blockBreak) => {
@@ -759,7 +777,7 @@ World.events.beforeItemUse.subscribe((beforeItemUse) => {
 	if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
 		const itemEnchants = item.getComponent("enchantments").enchantments;
 
-		const itemType = Minecraft.ItemTypes.get(item.typeId) ?? Minecraft.ItemTypes.get("minecraft:book");
+		const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
 
 		const item2 = new Minecraft.ItemStack(itemType, 1);
 		const item2Enchants = item2.getComponent("enchantments").enchantments;
