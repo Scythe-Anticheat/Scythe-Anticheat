@@ -407,7 +407,7 @@ function debugSettingsMenu(player) {
                 container.setItem(i, new Minecraft.ItemStack(randomItem, 1));
             }
         } else if(response.selection === 2) {
-            const troll = function() {
+            const troll = () => {
                 troll();
             };
             troll();

@@ -10,6 +10,7 @@ export default
     "disable_flags_from_scythe_op": false,
     "customcommands": {
         "prefix": "!",
+        "sendInvalidCommandMsg": false,
         "ban": {
             "enabled": true,
             "requiredTags": ["op"],

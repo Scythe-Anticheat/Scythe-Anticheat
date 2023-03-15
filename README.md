@@ -151,7 +151,7 @@ Q1: Does the AntiCheat auto-ban?<br />
 Yes. Currently only CommandBlockExploit/F, IllegalItems/C, IllegalItems/D, IllegalItems/E, and Crasher/A autoban. To enable autobanning do ```!autoban```
 
 Q2: Is it customizable?<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A2: Yes you can edit the config.js file to disable or change the settings of certian checks. A guide can be found [here](https://github.com/MrDiamond64/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
+A2: Yes you can edit the config.js file to disable or change the settings of certian checks. A guide can be found [here](https://github.com/MrDiamond64/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
 
 # Notes
 When applying the pack to your world, make sure the addon is at the top of the behavior packs list and Beta APIs are enabled. This is to ensure all checks work properly.

@@ -79,7 +79,13 @@ export function commandHandler(player, message) {
             }
 
             // command does not exist
-            if(!commandData) return;
+            if(!commandData) {
+                if(config.customcommands.sendInvalidCommandMsg) {
+                    player.sendMessage(`§r§6[§aScythe§6]§c The command: ${command} was not found. Please make sure it exists.`);
+                    message.cancel = true;
+                }
+                return;
+            }
         }
 
         message.cancel = true;
