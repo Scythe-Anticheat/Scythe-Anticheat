@@ -11,13 +11,13 @@
 </div>
 
 # How To Setup
-To install this anticheat to your server, you wll need to install the .mcpack to your device, apply it to your server and enable Beta APIs in world settings. Once you have done the instructions, the anticheat should be fully up and running.
+To install this anticheat to your realm, you wll need to install the .mcpack to your device, apply it to your server and enable Beta APIs in world settings. Once you have done that, the anticheat should be fully up and running.
 
-To be able to receive anti-cheat alerts, run the command: ```/function notify```.
+To be able to receive anticheat alerts, run the command: ```!notify```.
 
-To run any chat commands or be able to use certain blocks please type ```!op``` in chat. This command requires you to have operator permissions on the server and have Beta APIs enabled.
+To run any chat commands or be able to use certain blocks please type ```/function op``` in chat. This command requires you to have operator permissions on the server and have Beta APIs enabled.
 
-# List of hacks detected by Scythe AntiCheat
+# Hacks detected by Scythe AntiCheat
 *\* indicates that the check requires Beta APIs to be enabled in world settings.*<br />
   AutoClicker -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS.\*<br />
@@ -129,29 +129,29 @@ To run any chat commands or be able to use certain blocks please type ```!op``` 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Alerts staff if a player finds a diamond or ancient debris.
 
 # Extra Commands
-To receive anti-cheat alerts use: ```/function notify```
+To receive anti-cheat alerts use: ```!notfy```
 
-To ban a player use: ```/execute <playername> ~~~ function ban```
+To ban a player use: ```!ban <player> [time] [reason]```
 
-To freeze a player use: ```/execute <playername> ~~~ function tools/freeze```
+To freeze a player use: ```!freeze <player>```
 
-To enter vanish use: ```/function tools/vanish```
+To enter vanish use: ```!vanish```
 
-To be able to fly in survival mode use: ```/function tools/fly```
+To be able to fly in survival mode use: ```!fly [player]```
 
-To view a players anticheat logs use: ```/execute <playername> ~~~ function tools/stats```
+To view a players anticheat logs use: ```!stats <player>```
 
-To clear someones ender chest use: ```/execute <playername> ~~~ function tools/ecwipe```
+To clear someones ender chest use: ```!ecwipe <player>```
 
-Additionally, there are custom features you can enable like anti-gamemode change to further enhance your realm security, these options can be used by /function settings/<name>
+Additionally, there are custom features you can enable like anti-gamemode change to further enhance your realm security, these options can be listed with ```!modules```
 
 # FAQ
 
 Q1: Does the AntiCheat auto-ban?<br />
-Yes. Currently only CommandBlockExploit/F, IllegalItems/C, IllegalItems/D, IllegalItems/E, and Crasher/A autoban. To enable autobanning do /function settings/autoban
+Yes. Currently only CommandBlockExploit/F, IllegalItems/C, IllegalItems/D, IllegalItems/E, and Crasher/A autoban. To enable autobanning do ```!autoban```
 
 Q2: Is it customizable?<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A2: Yes using /function settings/<name> or by modifying the .mcfunction files
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A2: Yes you can edit the config.js file to disable or change the settings of certian checks. A guide can be found [here](https://github.com/MrDiamond64/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
 
 # Notes
-When applying the pack to your world make sure the addon is at the top of the behavior pack list and GameTest Framework is enabled. This is to ensure all checks and systems work properly.
+When applying the pack to your world, make sure the addon is at the top of the behavior packs list and Beta APIs are enabled. This is to ensure all checks work properly.
