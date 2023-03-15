@@ -31,3 +31,5 @@ tellraw @s[scores={autoclicker=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§
 tellraw @s[scores={autoclicker=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Autoclicker is currently §4DISABLED"}]}
 tellraw @s[scores={autoban=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Auto-Banning is currently §4DISABLED"}]}
 tellraw @s[scores={autoban=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Auto-Banning is currently §aENABLED"}]}
+tellraw @s[scores={invalidsprint=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Invalid-Sprint is currently §4DISABLED"}]}
+tellraw @s[scores={invalidsprint=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Invalid-Sprint is currently §aENABLED"}]}

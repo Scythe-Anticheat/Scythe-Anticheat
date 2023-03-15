@@ -5,8 +5,8 @@ scoreboard players operation @s gametestapi = scythe:config gametestapi
 tellraw @s {"rawtext":[{"text":"\n§l§aScythe AntiCheat Command Help"}]}
 
 # alert the player if gametest is disabled
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"\n§l§4Gametest is disabled in this world."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§l§4Please enable gametest and education edition in world settings to ensure all features work properly."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"\n§l§4Beta APIs are disabled in this world."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§l§4Please enable Beta APIs and Education Edition in world settings to ensure all features work properly."}]}
 
 tellraw @s {"rawtext":[{"text":"\n§l§aModeration Commands"}]}
 
@@ -31,19 +31,19 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/tag <player name> 
 tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
 # Gametest enabled
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!modules§r - View all enabled or disabled modules."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!autoban§r - Enables/disables auto-banning."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables anti-autoclicker."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!bedrockValidate§r - Enables/disables validation of bedrock (Such as in the nether roof or at y=-64)."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!invalidsprint§r - Enables/disables anti-invalidsprint."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!npc§r - Enables/disables killing all NPCs."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!overideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3!xray§r - Enables/disables anti-xray."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!modules§r - View all enabled or disabled modules."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoban§r - Enables/disables auto-banning."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables anti-autoclicker."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!bedrockValidate§r - Enables/disables validation of bedrock (Such as in the nether roof or at y=-64)."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invalidsprint§r - Enables/disables anti-invalidsprint."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/disables killing all NPCs."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!xray§r - Enables/disables anti-xray."}]}
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/modules§r - View all enabled or disabled modules."}]}
