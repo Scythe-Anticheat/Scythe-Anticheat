@@ -2,7 +2,7 @@ import * as Minecraft from "@minecraft/server";
 import config from "./data/config.js";
 import data from "./data/data.js";
 
-const World = Minecraft.world;
+const world = Minecraft.world;
 
 /**
  * @name flag
@@ -63,8 +63,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 
-    if(!World.scoreboard.getObjective(scoreboardObjective)) {
-        World.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
+    if(!world.scoreboard.getObjective(scoreboardObjective)) {
+        world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
     } 
 
     player.runCommandAsync(`scoreboard players add @s ${scoreboardObjective} 1`);
@@ -282,7 +282,7 @@ export function msToTime(ms) {
     if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
 
     try {
-       return World.scoreboard.getObjective(objective).getScore(player.scoreboard);
+       return world.scoreboard.getObjective(objective).getScore(player.scoreboard);
     } catch {
         return defaultValue;
     }

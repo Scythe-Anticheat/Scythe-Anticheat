@@ -1,6 +1,6 @@
 import * as Minecraft from "@minecraft/server";
 
-const World = Minecraft.world;
+const world = Minecraft.world;
 
 /**
  * @name fly
@@ -16,14 +16,14 @@ export function fly(message, args) {
     // try to find the player requested
     let member;
     
-    for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0]?.toLowerCase().replace(/"|\\|@/g, ""))) {
+    for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0]?.toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl; 
         break;
     }
     
     if(!member) member = player;
 
-    const checkGmc = World.getPlayers({
+    const checkGmc = world.getPlayers({
         excludeGameModes: [Minecraft.GameMode.creative, Minecraft.GameMode.spectator],
         name: member.name
     });

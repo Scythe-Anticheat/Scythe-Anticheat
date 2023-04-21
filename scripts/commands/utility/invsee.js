@@ -1,7 +1,7 @@
 import * as Minecraft from "@minecraft/server";
 import config from "../../data/config.js";
 
-const World = Minecraft.world;
+const world = Minecraft.world;
 
 // found the inventory viewing scipt in the bedrock addons discord, unsure of the original owner (not my code)
 /**
@@ -20,7 +20,7 @@ export function invsee(message, args) {
     // try to find the player requested
     let member;
 
-    for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+    for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl;
         break;
     }

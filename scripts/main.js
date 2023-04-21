@@ -6,11 +6,11 @@ import { banList } from "./data/globalban.js";
 import data from "./data/data.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 
-const World = Minecraft.world;
+const world = Minecraft.world;
 
 if(config.debug) console.warn(`${new Date().toISOString()} | Im not a ******* and this actually worked :sunglasses:`);
 
-World.events.beforeChat.subscribe(msg => {
+world.events.beforeChat.subscribe(msg => {
 	const message = msg.message.toLowerCase();
 	const player = msg.sender;
 
@@ -48,10 +48,10 @@ World.events.beforeChat.subscribe(msg => {
 	// also filter for non ASCII characters and remove them in messages
 	if(!msg.cancel) {
 		if(player.name !== player.nameTag && !config.modules.filterUnicodeChat) {
-			World.sendMessage(`<${player.nameTag}> ${msg.message}`);
+			world.sendMessage(`<${player.nameTag}> ${msg.message}`);
 			msg.cancel = true;
 		} else if(player.name === player.nameTag && config.modules.filterUnicodeChat) {
-			World.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
+			world.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
 			msg.cancel = true;
 		}
 	}
@@ -61,7 +61,7 @@ Minecraft.system.runInterval(() => {
 	if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
 	// run as each player
-	for (const player of World.getPlayers()) {
+	for (const player of world.getPlayers()) {
 		try {
 			const selectedSlot = player.selectedSlot;
 
@@ -154,14 +154,14 @@ Minecraft.system.runInterval(() => {
 						// patch spawn eggs
 						if(item.typeId.endsWith("_spawn_egg")) {
 							if(config.itemLists.spawnEggs.clearVanillaSpawnEggs && item.typeId.startsWith("minecraft:"))
-							flagPlayer = true;
+								flagPlayer = true;
 
 							if(config.itemLists.spawnEggs.clearCustomSpawnEggs && !item.typeId.startsWith("minecraft:"))
 								flagPlayer = true;
 						}
 			
 						if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) {
-							const checkGmc = World.getPlayers({
+							const checkGmc = world.getPlayers({
 								excludeGameModes: [Minecraft.GameMode.creative],
 								name: player.name
 							});
@@ -200,7 +200,6 @@ Minecraft.system.runInterval(() => {
 					anti32k checks. In older versions, this error will also make certian players not get checked
 					leading to a Scythe Semi-Gametest Disabler method.
 				*/
-
 				const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
 
 				if(config.modules.resetItemData.enabled && config.modules.resetItemData.items.includes(item.typeId)) {
@@ -300,7 +299,7 @@ Minecraft.system.runInterval(() => {
 	}
 }, 0);
 
-World.events.blockPlace.subscribe((blockPlace) => {
+world.events.blockPlace.subscribe((blockPlace) => {
 	const block = blockPlace.block;
 	const player = blockPlace.player;
 
@@ -380,7 +379,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 			
 			if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
-				const checkGmc = World.getPlayers({
+				const checkGmc = world.getPlayers({
 					excludeGameModes: [Minecraft.GameMode.creative],
 					name: player.name
 				});
@@ -412,7 +411,7 @@ World.events.blockPlace.subscribe((blockPlace) => {
 	} 
 });
 
-World.events.blockBreak.subscribe((blockBreak) => {
+world.events.blockBreak.subscribe((blockBreak) => {
 	const player = blockBreak.player;
 	const dimension = blockBreak.dimension;
 	const block = blockBreak.block;
@@ -443,7 +442,7 @@ World.events.blockBreak.subscribe((blockBreak) => {
 		that can be used
 	*/
 	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(blockBreak.brokenBlockPermutation.type.id)) {
-		const checkGmc = World.getPlayers({
+		const checkGmc = world.getPlayers({
 			excludeGameModes: [Minecraft.GameMode.creative],
 			name: player.name
 		});
@@ -469,7 +468,7 @@ World.events.blockBreak.subscribe((blockBreak) => {
 	}
 });
 
-World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
+world.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 	const player = beforeItemUseOn.source;
 	const item = beforeItemUseOn.item;
 
@@ -503,7 +502,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 			}
 
 			if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) {
-				const checkGmc = World.getPlayers({
+				const checkGmc = world.getPlayers({
 					excludeGameModes: [Minecraft.GameMode.creative],
 					name: player.name
 				});
@@ -525,7 +524,7 @@ World.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 	if(player.hasTag("freeze")) beforeItemUseOn.cancel = true;
 });
 
-World.events.playerSpawn.subscribe((playerJoin) => {
+world.events.playerSpawn.subscribe((playerJoin) => {
 	const player = playerJoin.player;
 
 	// declare all needed variables in player
@@ -588,7 +587,7 @@ World.events.playerSpawn.subscribe((playerJoin) => {
 	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
 });
 
-World.events.entitySpawn.subscribe((entityCreate) => {
+world.events.entitySpawn.subscribe((entityCreate) => {
 	const entity = entityCreate.entity;
 
 	if(config.modules.itemSpawnRateLimit.enabled) {
@@ -675,7 +674,7 @@ World.events.entitySpawn.subscribe((entityCreate) => {
 	}
 });
 
-World.events.entityHit.subscribe((entityHit) => {
+world.events.entityHit.subscribe((entityHit) => {
 	const entity = entityHit.hitEntity;
 	const block = entityHit.hitBlock;
 	const player = entityHit.entity;
@@ -698,7 +697,7 @@ World.events.entityHit.subscribe((entityHit) => {
 			if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag || entity.typeId} with a distance of ${distance}`);
 
 			if(distance > config.modules.reachA.reach && entity.typeId.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.typeId)) {
-				const checkGmc = World.getPlayers({
+				const checkGmc = world.getPlayers({
 					excludeGameModes: [Minecraft.GameMode.creative],
 					name: player.name
 				});
@@ -751,7 +750,7 @@ World.events.entityHit.subscribe((entityHit) => {
 	if(config.debug) console.warn(player.getTags());
 });
 
-World.events.beforeItemUse.subscribe((beforeItemUse) => {
+world.events.beforeItemUse.subscribe((beforeItemUse) => {
 	const item = beforeItemUse.item;
 	const player = beforeItemUse.source;
 
@@ -837,8 +836,8 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
 });
 
 // when using /reload, the variables defined in playerJoin dont persist
-if([...World.getPlayers()].length >= 1) {
-	for(const player of World.getPlayers()) {
+if([...world.getPlayers()].length >= 1) {
+	for(const player of world.getPlayers()) {
 		if(config.modules.nukerA.enabled) player.blocksBroken = 0;
 		if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
 		if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;

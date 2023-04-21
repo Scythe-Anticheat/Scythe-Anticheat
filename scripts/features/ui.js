@@ -6,7 +6,7 @@ import data from "../data/data.js";
 import { parseTime } from "../util.js";
 import { addOp, removeOp } from "../commands/moderation/op.js";
 
-const World = Minecraft.world;
+const world = Minecraft.world;
 
 const playerIcons = [
     "textures/ui/icon_alex.png",
@@ -26,7 +26,7 @@ export function mainGui(player, error) {
 		.body(text)
 		.button("Ban Menu", "textures/ui/anvil_icon.png")
         .button("Configure Settings", "textures/ui/gear.png")
-        .button(`Manage Players\n§8§o${[...World.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
+        .button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
         .button("Server Options", "textures/ui/servers.png")
         .button("Exit", "textures/ui/redX1.png");
     if(config.debug) mainGui.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
@@ -69,7 +69,7 @@ function banMenuSelect(player, selection) {
         .title("Ban Menu")
         .body("Please select a player to manage.");
     
-    for (const plr of World.getPlayers()) {
+    for (const plr of world.getPlayers()) {
         let playerName = `${plr.name}`;
         if(plr.id === player.id) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
@@ -81,9 +81,9 @@ function banMenuSelect(player, selection) {
     banMenuSelect.show(player).then((response) => {
         if(response.canceled) return banMenu(player);
 
-        if([...World.getPlayers()].length > response.selection) {
-            if(selection === 0) kickPlayerMenu(player, [...World.getPlayers()][response.selection]);
-            if(selection === 1) banPlayerMenu(player, [...World.getPlayers()][response.selection]);
+        if([...world.getPlayers()].length > response.selection) {
+            if(selection === 0) kickPlayerMenu(player, [...world.getPlayers()][response.selection]);
+            if(selection === 1) banPlayerMenu(player, [...world.getPlayers()][response.selection]);
         } else banMenu(player);
     });
 }
@@ -197,7 +197,7 @@ function playerSettingsMenu(player) {
         .title("Player Menu")
         .body("Please select a player to manage.");
     
-    for (const plr of World.getPlayers()) {
+    for (const plr of world.getPlayers()) {
         let playerName = `${plr.name}`;
         if(plr.id === player.id) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
@@ -207,7 +207,7 @@ function playerSettingsMenu(player) {
     playerSettingsMenu.button("Back", "textures/ui/arrow_left.png");
 
     playerSettingsMenu.show(player).then((response) => {
-        if([...World.getPlayers()].length > response.selection) playerSettingsMenuSelected(player, [...World.getPlayers()][response.selection]);
+        if([...world.getPlayers()].length > response.selection) playerSettingsMenuSelected(player, [...world.getPlayers()][response.selection]);
             else mainGui(player);
     });
 }

@@ -1,7 +1,7 @@
 import * as Minecraft from "@minecraft/server";
 import { parseTime } from "../../util.js";
 
-const World = Minecraft.world;
+const world = Minecraft.world;
 
 /**
  * @name ban
@@ -27,7 +27,7 @@ export function ban(message, args) {
     // try to find the player requested
     let member;
 
-    for (const pl of World.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+    for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl;
         break;
     }
