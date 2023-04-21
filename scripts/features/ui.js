@@ -391,8 +391,8 @@ function debugSettingsMenu(player) {
             const container = player.getComponent("inventory").container;
 
             const totalItems = [];
-            for (let i = 0; i < 36; i++) {
-                if(container.getItem(i)?.nameTag === config.customcommands.gui.gui_item_name) continue;
+            for(let i = 0; i < 36; i++) {
+                if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
 
                 const allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
                 const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
