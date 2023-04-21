@@ -48,7 +48,7 @@ world.events.beforeChat.subscribe(msg => {
 	// also filter for non ASCII characters and remove them in messages
 	if(!msg.cancel) {
 		if(player.name !== player.nameTag && !config.modules.filterUnicodeChat) {
-			world.sendMessage(`<${player.nameTag}> ${msg.message}`);
+			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
 			msg.cancel = true;
 		} else if(player.name === player.nameTag && config.modules.filterUnicodeChat) {
 			world.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
