@@ -72,7 +72,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!vanish§r - Enable
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <nametag>§r - Adds tag to username in chat window (use \"reset\" to get rid of it)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!tag <player> <nametag>§r - Adds tag to username in chat window for specific users (use \"reset\" to get rid of it)."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> [reason]§r - Report a player."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gui§r - Opens the Scythe Management UI."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!ui§r - Opens the Scythe Management UI."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invsee <player>§r - View another players inventory."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!resetwarns <player>§r - Reset a players violations."}]}
 
