@@ -212,7 +212,6 @@ Minecraft.system.runInterval(() => {
 				if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled || config.modules.badenchantsE.enabled) {
 					const itemEnchants = item.getComponent("enchantments").enchantments;
 
-
 					const item2 = new Minecraft.ItemStack(itemType, 1);
           
 					const item2Enchants = item2.getComponent("enchantments").enchantments;
@@ -220,7 +219,7 @@ Minecraft.system.runInterval(() => {
 					
 					const loopIterator = (iterator) => {
 						const iteratorResult = iterator.next();
-						if(iteratorResult) return;
+						if(iteratorResult.done) return;
 						const enchantData = iteratorResult.value;
 
 						// badenchants/A = checks for items with invalid enchantment levels
