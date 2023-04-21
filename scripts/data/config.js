@@ -147,6 +147,11 @@ export default
         },
         "tag": {
             "enabled": true,
+            // The color of the tag name, inside the brackets
+            // Players can still choose their own tag color by adding a color code right before the tag.
+            "mainColor": "§a",
+            // The color of the tag name, aka the brackets
+            "borderColor": "§8",
             "requiredTags": ["op"],
             "aliases": ["rank"]
         },

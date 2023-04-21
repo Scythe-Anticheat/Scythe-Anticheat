@@ -1,4 +1,5 @@
 import * as Minecraft from "@minecraft/server";
+import config from "../../data/config.js";
 
 const world = Minecraft.world;
 
@@ -41,7 +42,9 @@ export function tag(message, args) {
     }
 
     const tag = args.join(" ").replace(/"|\\/g, "");
-    const nametag = `§8[§r${tag}§8]§r ${member.name}`.replace(/"|\\/g, "");
+    const { mainColor, borderColor} = config.customcommands.tag;
+
+    const nametag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${member.name}`.replace(/"|\\/g, "");
 
     member.nameTag = nametag;
 
