@@ -11,6 +11,6 @@ execute @s[type=player,tag=op,scores={bedrock=1..,gametestapi=1..}] ~~~ scoreboa
 execute @s[type=player,tag=op,scores={bedrock=1..,gametestapi=1..}] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has disabled §4BedrockValidate."}]}
 
 # gametest not enabled
-tellraw @s[type=player,tag=op,scores={gametestapi=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Error: GameTest Framework is required for this function."}]}
+tellraw @s[type=player,tag=op,scores={gametestapi=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"Error: Gametest Framework is required for this function."}]}
 
 scoreboard players operation @a bedrock = scythe:config bedrock

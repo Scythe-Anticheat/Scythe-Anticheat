@@ -23,7 +23,7 @@ world.events.beforeChat.subscribe(msg => {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
 	}
 
-	// BadPackets/2 = checks for invalid chat message lengths
+	// BadPackets[2] = checks for invalid chat message length
 	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
 
 	// Spammer/A = checks if someone sends a message while moving and on ground
@@ -323,7 +323,7 @@ world.events.blockPlace.subscribe((blockPlace) => {
 		const emptySlots = container.emptySlotsCount;
 		if(container.size > 27) startNumber = container.size / 2;
 	
-		for(let i = startNumber; i < container.size; i++) {
+		for (let i = startNumber; i < container.size; i++) {
 			const item = container.getItem(i);
 			if(!item) continue;
 
@@ -397,7 +397,7 @@ world.events.blockPlace.subscribe((blockPlace) => {
 
 		const illegalItems = [];
 
-		for(let i = 0; i < 27; i++) {
+		for (let i = 0; i < 27; i++) {
 			const item = container.getItem(i);
 			if(!item) continue;
 
@@ -649,7 +649,7 @@ world.events.entitySpawn.subscribe((entityCreate) => {
 			const container = entity.getComponent("inventory").container;
 
 			if(container.size !== container.emptySlotsCount) {
-				for(let i = 0; i < container.size; i++) {
+				for (let i = 0; i < container.size; i++) {
 					container.setItem(i, undefined);
 				}
 
@@ -669,7 +669,7 @@ world.events.entitySpawn.subscribe((entityCreate) => {
 		if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
 			entity.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area."}]}`);
 
-			for(const entityLoop of entities) entityLoop.kill();
+			for (const entityLoop of entities) entityLoop.kill();
 		}
 	}
 });
@@ -837,7 +837,7 @@ Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTermina
 
 // when using /reload, the variables defined in playerJoin dont persist
 if([...world.getPlayers()].length >= 1) {
-	for(const player of world.getPlayers()) {
+	for (const player of world.getPlayers()) {
 		if(config.modules.nukerA.enabled) player.blocksBroken = 0;
 		if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
 		if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;

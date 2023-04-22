@@ -46,8 +46,8 @@ const prefix = config.customcommands.prefix;
  */
 export function commandHandler(player, message) {
     // validate that required params are defined
-    if (typeof player !== "object") throw TypeError(`player is type of ${typeof player}. Expected "object"`);
-    if (typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object"`);
+    if(typeof player !== "object") throw TypeError(`player is type of ${typeof player}. Expected "object"`);
+    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object"`);
 
     if(config.debug) console.warn(`${new Date().toISOString()} | did run command handler`);
 
@@ -69,7 +69,7 @@ export function commandHandler(player, message) {
             commandName = command;
         } else {
             // check if the command is an alias
-            for(const cmd of Object.keys(config.customcommands)) {
+            for (const cmd of Object.keys(config.customcommands)) {
                 const data = config.customcommands[cmd];
                 if(typeof data !== "object" || !data.aliases || !data.aliases.includes(command)) continue;
 

@@ -81,7 +81,7 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <userna
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/fly§r - Enables/disables the ability to fly."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/freeze§r - Freeze a player and make it so they cant move."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/stats§r - View a specific players anticheat logs."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as<username> run function tools/vanish§r - Enables/disables vanish mode (Used for spying on suspects)."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as<username> run function tools/resetwarns§r - Reset a players violations."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/vanish§r - Enables/disables vanish mode (Used for spying on suspects)."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/resetwarns§r - Reset a players violations."}]}
 
 tellraw @s {"rawtext":[{"text":"\nNeed extra help? Ask your question in the support server: https://discord.gg/9m9TbgJ973.\n"}]}

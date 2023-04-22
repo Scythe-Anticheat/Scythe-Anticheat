@@ -28,7 +28,7 @@ export function cloneinv(message, args) {
     const playerInv = player.getComponent('inventory').container;
     const memberInv = member.getComponent('inventory').container;
 
-    for(let i = 0; i < memberInv.size; i++) {
+    for (let i = 0; i < memberInv.size; i++) {
         const item = memberInv.getItem(i);
         if(!item) {
             playerInv.setItem(i, undefined);
