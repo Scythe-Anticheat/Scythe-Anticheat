@@ -44,21 +44,55 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         }
     }
 
-    const playerRotation = player.getRotation();
+    const rotation = player.getRotation();
 
     // If debug is enabled, then we log everything we know about the player.
     if(config.debug) {
         const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
-        const playerVelocity = player.getVelocity();
-        const playerHeadRotation = player.getHeadLocation();
+        const velocity = player.getVelocity();
+        const headRotation = player.getHeadLocation();
 
-        console.warn(`{"timestamp":${Date.now()},"time":"${new Date().toISOString()}","check":"${check}/${checkType}","hackType":"${hackType}","debug":"${debugName}=${debug}§r","shouldTP":${shouldTP},"slot":"${slot}","playerData":{"playerName":"${player.name}§r","playerNameTag":"${player.nameTag}§r","location":{"x":${player.location.x},"y":${player.location.y},"z":${player.location.z}},"headLocation":{"x":${playerHeadRotation.x},"y":${playerHeadRotation.y},"z":${playerHeadRotation.z}},"velocity":{"x":${playerVelocity.x},"y":${playerVelocity.y},"z":${playerVelocity.z}},"rotation":{"x":${playerRotation.x},"y":${playerRotation.y}},"playerTags":"${String(player.getTags()).replace(/[\r\n"]/gm, "")}","currentItem":"${currentItem?.typeId || "minecraft:air"}","selectedSlot":${player.selectedSlot},"dimension":"${player.dimension.id}","playerDataExtra":{"blocksBroken":${player.blocksBroken || -1},"entitiesHitCurrentTick":"${player.entitiesHit}","entitiesHitCurrentTickSize":${player.entitiesHit?.length || -1},"playerCPS":${player.cps || -1},"firstAttack":${player.firstAttack || -1},"lastSelectedSlot":${player.lastSelectedSlot || -1},"startBreakTime":${player.startBreakTime || -1},"lastThrowTime":${player.lastThrow}}}}`);
+        const data = {
+            timestamp: Date.now(),
+            time: new Date().toISOString(),
+            check: `${check}/${checkType}`,
+            hackType: hackType,
+            debug: `${debugName}=${debug}§r`,
+            shouldTP: shouldTP,
+            slot: slot,
+            playerData: {
+                name: player.name,
+                nametag: player.nameTag,
+                location: player.location,
+                headLocation: headRotation,
+                velocity: velocity,
+                rotation: {
+                    x: rotation.x,
+                    y: rotation.y
+                },
+                tags: String(player.getTags()).replace(/[\r\n"]/gm, ""),
+                currentItem: `${currentItem?.typeId ?? "minecraft:air"}`,
+                selectedSlot: player.selectedSlot,
+                dimension: player.dimension.id,
+                extra: {
+                    blocksBroken: player.blocksBroken || -1,
+                    entitiesHitTick: player.entitiesHit,
+                    cps: player.cps || -1,
+                    firstAttack: player.firstAttack || -1,
+                    lastSelectedSlot: player.lastSelectedSlot || -1,
+                    startBreakTime: player.startBreakTime,
+                    lastThrowTime: player.lastThrow
+                }
+            }
+        };
+
+        console.warn(JSON.stringify(data));
     }
 
     // cancel the message
     if(typeof cancelObject === "object") cancelObject.cancel = true;
 
-    if(shouldTP && check !== "Crasher") player.teleport({x: player.location.x, y: player.location.y, z: player.location.z}, player.dimension, playerRotation.x, playerRotation.y, false);
+    if(shouldTP && check !== "Crasher") player.teleport({x: player.location.x, y: player.location.y, z: player.location.z}, player.dimension, rotation.x, rotation.y, false);
         else if(shouldTP && check === "Crasher") player.teleport({x: 30000000, y: 30000000, z: 30000000}, player.dimension, 0, 0);
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
