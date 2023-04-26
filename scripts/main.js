@@ -555,11 +555,13 @@ world.events.playerSpawn.subscribe((playerJoin) => {
 	player.removeTag("sleeping");
 
 	// load custom nametag
+	const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
+
 	player.getTags().forEach(t => {
 		// load custom nametag
 		if(t.includes("tag:")) {
 			t = t.replace(/"|\\/g, "");
-			player.nameTag = `§8[§r${t.slice(4)}§8]§r ${player.name}`;
+			player.nameTag = `${borderColor}[§r${mainColor}${t.slice(4)}${borderColor}]§r ${playerNameColor}${player.name}`;
 		}
 	});
 
@@ -846,3 +848,13 @@ if([...world.getPlayers()].length >= 1) {
 		if(config.customcommands.report.enabled) player.reports = [];
 	}
 }
+
+/*
+world.events.entityDie.subscribe((entityDie) => {
+	const source = entityDie.damageSource.cause;
+
+	if(source === "override") {
+		console.warn("Player was killed from horion .kill command")
+	}
+});
+*/

@@ -42,9 +42,9 @@ export function tag(message, args) {
     }
 
     const tag = args.join(" ").replace(/"|\\/g, "");
-    const { mainColor, borderColor} = config.customcommands.tag;
+    const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
 
-    const nametag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${member.name}`.replace(/"|\\/g, "");
+    const nametag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${member.name}`.replace(/"|\\/g, "");
 
     member.nameTag = nametag;
 
