@@ -267,14 +267,14 @@ export default
             "minVlbeforePunishment": 1
         },
         "namespoofA": {
-            "enabled": false,
+            "enabled": true,
             "minNameLength": 3,
             "maxNameLength": 16,
             "punishment": "kick",
             "minVlbeforePunishment": 1
         },
         "namespoofB": {
-            "enabled": false,
+            "enabled": true,
             "regex": /[^A-Za-z0-9_\-() ]/,
             "punishment": "kick",
             "minVlbeforePunishment": 1
