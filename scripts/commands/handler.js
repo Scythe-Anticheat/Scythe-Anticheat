@@ -82,7 +82,7 @@ export function commandHandler(player, message) {
             if(!commandData) {
                 if(config.customcommands.sendInvalidCommandMsg) {
                     player.sendMessage(`§r§6[§aScythe§6]§c The command: ${command} was not found. Please make sure it exists.`);
-                    message.cancel = true;
+                    message.sendToTargets = true;
                 }
                 return;
             }

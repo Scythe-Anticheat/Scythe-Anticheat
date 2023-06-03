@@ -23,25 +23,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
 	}
 
-	// BadPackets[2] = checks for invalid chat message length
-	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
-
-	// Spammer/A = checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
-		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
-
-	// Spammer/B = checks if someone sends a message while swinging their hand
-	if(config.modules.spammerB.enabled && player.hasTag('left') && !player.getEffect(Minecraft.MinecraftEffectTypes.miningFatigue))
-		return flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
-
-	// Spammer/C = checks if someone sends a message while using an item
-	if(config.modules.spammerC.enabled && player.hasTag('right'))
-		return flag(player, "Spammer", "C", "Misc", undefined, undefined, undefined, msg);
-
-	// Spammer/D = checks if someone sends a message while having a GUI open
-	if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen'))
-		return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
-
 	// add's user custom tags to their messages if it exists or we fall back
 	// also filter for non ASCII characters and remove them in messages
 	if(!msg.cancel) {
@@ -59,8 +40,26 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	const message = msg.message.toLowerCase();
 	const player = msg.sender;
 
+	// BadPackets[2] = checks for invalid chat message length
+	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
+	// Spammer/A = checks if someone sends a message while moving and on ground
+	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
+		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
+
+	// Spammer/B = checks if someone sends a message while swinging their hand
+	if(config.modules.spammerB.enabled && player.hasTag('left') && !player.getEffect(Minecraft.MinecraftEffectTypes.miningFatigue))
+		return flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
+
+	// Spammer/C = checks if someone sends a message while using an item
+	if(config.modules.spammerC.enabled && player.hasTag('right'))
+		return flag(player, "Spammer", "C", "Misc", undefined, undefined, undefined, msg);
+
+	// Spammer/D = checks if someone sends a message while having a GUI open
+	if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen'))
+		return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
+
 	commandHandler(player, msg);
-});
+})
 
 Minecraft.system.runInterval(() => {
 	if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
@@ -304,9 +303,8 @@ Minecraft.system.runInterval(() => {
 	}
 }, 0);
 
-world.events.blockPlace.subscribe((blockPlace) => {
-	const block = blockPlace.block;
-	const player = blockPlace.player;
+world.afterEvents.blockPlace.subscribe((blockPlace) => {
+	const { block, player} = blockPlace;
 
 	if(config.debug) console.warn(`${player.nameTag} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
 
@@ -416,7 +414,7 @@ world.events.blockPlace.subscribe((blockPlace) => {
 	} 
 });
 
-world.events.blockBreak.subscribe((blockBreak) => {
+world.afterEvents.blockBreak.subscribe((blockBreak) => {
 	const player = blockBreak.player;
 	const dimension = blockBreak.dimension;
 	const block = blockBreak.block;
@@ -473,9 +471,10 @@ world.events.blockBreak.subscribe((blockBreak) => {
 	}
 });
 
-world.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
+/*
+world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 	const player = beforeItemUseOn.source;
-	const item = beforeItemUseOn.item;
+	const item = beforeItemUseOn.itemStack;
 
 	// commandblockexploit/f = cancels the placement of cbe items
 	if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(item.typeId)) {
@@ -487,7 +486,7 @@ world.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 		illegalitems/e = cancels the placement of illegal items
 		illegalitems/a could be bypassed by using a right click autoclicker/autobuild or lag
 		thx drib or matrix_code for telling me lol
-	*/
+	
 	if(config.modules.illegalitemsE.enabled) {
 		// items that are obtainble using commands
 		if(!player.hasTag("op")) {
@@ -528,9 +527,11 @@ world.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 
 	if(player.hasTag("freeze")) beforeItemUseOn.cancel = true;
 });
+*/
 
-world.events.playerSpawn.subscribe((playerJoin) => {
-	const player = playerJoin.player;
+world.afterEvents.playerSpawn.subscribe((playerJoin) => {
+	const { initialSpawn, player } = playerJoin;
+	if(!initialSpawn) return;
 
 	// declare all needed variables in player
 	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
@@ -594,7 +595,7 @@ world.events.playerSpawn.subscribe((playerJoin) => {
 	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
 });
 
-world.events.entitySpawn.subscribe((entityCreate) => {
+world.afterEvents.entitySpawn.subscribe((entityCreate) => {
 	const entity = entityCreate.entity;
 
 	if(config.modules.itemSpawnRateLimit.enabled) {
@@ -681,7 +682,7 @@ world.events.entitySpawn.subscribe((entityCreate) => {
 	}
 });
 
-world.events.entityHit.subscribe((entityHit) => {
+world.afterEvents.entityHit.subscribe((entityHit) => {
 	const entity = entityHit.hitEntity;
 	const block = entityHit.hitBlock;
 	const player = entityHit.entity;
@@ -757,6 +758,7 @@ world.events.entityHit.subscribe((entityHit) => {
 	if(config.debug) console.warn(player.getTags());
 });
 
+/*
 world.events.beforeItemUse.subscribe((beforeItemUse) => {
 	const item = beforeItemUse.item;
 	const player = beforeItemUse.source;
@@ -833,6 +835,7 @@ world.events.beforeItemUse.subscribe((beforeItemUse) => {
 		loopIterator(itemEnchants[Symbol.iterator]());
 	}
 });
+*/
 
 Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTerminate) => {
 	// We try to stop any watchdog crashes incase malicous users try to make the scripts lag
