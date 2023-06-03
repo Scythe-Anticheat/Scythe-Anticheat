@@ -62,7 +62,7 @@ world.afterEvents.chatSend.subscribe((msg) => {
 		return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
 
 	commandHandler(player, msg);
-})
+});
 
 Minecraft.system.runInterval(() => {
 	if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
@@ -761,28 +761,20 @@ world.afterEvents.entityHit.subscribe((entityHit) => {
 	if(config.debug) console.warn(player.getTags());
 });
 
-/*
-world.events.beforeItemUse.subscribe((beforeItemUse) => {
-	const item = beforeItemUse.item;
-	const player = beforeItemUse.source;
-
-	// GUI stuff
-	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && player.hasTag("op")) {
-		mainGui(player);
-		beforeItemUse.cancel = true;
-	}
+world.beforeEvents.itemUse.subscribe((itemUse) => {
+	const { itemStack: item, player } = itemUse;
 
 	if(config.modules.fastuseA.enabled) {
 		const lastThrowTime = Date.now() - player.lastThrow;
 		if(lastThrowTime > config.modules.fastuseA.min_use_delay && lastThrowTime < config.modules.fastuseA.max_use_delay) {
 			flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
-			beforeItemUse.cancel = true;
+			itemUse.cancel = true;
 		}
 		player.lastThrow = Date.now();
 	}
 
 	// patch bypasses for the freeze system
-	if(player.hasTag("freeze")) beforeItemUse.cancel = true;
+	if(player.hasTag("freeze")) itemUse.cancel = true;
 
 	if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
 		const itemEnchants = item.getComponent("enchantments").enchantments;
@@ -838,7 +830,18 @@ world.events.beforeItemUse.subscribe((beforeItemUse) => {
 		loopIterator(itemEnchants[Symbol.iterator]());
 	}
 });
-*/
+
+world.afterEvents.itemUse.subscribe((itemUse) => {
+	const { itemStack: item, source: player } = itemUse;
+
+	// itemUse can be triggered from entities
+	if(player.typeId !== "minecraft:player") return;
+
+	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && player.hasTag("op")) {
+		mainGui(player);
+		itemUse.cancel = true;
+	}
+});
 
 Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTerminate) => {
 	// We try to stop any watchdog crashes incase malicous users try to make the scripts lag

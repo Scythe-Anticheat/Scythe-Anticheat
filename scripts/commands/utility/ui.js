@@ -24,16 +24,18 @@ import config from "../../data/config.js";
         return player.sendMessage("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 
     // creating the item that opens the UI
-    const item = new Minecraft.ItemStack(Minecraft.Items.get(config.customcommands.ui.ui_item), 1);
+    const item = new Minecraft.ItemStack(Minecraft.ItemTypes.get(config.customcommands.ui.ui_item), 1);
 
     item.nameTag = config.customcommands.ui.ui_item_name;
 
     // enchant it since why not
+    /*
     const enchantments = item.getComponent("enchantments").enchantments;
     enchantments.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes.unbreaking, 3));
     
     item.getComponent("enchantments").enchantments = enchantments;
-
+    */
+   
     container.addItem(item);
 
     player.sendMessage("§r§6[§aScythe§6]§r The UI item has been added to your inventory.");
