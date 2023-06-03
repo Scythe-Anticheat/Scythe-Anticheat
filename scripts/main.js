@@ -28,10 +28,10 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	if(!msg.cancel) {
 		if(player.name !== player.nameTag && !config.modules.filterUnicodeChat) {
 			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
-			msg.cancel = true;
+			msg.setTargets([]);
 		} else if(player.name === player.nameTag && config.modules.filterUnicodeChat) {
 			world.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
-			msg.cancel = true;
+			msg.setTargets([]);
 		}
 	}
 });
@@ -40,8 +40,11 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	const message = msg.message.toLowerCase();
 	const player = msg.sender;
 
+	msg.sendToTargets = true;
+
 	// BadPackets[2] = checks for invalid chat message length
 	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
+	
 	// Spammer/A = checks if someone sends a message while moving and on ground
 	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
 		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
