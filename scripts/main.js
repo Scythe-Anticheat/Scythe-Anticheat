@@ -46,7 +46,7 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
 	
 	// Spammer/A = checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
+	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping)
 		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
 
 	// Spammer/B = checks if someone sends a message while swinging their hand
@@ -132,7 +132,7 @@ Minecraft.system.runInterval(() => {
 
 			// NoSlow/A = speed limit check
 			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
-				if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
+				if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.isOnGround && !player.isJumping && !player.isGliding && !player.isSwimming && !player.hasTag("trident") && getScore(player, "right") >= 5) {
 					flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed, true);
 				}
 			}
@@ -269,11 +269,11 @@ Minecraft.system.runInterval(() => {
 			}
 
 			// invalidsprint/a = checks for sprinting with the blindness effect
-			if(config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint'))
+			if(config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.isSprinting)
 				flag(player, "InvalidSprint", "A", "Movement", undefined, undefined, true);
 
 			// fly/a
-			if(config.modules.flyA.enabled && Math.abs(playerVelocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
+			if(config.modules.flyA.enabled && Math.abs(playerVelocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
 				const pos1 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
 				const pos2 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 
@@ -381,7 +381,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		// get block under player
 		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 		
-		if(!player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost) && !player.hasTag("flying") && player.hasTag("jump") && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
+		if(!player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost) && !player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 			
 			if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
