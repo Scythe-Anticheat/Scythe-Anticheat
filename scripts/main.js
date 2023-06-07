@@ -297,8 +297,6 @@ Minecraft.system.runInterval(() => {
 				flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${selectedSlot}`);
 				player.selectedSlot = 0;
 			}
-
-			if(player.hasTag("freeze") && selectedSlot !== 0) player.selectedSlot = 0;
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
@@ -468,7 +466,7 @@ world.afterEvents.blockBreak.subscribe((blockBreak) => {
 			type: "item"
 		});
 
-		for (const item of droppedItems) item.kill();
+		for(const item of droppedItems) item.kill();
 
 		block.setPermutation(blockBreak.brokenBlockPermutation);
 	}
@@ -680,7 +678,7 @@ world.afterEvents.entitySpawn.subscribe((entityCreate) => {
 		if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
 			entity.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area."}]}`);
 
-			for (const entityLoop of entities) entityLoop.kill();
+			for(const entityLoop of entities) entityLoop.kill();
 		}
 	}
 });
@@ -762,12 +760,12 @@ world.afterEvents.entityHit.subscribe((entityHit) => {
 });
 
 world.beforeEvents.itemUse.subscribe((itemUse) => {
-	const { itemStack: item, player } = itemUse;
+	const { source: player } = itemUse;
 
 	if(config.modules.fastuseA.enabled) {
 		const lastThrowTime = Date.now() - player.lastThrow;
 		if(lastThrowTime > config.modules.fastuseA.min_use_delay && lastThrowTime < config.modules.fastuseA.max_use_delay) {
-			flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
+			// flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
 			itemUse.cancel = true;
 		}
 		player.lastThrow = Date.now();
@@ -775,60 +773,6 @@ world.beforeEvents.itemUse.subscribe((itemUse) => {
 
 	// patch bypasses for the freeze system
 	if(player.hasTag("freeze")) itemUse.cancel = true;
-
-	if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
-		const itemEnchants = item.getComponent("enchantments").enchantments;
-
-		const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
-
-		const item2 = new Minecraft.ItemStack(itemType, 1);
-		const item2Enchants = item2.getComponent("enchantments").enchantments;
-		const enchantments = [];
-			
-		const loopIterator = (iterator) => {
-			const iteratorResult = iterator.next();
-			if(iteratorResult.done) return;
-			const enchantData = iteratorResult.value;
-
-			// badenchants/A = checks for items with invalid enchantment levels
-			if(config.modules.badenchantsA.enabled) {
-				const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
-
-				if(typeof maxLevel === "number") {
-					if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-				} else if(enchantData.level > enchantData.type.maxLevel)
-					flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-			}
-
-			// badenchants/B = checks for negative enchantment levels
-			if(config.modules.badenchantsB.enabled && enchantData.level <= 0)
-				flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-
-			// badenchants/C = checks if an item has an enchantment which isnt support by the item
-			if(config.modules.badenchantsC.enabled) {
-				if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(enchantData.type, 1))) {
-					flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-				}
-
-				if(config.modules.badenchantsB.multi_protection) {
-					item2Enchants.addEnchantment(new Minecraft.Enchantment(enchantData.type, 1));
-					item2.getComponent("enchantments").enchantments = item2Enchants;
-				}
-			}
-
-			// BadEnchants/D = checks if an item has duplicated enchantments
-			if(config.modules.badenchantsE.enabled) {
-				if(enchantments.includes(enchantData.type.id)) {
-					enchantments.push(enchantData.type.id);
-					flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(","), false, undefined , player.selectedSlot);
-				}
-				enchantments.push(enchantData.type.id);
-			}
-
-			loopIterator(iterator);
-		};
-		loopIterator(itemEnchants[Symbol.iterator]());
-	}
 });
 
 world.afterEvents.itemUse.subscribe((itemUse) => {
@@ -837,9 +781,8 @@ world.afterEvents.itemUse.subscribe((itemUse) => {
 	// itemUse can be triggered from entities
 	if(player.typeId !== "minecraft:player") return;
 
-	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && player.hasTag("op")) {
+	if(config.customcommands.ui.enabled && player.hasTag("op") && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name) {
 		mainGui(player);
-		itemUse.cancel = true;
 	}
 });
 
@@ -862,13 +805,3 @@ if([...world.getPlayers()].length >= 1) {
 		if(config.customcommands.report.enabled) player.reports = [];
 	}
 }
-
-/*
-world.events.entityDie.subscribe((entityDie) => {
-	const source = entityDie.damageSource.cause;
-
-	if(source === "override") {
-		console.warn("Player was killed from horion .kill command")
-	}
-});
-*/
