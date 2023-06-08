@@ -82,13 +82,13 @@ export function commandHandler(player, message) {
             if(!commandData) {
                 if(config.customcommands.sendInvalidCommandMsg) {
                     player.sendMessage(`§r§6[§aScythe§6]§c The command: ${command} was not found. Please make sure it exists.`);
-                    message.cancel = true;
+                    message.sendToTargets = false;
                 }
                 return;
             }
         }
 
-        message.cancel = true;
+        message.sendToTargets = false;
 
         if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => !player.hasTag(tag))) {
             player.sendMessage("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: /function op");

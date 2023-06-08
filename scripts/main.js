@@ -10,7 +10,7 @@ const world = Minecraft.world;
 
 if(config.debug) console.warn(`${new Date().toISOString()} | Im not a ******* and this actually worked :sunglasses:`);
 
-world.events.beforeChat.subscribe(msg => {
+world.beforeEvents.chatSend.subscribe((msg) => {
 	const message = msg.message.toLowerCase();
 	const player = msg.sender;
 
@@ -23,9 +23,28 @@ world.events.beforeChat.subscribe(msg => {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
 	}
 
+	// add's user custom tags to their messages if it exists or we fall back
+	// also filter for non ASCII characters and remove them in messages
+	if(!msg.cancel) {
+		if(player.name !== player.nameTag && !config.modules.filterUnicodeChat) {
+			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
+			msg.setTargets([]);
+		} else if(player.name === player.nameTag && config.modules.filterUnicodeChat) {
+			world.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
+			msg.setTargets([]);
+		}
+	}
+});
+
+world.afterEvents.chatSend.subscribe((msg) => {
+	const message = msg.message.toLowerCase();
+	const player = msg.sender;
+
+	msg.sendToTargets = true;
+
 	// BadPackets[2] = checks for invalid chat message length
 	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
-
+	
 	// Spammer/A = checks if someone sends a message while moving and on ground
 	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
 		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
@@ -43,18 +62,6 @@ world.events.beforeChat.subscribe(msg => {
 		return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
 
 	commandHandler(player, msg);
-
-	// add's user custom tags to their messages if it exists or we fall back
-	// also filter for non ASCII characters and remove them in messages
-	if(!msg.cancel) {
-		if(player.name !== player.nameTag && !config.modules.filterUnicodeChat) {
-			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
-			msg.cancel = true;
-		} else if(player.name === player.nameTag && config.modules.filterUnicodeChat) {
-			world.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
-			msg.cancel = true;
-		}
-	}
 });
 
 Minecraft.system.runInterval(() => {
@@ -290,8 +297,6 @@ Minecraft.system.runInterval(() => {
 				flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${selectedSlot}`);
 				player.selectedSlot = 0;
 			}
-
-			if(player.hasTag("freeze") && selectedSlot !== 0) player.selectedSlot = 0;
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
@@ -299,9 +304,8 @@ Minecraft.system.runInterval(() => {
 	}
 }, 0);
 
-world.events.blockPlace.subscribe((blockPlace) => {
-	const block = blockPlace.block;
-	const player = blockPlace.player;
+world.afterEvents.blockPlace.subscribe((blockPlace) => {
+	const { block, player} = blockPlace;
 
 	if(config.debug) console.warn(`${player.nameTag} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
 
@@ -411,7 +415,7 @@ world.events.blockPlace.subscribe((blockPlace) => {
 	} 
 });
 
-world.events.blockBreak.subscribe((blockBreak) => {
+world.afterEvents.blockBreak.subscribe((blockBreak) => {
 	const player = blockBreak.player;
 	const dimension = blockBreak.dimension;
 	const block = blockBreak.block;
@@ -462,15 +466,16 @@ world.events.blockBreak.subscribe((blockBreak) => {
 			type: "item"
 		});
 
-		for (const item of droppedItems) item.kill();
+		for(const item of droppedItems) item.kill();
 
 		block.setPermutation(blockBreak.brokenBlockPermutation);
 	}
 });
 
-world.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
+/*
+world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 	const player = beforeItemUseOn.source;
-	const item = beforeItemUseOn.item;
+	const item = beforeItemUseOn.itemStack;
 
 	// commandblockexploit/f = cancels the placement of cbe items
 	if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(item.typeId)) {
@@ -482,7 +487,7 @@ world.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 		illegalitems/e = cancels the placement of illegal items
 		illegalitems/a could be bypassed by using a right click autoclicker/autobuild or lag
 		thx drib or matrix_code for telling me lol
-	*/
+	
 	if(config.modules.illegalitemsE.enabled) {
 		// items that are obtainble using commands
 		if(!player.hasTag("op")) {
@@ -523,9 +528,11 @@ world.events.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 
 	if(player.hasTag("freeze")) beforeItemUseOn.cancel = true;
 });
+*/
 
-world.events.playerSpawn.subscribe((playerJoin) => {
-	const player = playerJoin.player;
+world.afterEvents.playerSpawn.subscribe((playerJoin) => {
+	const { initialSpawn, player } = playerJoin;
+	if(!initialSpawn) return;
 
 	// declare all needed variables in player
 	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
@@ -589,7 +596,7 @@ world.events.playerSpawn.subscribe((playerJoin) => {
 	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
 });
 
-world.events.entitySpawn.subscribe((entityCreate) => {
+world.afterEvents.entitySpawn.subscribe((entityCreate) => {
 	const entity = entityCreate.entity;
 
 	if(config.modules.itemSpawnRateLimit.enabled) {
@@ -671,12 +678,12 @@ world.events.entitySpawn.subscribe((entityCreate) => {
 		if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
 			entity.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area."}]}`);
 
-			for (const entityLoop of entities) entityLoop.kill();
+			for(const entityLoop of entities) entityLoop.kill();
 		}
 	}
 });
 
-world.events.entityHit.subscribe((entityHit) => {
+world.afterEvents.entityHit.subscribe((entityHit) => {
 	const entity = entityHit.hitEntity;
 	const block = entityHit.hitBlock;
 	const player = entityHit.entity;
@@ -752,80 +759,30 @@ world.events.entityHit.subscribe((entityHit) => {
 	if(config.debug) console.warn(player.getTags());
 });
 
-world.events.beforeItemUse.subscribe((beforeItemUse) => {
-	const item = beforeItemUse.item;
-	const player = beforeItemUse.source;
-
-	// GUI stuff
-	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && player.hasTag("op")) {
-		mainGui(player);
-		beforeItemUse.cancel = true;
-	}
+world.beforeEvents.itemUse.subscribe((itemUse) => {
+	const { source: player } = itemUse;
 
 	if(config.modules.fastuseA.enabled) {
 		const lastThrowTime = Date.now() - player.lastThrow;
 		if(lastThrowTime > config.modules.fastuseA.min_use_delay && lastThrowTime < config.modules.fastuseA.max_use_delay) {
-			flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
-			beforeItemUse.cancel = true;
+			// flag(player, "FastUse", "A", "Combat", "lastThrowTime", lastThrowTime);
+			itemUse.cancel = true;
 		}
 		player.lastThrow = Date.now();
 	}
 
 	// patch bypasses for the freeze system
-	if(player.hasTag("freeze")) beforeItemUse.cancel = true;
+	if(player.hasTag("freeze")) itemUse.cancel = true;
+});
 
-	if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled) {
-		const itemEnchants = item.getComponent("enchantments").enchantments;
+world.afterEvents.itemUse.subscribe((itemUse) => {
+	const { itemStack: item, source: player } = itemUse;
 
-		const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
+	// itemUse can be triggered from entities
+	if(player.typeId !== "minecraft:player") return;
 
-		const item2 = new Minecraft.ItemStack(itemType, 1);
-		const item2Enchants = item2.getComponent("enchantments").enchantments;
-		const enchantments = [];
-			
-		const loopIterator = (iterator) => {
-			const iteratorResult = iterator.next();
-			if(iteratorResult.done) return;
-			const enchantData = iteratorResult.value;
-
-			// badenchants/A = checks for items with invalid enchantment levels
-			if(config.modules.badenchantsA.enabled) {
-				const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
-
-				if(typeof maxLevel === "number") {
-					if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-				} else if(enchantData.level > enchantData.type.maxLevel)
-					flag(player, "BadEnchants", "A", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-			}
-
-			// badenchants/B = checks for negative enchantment levels
-			if(config.modules.badenchantsB.enabled && enchantData.level <= 0)
-				flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-
-			// badenchants/C = checks if an item has an enchantment which isnt support by the item
-			if(config.modules.badenchantsC.enabled) {
-				if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(enchantData.type, 1))) {
-					flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, player.selectedSlot);
-				}
-
-				if(config.modules.badenchantsB.multi_protection) {
-					item2Enchants.addEnchantment(new Minecraft.Enchantment(enchantData.type, 1));
-					item2.getComponent("enchantments").enchantments = item2Enchants;
-				}
-			}
-
-			// BadEnchants/D = checks if an item has duplicated enchantments
-			if(config.modules.badenchantsE.enabled) {
-				if(enchantments.includes(enchantData.type.id)) {
-					enchantments.push(enchantData.type.id);
-					flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(","), false, undefined , player.selectedSlot);
-				}
-				enchantments.push(enchantData.type.id);
-			}
-
-			loopIterator(iterator);
-		};
-		loopIterator(itemEnchants[Symbol.iterator]());
+	if(config.customcommands.ui.enabled && player.hasTag("op") && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name) {
+		mainGui(player);
 	}
 });
 
@@ -848,13 +805,3 @@ if([...world.getPlayers()].length >= 1) {
 		if(config.customcommands.report.enabled) player.reports = [];
 	}
 }
-
-/*
-world.events.entityDie.subscribe((entityDie) => {
-	const source = entityDie.damageSource.cause;
-
-	if(source === "override") {
-		console.warn("Player was killed from horion .kill command")
-	}
-});
-*/
