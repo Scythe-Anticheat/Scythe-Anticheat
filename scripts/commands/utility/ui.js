@@ -24,7 +24,17 @@ import config from "../../data/config.js";
         return player.sendMessage("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 
     // creating the item that opens the UI
-    const item = new Minecraft.ItemStack(Minecraft.ItemTypes.get(config.customcommands.ui.ui_item), 1);
+    let itemType = Minecraft.ItemTypes.get(config.customcommands.ui.ui_item);
+    let didError = false;
+
+    if(!itemType) {
+        console.error(`Unable to create item type, most likely the item name is invalid. Defautled to using wooden axe.`);
+        
+        didError = true;
+        itemType = Minecraft.ItemTypes.get("minecraft:wooden_axe");
+    }
+
+    const item = new Minecraft.ItemStack(itemType, 1);
 
     item.nameTag = config.customcommands.ui.ui_item_name;
 
@@ -38,5 +48,5 @@ import config from "../../data/config.js";
    
     container.addItem(item);
 
-    player.sendMessage("§r§6[§aScythe§6]§r The UI item has been added to your inventory.");
+    player.sendMessage(`§r§6[§aScythe§6]§r The UI item has been added to your inventory.${didError === true ? "\n§4[§cWARNING§4]§r There was an error trying to create the custom UI item. The UI item has been defaulted to a wooden axe." : ""}`);
 }
