@@ -1,3 +1,5 @@
+// @ts-check
+
 import * as Minecraft from "@minecraft/server";
 import config from "./data/config.js";
 import data from "./data/data.js";
@@ -142,7 +144,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
             let banLength;
 
-            if(typeof punishmentLength !== "undefined" && isNaN(punishmentLength) && punishment !== "") {
+            if(typeof punishmentLength !== "undefined" && isNaN(punishmentLength)) {
                 banLength = parseTime(punishmentLength);
             }
 
@@ -173,7 +175,10 @@ export function banMessage(player) {
     // validate that required params are defined
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     
+    // @ts-expect-error
     if(config.flagWhitelist.includes(player.name) && player.hasTag("op")) return;
+
+    // @ts-expect-error
     if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
 

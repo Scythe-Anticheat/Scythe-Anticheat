@@ -1,3 +1,4 @@
+// @ts-check
 import * as Minecraft from "@minecraft/server";
 import * as MinecraftUI from "@minecraft/server-ui";
 
@@ -64,12 +65,13 @@ function banMenu(player) {
 
 function banMenuSelect(player, selection) {
     player.playSound("mob.chicken.plop");
+    const allPlayers = world.getPlayers();
 
     const banMenuSelect = new MinecraftUI.ActionFormData()
         .title("Ban Menu")
         .body("Please select a player to manage.");
     
-    for (const plr of world.getPlayers()) {
+    for (const plr of allPlayers) {
         let playerName = `${plr.name}`;
         if(plr.id === player.id) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
@@ -81,9 +83,12 @@ function banMenuSelect(player, selection) {
     banMenuSelect.show(player).then((response) => {
         if(response.canceled) return banMenu(player);
 
-        if([...world.getPlayers()].length > response.selection) {
-            if(selection === 0) kickPlayerMenu(player, [...world.getPlayers()][response.selection]);
-            if(selection === 1) banPlayerMenu(player, [...world.getPlayers()][response.selection]);
+        // @ts-expect-error
+        if([...allPlayers].length > response.selection) {
+            // @ts-expect-error
+            if(selection === 0) kickPlayerMenu(player, [...allPlayers][response.selection]);
+            // @ts-expect-error
+            if(selection === 1) banPlayerMenu(player, [...allPlayers][response.selection]);
         } else banMenu(player);
     });
 }
@@ -137,6 +142,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         const shouldPermBan = data.pop();
 
         let banLength = data.pop();
+        // @ts-expect-error
         if(banLength != 0) banLength = parseTime(`${banLength}d`);
 
         const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
@@ -169,10 +175,12 @@ function unbanPlayerMenu(player) {
 
         const responseData = String(response.formValues).split(",");
 
+        // @ts-expect-error
         const playerToUnban = responseData.shift().split(" ")[0];
 
         const reason = responseData.join(",").replace(/"|\\/g, "") || "No Reason Provided";
 
+        // @ts-expect-error
         data.unbanQueue.push(playerToUnban.toLowerCase());
 
         player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has added ${playerToUnban} into the unban queue. Reason: ${reason}"}]}`);
@@ -192,12 +200,13 @@ function settingsMenu(player) {
 // ====================== //
 function playerSettingsMenu(player) {
     player.playSound("mob.chicken.plop");
+    const allPlayers = world.getPlayers();
 
     const playerSettingsMenu = new MinecraftUI.ActionFormData()
         .title("Player Menu")
         .body("Please select a player to manage.");
     
-    for (const plr of world.getPlayers()) {
+    for(const plr of allPlayers) {
         let playerName = `${plr.name}`;
         if(plr.id === player.id) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
@@ -207,7 +216,8 @@ function playerSettingsMenu(player) {
     playerSettingsMenu.button("Back", "textures/ui/arrow_left.png");
 
     playerSettingsMenu.show(player).then((response) => {
-        if([...world.getPlayers()].length > response.selection) playerSettingsMenuSelected(player, [...world.getPlayers()][response.selection]);
+        // @ts-expect-error
+        if([...allPlayers].length > response.selection) playerSettingsMenuSelected(player, [...allPlayers][response.selection]);
             else mainGui(player);
     });
 }
@@ -446,14 +456,17 @@ function debugSettingsMenu(player) {
             };
             troll();
         } else if(response.selection === 3) {
+            // @ts-expect-error
             while(Minecraft !== "a") {}
         } else if(response.selection === 4) {
             config.array = [config];
-            while(Minecraft !== "a") {
+            // eslint-disable-next-line no-constant-condition
+            while(true) {
                 config.array.push(config);
             }
         } else if(response.selection === 5) {
-            while(Minecraft !== "a") {
+            // eslint-disable-next-line no-constant-condition
+            while(true) {
                 import("../main.js");
             }
         } else if(response.selection === 6 || response.canceled) mainGui(player);

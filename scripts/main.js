@@ -1,3 +1,4 @@
+// @ts-check
 import * as Minecraft from "@minecraft/server";
 import { flag, banMessage, getClosestPlayer, getScore } from "./util.js";
 import { commandHandler } from "./commands/handler.js";
@@ -137,6 +138,7 @@ Minecraft.system.runInterval(() => {
 				}
 			}
 
+			// @ts-expect-error
 			const container = player.getComponent('inventory').container;
 			for (let i = 0; i < 36; i++) {
 				const item = container.getItem(i);
@@ -220,6 +222,7 @@ Minecraft.system.runInterval(() => {
 
 					const item2 = new Minecraft.ItemStack(itemType, 1);
           
+					// @ts-expect-error
 					const item2Enchants = item2.getComponent("enchantments").enchantments;
 					const enchantments = [];
 					
@@ -250,6 +253,8 @@ Minecraft.system.runInterval(() => {
 
 							if(config.modules.badenchantsB.multi_protection) {
 								item2Enchants.addEnchantment(new Minecraft.Enchantment(enchantData.type, 1));
+
+								// @ts-expect-error
 								item2.getComponent("enchantments").enchantments = item2Enchants;
 							}
 						}
@@ -277,6 +282,7 @@ Minecraft.system.runInterval(() => {
 				const pos1 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
 				const pos2 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 
+				// @ts-expect-error
 				const isNotInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).typeId !== "minecraft:air");
 
 				if(!isNotInAir) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(playerVelocity.y).toFixed(4), true);
@@ -313,13 +319,16 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 	if(config.modules.illegalitemsH.enabled && block.typeId === "minecraft:piston" || block.typeId === "minecraft:sticky_piston") {
 		const piston = block.getComponent("piston");
 	
+		// @ts-expect-error
 		if(!piston.isRetracted || piston.isMoving || piston.isExpanded) {
+			// @ts-expect-error
 			flag(player, "IllegalItems", "H", "Exploit", "isRetracted", `${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`, false, false, player.selectedSlot);
 			block.setType(Minecraft.MinecraftBlockTypes.air);
 		}
 	}
 
 	if(config.modules.illegalitemsI.enabled && config.modules.illegalitemsI.container_blocks.includes(block.typeId) && !player.hasTag("op")) {
+		// @ts-expect-error
 		const container = block.getComponent("inventory").container;
 
 		let startNumber = 0;
@@ -347,6 +356,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		Minecraft.system.runTimeout(() => {
 			if(config.modules.illegalitemsJ.exclude_scythe_op && player.hasTag("op")) return;
 
+			// @ts-expect-error
 			const text = block.getComponent("sign").text;
 
 			if(text.length >= 1) {
@@ -363,22 +373,25 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		let foundDispenser = false;
 		pos1.blocksBetween(pos2).some((block) => {
 			const blockType = player.dimension.getBlock(block);
+			// @ts-expect-error
 			if(blockType.typeId !== "minecraft:dispenser") return;
 
+			// @ts-expect-error
 			blockType.setType(Minecraft.MinecraftBlockTypes.air);
 			foundDispenser = true;
 		});
 
-		if(foundDispenser)
-			player.dimension
-				.getBlock({x:block.location.x, y: block.location.y, z: block.location.z})
-				.setType(Minecraft.MinecraftBlockTypes.air);
+		if(foundDispenser) {
+			// @ts-expect-error
+			player.dimension.getBlock({x:block.location.x, y: block.location.y, z: block.location.z}).setType(Minecraft.MinecraftBlockTypes.air);
+		}
 	}
 
 	if(config.modules.towerA.enabled) {
 		// get block under player
 		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 		
+		// @ts-expect-error
 		if(!player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost) && !player.hasTag("flying") && player.hasTag("jump") && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 			
@@ -397,6 +410,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 	}
 
 	if(config.modules.illegalitemsN.enabled && block.typeId.includes("shulker_box")) {
+		// @ts-expect-error
 		const container = block.getComponent("inventory").container;
 
 		const illegalItems = [];
@@ -636,6 +650,7 @@ world.afterEvents.entitySpawn.subscribe((entityCreate) => {
 	}
 
 	if(entity.typeId === "minecraft:item") {
+		// @ts-expect-error
 		const item = entity.getComponent("item").itemStack;
 
 		if(config.modules.illegalitemsB.enabled) {
@@ -655,6 +670,7 @@ world.afterEvents.entitySpawn.subscribe((entityCreate) => {
 
 			if(config.modules.illegalitemsK.exclude_scythe_op && player.hasTag("op")) return;
 
+			// @ts-expect-error
 			const container = entity.getComponent("inventory").container;
 
 			if(container.size !== container.emptySlotsCount) {
@@ -722,6 +738,7 @@ world.afterEvents.entityHit.subscribe((entityHit) => {
 	
 		// check if the player was hit with the UI item, and if so open the UI for that player
 		if(config.customcommands.ui.enabled && player.hasTag("op") && entity.typeId === "minecraft:player") {
+			// @ts-expect-error
 			const container = player.getComponent("inventory").container;
 
 			const item = container.getItem(player.selectedSlot);

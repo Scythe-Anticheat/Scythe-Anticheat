@@ -28,5 +28,10 @@
   "bugs": {
     "url": "https://github.com/MrDiamond64/Scythe-AntiCheat/issues"
   },
-  "homepage": "https://github.com/MrDiamond64/Scythe-AntiCheat#readme"
+  "homepage": "https://github.com/MrDiamond64/Scythe-AntiCheat#readme",
+  "devDependencies": {
+    "@minecraft/server": "^1.3.0-beta.1.20.0-stable",
+    "@minecraft/server-ui": "^1.1.0-beta.1.20.0-stable",
+    "eslint": "^8.42.0"
+  }
 }
