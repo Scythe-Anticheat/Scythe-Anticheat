@@ -125,43 +125,48 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     if(getScore(player, scoreboardObjective, 1) < checkData.minVlbeforePunishment) return;
 
-    if(punishment === "kick") {
-        player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
-        player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType} (${debugName}=${debug})`);
-        // incase /kick fails, we despawn them from the world
-        player.triggerEvent("scythe:kick");
-    }
-    if(punishment === "ban") {
-        if(getScore(player, "autoban") >= 1) {
-            const punishmentLength = checkData.punishmentLength?.toLowerCase();
-            
-            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
-                
-            // this removes old ban stuff
-            player.getTags().forEach(t => {
-                if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
-            });
-
-            let banLength;
-
-            if(typeof punishmentLength !== "undefined" && isNaN(punishmentLength)) {
-                banLength = parseTime(punishmentLength);
-            }
-
-            player.addTag("by:Scythe Anticheat");
-            player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
-            if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
-            player.addTag("isBanned");
+    switch (punishment) {
+        case "kick": {
+            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+            player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType} (${debugName}=${debug})`);
+            // incase /kick fails, we despawn them from the world
+            player.triggerEvent("scythe:kick");
+            break;
         }
-    }
-    if(punishment === "mute") {
-        player.addTag("isMuted");
-        player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
+        case "ban": {
+            if(getScore(player, "autoban") >= 1) {
+                const punishmentLength = checkData.punishmentLength?.toLowerCase();
+                
+                player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+                    
+                // this removes old ban stuff
+                player.getTags().forEach(t => {
+                    if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
+                });
     
-        // remove chat ability
-        player.runCommandAsync("ability @s mute true");
+                let banLength;
+    
+                if(!punishmentLength && isNaN(punishmentLength)) {
+                    banLength = parseTime(punishmentLength);
+                }
+    
+                player.addTag("by:Scythe Anticheat");
+                player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
+                if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
+                player.addTag("isBanned");
+            }
+            break;
+        }
+        case "mute": {
+            player.addTag("isMuted");
+            player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
+    
+            // remove chat ability
+            player.runCommandAsync("ability @s mute true");
 
-        player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+            break;
+        }
     }
 }
 
@@ -209,7 +214,7 @@ export function banMessage(player) {
     });
 
 
-    if(typeof time !== "undefined") {
+    if(time) {
         if(time < Date.now()) {
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name}'s ban has expired and has now been unbanned."}]}`);
 
