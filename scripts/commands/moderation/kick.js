@@ -17,7 +17,6 @@ export function kick(message, args) {
     if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide who to kick.");
 
     let isSilent = false;
-
     if(args[1] === "-s" || args[1] === "-silent") isSilent = true;
 
     const reason = args.slice(1).join(" ").replace(/-s|-silent/, "").replace(/"|\\/g, "") || "No reason specified";
@@ -33,7 +32,7 @@ export function kick(message, args) {
     if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
     // make sure they dont kick themselves
-    if(member.name === player.name) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
+    if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
 
     if(!isSilent) player.runCommandAsync(`kick "${member.name}" ${reason}`);
     member.triggerEvent("scythe:kick");

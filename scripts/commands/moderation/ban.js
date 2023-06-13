@@ -17,8 +17,7 @@ export function ban(message, args) {
 
     if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide who to ban.");
 
-    let time;
-    if(args[1]) time = parseTime(args[1]);
+    const time = args[1] ? parseTime(args[1]) : undefined;
 
     if(!time) args.splice(1, 1);
 

@@ -20,7 +20,7 @@ export function tag(message, args) {
     // try to find the player requested
     let member;
 
-    for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+    for(const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl;
         args.shift();
         break;

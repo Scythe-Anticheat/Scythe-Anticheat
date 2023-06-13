@@ -26,5 +26,9 @@ export function ecwipe(message, args) {
     
     if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-    member.runCommandAsync("function tools/ecwipe");
+    for(let i = 0; i < 27; i++) {
+        member.runCommandAsync(`replaceitem entity @s slot.enderchest ${i} air`);
+    }
+
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has cleared ${member.nameTag}'s enderchest."}]}`);
 }
