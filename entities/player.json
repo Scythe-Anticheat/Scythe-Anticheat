@@ -19,9 +19,9 @@
 					"right",
 					"sneak",
 					"jump",
-					"illegals",
-					"illegals2",
-					"cbeitems",
+					// "illegals",
+					// "illegals2",
+					// "cbeitems",
 					"move",
 					"autototem",
 					"autoshield",
@@ -30,8 +30,8 @@
 					"invmove",
 					"swim",
 					"sleep",
-					"trident",
-					"invalid_offhand"
+					"trident"
+					// "invalid_offhand"
 				]
 			},
 			"animations": {
@@ -46,9 +46,9 @@
 				"right": "controller.animation.right",
 				"sneak": "controller.animation.sneak",
 				"jump": "controller.animation.jump",
-				"illegals": "controller.animation.illegals",
-				"illegals2": "controller.animation.illegals2",
-				"cbeitems": "controller.animation.cbeitems",
+				// "illegals": "controller.animation.illegals",
+				// "illegals2": "controller.animation.illegals2",
+				// "cbeitems": "controller.animation.cbeitems",
 				"move": "controller.animation.move",
 				"autototem": "controller.animation.autototem",
 				"autoshield": "controller.animation.autoshield",
@@ -57,8 +57,8 @@
 				"invmove": "controller.animation.invmove",
 				"swim": "controller.animation.swim",
 				"sleep": "controller.animation.sleep",
-				"trident": "controller.animation.trident",
-				"invalid_offhand": "controller.animation.invalid_offhand"
+				"trident": "controller.animation.trident"
+				// "invalid_offhand": "controller.animation.invalid_offhand"
 			}
 		},
 		"component_groups": {

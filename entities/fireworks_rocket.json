@@ -8,11 +8,11 @@
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
-					"flight_duration"
+					// "flight_duration"
 				]
 			},
 			"animations": {
-				"flight_duration": "controller.animation.flight_duration"
+				// "flight_duration": "controller.animation.flight_duration"
 			}
 		},
 		"component_groups": {
