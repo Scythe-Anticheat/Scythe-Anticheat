@@ -27,7 +27,7 @@ export function resetwarns(message, args) {
 
     if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot reset your own warns.");
 
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has reset ${member.nameTag}'s warns."}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has reset ${member.nameTag}'s warns."}]}`);
 
     member.runCommandAsync("function tools/resetwarns");
 }

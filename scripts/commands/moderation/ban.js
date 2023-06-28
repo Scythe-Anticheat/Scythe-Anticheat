@@ -49,5 +49,5 @@ export function ban(message, args) {
     if(typeof time === "number") member.addTag(`time:${Date.now() + time}`);
     member.addTag("isBanned");
 
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has banned ${member.nameTag}. Reason: ${reason}"}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has banned ${member.nameTag} for ${reason}"}]}`);
 }

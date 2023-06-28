@@ -36,5 +36,5 @@ export function report(message, args) {
 
     player.sendMessage(`§r§6[§aScythe§6]§r You have reported ${member.nameTag} for: ${reason}.`);
 
-    player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has reported ${member.nameTag} for: ${reason}"}]}`);
+    player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has reported ${member.nameTag} for ${reason}"}]}`);
 }

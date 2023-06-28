@@ -15,8 +15,7 @@ export function fly(message, args) {
     
     // try to find the player requested
     let member;
-    
-    for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0]?.toLowerCase().replace(/"|\\|@/g, ""))) {
+    for(const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0]?.toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl; 
         break;
     }
@@ -30,8 +29,17 @@ export function fly(message, args) {
 
     if(![...checkGmc].length) return player.sendMessage("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
 
-    member.runCommandAsync(`function tools/fly`);
+    if(player.hasTag("flying")) {
+        player.removeTag("flying");
 
-    if(member.id === player.id) player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has toggled fly mode for themselves."}]}`);
-        else player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has toggled fly mode for ${member.nameTag}."}]}`);
+        player.runCommandAsync("ability @s mayfly false");
+        player.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
+        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has disabled fly mode."}]}`);
+    } else {
+        player.addTag("flying");
+
+        player.runCommandAsync("ability @s mayfly true");
+        player.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
+        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has enabled fly mode."}]}`);
+    }
 }

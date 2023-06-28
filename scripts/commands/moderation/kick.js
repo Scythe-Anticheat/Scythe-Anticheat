@@ -37,5 +37,5 @@ export function kick(message, args) {
     if(!isSilent) player.runCommandAsync(`kick "${member.name}" ${reason}`);
     member.triggerEvent("scythe:kick");
     
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has kicked ${member.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has kicked ${member.name} ${isSilent ? "(Silent) ": ""}for ${reason}"}]}`);
 }

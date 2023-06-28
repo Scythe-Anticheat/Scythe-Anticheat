@@ -37,5 +37,5 @@ export function mute(message, args) {
     // remove chat ability
     member.runCommandAsync("ability @s mute true");
 
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has muted ${member.nameTag}. Reason: ${reason}"}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has muted ${member.nameTag} for ${reason}"}]}`);
 }

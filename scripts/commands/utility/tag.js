@@ -38,7 +38,7 @@ export function tag(message, args) {
         });
 
         member.nameTag = member.name;
-        return player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has reset ${member.name}'s nametag."}]}`);
+        return player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has reset ${member.name}'s nametag."}]}`);
     }
 
     const tag = args.join(" ").replace(/"|\\/g, "");
@@ -55,5 +55,5 @@ export function tag(message, args) {
 
     member.addTag(`tag:${tag}`);
 
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.name} has changed ${member.name}'s nametag to ${nametag}."}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has changed ${member.name}'s nametag to ${nametag}."}]}`);
 }

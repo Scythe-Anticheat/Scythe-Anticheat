@@ -20,8 +20,7 @@ export function unmute(message, args) {
     
     // try to find the player requested
     let member;
-
-    for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+    for(const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
         member = pl;
         break;
     }
@@ -34,5 +33,5 @@ export function unmute(message, args) {
     // add chat ability
     member.runCommandAsync("ability @s mute false");
 
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"text":"${player.nameTag} has unmuted ${member.nameTag}. Reason: ${reason}"}]}`);
+    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has unmuted ${member.nameTag} for ${reason}"}]}`);
 }
