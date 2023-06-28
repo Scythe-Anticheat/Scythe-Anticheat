@@ -1,3 +1,4 @@
+import { world, system } from "@minecraft/server";
 import config from "../data/config.js";
 
 // import all our commands
@@ -41,13 +42,13 @@ const prefix = config.customcommands.prefix;
 
 /**
  * @name commandHandler
- * @param {object} player - The player that has sent the message
  * @param {object} message - Message data
  */
-export function commandHandler(player, message) {
+export function commandHandler(message) {
     // validate that required params are defined
-    if(typeof player !== "object") throw TypeError(`player is type of ${typeof player}. Expected "object"`);
     if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object"`);
+
+    const player = message.sender;
 
     if(config.debug) console.warn(`${new Date().toISOString()} | did run command handler`);
 
@@ -82,13 +83,13 @@ export function commandHandler(player, message) {
             if(!commandData) {
                 if(config.customcommands.sendInvalidCommandMsg) {
                     player.sendMessage(`§r§6[§aScythe§6]§c The command: ${command} was not found. Please make sure it exists.`);
-                    message.sendToTargets = false;
+                    message.cancel = true;
                 }
                 return;
             }
         }
 
-        message.sendToTargets = false;
+        message.cancel = true;
 
         if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => !player.hasTag(tag))) {
             player.sendMessage("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: /function op");
@@ -100,44 +101,69 @@ export function commandHandler(player, message) {
             return;
         }
 
-        if(commandName === "kick") kick(message, args);
-        else if(commandName === "tag") tag(message, args);
-        else if(commandName === "ban") ban(message, args);
-        else if(commandName === "notify") notify(message);
-        else if(commandName === "vanish") vanish(message);
-        else if(commandName === "fly") fly(message, args);
-        else if(commandName === "mute") mute(message, args);
-        else if(commandName === "unmute") unmute(message, args);
-        else if(commandName === "invsee" ) invsee(message, args);
-        else if(commandName === "cloneinv" ) cloneinv(message, args);
-        else if(commandName === "ecwipe") ecwipe(message, args);
-        else if(commandName === "freeze") freeze(message, args);
-        else if(commandName === "stats") stats(message, args);
-        else if(commandName === "fullreport") fullreport(message);
-        else if(commandName === "antigma") antigma(message);
-        else if(commandName === "antigmc") antigmc(message);
-        else if(commandName === "antigms") antigms(message);
-        else if(commandName === "bedrockvalidate") bedrockvalidate(message);
-        else if(commandName === "modules") modules(message);
-        else if(commandName === "npc") npc(message);
-        else if(commandName === "invalidsprint") invalidsprint(message);
-        else if(commandName === "overridecommandblocksenabled") overidecommandblocksenabled(message);
-        else if(commandName === "removecommandblocks") removecommandblocks(message);
-        else if(commandName === "worldborder") worldborder(message);
-        else if(commandName === "xray") xray(message);
-        else if(commandName === "help") help(message);
-        else if(commandName === "credits") credits(message);
-        else if(commandName === "op") op(message, args);
-        else if(commandName === "autoclicker") autoclicker(message);
-        else if(commandName === "autoban") autoban(message);
-        else if(commandName === "report") report(message, args);
-        else if(commandName === "unban") unban(message, args);
-        else if(commandName === "ui") ui(message);
-        else if(commandName === "resetwarns") resetwarns(message, args);
-        else if(commandName === "version") version(message);
-        else throw Error(`Command ${commandName} was found in config.js but no handler for it was found.`);
+        runCommand(message, commandName, args);
     } catch (error) {
         console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
         player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message.message)}\n${String(error)}\n${error.stack || "\n"}-------------------------`);
     }
+}
+
+/**
+ * @name commandHandler
+ * @param {object} player - The player that has sent the message
+ * @param {object} message - Message data
+ */
+function runCommand(msg, commandName, args) {
+    const message = {};
+	for(const item in msg) {
+		message[item] = msg[item];
+	}
+
+    message.sender = world.getPlayers({
+        name: msg.sender.name
+    })[0];
+
+    system.run(() => {
+        try {
+            if(commandName === "kick") kick(message, args);
+                else if(commandName === "tag") tag(message, args);
+                else if(commandName === "ban") ban(message, args);
+                else if(commandName === "notify") notify(message);
+                else if(commandName === "vanish") vanish(message);
+                else if(commandName === "fly") fly(message, args);
+                else if(commandName === "mute") mute(message, args);
+                else if(commandName === "unmute") unmute(message, args);
+                else if(commandName === "invsee" ) invsee(message, args);
+                else if(commandName === "cloneinv" ) cloneinv(message, args);
+                else if(commandName === "ecwipe") ecwipe(message, args);
+                else if(commandName === "freeze") freeze(message, args);
+                else if(commandName === "stats") stats(message, args);
+                else if(commandName === "fullreport") fullreport(message);
+                else if(commandName === "antigma") antigma(message);
+                else if(commandName === "antigmc") antigmc(message);
+                else if(commandName === "antigms") antigms(message);
+                else if(commandName === "bedrockvalidate") bedrockvalidate(message);
+                else if(commandName === "modules") modules(message);
+                else if(commandName === "npc") npc(message);
+                else if(commandName === "invalidsprint") invalidsprint(message);
+                else if(commandName === "overridecommandblocksenabled") overidecommandblocksenabled(message);
+                else if(commandName === "removecommandblocks") removecommandblocks(message);
+                else if(commandName === "worldborder") worldborder(message);
+                else if(commandName === "xray") xray(message);
+                else if(commandName === "help") help(message);
+                else if(commandName === "credits") credits(message);
+                else if(commandName === "op") op(message, args);
+                else if(commandName === "autoclicker") autoclicker(message);
+                else if(commandName === "autoban") autoban(message);
+                else if(commandName === "report") report(message, args);
+                else if(commandName === "unban") unban(message, args);
+                else if(commandName === "ui") ui(message);
+                else if(commandName === "resetwarns") resetwarns(message, args);
+                else if(commandName === "version") version(message);
+                else throw Error(`Command ${commandName} was found in config.js but no handler for it was found.`);
+        } catch (error) {
+            console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
+            message.sender.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message.message)}\n${String(error)}\n${error.stack || "\n"}-------------------------`);
+        }
+    });
 }
