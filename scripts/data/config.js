@@ -228,18 +228,21 @@ export default
             ]
         },
         "filterUnicodeChat": false,
+        /*
+        // This exploit has been entirely patched out.
         "badpackets2": {
             "enabled": true,
             "minLength": 1,
             "maxlength": 512,
             "punishment": "ban",
-            /*
+            /\*
             PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
             or to just perm ban the user (set value to nothing).
-            */
+            *\/
             "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
+        */
         "spammerA": {
             "enabled": true,
             "punishment": "none",
@@ -260,12 +263,15 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
+        /*
+        // This exploit has been entirely patched out.
         "crasherA": {
             "enabled": false,
             "punishment": "ban",
             "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
+        */
         "namespoofA": {
             "enabled": false,
             "minNameLength": 3,
@@ -412,12 +418,15 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
+        /*
+        // This exploit has been entirely patched out.
         "badpackets3": {
             "enabled": true,
             "punishment": "ban",
             "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
+        */
         "autoclickerA": {
             "enabled": true,
             "maxCPS": 12,

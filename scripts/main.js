@@ -38,14 +38,15 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 });
 
 world.afterEvents.chatSend.subscribe((msg) => {
-	const message = msg.message.toLowerCase();
 	const player = msg.sender;
 
 	msg.sendToTargets = true;
 
+	/*
 	// BadPackets[2] = checks for invalid chat message length
 	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
-	
+	*/
+
 	// Spammer/A = checks if someone sends a message while moving and on ground
 	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
 		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
@@ -89,10 +90,12 @@ Minecraft.system.runInterval(() => {
 				player.autotoolSwitchDelay = Date.now() - player.startBreakTime;
 			}
 
+			/*
 			// Crasher/A = invalid pos check
 			if(config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
 				Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) 
 					flag(player, "Crasher", "A", "Exploit", "x_pos", `${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
+			*/
 
 			// anti-namespoof
 			// these values are set in the playerJoin event
@@ -299,10 +302,14 @@ Minecraft.system.runInterval(() => {
 			}
 
 			// BadPackets[4] = checks for invalid selected slot
+			// The handler for the player hotbar packet runs a function called PlayerInventory::selectSlot. This function checks for invalid selected slot
+			// thus making this check useless.
+			/*
 			if(config.modules.badpackets4.enabled && selectedSlot < 0 || selectedSlot > 8) {
 				flag(player, "BadPackets", "4", "Exploit", "selectedSlot", `${selectedSlot}`);
 				player.selectedSlot = 0;
 			}
+			*/
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);

@@ -47,9 +47,7 @@ To run any chat commands or be able to use certain blocks please type ```/functi
 
   BadPackets -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) => Checks for invalid player head rotations.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) => checks for invalid chat message lengths.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) => Checks for self-hurt.\*<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) => Checks for invalid selected slot.\*<br />
 
   Command Block Exploit -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Clears animal buckets/beehives.<br />
