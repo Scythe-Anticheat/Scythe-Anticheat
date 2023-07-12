@@ -50,11 +50,11 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	*/
 
 	// Spammer/A = checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.hasTag('ground') && !player.hasTag('jump'))
+	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping)
 		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
 
 	// Spammer/B = checks if someone sends a message while swinging their hand
-	if(config.modules.spammerB.enabled && player.hasTag('left') && !player.getEffect(Minecraft.MinecraftEffectTypes.miningFatigue))
+	if(config.modules.spammerB.enabled && player.hasTag('left') && !player.getEffect("mining_fatigue"))
 		return flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
 
 	// Spammer/C = checks if someone sends a message while using an item
@@ -138,7 +138,7 @@ Minecraft.system.runInterval(() => {
 
 			// NoSlow/A = speed limit check
 			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
-				if(!player.getEffect(Minecraft.MinecraftEffectTypes.speed) && player.hasTag('moving') && player.hasTag('right') && player.hasTag('ground') && !player.hasTag('jump') && !player.hasTag('gliding') && !player.hasTag('swimming') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
+				if(!player.getEffect("speed") && player.hasTag('moving') && player.hasTag('right') && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.hasTag("trident") && getScore(player, "right") >= 5) {
 					flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed, true);
 				}
 			}
@@ -279,11 +279,11 @@ Minecraft.system.runInterval(() => {
 			}
 
 			// invalidsprint/a = checks for sprinting with the blindness effect
-			if(config.modules.invalidsprintA.enabled && player.getEffect(Minecraft.MinecraftEffectTypes.blindness) && player.hasTag('sprint'))
+			if(config.modules.invalidsprintA.enabled && player.getEffect("blindness") && player.isSprinting)
 				flag(player, "InvalidSprint", "A", "Movement", undefined, undefined, true);
 
 			// fly/a
-			if(config.modules.flyA.enabled && Math.abs(playerVelocity.y).toFixed(4) === "0.1552" && !player.hasTag("jump") && !player.hasTag("gliding") && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
+			if(config.modules.flyA.enabled && Math.abs(playerVelocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
 				const pos1 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
 				const pos2 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 
@@ -401,7 +401,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 		
 		// @ts-expect-error
-		if(!player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost) && !player.hasTag("flying") && player.hasTag("jump") && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
+		if(!player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost) && !player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 			
 			if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
@@ -708,81 +708,79 @@ world.afterEvents.entitySpawn.subscribe((entityCreate) => {
 	}
 });
 
-world.afterEvents.entityHit.subscribe((entityHit) => {
-	const entity = entityHit.hitEntity;
-	const block = entityHit.hitBlock;
-	const player = entityHit.entity;
+world.afterEvents.entityHitEntity.subscribe((entityHit) => {
+	const { hitEntity: entity, damagingEntity: player} = entityHit;
 
 	if(player.typeId !== "minecraft:player") return;
 
-	if(typeof entity === "object") {
-		// killaura/C = checks for multi-aura
-		if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) {
-			player.entitiesHit.push(entity.id);
-			if(player.entitiesHit.length >= config.modules.killauraC.entities) {
-				flag(player, "KillAura", "C", "Combat", "entitiesHit", player.entitiesHit.length);
-			}
+	// killaura/C = checks for multi-aura
+	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) 
+		player.entitiesHit.push(entity.id);
+		if(player.entitiesHit.length >= config.modules.killauraC.entities) {
+			flag(player, "KillAura", "C", "Combat", "entitiesHit", player.entitiesHit.length);
 		}
-
-		// reach/A = check if a player hits an entity more then 5.1 blocks away
-		if(config.modules.reachA.enabled) {
-			// get the difference between 2 three dimensional coordinates
-			const distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
-			if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag || entity.typeId} with a distance of ${distance}`);
-
-			if(distance > config.modules.reachA.reach && entity.typeId.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.typeId)) {
-				const checkGmc = world.getPlayers({
-					excludeGameModes: [Minecraft.GameMode.creative],
-					name: player.name
-				});
-			
-				if([...checkGmc].length !== 0)
-					flag(player, "Reach", "A", "Combat", "entity", `${entity.typeId},distance=${distance}`);
-			}
-		}
-
-		// badpackets[3] = checks if a player attacks themselves
-		// some (bad) hacks use this to bypass anti-movement cheat checks
-		if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
 	
-		// check if the player was hit with the UI item, and if so open the UI for that player
-		if(config.customcommands.ui.enabled && player.hasTag("op") && entity.typeId === "minecraft:player") {
-			// @ts-expect-error
-			const container = player.getComponent("inventory").container;
 
-			const item = container.getItem(player.selectedSlot);
-			if(item?.typeId === config.customcommands.ui.ui_item && item?.nameTag === config.customcommands.ui.ui_item_name) {
-				playerSettingsMenuSelected(player, entity);
-			}
-		}
+	// reach/A = check if a player hits an entity more then 5.1 blocks away
+	if(config.modules.reachA.enabled) {
+		// get the difference between 2 three dimensional coordinates
+		const distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
+		if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag || entity.typeId} with a distance of ${distance}`);
 
-		// autoclicker/a = check for high cps
-		if(config.modules.autoclickerA.enabled) {
-			// if anti-autoclicker is disabled in game then disable it in config.js
-			if(!data.checkedModules.autoclicker) {
-				if(getScore(player, "autoclicker", 1) >= 1) {
-					config.modules.autoclickerA.enabled = false;
-				}
-				data.checkedModules.autoclicker = true;
-			}
-
-			player.cps++;
-		}
+		if(distance > config.modules.reachA.reach && entity.typeId.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.typeId)) {
+			const checkGmc = world.getPlayers({
+				excludeGameModes: [Minecraft.GameMode.creative],
+				name: player.name
+			});
 		
-		// Check if the player attacks an entity while sleeping
-		if(config.modules.killauraD.enabled && player.hasTag("sleeping")) {
-			flag(player, "Killaura", "D", "Combat");
+			if([...checkGmc].length !== 0)
+				flag(player, "Reach", "A", "Combat", "entity", `${entity.typeId},distance=${distance}`);
 		}
 	}
 
-	if(typeof block === "object" && config.modules.autotoolA.enabled) {
-		player.flagAutotoolA = false;
-		player.lastSelectedSlot = player.selectedSlot;
-		player.startBreakTime = Date.now();
-		player.autotoolSwitchDelay = 0;
+	// badpackets[3] = checks if a player attacks themselves
+	// some (bad) hacks use this to bypass anti-movement cheat checks
+	if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
+
+	// check if the player was hit with the UI item, and if so open the UI for that player
+	if(config.customcommands.ui.enabled && player.hasTag("op") && entity.typeId === "minecraft:player") {
+		// @ts-expect-error
+		const container = player.getComponent("inventory").container;
+
+		const item = container.getItem(player.selectedSlot);
+		if(item?.typeId === config.customcommands.ui.ui_item && item?.nameTag === config.customcommands.ui.ui_item_name) {
+			playerSettingsMenuSelected(player, entity);
+		}
+	}
+
+	// autoclicker/a = check for high cps
+	if(config.modules.autoclickerA.enabled) {
+		// if anti-autoclicker is disabled in game then disable it in config.js
+		if(!data.checkedModules.autoclicker) {
+			if(getScore(player, "autoclicker", 1) >= 1) {
+				config.modules.autoclickerA.enabled = false;
+			}
+			data.checkedModules.autoclicker = true;
+		}
+
+		player.cps++;
+	}
+	
+	// Check if the player attacks an entity while sleeping
+	if(config.modules.killauraD.enabled && player.hasTag("sleeping")) {
+		flag(player, "Killaura", "D", "Combat");
 	}
 
 	if(config.debug) console.warn(player.getTags());
+});
+
+world.afterEvents.entityHitBlock.subscribe((entityHit) => {
+	const { damagingEntity: player} = entityHit;
+
+	player.flagAutotoolA = false;
+	player.lastSelectedSlot = player.selectedSlot;
+	player.startBreakTime = Date.now();
+	player.autotoolSwitchDelay = 0;
 });
 
 world.beforeEvents.itemUse.subscribe((itemUse) => {
@@ -812,12 +810,12 @@ world.afterEvents.itemUse.subscribe((itemUse) => {
 	}
 });
 
-Minecraft.system.events.beforeWatchdogTerminate.subscribe((beforeWatchdogTerminate) => {
+Minecraft.system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	// We try to stop any watchdog crashes incase malicous users try to make the scripts lag
 	// and causing the server to crash
-	beforeWatchdogTerminate.cancel = true;
+	watchdogTerminate.cancel = true;
 
-	console.warn(`${new Date().toISOString()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${beforeWatchdogTerminate.terminateReason}`);
+	console.warn(`${new Date().toISOString()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${watchdogTerminate.terminateReason}`);
 });
 
 // when using /reload, the variables defined in playerJoin dont persist
