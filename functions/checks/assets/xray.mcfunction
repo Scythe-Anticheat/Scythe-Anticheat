@@ -1,3 +1,5 @@
+# Deprecated, no longer used.
+
 # get rid of items with invalid names
 kill @s[name=""]
 

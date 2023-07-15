@@ -401,7 +401,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 		
 		// @ts-expect-error
-		if(!player.getEffect(Minecraft.MinecraftEffectTypes.jumpBoost) && !player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
+		if(!player.getEffect("jump_boost") && !player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 			
 			if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
@@ -439,13 +439,12 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 });
 
 world.afterEvents.blockBreak.subscribe((blockBreak) => {
-	const player = blockBreak.player;
-	const dimension = blockBreak.dimension;
-	const block = blockBreak.block;
+	const brokenBlockId = blockBreak.brokenBlockPermutation.type.id;
+	const { player, dimension, block } = blockBreak;
 
 	let revertBlock = false;
 
-	if(config.debug) console.warn(`${player.nameTag} has broken the block ${blockBreak.brokenBlockPermutation.type.id}`);
+	if(config.debug) console.warn(`${player.nameTag} has broken the block ${brokenBlockId}`);
 
 	// nuker/a = checks if a player breaks more than 3 blocks in a tick
 	if(config.modules.nukerA.enabled) {
@@ -468,7 +467,7 @@ world.afterEvents.blockBreak.subscribe((blockBreak) => {
 		While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasses
 		that can be used
 	*/
-	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(blockBreak.brokenBlockPermutation.type.id)) {
+	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId)) {
 		const checkGmc = world.getPlayers({
 			excludeGameModes: [Minecraft.GameMode.creative],
 			name: player.name
@@ -476,12 +475,17 @@ world.afterEvents.blockBreak.subscribe((blockBreak) => {
 
 		if([...checkGmc].length !== 0) {
 			revertBlock = true;
-			flag(player, "InstaBreak", "A", "Exploit", "block", blockBreak.brokenBlockPermutation.type.id);
+			flag(player, "InstaBreak", "A", "Exploit", "block", brokenBlockId);
 		}
 	}
 
+	if(config.modules.xrayA.enabled && config.itemLists.xray_items.includes(brokenBlockId) && !player.hasTag("op")) {
+		flag(player, "Xray", "A", "Misc", "block", brokenBlockId);
+		revertBlock = true;
+	}
+
 	if(revertBlock) {
-		// killing all the items it drops
+		// kill the items dropped items
 		const droppedItems = dimension.getEntities({
 			location:{x: block.location.x, y: block.location.y, z: block.location.z},
 			minDistance: 0,
@@ -619,8 +623,12 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
 });
 
-world.afterEvents.entitySpawn.subscribe((entityCreate) => {
-	const entity = entityCreate.entity;
+world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
+	const { entity } = entitySpawn;
+
+	// If the entity dies right before this event triggers, an error will be thrown if any property is accessed
+	// This fixes that
+	if(!entity.isValid()) return;
 
 	if(config.modules.itemSpawnRateLimit.enabled) {
 		data.entitiesSpawnedInLastTick++;
@@ -820,7 +828,7 @@ Minecraft.system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) =>
 
 // when using /reload, the variables defined in playerJoin dont persist
 if([...world.getPlayers()].length >= 1) {
-	for (const player of world.getPlayers()) {
+	for(const player of world.getPlayers()) {
 		if(config.modules.nukerA.enabled) player.blocksBroken = 0;
 		if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
 		if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;

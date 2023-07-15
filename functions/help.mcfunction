@@ -43,7 +43,6 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/d
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!xray§r - Enables/disables anti-xray."}]}
 
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/modules§r - View all enabled or disabled modules."}]}
@@ -58,8 +57,6 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/overideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/worldborder§r - Enables/disables the world border and its size."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/xray§r - Enables/disables anti-xray ."}]}
-
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}
 
 # Gametest enabled

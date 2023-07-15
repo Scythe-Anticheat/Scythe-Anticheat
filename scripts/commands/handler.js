@@ -20,7 +20,6 @@ import { invalidsprint } from "./settings/invalidsprint.js";
 import { overidecommandblocksenabled } from "./settings/overidecommandblocksenabled.js";
 import { removecommandblocks } from "./settings/removecommandblocks.js";
 import { worldborder } from "./settings/worldborder.js";
-import { xray } from "./settings/xray.js";
 import { autoclicker } from "./settings/autoclicker.js";
 import { autoban } from "./settings/autoban.js";
 import { tag } from "./utility/tag.js";
@@ -149,7 +148,6 @@ function runCommand(msg, commandName, args) {
                 else if(commandName === "overridecommandblocksenabled") overidecommandblocksenabled(message);
                 else if(commandName === "removecommandblocks") removecommandblocks(message);
                 else if(commandName === "worldborder") worldborder(message);
-                else if(commandName === "xray") xray(message);
                 else if(commandName === "help") help(message);
                 else if(commandName === "credits") credits(message);
                 else if(commandName === "op") op(message, args);

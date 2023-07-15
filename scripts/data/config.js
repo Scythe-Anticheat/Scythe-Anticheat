@@ -73,10 +73,6 @@ export default
             "requiredTags": ["op"],
             "aliases": ["wb"]
         },
-        "xray": {
-            "enabled": true,
-            "requiredTags": ["op"]
-        },
         "autoclicker": {
             "enabled": true,
             "requiredTags": ["op"],
@@ -540,6 +536,11 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
+        "xrayA": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
+        }
     },
     "misc_modules": {
         "antiArmorStandCluster": {
@@ -554,6 +555,10 @@ export default
             "clearCustomSpawnEggs": false
         },
         "elements": true,
+        "xray_items": [
+            "minecraft:diamond_ore",
+            "minecraft:ancient_debris"
+        ],
         "cbe_items": [
             "minecraft:beehive",
             "minecraft:bee_nest",

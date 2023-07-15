@@ -58,7 +58,7 @@ function banMenu(player) {
         if(response.selection === 3 || response.canceled) return mainGui(player);
 
         if(response.selection === 2) return unbanPlayerMenu(player);
-        
+
         banMenuSelect(player, response.selection);
     });
 }
@@ -70,7 +70,7 @@ function banMenuSelect(player, selection) {
     const menu = new MinecraftUI.ActionFormData()
         .title("Ban Menu")
         .body("Please select a player to manage.");
-    
+
     for(const plr of allPlayers) {
         let playerName = `${plr.name}`;
         if(plr.id === player.id) playerName += " §1[YOU]";
@@ -104,7 +104,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
     menu.show(player).then((response) => {
         if(response.canceled) {
             switch (lastMenu) {
-                case 0: 
+                case 0:
                     banMenuSelect(player, lastMenu);
                     break;
                 case 1:
@@ -113,10 +113,11 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
             return;
         }
 
-        const data = String(response.formValues).split(",");
+        const formValues = response.formValues ?? [];
 
-        const isSilent = data.pop();
-        const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
+        // @ts-expect-error
+        const reason = formValues[0].replace(/"|\\/g, "") || "No Reason Provided";
+        const isSilent = formValues[1];
 
         if(!isSilent) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
         playerSelected.triggerEvent("scythe:kick");
@@ -133,8 +134,8 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
     const menu = new MinecraftUI.ModalFormData()
         .title("Ban Player Menu - " + playerSelected.name)
         .textField("Ban Reason:", "§o§7No Reason Provided")
-        .slider("Ban Length (in days)", 0, 365, 1)
-        .toggle("Permenant Ban", true);
+        .slider("Ban Length (in days)", 1, 365, 1)
+        .toggle("Permenant Ban", false);
     menu.show(player).then((response) => {
         if(response.canceled) {
             if(lastMenu === 0) banMenuSelect(player, lastMenu);
@@ -142,27 +143,23 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
             return;
         }
 
-        const data = String(response.formValues).split(",");
+        const formValues = response.formValues ?? [];
 
-        const shouldPermBan = data.pop();
-
-        let banLength = data.pop();
         // @ts-expect-error
-        if(banLength != 0) banLength = parseTime(`${banLength}d`);
-
-        const reason = data.join(",").replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = formValues[0].replace(/"|\\/g, "") || "No Reason Provided";
+        const banLength = parseTime(`${formValues[1]}d`);
+        const permBan = formValues[2];
 
         // remove old ban tags
         playerSelected.getTags().forEach(t => {
             t = t.replace(/"/g, "");
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) playerSelected.removeTag(t);
         });
-    
         playerSelected.addTag(`reason:${reason}`);
         playerSelected.addTag(`by:${player.nameTag}`);
-        if(banLength && shouldPermBan === "false") playerSelected.addTag(`time:${Date.now() + banLength}`);
+        if(banLength && permBan === "false") playerSelected.addTag(`time:${Date.now() + banLength}`);
         playerSelected.addTag("isBanned");
-    
+
         player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has banned ${playerSelected.nameTag}. Reason: ${reason}"}]}`);
     });
 }
@@ -178,12 +175,12 @@ function unbanPlayerMenu(player) {
     menu.show(player).then((response) => {
         if(response.canceled) return banMenu(player);
 
-        const responseData = String(response.formValues).split(",");
+        const formValues = response.formValues ?? [];
 
         // @ts-expect-error
-        const playerToUnban = responseData.shift().split(" ")[0];
-
-        const reason = responseData.join(",").replace(/"|\\/g, "") || "No Reason Provided";
+        const playerToUnban = formValues[0].split(" ")[0];
+        // @ts-expect-error
+        const reason = formValues[1].replace(/"|\\/g, "") || "No Reason Provided";
 
         // @ts-expect-error
         data.unbanQueue.push(playerToUnban.toLowerCase());
@@ -210,7 +207,7 @@ function playerSettingsMenu(player) {
     const menu = new MinecraftUI.ActionFormData()
         .title("Player Menu")
         .body("Please select a player to manage.");
-    
+
     for(const plr of allPlayers) {
         let playerName = `${plr.name}`;
         if(plr.id === player.id) playerName += " §1[YOU]";
@@ -242,7 +239,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     if(!playerSelected.hasTag("freeze")) menu.button("Freeze Player", "textures/ui/icon_winter.png");
         else menu.button("Unfreeze Player", "textures/ui/icon_winter.png");
-    
+
     if(!playerSelected.hasTag("isMuted")) menu.button("Mute Player", "textures/ui/mute_on.png");
         else menu.button("Unmute Player", "textures/ui/mute_off.png");
 

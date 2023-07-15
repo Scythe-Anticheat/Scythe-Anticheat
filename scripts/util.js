@@ -94,7 +94,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // cancel the message
     if(cancelObject) cancelObject.cancel = true;
 
-    player.teleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : {x: player.location.x, y: player.location.y, z: player.location.z}, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
+    if(shouldTP) player.teleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : {x: player.location.x, y: player.location.y, z: player.location.z}, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 
@@ -325,7 +325,7 @@ export function msToTime(ms) {
     if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
 
     try {
-       return world.scoreboard.getObjective(objective).getScore(player.scoreboard);
+       return world.scoreboard.getObjective(objective).getScore(player.scoreboard) ?? defaultValue;
     } catch {
         return defaultValue;
     }

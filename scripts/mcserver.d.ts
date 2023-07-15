@@ -20,7 +20,7 @@ declare module "@minecraft/server" {
 		lastThrow: number
 
 		// Arrays
-		entitiesHit: rray,
+		entitiesHit: array,
 		reports: array
 	}
 

@@ -6,7 +6,6 @@ scoreboard players operation @a gmc = scythe:config gmc
 scoreboard players operation @a gms = scythe:config gms
 scoreboard players operation @a cmds = scythe:config cmds
 scoreboard players operation @a bedrock = scythe:config bedrock
-scoreboard players operation @a xray = scythe:config xray
 scoreboard players operation @a autoclicker = scythe:config autoclicker
 scoreboard players operation @a autoban = scythe:config autoban
 scoreboard players operation @a invalidsprint = scythe:config invalidsprint
