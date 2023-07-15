@@ -157,7 +157,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         });
         playerSelected.addTag(`reason:${reason}`);
         playerSelected.addTag(`by:${player.nameTag}`);
-        if(banLength && permBan === "false") playerSelected.addTag(`time:${Date.now() + banLength}`);
+        if(banLength && !permBan) playerSelected.addTag(`time:${Date.now() + banLength}`);
         playerSelected.addTag("isBanned");
 
         player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has banned ${playerSelected.nameTag}. Reason: ${reason}"}]}`);

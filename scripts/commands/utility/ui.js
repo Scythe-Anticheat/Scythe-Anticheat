@@ -39,12 +39,10 @@ import config from "../../data/config.js";
     item.nameTag = config.customcommands.ui.ui_item_name;
 
     // enchant it since why not
-    /*
     const enchantments = item.getComponent("enchantments").enchantments;
-    enchantments.addEnchantment(new Minecraft.Enchantment(Minecraft.MinecraftEnchantmentTypes.unbreaking, 3));
+    enchantments.addEnchantment(new Minecraft.Enchantment("unbreaking", 3));
     
     item.getComponent("enchantments").enchantments = enchantments;
-    */
    
     container.addItem(item);
 
