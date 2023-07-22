@@ -414,15 +414,12 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
-        /*
-        // This exploit has been entirely patched out.
         "badpackets3": {
             "enabled": true,
             "punishment": "ban",
             "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
-        */
         "autoclickerA": {
             "enabled": true,
             "maxCPS": 12,
@@ -435,11 +432,14 @@ export default
             "punishment": "kick",
             "minVlbeforePunishment": 1
         },
+        /*
+        // This hack has been entirely patched out
         "badpackets4": {
             "enabled": true,
             "punishment": "kick",
             "minVlbeforePunishment": 1
         },
+        */
         "illegalitemsH": {
             "enabled": true,
             "punishment": "none",
