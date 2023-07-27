@@ -1,3 +1,5 @@
+// @ts-check
+
 import { world, system } from "@minecraft/server";
 import config from "../data/config.js";
 
@@ -108,15 +110,15 @@ export function commandHandler(message) {
 }
 
 /**
- * @name commandHandler
- * @param {object} player - The player that has sent the message
- * @param {object} message - Message data
+ * @name runCommand
+ * @param {object} msg - Msg data
+ * @param {string} commandName - Command name
+ * @param {array} args - Command arguments
  */
 function runCommand(msg, commandName, args) {
-    const message = {};
-	for(const item in msg) {
-		message[item] = msg[item];
-	}
+    const message = {
+        message: msg.message
+    };
 
     message.sender = world.getPlayers({
         name: msg.sender.name

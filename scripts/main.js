@@ -42,8 +42,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 world.afterEvents.chatSend.subscribe((msg) => {
 	const player = msg.sender;
 
-	msg.sendToTargets = true;
-
 	/*
 	// BadPackets[2] = checks for invalid chat message length
 	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", "messageLength", `${message.length}`, undefined, msg);
@@ -64,15 +62,13 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	// Spammer/D = checks if someone sends a message while having a GUI open
 	if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen'))
 		return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
-
-	// commandHandler(player, msg);
 });
 
 Minecraft.system.runInterval(() => {
 	if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
 	// run as each player
-	for (const player of world.getPlayers()) {
+	for(const player of world.getPlayers()) {
 		try {
 			const selectedSlot = player.selectedSlot;
 
@@ -203,8 +199,9 @@ Minecraft.system.runInterval(() => {
 				if(config.modules.badenchantsD.enabled) {
 					const lore = String(item.getLore());
 
-					if(lore && !config.modules.badenchantsD.exclusions.includes(lore))
+					if(lore && !config.modules.badenchantsD.exclusions.includes(lore)) {
 						flag(player, "BadEnchants", "D", "Exploit", "lore", lore, undefined, undefined, i);
+					}
 				}
 
 				/*
@@ -234,6 +231,7 @@ Minecraft.system.runInterval(() => {
 					const loopIterator = (iterator) => {
 						const iteratorResult = iterator.next();
 						if(iteratorResult.done) return;
+						
 						const enchantData = iteratorResult.value;
 
 						// badenchants/A = checks for items with invalid enchantment levels
@@ -288,9 +286,9 @@ Minecraft.system.runInterval(() => {
 				const pos2 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 
 				// @ts-expect-error
-				const isNotInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).typeId !== "minecraft:air");
+				const isInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).typeId !== "minecraft:air");
 
-				if(!isNotInAir) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(playerVelocity.y).toFixed(4), true);
+				if(isInAir) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(playerVelocity.y).toFixed(4), true);
 					else if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
 			}
 
