@@ -218,7 +218,9 @@ export default
                 "minecraft:sponge"
             ]
         },
-        "filterUnicodeChat": false,
+        "filterUnicodeChat": {
+            "enabled" : false
+        },
         /*
         // This exploit has been entirely patched out.
         "badpackets2": {

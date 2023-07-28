@@ -298,6 +298,8 @@ function editSettingMenu(player, check) {
     }
 
     menu.show(player).then((response) => {
+        if(response.canceled) return;
+
         const formValues = response.formValues ?? [];
 
         for(const id in optionsMap) {
