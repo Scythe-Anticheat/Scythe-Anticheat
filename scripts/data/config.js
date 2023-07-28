@@ -181,45 +181,16 @@ export default
         }
     },
     "modules": {
-        "itemSpawnRateLimit": {
-            "enabled": false,
-            "entitiesBeforeRateLimit": 45
-        },
-        /*
-        Enabling this module is higly discouraged, as it breaks items names, enchantments, durability
-        and item data relating to it.
-        These items can contain large nbt data which can cause the world file size to dramatically increase.
-        In anarchy enviorments, this module can help greatly to prevent world corruption.
-        Your welcome, Carthe.
-        */
-        "resetItemData": {
-            "enabled": false,
-            "items": [
-                "minecraft:armor_stand",
-                "minecraft:barrel",
-                "minecraft:blast_furnace",
-                "minecraft:brewing_stand",
-                "minecraft:campfire",
-                "minecraft:soul_campfire",
-                "minecraft:cauldron",
-                "minecraft:chest",
-                "minecraft:trapped_chest",
-                "minecraft:dropper",
-                "minecraft:flower_pot",
-                "minecraft:hopper",
-                "minecraft:frame",
-                "minecraft:glow_frame",
-                "minecraft:jukebox",
-                "minecraft:lectern",
-                "minecraft:chest_minecart",
-                "minecraft:hopper_minecart",
-                "minecraft:smoker",
-                "minecraft:end_gateway",
-                "minecraft:sponge"
-            ]
-        },
-        "filterUnicodeChat": {
-            "enabled" : false
+        "exampleA": {
+            // If the check should be enabled or not.
+            "enabled": true,
+            // The punishment. Can either be "none", "mute", "kick" or "ban"
+            "punishment": "ban",
+            // PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
+            // or to just perm ban the user (set value to nothing).
+            "punishmentLength": "",
+            // How much violations the player must first have to start punishing them
+            "minVlbeforePunishment": 1
         },
         /*
         // This exploit has been entirely patched out.
@@ -228,10 +199,6 @@ export default
             "minLength": 1,
             "maxlength": 512,
             "punishment": "ban",
-            /\*
-            PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
-            or to just perm ban the user (set value to nothing).
-            *\/
             "punishmentLength": "",
             "minVlbeforePunishment": 1
         },
@@ -544,6 +511,46 @@ export default
             "enabled": true,
             "radius": 5,
             "max_armor_stand_count": 50
+        },
+        "itemSpawnRateLimit": {
+            "enabled": false,
+            "entitiesBeforeRateLimit": 45
+        },
+        /*
+        Enabling this module is higly discouraged, as it breaks items names, enchantments, durability
+        and item data relating to it.
+        These items can contain large nbt data which can cause the world file size to dramatically increase.
+        In anarchy enviorments, this module can help greatly to prevent world corruption.
+        Your welcome, Carthe.
+        */
+        "resetItemData": {
+            "enabled": false,
+            "items": [
+                "minecraft:armor_stand",
+                "minecraft:barrel",
+                "minecraft:blast_furnace",
+                "minecraft:brewing_stand",
+                "minecraft:campfire",
+                "minecraft:soul_campfire",
+                "minecraft:cauldron",
+                "minecraft:chest",
+                "minecraft:trapped_chest",
+                "minecraft:dropper",
+                "minecraft:flower_pot",
+                "minecraft:hopper",
+                "minecraft:frame",
+                "minecraft:glow_frame",
+                "minecraft:jukebox",
+                "minecraft:lectern",
+                "minecraft:chest_minecart",
+                "minecraft:hopper_minecart",
+                "minecraft:smoker",
+                "minecraft:end_gateway",
+                "minecraft:sponge"
+            ]
+        },
+        "filterUnicodeChat": {
+            "enabled" : false
         }
     },
     "itemLists": {
