@@ -511,9 +511,10 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         .button("Gamemode Adventure", "textures/ui/permissions_visitor_hand.png")
         .button("Back", "textures/ui/arrow_left.png");
     menu.show(player).then((response) => {
-        if(response.selection === 0) player.runCommandAsync(`gamemode 1 "${playerSelected.nameTag}"`);
-        if(response.selection === 1) player.runCommandAsync(`gamemode 0 "${playerSelected.nameTag}"`);
-        if(response.selection === 2) player.runCommandAsync(`gamemode 2 "${playerSelected.nameTag}"`);
+        if(response.selection === 0) playerSelected.runCommandAsync(`gamemode 1`);
+        if(response.selection === 1) playerSelected.runCommandAsync(`gamemode 0`);
+        if(response.selection === 2) playerSelected.runCommandAsync(`gamemode 2`);
+        
         if(response.selection === 3 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
     });
 }
