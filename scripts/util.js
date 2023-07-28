@@ -325,7 +325,7 @@ export function msToTime(ms) {
     if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
 
     try {
-       return world.scoreboard.getObjective(objective).getScore(player.scoreboard) ?? defaultValue;
+       return world.scoreboard.getObjective(objective).getScore(player) ?? defaultValue;
     } catch {
         return defaultValue;
     }
