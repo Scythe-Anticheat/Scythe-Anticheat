@@ -100,7 +100,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     if(!world.scoreboard.getObjective(scoreboardObjective)) {
         world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
-    } 
+    }
 
     let currentVl = getScore(player, scoreboardObjective, 0);
     setScore(player, scoreboardObjective, currentVl + 1);
@@ -136,33 +136,35 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             break;
         }
         case "ban": {
-            if(getScore(player, "autoban") >= 1) {
-                const punishmentLength = checkData.punishmentLength?.toLowerCase();
-                
-                player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
-                    
-                // this removes old ban stuff
-                player.getTags().forEach(t => {
-                    if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
-                });
-    
-                let banLength;
-    
-                if(!punishmentLength && isNaN(punishmentLength)) {
-                    banLength = parseTime(punishmentLength);
-                }
-    
-                player.addTag("by:Scythe Anticheat");
-                player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
-                if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
-                player.addTag("isBanned");
+            // Check if auto-banning is disabled
+            if(getScore(player, "autoban") <= 1) break;
+
+            const punishmentLength = checkData.punishmentLength?.toLowerCase();
+
+            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+
+            // this removes old ban stuff
+            player.getTags().forEach(t => {
+                if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
+            });
+
+            let banLength;
+
+            if(!punishmentLength && isNaN(punishmentLength)) {
+                banLength = parseTime(punishmentLength);
             }
+
+            player.addTag("by:Scythe Anticheat");
+            player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
+            if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
+            player.addTag("isBanned");
+
             break;
         }
         case "mute": {
             player.addTag("isMuted");
             player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
-    
+
             // remove chat ability
             player.runCommandAsync("ability @s mute true");
 
@@ -181,7 +183,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 export function banMessage(player) {
     // validate that required params are defined
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
-    
+
     // @ts-expect-error
     if(config.flagWhitelist.includes(player.name) && player.hasTag("op")) return;
 
@@ -231,7 +233,7 @@ export function banMessage(player) {
         time = msToTime(Number(time));
         time = `${time.w} weeks, ${time.d} days, ${time.h} hours, ${time.m} minutes, ${time.s} seconds`;
     }
-    
+
     player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason || "You are banned!"}."}]}`);
 
     player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
@@ -270,6 +272,7 @@ export function parseTime(str) {
 
     // parse time values like 12h, 1d, 10m into milliseconds
     const time = str.match(/^(\d+)([smhdwy])$/);
+
     if(time) {
         const [, num, unit] = time;
         const ms = {

@@ -17,17 +17,17 @@ registerCommand({
             member = pl;
             break;
         }
-        
+
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         const container = member.getComponent('inventory').container;
-    
+
         if(container.emptySlotsCount === 36) {
             return player.sendMessage(`§r§6[§aScythe§6]§r ${member.nameTag}'s inventory is empty.`);
         }
 
         let inventory = `§r§6[§aScythe§6]§r ${member.nameTag}'s inventory:\n\n`;
-        
+
         for (let i = 0; i < 36; i++) {
             const item = container.getItem(i);
             if(!item) continue;

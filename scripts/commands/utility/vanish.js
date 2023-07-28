@@ -4,7 +4,7 @@ registerCommand({
     name: "vanish",
     execute: (message) => {
         const player = message.sender;
-    
+
         if(player.hasTag("vanish")) {
             player.removeTag("vanish");
 

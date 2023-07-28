@@ -15,7 +15,7 @@ registerCommand({
         if(!time) args.splice(1, 1);
 
         const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
-        
+
         // try to find the player requested
         let member;
 

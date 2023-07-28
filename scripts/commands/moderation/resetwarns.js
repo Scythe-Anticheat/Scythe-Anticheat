@@ -17,7 +17,7 @@ registerCommand({
             member = pl;
             break;
         }
-        
+
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot reset your own warns.");

@@ -9,7 +9,7 @@ registerCommand({
     minArgCount: 1,
     execute: (message, args) => {
         const player = message.sender;
- 
+
         // try to find the player requested
         let member;
 
@@ -17,7 +17,7 @@ registerCommand({
             member = pl;
             break;
         }
-        
+
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         const playerInv = player.getComponent('inventory').container;

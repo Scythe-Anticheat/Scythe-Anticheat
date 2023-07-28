@@ -235,7 +235,7 @@ function settingsCheckSelectMenu(player, selection) {
     const menu = new MinecraftUI.ActionFormData()
         .title("Configure Settings")
         .body("Please select a check to edit.");
-    
+
     const checks = [];
     for(const module of moduleList) {
         if(!module.startsWith(subCheck)) continue;
@@ -273,13 +273,13 @@ function editSettingMenu(player, check) {
 
         // Friendly setting name. Changes "multi_protection" to "Multi Protection"
         const settingName = (key[0].toUpperCase() + key.slice(1)).replace(/_./g, (match) => " " + match[1].toUpperCase());
-        
+
         switch(typeof checkData[key]) {
             case "number":
                 menu.slider(settingName, 0, 100, Number.isInteger(checkData[key]) ? 1 : 0.01, checkData[key]);
                 optionsMap.push(key);
                 break;
-            case "boolean": 
+            case "boolean":
                 menu.toggle(settingName, checkData[key]);
                 optionsMap.push(key);
                 break;
@@ -514,7 +514,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         if(response.selection === 0) playerSelected.runCommandAsync(`gamemode 1`);
         if(response.selection === 1) playerSelected.runCommandAsync(`gamemode 0`);
         if(response.selection === 2) playerSelected.runCommandAsync(`gamemode 2`);
-        
+
         if(response.selection === 3 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
     });
 }

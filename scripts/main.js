@@ -5,7 +5,7 @@ import "./commands/register.js";
 import { flag, banMessage, getClosestPlayer, getScore, setScore } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
-import { banList } from "./data/globalban.js";
+import banList from "./data/globalban.js";
 import config from "./data/config.js";
 import data from "./data/data.js";
 
@@ -91,7 +91,7 @@ Minecraft.system.runInterval(() => {
 			/*
 			// Crasher/A = invalid pos check
 			if(config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
-				Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000) 
+				Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000)
 					flag(player, "Crasher", "A", "Exploit", "x_pos", `${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 			*/
 
@@ -133,11 +133,11 @@ Minecraft.system.runInterval(() => {
 				// Illegalitems/C = item stacked over 64 check
 				if(config.modules.illegalitemsC.enabled && item.amount > item.maxAmount)
 					flag(player, "IllegalItems", "C", "Exploit", "stack", item.amount, undefined, undefined, i);
-					
+
 				// Illegalitems/D = additional item clearing check
 				if(config.modules.illegalitemsD.enabled) {
 					if(config.itemLists.items_very_illegal.includes(item.typeId)) flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, undefined, undefined, i);
-					
+
 					// semi illegal items
 					if(!player.hasTag("op")) {
 						let flagPlayer = false;
@@ -145,7 +145,7 @@ Minecraft.system.runInterval(() => {
 						// patch element blocks
 						if(config.itemLists.elements && item.typeId.startsWith("minecraft:element_"))
 							flagPlayer = true;
-						
+
 						// patch spawn eggs
 						if(item.typeId.endsWith("_spawn_egg")) {
 							if(config.itemLists.spawnEggs.clearVanillaSpawnEggs && item.typeId.startsWith("minecraft:"))
@@ -154,13 +154,13 @@ Minecraft.system.runInterval(() => {
 							if(config.itemLists.spawnEggs.clearCustomSpawnEggs && !item.typeId.startsWith("minecraft:"))
 								flagPlayer = true;
 						}
-			
+
 						if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) {
 							const checkGmc = world.getPlayers({
 								excludeGameModes: [Minecraft.GameMode.creative],
 								name: player.name
 							});
-						
+
 							if([...checkGmc].length !== 0) {
 								flag(player, "IllegalItems", "D", "Exploit", "item", item.typeId, undefined, undefined, i);
 							}
@@ -171,11 +171,11 @@ Minecraft.system.runInterval(() => {
 				// CommandBlockExploit/H = clear items
 				if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.typeId))
 					flag(player, "CommandBlockExploit", "H", "Exploit", "item", item.typeId, undefined, undefined, i);
-					
+
 				// Illegalitems/F = Checks if an item has a name longer then 32 characters
 				if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
 					flag(player, "IllegalItems", "F", "Exploit", "name", `${item.nameTag},length=${item.nameTag.length}`, undefined, undefined, i);
-				
+
 				// IllegalItems/L = check for keep on death items
 				if(config.modules.illegalitemsL.enabled && item.keepOnDeath)
 					flag(player, "IllegalItems", "L", "Exploit", undefined, undefined, false, undefined, i);
@@ -208,15 +208,15 @@ Minecraft.system.runInterval(() => {
 					const itemEnchants = item.getComponent("enchantments").enchantments;
 
 					const item2 = new Minecraft.ItemStack(itemType, 1);
-          
+
 					// @ts-expect-error
 					const item2Enchants = item2.getComponent("enchantments").enchantments;
 					const enchantments = [];
-					
+
 					const loopIterator = (iterator) => {
 						const iteratorResult = iterator.next();
 						if(iteratorResult.done) return;
-						
+
 						const enchantData = iteratorResult.value;
 
 						// badenchants/A = checks for items with invalid enchantment levels
@@ -314,7 +314,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 	// IllegalItems/H = checks for pistons that can break any block
 	if(config.modules.illegalitemsH.enabled && block.typeId === "minecraft:piston" || block.typeId === "minecraft:sticky_piston") {
 		const piston = block.getComponent("piston");
-	
+
 		// @ts-expect-error
 		if(!piston.isRetracted || piston.isMoving || piston.isExpanded) {
 			// @ts-expect-error
@@ -331,7 +331,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		let didFindItems = false;
 		const emptySlots = container.emptySlotsCount;
 		if(container.size > 27) startNumber = container.size / 2;
-	
+
 		for (let i = startNumber; i < container.size; i++) {
 			const item = container.getItem(i);
 			if(!item) continue;
@@ -386,11 +386,11 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 	if(config.modules.towerA.enabled) {
 		// get block under player
 		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
-		
+
 		// @ts-expect-error
 		if(!player.getEffect("jump_boost") && !player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
-			
+
 			if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
 				const checkGmc = world.getPlayers({
 					excludeGameModes: [Minecraft.GameMode.creative],
@@ -422,7 +422,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 			flag(player, "IllegalItems", "N", "Exploit", "items_count", illegalItems.length, undefined, undefined, player.selectedSlot);
 			block.setType(Minecraft.MinecraftBlockTypes.air);
 		}
-	} 
+	}
 });
 
 world.afterEvents.blockBreak.subscribe((blockBreak) => {
@@ -501,7 +501,7 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 		illegalitems/e = cancels the placement of illegal items
 		illegalitems/a could be bypassed by using a right click autoclicker/autobuild or lag
 		thx drib or matrix_code for telling me lol
-	
+
 	if(config.modules.illegalitemsE.enabled) {
 		// items that are obtainble using commands
 		if(!player.hasTag("op")) {
@@ -510,7 +510,7 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 			// patch element blocks
 			if(config.itemLists.elements && item.typeId.startsWith("minecraft:element_"))
 				flagPlayer = true;
-			
+
 			// patch spawn eggs
 			if(item.typeId.endsWith("_spawn_egg")) {
 				if(config.itemLists.spawnEggs.clearVanillaSpawnEggs && item.typeId.startsWith("minecraft:"))
@@ -525,14 +525,14 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 					excludeGameModes: [Minecraft.GameMode.creative],
 					name: player.name
 				});
-			
+
 				if([...checkGmc].length !== 0) {
 					flag(player, "IllegalItems", "E", "Exploit", "block", item.typeId, undefined, undefined, player.selectedSlot);
 					beforeItemUseOn.cancel = true;
 				}
 			}
 		}
-	
+
 		// items that cannot be obtained normally
 		if(config.itemLists.items_very_illegal.includes(item.typeId)) {
 			flag(player, "IllegalItems", "E", "Exploit", "item", item.typeId, undefined, undefined, player.selectedSlot);
@@ -709,12 +709,12 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 	if(player.typeId !== "minecraft:player") return;
 
 	// killaura/C = checks for multi-aura
-	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) 
+	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id))
 		player.entitiesHit.push(entity.id);
 		if(player.entitiesHit.length >= config.modules.killauraC.entities) {
 			flag(player, "KillAura", "C", "Combat", "entitiesHit", player.entitiesHit.length);
 		}
-	
+
 
 	// reach/A = check if a player hits an entity more then 5.1 blocks away
 	if(config.modules.reachA.enabled) {
@@ -727,7 +727,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 				excludeGameModes: [Minecraft.GameMode.creative],
 				name: player.name
 			});
-		
+
 			if([...checkGmc].length !== 0)
 				flag(player, "Reach", "A", "Combat", "entity", `${entity.typeId},distance=${distance}`);
 		}
@@ -760,7 +760,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 
 		player.cps++;
 	}
-	
+
 	// Check if the player attacks an entity while sleeping
 	if(config.modules.killauraD.enabled && player.hasTag("sleeping")) {
 		flag(player, "Killaura", "D", "Combat");
