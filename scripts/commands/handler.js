@@ -27,20 +27,20 @@ export function registerCommand(data) {
 
 /**
  * @name commandHandler
- * @param {object} message - Message data
+ * @param {object} msg - Message data
  */
-export function commandHandler(message) {
+export function commandHandler(msg) {
     // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object"`);
+    if(typeof msg !== "object") throw TypeError(`msg is type of ${typeof msg}. Expected "object"`);
 
-    const player = message.sender;
+    const { message, sender: player } = msg;
 
     if(config.debug) console.warn(`${new Date().toISOString()} | did run command handler`);
 
     // checks if the message starts with our prefix, if not exit
-    if(!message.message.startsWith(prefix)) return;
+    if(!message.startsWith(prefix)) return;
 
-    const args = message.message.slice(prefix.length).split(/ +/);
+    const args = message.slice(prefix.length).split(" ");
 
     const command = args.shift().toLowerCase().trim();
 
@@ -68,13 +68,13 @@ export function commandHandler(message) {
             if(!commandData) {
                 if(config.customcommands.sendInvalidCommandMsg) {
                     player.sendMessage(`§r§6[§aScythe§6]§c The command: ${command} was not found. Please make sure it exists.`);
-                    message.cancel = true;
+                    msg.cancel = true;
                 }
                 return;
             }
         }
 
-        message.cancel = true;
+        msg.cancel = true;
 
         if(!commands[commandName]) {
             player.sendMessage(`§r§6[§aScythe§6]§r Command "${commandName}" was found in config.js but the command was not registered.`);
@@ -96,10 +96,10 @@ export function commandHandler(message) {
             return;
         }
 
-        runCommand(message, commandName, args);
+        runCommand(msg, commandName, args);
     } catch (error) {
         console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
-        player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message.message)}\n${String(error)}\n${error.stack || "\n"}-------------------------`);
+        player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message)}\n${String(error)}\n${error.stack || "\n"}-------------------------`);
     }
 }
 

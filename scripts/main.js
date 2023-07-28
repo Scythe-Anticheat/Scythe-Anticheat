@@ -17,8 +17,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	const message = msg.message.toLowerCase();
 	const player = msg.sender;
 
-	if(config.debug && message === "ping") console.warn(`${new Date().toISOString()} | Pong!`);
-
 	if(message.includes("the best minecraft bedrock utility mod") || message.includes("disepi/ambrosial")) msg.cancel = true;
 
 	if(player.hasTag("isMuted")) {
