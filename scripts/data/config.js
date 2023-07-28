@@ -332,6 +332,11 @@ export default
             "punishment": "none",
             "minVlbeforePunishment": 0
         },
+        "flyB": {
+            "enabled": true,
+            "punishment": "none",
+            "minVlbeforePunishment": 0
+        },
         "illegalitemsE": {
             "enabled": true,
             "punishment": "ban",
