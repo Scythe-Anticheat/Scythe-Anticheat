@@ -271,18 +271,20 @@ function editSettingMenu(player, check) {
     for(const key of Object.keys(checkData)) {
         if(["enabled","punishment","punishmentLength","minVlbeforePunishment"].includes(key)) continue;
 
-        const upperCase = key[0].toUpperCase() + key.slice(1);
+        // Friendly setting name. Changes "multi_protection" to "Multi Protection"
+        const settingName = (key[0].toUpperCase() + key.slice(1)).replace(/_./g, (match) => " " + match[1].toUpperCase());
+        
         switch(typeof checkData[key]) {
             case "number":
-                menu.slider(upperCase, 0, 100, 1, checkData[key]);
+                menu.slider(settingName, 0, 100, Number.isInteger(checkData[key]) ? 1 : 0.01, checkData[key]);
                 optionsMap.push(key);
                 break;
             case "boolean": 
-                menu.toggle(upperCase, checkData[key]);
+                menu.toggle(settingName, checkData[key]);
                 optionsMap.push(key);
                 break;
             case "string":
-                menu.textField(upperCase, "Enter text here", checkData[key]);
+                menu.textField(settingName, "Enter text here", checkData[key]);
                 optionsMap.push(key);
                 break;
         }

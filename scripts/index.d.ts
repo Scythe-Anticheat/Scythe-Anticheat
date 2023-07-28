@@ -20,8 +20,8 @@ declare module "@minecraft/server" {
 		lastThrow: number
 
 		// Arrays
-		entitiesHit: array,
-		reports: array
+		entitiesHit: Array<String>,
+		reports: Array<String>
 	}
 
 	interface Entity {
@@ -43,6 +43,6 @@ declare module "@minecraft/server" {
 		autotoolSwitchDelay: number,
 
 		// Arrays
-		entitiesHit: array
+		entitiesHit: Array<String>
 	}
 }

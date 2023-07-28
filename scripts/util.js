@@ -171,7 +171,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
 /**
  * @name banMessage
- * @param {object} player - The player object
+ * @param {Minecraft.Player} player - The player object
  * @example banMessage(player);
  * @remarks Bans the player from the game.
  */
@@ -312,7 +312,7 @@ export function msToTime(ms) {
 
 /**
  * @name getScore
- * @param {object} player - The player to get the scoreboard value from
+ * @param {Minecraft.Entity} player - The player to get the scoreboard value from
  * @param {string} objective - The player to get the scoreboard value from
  * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl", 0)
