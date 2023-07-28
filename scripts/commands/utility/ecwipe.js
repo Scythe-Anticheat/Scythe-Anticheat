@@ -1,34 +1,29 @@
 import * as Minecraft from "@minecraft/server";
+import { registerCommand } from "../handler.js";
 
 const world = Minecraft.world;
 
-/**
- * @name ecwipe
- * @param {object} message - Message object
- * @param {array} args - Additional arguments provided.
- */
-export function ecwipe(message, args) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
-    if(typeof args !== "object") throw TypeError(`args is type of ${typeof args}. Expected "object".`);
+registerCommand({
+    name: "ecwipe",
+    usage: "<player>",
+    minArgCount: 0,
+    execute: (message, args) => {
+        const player = message.sender;
 
-    const player = message.sender;
+        // try to find the player requested
+        let member;
     
-    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide whos ender chest inventory to wipe.");
+        for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+            member = pl;
+            break;
+        }
+        
+        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
     
-    // try to find the player requested
-    let member;
-
-    for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        member = pl;
-        break;
+        for(let i = 0; i < 27; i++) {
+            member.runCommandAsync(`replaceitem entity @s slot.enderchest ${i} air`);
+        }
+    
+        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has cleared ${member.nameTag}'s enderchest."}]}`);
     }
-    
-    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
-
-    for(let i = 0; i < 27; i++) {
-        member.runCommandAsync(`replaceitem entity @s slot.enderchest ${i} air`);
-    }
-
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has cleared ${member.nameTag}'s enderchest."}]}`);
-}
+});

@@ -1,11 +1,13 @@
 // @ts-check
 import * as Minecraft from "@minecraft/server";
+import "./commands/register.js";
+
 import { flag, banMessage, getClosestPlayer, getScore } from "./util.js";
-import { commandHandler } from "./commands/handler.js";
-import config from "./data/config.js";
-import { banList } from "./data/globalban.js";
-import data from "./data/data.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
+import { commandHandler } from "./commands/handler.js";
+import { banList } from "./data/globalban.js";
+import config from "./data/config.js";
+import data from "./data/data.js";
 
 const world = Minecraft.world;
 
@@ -111,21 +113,6 @@ Minecraft.system.runInterval(() => {
 				player.runCommandAsync(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
 				player.runCommandAsync(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
 				player.runCommandAsync(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
-			}
-
-			if(config.modules.bedrockValidate.enabled) {
-				if(getScore(player, "bedrock") >= 1) {
-					if(config.modules.bedrockValidate.overworld && player.dimension.id === "minecraft:overworld") {
-						player.runCommandAsync("fill ~-5 -64 ~-5 ~5 -64 ~5 bedrock");
-						player.runCommandAsync("fill ~-4 -59 ~-4 ~4 319 ~4 air 0 replace bedrock");
-					}
-
-					if(config.modules.bedrockValidate.nether && player.dimension.id === "minecraft:nether") { 
-						player.runCommandAsync("fill ~-5 0 ~-5 ~5 0 ~5 bedrock");
-						player.runCommandAsync("fill ~-5 127 ~-5 ~5 127 ~5 bedrock");
-						player.runCommandAsync("fill ~-5 5 ~-5 ~5 120 ~5 air 0 replace bedrock");
-					}
-				} else config.modules.bedrockValidate.enabled = false;
 			}
 
 			const playerVelocity = player.getVelocity();

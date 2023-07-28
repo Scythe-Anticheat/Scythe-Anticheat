@@ -1,40 +1,35 @@
 import * as Minecraft from "@minecraft/server";
+import { registerCommand } from "../handler.js";
 
 const world = Minecraft.world;
 
-/**
- * @name report
- * @param {object} message - Message object
- * @param {array} args - Additional arguments provided.
- */
-export function report(message, args) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
-    if(typeof args !== "object") throw TypeError(`args is type of ${typeof args}. Expected "object".`);
+registerCommand({
+    name: "report",
+    usage: "<player> [reason]",
+    minArgCount: 1,
+    execute: (message, args) => {
+        const player = message.sender;
+        const reason = args.slice(1).join(" ") || "No reason specified";
 
-    const player = message.sender;
-    const reason = args.slice(1).join(" ") || "No reason specified";
+        // try to find the player requested
+        let member;
 
-    if(!args.length) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide who to report.");
-    
-    // try to find the player requested
-    let member;
+        for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
+            member = pl;
+            break;
+        }
 
-    for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-        member = pl;
-        break;
+        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+
+        // make sure they dont report themselves
+        if(member.nameTag === player.nameTag) return player.sendMessage("§r§6[§aScythe§6]§r You cannot report yourself.");
+
+        // prevent report spam
+        if(player.reports.includes(member.nameTag)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
+        player.reports.push(member.nameTag);
+
+        player.sendMessage(`§r§6[§aScythe§6]§r You have reported ${member.nameTag} for: ${reason}.`);
+
+        player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has reported ${member.nameTag} for ${reason}"}]}`);
     }
-
-    if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
-
-    // make sure they dont report themselves
-    if(member.nameTag === player.nameTag) return player.sendMessage("§r§6[§aScythe§6]§r You cannot report yourself.");
-
-    // prevent report spam
-    if(player.reports.includes(member.nameTag)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
-    player.reports.push(member.nameTag);
-
-    player.sendMessage(`§r§6[§aScythe§6]§r You have reported ${member.nameTag} for: ${reason}.`);
-
-    player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has reported ${member.nameTag} for ${reason}"}]}`);
-}
+});

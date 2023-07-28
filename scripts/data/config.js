@@ -45,11 +45,6 @@ export default
             "requiredTags": ["op"],
             "aliases": ["allowgms","agms"]
         },
-        "bedrockvalidate": {
-            "enabled": true,
-            "requiredTags": ["op"],
-            "aliases": ["bedrock","bv"]
-        },
         "modules": {
             "enabled": true,
             "requiredTags": ["op"]
@@ -280,11 +275,6 @@ export default
             "regex": /[^A-Za-z0-9_\-() ]/,
             "punishment": "kick",
             "minVlbeforePunishment": 1
-        },
-        "bedrockValidate": {
-            "enabled": true,
-            "overworld": true,
-            "nether": true
         },
         "reachA": {
             "enabled": true,

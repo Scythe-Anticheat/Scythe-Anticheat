@@ -1,12 +1,8 @@
-/**
- * @name antigms
- * @param {object} message - Message object
- */
-export function antigms(message) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+import { registerCommand } from "../handler.js";
 
-    const player = message.sender;
-    
-    player.runCommandAsync("function settings/antiGMS");
-}
+registerCommand({
+    name: "antigms",
+    execute: (message) => {
+        message.sender.runCommandAsync("function settings/antiGMS");
+    }
+});

@@ -1,12 +1,8 @@
-/**
- * @name fullreport
- * @param {object} message - Message object
- */
-export function fullreport(message) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+import { registerCommand } from "../handler.js";
 
-    const player = message.sender;
-    
-    player.runCommandAsync(`execute @a ~~~ function tools/stats`);
-}
+registerCommand({
+    name: "fullreport",
+    execute: (message) => {
+        message.sender.runCommandAsync("execute @a ~~~ function tools/stats");
+    }
+});

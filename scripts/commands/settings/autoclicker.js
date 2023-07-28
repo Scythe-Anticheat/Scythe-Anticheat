@@ -1,16 +1,11 @@
+import { registerCommand } from "../handler.js";
 import data from "../../data/data.js";
 
-/**
- * @name autoclicker
- * @param {object} message - Message object
- */
-export function autoclicker(message) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+registerCommand({
+    name: "autoclicker",
+    execute: (message) => {
+        data.checkedModules.autoclicker = false;
 
-    const player = message.sender;
-    
-    data.checkedModules.autoclicker = false;
-
-    player.runCommandAsync("function settings/autoclicker");
-}
+        message.sender.runCommandAsync("function settings/antiGMA");
+    }
+});

@@ -1,12 +1,8 @@
-/**
- * @name removecommandblocks
- * @param {object} message - Message object
- */
-export function removecommandblocks(message) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+import { registerCommand } from "../handler.js";
 
-    const player = message.sender;
-    
-    player.runCommandAsync("function settings/removeCommandBlocks");
-}
+registerCommand({
+    name: "removecommandblocks",
+    execute: (message) => {
+        message.sender.runCommandAsync("function removeCommandBlocks");
+    }
+});

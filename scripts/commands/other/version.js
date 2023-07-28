@@ -1,12 +1,8 @@
-/**
- * @name version
- * @param {object} message - Message object
- */
- export function version(message) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+import { registerCommand } from "../handler.js";
 
-    const player = message.sender;
-    
-    player.runCommandAsync("function version");
-}
+registerCommand({
+    name: "version",
+    execute: (message) => {
+        message.sender.runCommandAsync("function version");
+    }
+});

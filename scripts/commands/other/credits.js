@@ -1,12 +1,8 @@
-/**
- * @name credits
- * @param {object} message - Message object
- */
-export function credits(message) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+import { registerCommand } from "../handler.js";
 
-    const player = message.sender;
-
-    player.runCommandAsync("function credits");
-}
+registerCommand({
+    name: "credits",
+    execute: (message) => {
+        message.sender.runCommandAsync("function credits");
+    }
+});

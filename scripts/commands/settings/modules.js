@@ -1,12 +1,8 @@
-/**
- * @name modules
- * @param {object} message - Message object
- */
-export function modules(message) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+import { registerCommand } from "../handler.js";
 
-    const player = message.sender;
-    
-    player.runCommandAsync("function settings/modules");
-}
+registerCommand({
+    name: "modules",
+    execute: (message) => {
+        message.sender.runCommandAsync("function settings/modules");
+    }
+});

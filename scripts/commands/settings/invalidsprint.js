@@ -1,12 +1,8 @@
-/**
- * @name invalidsprint
- * @param {object} message - Message object
- */
- export function invalidsprint(message) {
-    // validate that required params are defined
-    if(typeof message !== "object") throw TypeError(`message is type of ${typeof message}. Expected "object".`);
+import { registerCommand } from "../handler.js";
 
-    const player = message.sender;
-    
-    player.runCommandAsync("function settings/invalidsprint");
-}
+registerCommand({
+    name: "invalidsprint",
+    execute: (message) => {
+        message.sender.runCommandAsync("function settings/invalidsprint");
+    }
+});
