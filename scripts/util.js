@@ -102,10 +102,13 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
     } 
 
-    player.runCommandAsync(`scoreboard players add @s ${scoreboardObjective} 1`);
+    let currentVl = getScore(player, scoreboardObjective, 0);
+    setScore(player, scoreboardObjective, currentVl + 1);
 
-    if(debug) player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
-        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= "},{"score":{"name":"@s","objective":"${scoreboardObjective}"}}]}`);
+    currentVl++;
+
+    if(debug) player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= ${currentVl}"}]}`);
+        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}"}]}`);
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
@@ -122,7 +125,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
     if(punishment === "none" || punishment === "") return;
 
-    if(getScore(player, scoreboardObjective, 1) < checkData.minVlbeforePunishment) return;
+    if(currentVl < checkData.minVlbeforePunishment) return;
 
     switch (punishment) {
         case "kick": {
@@ -242,7 +245,7 @@ export function banMessage(player) {
  * @remarks Gets the nearest player to an entity.
  * @returns {object} player - The player that was found
  */
- export function getClosestPlayer(entity) {
+export function getClosestPlayer(entity) {
     // validate that required params are defined
     if(typeof entity !== "object") return TypeError(`Error: entity is type of ${typeof entity}. Expected "object"`);
 
@@ -316,10 +319,10 @@ export function msToTime(ms) {
  * @param {string} objective - The player to get the scoreboard value from
  * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl", 0)
- * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
+ * @remarks Get's the scoreboard objective value for a player
  * @returns {number} score - The scoreboard objective value
  */
- export function getScore(player, objective, defaultValue = 0) {
+export function getScore(player, objective, defaultValue = 0) {
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
     if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
@@ -329,4 +332,20 @@ export function msToTime(ms) {
     } catch {
         return defaultValue;
     }
+}
+
+/**
+ * @name setScore
+ * @param {Minecraft.Entity} player - The player to set the score for
+ * @param {string} objective - The scoreboard objective
+ * @param {number} value - The new value of the scoreboard objective
+ * @example getScore(player, "cbevl", 0)
+ * @remarks Sets the scoreboard objective value for a player
+ */
+export function setScore(player, objective, value) {
+    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
+    if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
+    if(typeof value !== "number") throw TypeError(`Error: value is type of ${typeof value}. Expected "number"`);
+
+    world.scoreboard.getObjective(objective).setScore(player, value);
 }

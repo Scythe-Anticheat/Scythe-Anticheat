@@ -294,7 +294,7 @@ function editSettingMenu(player, check) {
     if(checkData.punishment) {
         menu.dropdown("Punishment", Object.keys(punishments), punishments[checkData.punishment]);
         menu.textField("Punishment Length", "Enter a length (ex: 12d, 1d, 1m, 30s", checkData["punishmentLength"]);
-        menu.slider("Minium Violations Before Punishment", 0, 20, 1, checkData["minVlbeforePunishment"]);
+        menu.slider("Minimum Violations Before Punishment", 0, 20, 1, checkData["minVlbeforePunishment"]);
 
         optionsMap = optionsMap.concat(["punishment","punishmentLength","minVlbeforePunishment"]);
     }

@@ -2,7 +2,7 @@
 import * as Minecraft from "@minecraft/server";
 import "./commands/register.js";
 
-import { flag, banMessage, getClosestPlayer, getScore } from "./util.js";
+import { flag, banMessage, getClosestPlayer, getScore, setScore } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 import { banList } from "./data/globalban.js";
@@ -110,9 +110,9 @@ Minecraft.system.runInterval(() => {
 
 			// player position shit
 			if(player.hasTag("moving")) {
-				player.runCommandAsync(`scoreboard players set @s xPos ${Math.floor(player.location.x)}`);
-				player.runCommandAsync(`scoreboard players set @s yPos ${Math.floor(player.location.y)}`);
-				player.runCommandAsync(`scoreboard players set @s zPos ${Math.floor(player.location.z)}`);
+				setScore(player, "xPos", Math.floor(player.location.x));
+				setScore(player, "yPos", Math.floor(player.location.y));
+				setScore(player, "zPos", Math.floor(player.location.z));
 			}
 
 			const playerVelocity = player.getVelocity();
