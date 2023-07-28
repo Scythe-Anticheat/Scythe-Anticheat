@@ -31,10 +31,10 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	// add's user custom tags to their messages if it exists or we fall back
 	// also filter for non ASCII characters and remove them in messages
 	if(!msg.cancel) {
-		if(player.name !== player.nameTag && !config.modules.filterUnicodeChat.enabled) {
+		if(player.name !== player.nameTag && !config.misc_modules.filterUnicodeChat.enabled) {
 			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
 			msg.cancel = true;
-		} else if(player.name === player.nameTag && config.modules.filterUnicodeChat.enabled) {
+		} else if(player.name === player.nameTag && config.misc_modules.filterUnicodeChat.enabled) {
 			world.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
 			msg.cancel = true;
 		}
@@ -67,7 +67,7 @@ world.afterEvents.chatSend.subscribe((msg) => {
 });
 
 Minecraft.system.runInterval(() => {
-	if(config.modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
+	if(config.misc_modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
 	// run as each player
 	for(const player of world.getPlayers()) {
@@ -200,7 +200,7 @@ Minecraft.system.runInterval(() => {
 				*/
 				const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
 
-				if(config.modules.resetItemData.enabled && config.modules.resetItemData.items.includes(item.typeId)) {
+				if(config.misc_modules.resetItemData.enabled && config.misc_modules.resetItemData.items.includes(item.typeId)) {
 					// This creates a duplicate version of the item, with just its amount and data.
 					const item2 = new Minecraft.ItemStack(itemType, item.amount);
 					container.setItem(i, item2);
@@ -619,10 +619,10 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 	// This fixes that
 	if(!entity.isValid()) return;
 
-	if(config.modules.itemSpawnRateLimit.enabled) {
+	if(config.misc_modules.itemSpawnRateLimit.enabled) {
 		data.entitiesSpawnedInLastTick++;
 
-		if(data.entitiesSpawnedInLastTick > config.modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
+		if(data.entitiesSpawnedInLastTick > config.misc_modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
 			if(config.debug) console.warn(`Killed "${entity.typeId}" due to entity spawn ratelimit reached.`);
 			entity.kill();
 		}
