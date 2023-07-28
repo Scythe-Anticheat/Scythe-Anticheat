@@ -18,6 +18,7 @@ const moduleList = Object.keys(config.modules).concat(Object.keys(config.misc_mo
 const modules = [];
 
 for(const fullModule of moduleList) {
+    if(fullModule.includes("example")) continue;
     const module = fullModule[fullModule.length - 1].toUpperCase() === fullModule[fullModule.length - 1] ? fullModule.slice(0, fullModule.length - 1) : fullModule;
 
     if(modules.includes(module)) continue;
