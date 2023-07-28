@@ -14,6 +14,23 @@ const playerIcons = [
     "textures/ui/icon_steve.png",
 ];
 
+const moduleList = Object.keys(config.modules).concat(Object.keys(config.misc_modules));
+const modules = [];
+
+for(const fullModule of moduleList) {
+    const module = fullModule[fullModule.length - 1].toUpperCase() === fullModule[fullModule.length - 1] ? fullModule.slice(0, fullModule.length - 1) : fullModule;
+
+    if(modules.includes(module)) continue;
+    modules.push(module);
+}
+
+const punishments = {
+    none: 0,
+    mute: 1,
+    kick: 2,
+    ban: 3
+};
+
 // this is the function that will be called when the player wants to open the GUI
 // all other GUI functions will be called from here
 export function mainGui(player, error) {
@@ -28,16 +45,14 @@ export function mainGui(player, error) {
 		.button("Ban Menu", "textures/ui/anvil_icon.png")
         .button("Configure Settings", "textures/ui/gear.png")
         .button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
-        .button("Server Options", "textures/ui/servers.png")
         .button("Exit", "textures/ui/redX1.png");
     if(config.debug) menu.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
     menu.show(player).then((response) => {
         if(response.selection === 0) banMenu(player);
         if(response.selection === 1) settingsMenu(player);
         if(response.selection === 2) playerSettingsMenu(player);
-        if(response.selection === 3) worldSettingsMenu(player);
-        if(response.selection === 4) return;
-        if(config.debug && response.selection === 5) debugSettingsMenu(player);
+        if(response.selection === 3) return;
+        if(config.debug && response.selection === 4) debugSettingsMenu(player);
     });
 }
 
@@ -193,8 +208,107 @@ function unbanPlayerMenu(player) {
 //     Settings Menu      //
 // ====================== //
 function settingsMenu(player) {
-    // player.playSound("mob.chicken.plop");
-    mainGui(player, "This menu is currently under development, check back later!");
+    player.playSound("mob.chicken.plop");
+
+    const menu = new MinecraftUI.ActionFormData()
+        .title("Configure Settings")
+        .body("Please select a sub-check to edit.");
+
+    for(const subModule of modules) {
+        menu.button(subModule[0].toUpperCase() + subModule.slice(1));
+    }
+
+    menu.button("Back", "textures/ui/arrow_left.png");
+
+    menu.show(player).then((response) => {
+        // @ts-expect-error
+        if(response.canceled || !modules[response.selection]) return mainGui(player);
+
+        settingsCheckSelectMenu(player, response.selection);
+    });
+}
+
+function settingsCheckSelectMenu(player, selection) {
+    player.playSound("mob.chicken.plop");
+    const subCheck = modules[selection];
+
+    const menu = new MinecraftUI.ActionFormData()
+        .title("Configure Settings")
+        .body("Please select a check to edit.");
+    
+    const checks = [];
+    for(const module of moduleList) {
+        if(!module.startsWith(subCheck)) continue;
+        checks.push(module);
+
+        const checkData = config.modules[module] ?? config.misc_modules[module];
+        menu.button(`${subCheck[0].toUpperCase() + subCheck.slice(1)}/${module[module.length - 1]}\n${checkData.enabled ? "§8[§aENABLED§8]" : "§8[§4DISABLED§8]"}`);
+    }
+
+    if(checks.length === 1) return editSettingMenu(player, checks[0]);
+
+    menu.button("Back", "textures/ui/arrow_left.png");
+
+    menu.show(player).then((response) => {
+        // @ts-expect-error
+        if(response.canceled || !checks[response.selection]) return settingsMenu(player);
+
+        // @ts-expect-error
+        editSettingMenu(player, checks[response.selection]);
+    });
+}
+
+function editSettingMenu(player, check) {
+    player.playSound("mob.chicken.plop");
+    const checkData = config.modules[check] ?? config.misc_modules[check];
+
+    let optionsMap = ["enabled"];
+
+    const menu = new MinecraftUI.ModalFormData()
+        .title(`Editing check: ${check[0].toUpperCase() + check.slice(1)}`)
+        .toggle("Enabled", checkData.enabled);
+
+    for(const key of Object.keys(checkData)) {
+        if(["enabled","punishment","punishmentLength","minVlbeforePunishment"].includes(key)) continue;
+
+        const upperCase = key[0].toUpperCase() + key.slice(1);
+        switch(typeof checkData[key]) {
+            case "number":
+                menu.slider(upperCase, 0, 100, 1, checkData[key]);
+                optionsMap.push(key);
+                break;
+            case "boolean": 
+                menu.toggle(upperCase, checkData[key]);
+                optionsMap.push(key);
+                break;
+            case "string":
+                menu.textField(upperCase, "Enter text here", checkData[key]);
+                optionsMap.push(key);
+                break;
+        }
+    }
+
+    // Check if the module supports punishments
+    if(checkData.punishment) {
+        menu.dropdown("Punishment", Object.keys(punishments), punishments[checkData.punishment]);
+        menu.textField("Punishment Length", "Enter a length (ex: 12d, 1d, 1m, 30s", checkData["punishmentLength"]);
+        menu.slider("Minium Violations Before Punishment", 0, 20, 1, checkData["minVlbeforePunishment"]);
+
+        optionsMap = optionsMap.concat(["punishment","punishmentLength","minVlbeforePunishment"]);
+    }
+
+    menu.show(player).then((response) => {
+        const formValues = response.formValues ?? [];
+
+        for(const id in optionsMap) {
+            const name = optionsMap[id];
+
+            // @ts-expect-error
+            checkData[name] = name === "punishment" ? Object.keys(punishments)[formValues[id]] : formValues[id];
+        }
+
+        player.sendMessage(`§r§6[§aScythe§6]§r Successfully updated the settings for ${check}.\n§r§6[§aScythe§6]§r New Data:\n${JSON.stringify(checkData, null, 2)}`);
+    });
 }
 
 // ====================== //
@@ -398,14 +512,6 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         if(response.selection === 2) player.runCommandAsync(`gamemode 2 "${playerSelected.nameTag}"`);
         if(response.selection === 3 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
     });
-}
-
-// ====================== //
-//       World Menu       //
-// ====================== //
-function worldSettingsMenu(player) {
-    // player.playSound("mob.chicken.plop");
-    mainGui(player, "This menu is currently under development, check back later!");
 }
 
 // ====================== //

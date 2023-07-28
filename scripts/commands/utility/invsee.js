@@ -41,7 +41,7 @@ registerCommand({
                     const enchantData = iteratorResult.value;
 
                     let enchantmentName = enchantData.type.id;
-                    enchantmentName = enchantmentName.charAt(0).toUpperCase() + enchantmentName.slice(1);
+                    enchantmentName = enchantmentName[0].toUpperCase() + enchantmentName.slice(1);
 
                     inventory += `    | ${enchantmentName} ${enchantData.level}\n`;
 
