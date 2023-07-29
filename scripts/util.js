@@ -76,6 +76,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
                 currentItem: `${currentItem?.typeId ?? "minecraft:air"}`,
                 selectedSlot: player.selectedSlot,
                 dimension: player.dimension.id,
+                fallDistance: player.fallDistance,
                 extra: {
                     blocksBroken: player.blocksBroken || -1,
                     entitiesHitTick: player.entitiesHit,
