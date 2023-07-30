@@ -39,7 +39,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoban§r - Enabl
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables anti-autoclicker."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/disables killing all NPCs."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
 
@@ -52,10 +52,10 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoclicker§r - Enables/disables anti-autoclicker."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/npc§r - Enables/disables killing all NPCs."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/overideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/worldborder§r - Enables/disables the world border and its size."}]}
-tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilites"}]}
+tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilities"}]}
 
 # Gametest enabled
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!ecwipe <username>§r - Clears a player's ender chest."}]}

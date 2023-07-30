@@ -56,7 +56,7 @@ export default
 		"overridecommandblocksenabled": {
 			"enabled": true,
 			"requiredTags": ["op"],
-			"aliases": ["overidecbe","overidecommandblocksenabled","ocbe"]
+			"aliases": ["overridecbe","overridecommandblocksenabled","ocbe"]
 		},
 		"removecommandblocks": {
 			"enabled": true,

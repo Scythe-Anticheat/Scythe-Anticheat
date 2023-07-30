@@ -12,7 +12,7 @@ import "./settings/antigms.js";
 import "./settings/modules.js";
 import "./settings/npc.js";
 import "./settings/invalidsprint.js";
-import "./settings/overidecommandblocksenabled.js";
+import "./settings/overridecommandblocksenabled.js";
 import "./settings/removecommandblocks.js";
 import "./settings/worldborder.js";
 import "./settings/autoclicker.js";
