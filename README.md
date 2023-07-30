@@ -1,5 +1,5 @@
 <div align="center">
-  ⚠️ The Scythe Anticheat Repository is being transfered to https://github.com/Scythe-Anticheat/Scythe-Anticheat. Please update any links to the new URL.⚠️
+  ⚠️ The Scythe Anticheat Repository is being transferred to https://github.com/Scythe-Anticheat/Scythe-Anticheat. Please update any links to the new URL.⚠️
   
   
   <b>Scythe AntiCheat - The best anticheat designed for Minecraft Bedrock realms/worlds/servers.</b>
@@ -41,7 +41,7 @@ To run any chat commands or be able to use certain blocks please type ```/functi
   BadEnchants -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for enchantment levels exceeding vanilla limits.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for negative enchantment levels.\*<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if an item is enchanted with an enchant that cant be applied to the item.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if an item is enchanted with an enchant that can't be applied to the item.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks if an item has a lore.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks if an item has duplicated enchantments.\*<br />
 
@@ -124,7 +124,7 @@ To run any chat commands or be able to use certain blocks please type ```/functi
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Alerts staff if a player finds a diamond or ancient debris.\* (Disabled by default)
 
 # Extra Commands
-To receive anti-cheat alerts use: ```!notfy```
+To receive anti-cheat alerts use: ```!notify```
 
 To ban a player use: ```!ban <player> [time] [reason]```
 
@@ -146,7 +146,7 @@ Q1: Does the AntiCheat auto-ban?<br />
 Yes. Currently only CommandBlockExploit/F, IllegalItems/C, IllegalItems/D, IllegalItems/E, and Crasher/A autoban. To enable autobanning do ```!autoban```
 
 Q2: Is it customizable?<br />
-A2: Yes you can edit the config.js file to disable or change the settings of certian checks. A guide can be found [here](https://github.com/MrDiamond64/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
+A2: Yes you can edit the config.js file to disable or change the settings of certain checks. A guide can be found [here](https://github.com/MrDiamond64/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
 
 # Notes
 When applying the pack to your world, make sure the addon is at the top of the behavior packs list and Beta APIs are enabled. This is to ensure all checks work properly.

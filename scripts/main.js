@@ -191,9 +191,9 @@ Minecraft.system.runInterval(() => {
 
 				/*
 					As of 1.19.30, Mojang removed all illegal items from MinecraftItemTypes, although this change
-					doesnt matter, they mistakenly removed 'written_book', which can be obtained normally.
-					Written books will make this code error out, and make any items that havent been check bypass
-					anti32k checks. In older versions, this error will also make certian players not get checked
+					doesn't matter, they mistakenly removed 'written_book', which can be obtained normally.
+					Written books will make this code error out, and make any items that haven't been check bypass
+					anti32k checks. In older versions, this error will also make certain players not get checked
 					leading to a Scythe Semi-Gametest Disabler method.
 				*/
 				const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
@@ -233,7 +233,7 @@ Minecraft.system.runInterval(() => {
 						if(config.modules.badenchantsB.enabled && enchantData.level <= 0)
 							flag(player, "BadEnchants", "B", "Exploit", "enchant", `minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
 
-						// badenchants/C = checks if an item has an enchantment which isnt support by the item
+						// badenchants/C = checks if an item has an enchantment which isn't support by the item
 						if(config.modules.badenchantsC.enabled) {
 							if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(enchantData.type, 1))) {
 								flag(player, "BadEnchants", "C", "Exploit", "item", `${item.typeId},enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, undefined, undefined, i);
@@ -503,7 +503,7 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 		thx drib or matrix_code for telling me lol
 
 	if(config.modules.illegalitemsE.enabled) {
-		// items that are obtainble using commands
+		// items that are obtainable using commands
 		if(!player.hasTag("op")) {
 			let flagPlayer = false;
 
@@ -589,7 +589,7 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	// Namespoof/A = username length check.
 	if(config.modules.namespoofA.enabled) {
 		// checks if 2 players are logged in with the same name
-		// minecraft adds a sufix to the end of the name which we detect
+		// minecraft adds a suffix to the end of the name which we detect
 		if(player.name.endsWith(')') && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
 			player.flagNamespoofA = true;
 
@@ -806,14 +806,14 @@ world.afterEvents.itemUse.subscribe((itemUse) => {
 });
 
 Minecraft.system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
-	// We try to stop any watchdog crashes incase malicous users try to make the scripts lag
+	// We try to stop any watchdog crashes incase malicious users try to make the scripts lag
 	// and causing the server to crash
 	watchdogTerminate.cancel = true;
 
 	console.warn(`${new Date().toISOString()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${watchdogTerminate.terminateReason}`);
 });
 
-// when using /reload, the variables defined in playerJoin dont persist
+// when using /reload, the variables defined in playerJoin don't persist
 if([...world.getPlayers()].length >= 1) {
 	for(const player of world.getPlayers()) {
 		if(config.modules.nukerA.enabled) player.blocksBroken = 0;

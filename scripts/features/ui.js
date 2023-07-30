@@ -151,7 +151,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         .title("Ban Player Menu - " + playerSelected.name)
         .textField("Ban Reason:", "§o§7No Reason Provided")
         .slider("Ban Length (in days)", 1, 365, 1)
-        .toggle("Permenant Ban", false);
+        .toggle("Permanant Ban", false);
     menu.show(player).then((response) => {
         if(response.canceled) {
             if(lastMenu === 0) banMenuSelect(player, lastMenu);
@@ -531,7 +531,7 @@ function debugSettingsMenu(player) {
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
         .button("Disable Debug Intents", "textures/ui/debug_glyph_color.png")
         .button("Randomize Inventory", "textures/ui/debug_glyph_color.png")
-        .button("Force Watchdog Stackoverflow", "textures/ui/debug_glyph_color.png")
+        .button("Force Watchdog Stack Overflow", "textures/ui/debug_glyph_color.png")
         .button("Force Watchdog Hang", "textures/ui/debug_glyph_color.png")
         .button("Force Watchdog Memory Crash Type 1", "textures/ui/debug_glyph_color.png")
         .button("Back", "textures/ui/arrow_left.png");

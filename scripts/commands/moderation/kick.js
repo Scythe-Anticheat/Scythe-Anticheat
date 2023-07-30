@@ -25,7 +25,7 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        // make sure they dont kick themselves
+        // make sure they don't kick themselves
         if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
 
         if(!isSilent) player.runCommandAsync(`kick "${member.name}" ${reason}`);

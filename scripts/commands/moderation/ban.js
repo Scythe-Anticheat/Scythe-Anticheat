@@ -26,7 +26,7 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        // make sure they dont ban themselves
+        // make sure they don't ban themselves
         if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban yourself.");
 
         // cannot ban staff members

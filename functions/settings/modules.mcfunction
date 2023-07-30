@@ -1,6 +1,6 @@
 # Shows all optional features enabled
 
-# sometimes the settings dont apply correctly so we reapply them
+# sometimes the settings don't apply correctly so we reapply them
 function checks/assets/applySettings
 
 tellraw @s[scores={gma=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Anti-GMA is currently §4DISABLED"}]}

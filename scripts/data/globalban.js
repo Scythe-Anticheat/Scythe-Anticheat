@@ -28,7 +28,7 @@ export default
 	"wieldyatol86717",
 	"ctrlaltf44",
 	"blazerloop",
-	// No it doesnt
+	// No it doesn't
 	"scythesucks1396",
 	"darkstalker8352",
 	"takenyan",

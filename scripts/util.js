@@ -14,7 +14,7 @@ const world = Minecraft.world;
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string | undefined} [debugName] - Name for the debug value.
  * @param {string | number | undefined} [debug] - Debug info.
- * @param {boolean} [shouldTP] - Whever to tp the player to itself.
+ * @param {boolean} [shouldTP] - Whether to tp the player to itself.
  * @param {object | undefined} [cancelObject] - object with property "cancel" to cancel.
  * @param {number | undefined} [slot] - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg, undefined);
@@ -30,7 +30,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(typeof debug !== "string" && typeof debug !== "number" && typeof debug !== "undefined") throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string", "number" or "undefined"`);
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
     if(typeof cancelObject !== "object" && typeof cancelObject !== "undefined") throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined`);
-    if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "nunber" or "undefined`);
+    if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "number" or "undefined`);
 
     if(config.disable_flags_from_scythe_op && player.hasTag("op")) return;
 
@@ -38,7 +38,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         // remove characters that may break commands, and newlines
         debug = String(debug).replace(/"|\\|\n/gm, "");
 
-        // malicous users may try make the debug field ridiclously large to lag any clients that may
+        // malicious users may try make the debug field ridiculously large to lag any clients that may
         // try to view the alert (anybody with the 'notify' tag)
         if(debug.length > 256) {
             const extraLength = debug.length - 256;
@@ -237,7 +237,7 @@ export function banMessage(player) {
 
     player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason || "You are banned!"}."}]}`);
 
-    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permenant"}`);
+    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permanent"}`);
     player.triggerEvent("scythe:kick");
 }
 
@@ -293,7 +293,7 @@ export function parseTime(str) {
  * @name msToTime
  * @param {number} ms - The string to convert
  * @example str(88200000); // Returns { d: 1, h: 0, m: 30, s: 0 }
- * @remarks Convert miliseconds to seconds, minutes, hours, days and weeks
+ * @remarks Convert milliseconds to seconds, minutes, hours, days and weeks
  * @returns {object} str - The converted string
  */
 export function msToTime(ms) {
@@ -302,7 +302,7 @@ export function msToTime(ms) {
 
     if(ms > Date.now()) ms = ms - Date.now();
 
-    // turn miliseconds into days, minutes, seconds, etc
+    // turn milliseconds into days, minutes, seconds, etc
     const w = Math.floor(ms / (1000 * 60 * 60 * 24 * 7));
     const d = Math.floor((ms % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
     const h = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

@@ -22,7 +22,7 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        // make sure they dont mute themselves
+        // make sure they don't mute themselves
         if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
         member.addTag("isMuted");

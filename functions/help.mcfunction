@@ -1,4 +1,4 @@
-# sometimes the gametestapi scoreboard value doesnt apply correctly so we apply it again
+# sometimes the gametestapi scoreboard value doesn't apply correctly so we apply it again
 scoreboard players add scythe:config gametestapi 0
 scoreboard players operation @s gametestapi = scythe:config gametestapi
 
@@ -74,7 +74,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!resetwarns <player
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/ecwipe§r - Clears a players ender chest."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/fly§r - Enables/disables the ability to fly."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/freeze§r - Freeze a player and make it so they cant move."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/freeze§r - Freeze a player and make it so they can't move."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/stats§r - View a specific players anticheat logs."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/vanish§r - Enables/disables vanish mode (Used for spying on suspects)."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/resetwarns§r - Reset a players violations."}]}

@@ -53,7 +53,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove hasGUIopen",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"invmove": {
@@ -62,7 +62,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add hasGUIopen",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -75,7 +75,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove sprint",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"sprint": {
@@ -84,7 +84,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add sprint",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"/execute @s[scores={invalidsprint=1..}] ~~~ function checks/invalidsprint"
 					]
 				}
@@ -98,7 +98,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove attack",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}",
 						"@s scythe:reset_skinid"
 					]
 				},
@@ -108,7 +108,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add attack",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §bRecieved §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"/scoreboard players add @s[tag=hasGUIopen] invmovevl 1",
 						"/execute @s[tag=hasGUIopen] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Movement) §4InventoryMods/B §7(is_attacking)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"invmovevl\"}}]}",
 						"/execute @s[tag=right,scores={right=3..}] ~~~ function checks/alerts/interactuse",

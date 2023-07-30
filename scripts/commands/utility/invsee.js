@@ -4,7 +4,7 @@ import { registerCommand } from "../handler.js";
 
 const world = Minecraft.world;
 
-// found the inventory viewing scipt in the bedrock addons discord, unsure of the original owner (not my code)
+// found the inventory viewing script in the bedrock addons discord, unsure of the original owner (not my code)
 registerCommand({
     name: "invsee",
     execute: (message, args) => {

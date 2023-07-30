@@ -21,7 +21,7 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        // make sure they dont report themselves
+        // make sure they don't report themselves
         if(member.nameTag === player.nameTag) return player.sendMessage("§r§6[§aScythe§6]§r You cannot report yourself.");
 
         // prevent report spam

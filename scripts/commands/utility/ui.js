@@ -14,7 +14,7 @@ registerCommand({
             return player.sendMessage("§r§6[§aScythe§6]§r Your inventory is full! Try removing some items and try again.");
         }
 
-        // make sure they dont have the UI item in their current slot
+        // make sure they don't have the UI item in their current slot
         const currentItem = container.getItem(player.selectedSlot);
 
         if(currentItem?.typeId === config.customcommands.ui.ui_item && currentItem?.nameTag === config.customcommands.ui.ui_item_name)
@@ -25,7 +25,7 @@ registerCommand({
         let didError = false;
 
         if(!itemType) {
-            console.error(`Unable to create item type, most likely the item name is invalid. Defautled to using wooden axe.`);
+            console.error(`Unable to create item type, most likely the item name is invalid. Defaulted to using wooden axe.`);
 
             didError = true;
             itemType = Minecraft.ItemTypes.get("minecraft:wooden_axe");
