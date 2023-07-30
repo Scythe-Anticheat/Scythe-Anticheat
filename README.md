@@ -62,7 +62,7 @@ To run any chat commands or be able to use certain blocks please type ```/functi
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for using/throwing items at a very fast rate.\*
 
   Fly -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for fly-like motion.\*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for fly-like motion.\*<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for negative fall damage.\*
 
   Illegal Items -><br />
