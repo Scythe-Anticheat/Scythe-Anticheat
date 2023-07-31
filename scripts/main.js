@@ -119,7 +119,7 @@ Minecraft.system.runInterval(() => {
 
 			// NoSlow/A = speed limit check
 			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
-				if(!player.getEffect("speed") && player.hasTag('moving') && player.hasTag('right') && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.hasTag("trident") && getScore(player, "right") >= 5) {
+				if(player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('moving') && player.hasTag('right') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
 					flag(player, "NoSlow", "A", "Movement", "speed", playerSpeed, true);
 				}
 			}
@@ -262,7 +262,7 @@ Minecraft.system.runInterval(() => {
 			}
 
 			// invalidsprint/a = checks for sprinting with the blindness effect
-			if(config.modules.invalidsprintA.enabled && player.getEffect("blindness") && player.isSprinting)
+			if(config.modules.invalidsprintA.enabled && player.isSprinting && player.getEffect("blindness"))
 				flag(player, "InvalidSprint", "A", "Movement", undefined, undefined, true);
 
 			// fly/a
@@ -362,6 +362,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		}, 1);
 	}
 
+	/*
 	if(config.modules.commandblockexploitH.enabled && block.typeId === "minecraft:hopper") {
 		const pos1 = {x: block.location.x + 2, y: block.location.y + 2, z: block.location.z + 2};
 		const pos2 = {x: block.location.x - 2, y: block.location.y - 2, z: block.location.z - 2};
@@ -382,6 +383,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 			player.dimension.getBlock({x:block.location.x, y: block.location.y, z: block.location.z}).setType(Minecraft.MinecraftBlockTypes.air);
 		}
 	}
+	*/
 
 	if(config.modules.towerA.enabled) {
 		// get block under player
@@ -578,13 +580,14 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	// load custom nametag
 	const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
 
-	player.getTags().forEach(t => {
-		// load custom nametag
-		if(t.includes("tag:")) {
-			t = t.replace(/"|\\/g, "");
+	for(const tag of player.getTags()) {
+		if(tag.includes("tag:")) {
+			const t = tag.replace(/"|\\/g, "");
+
 			player.nameTag = `${borderColor}[§r${mainColor}${t.slice(4)}${borderColor}]§r ${playerNameColor}${player.name}`;
+			break;
 		}
-	});
+	}
 
 	// Namespoof/A = username length check.
 	if(config.modules.namespoofA.enabled) {
@@ -625,6 +628,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 			entity.kill();
 		}
 	}
+
 	if(config.modules.commandblockexploitG.enabled) {
 		if(config.modules.commandblockexploitG.entities.includes(entity.typeId.toLowerCase())) {
 			flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", "entity", entity.typeId);
@@ -639,6 +643,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 				});
 		}
 
+		/*
 		if(config.modules.commandblockexploitG.blockSummonCheck.includes(entity.typeId)) {
 			const pos1 = {x: entity.location.x + 2, y: entity.location.y + 2, z: entity.location.z + 2};
 			const pos2 = {x: entity.location.x - 2, y: entity.location.y - 2, z: entity.location.z - 2};
@@ -651,19 +656,18 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 				entity.kill();
 			});
 		}
+		*/
 	}
 
 	if(entity.typeId === "minecraft:item") {
 		// @ts-expect-error
 		const item = entity.getComponent("item").itemStack;
 
-		if(config.modules.illegalitemsB.enabled) {
-			if(config.itemLists.items_very_illegal.includes(item.typeId) || config.itemLists.items_semi_illegal.includes(item.typeId))
-				entity.kill();
-		}
-
-		if(config.modules.illegalitemsB.enabled && config.itemLists.cbe_items.includes(item.typeId))
-			entity.kill();
+		if(config.modules.illegalitemsB.enabled && (
+			config.itemLists.items_very_illegal.includes(item.typeId) ||
+			config.itemLists.items_semi_illegal.includes(item.typeId) ||
+			config.itemLists.cbe_items.includes(item.typeId))
+		) entity.kill();
 	}
 
 	// IllegalItems/K = checks if a player places a chest boat with items already inside it
@@ -698,7 +702,9 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 		if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
 			entity.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area."}]}`);
 
-			for(const entityLoop of entities) entityLoop.kill();
+			for(const entityLoop of entities) {
+				entityLoop.kill();
+			}
 		}
 	}
 });
@@ -709,18 +715,19 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 	if(player.typeId !== "minecraft:player") return;
 
 	// killaura/C = checks for multi-aura
-	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id))
+	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) {
 		player.entitiesHit.push(entity.id);
+
 		if(player.entitiesHit.length >= config.modules.killauraC.entities) {
 			flag(player, "KillAura", "C", "Combat", "entitiesHit", player.entitiesHit.length);
 		}
-
+	}
 
 	// reach/A = check if a player hits an entity more then 5.1 blocks away
 	if(config.modules.reachA.enabled) {
 		// get the difference between 2 three dimensional coordinates
 		const distance = Math.sqrt(Math.pow(entity.location.x - player.location.x, 2) + Math.pow(entity.location.y - player.location.y, 2) + Math.pow(entity.location.z - player.location.z, 2));
-		if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag || entity.typeId} with a distance of ${distance}`);
+		if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag ?? entity.typeId} with a distance of ${distance}`);
 
 		if(distance > config.modules.reachA.reach && entity.typeId.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.typeId)) {
 			const checkGmc = world.getPlayers({
@@ -780,6 +787,8 @@ world.afterEvents.entityHitBlock.subscribe((entityHit) => {
 
 world.beforeEvents.itemUse.subscribe((itemUse) => {
 	const { source: player } = itemUse;
+
+	if(player.typeId !== "minecraft:player") return;
 
 	if(config.modules.fastuseA.enabled) {
 		const lastThrowTime = Date.now() - player.lastThrow;

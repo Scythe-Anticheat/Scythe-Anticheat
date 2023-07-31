@@ -200,10 +200,10 @@ export function banMessage(player) {
 
         // remove the player from the unban queue
         for (let i = -1; i < data.unbanQueue.length; i++) {
-            if(data.unbanQueue[i] == player.name.toLowerCase().split(" ")[0]) {
-                data.unbanQueue.splice(i, 1);
-                break;
-            }
+            if(data.unbanQueue[i] !== player.name.toLowerCase().split(" ")[0]) continue;
+
+            data.unbanQueue.splice(i, 1);
+            break;
         }
         return;
     }

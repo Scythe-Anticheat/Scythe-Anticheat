@@ -171,6 +171,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
             t = t.replace(/"/g, "");
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) playerSelected.removeTag(t);
         });
+        
         playerSelected.addTag(`reason:${reason}`);
         playerSelected.addTag(`by:${player.nameTag}`);
         if(banLength && !permBan) playerSelected.addTag(`time:${Date.now() + banLength}`);
