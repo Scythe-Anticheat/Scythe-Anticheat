@@ -81,30 +81,16 @@ function banMenu(player) {
 
 function banMenuSelect(player, selection) {
     player.playSound("mob.chicken.plop");
-    const allPlayers = world.getPlayers();
+    const allPlayers = [...world.getPlayers()];
 
-    const menu = new MinecraftUI.ActionFormData()
-        .title("Ban Menu")
-        .body("Please select a player to manage.");
-
-    for(const plr of allPlayers) {
-        let playerName = `${plr.name}`;
-        if(plr.id === player.id) playerName += " §1[YOU]";
-        if(plr.hasTag("op")) playerName += " §1[OP]";
-        menu.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
-    }
-
-    menu.button("Back", "textures/ui/arrow_left.png");
+    const menu = createSelectPlayerMenu("Ban Menu", allPlayers, player);
 
     menu.show(player).then((response) => {
         if(response.canceled) return banMenu(player);
 
-        // @ts-expect-error
-        if([...allPlayers].length > response.selection) {
-            // @ts-expect-error
-            if(selection === 0) kickPlayerMenu(player, [...allPlayers][response.selection]);
-            // @ts-expect-error
-            if(selection === 1) banPlayerMenu(player, [...allPlayers][response.selection]);
+        if(response.selection !== undefined && allPlayers.length > response.selection) {
+            if(selection === 0) kickPlayerMenu(player, allPlayers[response.selection]);
+                else if(selection === 1) banPlayerMenu(player, allPlayers[response.selection]);
         } else banMenu(player);
     });
 }
@@ -322,25 +308,16 @@ function editSettingMenu(player, check) {
 // ====================== //
 function playerSettingsMenu(player) {
     player.playSound("mob.chicken.plop");
-    const allPlayers = world.getPlayers();
+    const allPlayers = [...world.getPlayers()];
 
-    const menu = new MinecraftUI.ActionFormData()
-        .title("Player Menu")
-        .body("Please select a player to manage.");
-
-    for(const plr of allPlayers) {
-        let playerName = `${plr.name}`;
-        if(plr.id === player.id) playerName += " §1[YOU]";
-        if(plr.hasTag("op")) playerName += " §1[OP]";
-        menu.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
-    }
-
-    menu.button("Back", "textures/ui/arrow_left.png");
+    const menu = createSelectPlayerMenu("Player Menu", allPlayers, player);
 
     menu.show(player).then((response) => {
-        // @ts-expect-error
-        if([...allPlayers].length > response.selection) playerSettingsMenuSelected(player, [...allPlayers][response.selection]);
-            else mainGui(player);
+        if(response.selection !== undefined && allPlayers.length > response.selection) {
+            playerSettingsMenuSelected(player, allPlayers[response.selection]);
+        } else {
+            mainGui(player);
+        }
     });
 }
 
@@ -348,7 +325,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
     const menu = new MinecraftUI.ActionFormData()
-        .title("Player Menu - " + player.name)
+        .title("Player Menu - " + playerSelected.name)
         .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("freeze")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
         .button("Clear EnderChest", "textures/blocks/ender_chest_front.png")
         .button("Kick Player", "textures/ui/anvil_icon.png")
@@ -496,8 +473,8 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
         .button("Teleport Here", "textures/ui/arrow_down.png")
         .button("Back", "textures/ui/arrow_left.png");
     menu.show(player).then((response) => {
-        if(response.selection === 0) player.runCommandAsync(`tp @s "${playerSelected.name}"`);
-        if(response.selection === 1) player.runCommandAsync(`tp "${playerSelected.name}" @s`);
+        if(response.selection === 0) player.teleport(playerSelected.location);
+        if(response.selection === 1) playerSelected.teleport(player.location);
         if(response.selection === 2 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
     });
 }
@@ -575,4 +552,26 @@ function debugSettingsMenu(player) {
             }
         } else if(response.selection === 6 || response.canceled) mainGui(player);
     });
+}
+
+// ====================== //
+//         Extra          //
+// ====================== //
+function createSelectPlayerMenu(title, players, self) {
+    const menu = new MinecraftUI.ActionFormData()
+        .title(title)
+        .body("Please select a player to manage.");
+
+    for(const plr of players) {
+        let playerName = `${plr.name}`;
+
+        if(plr.id === self.id) playerName += " §1[YOU]";
+        if(plr.hasTag("op")) playerName += " §1[OP]";
+
+        menu.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
+    }
+
+    menu.button("Back", "textures/ui/arrow_left.png");
+
+    return menu;
 }
