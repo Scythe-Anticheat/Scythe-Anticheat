@@ -73,7 +73,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
                     y: rotation.y
                 },
                 tags: String(player.getTags()).replace(/[\r\n"]/gm, ""),
-                currentItem: `${currentItem?.typeId ?? "minecraft:air"}`,
+                currentItem: currentItem?.typeId ?? "minecraft:air",
                 selectedSlot: player.selectedSlot,
                 dimension: player.dimension.id,
                 fallDistance: player.fallDistance,

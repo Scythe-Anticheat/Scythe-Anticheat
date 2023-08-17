@@ -563,7 +563,7 @@ function createSelectPlayerMenu(title, players, self) {
         .body("Please select a player to manage.");
 
     for(const plr of players) {
-        let playerName = `${plr.name}`;
+        let playerName = plr.name;
 
         if(plr.id === self.id) playerName += " §1[YOU]";
         if(plr.hasTag("op")) playerName += " §1[OP]";
