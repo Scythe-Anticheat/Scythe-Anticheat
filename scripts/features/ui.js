@@ -209,8 +209,7 @@ function settingsMenu(player) {
     menu.button("Back", "textures/ui/arrow_left.png");
 
     menu.show(player).then((response) => {
-        // @ts-expect-error
-        if(response.canceled || !modules[response.selection]) return mainGui(player);
+        if(!modules[response.selection ?? -1]) return mainGui(player);
 
         settingsCheckSelectMenu(player, response.selection);
     });
@@ -238,11 +237,11 @@ function settingsCheckSelectMenu(player, selection) {
     menu.button("Back", "textures/ui/arrow_left.png");
 
     menu.show(player).then((response) => {
-        // @ts-expect-error
-        if(response.canceled || !checks[response.selection]) return settingsMenu(player);
+        const selection = response.selection ?? - 1;
 
-        // @ts-expect-error
-        editSettingMenu(player, checks[response.selection]);
+        if(!checks[selection]) return settingsMenu(player);
+
+        editSettingMenu(player, checks[selection]);
     });
 }
 
