@@ -319,7 +319,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		if(!piston.isRetracted || piston.isMoving || piston.isExpanded) {
 			// @ts-expect-error
 			flag(player, "IllegalItems", "H", "Exploit", "isRetracted", `${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`, false, false, player.selectedSlot);
-			block.setType(Minecraft.MinecraftBlockTypes.air);
+			block.setType("air");
 		}
 	}
 
@@ -343,7 +343,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 
 		if(didFindItems) {
 			flag(player, "IllegalItems", "I", "Exploit", "containerBlock", `${block.typeId},totalSlots=${container.size},emptySlots=${emptySlots}`, undefined, undefined, player.selectedSlot);
-			block.setType(Minecraft.MinecraftBlockTypes.air);
+			block.setType("air");
 		}
 	}
 
@@ -357,7 +357,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 
 			if(text.length >= 1) {
 				flag(player, "IllegalItems", "J", "Exploit", "signText", text, undefined, undefined, player.selectedSlot);
-				block.setType(Minecraft.MinecraftBlockTypes.air);
+				block.setType("air");
 			}
 		}, 1);
 	}
@@ -401,7 +401,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 
 				if([...checkGmc].length > 0) {
 					flag(player, "Tower", "A", "World", "yPosDiff", yPosDiff, true);
-					block.setType(Minecraft.MinecraftBlockTypes.air);
+					block.setType("air");
 				}
 			}
 		}
@@ -422,7 +422,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 
 		if(illegalItems.length >= 1) {
 			flag(player, "IllegalItems", "N", "Exploit", "items_count", illegalItems.length, undefined, undefined, player.selectedSlot);
-			block.setType(Minecraft.MinecraftBlockTypes.air);
+			block.setType("air");
 		}
 	}
 });
