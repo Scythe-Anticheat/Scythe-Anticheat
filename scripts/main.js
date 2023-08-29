@@ -297,7 +297,7 @@ Minecraft.system.runInterval(() => {
 
 			if(player.location.y < -104) player.teleport({x: player.location.x, y: -104, z: player.location.z});
 
-			if(player.fallDistance < 0 && !player.hasTag("trident")) flag(player, "Fly", "B", "Movement", "fallDistance", player.fallDistance, true);
+			if(player.fallDistance < 0 && !player.hasTag("trident") && !player.isSwimming) flag(player, "Fly", "B", "Movement", "fallDistance", player.fallDistance, true);
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);

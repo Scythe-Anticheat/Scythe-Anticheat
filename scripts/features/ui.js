@@ -4,6 +4,7 @@ import * as MinecraftUI from "@minecraft/server-ui";
 
 import { parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
 import { wipeEnderchest } from "../commands/utility/ecwipe.js";
+import { getStatsMsg } from "../commands/utility/stats.js";
 
 import config from "../data/config.js";
 import data from "../data/data.js";
@@ -343,7 +344,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     const menu = new MinecraftUI.ActionFormData()
         .title("Player Menu - " + playerSelected.name)
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("freeze")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
+        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nUnique ID: ${playerSelected.id}\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("freeze")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
         .button("Clear EnderChest", "textures/blocks/ender_chest_front.png")
         .button("Kick Player", "textures/ui/anvil_icon.png")
         .button("Ban Player", "textures/ui/anvil_icon.png")
@@ -471,7 +472,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelectedGamemode(player, playerSelected);
                 break;
             case 10:
-                playerSelected.runCommandAsync("function tools/stats");
+                player.sendMessage(getStatsMsg(playerSelected));
                 break;
             case 11:
                 playerSettingsMenu(player);
