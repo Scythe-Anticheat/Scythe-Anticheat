@@ -69,7 +69,7 @@ Minecraft.system.runInterval(() => {
 	// run as each player
 	for(const player of world.getPlayers()) {
 		try {
-			const selectedSlot = player.selectedSlot;
+			const { selectedSlot } = player;
 
 			if(player.isGlobalBanned) {
 				player.addTag("by:Scythe Anticheat");
@@ -125,7 +125,7 @@ Minecraft.system.runInterval(() => {
 
 			// @ts-expect-error
 			const container = player.getComponent("inventory").container;
-			for (let i = 0; i < 36; i++) {
+			for(let i = 0; i < 36; i++) {
 				const item = container.getItem(i);
 				if(!item) continue;
 
@@ -198,7 +198,7 @@ Minecraft.system.runInterval(() => {
 				const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
 
 				if(config.misc_modules.resetItemData.enabled && config.misc_modules.resetItemData.items.includes(item.typeId)) {
-					// This creates a duplicate version of the item, with just its amount and data.
+					// This creates a duplicate version of the item without any attributes such as NBT.
 					const item2 = new Minecraft.ItemStack(itemType, item.amount);
 					container.setItem(i, item2);
 				}
@@ -249,9 +249,10 @@ Minecraft.system.runInterval(() => {
 						// BadEnchants/E = checks if an item has duplicated enchantments
 						if(config.modules.badenchantsE.enabled) {
 							if(enchantments.includes(enchantData.type.id)) {
-								enchantments.push(enchantData.type.id);
-								flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(", "), false, undefined , i);
-							} else enchantments.push(enchantData.type.id);
+								flag(player, "BadEnchants", "E", "Exploit", "enchantments", enchantments.join(", "), false, undefined, i);
+							}
+
+							enchantments.push(enchantData.type.id);
 						}
 
 						loopIterator(iterator);
@@ -277,9 +278,10 @@ Minecraft.system.runInterval(() => {
 			}
 
 			if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
-				player.cps = player.cps / ((Date.now() - player.firstAttack) / 1000);
+				const cps = player.cps / ((Date.now() - player.firstAttack) / 1000);
+
 				// autoclicker/A = checks for high cps
-				if(player.cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", "CPS", player.cps);
+				if(cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", "CPS", cps);
 
 				player.firstAttack = Date.now();
 				player.cps = 0;
@@ -557,9 +559,6 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	if(config.customcommands.report.enabled) player.reports = [];
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
 
-	// fix a disabler method
-	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
-
 	if(!data.loaded) {
 		player.runCommandAsync("scoreboard players set scythe:config gametestapi 1");
 		data.loaded = true;
@@ -580,22 +579,25 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
 
 	for(const tag of player.getTags()) {
-		if(tag.startsWith("tag:")) {
-			const t = tag.replace(/"|\\/g, "");
+		if(!tag.startsWith("tag:")) continue;
 
-			player.nameTag = `${borderColor}[§r${mainColor}${t.slice(4)}${borderColor}]§r ${playerNameColor}${player.name}`;
-			break;
-		}
+		const t = tag.replace(/"|\\/g, "");
+
+		player.nameTag = `${borderColor}[§r${mainColor}${t.slice(4)}${borderColor}]§r ${playerNameColor}${player.name}`;
+		break;
 	}
+
+	// fix a disabler method
+	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
 
 	// Namespoof/A = username length check.
 	if(config.modules.namespoofA.enabled) {
 		// checks if 2 players are logged in with the same name
 		// minecraft adds a suffix to the end of the name which we detect
-		if(player.name.endsWith(')') && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
+		if(player.name.endsWith(")") && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
 			player.flagNamespoofA = true;
 
-		if(!player.name.endsWith(')') && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
+		if(!player.name.endsWith(")") && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
 			player.flagNamespoofA = true;
 
 		if(player.flagNamespoofA) {

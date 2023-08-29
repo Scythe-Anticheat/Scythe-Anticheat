@@ -57,7 +57,7 @@ export function commandHandler(msg) {
             // check if the command is an alias
             for(const cmd of Object.keys(config.customcommands)) {
                 const data = config.customcommands[cmd];
-                if(typeof data !== "object" || !data.aliases || !data.aliases.includes(command)) continue;
+                if(typeof data !== "object" || !data.aliases?.includes(command)) continue;
 
                 commandData = data;
                 commandName = cmd;
@@ -67,7 +67,7 @@ export function commandHandler(msg) {
             // command does not exist
             if(!commandData) {
                 if(config.customcommands.sendInvalidCommandMsg) {
-                    player.sendMessage(`§r§6[§aScythe§6]§c The command: ${command} was not found. Please make sure it exists.`);
+                    player.sendMessage(`§r§6[§aScythe§6]§c The command "${command}" was not found. Please make sure it exists.`);
                     msg.cancel = true;
                 }
                 return;
@@ -76,10 +76,7 @@ export function commandHandler(msg) {
 
         msg.cancel = true;
 
-        if(!commands[commandName]) {
-            player.sendMessage(`§r§6[§aScythe§6]§r Command "${commandName}" was found in config.js but the command was not registered.`);
-            return;
-        }
+        if(!commands[commandName]) throw Error(`Command "${commandName}" was found in config.js but the command was not registered.`);
 
         if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => !player.hasTag(tag))) {
             player.sendMessage("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: /function op");

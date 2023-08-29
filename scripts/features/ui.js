@@ -2,7 +2,7 @@
 import * as Minecraft from "@minecraft/server";
 import * as MinecraftUI from "@minecraft/server-ui";
 
-import { parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
+import { flag, parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
 import { wipeEnderchest } from "../commands/utility/ecwipe.js";
 import { getStatsMsg } from "../commands/utility/stats.js";
 
@@ -16,11 +16,20 @@ const playerIcons = [
     "textures/ui/icon_steve.png",
 ];
 
+// Commonly used icons
+const icons = {
+    back: "textures/ui/arrow_left.png",
+    anvil: "textures/ui/anvil_icon.png",
+    member: "textures/ui/permissions_member_star.png",
+    op: "textures/ui/op.png",
+    debug: "textures/ui/debug_glyph_color.png"
+};
+
 const moduleList = Object.keys(config.modules).concat(Object.keys(config.misc_modules));
 const modules = [];
 
 for(const fullModule of moduleList) {
-    if(fullModule.includes("example")) continue;
+    if(fullModule.startsWith("example")) continue;
     const module = fullModule[fullModule.length - 1].toUpperCase() === fullModule[fullModule.length - 1] ? fullModule.slice(0, fullModule.length - 1) : fullModule;
 
     if(modules.includes(module)) continue;
@@ -45,16 +54,14 @@ export function mainGui(player, error) {
     const menu = new MinecraftUI.ActionFormData()
 		.title("Scythe Anticheat UI")
 		.body(text)
-		.button("Ban Menu", "textures/ui/anvil_icon.png")
+		.button("Ban Menu", icons.anvil)
 		.button("Configure Settings", "textures/ui/gear.png")
 		.button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
 		.button("Exit", "textures/ui/redX1.png");
 
-	if(config.debug) menu.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
+	if(config.debug) menu.button("⭐ Debug", icons.debug);
 
     menu.show(player).then((response) => {
-        if(response.canceled) return;
-
         switch(response.selection) {
             case 0:
                 banMenu(player);
@@ -82,10 +89,10 @@ function banMenu(player) {
     const menu = new MinecraftUI.ActionFormData()
         .title("Ban Menu")
         .body("Please select an option.")
-        .button("Kick Player", "textures/ui/anvil_icon.png")
-        .button("Ban Player", "textures/ui/anvil_icon.png")
-        .button("Unban Player", "textures/ui/anvil_icon.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Kick Player", icons.anvil)
+        .button("Ban Player", icons.anvil)
+        .button("Unban Player", icons.anvil)
+        .button("Back", icons.back);
 
     menu.show(player).then((response) => {
         if(response.selection === 3 || response.canceled) return mainGui(player);
@@ -136,7 +143,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         const formValues = response.formValues ?? [];
 
         // @ts-expect-error
-        const reason = formValues[0].replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
         const isSilent = formValues[1];
 
         if(!isSilent) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
@@ -156,6 +163,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         .textField("Ban Reason:", "§o§7No Reason Provided")
         .slider("Ban Length (in days)", 1, 365, 1)
         .toggle("Permanant Ban", false);
+
     menu.show(player).then((response) => {
         if(response.canceled) {
             if(lastMenu === 0) banMenuSelect(player, lastMenu);
@@ -167,7 +175,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         const formValues = response.formValues ?? [];
 
         // @ts-expect-error
-        const reason = formValues[0].replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
         const banLength = parseTime(`${formValues[1]}d`);
         const permBan = formValues[2];
 
@@ -194,6 +202,7 @@ function unbanPlayerMenu(player) {
         .title("Unban Player Menu")
         .textField("Player to unban:", "§o§7Enter player name")
         .textField("Unban Reason:", "§o§7No Reason Provided");
+
     menu.show(player).then((response) => {
         if(response.canceled) return banMenu(player);
 
@@ -202,7 +211,7 @@ function unbanPlayerMenu(player) {
         // @ts-expect-error
         const playerToUnban = formValues[0].split(" ")[0];
         // @ts-expect-error
-        const reason = formValues[1].replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = formValues[1].replace(/"|\\/g, "") ?? "No Reason Provided";
 
         // @ts-expect-error
         data.unbanQueue.push(playerToUnban.toLowerCase());
@@ -225,7 +234,7 @@ function settingsMenu(player) {
         menu.button(capitalizeFirstLetter(subModule));
     }
 
-    menu.button("Back", "textures/ui/arrow_left.png");
+    menu.button("Back", icons.back);
 
     menu.show(player).then((response) => {
         if(!modules[response.selection ?? -1]) return mainGui(player);
@@ -253,7 +262,7 @@ function settingsCheckSelectMenu(player, selection) {
 
     if(checks.length === 1) return editSettingMenu(player, checks[0]);
 
-    menu.button("Back", "textures/ui/arrow_left.png");
+    menu.button("Back", icons.back);
 
     menu.show(player).then((response) => {
         const selection = response.selection ?? - 1;
@@ -345,9 +354,9 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     const menu = new MinecraftUI.ActionFormData()
         .title("Player Menu - " + playerSelected.name)
         .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nUnique ID: ${playerSelected.id}\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("freeze")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
-        .button("Clear EnderChest", "textures/blocks/ender_chest_front.png")
-        .button("Kick Player", "textures/ui/anvil_icon.png")
-        .button("Ban Player", "textures/ui/anvil_icon.png")
+        .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
+        .button("Kick Player", icons.anvil)
+        .button("Ban Player", icons.anvil)
         .button(playerSelected.hasTag("flying") ? "Disable Fly Mode" : "Enable Fly Mode", "textures/ui/levitation_effect.png")
         .button(playerSelected.hasTag("freeze") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
@@ -358,17 +367,17 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     }
 
     if(!playerSelected.hasTag("op")) {
-        menu.button("Set Player as Scythe-Op", "textures/ui/op.png");
+        menu.button("Set Player as Scythe-Op", icons.op);
     } else {
-        menu.button("Remove Player as Scythe-Op", "textures/ui/permissions_member_star.png");
+        menu.button("Remove Player as Scythe-Op", icons.member);
     }
 
     menu
         .button(playerSelected.hasTag("vanish") ? "Unvanish Player" : "Vanish Player", "textures/ui/invisibility_effect.png")
         .button("Teleport", "textures/ui/arrow.png")
-        .button("Switch Gamemode", "textures/ui/op.png")
+        .button("Switch Gamemode", icons.op)
         .button("View Anticheat Logs", "textures/ui/WarningGlyph.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Back", icons.back);
 
     menu.show(player).then((response) => {
         switch (response.selection) {
@@ -474,12 +483,10 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             case 10:
                 player.sendMessage(getStatsMsg(playerSelected));
                 break;
-            case 11:
-                playerSettingsMenu(player);
-                break;
-        }
 
-        if(response.canceled) playerSettingsMenu(player);
+            default:
+                playerSettingsMenu(player);
+        }
     });
 }
 
@@ -491,17 +498,20 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
         .body(`Managing ${playerSelected.name}.`)
         .button("Teleport To", "textures/ui/arrow.png")
         .button("Teleport Here", "textures/ui/arrow_down.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Back", icons.back);
 
     menu.show(player).then((response) => {
-        if(response.selection === 2 || response.canceled) return playerSettingsMenuSelected(player, playerSelected);
-        
         switch(response.selection) {
             case 0:
                 player.teleport(playerSelected.location);
                 break;
+
             case 1:
                 playerSelected.teleport(player.location);
+                break;
+
+            default:
+                playerSettingsMenuSelected(player, playerSelected); 
         }
     });
 }
@@ -512,12 +522,12 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
     const menu = new MinecraftUI.ActionFormData()
         .title("Gamemode Menu")
         .body(`Switching ${playerSelected.name}'s gamemode.`)
-        .button("Gamemode Survival", "textures/ui/permissions_member_star.png")
-        .button("Gamemode Creative", "textures/ui/op.png")
+        .button("Gamemode Survival", icons.member)
+        .button("Gamemode Creative", icons.op)
         .button("Gamemode Adventure", "textures/ui/permissions_visitor_hand.png")
         .button("Gamemode Spectator", "textures/ui/invisibility_effect.png")
         .button("Default Gamemode", "textures/ui/lan_icon.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Back", icons.back);
 
     menu.show(player).then((response) => {
         if(response.selection === 5 || response.canceled) return playerSettingsMenuSelected(player, playerSelected);
@@ -547,50 +557,72 @@ function debugSettingsMenu(player) {
     const menu = new MinecraftUI.ActionFormData()
         .title("Scythe Anticheat UI")
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
-        .button("Disable Debug Intents", "textures/ui/debug_glyph_color.png")
-        .button("Randomize Inventory", "textures/ui/debug_glyph_color.png")
-        .button("Force Watchdog Stack Overflow", "textures/ui/debug_glyph_color.png")
-        .button("Force Watchdog Hang", "textures/ui/debug_glyph_color.png")
-        .button("Force Watchdog Memory Crash Type 1", "textures/ui/debug_glyph_color.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Disable Debug Intents", icons.debug)
+        .button("Randomize Inventory", icons.debug)
+        .button("Test flag", icons.debug)
+        .button("Force Watchdog Stack Overflow", icons.debug)
+        .button("Force Watchdog Hang", icons.debug)
+        .button("Force Watchdog Memory Crash Type 1", icons.debug)
+        .button("Back", icons.back);
     menu.show(player).then((response) => {
-        if(response.selection === 0) {
-            config.debug = false;
-            mainGui(player);
-        } else if(response.selection === 1) {
-            const container = player.getComponent("inventory").container;
+        switch(response.selection) {
+            case 0:
+                config.debug = false;
+                mainGui(player);
+                break;
 
-            const totalItems = [];
-            for (let i = 0; i < 36; i++) {
-                if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
+            case 1: {
+                const container = player.getComponent("inventory").container;
 
-                const allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
-                const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
-                const randomItem = Minecraft.MinecraftItemTypes[randomItemName];
+                const totalItems = [];
+                for (let i = 0; i < 36; i++) {
+                    if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
 
-                if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
-                    i--;
-                    continue;
+                    const allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
+                    const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
+                    const randomItem = Minecraft.MinecraftItemTypes[randomItemName];
+
+                    if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
+                        i--;
+                        continue;
+                    }
+                    totalItems.push(randomItem.id);
+
+                    container.setItem(i, new Minecraft.ItemStack(randomItem, 1));
                 }
-                totalItems.push(randomItem.id);
+                break;
+            }
 
-                container.setItem(i, new Minecraft.ItemStack(randomItem, 1));
-            }
-        } else if(response.selection === 2) {
-            const troll = () => {
+            case 2:
+                flag(player, "Example", "A", "Debug");
+                break;
+            
+            case 3: {
+                const troll = () => {
+                    troll();
+                };
                 troll();
-            };
-            troll();
-        } else if(response.selection === 3) {
-            // eslint-disable-next-line no-constant-condition
-            while(true) {}
-        } else if(response.selection === 4) {
-            config.array = [config];
-            // eslint-disable-next-line no-constant-condition
-            while(true) {
-                config.array.push(config);
+                break;
             }
-        } else if(response.selection === 6 || response.canceled) mainGui(player);
+
+            case 4:
+                // eslint-disable-next-line no-constant-condition
+                while(true) {}
+                // eslint-disable-next-line
+                break;
+
+            case 5:
+                config.array = [config];
+                // eslint-disable-next-line no-constant-condition
+                while(true) {
+                    config.array.push(config);
+                }
+                // eslint-disable-next-line
+                break;
+            
+            default:
+                mainGui(player);
+        }
     });
 }
 
@@ -602,16 +634,16 @@ function createSelectPlayerMenu(title, players, self) {
         .title(title)
         .body("Please select a player to manage.");
 
-    for(const plr of players) {
-        let playerName = plr.name;
+    for(const player of players) {
+        let playerName = player.name;
 
-        if(plr.id === self.id) playerName += " §1[YOU]";
-        if(plr.hasTag("op")) playerName += " §1[OP]";
+        if(player.id === self.id) playerName += " §1[YOU]";
+        if(player.hasTag("op")) playerName += " §1[OP]";
 
         menu.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
 
-    menu.button("Back", "textures/ui/arrow_left.png");
+    menu.button("Back", icons.back);
 
     return menu;
 }

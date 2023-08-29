@@ -2,15 +2,15 @@
   ⚠️ The Scythe Anticheat Repository is being transferred to https://github.com/Scythe-Anticheat/Scythe-Anticheat. Please update any links to the new URL.⚠️
   
   
-  <b>Scythe AntiCheat - The best anticheat designed for Minecraft Bedrock realms/worlds/servers.</b>
+  <b>Scythe Anticheat - The best anticheat designed for Minecraft Bedrock realms/worlds/servers.</b>
   
   <img src="https://raw.githubusercontent.com/MrDiamond64/image-assets/main/scythe%20pog%20anticheat.png" width="600" alt="Scythe AntiCheat"/>
 </div>
 <div align="center">
-  <img src="https://img.shields.io/github/downloads/MrDiamond64/Scythe-AntiCheat/total?style=for-the-badge" alt="Downloads"/>
-  <img src="https://img.shields.io/github/issues/MrDiamond64/Scythe-AntiCheat?label=ISSUES%20OPEN&style=for-the-badge" alt="Issues Open"/>
-  <img src="https://img.shields.io/github/commit-activity/m/MrDiamond64/Scythe-AntiCheat?style=for-the-badge" alt="Commits Per Week"/>
-  <img src="https://img.shields.io/github/last-commit/MrDiamond64/Scythe-AntiCheat?style=for-the-badge" alt="Last Commit"/>
+  <img src="https://img.shields.io/github/downloads/Scythe-Anticheat/Scythe-AntiCheat/total?style=for-the-badge" alt="Downloads"/>
+  <img src="https://img.shields.io/github/issues/Scythe-Anticheat/Scythe-AntiCheat?label=ISSUES%20OPEN&style=for-the-badge" alt="Issues Open"/>
+  <img src="https://img.shields.io/github/commit-activity/m/Scythe-Anticheat/Scythe-AntiCheat?style=for-the-badge" alt="Commits Per Week"/>
+  <img src="https://img.shields.io/github/last-commit/Scythe-Anticheat/Scythe-AntiCheat?style=for-the-badge" alt="Last Commit"/>
 </div>
 
 # How To Setup
@@ -20,7 +20,7 @@ To be able to receive anticheat alerts, run the command: ```!notify```.
 
 To run any chat commands or be able to use certain blocks please type ```/function op``` in chat. This command requires you to have operator permissions on the server and have Beta APIs enabled.
 
-# Hacks detected by Scythe AntiCheat
+# Hacks detected by Scythe Anticheat
 *\* indicates that the check requires Beta APIs to be enabled in world settings.*<br />
   AutoClicker -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS.\*<br />
@@ -146,7 +146,7 @@ Q1: Does the AntiCheat auto-ban?<br />
 Yes. Currently only CommandBlockExploit/F, IllegalItems/C, IllegalItems/D, IllegalItems/E, and Crasher/A autoban. To enable autobanning do ```!autoban```
 
 Q2: Is it customizable?<br />
-A2: Yes you can edit the config.js file to disable or change the settings of certain checks. A guide can be found [here](https://github.com/MrDiamond64/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
+A2: Yes you can edit the config.js file to disable or change the settings of certain checks. A guide can be found [here](https://github.com/Scythe-Anticheat/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
 
 # Notes
 When applying the pack to your world, make sure the addon is at the top of the behavior packs list and Beta APIs are enabled. This is to ensure all checks work properly.

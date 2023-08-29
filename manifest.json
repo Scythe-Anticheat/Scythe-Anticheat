@@ -1,7 +1,7 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Scythe AntiCheat",
+		"name": "Scythe Anticheat",
 		"description": "The best minecraft bedrock anticheat, designed for realms and servers.",
 		"uuid": "c68ba0c1-b9e4-46ad-b6c8-88bbd28f1fa5",
 		"version": [2, 16, 0],
@@ -9,7 +9,7 @@
 	},
 	"metadata": {
 		"authors": ["MrDiamond64"],
-		"url": "https://github.com/MrDiamond64/Scythe-AntiCheat"
+		"url": "https://github.com/Scythe-Anticheat/Scythe-AntiCheat"
 	},
 	"modules": [{
 			"type": "data",
@@ -21,7 +21,7 @@
 			]
 		},
 		{
-			"description": "Scythe AntiCheat Beta API Features",
+			"description": "Scythe Anticheat Beta API Features",
 			"language": "javascript",
 			"type": "script",
 			"uuid": "ab31620b-f498-4355-9bea-498922f5940e",

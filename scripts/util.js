@@ -35,7 +35,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     if(config.disable_flags_from_scythe_op && player.hasTag("op")) return;
 
     if(debug) {
-        // remove characters that may break commands, and newlines
+        // remove characters and newlines to prevent commands from breaking
         debug = String(debug).replace(/"|\\|\n/gm, "");
 
         // malicious users may try make the debug field ridiculously large to lag any clients that may
@@ -46,13 +46,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         }
     }
 
-    const rotation = player.getRotation();
-
     // If debug is enabled, then we log everything we know about the player.
     if(config.debug) {
         const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
-        const velocity = player.getVelocity();
-        const headRotation = player.getHeadLocation();
 
         const data = {
             timestamp: Date.now(),
@@ -66,23 +62,20 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
                 name: player.name,
                 nametag: player.nameTag,
                 location: player.location,
-                headLocation: headRotation,
-                velocity: velocity,
-                rotation: {
-                    x: rotation.x,
-                    y: rotation.y
-                },
+                headLocation: player.getHeadLocation(),
+                velocity: player.getVelocity(),
+                rotation: player.getRotation(),
                 tags: String(player.getTags()).replace(/[\r\n"]/gm, ""),
                 currentItem: currentItem?.typeId ?? "minecraft:air",
                 selectedSlot: player.selectedSlot,
                 dimension: player.dimension.id,
                 fallDistance: player.fallDistance,
                 extra: {
-                    blocksBroken: player.blocksBroken || -1,
+                    blocksBroken: player.blocksBroken ?? -1,
                     entitiesHitTick: player.entitiesHit,
-                    cps: player.cps || -1,
-                    firstAttack: player.firstAttack || -1,
-                    lastSelectedSlot: player.lastSelectedSlot || -1,
+                    cps: player.cps ?? -1,
+                    firstAttack: player.firstAttack ?? -1,
+                    lastSelectedSlot: player.lastSelectedSlot ?? -1,
                     startBreakTime: player.startBreakTime,
                     lastThrowTime: player.lastThrow
                 }
@@ -99,7 +92,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 
-    // If the VL scoreboard object doesnt exist then create one
+    // If the VL scoreboard object doesn't exist then create one
     if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
 
     let currentVl = getScore(player, scoreboardObjective, 0);
@@ -123,9 +116,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     // punishment stuff
     const punishment = checkData.punishment?.toLowerCase();
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
-    if(punishment === "none" || punishment === "") return;
 
-    if(currentVl < checkData.minVlbeforePunishment) return;
+    if(punishment === "none" || punishment === "" || currentVl < checkData.minVlbeforePunishment) return;
 
     switch (punishment) {
         case "kick": {
@@ -139,8 +131,6 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             // Check if auto-banning is disabled
             if(getScore(player, "autoban") <= 1) break;
 
-            const punishmentLength = checkData.punishmentLength?.toLowerCase();
-
             player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
 
             // this removes old ban stuff
@@ -148,6 +138,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
                 if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
             });
 
+            const punishmentLength = checkData.punishmentLength?.toLowerCase();
             let banLength;
 
             if(!punishmentLength && isNaN(punishmentLength)) {
@@ -198,7 +189,7 @@ export function banMessage(player) {
         });
 
         // remove the player from the unban queue
-        for (let i = -1; i < data.unbanQueue.length; i++) {
+        for(let i = -1; i < data.unbanQueue.length; i++) {
             if(data.unbanQueue[i] !== player.name.toLowerCase().split(" ")[0]) continue;
 
             data.unbanQueue.splice(i, 1);
