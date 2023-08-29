@@ -2,10 +2,11 @@
 import * as Minecraft from "@minecraft/server";
 import * as MinecraftUI from "@minecraft/server-ui";
 
+import { parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
+import { wipeEnderchest } from "../commands/utility/ecwipe.js";
+
 import config from "../data/config.js";
 import data from "../data/data.js";
-import { parseTime } from "../util.js";
-import { addOp, removeOp } from "../commands/moderation/op.js";
 
 const world = Minecraft.world;
 
@@ -124,7 +125,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         if(!isSilent) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
         playerSelected.triggerEvent("scythe:kick");
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.nameTag} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}`);
     });
 }
 
@@ -163,7 +164,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         if(banLength && !permBan) playerSelected.addTag(`time:${Date.now() + banLength}`);
         playerSelected.addTag("isBanned");
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has banned ${playerSelected.nameTag}. Reason: ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.nameTag} has banned ${playerSelected.nameTag} for ${reason}`);
     });
 }
 
@@ -188,7 +189,7 @@ function unbanPlayerMenu(player) {
         // @ts-expect-error
         data.unbanQueue.push(playerToUnban.toLowerCase());
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has added ${playerToUnban} into the unban queue. Reason: ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has added ${playerToUnban} into the unban queue. Reason: ${reason}`);
     });
 }
 
@@ -203,7 +204,7 @@ function settingsMenu(player) {
         .body("Please select a sub-check to edit.");
 
     for(const subModule of modules) {
-        menu.button(subModule[0].toUpperCase() + subModule.slice(1));
+        menu.button(capitalizeFirstLetter(subModule));
     }
 
     menu.button("Back", "textures/ui/arrow_left.png");
@@ -229,7 +230,7 @@ function settingsCheckSelectMenu(player, selection) {
         checks.push(module);
 
         const checkData = config.modules[module] ?? config.misc_modules[module];
-        menu.button(`${subCheck[0].toUpperCase() + subCheck.slice(1)}/${module[module.length - 1]}\n${checkData.enabled ? "§8[§aENABLED§8]" : "§8[§4DISABLED§8]"}`);
+        menu.button(`${capitalizeFirstLetter(subCheck)}/${module[module.length - 1]}\n${checkData.enabled ? "§8[§aENABLED§8]" : "§8[§4DISABLED§8]"}`);
     }
 
     if(checks.length === 1) return editSettingMenu(player, checks[0]);
@@ -252,14 +253,14 @@ function editSettingMenu(player, check) {
     let optionsMap = ["enabled"];
 
     const menu = new MinecraftUI.ModalFormData()
-        .title(`Editing check: ${check[0].toUpperCase() + check.slice(1)}`)
+        .title(`Editing check: ${capitalizeFirstLetter(check)}`)
         .toggle("Enabled", checkData.enabled);
 
     for(const key of Object.keys(checkData)) {
         if(["enabled","punishment","punishmentLength","minVlbeforePunishment"].includes(key)) continue;
 
         // Friendly setting name. Changes "multi_protection" to "Multi Protection"
-        const settingName = (key[0].toUpperCase() + key.slice(1)).replace(/_./g, (match) => " " + match[1].toUpperCase());
+        const settingName = capitalizeFirstLetter(key).replace(/_./g, (match) => " " + match[1].toUpperCase());
 
         switch(typeof checkData[key]) {
             case "number":
@@ -358,14 +359,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
                 }
 
-                let isOp;
-                if(playerSelected.hasTag("op")) {
-                    isOp = true;
-                    removeOp(playerSelected);
-                }
-                playerSelected.runCommandAsync("function tools/ecwipe")
-                    .then(() => isOp && addOp(playerSelected));
-                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${playerSelected.name} has cleared ${player.name}'s enderchest."}]}`);
+                wipeEnderchest(player, playerSelected);
                 break;
             }
             case 1:
@@ -381,11 +375,13 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
                 if(playerSelected.hasTag("flying")) {
                     playerSelected.runCommandAsync("function tools/fly");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has disabled fly mode for ${playerSelected.name}."}]}`);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has disabled fly mode for ${playerSelected.name}.`);
+
                     playerSettingsMenuSelected(player, playerSelected);
                 } else {
                     playerSelected.runCommandAsync("function tools/fly");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has enabled fly mode for ${playerSelected.name}."}]}`);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has enabled fly mode for ${playerSelected.name}.`);
+
                     playerSettingsMenuSelected(player, playerSelected);
                 }
                 break;
@@ -396,11 +392,13 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
                 if(playerSelected.hasTag("freeze")) {
                     playerSelected.runCommandAsync("function tools/freeze");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has unfrozen for ${playerSelected.name}."}]}`);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unfrozen for ${playerSelected.name}.`);
+
                     playerSettingsMenuSelected(player, playerSelected);
                 } else {
                     playerSelected.runCommandAsync("function tools/freeze");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has frozen for ${playerSelected.name}."}]}`);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has frozen for ${playerSelected.name}.`);
+
                     playerSettingsMenuSelected(player, playerSelected);
                 }
                 break;
@@ -420,13 +418,9 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 }
 
                 if(playerSelected.hasTag("op")) {
-                    removeOp(playerSelected);
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has given ${playerSelected.name} scythe-op status."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    removeOp(player, playerSelected);
                 } else {
-                    addOp(playerSelected);
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has removed scythe-op status from ${playerSelected.name}."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    addOp(player, playerSelected);
                 }
                 break;
             case 7:
@@ -436,11 +430,13 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
                 if(playerSelected.hasTag("vanished")) {
                     playerSelected.runCommandAsync("function tools/vanish");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has put ${playerSelected.name} into vanish."}]}`);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has put ${playerSelected.name} into vanish.`);
+
                     playerSettingsMenuSelected(player, playerSelected);
                 } else {
                     playerSelected.runCommandAsync("function tools/vanish");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has unvanished ${playerSelected.name}."}]}`);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unvanished ${playerSelected.name}.`);
+
                     playerSettingsMenuSelected(player, playerSelected);
                 }
                 break;

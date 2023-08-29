@@ -26,7 +26,7 @@
 			"type": "script",
 			"uuid": "ab31620b-f498-4355-9bea-498922f5940e",
 			"version": [0, 0, 1],
-			"entry": "scripts/main.js"
+			"entry": "scripts/loader.js"
 		}
 	],
 	"dependencies": [{

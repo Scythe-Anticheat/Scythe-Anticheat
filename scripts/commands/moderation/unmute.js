@@ -1,7 +1,5 @@
-import * as Minecraft from "@minecraft/server";
+import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
-
-const world = Minecraft.world;
 
 registerCommand({
     name: "unmute",
@@ -12,21 +10,17 @@ registerCommand({
 
         const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
-        // try to find the player requested
-        let member;
-        for(const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-            member = pl;
-            break;
-        }
+        // Find the player requested
+        const member = findPlayerByName(args[0]);
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         member.removeTag("isMuted");
         member.sendMessage("§r§6[§aScythe§6]§r You have been unmuted.");
 
-        // add chat ability
+        // Add chat ability
         member.runCommandAsync("ability @s mute false");
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has unmuted ${member.nameTag} for ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${member.name} for ${reason}`);
     }
 });

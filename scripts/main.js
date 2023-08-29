@@ -1,6 +1,5 @@
 // @ts-check
 import * as Minecraft from "@minecraft/server";
-import "./commands/register.js";
 
 import { flag, banMessage, getClosestPlayer, getScore, setScore } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
@@ -125,7 +124,7 @@ Minecraft.system.runInterval(() => {
 			}
 
 			// @ts-expect-error
-			const container = player.getComponent('inventory').container;
+			const container = player.getComponent("inventory").container;
 			for (let i = 0; i < 36; i++) {
 				const item = container.getItem(i);
 				if(!item) continue;
@@ -581,7 +580,7 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
 
 	for(const tag of player.getTags()) {
-		if(tag.includes("tag:")) {
+		if(tag.startsWith("tag:")) {
 			const t = tag.replace(/"|\\/g, "");
 
 			player.nameTag = `${borderColor}[§r${mainColor}${t.slice(4)}${borderColor}]§r ${playerNameColor}${player.name}`;

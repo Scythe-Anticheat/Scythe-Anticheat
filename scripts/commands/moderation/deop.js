@@ -1,8 +1,8 @@
-import { findPlayerByName } from "../../util.js";
+import { findPlayerByName, removeOp } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
-    name: "freeze",
+    name: "deop",
     usage: "<player>",
     minArgCount: 1,
     execute: (message, args) => {
@@ -13,6 +13,8 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        member.runCommandAsync("function tools/freeze");
+        if(!member.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r This player does not have scythe-op.");
+
+        removeOp(player, member);
     }
 });

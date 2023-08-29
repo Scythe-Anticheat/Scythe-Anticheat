@@ -1,3 +1,4 @@
+import { tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -11,14 +12,14 @@ registerCommand({
             player.runCommandAsync("gamemode creative");
 
             player.sendMessage("§r§6[§aScythe§6]§r You are now no longer vanished.");
-            player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} is no longer vanished."}]}`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} is no longer vanished.`);
         } else {
             player.addTag("vanish");
 
             player.runCommandAsync("gamemode spectator");
 
             player.sendMessage("§r§6[§aScythe§6]§r You are now vanished.");
-            player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} is now vanished."}]}`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} is now vanished.`);
         }
     }
 });

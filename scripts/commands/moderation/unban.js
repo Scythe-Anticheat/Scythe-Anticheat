@@ -1,3 +1,4 @@
+import { tellAllStaff } from "../../util.js"; 
 import { registerCommand } from "../handler.js";
 import data from "../../data/data.js";
 
@@ -16,6 +17,6 @@ registerCommand({
 
         data.unbanQueue.push(member.toLowerCase());
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has added ${member} to the unban queue. Reason: ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has added ${member} to the unban queue. Reason: ${reason}`);
     }
 });

@@ -1,8 +1,6 @@
-import * as Minecraft from "@minecraft/server";
-import config from "../../data/config.js";
+import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
-
-const world = Minecraft.world;
+import config from "../../data/config.js";
 
 registerCommand({
     name: "tag",
@@ -11,28 +9,23 @@ registerCommand({
     execute: (message, args) => {
         const player = message.sender;
 
-        // try to find the player requested
-        let member;
-
-        for(const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-            member = pl;
-            args.shift();
-            break;
-        }
+        // Find the player requested
+        let member = findPlayerByName(args[0]);
 
         if(!member) member = player;
+            else args.shift();
 
         if(!args[0]) return player.sendMessage("§r§6[§aScythe§6]§r You need to provide a tag to add.");
 
-        // reset user nametag
-        if(args[0].includes("reset")) {
-            // remove old tags
+        // Reset user nametag
+        if(args[0] === "reset") {
+            // Remove old tags
             member.getTags().forEach(t => {
-                if(t.replace(/"|\\/g, "").startsWith("tag:")) member.removeTag(t);
+                if(t.startsWith("tag:")) member.removeTag(t);
             });
 
             member.nameTag = member.name;
-            return player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has reset ${member.name}'s nametag."}]}`);
+            return tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reset ${member.name}'s nametag.`);
         }
 
         const tag = args.join(" ").replace(/"|\\/g, "");
@@ -42,13 +35,13 @@ registerCommand({
 
         member.nameTag = nametag;
 
-        // remove old tags
+        // Remove old tags
         member.getTags().forEach(t => {
-            if(t.replace(/"|\\/g, "").startsWith("tag:")) member.removeTag(t);
+            if(t.startsWith("tag:")) member.removeTag(t);
         });
 
         member.addTag(`tag:${tag}`);
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has changed ${member.name}'s nametag to ${nametag}."}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has changed ${member.name}'s nametag to ${nametag}.`);
     }
 });

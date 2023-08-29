@@ -92,24 +92,23 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
         console.warn(JSON.stringify(data));
     }
 
-    // cancel the message
+    // Cancel the message/placement if possible
     if(cancelObject) cancelObject.cancel = true;
 
     if(shouldTP) player.teleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : {x: player.location.x, y: player.location.y, z: player.location.z}, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 
-    if(!world.scoreboard.getObjective(scoreboardObjective)) {
-        world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
-    }
+    // If the VL scoreboard object doesnt exist then create one
+    if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
 
     let currentVl = getScore(player, scoreboardObjective, 0);
     setScore(player, scoreboardObjective, currentVl + 1);
 
     currentVl++;
 
-    if(debug) player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= ${currentVl}"}]}`);
-        else player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}"}]}`);
+    if(debug) tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= ${currentVl}`);
+        else tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}`);
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
@@ -146,7 +145,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
             // this removes old ban stuff
             player.getTags().forEach(t => {
-                if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
+                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
             });
 
             let banLength;
@@ -195,7 +194,7 @@ export function banMessage(player) {
         player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned."}]}`);
 
         player.getTags().forEach(t => {
-            if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
+            if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
         });
 
         // remove the player from the unban queue
@@ -213,9 +212,9 @@ export function banMessage(player) {
     let time;
 
     player.getTags().forEach(t => {
-        if(t.includes("by:")) by = t.slice(3);
-            else if(t.includes("reason:")) reason = t.slice(7);
-            else if(t.includes("time:")) time = t.slice(5);
+        if(t.startsWith("by:")) by = t.slice(3);
+            else if(t.startsWith("reason:")) reason = t.slice(7);
+            else if(t.startsWith("time:")) time = t.slice(5);
     });
 
 
@@ -226,7 +225,7 @@ export function banMessage(player) {
             // ban expired, woo
             player.removeTag("isBanned");
             player.getTags().forEach(t => {
-                if(t.includes("reason:") || t.includes("by:") || t.includes("time:")) player.removeTag(t);
+                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
             });
             return;
         }
@@ -235,9 +234,9 @@ export function banMessage(player) {
         time = `${time.w} weeks, ${time.d} days, ${time.h} hours, ${time.m} minutes, ${time.s} seconds`;
     }
 
-    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason || "You are banned!"}."}]}`);
+    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason ?? "You are banned!"}.`);
 
-    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by || "N/A"}\n§bReason:§r ${reason || "N/A"}\n§aBan Length:§r ${time || "Permanent"}`);
+    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${time || "Permanent"}`);
     player.triggerEvent("scythe:kick");
 }
 
@@ -332,6 +331,7 @@ export function getScore(player, objective, defaultValue = 0) {
     if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
 
     try {
+        // @ts-expect-error
        return world.scoreboard.getObjective(objective).getScore(player) ?? defaultValue;
     } catch {
         return defaultValue;
@@ -351,5 +351,75 @@ export function setScore(player, objective, value) {
     if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
     if(typeof value !== "number") throw TypeError(`Error: value is type of ${typeof value}. Expected "number"`);
 
+    // @ts-expect-error
     world.scoreboard.getObjective(objective).setScore(player, value);
+}
+
+/**
+ * @name capitalizeFirstLetter
+ * @param {string} string - The string to modify
+ * @remarks Capitalize the first
+ * @returns {string} string - The updated string
+ */
+export function capitalizeFirstLetter(string) {
+	return string[0].toUpperCase() + string.slice(1);
+}
+
+/**
+ * @name findPlayerByName
+ * @remarks Finds a player object by a player name
+ * @param {string} name - The player to look for
+ * @returns {Minecraft.Player | undefined} [player] - The player found
+ */
+export function findPlayerByName(name) {
+	const searchName = name.toLowerCase().replace(/"|\\|@/g, "");
+
+	let player;
+
+	for(const pl of world.getPlayers()) {
+		if(!pl.name.toLowerCase().includes(searchName)) continue;
+
+		// Found a valid player
+		player = pl;
+		break;
+	}
+
+	return player;
+}
+
+/**
+ * @name addOp
+ * @remarks Add Scythe-OP status to a player
+ * @param {Minecraft.Player} initiator - The player that initiated the request
+ * @param {Minecraft.Player} player - The player that will be given scythe-op status
+ */
+export function addOp(initiator, player) {
+    tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has given ${player.name} scythe-op status.`);
+
+    player.addTag("op");
+
+    player.sendMessage("§r§6[§aScythe§6]§r §7You are now scythe-op.");
+}
+
+/**
+ * @name removeOp
+ * @remarks Remove Scythe-OP status from a player
+ * @param {Minecraft.Player} initiator - The player that initiated the request
+ * @param {Minecraft.Player} player - The player that will be given scythe-op status
+ */
+export function removeOp(initiator, player) {
+    tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has removed ${player.name}'s scythe-op status.`);
+
+    player.removeTag("op");
+}
+
+/**
+ * @name tellAllStaff
+ * @remarks Send a message to all Scythe-Opped players
+ * @param {string} message - The message to send
+ */
+export function tellAllStaff(message) {
+    for(const player of world.getPlayers({tags:["op"]})) {
+        player.sendMessage(message);
+    }
 }

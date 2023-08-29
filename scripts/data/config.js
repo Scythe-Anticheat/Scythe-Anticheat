@@ -26,6 +26,11 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["staff"]
 		},
+		"deop": {
+			"enabled": true,
+			"requiredTags": ["op"],
+			"aliases": ["staff"]
+		},
 		"credits": {
 			"enabled": true,
 			"requiredTags": []

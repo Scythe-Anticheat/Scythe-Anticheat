@@ -1,34 +1,27 @@
-import * as Minecraft from "@minecraft/server";
+import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
-const world = Minecraft.world;
-
 registerCommand({
-    name: "cloneinv",
-    usage: "<player>",
-    minArgCount: 1,
-    execute: (message, args) => {
-        const player = message.sender;
+	name: "cloneinv",
+	usage: "<player>",
+	minArgCount: 1,
+	execute: (message, args) => {
+		const player = message.sender;
 
-        // try to find the player requested
-        let member;
+		// Find the player requested
+		const member = findPlayerByName(args[0]);
 
-        for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-            member = pl;
-            break;
-        }
+		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+		const playerInv = player.getComponent("inventory").container;
+		const memberInv = member.getComponent("inventory").container;
 
-        const playerInv = player.getComponent('inventory').container;
-        const memberInv = member.getComponent('inventory').container;
+		for (let i = 0; i < memberInv.size; i++) {
+			playerInv.setItem(i, memberInv.getItem(i));
+		}
 
-        for (let i = 0; i < memberInv.size; i++) {
-            const item = memberInv.getItem(i);
+		player.sendMessage(`§r§6[§aScythe§6]§r You have cloned ${member.name}'s inventory.`);
 
-            playerInv.setItem(i, item);
-        }
-
-        player.sendMessage(`§r§6[§aScythe§6]§r You have cloned ${member.name}'s inventory.`);
-    }
+		tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has cloned ${member.name}'s inventory.`);
+	}
 });

@@ -1,7 +1,5 @@
-import * as Minecraft from "@minecraft/server";
+import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
-
-const world = Minecraft.world;
 
 registerCommand({
     name: "report",
@@ -11,25 +9,20 @@ registerCommand({
         const player = message.sender;
         const reason = args.slice(1).join(" ") || "No reason specified";
 
-        // try to find the player requested
-        let member;
-
-        for (const pl of world.getPlayers()) if(pl.name.toLowerCase().includes(args[0].toLowerCase().replace(/"|\\|@/g, ""))) {
-            member = pl;
-            break;
-        }
+        // Find the player requested
+        const member = findPlayerByName(args[0]);
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        // make sure they don't report themselves
-        if(member.nameTag === player.nameTag) return player.sendMessage("§r§6[§aScythe§6]§r You cannot report yourself.");
+        // Make sure they don't report themselves
+        if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot report yourself.");
 
-        // prevent report spam
-        if(player.reports.includes(member.nameTag)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
-        player.reports.push(member.nameTag);
+        // Prevent report spam
+        if(player.reports.includes(member.name)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
+        player.reports.push(member.name);
 
-        player.sendMessage(`§r§6[§aScythe§6]§r You have reported ${member.nameTag} for: ${reason}.`);
+        player.sendMessage(`§r§6[§aScythe§6]§r You have reported ${member.name} for ${reason}.`);
 
-        player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has reported ${member.nameTag} for ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reported ${member.name} for ${reason}`);
     }
 });
