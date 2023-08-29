@@ -427,6 +427,13 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 if(playerSelected.hasTag("isMuted")) {
                     playerSelected.removeTag("isMuted");
                     playerSelected.runCommandAsync("ability @s mute false");
+
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${playerSelected.name}.`);
+                } else {
+                    playerSelected.addTag("isMuted");
+                    playerSelected.runCommandAsync("ability @s mute true");
+
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${playerSelected.name}.`);
                 }
                 break;
             case 6:
