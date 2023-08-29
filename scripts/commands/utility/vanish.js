@@ -9,7 +9,8 @@ registerCommand({
         if(player.hasTag("vanish")) {
             player.removeTag("vanish");
 
-            player.runCommandAsync("gamemode creative");
+            // Gamemode 5 = default gamemode
+            player.runCommandAsync("gamemode 5");
 
             player.sendMessage("§r§6[§aScythe§6]§r You are now no longer vanished.");
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} is no longer vanished.`);

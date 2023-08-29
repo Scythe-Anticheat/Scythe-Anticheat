@@ -45,16 +45,30 @@ export function mainGui(player, error) {
 		.title("Scythe Anticheat UI")
 		.body(text)
 		.button("Ban Menu", "textures/ui/anvil_icon.png")
-        .button("Configure Settings", "textures/ui/gear.png")
-        .button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
-        .button("Exit", "textures/ui/redX1.png");
-    if(config.debug) menu.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
+		.button("Configure Settings", "textures/ui/gear.png")
+		.button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
+		.button("Exit", "textures/ui/redX1.png");
+
+	if(config.debug) menu.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
+
     menu.show(player).then((response) => {
-        if(response.selection === 0) banMenu(player);
-        if(response.selection === 1) settingsMenu(player);
-        if(response.selection === 2) playerSettingsMenu(player);
-        if(response.selection === 3) return;
-        if(config.debug && response.selection === 4) debugSettingsMenu(player);
+        if(response.canceled) return;
+
+        switch(response.selection) {
+            case 0:
+                banMenu(player);
+                break;
+            case 1:
+                settingsMenu(player);
+                break;
+            case 2:
+                playerSettingsMenu(player);
+                break;
+            case 3:
+                break;
+            case 4:
+                debugSettingsMenu(player);
+        }
     });
 }
 
@@ -71,6 +85,7 @@ function banMenu(player) {
         .button("Ban Player", "textures/ui/anvil_icon.png")
         .button("Unban Player", "textures/ui/anvil_icon.png")
         .button("Back", "textures/ui/arrow_left.png");
+
     menu.show(player).then((response) => {
         if(response.selection === 3 || response.canceled) return mainGui(player);
 
@@ -87,9 +102,9 @@ function banMenuSelect(player, selection) {
     const menu = createSelectPlayerMenu("Ban Menu", allPlayers, player);
 
     menu.show(player).then((response) => {
-        if(response.canceled) return banMenu(player);
+        if(response.selection === undefined) return banMenu(player);
 
-        if(response.selection !== undefined && allPlayers.length > response.selection) {
+        if(allPlayers.length > response.selection) {
             if(selection === 0) kickPlayerMenu(player, allPlayers[response.selection]);
                 else if(selection === 1) banPlayerMenu(player, allPlayers[response.selection]);
         } else banMenu(player);
@@ -104,6 +119,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         .title("Kick Player Menu - " + playerSelected.name)
         .textField("Kick Reason:", "§o§7No Reason Provided")
         .toggle("Silent", false);
+
     menu.show(player).then((response) => {
         if(response.canceled) {
             switch (lastMenu) {
@@ -142,7 +158,8 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
     menu.show(player).then((response) => {
         if(response.canceled) {
             if(lastMenu === 0) banMenuSelect(player, lastMenu);
-            if(lastMenu === 1) playerSettingsMenuSelected(player, playerSelected);
+                else if(lastMenu === 1) playerSettingsMenuSelected(player, playerSelected);
+
             return;
         }
 
@@ -329,31 +346,31 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("freeze")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
         .button("Clear EnderChest", "textures/blocks/ender_chest_front.png")
         .button("Kick Player", "textures/ui/anvil_icon.png")
-        .button("Ban Player", "textures/ui/anvil_icon.png");
+        .button("Ban Player", "textures/ui/anvil_icon.png")
+        .button(playerSelected.hasTag("flying") ? "Disable Fly Mode" : "Enable Fly Mode", "textures/ui/levitation_effect.png")
+        .button(playerSelected.hasTag("freeze") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
-    if(!playerSelected.hasTag("flying")) menu.button("Enable Fly Mode", "textures/ui/levitation_effect.png");
-        else menu.button("Disable Fly Mode", "textures/ui/levitation_effect.png");
+    if(!playerSelected.hasTag("isMuted")) {
+        menu.button("Mute Player", "textures/ui/mute_on.png");
+    } else {
+        menu.button("Unmute Player", "textures/ui/mute_off.png");
+    }
 
-    if(!playerSelected.hasTag("freeze")) menu.button("Freeze Player", "textures/ui/icon_winter.png");
-        else menu.button("Unfreeze Player", "textures/ui/icon_winter.png");
-
-    if(!playerSelected.hasTag("isMuted")) menu.button("Mute Player", "textures/ui/mute_on.png");
-        else menu.button("Unmute Player", "textures/ui/mute_off.png");
-
-    if(!playerSelected.hasTag("op")) menu.button("Set Player as Scythe-Op", "textures/ui/op.png");
-        else menu.button("Remove Player as Scythe-Op", "textures/ui/permissions_member_star.png");
-
-    if(!playerSelected.hasTag("vanish")) menu.button("Vanish Player", "textures/ui/invisibility_effect.png");
-        else menu.button("Unvanish Player", "textures/ui/invisibility_effect.png");
+    if(!playerSelected.hasTag("op")) {
+        menu.button("Set Player as Scythe-Op", "textures/ui/op.png");
+    } else {
+        menu.button("Remove Player as Scythe-Op", "textures/ui/permissions_member_star.png");
+    }
 
     menu
+        .button(playerSelected.hasTag("vanish") ? "Unvanish Player" : "Vanish Player", "textures/ui/invisibility_effect.png")
         .button("Teleport", "textures/ui/arrow.png")
         .button("Switch Gamemode", "textures/ui/op.png")
         .button("View Anticheat Logs", "textures/ui/WarningGlyph.png")
         .button("Back", "textures/ui/arrow_left.png");
+
     menu.show(player).then((response) => {
         switch (response.selection) {
-            // brackets to ignore eslint errors
             case 0: {
                 if(!config.customcommands.ecwipe.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
@@ -467,10 +484,17 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
         .button("Teleport To", "textures/ui/arrow.png")
         .button("Teleport Here", "textures/ui/arrow_down.png")
         .button("Back", "textures/ui/arrow_left.png");
+
     menu.show(player).then((response) => {
-        if(response.selection === 0) player.teleport(playerSelected.location);
-        if(response.selection === 1) playerSelected.teleport(player.location);
-        if(response.selection === 2 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
+        if(response.selection === 2 || response.canceled) return playerSettingsMenuSelected(player, playerSelected);
+        
+        switch(response.selection) {
+            case 0:
+                player.teleport(playerSelected.location);
+                break;
+            case 1:
+                playerSelected.teleport(player.location);
+        }
     });
 }
 
@@ -479,17 +503,30 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 
     const menu = new MinecraftUI.ActionFormData()
         .title("Gamemode Menu")
-        .body(`Managing ${playerSelected.name}.`)
-        .button("Gamemode Creative", "textures/ui/op.png")
+        .body(`Switching ${playerSelected.name}'s gamemode.`)
         .button("Gamemode Survival", "textures/ui/permissions_member_star.png")
+        .button("Gamemode Creative", "textures/ui/op.png")
         .button("Gamemode Adventure", "textures/ui/permissions_visitor_hand.png")
+        .button("Gamemode Spectator", "textures/ui/invisibility_effect.png")
+        .button("Default Gamemode", "textures/ui/lan_icon.png")
         .button("Back", "textures/ui/arrow_left.png");
-    menu.show(player).then((response) => {
-        if(response.selection === 0) playerSelected.runCommandAsync(`gamemode 1`);
-        if(response.selection === 1) playerSelected.runCommandAsync(`gamemode 0`);
-        if(response.selection === 2) playerSelected.runCommandAsync(`gamemode 2`);
 
-        if(response.selection === 3 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
+    menu.show(player).then((response) => {
+        if(response.selection === 5 || response.canceled) return playerSettingsMenuSelected(player, playerSelected);
+
+        switch(response.selection) {
+            case 3:
+                playerSelected.runCommandAsync("gamemode spectator");
+                break;
+            
+            case 4:
+                playerSelected.runCommandAsync("gamemode 5");
+                break;
+
+            // Handles changing to survival, creative and adventure
+            default:
+                playerSelected.runCommandAsync(`gamemode ${response.selection}`);
+        }
     });
 }
 
