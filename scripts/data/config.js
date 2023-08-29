@@ -28,8 +28,7 @@ export default
 		},
 		"deop": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["staff"]
+			"requiredTags": ["op"]
 		},
 		"credits": {
 			"enabled": true,
