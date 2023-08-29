@@ -18,7 +18,6 @@ import "./commands/settings/invalidsprint.js";
 import "./commands/settings/overridecommandblocksenabled.js";
 import "./commands/settings/removecommandblocks.js";
 import "./commands/settings/worldborder.js";
-import "./commands/settings/autoclicker.js";
 import "./commands/settings/autoban.js";
 import "./commands/utility/tag.js";
 import "./commands/utility/ecwipe.js";

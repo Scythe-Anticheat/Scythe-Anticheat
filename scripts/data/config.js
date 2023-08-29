@@ -72,11 +72,6 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["wb"]
 		},
-		"autoclicker": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["ac"]
-		},
 		"autoban": {
 			"enabled": true,
 			"requiredTags": ["op"],

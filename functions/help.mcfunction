@@ -36,7 +36,6 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMA§r - Enabl
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoban§r - Enables/disables auto-banning."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables anti-autoclicker."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/disables killing all NPCs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
@@ -49,12 +48,10 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoban§r - Enables/disables auto-banning."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoclicker§r - Enables/disables anti-autoclicker."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/npc§r - Enables/disables killing all NPCs."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/worldborder§r - Enables/disables the world border and its size."}]}
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilities"}]}
 
 # Gametest enabled

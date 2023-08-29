@@ -11,7 +11,9 @@ registerCommand({
         const player = message.sender;
 
         // Find the player requested
-        const member = findPlayerByName(args[0]) ?? player;
+        const member = args.length ? findPlayerByName(args[0]) : player;
+
+        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         const checkGmc = world.getPlayers({
             excludeGameModes: [Minecraft.GameMode.creative, Minecraft.GameMode.spectator],
@@ -26,14 +28,14 @@ registerCommand({
             member.runCommandAsync("ability @s mayfly false");
             member.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
         
-            tellAllStaff(`§r§6[§aScythe§6]§r ${member.name} has disabled fly mode.`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has removed ${member.name}'s fly mode.`);
         } else {
             member.addTag("flying");
 
             member.runCommandAsync("ability @s mayfly true");
-            member.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
+            member.sendMessage("§r§6[§aScythe§6]§r You are now in fly mode.");
         
-            tellAllStaff(`§r§6[§aScythe§6]§r ${member.name} has enabled fly mode.`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has given ${member.name} fly mode.`);
         }
     }
 });

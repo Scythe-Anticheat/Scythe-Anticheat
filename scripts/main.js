@@ -553,9 +553,11 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 
 	// declare all needed variables in player
 	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
-	if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
+	if(config.modules.autoclickerA.enabled) {
+		player.firstAttack = Date.now();
+		player.cps = 0;
+	}
 	if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
-	if(config.modules.autoclickerA.enabled) player.cps = 0;
 	if(config.customcommands.report.enabled) player.reports = [];
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
 
@@ -756,18 +758,8 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 		}
 	}
 
-	// autoclicker/a = check for high cps
-	if(config.modules.autoclickerA.enabled) {
-		// if anti-autoclicker is disabled in game then disable it in config.js
-		if(!data.checkedModules.autoclicker) {
-			if(getScore(player, "autoclicker", 1) >= 1) {
-				config.modules.autoclickerA.enabled = false;
-			}
-			data.checkedModules.autoclicker = true;
-		}
-
-		player.cps++;
-	}
+	// autoclicker/a = check for high cps. The rest of the handling is in the tick event
+	if(config.modules.autoclickerA.enabled) player.cps++;
 
 	// Check if the player attacks an entity while sleeping
 	if(config.modules.killauraD.enabled && player.hasTag("sleeping")) {
@@ -827,9 +819,11 @@ Minecraft.system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) =>
 if([...world.getPlayers()].length >= 1) {
 	for(const player of world.getPlayers()) {
 		if(config.modules.nukerA.enabled) player.blocksBroken = 0;
-		if(config.modules.autoclickerA.enabled) player.firstAttack = Date.now();
+		if(config.modules.autoclickerA.enabled) {
+			player.firstAttack = Date.now();
+			player.cps = 0;
+		}
 		if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;
-		if(config.modules.autoclickerA.enabled) player.cps = 0;
 		if(config.modules.killauraC.enabled) player.entitiesHit = [];
 		if(config.customcommands.report.enabled) player.reports = [];
 	}
