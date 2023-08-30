@@ -177,6 +177,13 @@ export default
 			"enabled": true,
 			"requiredTags": ["op"],
 			"aliases": ["ver","about"]
+		},
+		"globalmute": {
+			"enabled": true,
+			// If this is enabled, then all players can see who disabled the chat globally
+			"showModeratorName": false,
+			"requiredTags": ["op"],
+			"aliases": ["gm"]
 		}
 	},
 	"modules": {

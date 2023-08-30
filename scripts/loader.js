@@ -34,6 +34,7 @@ import "./commands/utility/ui.js";
 import "./commands/moderation/resetwarns.js";
 import "./commands/other/version.js";
 import "./commands/moderation/deop.js";
+import "./commands/moderation/globalmute.js";
 
 // Run anticheat core
 import "./main.js";

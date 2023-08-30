@@ -25,9 +25,14 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 	commandHandler(msg);
 
-	// add's user custom tags to their messages if it exists or we fall back
-	// also filter for non ASCII characters and remove them in messages
 	if(!msg.cancel) {
+		if(data.chatMuted && !player.hasTag("op")) {
+			player.sendMessage(config.customcommands.globalmute.showModeratorName ? `§r§6[§aScythe§6]§r Chat has been disabled by ${data.chatMuter}` : "§r§6[§aScythe§6]§r Chat has been disabled by a server admin.");
+			msg.cancel = true;
+		}
+
+		// add's user custom tags to their messages if it exists or we fall back
+		// also filter for non ASCII characters and remove them in messages
 		if(player.name !== player.nameTag && !config.misc_modules.filterUnicodeChat.enabled) {
 			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
 			msg.cancel = true;
@@ -633,6 +638,8 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 
 	// check if the player is in the global ban list
 	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
+
+	if(data.chatMuted && player.hasTag("op")) player.sendMessage(`§r§6[§aScythe§6]§r NOTE: Chat has been currently disabled by ${data.chatMuter}. Chat can be re-enabled by running the !globalmute command.`);
 });
 
 world.afterEvents.entitySpawn.subscribe((entitySpawn) => {

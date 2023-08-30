@@ -2,5 +2,7 @@ export default
 {
     unbanQueue: [],
     entitiesSpawnedInLastTick: 0,
-    loaded: false
+    loaded: false,
+    chatMuted: false,
+    chatMuter: ""
 };
