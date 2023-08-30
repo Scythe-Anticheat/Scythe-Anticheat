@@ -391,28 +391,26 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		}, 1);
 	}
 
-	/*
 	if(config.modules.commandblockexploitH.enabled && block.typeId === "minecraft:hopper") {
-		const pos1 = {x: block.location.x + 2, y: block.location.y + 2, z: block.location.z + 2};
-		const pos2 = {x: block.location.x - 2, y: block.location.y - 2, z: block.location.z - 2};
+		const pos1 = {x: block.location.x - 2, y: block.location.y - 2, z: block.location.z - 2};
+		const pos2 = {x: block.location.x + 2, y: block.location.y + 2, z: block.location.z + 2};
 
 		let foundDispenser = false;
-		pos1.blocksBetween(pos2).some((block) => {
+		getBlocksBetween(pos1, pos2).forEach((block) => {
 			const blockType = player.dimension.getBlock(block);
 			// @ts-expect-error
 			if(blockType.typeId !== "minecraft:dispenser") return;
 
 			// @ts-expect-error
-			blockType.setType(Minecraft.MinecraftBlockTypes.air);
+			blockType.setType("air");
 			foundDispenser = true;
 		});
 
 		if(foundDispenser) {
 			// @ts-expect-error
-			player.dimension.getBlock({x:block.location.x, y: block.location.y, z: block.location.z}).setType(Minecraft.MinecraftBlockTypes.air);
+			player.dimension.getBlock({x:block.location.x, y: block.location.y, z: block.location.z}).setType("air");
 		}
 	}
-	*/
 
 	if(config.modules.towerA.enabled) {
 		// get block under player
@@ -677,20 +675,18 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 				});
 		}
 
-		/*
 		if(config.modules.commandblockexploitG.blockSummonCheck.includes(entity.typeId)) {
-			const pos1 = {x: entity.location.x + 2, y: entity.location.y + 2, z: entity.location.z + 2};
-			const pos2 = {x: entity.location.x - 2, y: entity.location.y - 2, z: entity.location.z - 2};
+			const pos1 = {x: entity.location.x - 2, y: entity.location.y - 2, z: entity.location.z - 2};
+			const pos2 = {x: entity.location.x + 2, y: entity.location.y + 2, z: entity.location.z + 2};
 
-			pos1.blocksBetween(pos2).some((block) => {
+			getBlocksBetween(pos1, pos2).forEach((block) => {
 				const blockType = block.dimension.getBlock(block);
 				if(!config.modules.commandblockexploitG.blockSummonCheck.includes(blockType.typeId)) return;
 
-				blockType.setType(Minecraft.MinecraftBlockTypes.air);
+				blockType.setType("air");
 				entity.kill();
 			});
 		}
-		*/
 	}
 
 	if(entity.typeId === "minecraft:item") {
