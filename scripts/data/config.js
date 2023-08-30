@@ -184,7 +184,27 @@ export default
 			"showModeratorName": false,
 			"requiredTags": ["op"],
 			"aliases": ["gm"]
-		}
+		},
+		"gma": {
+			"enabled": true,
+			"canChangeOtherPeopleGamemode": true,
+			"requiredTags": ["op"]
+		},
+		"gmc": {
+			"enabled": true,
+			"canChangeOtherPeopleGamemode": true,
+			"requiredTags": ["op"]
+		},
+		"gms": {
+			"enabled": true,
+			"canChangeOtherPeopleGamemode": true,
+			"requiredTags": ["op"]
+		},
+		"gmsp": {
+			"enabled": true,
+			"canChangeOtherPeopleGamemode": true,
+			"requiredTags": ["op"]
+		},
 	},
 	"modules": {
 		"exampleA": {

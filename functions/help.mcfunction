@@ -20,6 +20,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!notify§r - Enable
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!credits§r - Shows credits, that's it."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!op <username>§r - Op's a player in Scythe Anticheat features."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unban <username> [reason]§r - Unbans the specified player."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!globalmute§r - Temporarily disable chat for all players. Useful if the realm or server is hit by a spam attack."}]}
 
 # Gametest Disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function help§r - Shows this help page."}]}
@@ -67,7 +68,10 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> [r
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!ui§r - Opens the Scythe Management UI."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invsee <player>§r - View another players inventory."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!resetwarns <player>§r - Reset a players violations."}]}
-
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gma [player]§r - Change your or another players gamemode to adventure."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gmc [player]§r - Change your or another players gamemode to creative."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gms [player]§r - Change your or another players gamemode to survival."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gmsp [player]§r - Change your or another players gamemode to spectator."}]}
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/ecwipe§r - Clears a players ender chest."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/fly§r - Enables/disables the ability to fly."}]}

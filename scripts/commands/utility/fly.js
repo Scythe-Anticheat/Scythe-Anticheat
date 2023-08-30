@@ -28,14 +28,14 @@ registerCommand({
             member.runCommandAsync("ability @s mayfly false");
             member.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
         
-            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has removed ${member.name}'s fly mode.`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has removed ${player.id === member.id ? "their" : `${member.name}'s`} fly mode.`);
         } else {
             member.addTag("flying");
 
             member.runCommandAsync("ability @s mayfly true");
             member.sendMessage("§r§6[§aScythe§6]§r You are now in fly mode.");
         
-            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has given ${member.name} fly mode.`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has given ${player.id === member.id ? "themselves" : `${member.name}'s`} fly mode.`);
         }
     }
 });

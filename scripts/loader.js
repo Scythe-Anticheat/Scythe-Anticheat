@@ -35,6 +35,10 @@ import "./commands/moderation/resetwarns.js";
 import "./commands/other/version.js";
 import "./commands/moderation/deop.js";
 import "./commands/moderation/globalmute.js";
+import "./commands/utility/gma.js";
+import "./commands/utility/gmc.js";
+import "./commands/utility/gms.js";
+import "./commands/utility/gmsp.js";
 
 // Run anticheat core
 import "./main.js";
