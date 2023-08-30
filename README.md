@@ -22,6 +22,9 @@ To run any chat commands or be able to use certain blocks please type ```/functi
 
 # Hacks detected by Scythe Anticheat
 *\* indicates that the check requires Beta APIs to be enabled in world settings.*<br />
+  Aim -><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for a flat x rotation or y rotation (e.g. 10, 20, 30).\*<br />
+
   AutoClicker -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS.\*<br />
 

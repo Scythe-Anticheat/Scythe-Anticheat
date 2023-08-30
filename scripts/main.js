@@ -323,6 +323,11 @@ Minecraft.system.runInterval(() => {
 			if(player.location.y < -104) player.teleport({x: player.location.x, y: -104, z: player.location.z});
 
 			if(player.fallDistance < -1 && !player.hasTag("trident") && !player.isSwimming) flag(player, "Fly", "B", "Movement", "fallDistance", player.fallDistance, true);
+		
+			const rotation = player.getRotation();
+			// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
+			// The check was later updated to check if the x rotation or the y rotation is a flat number to further detect any other aim related hacks
+			if((Number.isInteger(rotation.x) || Number.isInteger(rotation.y)) && rotation.x !== 0 && rotation.y !== 0) flag(player, "Aim", "A", "Combat", "xRot", `${rotation.x},yRot=${rotation.y}`, true);
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);

@@ -218,6 +218,11 @@ export default
 			// How much violations the player must first have to start punishing them
 			"minVlbeforePunishment": 1
 		},
+		"aimA": {
+			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
 		"autoclickerA": {
 			"enabled": true,
 			"maxCPS": 12,
