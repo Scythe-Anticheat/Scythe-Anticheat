@@ -28,10 +28,10 @@ registerCommand({
             return tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reset ${member.name}'s nametag.`);
         }
 
-        const tag = args.join(" ").replace(/"|\\/g, "");
+        const tag = args.join(" ");
         const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
 
-        const nametag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${member.name}`.replace(/"|\\/g, "");
+        const nametag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${member.name}`;
 
         member.nameTag = nametag;
 

@@ -1,7 +1,7 @@
 // @ts-check
 import * as Minecraft from "@minecraft/server";
 
-import { flag, banMessage, getClosestPlayer, getScore, setScore, getBlocksBetween } from "./util.js";
+import { flag, banMessage, getClosestPlayer, getScore, setScore, getBlocksBetween, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 import banList from "./data/globalban.js";
@@ -25,12 +25,12 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 	commandHandler(msg);
 
-	if(!msg.cancel) {
-		if(data.chatMuted && !player.hasTag("op")) {
-			player.sendMessage(config.customcommands.globalmute.showModeratorName ? `§r§6[§aScythe§6]§r Chat has been disabled by ${data.chatMuter}` : "§r§6[§aScythe§6]§r Chat has been disabled by a server admin.");
-			msg.cancel = true;
-		}
+	if(!msg.cancel && data.chatMuted && !player.hasTag("op")) {
+		player.sendMessage(config.customcommands.globalmute.showModeratorName ? `§r§6[§aScythe§6]§r Chat has been disabled by ${data.chatMuter}` : "§r§6[§aScythe§6]§r Chat has been disabled by a server admin.");
+		msg.cancel = true;
+	}
 
+	if(!msg.cancel) {
 		// add's user custom tags to their messages if it exists or we fall back
 		// also filter for non ASCII characters and remove them in messages
 		if(player.name !== player.nameTag && !config.misc_modules.filterUnicodeChat.enabled) {
@@ -330,7 +330,7 @@ Minecraft.system.runInterval(() => {
 			if((Number.isInteger(rotation.x) || Number.isInteger(rotation.y)) && rotation.x !== 0 && rotation.y !== 0) flag(player, "Aim", "A", "Combat", "xRot", `${rotation.x},yRot=${rotation.y}`, true);
 		} catch (error) {
 			console.error(error, error.stack);
-			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
+			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
 		}
 	}
 }, 0);
@@ -606,20 +606,18 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	player.removeTag("moving");
 	player.removeTag("sleeping");
 
+	// fix a disabler method
+	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
+
 	// load custom nametag
 	const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
 
 	for(const tag of player.getTags()) {
 		if(!tag.startsWith("tag:")) continue;
 
-		const t = tag.replace(/"|\\/g, "");
-
-		player.nameTag = `${borderColor}[§r${mainColor}${t.slice(4)}${borderColor}]§r ${playerNameColor}${player.name}`;
+		player.nameTag = `${borderColor}[§r${mainColor}${tag.slice(4)}${borderColor}]§r ${playerNameColor}${player.nameTag}`;
 		break;
 	}
-
-	// fix a disabler method
-	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
 
 	// Namespoof/A = username length check.
 	if(config.modules.namespoofA.enabled) {
@@ -736,7 +734,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 		})];
 
 		if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
-			entity.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area."}]}`);
+			tellAllStaff(`§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area.`, ["notify"]);
 
 			for(const entityLoop of entities) {
 				entityLoop.kill();

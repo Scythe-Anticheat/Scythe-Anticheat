@@ -18,9 +18,7 @@ registerCommand({
 
         const container = member.getComponent("inventory").container;
 
-        if(container.emptySlotsCount === 36) {
-            return player.sendMessage(`§r§6[§aScythe§6]§r ${member.nameTag}'s inventory is empty.`);
-        }
+        if(container.emptySlotsCount === 36) return player.sendMessage(`§r§6[§aScythe§6]§r ${member.nameTag}'s inventory is empty.`);
 
         let inventory = `§r§6[§aScythe§6]§r ${member.nameTag}'s inventory:\n\n`;
 

@@ -77,7 +77,9 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
                     firstAttack: player.firstAttack ?? -1,
                     lastSelectedSlot: player.lastSelectedSlot ?? -1,
                     startBreakTime: player.startBreakTime,
-                    lastThrowTime: player.lastThrow
+                    lastThrow: player.lastThrow,
+                    autotoolSwitchDelay: player.autotoolSwitchDelay ?? -1,
+                    lastMessageSent: player.lastMessageSent
                 }
             }
         };
@@ -121,8 +123,8 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     switch (punishment) {
         case "kick": {
-            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
-            player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}\\${checkType} (${debugName}=${debug})`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`, ["notify"]);
+            player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType} (${debugName}=${debug})`);
             // incase /kick fails, we despawn them from the world
             player.triggerEvent("scythe:kick");
             break;
@@ -131,7 +133,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             // Check if auto-banning is disabled
             if(getScore(player, "autoban") <= 1) break;
 
-            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
 
             // this removes old ban stuff
             player.getTags().forEach(t => {
@@ -159,7 +161,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             // remove chat ability
             player.runCommandAsync("ability @s mute true");
 
-            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}"}]}`);
+           tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
             break;
         }
     }
@@ -182,7 +184,7 @@ export function banMessage(player) {
     if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
         player.removeTag("isBanned");
 
-        player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned."}]}`);
+       tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
 
         player.getTags().forEach(t => {
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
@@ -211,7 +213,7 @@ export function banMessage(player) {
 
     if(time) {
         if(time < Date.now()) {
-            player.runCommandAsync(`tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned."}]}`);
+           tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned.`, ["notify"]);
 
             // ban expired, woo
             player.removeTag("isBanned");
@@ -408,9 +410,10 @@ export function removeOp(initiator, player) {
  * @name tellAllStaff
  * @remarks Send a message to all Scythe-Opped players
  * @param {string} message - The message to send
+ * @param {Array} tags - What tags should be sent the message
  */
-export function tellAllStaff(message) {
-    for(const player of world.getPlayers({tags:["op"]})) {
+export function tellAllStaff(message, tags = ["op"]) {
+    for(const player of world.getPlayers({tags})) {
         player.sendMessage(message);
     }
 }

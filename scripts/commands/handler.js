@@ -46,10 +46,10 @@ export function commandHandler(msg) {
 
     if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
 
-    let commandData;
-    let commandName;
-
     try {
+        let commandData;
+        let commandName;
+
         if(typeof config.customcommands[command] === "object") {
             commandData = config.customcommands[command];
             commandName = command;
@@ -96,7 +96,7 @@ export function commandHandler(msg) {
         runCommand(msg, commandName, args);
     } catch (error) {
         console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
-        player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message)}\n${String(error)}\n${error.stack || "\n"}-------------------------`);
+        player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message}\n${error}\n${error.stack || "\n"}-------------------------`);
     }
 }
 
@@ -120,7 +120,7 @@ function runCommand(msg, commandName, args) {
            await commands[commandName].execute(msg, args);
         } catch (error) {
             console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
-            message.sender.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message.message)}\n${String(error)}\n${error.stack || "\n"}-------------------------`);
+            message.sender.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message.message}\n${error}\n${error.stack || "\n"}-------------------------`);
         }
     });
 }

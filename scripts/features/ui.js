@@ -181,7 +181,6 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
 
         // remove old ban tags
         playerSelected.getTags().forEach(t => {
-            t = t.replace(/"/g, "");
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) playerSelected.removeTag(t);
         });
         
