@@ -491,6 +491,15 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
+		"spammerE": {
+			"enabled": true,
+			// How fast players can send messages in milliseconds
+			"messageRatelimit": 500,
+			// If a warning message should be sent to the spammer
+			"sendWarningMessage": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
 		"towerA": {
 			"enabled": true,
 			"max_y_pos_diff": 0.35,

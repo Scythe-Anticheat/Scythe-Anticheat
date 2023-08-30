@@ -47,20 +47,39 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	*/
 
 	// Spammer/A = checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping)
-		return flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
+	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping) {
+		flag(player, "Spammer", "A", "Movement", undefined, undefined, true, msg);
+		return msg.sendToTargets = false;
+	}
 
 	// Spammer/B = checks if someone sends a message while swinging their hand
-	if(config.modules.spammerB.enabled && player.hasTag('left') && !player.getEffect("mining_fatigue"))
-		return flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
+	if(config.modules.spammerB.enabled && player.hasTag('left') && !player.getEffect("mining_fatigue")) {
+		flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
+		return msg.sendToTargets = false;
+	}
 
 	// Spammer/C = checks if someone sends a message while using an item
-	if(config.modules.spammerC.enabled && player.hasTag('right'))
-		return flag(player, "Spammer", "C", "Misc", undefined, undefined, undefined, msg);
+	if(config.modules.spammerC.enabled && player.hasTag('right')) {
+		flag(player, "Spammer", "C", "Misc", undefined, undefined, undefined, msg);
+		return msg.sendToTargets = false;
+	}
 
 	// Spammer/D = checks if someone sends a message while having a GUI open
-	if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen'))
-		return flag(player, "Spammer", "D", "Misc", undefined, undefined, undefined, msg);
+	if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen')) {
+		flag(player, "Spammer", "D", "Misc");
+		return msg.sendToTargets = false;
+	}
+
+	if(config.modules.spammerE.enabled) {
+		const lastMessageSentMS = Date.now() - player.lastMessageSent;
+		if(lastMessageSentMS < config.modules.spammerE.messageRatelimit) {
+			flag(player, "Spammer", "E", "Misc", "lastMessageSent", lastMessageSentMS);
+			msg.sendToTargets = false;
+
+			if(config.modules.spammerE.sendWarningMessage) player.sendMessage("§r§6[§aScythe§6]§r Stop spamming! You are sending messages too fast.");
+		}
+		player.lastMessageSent = Date.now();
+	}
 });
 
 Minecraft.system.runInterval(() => {
@@ -299,7 +318,7 @@ Minecraft.system.runInterval(() => {
 
 			if(player.location.y < -104) player.teleport({x: player.location.x, y: -104, z: player.location.z});
 
-			if(player.fallDistance < 0 && !player.hasTag("trident") && !player.isSwimming) flag(player, "Fly", "B", "Movement", "fallDistance", player.fallDistance, true);
+			if(player.fallDistance < 0 && !player.hasTag("trident") && !player.isSwimming) flag(player, "Fly", "B", "Movement", "fallDistance", player.fallDistance);
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) player.sendMessage(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${String(error).replace(/"|\\/g, "")}\n${error.stack || "\n"}-------------------------`);
@@ -558,8 +577,9 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 		player.cps = 0;
 	}
 	if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
-	if(config.customcommands.report.enabled) player.reports = [];
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
+	if(config.modules.spammerE.enabled) player.lastMessageSent = Date.now();
+	if(config.customcommands.report.enabled) player.reports = [];
 
 	if(!data.loaded) {
 		player.runCommandAsync("scoreboard players set scythe:config gametestapi 1");
@@ -825,6 +845,7 @@ if([...world.getPlayers()].length >= 1) {
 		}
 		if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;
 		if(config.modules.killauraC.enabled) player.entitiesHit = [];
+		if(config.modules.spammerE.enabled) player.lastMessageSent = Date.now();
 		if(config.customcommands.report.enabled) player.reports = [];
 	}
 }

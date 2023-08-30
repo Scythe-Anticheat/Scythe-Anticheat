@@ -109,13 +109,14 @@ To run any chat commands or be able to use certain blocks please type ```/functi
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player breaks more than 3 blocks in a single tick.\*
 
   Reach -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check if someone hits a player outside a 5 block radius.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check if a player hits a player outside a 5 block radius.\*<br />
 
   Spammer -><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if someone sends a message while moving.\*<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if someone sends a message while swinging their hand.\*<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if someone sends a message while using an item.\*<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks if someone sends a message while having a chest opened.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player sends a message while moving.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if a player sends a message while swinging their hand.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if a player sends a message while using an item.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks if a player sends a message while having a chest opened.\*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks if a player sends multiple messages too quick.\*<br />
 
   Tower -><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check for tower-like behavior.\*<br />

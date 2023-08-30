@@ -2,25 +2,26 @@ import { Player, Entity, EntityComponent, Container, ItemComponent, EnchantmentL
 
 declare module "@minecraft/server" {
 	interface Player {
-		Player,
+		Player
 
 		// Booleans
-		isGlobalBanned: boolean,
-		flagAutotoolA: boolean,
-		flagNamespoofA: boolean,
-		flagNamespoofB: boolean,
+		isGlobalBanned: boolean
+		flagAutotoolA: boolean
+		flagNamespoofA: boolean
+		flagNamespoofB: boolean
 
 		// Numbers
-		blocksBroken: number,
-		startBreakTime: number,
-		lastSelectedSlot: number,
-		autotoolSwitchDelay: number,
-		cps: number,
-		firstAttack: number,
+		blocksBroken: number
+		startBreakTime: number
+		lastSelectedSlot: number
+		autotoolSwitchDelay: number
+		cps: number
+		firstAttack: number
 		lastThrow: number
+		lastMessageSent: number
 
 		// Arrays
-		entitiesHit: Array<String>,
+		entitiesHit: Array<String>
 		reports: Array<String>
 	}
 
@@ -28,19 +29,20 @@ declare module "@minecraft/server" {
 		Entity,
 		
 		// Booleans
-		flagAutotoolA: boolean,
+		flagAutotoolA: boolean
 
 
 		// Strings
-		name: string,
+		name: string
 
 		// Numbers
 		cps: number,
-		selectedSlot: number,
-		lastThrow: number,
-		startBreakTime: number,
-		lastSelectedSlot: number,
-		autotoolSwitchDelay: number,
+		selectedSlot: number
+		lastThrow: number
+		startBreakTime: number
+		lastSelectedSlot: number
+		autotoolSwitchDelay: number
+		lastMessageSent: number
 
 		// Arrays
 		entitiesHit: Array<String>
