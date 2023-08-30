@@ -5,7 +5,7 @@ export default
 	/*
 	By enabling this toggle, you can prevent anybody will scythe op from getting flagged from the anticheat
 	Although this may be a useful feature, it can be exploited by hackers to completely disable the anticheat for themselves.
-	Enable with caution.
+	It is a much better idea to add "exclude_scythe_op" for each individual check instead of globally
 	*/
 	"disable_flags_from_scythe_op": false,
 	"customcommands": {
@@ -210,6 +210,8 @@ export default
 		"exampleA": {
 			// If the check should be enabled or not.
 			"enabled": true,
+			// If players with scythe-op can bypass this check
+			"exclude_scythe_op": false,
 			// The punishment. Can either be "none", "mute", "kick" or "ban"
 			"punishment": "ban",
 			// PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
@@ -263,7 +265,7 @@ export default
 			"minVlbeforePunishment": 1
 		},
 		"badenchantsD": {
-			"enabled": true,
+			"enabled": false,
 			"exclusions": [
 				"(+DATA)"
 			],
@@ -378,7 +380,7 @@ export default
 			"minVlbeforePunishment": 1
 		},
 		"illegalitemsF": {
-			"enabled": true,
+			"enabled": false,
 			"length": 33,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
@@ -389,8 +391,7 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"illegalitemsI": {
-			"enabled": true,
-			"exclude_scythe_op": true,
+			"enabled": false,
 			"container_blocks": [
 				"minecraft:chest",
 				"minecraft:trapped_chest",
@@ -410,13 +411,11 @@ export default
 		},
 		"illegalitemsJ": {
 			"enabled": true,
-			"exclude_scythe_op": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
 		"illegalitemsK": {
-			"enabled": true,
-			"exclude_scythe_op": true,
+			"enabled": false,
 			"entities": [
 				"minecraft:chest_boat",
 				"minecraft:chest_minecart"
@@ -425,12 +424,12 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"illegalitemsL": {
-			"enabled": true,
+			"enabled": false,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
-		"illegalitemsN": {
-			"enabled": true,
+		"illegalitemsM": {
+			"enabled": false,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
@@ -539,7 +538,7 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"xrayA": {
-			"enabled": true,
+			"enabled": false,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		}

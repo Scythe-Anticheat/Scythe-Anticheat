@@ -30,7 +30,10 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(typeof cancelObject !== "object" && typeof cancelObject !== "undefined") throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined`);
     if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "number" or "undefined`);
 
-    if(config.disable_flags_from_scythe_op && player.hasTag("op")) return;
+    const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
+    if(!checkData) throw Error(`No valid check data found for ${check}/${checkType}.`);
+
+    if((config.disable_flags_from_scythe_op || checkData.exclude_scythe_op) && player.hasTag("op")) return;
 
     if(debug) {
         // remove characters and newlines to prevent commands from breaking
@@ -107,9 +110,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 		const container = player.getComponent("inventory").container;
 		container.setItem(slot, undefined);
 	}
-
-    const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
-    if(!checkData) throw Error(`No valid check data found for ${check}/${checkType}.`);
 
     if(!checkData.enabled) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 

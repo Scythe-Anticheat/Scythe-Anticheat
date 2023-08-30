@@ -379,8 +379,6 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 	if(config.modules.illegalitemsJ.enabled && block.typeId.includes("sign")) {
 		// we need to wait 1 tick before we can get the sign text
 		Minecraft.system.runTimeout(() => {
-			if(config.modules.illegalitemsJ.exclude_scythe_op && player.hasTag("op")) return;
-
 			// @ts-expect-error
 			const text = block.getComponent("sign").text;
 
@@ -434,7 +432,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		}
 	}
 
-	if(config.modules.illegalitemsN.enabled && block.typeId.includes("shulker_box")) {
+	if(config.modules.illegalitemsM.enabled && block.typeId.includes("shulker_box")) {
 		// @ts-expect-error
 		const container = block.getComponent("inventory").container;
 
@@ -705,8 +703,6 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 		Minecraft.system.runTimeout(() => {
 			const player = getClosestPlayer(entity);
 			if(!player) return;
-
-			if(config.modules.illegalitemsK.exclude_scythe_op && player.hasTag("op")) return;
 
 			// @ts-expect-error
 			const container = entity.getComponent("inventory").container;
