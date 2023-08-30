@@ -640,6 +640,8 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
 
 	if(data.chatMuted && player.hasTag("op")) player.sendMessage(`§r§6[§aScythe§6]§r NOTE: Chat has been currently disabled by ${data.chatMuter}. Chat can be re-enabled by running the !globalmute command.`);
+
+	if(config.misc_modules.welcomeMessage.enabled) player.sendMessage(config.misc_modules.welcomeMessage.message.replace(/\[@player]/g, player.name));
 });
 
 world.afterEvents.entitySpawn.subscribe((entitySpawn) => {

@@ -584,6 +584,11 @@ export default
 				"minecraft:end_gateway",
 				"minecraft:sponge"
 			]
+		},
+		"welcomeMessage": {
+			"enabled": false,
+			// You can use [@player] to mention the player name
+			"message": "Welcome [@player] to our server!"
 		}
 	},
 	"itemLists": {
