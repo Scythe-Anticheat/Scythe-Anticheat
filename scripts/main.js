@@ -328,6 +328,11 @@ Minecraft.system.runInterval(() => {
 			// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
 			// The check was later updated to check if the x rotation or the y rotation is a flat number to further detect any other aim related hacks
 			if((Number.isInteger(rotation.x) || Number.isInteger(rotation.y)) && rotation.x !== 0 && rotation.y !== 0) flag(player, "Aim", "A", "Combat", `xRot=${rotation.x},yRot=${rotation.y}`, true);
+		
+			// Store the players last good position
+			// When a movement-related check flags the player, they will be teleported to this position
+			// xRot and yRot being 0 means the player position was modified from player.teleport, which we should ignore
+			if(rotation.x !== 0 && rotation.y !== 0) player.lastGoodPosition = player.location;
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
@@ -585,6 +590,8 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
 	if(config.modules.spammerE.enabled) player.lastMessageSent = Date.now();
 	if(config.customcommands.report.enabled) player.reports = [];
+
+	player.lastGoodPosition = player.location;
 
 	if(!data.loaded) {
 		player.runCommandAsync("scoreboard players set scythe:config gametestapi 1");
@@ -850,5 +857,7 @@ if([...world.getPlayers()].length >= 1) {
 		if(config.modules.killauraC.enabled) player.entitiesHit = [];
 		if(config.modules.spammerE.enabled) player.lastMessageSent = Date.now();
 		if(config.customcommands.report.enabled) player.reports = [];
+
+		player.lastGoodPosition = player.location;
 	}
 }

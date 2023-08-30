@@ -31,7 +31,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "number" or "undefined`);
 
     const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
-    if(!checkData) throw Error(`No valid check data found for ${check}/${checkType}.`);
+    if(!checkData) throw Error(`No valid check data was found for ${check}/${checkType}.`);
 
     if((config.disable_flags_from_scythe_op || checkData.exclude_scythe_op) && player.hasTag("op")) return;
 
@@ -80,7 +80,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                     startBreakTime: player.startBreakTime,
                     lastThrow: player.lastThrow,
                     autotoolSwitchDelay: player.autotoolSwitchDelay ?? -1,
-                    lastMessageSent: player.lastMessageSent
+                    lastMessageSent: player.lastMessageSent,
+                    lastGoodPosition: player.lastGoodPosition
                 }
             }
         };
@@ -91,7 +92,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     // Cancel the message/placement if possible
     if(cancelObject) cancelObject.cancel = true;
 
-    if(shouldTP) player.teleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : {x: player.location.x, y: player.location.y, z: player.location.z}, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
+    if(shouldTP) player.teleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : player.lastGoodPosition, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 

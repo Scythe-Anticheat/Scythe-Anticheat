@@ -392,6 +392,7 @@ export default
 		},
 		"illegalitemsI": {
 			"enabled": false,
+			"exclude_scythe_op": true,
 			"container_blocks": [
 				"minecraft:chest",
 				"minecraft:trapped_chest",
@@ -411,11 +412,13 @@ export default
 		},
 		"illegalitemsJ": {
 			"enabled": true,
+			"exclude_scythe_op": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
 		"illegalitemsK": {
 			"enabled": false,
+			"exclude_scythe_op": true,
 			"entities": [
 				"minecraft:chest_boat",
 				"minecraft:chest_minecart"

@@ -1,4 +1,4 @@
-import { Player, Entity, EntityComponent, Container, ItemComponent, EnchantmentList } from "@minecraft/server";
+import { Player, Entity, EntityComponent, Container, ItemComponent, EnchantmentList, Vector3 } from "@minecraft/server";
 
 declare module "@minecraft/server" {
 	interface Player {
@@ -23,6 +23,9 @@ declare module "@minecraft/server" {
 		// Arrays
 		entitiesHit: Array<String>
 		reports: Array<String>
+		
+		// Objects
+		lastGoodPosition: Vector3
 	}
 
 	interface Entity {
@@ -30,7 +33,6 @@ declare module "@minecraft/server" {
 		
 		// Booleans
 		flagAutotoolA: boolean
-
 
 		// Strings
 		name: string
