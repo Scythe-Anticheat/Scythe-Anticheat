@@ -414,3 +414,27 @@ export function tellAllStaff(message) {
         player.sendMessage(message);
     }
 }
+
+/**
+ * @name getBlocksBetween
+ * @remarks Find every possible coordinate between two sets of Vector3's
+ * @param {object} pos1 - First set of coordinates
+ * @param {object} pos2 - Second set of coordinates
+ * @returns {Array} coordinates - Each possible coordinate
+ */
+export function getBlocksBetween(pos1, pos2) {
+    const { x: minX, y: minY, z: minZ} = pos1;
+    const { x: maxX, y: maxY, z: maxZ} = pos2;
+
+    const coordinates = [];
+
+    for(let x = minX; x <= maxX; x++) {
+        for(let y = minY; y <= maxY; y++) {
+            for(let z = minZ; z <= maxZ; z++) {
+                coordinates.push({x, y, z});
+            }
+        }
+    }
+
+    return coordinates;
+}

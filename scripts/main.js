@@ -1,7 +1,7 @@
 // @ts-check
 import * as Minecraft from "@minecraft/server";
 
-import { flag, banMessage, getClosestPlayer, getScore, setScore } from "./util.js";
+import { flag, banMessage, getClosestPlayer, getScore, setScore, getBlocksBetween } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 import banList from "./data/globalban.js";
@@ -286,11 +286,10 @@ Minecraft.system.runInterval(() => {
 
 			// fly/a
 			if(config.modules.flyA.enabled && Math.abs(playerVelocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
-				const pos1 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
-				const pos2 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
+				const pos1 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
+				const pos2 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
 
-				// @ts-expect-error
-				const isInAir = pos1.blocksBetween(pos2).some((block) => player.dimension.getBlock(block).typeId !== "minecraft:air");
+				const isInAir = getBlocksBetween(pos1, pos2).every((block) => player.dimension.getBlock(block)?.typeId === "minecraft:air");
 
 				if(isInAir) flag(player, "Fly", "A", "Movement", "vertical_speed", Math.abs(playerVelocity.y).toFixed(4), true);
 					else if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
