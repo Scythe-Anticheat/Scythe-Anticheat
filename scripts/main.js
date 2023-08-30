@@ -322,7 +322,7 @@ Minecraft.system.runInterval(() => {
 
 			if(player.location.y < -104) player.teleport({x: player.location.x, y: -104, z: player.location.z});
 
-			if(player.fallDistance < -1 && !player.hasTag("trident") && !player.isSwimming) flag(player, "Fly", "B", "Movement", "fallDistance", player.fallDistance, true);
+			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping &&!player.hasTag("trident") ) flag(player, "Fly", "B", "Movement", "fallDistance", player.fallDistance, true);
 		
 			const rotation = player.getRotation();
 			// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
@@ -338,7 +338,7 @@ Minecraft.system.runInterval(() => {
 world.afterEvents.blockPlace.subscribe((blockPlace) => {
 	const { block, player} = blockPlace;
 
-	if(config.debug) console.warn(`${player.nameTag} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
+	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
 
 	// IllegalItems/H = checks for pistons that can break any block
 	if(config.modules.illegalitemsH.enabled && block.typeId === "minecraft:piston" || block.typeId === "minecraft:sticky_piston") {
@@ -462,7 +462,7 @@ world.afterEvents.blockBreak.subscribe((blockBreak) => {
 
 	let revertBlock = false;
 
-	if(config.debug) console.warn(`${player.nameTag} has broken the block ${brokenBlockId}`);
+	if(config.debug) console.warn(`${player.name} has broken the block ${brokenBlockId}`);
 
 	// nuker/a = checks if a player breaks more than 3 blocks in a tick
 	if(config.modules.nukerA.enabled) {

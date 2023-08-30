@@ -149,7 +149,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         if(!isSilent) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
         playerSelected.triggerEvent("scythe:kick");
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.nameTag} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}`);
     });
 }
 
@@ -186,11 +186,11 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         });
         
         playerSelected.addTag(`reason:${reason}`);
-        playerSelected.addTag(`by:${player.nameTag}`);
+        playerSelected.addTag(`by:${player.name}`);
         if(banLength && !permBan) playerSelected.addTag(`time:${Date.now() + banLength}`);
         playerSelected.addTag("isBanned");
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.nameTag} has banned ${playerSelected.nameTag} for ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${playerSelected.nameTag} for ${reason}`);
     });
 }
 
