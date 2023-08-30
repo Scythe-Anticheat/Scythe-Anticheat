@@ -12,22 +12,20 @@ const world = Minecraft.world;
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
- * @param {string | undefined} [debugName] - Name for the debug value.
- * @param {string | number | undefined} [debug] - Debug info.
+ * @param {string | undefined} [debug] - Debug info.
  * @param {boolean} [shouldTP] - Whether to tp the player to itself.
  * @param {object | undefined} [cancelObject] - object with property "cancel" to cancel.
  * @param {number | undefined} [slot] - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg, undefined);
  * @remarks Alerts staff if a player is hacking.
  */
-export function flag(player, check, checkType, hackType, debugName, debug, shouldTP = false, cancelObject, slot) {
+export function flag(player, check, checkType, hackType, debug, shouldTP = false, cancelObject, slot) {
     // validate that required params are defined
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
     if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
     if(typeof checkType !== "string") throw TypeError(`Error: checkType is type of ${typeof checkType}. Expected "string"`);
     if(typeof hackType !== "string") throw TypeError(`Error: hackType is type of ${typeof hackType}. Expected "string"`);
-    if(typeof debugName !== "string" && typeof debugName !== "undefined") throw TypeError(`Error: debugName is type of ${typeof debugName}. Expected "string" or "undefined"`);
-    if(typeof debug !== "string" && typeof debug !== "number" && typeof debug !== "undefined") throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string", "number" or "undefined"`);
+    if(typeof debug !== "string" && typeof debug !== "undefined") throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string", "number" or "undefined"`);
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
     if(typeof cancelObject !== "object" && typeof cancelObject !== "undefined") throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined`);
     if(typeof slot !== "number" && typeof slot !== "undefined") throw TypeError(`Error: slot is type of ${typeof slot}. Expected "number" or "undefined`);
@@ -55,7 +53,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
             time: new Date().toISOString(),
             check: `${check}/${checkType}`,
             hackType: hackType,
-            debug: `${debugName}=${debug}§r`,
+            debug: `${debug}§r`,
             shouldTP: shouldTP,
             slot: slot,
             playerData: {
@@ -102,7 +100,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
 
     currentVl++;
 
-    if(debug) tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debugName}=${debug}§r§7)§4. VL= ${currentVl}`);
+    if(debug) tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debug}§r§7)§4. VL= ${currentVl}`);
         else tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}`);
 
     if(typeof slot === "number") {
@@ -124,7 +122,7 @@ export function flag(player, check, checkType, hackType, debugName, debug, shoul
     switch (punishment) {
         case "kick": {
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`, ["notify"]);
-            player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType} (${debugName}=${debug})`);
+            player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`);
             // incase /kick fails, we despawn them from the world
             player.triggerEvent("scythe:kick");
             break;

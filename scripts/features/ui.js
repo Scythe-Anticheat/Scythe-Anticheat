@@ -593,7 +593,7 @@ function debugSettingsMenu(player) {
             }
 
             case 2:
-                flag(player, "Example", "A", "Debug");
+                debugSettingsFlag(player);
                 break;
             
             case 3: {
@@ -622,6 +622,28 @@ function debugSettingsMenu(player) {
             default:
                 mainGui(player);
         }
+    });
+}
+
+function debugSettingsFlag(player) {
+    player.playSound("mob.chicken.plop");
+
+    const menu = new MinecraftUI.ModalFormData()
+        .title("Debug Menu - Test Flag")
+        .textField("Check", "Example", "Example")
+        .textField("Check type", "A", "A")
+        .textField("Hack type", "Combat", "Combat")
+        .textField("Debug", "")
+        .toggle("Should TP", false)
+        .toggle("Clear slot", false)
+        .slider("Slot", 0, 36, 1, 0);
+    
+    menu.show(player).then((response) => {
+        const formValues = response.formValues;
+        if(!formValues) return debugSettingsMenu(player);
+
+        // @ts-expect-error
+        flag(player, formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], undefined, formValues[5] ? formValues[6] : undefined);
     });
 }
 
