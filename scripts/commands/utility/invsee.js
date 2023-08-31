@@ -3,6 +3,14 @@ import config from "../../data/config.js";
 import { capitalizeFirstLetter, findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
+const equipmentList = {
+	"head": "Helmet",
+	"chest": "Chestplate",
+	"legs": "Leggings",
+	"feet": "Boots",
+	"offhand": "Offhand"
+};
+
 // Found the inventory viewing script in the bedrock addons discord, unsure of the original owner (not my code)
 registerCommand({
 	name: "invsee",
@@ -23,8 +31,6 @@ registerCommand({
 export function getInvseeMsg(player) {
 	const container = player.getComponent("inventory").container;
 
-	if(container.emptySlotsCount === 36) return `§r§6[§aScythe§6]§r ${player.name}'s inventory is empty.`;
-
 	let inventory = `§r§6[§aScythe§6]§r ${player.name}'s inventory:\n\n`;
 
 	// This function loops through every enchantment on the item and then adds it to the inventory string. It is used if show_enchantments is enabled in the config
@@ -44,10 +50,33 @@ export function getInvseeMsg(player) {
 		loopEnchants(iterator);
 	};
 
+	// Loop through every armor slot
+	let foundItem = false;
+	if(config.customcommands.invsee.show_armor) {
+		const armor = player.getComponent("equipment_inventory");
+
+		for(const equipment of Object.keys(equipmentList)) {
+			const item = armor.getEquipment(equipment);
+			if(!item) continue;
+
+			foundItem = true;
+
+			inventory += `§r§6[§aScythe§6]§r ${equipmentList[equipment]}: ${item.typeId} x${item.amount}\n`;
+
+			if(config.customcommands.invsee.show_enchantments) {
+				loopEnchants(item.getComponent("enchantments").enchantments[Symbol.iterator]());
+			}
+		}
+
+		inventory += `\n`;
+	}
+
 	// Loop through every item in the player's inventory
 	for(let i = 0; i < 36; i++) {
 		const item = container.getItem(i);
 		if(!item) continue;
+
+		foundItem = true;
 
 		inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId} x${item.amount}\n`;
 
@@ -55,6 +84,8 @@ export function getInvseeMsg(player) {
 			loopEnchants(item.getComponent("enchantments").enchantments[Symbol.iterator]());
 		}
 	}
+	
+	if(!foundItem) return `§r§6[§aScythe§6]§r ${player.name}'s inventory is empty.`;
 
-	return inventory;
+	return inventory.replace(/\n+$/, "");
 }

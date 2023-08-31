@@ -85,7 +85,7 @@ export default
 		"ecwipe": {
 			"enabled": true,
 			"requiredTags": ["op"],
-			"aliases": ["enderchestwipe", "ecw"]
+			"aliases": ["enderchestwipe", "ecw", "clearec", "cec"]
 		},
 		"freeze": {
 			"enabled": true,
@@ -123,6 +123,7 @@ export default
 		"invsee": {
 			"enabled": true,
 			"show_enchantments": true,
+			"show_armor": true,
 			"requiredTags": ["op"],
 			"aliases": ["inv"]
 		},
