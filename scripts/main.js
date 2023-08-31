@@ -422,7 +422,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 
 		// @ts-expect-error
-		if(!player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z && !player.getEffect("jump_boost") && !block.typeId.includes("fence") && !block.typeId.includes("wall")) {
+		if(!player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z && !player.getEffect("jump_boost") && !block.typeId.includes("fence") && !block.typeId.includes("wall") && !block.typeId.includes("_shulker_box")) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 
 			if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
