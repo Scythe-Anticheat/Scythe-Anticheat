@@ -1,6 +1,14 @@
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
+const equipmentList = [
+	"head",
+	"chest",
+	"legs",
+	"feet",
+	"offhand"
+];
+
 registerCommand({
 	name: "cloneinv",
 	usage: "<player>",
@@ -14,7 +22,14 @@ registerCommand({
 		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
 		const playerInv = player.getComponent("inventory").container;
+		const playerArmor = player.getComponent("equipment_inventory");
+
 		const memberInv = member.getComponent("inventory").container;
+		const memberArmor = player.getComponent("equipment_inventory");
+
+		for(const equipment of equipmentList) {
+			playerArmor.setEquipment(equipment, memberArmor.getEquipment(equipment));
+		}
 
 		for (let i = 0; i < memberInv.size; i++) {
 			playerInv.setItem(i, memberInv.getItem(i));
