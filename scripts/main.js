@@ -141,9 +141,11 @@ Minecraft.system.runInterval(() => {
 			const playerSpeed = Number(Math.sqrt(Math.abs(playerVelocity.x**2 +playerVelocity.z**2)).toFixed(2));
 
 			// NoSlow/A = speed limit check
-			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed) {
-				if(player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('moving') && player.hasTag('right') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed}`, true);
+			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('moving') && player.hasTag('right') && !player.hasTag("trident") && player.dimension.id && getScore(player, "right") >= 5) {
+				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z}) ?? {typeId: "minecraft:air"};
+
+				if(!blockBelow.typeId.includes("ice")) {
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},blockBelow=${blockBelow.typeId}`, true);
 				}
 			}
 
