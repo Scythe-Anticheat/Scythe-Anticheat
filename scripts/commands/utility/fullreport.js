@@ -1,6 +1,6 @@
 import * as Minecraft from "@minecraft/server";
 import { registerCommand } from "../handler.js";
-import { getStatsMsg } from "./stats.js";
+import { getStatsMsg } from "../moderation/stats.js";
 
 const world = Minecraft.world;
 

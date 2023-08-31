@@ -22,7 +22,7 @@ import "./commands/settings/autoban.js";
 import "./commands/utility/tag.js";
 import "./commands/utility/ecwipe.js";
 import "./commands/utility/freeze.js";
-import "./commands/utility/stats.js";
+import "./commands/moderation/stats.js";
 import "./commands/utility/fullreport.js";
 import "./commands/utility/vanish.js";
 import "./commands/utility/fly.js";

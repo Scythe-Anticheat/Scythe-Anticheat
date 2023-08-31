@@ -4,7 +4,8 @@ import * as MinecraftUI from "@minecraft/server-ui";
 
 import { flag, parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
 import { wipeEnderchest } from "../commands/utility/ecwipe.js";
-import { getStatsMsg } from "../commands/utility/stats.js";
+import { getStatsMsg } from "../commands/moderation/stats.js";
+import { getInvseeMsg } from "../commands/utility/invsee.js";
 
 import config from "../data/config.js";
 import data from "../data/data.js";
@@ -352,10 +353,12 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     const menu = new MinecraftUI.ActionFormData()
         .title("Player Menu - " + playerSelected.name)
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nUnique ID: ${playerSelected.id}\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("freeze")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
-        .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
+        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nUnique ID: ${playerSelected.id}\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.hasTag("isMuted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.hasTag("freeze") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.isFlying}`)
+        .button("View Inventory", "textures/blocks/chest_front.png")
         .button("Kick Player", icons.anvil)
         .button("Ban Player", icons.anvil)
+        .button("View Anticheat Logs", "textures/ui/infobulb.png")
+        .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
         .button(playerSelected.hasTag("flying") ? "Disable Fly Mode" : "Enable Fly Mode", "textures/ui/levitation_effect.png")
         .button(playerSelected.hasTag("freeze") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
@@ -375,43 +378,50 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         .button(playerSelected.hasTag("vanish") ? "Unvanish Player" : "Vanish Player", "textures/ui/invisibility_effect.png")
         .button("Teleport", "textures/ui/arrow.png")
         .button("Switch Gamemode", icons.op)
-        .button("View Anticheat Logs", "textures/ui/WarningGlyph.png")
         .button("Back", icons.back);
 
     menu.show(player).then((response) => {
         switch (response.selection) {
-            case 0: {
-                if(!config.customcommands.ecwipe.enabled) {
-                    return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
-                }
-
-                wipeEnderchest(player, playerSelected);
+            case 0:
+                player.sendMessage(getInvseeMsg(playerSelected));
                 break;
-            }
             case 1:
                 kickPlayerMenu(player, playerSelected, 1);
                 break;
             case 2:
                 banPlayerMenu(player, playerSelected, 1);
                 break;
+
             case 3:
+                player.sendMessage(getStatsMsg(playerSelected));
+                break;
+
+            case 4: 
+                if(!config.customcommands.ecwipe.enabled) {
+                    return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
+                }
+    
+                wipeEnderchest(player, playerSelected);
+                break;
+
+            case 5:
                 if(!config.customcommands.fly.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
                 }
-
+    
                 if(playerSelected.hasTag("flying")) {
                     playerSelected.runCommandAsync("function tools/fly");
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has disabled fly mode for ${playerSelected.name}.`);
-
-                    playerSettingsMenuSelected(player, playerSelected);
                 } else {
                     playerSelected.runCommandAsync("function tools/fly");
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has enabled fly mode for ${playerSelected.name}.`);
-
-                    playerSettingsMenuSelected(player, playerSelected);
                 }
+
+                playerSettingsMenuSelected(player, playerSelected);
                 break;
-            case 4:
+                
+
+            case 6:
                 if(!config.customcommands.freeze.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Frozen State is disabled in config.js.");
                 }
@@ -419,16 +429,15 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 if(playerSelected.hasTag("freeze")) {
                     playerSelected.runCommandAsync("function tools/freeze");
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unfrozen for ${playerSelected.name}.`);
-
-                    playerSettingsMenuSelected(player, playerSelected);
                 } else {
                     playerSelected.runCommandAsync("function tools/freeze");
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has frozen for ${playerSelected.name}.`);
-
-                    playerSettingsMenuSelected(player, playerSelected);
                 }
+
+                playerSettingsMenuSelected(player, playerSelected);
                 break;
-            case 5:
+
+            case 7:
                 if(!config.customcommands.mute.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Muting players is disabled in config.js.");
                 }
@@ -445,7 +454,8 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${playerSelected.name}.`);
                 }
                 break;
-            case 6:
+
+            case 8:
                 if(!config.customcommands.op.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
                 }
@@ -456,7 +466,8 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     addOp(player, playerSelected);
                 }
                 break;
-            case 7:
+
+            case 9:
                 if(!config.customcommands.vanish.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Vanish is disabled in config.js.");
                 }
@@ -464,23 +475,20 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 if(playerSelected.hasTag("vanished")) {
                     playerSelected.runCommandAsync("function tools/vanish");
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has put ${playerSelected.name} into vanish.`);
-
-                    playerSettingsMenuSelected(player, playerSelected);
                 } else {
                     playerSelected.runCommandAsync("function tools/vanish");
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unvanished ${playerSelected.name}.`);
-
-                    playerSettingsMenuSelected(player, playerSelected);
                 }
+
+                playerSettingsMenuSelected(player, playerSelected);
                 break;
-            case 8:
+
+            case 10:
                 playerSettingsMenuSelectedTeleport(player, playerSelected);
                 break;
-            case 9:
+
+            case 11:
                 playerSettingsMenuSelectedGamemode(player, playerSelected);
-                break;
-            case 10:
-                player.sendMessage(getStatsMsg(playerSelected));
                 break;
 
             default:
@@ -525,7 +533,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         .button("Gamemode Creative", icons.op)
         .button("Gamemode Adventure", "textures/ui/permissions_visitor_hand.png")
         .button("Gamemode Spectator", "textures/ui/invisibility_effect.png")
-        .button("Default Gamemode", "textures/ui/lan_icon.png")
+        .button("Default Gamemode", "textures/ui/recap_glyph_desaturated.png")
         .button("Back", icons.back);
 
     menu.show(player).then((response) => {
