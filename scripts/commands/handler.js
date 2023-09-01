@@ -40,7 +40,9 @@ export function commandHandler(msg) {
     // checks if the message starts with our prefix, if not exit
     if(!message.startsWith(prefix)) return;
 
-    const args = message.slice(prefix.length).split(" ");
+    // Converts '!ban "test player" 14d hacker' to ['!ban','test player','14d','hacker']
+    const args = message.slice(prefix.length).match(/(".*?"|\S+)/g).map(match => match.replace(/"/g, ''));
+    console.warn(args);
 
     const command = args.shift().toLowerCase().trim();
 

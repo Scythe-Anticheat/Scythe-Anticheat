@@ -180,7 +180,7 @@ export function banMessage(player) {
     if(config.flagWhitelist.includes(player.name) && player.hasTag("op")) return;
 
     // @ts-expect-error
-    if(data.unbanQueue.includes(player.name.toLowerCase().split(" ")[0])) {
+    if(data.unbanQueue.includes(player.name.toLowerCase())) {
         player.removeTag("isBanned");
 
        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
@@ -364,12 +364,13 @@ export function capitalizeFirstLetter(string) {
  * @returns {Minecraft.Player | undefined} [player] - The player found
  */
 export function findPlayerByName(name) {
-	const searchName = name.toLowerCase().replace(/"|\\|@/g, "");
+	const searchName = name.toLowerCase().replace(/\\|@/g, "");
 
 	let player;
 
 	for(const pl of world.getPlayers()) {
-		if(!pl.name.toLowerCase().includes(searchName)) continue;
+        const lowercaseName = pl.name.toLowerCase();
+		if(searchName !== lowercaseName && !lowercaseName.includes(searchName)) continue;
 
 		// Found a valid player
 		player = pl;

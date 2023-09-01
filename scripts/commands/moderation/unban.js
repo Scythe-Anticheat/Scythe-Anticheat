@@ -11,7 +11,7 @@ registerCommand({
 
         const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
-        const member = args[0].replace(/"|\\/g, "");
+        const member = args[0].replace(/\\/g, "");
 
         if(data.unbanQueue.includes(member)) return player.sendMessage(`§r§6[§aScythe§6]§r ${member} is already queued for an unban.`);
 

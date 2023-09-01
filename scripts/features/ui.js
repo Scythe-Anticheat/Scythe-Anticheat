@@ -208,8 +208,8 @@ function unbanPlayerMenu(player) {
 
         const formValues = response.formValues ?? [];
 
-        // @ts-expect-error
-        const playerToUnban = formValues[0].split(" ")[0];
+        const playerToUnban = formValues[0];
+
         // @ts-expect-error
         const reason = formValues[1].replace(/"|\\/g, "") ?? "No Reason Provided";
 
