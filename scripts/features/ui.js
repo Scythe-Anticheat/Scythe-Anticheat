@@ -1,10 +1,11 @@
 // @ts-check
 import * as Minecraft from "@minecraft/server";
-import * as MinecraftUI from "@minecraft/server-ui";
+import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 
 import { flag, parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
-import { wipeEnderchest } from "../commands/utility/ecwipe.js";
 import { getStatsMsg } from "../commands/moderation/stats.js";
+import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
+import { wipeEnderchest } from "../commands/utility/ecwipe.js";
 import { getInvseeMsg } from "../commands/utility/invsee.js";
 
 import config from "../data/config.js";
@@ -23,6 +24,9 @@ const icons = {
     anvil: "textures/ui/anvil_icon.png",
     member: "textures/ui/permissions_member_star.png",
     op: "textures/ui/op.png",
+    info: "textures/ui/infobulb.png",
+    mute_off: "textures/ui/mute_of.png",
+    mute_on: "textures/ui/mute_on.png",
     debug: "textures/ui/debug_glyph_color.png"
 };
 
@@ -52,12 +56,13 @@ export function mainGui(player, error) {
     let text = `Hello ${player.name},\n\nPlease select an option below.`;
     if(error) text += `\n\n§c${error}`;
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
 		.title("Scythe Anticheat UI")
 		.body(text)
 		.button("Ban Menu", icons.anvil)
 		.button("Configure Settings", "textures/ui/gear.png")
 		.button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
+        .button("Server Management", "textures/ui/servers.png")
 		.button("Exit", "textures/ui/redX1.png");
 
 	if(config.debug) menu.button("⭐ Debug", icons.debug);
@@ -74,8 +79,9 @@ export function mainGui(player, error) {
                 playerSettingsMenu(player);
                 break;
             case 3:
+                serverManagementMenu(player);
                 break;
-            case 4:
+            case 5:
                 debugSettingsMenu(player);
         }
     });
@@ -87,7 +93,7 @@ export function mainGui(player, error) {
 function banMenu(player) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Ban Menu")
         .body("Please select an option.")
         .button("Kick Player", icons.anvil)
@@ -124,7 +130,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
     if(!config.customcommands.kick.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ModalFormData()
+    const menu = new ModalFormData()
         .title("Kick Player Menu - " + playerSelected.name)
         .textField("Kick Reason:", "§o§7No Reason Provided")
         .toggle("Silent", false);
@@ -159,7 +165,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
 
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ModalFormData()
+    const menu = new ModalFormData()
         .title("Ban Player Menu - " + playerSelected.name)
         .textField("Ban Reason:", "§o§7No Reason Provided")
         .slider("Ban Length (in days)", 1, 365, 1)
@@ -198,7 +204,7 @@ function unbanPlayerMenu(player) {
     if(!config.customcommands.unban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ModalFormData()
+    const menu = new ModalFormData()
         .title("Unban Player Menu")
         .textField("Player to unban:", "§o§7Enter player name")
         .textField("Unban Reason:", "§o§7No Reason Provided");
@@ -226,7 +232,7 @@ function unbanPlayerMenu(player) {
 function settingsMenu(player) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Configure Settings")
         .body("Please select a sub-check to edit.");
 
@@ -247,7 +253,7 @@ function settingsCheckSelectMenu(player, selection) {
     player.playSound("mob.chicken.plop");
     const subCheck = modules[selection];
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Configure Settings")
         .body("Please select a check to edit.");
 
@@ -279,7 +285,7 @@ function editSettingMenu(player, check) {
 
     let optionsMap = ["enabled"];
 
-    const menu = new MinecraftUI.ModalFormData()
+    const menu = new ModalFormData()
         .title(`Editing check: ${capitalizeFirstLetter(check)}`)
         .toggle("Enabled", checkData.enabled);
 
@@ -351,27 +357,27 @@ function playerSettingsMenu(player) {
 export function playerSettingsMenuSelected(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Player Menu - " + playerSelected.name)
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nUnique ID: ${playerSelected.id}\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.hasTag("isMuted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.hasTag("freeze") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.isFlying}`)
+        .body(`Player Info:\n\nName: ${player.name}\nUnique ID: ${playerSelected.id}\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.hasTag("isMuted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.hasTag("freeze") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.isFlying}`)
         .button("View Inventory", "textures/blocks/chest_front.png")
         .button("Kick Player", icons.anvil)
         .button("Ban Player", icons.anvil)
-        .button("View Anticheat Logs", "textures/ui/infobulb.png")
+        .button("View Anticheat Logs", icons.info)
         .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
         .button(playerSelected.hasTag("flying") ? "Disable Fly Mode" : "Enable Fly Mode", "textures/ui/levitation_effect.png")
         .button(playerSelected.hasTag("freeze") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
-    if(!playerSelected.hasTag("isMuted")) {
-        menu.button("Mute Player", "textures/ui/mute_on.png");
+    if(playerSelected.hasTag("isMuted")) {
+        menu.button("Unmute Player", icons.mute_off);
     } else {
-        menu.button("Unmute Player", "textures/ui/mute_off.png");
+        menu.button("Mute Player", icons.mute_on);
     }
 
-    if(!playerSelected.hasTag("op")) {
-        menu.button("Set Player as Scythe-Op", icons.op);
-    } else {
+    if(playerSelected.hasTag("op")) {
         menu.button("Remove Player as Scythe-Op", icons.member);
+    } else {
+        menu.button("Set Player as Scythe-Op", icons.op);
     }
 
     menu
@@ -500,7 +506,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 function playerSettingsMenuSelectedTeleport(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Teleport Menu")
         .body(`Managing ${playerSelected.name}.`)
         .button("Teleport To", "textures/ui/arrow.png")
@@ -526,7 +532,7 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
 function playerSettingsMenuSelectedGamemode(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Gamemode Menu")
         .body(`Switching ${playerSelected.name}'s gamemode.`)
         .button("Gamemode Survival", icons.member)
@@ -554,6 +560,36 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         }
     });
 }
+// ====================== //
+//   Server Management    //
+// ====================== //
+function serverManagementMenu(player) {
+    player.playSound("mob.chicken.plop");
+
+    const menu = new ActionFormData()
+        .title("Server Management Menu")
+        .body(`Hello ${player.name},\n\nPlease select an option below.`)
+        .button("Full Report", icons.info);
+
+    if(data.chatMuted) {
+        menu.button("Disable Global Mute", icons.mute_off);
+    } else {
+        menu.button("Disable Global Mute", icons.mute_on);
+    }
+    
+    menu.show(player).then((response) => {
+        switch(response.selection) {
+            case 0:
+                for(const pl of world.getPlayers()) {
+                    player.sendMessage(getStatsMsg(pl));
+                }
+                break;
+            
+            case 1:
+                toggleGlobalMute(player);
+        }
+    });
+}
 
 // ====================== //
 //       Debug Menu       //
@@ -561,8 +597,8 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 function debugSettingsMenu(player) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
-        .title("Scythe Anticheat UI")
+    const menu = new ActionFormData()
+        .title("Debug Settings Menu")
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
         .button("Disable Debug Intents", icons.debug)
         .button("Randomize Inventory", icons.debug)
@@ -636,7 +672,7 @@ function debugSettingsMenu(player) {
 function debugSettingsFlag(player) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ModalFormData()
+    const menu = new ModalFormData()
         .title("Debug Menu - Test Flag")
         .textField("Check", "Example", "Example")
         .textField("Check type", "A", "A")
@@ -659,7 +695,7 @@ function debugSettingsFlag(player) {
 //         Extra          //
 // ====================== //
 function createSelectPlayerMenu(title, players, self) {
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title(title)
         .body("Please select a player to manage.");
 
