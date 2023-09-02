@@ -142,8 +142,12 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             const punishmentLength = checkData.punishmentLength?.toLowerCase();
             let banLength;
 
-            if(punishmentLength && isNaN(punishmentLength)) {
-                banLength = parseTime(punishmentLength);
+            if(punishmentLength) {
+                if(isNaN(punishmentLength)) {
+                    banLength = parseTime(punishmentLength);
+                } else {
+                    banLength = Number(punishmentLength);
+                }
             }
 
             player.addTag("by:Scythe Anticheat");

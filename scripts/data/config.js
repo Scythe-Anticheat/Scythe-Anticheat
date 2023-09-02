@@ -211,9 +211,9 @@ export default
 			// If players with scythe-op can bypass this check
 			"exclude_scythe_op": false,
 			// The punishment. Can either be "none", "mute", "kick" or "ban"
-			"punishment": "none",
+			"punishment": "ban",
 			// PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
-			// or to just perm ban the user (set value to nothing).
+			// To perm ban the user the should string be empty.
 			"punishmentLength": "",
 			// How much violations the player must first have to start punishing them
 			"minVlbeforePunishment": 1
