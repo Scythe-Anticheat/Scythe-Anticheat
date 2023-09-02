@@ -130,7 +130,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
         case "ban": {
             // Check if auto-banning is disabled
-            if(getScore(player, "autoban") <= 1) break;
+            if(!config.autoban) break;
 
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
 
@@ -142,7 +142,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             const punishmentLength = checkData.punishmentLength?.toLowerCase();
             let banLength;
 
-            if(!punishmentLength && isNaN(punishmentLength)) {
+            if(punishmentLength && isNaN(punishmentLength)) {
                 banLength = parseTime(punishmentLength);
             }
 

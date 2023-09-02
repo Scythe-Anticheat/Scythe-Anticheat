@@ -1,6 +1,8 @@
 export default
 {
 	"debug": true,
+	// If checks can auto-ban
+	"autoban": true,
 	"flagWhitelist": [],
 	/*
 	By enabling this toggle, you can prevent anybody will scythe op from getting flagged from the anticheat
@@ -71,11 +73,6 @@ export default
 			"enabled": true,
 			"requiredTags": ["op"],
 			"aliases": ["wb"]
-		},
-		"autoban": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["ab"]
 		},
 		"invalidsprint": {
 			"enabled": true,
@@ -214,7 +211,7 @@ export default
 			// If players with scythe-op can bypass this check
 			"exclude_scythe_op": false,
 			// The punishment. Can either be "none", "mute", "kick" or "ban"
-			"punishment": "ban",
+			"punishment": "none",
 			// PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
 			// or to just perm ban the user (set value to nothing).
 			"punishmentLength": "",

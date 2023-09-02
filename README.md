@@ -145,7 +145,7 @@ Additionally, there are custom features you can enable like anti-gamemode change
 # FAQ
 
 Q1: Does the AntiCheat auto-ban?<br />
-Yes. Currently only CommandBlockExploit/F, IllegalItems/C, IllegalItems/D, IllegalItems/E, and Crasher/A autoban. To enable autobanning do ```!autoban```
+Yes. Currently only BadPackets[3], CommandBlockExploit/F, and IllegalItems/E autoban.
 
 Q2: Is it customizable?<br />
 A2: Yes you can edit the config.js file to disable or change the settings of certain checks. A guide can be found [here](https://github.com/Scythe-Anticheat/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)

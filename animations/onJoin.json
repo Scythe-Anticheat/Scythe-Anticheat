@@ -21,8 +21,6 @@
 					"/scoreboard players add scythe:config npc 0",
 					"/scoreboard objectives add gametestapi dummy",
 					"/scoreboard players add scythe:config gametestapi 0",
-					"/scoreboard objectives add autoban dummy",
-					"/scoreboard players add scythe:config autoban 0",
 					"/scoreboard objectives add invalidsprint dummy",
 					"/scoreboard players add scythe:config invalidsprint 0",
 					// Setting Operations For Objective Types
@@ -34,7 +32,6 @@
 					"/scoreboard players operation @a gms = scythe:config gms",
 					"/scoreboard players operation @a cmds = scythe:config cmds",
 					"/scoreboard players operation @a gametestapi = scythe:config gametestapi",
-					"/scoreboard players operation @a autoban = scythe:config autoban",
 					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
 					// Anticheat Objectives
 					// Checks that are entirely gametest related dont need to be put here, as the notify function in util.js automatically creates them when needed

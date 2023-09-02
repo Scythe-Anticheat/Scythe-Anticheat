@@ -30,8 +30,5 @@ tellraw @s[scores={worldborder=5}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r 
 tellraw @s[scores={worldborder=6..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a100k"}]}
 tellraw @s[scores={worldborder=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World Border is set to §4DISABLED"}]}
 
-tellraw @s[scores={autoban=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Auto-Banning is currently §4DISABLED"}]}
-tellraw @s[scores={autoban=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Auto-Banning is currently §aENABLED"}]}
-
 tellraw @s[scores={invalidsprint=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Invalid-Sprint is currently §4DISABLED"}]}
 tellraw @s[scores={invalidsprint=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Invalid-Sprint is currently §aENABLED"}]}

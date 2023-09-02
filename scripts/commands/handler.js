@@ -58,7 +58,7 @@ export function commandHandler(msg) {
             // check if the command is an alias
             for(const cmd of Object.keys(config.customcommands)) {
                 const data = config.customcommands[cmd];
-                if(typeof data !== "object" || !data.aliases?.includes(command)) continue;
+                if(!data.aliases?.includes(command)) continue;
 
                 commandData = data;
                 commandName = cmd;
