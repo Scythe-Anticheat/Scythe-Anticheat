@@ -747,7 +747,8 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 	const { hitEntity: entity, damagingEntity: player} = entityHit;
 
-	if(player.typeId !== "minecraft:player") return;
+	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
+	if(player.typeId !== "minecraft:player" || !entity.isValid()) return;
 
 	// killaura/C = checks for multi-aura
 	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) {
