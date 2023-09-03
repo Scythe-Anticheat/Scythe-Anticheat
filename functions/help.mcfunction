@@ -33,6 +33,8 @@ tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
 # Gametest enabled
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!modules§r - View all enabled or disabled modules."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!module§r - Change settings of a scythe module."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!module§r - Change settings of a scythe misc module."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}

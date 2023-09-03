@@ -12,6 +12,7 @@ import "./commands/other/credits.js";
 import "./commands/settings/antigma.js";
 import "./commands/settings/antigmc.js";
 import "./commands/settings/antigms.js";
+import "./commands/settings/module.js";
 import "./commands/settings/modules.js";
 import "./commands/settings/npc.js";
 import "./commands/settings/invalidsprint.js";

@@ -10,8 +10,8 @@ const commands = {};
  * @name commandHandler
  * @param {object} data - Command data
  * @param {string} data.name - Command name
- * @param {string} data.usage - Command usage
- * @param {number} data.minArgCount - How many arguments the command expects to have
+ * @param {string} [data.usage] - Command usage
+ * @param {number} [data.minArgCount] - How many arguments the command expects to have
  * @param {function} data.execute - The function that should be ran
  */
 export function registerCommand(data) {
@@ -21,6 +21,8 @@ export function registerCommand(data) {
     if(typeof execute !== "function") throw TypeError(`data.execute is type of ${typeof execute}. Expected "function"`);
 
     if(commands[name]) throw Error(`Command "${name}" has already been registered`);
+
+    if(!config.customcommands[name]) throw Error(`No valid config found for ${name}`);
 
     commands[name] = data;
 }
@@ -118,7 +120,7 @@ function runCommand(msg, commandName, args) {
 
     system.run(async () => {
         try {
-           await commands[commandName].execute(msg, args);
+           await commands[commandName].execute(msg, args, commandName);
         } catch (error) {
             console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
             message.sender.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message.message}\n${error}\n${error.stack || "\n"}-------------------------`);

@@ -51,6 +51,15 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["allowgms","agms"]
 		},
+		"misc_module": {
+			"enabled": true,
+			"requiredTags": ["op"],
+			"aliases": ["mm"]
+		},
+		"module": {
+			"enabled": true,
+			"requiredTags": ["op"]
+		},
 		"modules": {
 			"enabled": true,
 			"requiredTags": ["op"]
