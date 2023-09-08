@@ -342,7 +342,7 @@ Minecraft.system.runInterval(() => {
 	}
 }, 0);
 
-world.afterEvents.blockPlace.subscribe((blockPlace) => {
+world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	const { block, player} = blockPlace;
 
 	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
@@ -459,7 +459,7 @@ world.afterEvents.blockPlace.subscribe((blockPlace) => {
 	}
 });
 
-world.afterEvents.blockBreak.subscribe((blockBreak) => {
+world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 	const brokenBlockId = blockBreak.brokenBlockPermutation.type.id;
 	const { player, dimension, block } = blockBreak;
 

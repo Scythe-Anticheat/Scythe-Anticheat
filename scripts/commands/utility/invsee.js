@@ -1,14 +1,17 @@
+// @ts-check
+// eslint-disable-next-line no-unused-vars
+import { Player } from "@minecraft/server";
 import config from "../../data/config.js";
 
 import { capitalizeFirstLetter, findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 const equipmentList = {
-	"head": "Helmet",
-	"chest": "Chestplate",
-	"legs": "Leggings",
-	"feet": "Boots",
-	"offhand": "Offhand"
+	"Head": "Helmet",
+	"Chest": "Chestplate",
+	"Legs": "Leggings",
+	"Feet": "Boots",
+	"Offhand": "Offhand"
 };
 
 // Found the inventory viewing script in the bedrock addons discord, unsure of the original owner (not my code)
@@ -28,7 +31,13 @@ registerCommand({
 	}
 });
 
+/**
+ * @name getInvseeMsg
+ * @param {Player} player 
+ * @returns {string} msg - A list of all the items in the players inventory
+ */
 export function getInvseeMsg(player) {
+	// @ts-expect-error
 	const container = player.getComponent("inventory").container;
 
 	let inventory = `§r§6[§aScythe§6]§r ${player.name}'s inventory:\n\n`;
@@ -53,9 +62,10 @@ export function getInvseeMsg(player) {
 	// Loop through every armor slot
 	let foundItem = false;
 	if(config.customcommands.invsee.show_armor) {
-		const armor = player.getComponent("equipment_inventory");
+		const armor = player.getComponent("equippable");
 
 		for(const equipment of Object.keys(equipmentList)) {
+			// @ts-expect-error
 			const item = armor.getEquipment(equipment);
 			if(!item) continue;
 
@@ -68,7 +78,7 @@ export function getInvseeMsg(player) {
 			}
 		}
 
-		inventory += `\n`;
+		if(foundItem) inventory += `\n`;
 	}
 
 	// Loop through every item in the player's inventory
