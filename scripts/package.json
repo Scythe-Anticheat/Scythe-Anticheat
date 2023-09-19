@@ -5,7 +5,7 @@
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrDiamond64/Scythe-AntiCheat.git"
+    "url": "git+https://github.com/Scythe-Anticheat/Scythe-AntiCheat.git"
   },
   "keywords": [
     "minecraft",
@@ -26,11 +26,11 @@
   "author": "MrDiamond64",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/MrDiamond64/Scythe-AntiCheat/issues"
+    "url": "https://github.com/Scythe-Anticheat/Scythe-AntiCheat/issues"
   },
-  "homepage": "https://github.com/MrDiamond64/Scythe-AntiCheat#readme",
+  "homepage": "https://github.com/Scythe-Anticheat/Scythe-AntiCheat#readme",
   "devDependencies": {
-    "@minecraft/server": "^1.4.0-beta.1.20.10-stable",
+    "@minecraft/server": "^1.6.0-beta.1.20.30-preview.25",
     "@minecraft/server-ui": "^1.2.0-beta.1.20.10-stable",
     "eslint": "^8.42.0"
   }

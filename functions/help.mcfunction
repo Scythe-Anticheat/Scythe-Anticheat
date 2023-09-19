@@ -20,6 +20,7 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!notify§r - Enable
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!credits§r - Shows credits, that's it."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!op <username>§r - Op's a player in Scythe Anticheat features."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!unban <username> [reason]§r - Unbans the specified player."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!globalmute§r - Temporarily disable chat for all players. Useful if the realm or server is hit by a spam attack."}]}
 
 # Gametest Disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function help§r - Shows this help page."}]}
@@ -32,11 +33,11 @@ tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
 # Gametest enabled
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!modules§r - View all enabled or disabled modules."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!module§r - Change settings of a scythe module."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!module§r - Change settings of a scythe misc module."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoban§r - Enables/disables auto-banning."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!autoclicker§r - Enables/disables anti-autoclicker."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/disables killing all NPCs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
@@ -48,13 +49,10 @@ tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoban§r - Enables/disables auto-banning."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/autoclicker§r - Enables/disables anti-autoclicker."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/npc§r - Enables/disables killing all NPCs."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/worldborder§r - Enables/disables the world border and its size."}]}
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilities"}]}
 
 # Gametest enabled
@@ -70,7 +68,10 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!report <player> [r
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!ui§r - Opens the Scythe Management UI."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invsee <player>§r - View another players inventory."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!resetwarns <player>§r - Reset a players violations."}]}
-
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gma [player]§r - Change your or another players gamemode to adventure."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gmc [player]§r - Change your or another players gamemode to creative."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gms [player]§r - Change your or another players gamemode to survival."}]}
+tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!gmsp [player]§r - Change your or another players gamemode to spectator."}]}
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/ecwipe§r - Clears a players ender chest."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/execute as <username> run function tools/fly§r - Enables/disables the ability to fly."}]}

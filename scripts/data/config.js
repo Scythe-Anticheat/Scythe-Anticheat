@@ -1,11 +1,13 @@
 export default
 {
 	"debug": true,
+	// If checks can auto-ban
+	"autoban": true,
 	"flagWhitelist": [],
 	/*
 	By enabling this toggle, you can prevent anybody will scythe op from getting flagged from the anticheat
 	Although this may be a useful feature, it can be exploited by hackers to completely disable the anticheat for themselves.
-	Enable with caution.
+	It is a much better idea to add "exclude_scythe_op" for each individual check instead of globally
 	*/
 	"disable_flags_from_scythe_op": false,
 	"customcommands": {
@@ -26,6 +28,10 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["staff"]
 		},
+		"deop": {
+			"enabled": true,
+			"requiredTags": ["op"]
+		},
 		"credits": {
 			"enabled": true,
 			"requiredTags": []
@@ -44,6 +50,15 @@ export default
 			"enabled": true,
 			"requiredTags": ["op"],
 			"aliases": ["allowgms","agms"]
+		},
+		"misc_module": {
+			"enabled": true,
+			"requiredTags": ["op"],
+			"aliases": ["mm"]
+		},
+		"module": {
+			"enabled": true,
+			"requiredTags": ["op"]
 		},
 		"modules": {
 			"enabled": true,
@@ -68,16 +83,6 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["wb"]
 		},
-		"autoclicker": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["ac"]
-		},
-		"autoban": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["ab"]
-		},
 		"invalidsprint": {
 			"enabled": true,
 			"requiredTags": ["op"],
@@ -86,7 +91,7 @@ export default
 		"ecwipe": {
 			"enabled": true,
 			"requiredTags": ["op"],
-			"aliases": ["enderchestwipe", "ecw"]
+			"aliases": ["enderchestwipe", "ecw", "clearec", "cec"]
 		},
 		"freeze": {
 			"enabled": true,
@@ -124,6 +129,7 @@ export default
 		"invsee": {
 			"enabled": true,
 			"show_enchantments": true,
+			"show_armor": true,
 			"requiredTags": ["op"],
 			"aliases": ["inv"]
 		},
@@ -178,19 +184,53 @@ export default
 			"enabled": true,
 			"requiredTags": ["op"],
 			"aliases": ["ver","about"]
-		}
+		},
+		"globalmute": {
+			"enabled": true,
+			// If this is enabled, then all players can see who disabled the chat globally
+			"showModeratorName": false,
+			"requiredTags": ["op"],
+			"aliases": ["gm"]
+		},
+		"gma": {
+			"enabled": true,
+			"canChangeOtherPeopleGamemode": true,
+			"requiredTags": ["op"]
+		},
+		"gmc": {
+			"enabled": true,
+			"canChangeOtherPeopleGamemode": true,
+			"requiredTags": ["op"]
+		},
+		"gms": {
+			"enabled": true,
+			"canChangeOtherPeopleGamemode": true,
+			"requiredTags": ["op"]
+		},
+		"gmsp": {
+			"enabled": true,
+			"canChangeOtherPeopleGamemode": true,
+			"requiredTags": ["op"]
+		},
 	},
 	"modules": {
 		"exampleA": {
 			// If the check should be enabled or not.
 			"enabled": true,
+			// If players with scythe-op can bypass this check
+			"exclude_scythe_op": false,
 			// The punishment. Can either be "none", "mute", "kick" or "ban"
 			"punishment": "ban",
 			// PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
-			// or to just perm ban the user (set value to nothing).
+			// To perm ban the user the should string be empty.
 			"punishmentLength": "",
 			// How much violations the player must first have to start punishing them
 			"minVlbeforePunishment": 1
+		},
+		"aimA": {
+			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
 		},
 		"autoclickerA": {
 			"enabled": true,
@@ -232,7 +272,7 @@ export default
 			"minVlbeforePunishment": 1
 		},
 		"badenchantsD": {
-			"enabled": true,
+			"enabled": false,
 			"exclusions": [
 				"(+DATA)"
 			],
@@ -347,7 +387,7 @@ export default
 			"minVlbeforePunishment": 1
 		},
 		"illegalitemsF": {
-			"enabled": true,
+			"enabled": false,
 			"length": 33,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
@@ -358,7 +398,7 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"illegalitemsI": {
-			"enabled": true,
+			"enabled": false,
 			"exclude_scythe_op": true,
 			"container_blocks": [
 				"minecraft:chest",
@@ -384,7 +424,7 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"illegalitemsK": {
-			"enabled": true,
+			"enabled": false,
 			"exclude_scythe_op": true,
 			"entities": [
 				"minecraft:chest_boat",
@@ -394,12 +434,12 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"illegalitemsL": {
-			"enabled": true,
+			"enabled": false,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
-		"illegalitemsN": {
-			"enabled": true,
+		"illegalitemsM": {
+			"enabled": false,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
@@ -492,6 +532,15 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
+		"spammerE": {
+			"enabled": true,
+			// How fast players can send messages in milliseconds
+			"messageRatelimit": 500,
+			// If a warning message should be sent to the spammer
+			"sendWarningMessage": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
 		"towerA": {
 			"enabled": true,
 			"max_y_pos_diff": 0.35,
@@ -499,7 +548,7 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"xrayA": {
-			"enabled": true,
+			"enabled": false,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		}
@@ -549,6 +598,11 @@ export default
 				"minecraft:end_gateway",
 				"minecraft:sponge"
 			]
+		},
+		"welcomeMessage": {
+			"enabled": false,
+			// You can use [@player] to mention the player name
+			"message": "Welcome [@player] to our server!"
 		}
 	},
 	"itemLists": {

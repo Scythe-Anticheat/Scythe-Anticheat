@@ -1,6 +1,6 @@
 tag @s[tag=vanish] add novanish
 tag @s[tag=novanish] remove vanish
-gamemode creative @s[tag=novanish]
+gamemode 5 @s[tag=novanish]
 tellraw @s[tag=novanish] {"rawtext":[{"text":"§r§6[§aScythe§6]§r You are now no longer vanished."}]}
 execute @s[tag=novanish] ~~~ tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" is no longer vanished."}]}
 

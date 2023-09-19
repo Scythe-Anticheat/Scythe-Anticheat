@@ -27,7 +27,6 @@ export default
 	"ecoautomod",
 	"wieldyatol86717",
 	"ctrlaltf44",
-	"blazerloop",
 	// No it doesn't
 	"scythesucks1396",
 	"darkstalker8352",

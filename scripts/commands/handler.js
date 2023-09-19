@@ -10,8 +10,8 @@ const commands = {};
  * @name commandHandler
  * @param {object} data - Command data
  * @param {string} data.name - Command name
- * @param {string} data.usage - Command usage
- * @param {number} data.minArgCount - How many arguments the command expects to have
+ * @param {string} [data.usage] - Command usage
+ * @param {number} [data.minArgCount] - How many arguments the command expects to have
  * @param {function} data.execute - The function that should be ran
  */
 export function registerCommand(data) {
@@ -21,6 +21,8 @@ export function registerCommand(data) {
     if(typeof execute !== "function") throw TypeError(`data.execute is type of ${typeof execute}. Expected "function"`);
 
     if(commands[name]) throw Error(`Command "${name}" has already been registered`);
+
+    if(!config.customcommands[name]) throw Error(`No valid config found for ${name}`);
 
     commands[name] = data;
 }
@@ -40,16 +42,17 @@ export function commandHandler(msg) {
     // checks if the message starts with our prefix, if not exit
     if(!message.startsWith(prefix)) return;
 
-    const args = message.slice(prefix.length).split(" ");
+    // Converts '!ban "test player" 14d hacker' to ['!ban','test player','14d','hacker']
+    const args = message.slice(prefix.length).match(/(".*?"|\S+)/g).map(match => match.replace(/"/g, ''));
 
     const command = args.shift().toLowerCase().trim();
 
     if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
 
-    let commandData;
-    let commandName;
-
     try {
+        let commandData;
+        let commandName;
+
         if(typeof config.customcommands[command] === "object") {
             commandData = config.customcommands[command];
             commandName = command;
@@ -57,7 +60,7 @@ export function commandHandler(msg) {
             // check if the command is an alias
             for(const cmd of Object.keys(config.customcommands)) {
                 const data = config.customcommands[cmd];
-                if(typeof data !== "object" || !data.aliases || !data.aliases.includes(command)) continue;
+                if(!data.aliases?.includes(command)) continue;
 
                 commandData = data;
                 commandName = cmd;
@@ -67,7 +70,7 @@ export function commandHandler(msg) {
             // command does not exist
             if(!commandData) {
                 if(config.customcommands.sendInvalidCommandMsg) {
-                    player.sendMessage(`§r§6[§aScythe§6]§c The command: ${command} was not found. Please make sure it exists.`);
+                    player.sendMessage(`§r§6[§aScythe§6]§c The command "${command}" was not found. Please make sure it exists.`);
                     msg.cancel = true;
                 }
                 return;
@@ -76,10 +79,7 @@ export function commandHandler(msg) {
 
         msg.cancel = true;
 
-        if(!commands[commandName]) {
-            player.sendMessage(`§r§6[§aScythe§6]§r Command "${commandName}" was found in config.js but the command was not registered.`);
-            return;
-        }
+        if(!commands[commandName]) throw Error(`Command "${commandName}" was found in config.js but the command was not registered.`);
 
         if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => !player.hasTag(tag))) {
             player.sendMessage("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: /function op");
@@ -99,7 +99,7 @@ export function commandHandler(msg) {
         runCommand(msg, commandName, args);
     } catch (error) {
         console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
-        player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message)}\n${String(error)}\n${error.stack || "\n"}-------------------------`);
+        player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message}\n${error}\n${error.stack || "\n"}-------------------------`);
     }
 }
 
@@ -120,10 +120,10 @@ function runCommand(msg, commandName, args) {
 
     system.run(async () => {
         try {
-           await commands[commandName].execute(msg, args);
+           await commands[commandName].execute(msg, args, commandName);
         } catch (error) {
             console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
-            message.sender.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${String(message.message)}\n${String(error)}\n${error.stack || "\n"}-------------------------`);
+            message.sender.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message.message}\n${error}\n${error.stack || "\n"}-------------------------`);
         }
     });
 }

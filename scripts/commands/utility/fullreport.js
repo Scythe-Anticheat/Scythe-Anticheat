@@ -1,8 +1,14 @@
+import * as Minecraft from "@minecraft/server";
 import { registerCommand } from "../handler.js";
+import { getStatsMsg } from "../moderation/stats.js";
+
+const world = Minecraft.world;
 
 registerCommand({
     name: "fullreport",
     execute: (message) => {
-        message.sender.runCommandAsync("execute @a ~~~ function tools/stats");
+        for(const player of world.getPlayers()) {
+            message.sender.sendMessage(getStatsMsg(player));
+        }
     }
 });

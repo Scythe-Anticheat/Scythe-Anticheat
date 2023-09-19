@@ -1,11 +1,15 @@
 // @ts-check
 import * as Minecraft from "@minecraft/server";
-import * as MinecraftUI from "@minecraft/server-ui";
+import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
+
+import { flag, parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
+import { getStatsMsg } from "../commands/moderation/stats.js";
+import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
+import { wipeEnderchest } from "../commands/utility/ecwipe.js";
+import { getInvseeMsg } from "../commands/utility/invsee.js";
 
 import config from "../data/config.js";
 import data from "../data/data.js";
-import { parseTime } from "../util.js";
-import { addOp, removeOp } from "../commands/moderation/op.js";
 
 const world = Minecraft.world;
 
@@ -14,11 +18,23 @@ const playerIcons = [
     "textures/ui/icon_steve.png",
 ];
 
+// Commonly used icons
+const icons = {
+    back: "textures/ui/arrow_left.png",
+    anvil: "textures/ui/anvil_icon.png",
+    member: "textures/ui/permissions_member_star.png",
+    op: "textures/ui/op.png",
+    info: "textures/ui/infobulb.png",
+    mute_off: "textures/ui/mute_of.png",
+    mute_on: "textures/ui/mute_on.png",
+    debug: "textures/ui/debug_glyph_color.png"
+};
+
 const moduleList = Object.keys(config.modules).concat(Object.keys(config.misc_modules));
 const modules = [];
 
 for(const fullModule of moduleList) {
-    if(fullModule.includes("example")) continue;
+    if(fullModule.startsWith("example")) continue;
     const module = fullModule[fullModule.length - 1].toUpperCase() === fullModule[fullModule.length - 1] ? fullModule.slice(0, fullModule.length - 1) : fullModule;
 
     if(modules.includes(module)) continue;
@@ -40,20 +56,34 @@ export function mainGui(player, error) {
     let text = `Hello ${player.name},\n\nPlease select an option below.`;
     if(error) text += `\n\n§c${error}`;
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
 		.title("Scythe Anticheat UI")
 		.body(text)
-		.button("Ban Menu", "textures/ui/anvil_icon.png")
-        .button("Configure Settings", "textures/ui/gear.png")
-        .button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
-        .button("Exit", "textures/ui/redX1.png");
-    if(config.debug) menu.button("⭐ Debug", "textures/ui/debug_glyph_color.png");
+		.button("Ban Menu", icons.anvil)
+		.button("Configure Settings", "textures/ui/gear.png")
+		.button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
+        .button("Server Management", "textures/ui/servers.png")
+		.button("Exit", "textures/ui/redX1.png");
+
+	if(config.debug) menu.button("⭐ Debug", icons.debug);
+
     menu.show(player).then((response) => {
-        if(response.selection === 0) banMenu(player);
-        if(response.selection === 1) settingsMenu(player);
-        if(response.selection === 2) playerSettingsMenu(player);
-        if(response.selection === 3) return;
-        if(config.debug && response.selection === 4) debugSettingsMenu(player);
+        switch(response.selection) {
+            case 0:
+                banMenu(player);
+                break;
+            case 1:
+                settingsMenu(player);
+                break;
+            case 2:
+                playerSettingsMenu(player);
+                break;
+            case 3:
+                serverManagementMenu(player);
+                break;
+            case 5:
+                debugSettingsMenu(player);
+        }
     });
 }
 
@@ -63,13 +93,14 @@ export function mainGui(player, error) {
 function banMenu(player) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Ban Menu")
         .body("Please select an option.")
-        .button("Kick Player", "textures/ui/anvil_icon.png")
-        .button("Ban Player", "textures/ui/anvil_icon.png")
-        .button("Unban Player", "textures/ui/anvil_icon.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Kick Player", icons.anvil)
+        .button("Ban Player", icons.anvil)
+        .button("Unban Player", icons.anvil)
+        .button("Back", icons.back);
+
     menu.show(player).then((response) => {
         if(response.selection === 3 || response.canceled) return mainGui(player);
 
@@ -86,9 +117,9 @@ function banMenuSelect(player, selection) {
     const menu = createSelectPlayerMenu("Ban Menu", allPlayers, player);
 
     menu.show(player).then((response) => {
-        if(response.canceled) return banMenu(player);
+        if(response.selection === undefined) return banMenu(player);
 
-        if(response.selection !== undefined && allPlayers.length > response.selection) {
+        if(allPlayers.length > response.selection) {
             if(selection === 0) kickPlayerMenu(player, allPlayers[response.selection]);
                 else if(selection === 1) banPlayerMenu(player, allPlayers[response.selection]);
         } else banMenu(player);
@@ -99,10 +130,11 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
     if(!config.customcommands.kick.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ModalFormData()
+    const menu = new ModalFormData()
         .title("Kick Player Menu - " + playerSelected.name)
         .textField("Kick Reason:", "§o§7No Reason Provided")
         .toggle("Silent", false);
+
     menu.show(player).then((response) => {
         if(response.canceled) {
             switch (lastMenu) {
@@ -118,13 +150,13 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         const formValues = response.formValues ?? [];
 
         // @ts-expect-error
-        const reason = formValues[0].replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
         const isSilent = formValues[1];
 
         if(!isSilent) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
         playerSelected.triggerEvent("scythe:kick");
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}`);
     });
 }
 
@@ -133,37 +165,38 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
 
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ModalFormData()
+    const menu = new ModalFormData()
         .title("Ban Player Menu - " + playerSelected.name)
         .textField("Ban Reason:", "§o§7No Reason Provided")
         .slider("Ban Length (in days)", 1, 365, 1)
         .toggle("Permanant Ban", false);
+
     menu.show(player).then((response) => {
         if(response.canceled) {
             if(lastMenu === 0) banMenuSelect(player, lastMenu);
-            if(lastMenu === 1) playerSettingsMenuSelected(player, playerSelected);
+                else if(lastMenu === 1) playerSettingsMenuSelected(player, playerSelected);
+
             return;
         }
 
         const formValues = response.formValues ?? [];
 
         // @ts-expect-error
-        const reason = formValues[0].replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
         const banLength = parseTime(`${formValues[1]}d`);
         const permBan = formValues[2];
 
         // remove old ban tags
         playerSelected.getTags().forEach(t => {
-            t = t.replace(/"/g, "");
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) playerSelected.removeTag(t);
         });
         
         playerSelected.addTag(`reason:${reason}`);
-        playerSelected.addTag(`by:${player.nameTag}`);
+        playerSelected.addTag(`by:${player.name}`);
         if(banLength && !permBan) playerSelected.addTag(`time:${Date.now() + banLength}`);
         playerSelected.addTag("isBanned");
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has banned ${playerSelected.nameTag}. Reason: ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${playerSelected.nameTag} for ${reason}`);
     });
 }
 
@@ -171,24 +204,25 @@ function unbanPlayerMenu(player) {
     if(!config.customcommands.unban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ModalFormData()
+    const menu = new ModalFormData()
         .title("Unban Player Menu")
         .textField("Player to unban:", "§o§7Enter player name")
         .textField("Unban Reason:", "§o§7No Reason Provided");
+
     menu.show(player).then((response) => {
         if(response.canceled) return banMenu(player);
 
         const formValues = response.formValues ?? [];
 
+        const playerToUnban = formValues[0];
+
         // @ts-expect-error
-        const playerToUnban = formValues[0].split(" ")[0];
-        // @ts-expect-error
-        const reason = formValues[1].replace(/"|\\/g, "") || "No Reason Provided";
+        const reason = formValues[1].replace(/"|\\/g, "") ?? "No Reason Provided";
 
         // @ts-expect-error
         data.unbanQueue.push(playerToUnban.toLowerCase());
 
-        player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.nameTag} has added ${playerToUnban} into the unban queue. Reason: ${reason}"}]}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has added ${playerToUnban} into the unban queue. Reason: ${reason}`);
     });
 }
 
@@ -198,19 +232,18 @@ function unbanPlayerMenu(player) {
 function settingsMenu(player) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Configure Settings")
         .body("Please select a sub-check to edit.");
 
     for(const subModule of modules) {
-        menu.button(subModule[0].toUpperCase() + subModule.slice(1));
+        menu.button(capitalizeFirstLetter(subModule));
     }
 
-    menu.button("Back", "textures/ui/arrow_left.png");
+    menu.button("Back", icons.back);
 
     menu.show(player).then((response) => {
-        // @ts-expect-error
-        if(response.canceled || !modules[response.selection]) return mainGui(player);
+        if(!modules[response.selection ?? -1]) return mainGui(player);
 
         settingsCheckSelectMenu(player, response.selection);
     });
@@ -220,7 +253,7 @@ function settingsCheckSelectMenu(player, selection) {
     player.playSound("mob.chicken.plop");
     const subCheck = modules[selection];
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Configure Settings")
         .body("Please select a check to edit.");
 
@@ -230,19 +263,19 @@ function settingsCheckSelectMenu(player, selection) {
         checks.push(module);
 
         const checkData = config.modules[module] ?? config.misc_modules[module];
-        menu.button(`${subCheck[0].toUpperCase() + subCheck.slice(1)}/${module[module.length - 1]}\n${checkData.enabled ? "§8[§aENABLED§8]" : "§8[§4DISABLED§8]"}`);
+        menu.button(`${capitalizeFirstLetter(subCheck)}/${module[module.length - 1]}\n${checkData.enabled ? "§8[§aENABLED§8]" : "§8[§4DISABLED§8]"}`);
     }
 
     if(checks.length === 1) return editSettingMenu(player, checks[0]);
 
-    menu.button("Back", "textures/ui/arrow_left.png");
+    menu.button("Back", icons.back);
 
     menu.show(player).then((response) => {
-        // @ts-expect-error
-        if(response.canceled || !checks[response.selection]) return settingsMenu(player);
+        const selection = response.selection ?? - 1;
 
-        // @ts-expect-error
-        editSettingMenu(player, checks[response.selection]);
+        if(!checks[selection]) return settingsMenu(player);
+
+        editSettingMenu(player, checks[selection]);
     });
 }
 
@@ -252,15 +285,15 @@ function editSettingMenu(player, check) {
 
     let optionsMap = ["enabled"];
 
-    const menu = new MinecraftUI.ModalFormData()
-        .title(`Editing check: ${check[0].toUpperCase() + check.slice(1)}`)
+    const menu = new ModalFormData()
+        .title(`Editing check: ${capitalizeFirstLetter(check)}`)
         .toggle("Enabled", checkData.enabled);
 
     for(const key of Object.keys(checkData)) {
         if(["enabled","punishment","punishmentLength","minVlbeforePunishment"].includes(key)) continue;
 
         // Friendly setting name. Changes "multi_protection" to "Multi Protection"
-        const settingName = (key[0].toUpperCase() + key.slice(1)).replace(/_./g, (match) => " " + match[1].toUpperCase());
+        const settingName = capitalizeFirstLetter(key).replace(/_./g, (match) => " " + match[1].toUpperCase());
 
         switch(typeof checkData[key]) {
             case "number":
@@ -324,88 +357,93 @@ function playerSettingsMenu(player) {
 export function playerSettingsMenuSelected(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Player Menu - " + playerSelected.name)
-        .body(`Managing ${playerSelected.name}.\n\nPlayer Info:\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${(playerSelected.dimension.id).replace("minecraft:", "")}\nScythe Opped: ${playerSelected.hasTag("op")}\nMuted: ${playerSelected.hasTag("isMuted")}\nFrozen: ${playerSelected.hasTag("freeze")}\nVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.hasTag("flying")}`)
-        .button("Clear EnderChest", "textures/blocks/ender_chest_front.png")
-        .button("Kick Player", "textures/ui/anvil_icon.png")
-        .button("Ban Player", "textures/ui/anvil_icon.png");
+        .body(`Player Info:\n\nName: ${player.name}\nUnique ID: ${playerSelected.id}\nCoordinates: ${Math.floor(playerSelected.location.x)}, ${Math.floor(playerSelected.location.y)}, ${Math.floor(playerSelected.location.z)}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.hasTag("isMuted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.hasTag("freeze") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.hasTag("vanish")}\nFlying: ${playerSelected.isFlying}`)
+        .button("View Inventory", "textures/blocks/chest_front.png")
+        .button("Kick Player", icons.anvil)
+        .button("Ban Player", icons.anvil)
+        .button("View Anticheat Logs", icons.info)
+        .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
+        .button(playerSelected.hasTag("flying") ? "Disable Fly Mode" : "Enable Fly Mode", "textures/ui/levitation_effect.png")
+        .button(playerSelected.hasTag("freeze") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
-    if(!playerSelected.hasTag("flying")) menu.button("Enable Fly Mode", "textures/ui/levitation_effect.png");
-        else menu.button("Disable Fly Mode", "textures/ui/levitation_effect.png");
+    if(playerSelected.hasTag("isMuted")) {
+        menu.button("Unmute Player", icons.mute_off);
+    } else {
+        menu.button("Mute Player", icons.mute_on);
+    }
 
-    if(!playerSelected.hasTag("freeze")) menu.button("Freeze Player", "textures/ui/icon_winter.png");
-        else menu.button("Unfreeze Player", "textures/ui/icon_winter.png");
-
-    if(!playerSelected.hasTag("isMuted")) menu.button("Mute Player", "textures/ui/mute_on.png");
-        else menu.button("Unmute Player", "textures/ui/mute_off.png");
-
-    if(!playerSelected.hasTag("op")) menu.button("Set Player as Scythe-Op", "textures/ui/op.png");
-        else menu.button("Remove Player as Scythe-Op", "textures/ui/permissions_member_star.png");
-
-    if(!playerSelected.hasTag("vanish")) menu.button("Vanish Player", "textures/ui/invisibility_effect.png");
-        else menu.button("Unvanish Player", "textures/ui/invisibility_effect.png");
+    if(playerSelected.hasTag("op")) {
+        menu.button("Remove Player as Scythe-Op", icons.member);
+    } else {
+        menu.button("Set Player as Scythe-Op", icons.op);
+    }
 
     menu
+        .button(playerSelected.hasTag("vanish") ? "Unvanish Player" : "Vanish Player", "textures/ui/invisibility_effect.png")
         .button("Teleport", "textures/ui/arrow.png")
-        .button("Switch Gamemode", "textures/ui/op.png")
-        .button("View Anticheat Logs", "textures/ui/WarningGlyph.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Switch Gamemode", icons.op)
+        .button("Back", icons.back);
+
     menu.show(player).then((response) => {
         switch (response.selection) {
-            // brackets to ignore eslint errors
-            case 0: {
-                if(!config.customcommands.ecwipe.enabled) {
-                    return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
-                }
-
-                let isOp;
-                if(playerSelected.hasTag("op")) {
-                    isOp = true;
-                    removeOp(playerSelected);
-                }
-                playerSelected.runCommandAsync("function tools/ecwipe")
-                    .then(() => isOp && addOp(playerSelected));
-                player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${playerSelected.name} has cleared ${player.name}'s enderchest."}]}`);
+            case 0:
+                player.sendMessage(getInvseeMsg(playerSelected));
                 break;
-            }
             case 1:
                 kickPlayerMenu(player, playerSelected, 1);
                 break;
             case 2:
                 banPlayerMenu(player, playerSelected, 1);
                 break;
+
             case 3:
+                player.sendMessage(getStatsMsg(playerSelected));
+                break;
+
+            case 4: 
+                if(!config.customcommands.ecwipe.enabled) {
+                    return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
+                }
+    
+                wipeEnderchest(player, playerSelected);
+                break;
+
+            case 5:
                 if(!config.customcommands.fly.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
                 }
-
+    
                 if(playerSelected.hasTag("flying")) {
                     playerSelected.runCommandAsync("function tools/fly");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has disabled fly mode for ${playerSelected.name}."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has disabled fly mode for ${playerSelected.name}.`);
                 } else {
                     playerSelected.runCommandAsync("function tools/fly");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has enabled fly mode for ${playerSelected.name}."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has enabled fly mode for ${playerSelected.name}.`);
                 }
+
+                playerSettingsMenuSelected(player, playerSelected);
                 break;
-            case 4:
+                
+
+            case 6:
                 if(!config.customcommands.freeze.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Frozen State is disabled in config.js.");
                 }
 
                 if(playerSelected.hasTag("freeze")) {
                     playerSelected.runCommandAsync("function tools/freeze");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has unfrozen for ${playerSelected.name}."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unfrozen for ${playerSelected.name}.`);
                 } else {
                     playerSelected.runCommandAsync("function tools/freeze");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has frozen for ${playerSelected.name}."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has frozen for ${playerSelected.name}.`);
                 }
+
+                playerSettingsMenuSelected(player, playerSelected);
                 break;
-            case 5:
+
+            case 7:
                 if(!config.customcommands.mute.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Muting players is disabled in config.js.");
                 }
@@ -413,88 +451,143 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 if(playerSelected.hasTag("isMuted")) {
                     playerSelected.removeTag("isMuted");
                     playerSelected.runCommandAsync("ability @s mute false");
+
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${playerSelected.name}.`);
+                } else {
+                    playerSelected.addTag("isMuted");
+                    playerSelected.runCommandAsync("ability @s mute true");
+
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${playerSelected.name}.`);
                 }
                 break;
-            case 6:
+
+            case 8:
                 if(!config.customcommands.op.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
                 }
 
                 if(playerSelected.hasTag("op")) {
-                    removeOp(playerSelected);
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has given ${playerSelected.name} scythe-op status."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    removeOp(player, playerSelected);
                 } else {
-                    addOp(playerSelected);
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has removed scythe-op status from ${playerSelected.name}."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    addOp(player, playerSelected);
                 }
                 break;
-            case 7:
+
+            case 9:
                 if(!config.customcommands.vanish.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Vanish is disabled in config.js.");
                 }
 
                 if(playerSelected.hasTag("vanished")) {
                     playerSelected.runCommandAsync("function tools/vanish");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has put ${playerSelected.name} into vanish."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has put ${playerSelected.name} into vanish.`);
                 } else {
                     playerSelected.runCommandAsync("function tools/vanish");
-                    player.runCommandAsync(`tellraw @a[tag=op] {"rawtext":[{"text":"§r§6[§aScythe§6]§r ${player.name} has unvanished ${playerSelected.name}."}]}`);
-                    playerSettingsMenuSelected(player, playerSelected);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unvanished ${playerSelected.name}.`);
                 }
+
+                playerSettingsMenuSelected(player, playerSelected);
                 break;
-            case 8:
+
+            case 10:
                 playerSettingsMenuSelectedTeleport(player, playerSelected);
                 break;
-            case 9:
+
+            case 11:
                 playerSettingsMenuSelectedGamemode(player, playerSelected);
                 break;
-            case 10:
-                playerSelected.runCommandAsync("function tools/stats");
-                break;
-            case 11:
-                playerSettingsMenu(player);
-                break;
-        }
 
-        if(response.canceled) playerSettingsMenu(player);
+            default:
+                playerSettingsMenu(player);
+        }
     });
 }
 
 function playerSettingsMenuSelectedTeleport(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Teleport Menu")
         .body(`Managing ${playerSelected.name}.`)
         .button("Teleport To", "textures/ui/arrow.png")
         .button("Teleport Here", "textures/ui/arrow_down.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Back", icons.back);
+
     menu.show(player).then((response) => {
-        if(response.selection === 0) player.teleport(playerSelected.location);
-        if(response.selection === 1) playerSelected.teleport(player.location);
-        if(response.selection === 2 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
+        switch(response.selection) {
+            case 0:
+                player.teleport(playerSelected.location);
+                break;
+
+            case 1:
+                playerSelected.teleport(player.location);
+                break;
+
+            default:
+                playerSettingsMenuSelected(player, playerSelected); 
+        }
     });
 }
 
 function playerSettingsMenuSelectedGamemode(player, playerSelected) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title("Gamemode Menu")
-        .body(`Managing ${playerSelected.name}.`)
-        .button("Gamemode Creative", "textures/ui/op.png")
-        .button("Gamemode Survival", "textures/ui/permissions_member_star.png")
+        .body(`Switching ${playerSelected.name}'s gamemode.`)
+        .button("Gamemode Survival", icons.member)
+        .button("Gamemode Creative", icons.op)
         .button("Gamemode Adventure", "textures/ui/permissions_visitor_hand.png")
-        .button("Back", "textures/ui/arrow_left.png");
-    menu.show(player).then((response) => {
-        if(response.selection === 0) playerSelected.runCommandAsync(`gamemode 1`);
-        if(response.selection === 1) playerSelected.runCommandAsync(`gamemode 0`);
-        if(response.selection === 2) playerSelected.runCommandAsync(`gamemode 2`);
+        .button("Gamemode Spectator", "textures/ui/invisibility_effect.png")
+        .button("Default Gamemode", "textures/ui/recap_glyph_desaturated.png")
+        .button("Back", icons.back);
 
-        if(response.selection === 3 || response.canceled) playerSettingsMenuSelected(player, playerSelected);
+    menu.show(player).then((response) => {
+        if(response.selection === 5 || response.canceled) return playerSettingsMenuSelected(player, playerSelected);
+
+        switch(response.selection) {
+            case 3:
+                playerSelected.runCommandAsync("gamemode spectator");
+                break;
+            
+            case 4:
+                playerSelected.runCommandAsync("gamemode 5");
+                break;
+
+            // Handles changing to survival, creative and adventure
+            default:
+                playerSelected.runCommandAsync(`gamemode ${response.selection}`);
+        }
+    });
+}
+// ====================== //
+//   Server Management    //
+// ====================== //
+function serverManagementMenu(player) {
+    player.playSound("mob.chicken.plop");
+
+    const menu = new ActionFormData()
+        .title("Server Management Menu")
+        .body(`Hello ${player.name},\n\nPlease select an option below.`)
+        .button("Full Report", icons.info);
+
+    if(data.chatMuted) {
+        menu.button("Disable Global Mute", icons.mute_off);
+    } else {
+        menu.button("Disable Global Mute", icons.mute_on);
+    }
+    
+    menu.show(player).then((response) => {
+        switch(response.selection) {
+            case 0:
+                for(const pl of world.getPlayers()) {
+                    player.sendMessage(getStatsMsg(pl));
+                }
+                break;
+            
+            case 1:
+                toggleGlobalMute(player);
+        }
     });
 }
 
@@ -504,53 +597,97 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 function debugSettingsMenu(player) {
     player.playSound("mob.chicken.plop");
 
-    const menu = new MinecraftUI.ActionFormData()
-        .title("Scythe Anticheat UI")
+    const menu = new ActionFormData()
+        .title("Debug Settings Menu")
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
-        .button("Disable Debug Intents", "textures/ui/debug_glyph_color.png")
-        .button("Randomize Inventory", "textures/ui/debug_glyph_color.png")
-        .button("Force Watchdog Stack Overflow", "textures/ui/debug_glyph_color.png")
-        .button("Force Watchdog Hang", "textures/ui/debug_glyph_color.png")
-        .button("Force Watchdog Memory Crash Type 1", "textures/ui/debug_glyph_color.png")
-        .button("Back", "textures/ui/arrow_left.png");
+        .button("Disable Debug Intents", icons.debug)
+        .button("Randomize Inventory", icons.debug)
+        .button("Test flag", icons.debug)
+        .button("Force Watchdog Stack Overflow", icons.debug)
+        .button("Force Watchdog Hang", icons.debug)
+        .button("Force Watchdog Memory Crash Type 1", icons.debug)
+        .button("Back", icons.back);
     menu.show(player).then((response) => {
-        if(response.selection === 0) {
-            config.debug = false;
-            mainGui(player);
-        } else if(response.selection === 1) {
-            const container = player.getComponent("inventory").container;
+        switch(response.selection) {
+            case 0:
+                config.debug = false;
+                mainGui(player);
+                break;
 
-            const totalItems = [];
-            for (let i = 0; i < 36; i++) {
-                if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
+            case 1: {
+                const container = player.getComponent("inventory").container;
 
-                const allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
-                const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
-                const randomItem = Minecraft.MinecraftItemTypes[randomItemName];
+                const totalItems = [];
+                for (let i = 0; i < 36; i++) {
+                    if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
 
-                if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
-                    i--;
-                    continue;
+                    const allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
+                    const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
+                    const randomItem = Minecraft.MinecraftItemTypes[randomItemName];
+
+                    if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
+                        i--;
+                        continue;
+                    }
+                    totalItems.push(randomItem.id);
+
+                    container.setItem(i, new Minecraft.ItemStack(randomItem, 1));
                 }
-                totalItems.push(randomItem.id);
+                break;
+            }
 
-                container.setItem(i, new Minecraft.ItemStack(randomItem, 1));
-            }
-        } else if(response.selection === 2) {
-            const troll = () => {
+            case 2:
+                debugSettingsFlag(player);
+                break;
+            
+            case 3: {
+                const troll = () => {
+                    troll();
+                };
                 troll();
-            };
-            troll();
-        } else if(response.selection === 3) {
-            // eslint-disable-next-line no-constant-condition
-            while(true) {}
-        } else if(response.selection === 4) {
-            config.array = [config];
-            // eslint-disable-next-line no-constant-condition
-            while(true) {
-                config.array.push(config);
+                break;
             }
-        } else if(response.selection === 6 || response.canceled) mainGui(player);
+
+            case 4:
+                // eslint-disable-next-line no-constant-condition
+                while(true) {}
+                // eslint-disable-next-line
+                break;
+
+            case 5:
+                config.array = [config];
+                // eslint-disable-next-line no-constant-condition
+                while(true) {
+                    config.array.push(config);
+                }
+                // eslint-disable-next-line
+                break;
+            
+            default:
+                mainGui(player);
+        }
+    });
+}
+
+function debugSettingsFlag(player) {
+    player.playSound("mob.chicken.plop");
+
+    const menu = new ModalFormData()
+        .title("Debug Menu - Test Flag")
+        .textField("Check", "Example", "Example")
+        .textField("Check type", "A", "A")
+        .textField("Hack type", "Combat", "Combat")
+        .textField("Debug", "")
+        .toggle("Should TP", false)
+        .toggle("Clear slot", false)
+        .slider("Slot", 0, 36, 1, 0);
+    
+    menu.show(player).then((response) => {
+        const formValues = response.formValues;
+        if(!formValues) return debugSettingsMenu(player);
+
+        // @ts-expect-error
+        flag(player, formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], undefined, formValues[5] ? formValues[6] : undefined);
     });
 }
 
@@ -558,20 +695,20 @@ function debugSettingsMenu(player) {
 //         Extra          //
 // ====================== //
 function createSelectPlayerMenu(title, players, self) {
-    const menu = new MinecraftUI.ActionFormData()
+    const menu = new ActionFormData()
         .title(title)
         .body("Please select a player to manage.");
 
-    for(const plr of players) {
-        let playerName = plr.name;
+    for(const player of players) {
+        let playerName = player.name;
 
-        if(plr.id === self.id) playerName += " §1[YOU]";
-        if(plr.hasTag("op")) playerName += " §1[OP]";
+        if(player.id === self.id) playerName += " §1[YOU]";
+        if(player.hasTag("op")) playerName += " §1[OP]";
 
         menu.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
     }
 
-    menu.button("Back", "textures/ui/arrow_left.png");
+    menu.button("Back", icons.back);
 
     return menu;
 }
