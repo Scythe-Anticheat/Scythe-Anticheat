@@ -1,5 +1,4 @@
 // @ts-check
-
 import * as Minecraft from "@minecraft/server";
 import config from "./data/config.js";
 import data from "./data/data.js";
@@ -37,7 +36,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     if(debug) {
         // remove characters and newlines to prevent commands from breaking
-        debug = String(debug).replace(/"|\\|\n/gm, "");
+        debug = debug.replace(/"|\\|\n/gm, "");
 
         // malicious users may try make the debug field ridiculously large to lag any clients that may
         // try to view the alert (anybody with the 'notify' tag)
@@ -104,8 +103,11 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     currentVl++;
 
-    if(debug) tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debug}§r§7)§4. VL= ${currentVl}`);
-        else tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}`);
+    if(debug) {
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debug}§r§7)§4. VL= ${currentVl}`);
+    } else {
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}`);
+    }
 
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
@@ -120,7 +122,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     if(punishment === "none" || punishment === "" || currentVl < checkData.minVlbeforePunishment) return;
 
-    switch (punishment) {
+    switch(punishment) {
         case "kick": {
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`, ["notify"]);
             player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`);

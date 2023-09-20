@@ -616,16 +616,15 @@ function debugSettingsMenu(player) {
 
             case 1: {
                 const container = player.getComponent("inventory").container;
+                const allItems = Minecraft.ItemTypes.getAll();
 
                 const totalItems = [];
                 for (let i = 0; i < 36; i++) {
                     if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
 
-                    const allItems = [...Object.keys(Minecraft.MinecraftItemTypes)];
-                    const randomItemName = allItems[Math.floor(Math.random() * allItems.length)];
-                    const randomItem = Minecraft.MinecraftItemTypes[randomItemName];
+                    const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
 
-                    if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItemName.includes("element")) {
+                    if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItem.id.includes("element")) {
                         i--;
                         continue;
                     }
