@@ -324,7 +324,7 @@ Minecraft.system.runInterval(() => {
 
 			if(player.location.y < -104) player.teleport({x: player.location.x, y: -104, z: player.location.z});
 
-			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping &&!player.hasTag("trident") ) flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
+			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
 		
 			const rotation = player.getRotation();
 			// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
@@ -343,7 +343,7 @@ Minecraft.system.runInterval(() => {
 }, 0);
 
 world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
-	const { block, player} = blockPlace;
+	const { block, player } = blockPlace;
 
 	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
 

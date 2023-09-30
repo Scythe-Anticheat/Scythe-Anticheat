@@ -31,7 +31,7 @@ registerCommand({
 			playerArmor.setEquipment(equipment, memberArmor.getEquipment(equipment));
 		}
 
-		for (let i = 0; i < memberInv.size; i++) {
+		for(let i = 0; i < memberInv.size; i++) {
 			playerInv.setItem(i, memberInv.getItem(i));
 		}
 

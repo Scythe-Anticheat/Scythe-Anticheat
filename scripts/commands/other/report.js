@@ -7,7 +7,7 @@ registerCommand({
     minArgCount: 1,
     execute: (message, args) => {
         const player = message.sender;
-        const reason = args.slice(1).join(" ") || "No reason specified";
+        const reason = args.slice(1).join(" ") ?? "No reason specified";
 
         // Find the player requested
         const member = findPlayerByName(args[0]);

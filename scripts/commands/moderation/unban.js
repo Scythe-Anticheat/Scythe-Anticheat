@@ -9,7 +9,7 @@ registerCommand({
     execute: (message, args) => {
         const player = message.sender;
 
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
+        const reason = args.slice(1).join(" ").replace(/"|\\/g, "") ?? "No reason specified";
 
         const member = args[0].replace(/\\/g, "");
 

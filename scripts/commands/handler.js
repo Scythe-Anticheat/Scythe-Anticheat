@@ -7,7 +7,7 @@ const prefix = config.customcommands.prefix ?? "!";
 const commands = {};
 
 /**
- * @name commandHandler
+ * @name registerCommand
  * @param {object} data - Command data
  * @param {string} data.name - Command name
  * @param {string} [data.usage] - Command usage
