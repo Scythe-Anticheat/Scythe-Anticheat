@@ -186,7 +186,7 @@ Minecraft.system.runInterval(() => {
 								name: player.name
 							});
 
-							if([...checkGmc].length !== 0) {
+							if(checkGmc.length) {
 								flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
 							}
 						}
@@ -431,7 +431,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 					name: player.name
 				});
 
-				if([...checkGmc].length > 0) {
+				if(checkGmc.length) {
 					flag(player, "Tower", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
 					block.setType("air");
 				}
@@ -494,7 +494,7 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 			name: player.name
 		});
 
-		if([...checkGmc].length !== 0) {
+		if(checkGmc.length) {
 			revertBlock = true;
 			flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
 		}
@@ -560,7 +560,7 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 					name: player.name
 				});
 
-				if([...checkGmc].length !== 0) {
+				if(checkGmc.length) {
 					flag(player, "IllegalItems", "E", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlot);
 					beforeItemUseOn.cancel = true;
 				}
@@ -728,11 +728,11 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 	}
 
 	if(config.misc_modules.antiArmorStandCluster.enabled && entity.typeId === "minecraft:armor_stand") {
-		const entities = [...entity.dimension.getEntities({
+		const entities = entity.dimension.getEntities({
 			location: {x: entity.location.x, y: entity.location.y, z: entity.location.z},
 			maxDistance: config.misc_modules.antiArmorStandCluster.radius,
 			type: "armor_stand"
-		})];
+		});
 
 		if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
 			tellAllStaff(`§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area.`, ["notify"]);
@@ -771,8 +771,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 				name: player.name
 			});
 
-			if([...checkGmc].length !== 0)
-				flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance}`);
+			if(checkGmc.length) flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance}`);
 		}
 	}
 
@@ -849,7 +848,7 @@ Minecraft.system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) =>
 });
 
 // when using /reload, the variables defined in playerJoin don't persist
-if([...world.getPlayers()].length >= 1) {
+if(world.getPlayers().length) {
 	for(const player of world.getPlayers()) {
 		if(config.modules.nukerA.enabled) player.blocksBroken = 0;
 		if(config.modules.autoclickerA.enabled) {

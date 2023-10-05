@@ -61,7 +61,7 @@ export function mainGui(player, error) {
 		.body(text)
 		.button("Ban Menu", icons.anvil)
 		.button("Configure Settings", "textures/ui/gear.png")
-		.button(`Manage Players\n§8§o${[...world.getPlayers()].length} player(s) online`, "textures/ui/FriendsDiversity.png")
+		.button(`Manage Players\n§8§o${world.getPlayers().length} player(s) online`, "textures/ui/FriendsDiversity.png")
         .button("Server Management", "textures/ui/servers.png")
 		.button("Exit", "textures/ui/redX1.png");
 
@@ -102,21 +102,29 @@ function banMenu(player) {
         .button("Back", icons.back);
 
     menu.show(player).then((response) => {
-        if(response.selection === 3 || response.canceled) return mainGui(player);
-
-        if(response.selection === 2) return unbanPlayerMenu(player);
-
-        banMenuSelect(player, response.selection);
+        switch(response.selection) {
+            case 1:
+                banMenuSelect(player, 1);
+                break;
+            
+            case 2:
+                unbanPlayerMenu(player);
+                break;
+            
+            default:
+                mainGui(player);
+        }
     });
 }
 
 function banMenuSelect(player, selection) {
     player.playSound("mob.chicken.plop");
-    const allPlayers = [...world.getPlayers()];
+    const allPlayers = world.getPlayers();
 
     const menu = createSelectPlayerMenu("Ban Menu", allPlayers, player);
 
     menu.show(player).then((response) => {
+        // Check if the form was cancelled. Response.selection is checked if its undefined to prevent typing errors
         if(response.selection === undefined) return banMenu(player);
 
         if(allPlayers.length > response.selection) {
@@ -173,9 +181,15 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
 
     menu.show(player).then((response) => {
         if(response.canceled) {
-            if(lastMenu === 0) banMenuSelect(player, lastMenu);
-                else if(lastMenu === 1) playerSettingsMenuSelected(player, playerSelected);
-
+            switch(lastMenu) {
+                case 0:
+                    banMenuSelect(player, lastMenu);
+                    break;
+                
+                case 1:
+                    playerSettingsMenuSelected(player, playerSelected);
+                    break;
+            }
             return;
         }
 
@@ -341,7 +355,7 @@ function editSettingMenu(player, check) {
 // ====================== //
 function playerSettingsMenu(player) {
     player.playSound("mob.chicken.plop");
-    const allPlayers = [...world.getPlayers()];
+    const allPlayers = world.getPlayers();
 
     const menu = createSelectPlayerMenu("Player Menu", allPlayers, player);
 

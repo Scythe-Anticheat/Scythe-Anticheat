@@ -249,10 +249,10 @@ export function getClosestPlayer(entity) {
     // validate that required params are defined
     if(typeof entity !== "object") return TypeError(`Error: entity is type of ${typeof entity}. Expected "object"`);
 
-    const nearestPlayer = [...entity.dimension.getPlayers({
+    const nearestPlayer = entity.dimension.getPlayers({
         closest: 1,
         location: {x: entity.location.x, y: entity.location.y, z: entity.location.z}
-    })][0];
+    })[0];
 
     return nearestPlayer;
 }
