@@ -9,7 +9,7 @@ const world = Minecraft.world;
  * @name flag
  * @param {object} player - The player object
  * @param {string} check - What check ran the function.
- * @param {string} checkType - What sub-check ran the function (ex. a, b ,c).
+ * @param {string} checkType - What sub-check ran the function (ex. A, B, C).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string | undefined} [debug] - Debug info.
  * @param {boolean} [shouldTP] - Whether to tp the player to itself.

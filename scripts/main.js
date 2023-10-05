@@ -403,17 +403,15 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		let foundDispenser = false;
 		getBlocksBetween(pos1, pos2).forEach((block) => {
 			const blockType = player.dimension.getBlock(block);
-			// @ts-expect-error
-			if(blockType.typeId !== "minecraft:dispenser") return;
 
-			// @ts-expect-error
+			if(blockType?.typeId !== "minecraft:dispenser") return;
+
 			blockType.setType("air");
 			foundDispenser = true;
 		});
 
 		if(foundDispenser) {
-			// @ts-expect-error
-			player.dimension.getBlock({x:block.location.x, y: block.location.y, z: block.location.z}).setType("air");
+			player.dimension.getBlock({x:block.location.x, y: block.location.y, z: block.location.z})?.setType("air");
 		}
 	}
 
@@ -508,7 +506,7 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 	if(revertBlock) {
 		// kill the items dropped items
 		const droppedItems = dimension.getEntities({
-			location:{x: block.location.x, y: block.location.y, z: block.location.z},
+			location: {x: block.location.x, y: block.location.y, z: block.location.z},
 			minDistance: 0,
 			maxDistance: 2,
 			type: "item"
