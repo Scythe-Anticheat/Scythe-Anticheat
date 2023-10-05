@@ -781,7 +781,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 	if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
 
 	// check if the player was hit with the UI item, and if so open the UI for that player
-	if(config.customcommands.ui.enabled && player.hasTag("op") && entity.typeId === "minecraft:player") {
+	if(config.customcommands.ui.enabled && entity.typeId === "minecraft:player" && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
 		// @ts-expect-error
 		const container = player.getComponent("inventory").container;
 
@@ -835,7 +835,7 @@ world.afterEvents.itemUse.subscribe((itemUse) => {
 	// itemUse can be triggered from entities
 	if(player.typeId !== "minecraft:player") return;
 
-	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && player.hasTag("op")) {
+	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
 		mainGui(player);
 	}
 });

@@ -172,6 +172,7 @@ export default
 			"enabled": true,
 			"ui_item_name": "§r§l§aRight click to Open the UI",
 			"ui_item": "minecraft:wooden_axe",
+			// Players without this tag wont be able to use the UI command and use the UI item
 			"requiredTags": ["op"],
 			"aliases": ["gui"]
 		},
@@ -217,7 +218,7 @@ export default
 		"exampleA": {
 			// If the check should be enabled or not.
 			"enabled": true,
-			// If players with scythe-op can bypass this check
+			// If players with scythe-op can bypass this check (Optional)
 			"exclude_scythe_op": false,
 			// The punishment. Can either be "none", "mute", "kick" or "ban"
 			"punishment": "ban",
