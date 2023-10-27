@@ -8,7 +8,7 @@ import banList from "./data/globalban.js";
 import config from "./data/config.js";
 import data from "./data/data.js";
 
-const world = Minecraft.world;
+const { world } = Minecraft;
 
 if(config.debug) console.warn(`${new Date().toISOString()} | Im not a ******* and this actually worked :sunglasses:`);
 
@@ -141,11 +141,13 @@ Minecraft.system.runInterval(() => {
 			const playerSpeed = Number(Math.sqrt(Math.abs(playerVelocity.x**2 +playerVelocity.z**2)).toFixed(2));
 
 			// NoSlow/A = speed limit check
-			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('moving') && player.hasTag('right') && !player.hasTag("trident") && player.dimension.id && getScore(player, "right") >= 5) {
+			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && player.dimension.id && getScore(player, "right") >= 5) {
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z}) ?? {typeId: "minecraft:air"};
+				// @ts-expect-error
+				const heldItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
 
 				if(!blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},blockBelow=${blockBelow.typeId}`, true);
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem.typeId},blockBelow=${blockBelow.typeId}`, true);
 				}
 			}
 
