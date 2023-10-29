@@ -166,7 +166,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             // remove chat ability
             player.runCommandAsync("ability @s mute true");
 
-           tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
             break;
         }
     }

@@ -25,8 +25,9 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 	commandHandler(msg);
 
-	if(!msg.cancel && data.chatMuted && !player.hasTag("op")) {
-		player.sendMessage(config.customcommands.globalmute.showModeratorName ? `§r§6[§aScythe§6]§r Chat has been disabled by ${data.chatMuter}` : "§r§6[§aScythe§6]§r Chat has been disabled by a server admin.");
+	const globalmute = world.getDynamicProperty("globalmute");
+	if(!msg.cancel && globalmute.muted && !player.hasTag("op")) {
+		player.sendMessage(config.customcommands.globalmute.showModeratorName ? `§r§6[§aScythe§6]§r Chat has been disabled by ${globalmute.muter}` : "§r§6[§aScythe§6]§r Chat has been disabled by a server admin.");
 		msg.cancel = true;
 	}
 
@@ -651,7 +652,9 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	// check if the player is in the global ban list
 	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
 
-	if(data.chatMuted && player.hasTag("op")) player.sendMessage(`§r§6[§aScythe§6]§r NOTE: Chat has been currently disabled by ${data.chatMuter}. Chat can be re-enabled by running the !globalmute command.`);
+	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
+	// @ts-expect-error
+	if(globalmute.muted && player.hasTag("op")) player.sendMessage(`§r§6[§aScythe§6]§r NOTE: Chat has been currently disabled by ${globalmute.muter}. Chat can be re-enabled by running the !globalmute command.`);
 
 	if(config.misc_modules.welcomeMessage.enabled) player.sendMessage(config.misc_modules.welcomeMessage.message.replace(/\[@player]/g, player.name));
 });

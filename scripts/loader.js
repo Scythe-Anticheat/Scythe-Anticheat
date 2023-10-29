@@ -1,4 +1,14 @@
 // This is the initial file that runs. It is used to load everything for Scythe
+import { world } from "@minecraft/server";
+
+// Set dynamic properties
+if(!world.getDynamicProperty("globalmute")) {
+	world.setDynamicProperty("globalmute", JSON.stringify({
+		muted: false,
+		muter: ""
+	}));
+}
+
 
 // Register all commands
 import "./commands/moderation/kick.js";
