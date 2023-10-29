@@ -20,9 +20,7 @@ registerCommand({
         // Reset user nametag
         if(args[0] === "reset") {
             // Remove old tags
-            member.getTags().forEach(t => {
-                if(t.startsWith("tag:")) member.removeTag(t);
-            });
+            member.setDynamicProperty("tag", undefined);
 
             member.nameTag = member.name;
             return tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reset ${member.name}'s nametag.`);
@@ -36,11 +34,7 @@ registerCommand({
         member.nameTag = nametag;
 
         // Remove old tags
-        member.getTags().forEach(t => {
-            if(t.startsWith("tag:")) member.removeTag(t);
-        });
-
-        member.addTag(`tag:${tag}`);
+        member.setDynamicProperty("tag", tag);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has changed ${member.name}'s nametag to ${nametag}.`);
     }

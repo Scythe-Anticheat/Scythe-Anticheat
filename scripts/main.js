@@ -617,12 +617,16 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	// load custom nametag
 	const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
 
+	// Backwards compatibility
 	for(const tag of player.getTags()) {
 		if(!tag.startsWith("tag:")) continue;
 
-		player.nameTag = `${borderColor}[§r${mainColor}${tag.slice(4)}${borderColor}]§r ${playerNameColor}${player.nameTag}`;
-		break;
+		player.setDynamicProperty("tag", tag.slice(4));
+		player.removeTag(tag);
 	}
+
+	const tag = player.getDynamicProperty("tag");
+	if(tag) player.nameTag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${player.nameTag}`;
 
 	// Namespoof/A = username length check.
 	if(config.modules.namespoofA.enabled) {
