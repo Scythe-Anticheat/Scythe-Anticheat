@@ -18,13 +18,13 @@ export function toggleGlobalMute(initiator) {
 			muter: ""
 		}));
 
-		tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has re-enabled chat for all players.`);
+		tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has disabled global mute.`);
 	} else {
 		world.setDynamicProperty("globalmute", JSON.stringify({
 			muted: true,
 			muter: initiator.name
 		}));
 
-		tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has disabled chat for all players. This action can be reverted by running the !globalmute command.`);
+		tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has enabled global mute. This action can be reverted by running the !globalmute command.`);
 	}
 }

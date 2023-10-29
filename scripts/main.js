@@ -596,11 +596,6 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 
 	player.lastGoodPosition = player.location;
 
-	if(!data.loaded) {
-		player.runCommandAsync("scoreboard players set scythe:config gametestapi 1");
-		data.loaded = true;
-	}
-
 	// remove tags
 	player.removeTag("attack");
 	player.removeTag("hasGUIopen");
@@ -844,6 +839,10 @@ world.afterEvents.itemUse.subscribe((itemUse) => {
 	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
 		mainGui(player);
 	}
+});
+
+world.afterEvents.worldInitialize.subscribe(() => {
+	world.getDimension("overworld").runCommandAsync("scoreboard players set scythe:config gametestapi 1");
 });
 
 Minecraft.system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {

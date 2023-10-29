@@ -25,7 +25,7 @@ const icons = {
     member: "textures/ui/permissions_member_star.png",
     op: "textures/ui/op.png",
     info: "textures/ui/infobulb.png",
-    mute_off: "textures/ui/mute_of.png",
+    mute_off: "textures/ui/mute_off.png",
     mute_on: "textures/ui/mute_on.png",
     debug: "textures/ui/debug_glyph_color.png"
 };
@@ -580,15 +580,17 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 function serverManagementMenu(player) {
     player.playSound("mob.chicken.plop");
 
+    const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
+
     const menu = new ActionFormData()
         .title("Server Management Menu")
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
         .button("Full Report", icons.info);
 
-    if(data.chatMuted) {
+    if(globalmute.muted) {
         menu.button("Disable Global Mute", icons.mute_off);
     } else {
-        menu.button("Disable Global Mute", icons.mute_on);
+        menu.button("Enable Global Mute", icons.mute_on);
     }
     
     menu.show(player).then((response) => {
