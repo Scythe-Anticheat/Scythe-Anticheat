@@ -25,7 +25,8 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 	commandHandler(msg);
 
-	const globalmute = world.getDynamicProperty("globalmute");
+	// @ts-expect-error
+	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	if(!msg.cancel && globalmute.muted && !player.hasTag("op")) {
 		player.sendMessage(config.customcommands.globalmute.showModeratorName ? `§r§6[§aScythe§6]§r Chat has been disabled by ${globalmute.muter}` : "§r§6[§aScythe§6]§r Chat has been disabled by a server admin.");
 		msg.cancel = true;
@@ -148,13 +149,14 @@ Minecraft.system.runInterval(() => {
 				const heldItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
 
 				if(!blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem.typeId},blockBelow=${blockBelow.typeId}`, true);
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem?.typeId ?? "minecraft:air"},blockBelow=${blockBelow.typeId}`, true);
 				}
 			}
 
 			// @ts-expect-error
 			const container = player.getComponent("inventory").container;
 			for(let i = 0; i < 36; i++) {
+				// @ts-expect-error
 				const item = container.getItem(i);
 				if(!item) continue;
 
@@ -201,7 +203,9 @@ Minecraft.system.runInterval(() => {
 					flag(player, "CommandBlockExploit", "H", "Exploit", `item=${item.typeId}`, false, undefined, i);
 
 				// Illegalitems/F = Checks if an item has a name longer then 32 characters
+				// @ts-expect-error
 				if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
+					// @ts-expect-error
 					flag(player, "IllegalItems", "F", "Exploit", `"name=${item.nameTag},length=${item.nameTag.length}`, false, undefined, i);
 
 				// IllegalItems/L = check for keep on death items
@@ -229,6 +233,7 @@ Minecraft.system.runInterval(() => {
 				if(config.misc_modules.resetItemData.enabled && config.misc_modules.resetItemData.items.includes(item.typeId)) {
 					// This creates a duplicate version of the item without any attributes such as NBT.
 					const item2 = new Minecraft.ItemStack(itemType, item.amount);
+					// @ts-expect-error
 					container.setItem(i, item2);
 				}
 
