@@ -9,7 +9,6 @@ if(!world.getDynamicProperty("globalmute")) {
 	}));
 }
 
-
 // Register all commands
 import "./commands/moderation/kick.js";
 import "./commands/other/help.js";

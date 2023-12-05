@@ -13,7 +13,7 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        wipeEnderchest(member);
+        wipeEnderchest(player, member);
     }
 });
 
