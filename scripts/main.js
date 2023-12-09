@@ -238,6 +238,7 @@ Minecraft.system.runInterval(() => {
 				}
 
 				if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled || config.modules.badenchantsE.enabled) {
+					// @ts-expect-error
 					const itemEnchants = item.getComponent("enchantments").enchantments;
 
 					const item2 = new Minecraft.ItemStack(itemType, 1);
@@ -370,6 +371,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	if(config.modules.illegalitemsI.enabled && config.modules.illegalitemsI.container_blocks.includes(block.typeId) && !player.hasTag("op")) {
 		// @ts-expect-error
 		const container = block.getComponent("inventory").container;
+		if(!container) return; // This should not happen
 
 		let startNumber = 0;
 		let didFindItems = false;
@@ -448,6 +450,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	if(config.modules.illegalitemsM.enabled && block.typeId.includes("shulker_box")) {
 		// @ts-expect-error
 		const container = block.getComponent("inventory").container;
+		if(!container) return; // This should not happen
 
 		const illegalItems = [];
 
@@ -652,8 +655,8 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	// check if the player is in the global ban list
 	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
 
-	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	// @ts-expect-error
+	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	if(globalmute.muted && player.hasTag("op")) player.sendMessage(`§r§6[§aScythe§6]§r NOTE: Chat has been currently disabled by ${globalmute.muter}. Chat can be re-enabled by running the !globalmute command.`);
 
 	if(config.misc_modules.welcomeMessage.enabled) player.sendMessage(config.misc_modules.welcomeMessage.message.replace(/\[@player]/g, player.name));
@@ -723,7 +726,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 			// @ts-expect-error
 			const container = entity.getComponent("inventory").container;
 
-			if(container.size !== container.emptySlotsCount) {
+			if(container && container.size !== container.emptySlotsCount) {
 				for (let i = 0; i < container.size; i++) {
 					container.setItem(i, undefined);
 				}
@@ -782,14 +785,15 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 		}
 	}
 
-	// badpackets[3] = checks if a player attacks themselves
-	// some (bad) hacks use this to bypass anti-movement cheat checks
+	// Badpackets[3] = checks if a player attacks themselves
+	// Some (bad) hacks use this to bypass anti-movement cheat checks
 	if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
 
-	// check if the player was hit with the UI item, and if so open the UI for that player
+	// Check if the player was hit with the UI item, and if so open the UI for that player
 	if(config.customcommands.ui.enabled && entity.typeId === "minecraft:player" && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
 		// @ts-expect-error
 		const container = player.getComponent("inventory").container;
+		if(!container) return; // This should not happen
 
 		const item = container.getItem(player.selectedSlot);
 		if(item?.typeId === config.customcommands.ui.ui_item && item?.nameTag === config.customcommands.ui.ui_item_name) {
@@ -797,7 +801,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 		}
 	}
 
-	// autoclicker/a = check for high cps. The rest of the handling is in the tick event
+	// Autoclicker/a = check for high cps. The rest of the handling is in the tick event
 	if(config.modules.autoclickerA.enabled) player.cps++;
 
 	// Check if the player attacks an entity while sleeping
