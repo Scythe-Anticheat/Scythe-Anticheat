@@ -1,4 +1,5 @@
-import { findPlayerByName, tellAllStaff } from "../../util.js";
+import { world } from "@minecraft/server";
+import { findPlayerByName, tellAllStaff, setScore } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -13,10 +14,14 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot reset your own warns.");
+        for(const objective of world.scoreboard.getObjectives()) {
+            const { id } = objective;
+    
+            if(!id.endsWith("vl") || id === "cbevl") continue;
+    
+            setScore(member, id, 0);
+        }
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reset ${member.name}'s warns.`);
-
-        member.runCommandAsync("function tools/resetwarns");
     }
 });
