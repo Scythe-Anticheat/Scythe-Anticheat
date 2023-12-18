@@ -372,7 +372,6 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		if(!container) return; // This should not happen
 
 		let startNumber = 0;
-		let didFindItems = false;
 		const emptySlots = container.emptySlotsCount;
 		if(container.size > 27) startNumber = container.size / 2;
 
@@ -380,13 +379,9 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 			const item = container.getItem(i);
 			if(!item) continue;
 
-			container.setItem(i, undefined);
-			didFindItems = true;
-		}
-
-		if(didFindItems) {
+			container.clearAll();
 			flag(player, "IllegalItems", "I", "Exploit", `containerBlock=${block.typeId},totalSlots=${container.size},emptySlots=${emptySlots}`, false, undefined, player.selectedSlot);
-			block.setType("air");
+			break;
 		}
 	}
 
