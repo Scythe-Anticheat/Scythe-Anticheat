@@ -74,7 +74,7 @@ export function getInvseeMsg(player) {
 			inventory += `§r§6[§aScythe§6]§r ${equipmentList[equipment]}: ${item.typeId} x${item.amount}\n`;
 
 			if(config.customcommands.invsee.show_enchantments) {
-				loopEnchants(item.getComponent("enchantments").enchantments[Symbol.iterator]());
+				loopEnchants(item.getComponent("enchantments")?.enchantments[Symbol.iterator]());
 			}
 		}
 
@@ -83,6 +83,8 @@ export function getInvseeMsg(player) {
 
 	// Loop through every item in the player's inventory
 	for(let i = 0; i < 36; i++) {
+		if(!container) break;
+
 		const item = container.getItem(i);
 		if(!item) continue;
 
@@ -91,7 +93,7 @@ export function getInvseeMsg(player) {
 		inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId} x${item.amount}\n`;
 
 		if(config.customcommands.invsee.show_enchantments) {
-			loopEnchants(item.getComponent("enchantments").enchantments[Symbol.iterator]());
+			loopEnchants(item.getComponent("enchantments")?.enchantments[Symbol.iterator]());
 		}
 	}
 	

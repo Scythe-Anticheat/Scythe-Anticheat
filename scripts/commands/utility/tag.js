@@ -33,7 +33,7 @@ registerCommand({
 
         member.nameTag = nametag;
 
-        // Remove old tags
+        // Apply new tag
         member.setDynamicProperty("tag", tag);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has changed ${member.name}'s nametag to ${nametag}.`);

@@ -11,11 +11,6 @@ import { getInvseeMsg } from "../commands/utility/invsee.js";
 import config from "../data/config.js";
 import data from "../data/data.js";
 
-const playerIcons = [
-    "textures/ui/icon_alex.png",
-    "textures/ui/icon_steve.png",
-];
-
 // Commonly used icons
 const icons = {
     back: "textures/ui/arrow_left.png",
@@ -25,7 +20,9 @@ const icons = {
     info: "textures/ui/infobulb.png",
     mute_off: "textures/ui/mute_off.png",
     mute_on: "textures/ui/mute_on.png",
-    debug: "textures/ui/debug_glyph_color.png"
+    debug: "textures/ui/debug_glyph_color.png",
+    invisibility: "textures/ui/invisibility_effect.png",
+    arrow: "textures/ui/arrow.png"
 };
 
 const moduleList = Object.keys(config.modules).concat(Object.keys(config.misc_modules));
@@ -45,6 +42,8 @@ const punishments = {
     kick: 2,
     ban: 3
 };
+
+const punishmentSettings = ["punishment","punishmentLength","minVlbeforePunishment"];
 
 // this is the function that will be called when the player wants to open the GUI
 // all other GUI functions will be called from here
@@ -104,11 +103,11 @@ function banMenu(player) {
             case 1:
                 banMenuSelect(player, 1);
                 break;
-            
+
             case 2:
                 unbanPlayerMenu(player);
                 break;
-            
+
             default:
                 mainGui(player);
         }
@@ -183,7 +182,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
                 case 0:
                     banMenuSelect(player, lastMenu);
                     break;
-                
+
                 case 1:
                     playerSettingsMenuSelected(player, playerSelected);
                     break;
@@ -202,7 +201,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         for(const t of playerSelected.getTags()) {
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) playerSelected.removeTag(t);
         }
-        
+
         playerSelected.addTag(`reason:${reason}`);
         playerSelected.addTag(`by:${player.name}`);
         if(banLength && !permBan) playerSelected.addTag(`time:${Date.now() + banLength}`);
@@ -295,14 +294,13 @@ function editSettingMenu(player, check) {
     player.playSound("mob.chicken.plop");
     const checkData = config.modules[check] ?? config.misc_modules[check];
 
-    let optionsMap = ["enabled"];
+    let optionsMap = [];
 
     const menu = new ModalFormData()
-        .title(`Editing check: ${capitalizeFirstLetter(check)}`)
-        .toggle("Enabled", checkData.enabled);
+        .title(`Editing check: ${capitalizeFirstLetter(check)}`);
 
     for(const key of Object.keys(checkData)) {
-        if(["enabled","punishment","punishmentLength","minVlbeforePunishment"].includes(key)) continue;
+        if(punishmentSettings.includes(key)) continue;
 
         // Friendly setting name. Changes "multi_protection" to "Multi Protection"
         const settingName = capitalizeFirstLetter(key).replace(/_./g, (match) => " " + match[1].toUpperCase());
@@ -329,7 +327,7 @@ function editSettingMenu(player, check) {
         menu.textField("Punishment Length", "Enter a length (ex: 12d, 1d, 1m, 30s", checkData["punishmentLength"]);
         menu.slider("Minimum Violations Before Punishment", 0, 20, 1, checkData["minVlbeforePunishment"]);
 
-        optionsMap = optionsMap.concat(["punishment","punishmentLength","minVlbeforePunishment"]);
+        optionsMap = optionsMap.concat(punishmentSettings);
     }
 
     menu.show(player).then((response) => {
@@ -393,8 +391,8 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     }
 
     menu
-        .button(playerSelected.hasTag("vanish") ? "Unvanish Player" : "Vanish Player", "textures/ui/invisibility_effect.png")
-        .button("Teleport", "textures/ui/arrow.png")
+        .button(playerSelected.hasTag("vanish") ? "Unvanish Player" : "Vanish Player", icons.invisibility)
+        .button("Teleport", icons.arrow)
         .button("Switch Gamemode", icons.op)
         .button("Back", icons.back);
 
@@ -414,11 +412,11 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 player.sendMessage(getStatsMsg(playerSelected));
                 break;
 
-            case 4: 
+            case 4:
                 if(!config.customcommands.ecwipe.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
                 }
-    
+
                 wipeEnderchest(player, playerSelected);
                 break;
 
@@ -426,7 +424,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 if(!config.customcommands.fly.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
                 }
-    
+
                 if(playerSelected.hasTag("flying")) {
                     playerSelected.runCommandAsync("function tools/fly");
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has disabled fly mode for ${playerSelected.name}.`);
@@ -437,7 +435,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
                 playerSettingsMenuSelected(player, playerSelected);
                 break;
-                
+
 
             case 6:
                 if(!config.customcommands.freeze.enabled) {
@@ -521,7 +519,7 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
     const menu = new ActionFormData()
         .title("Teleport Menu")
         .body(`Managing ${playerSelected.name}.`)
-        .button("Teleport To", "textures/ui/arrow.png")
+        .button("Teleport To", icons.arrow)
         .button("Teleport Here", "textures/ui/arrow_down.png")
         .button("Back", icons.back);
 
@@ -536,7 +534,7 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
                 break;
 
             default:
-                playerSettingsMenuSelected(player, playerSelected); 
+                playerSettingsMenuSelected(player, playerSelected);
         }
     });
 }
@@ -550,7 +548,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         .button("Gamemode Survival", icons.member)
         .button("Gamemode Creative", icons.op)
         .button("Gamemode Adventure", "textures/ui/permissions_visitor_hand.png")
-        .button("Gamemode Spectator", "textures/ui/invisibility_effect.png")
+        .button("Gamemode Spectator", icons.invisibility)
         .button("Default Gamemode", "textures/ui/recap_glyph_desaturated.png")
         .button("Back", icons.back);
 
@@ -561,7 +559,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
             case 3:
                 playerSelected.runCommandAsync("gamemode spectator");
                 break;
-            
+
             case 4:
                 playerSelected.runCommandAsync("gamemode 5");
                 break;
@@ -591,7 +589,7 @@ function serverManagementMenu(player) {
     } else {
         menu.button("Enable Global Mute", icons.mute_on);
     }
-    
+
     menu.show(player).then((response) => {
         switch(response.selection) {
             case 0:
@@ -599,7 +597,7 @@ function serverManagementMenu(player) {
                     player.sendMessage(getStatsMsg(pl));
                 }
                 break;
-            
+
             case 1:
                 toggleGlobalMute(player);
         }
@@ -653,7 +651,7 @@ function debugSettingsMenu(player) {
             case 2:
                 debugSettingsFlag(player);
                 break;
-            
+
             case 3: {
                 const troll = () => {
                     troll();
@@ -676,7 +674,7 @@ function debugSettingsMenu(player) {
                 }
                 // eslint-disable-next-line
                 break;
-            
+
             default:
                 mainGui(player);
         }
@@ -695,7 +693,7 @@ function debugSettingsFlag(player) {
         .toggle("Should TP", false)
         .toggle("Clear slot", false)
         .slider("Slot", 0, 36, 1, 0);
-    
+
     menu.show(player).then((response) => {
         const formValues = response.formValues;
         if(!formValues) return debugSettingsMenu(player);
@@ -708,6 +706,11 @@ function debugSettingsFlag(player) {
 // ====================== //
 //         Extra          //
 // ====================== //
+const playerIcons = [
+    "textures/ui/icon_alex.png",
+    "textures/ui/icon_steve.png",
+];
+
 function createSelectPlayerMenu(title, players, self) {
     const menu = new ActionFormData()
         .title(title)
