@@ -1,8 +1,6 @@
-import * as Minecraft from "@minecraft/server";
+import { world, GameMode } from "@minecraft/server";
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
-
-const world = Minecraft.world;
 
 registerCommand({
     name: "fly",
@@ -16,7 +14,7 @@ registerCommand({
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         const checkGmc = world.getPlayers({
-            excludeGameModes: [Minecraft.GameMode.creative, Minecraft.GameMode.spectator],
+            excludeGameModes: [GameMode.creative, GameMode.spectator],
             name: member.name
         });
 

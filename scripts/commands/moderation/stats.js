@@ -1,8 +1,6 @@
-import * as Minecraft from "@minecraft/server";
+import { world } from "@minecraft/server";
 import { capitalizeFirstLetter, findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
-
-const world = Minecraft.world;
 
 const logo = "§r§6[§aScythe§6]§r";
 

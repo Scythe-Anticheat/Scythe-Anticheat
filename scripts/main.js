@@ -1,5 +1,5 @@
 // @ts-check
-import * as Minecraft from "@minecraft/server";
+import { world, system, GameMode, ItemTypes, ItemStack, Enchantment } from "@minecraft/server";
 
 import { flag, banMessage, getClosestPlayer, getScore, setScore, getBlocksBetween, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
@@ -7,8 +7,6 @@ import { commandHandler } from "./commands/handler.js";
 import banList from "./data/globalban.js";
 import config from "./data/config.js";
 import data from "./data/data.js";
-
-const { world } = Minecraft;
 
 if(config.debug) console.warn(`${new Date().toISOString()} | Im not a ******* and this actually worked :sunglasses:`);
 
@@ -89,7 +87,7 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	}
 });
 
-Minecraft.system.runInterval(() => {
+system.runInterval(() => {
 	if(config.misc_modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
 	// run as each player
@@ -187,7 +185,7 @@ Minecraft.system.runInterval(() => {
 
 						if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) {
 							const checkGmc = world.getPlayers({
-								excludeGameModes: [Minecraft.GameMode.creative],
+								excludeGameModes: [GameMode.creative],
 								name: player.name
 							});
 
@@ -228,11 +226,11 @@ Minecraft.system.runInterval(() => {
 					anti32k checks. In older versions, this error will also make certain players not get checked
 					leading to a Scythe Semi-Gametest Disabler method.
 				*/
-				const itemType = item.type ?? Minecraft.ItemTypes.get("minecraft:book");
+				const itemType = item.type ?? ItemTypes.get("minecraft:book");
 
 				if(config.misc_modules.resetItemData.enabled && config.misc_modules.resetItemData.items.includes(item.typeId)) {
 					// This creates a duplicate version of the item without any attributes such as NBT.
-					const item2 = new Minecraft.ItemStack(itemType, item.amount);
+					const item2 = new ItemStack(itemType, item.amount);
 					// @ts-expect-error
 					container.setItem(i, item2);
 				}
@@ -241,7 +239,7 @@ Minecraft.system.runInterval(() => {
 					// @ts-expect-error
 					const itemEnchants = item.getComponent("enchantments").enchantments;
 
-					const item2 = new Minecraft.ItemStack(itemType, 1);
+					const item2 = new ItemStack(itemType, 1);
 
 					// @ts-expect-error
 					const item2Enchants = item2.getComponent("enchantments").enchantments;
@@ -269,12 +267,12 @@ Minecraft.system.runInterval(() => {
 
 						// badenchants/C = checks if an item has an enchantment which isn't support by the item
 						if(config.modules.badenchantsC.enabled) {
-							if(!item2Enchants.canAddEnchantment(new Minecraft.Enchantment(enchantData.type, 1))) {
+							if(!item2Enchants.canAddEnchantment(new Enchantment(enchantData.type, 1))) {
 								flag(player, "BadEnchants", "C", "Exploit", `item=${item.typeId},enchant=${enchantData.type.id},level=${enchantData.level}`, false, undefined, i);
 							}
 
 							if(config.modules.badenchantsB.multi_protection) {
-								item2Enchants.addEnchantment(new Minecraft.Enchantment(enchantData.type, 1));
+								item2Enchants.addEnchantment(new Enchantment(enchantData.type, 1));
 
 								// @ts-expect-error
 								item2.getComponent("enchantments").enchantments = item2Enchants;
@@ -395,7 +393,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 
 	if(config.modules.illegalitemsJ.enabled && block.typeId.includes("sign")) {
 		// we need to wait 1 tick before we can get the sign text
-		Minecraft.system.runTimeout(() => {
+		system.runTimeout(() => {
 			// @ts-expect-error
 			const text = block.getComponent("sign").text;
 
@@ -435,7 +433,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 
 			if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
 				const checkGmc = world.getPlayers({
-					excludeGameModes: [Minecraft.GameMode.creative],
+					excludeGameModes: [GameMode.creative],
 					name: player.name
 				});
 
@@ -499,7 +497,7 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 	*/
 	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId)) {
 		const checkGmc = world.getPlayers({
-			excludeGameModes: [Minecraft.GameMode.creative],
+			excludeGameModes: [GameMode.creative],
 			name: player.name
 		});
 
@@ -719,7 +717,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 
 	// IllegalItems/K = checks if a player places a chest boat with items already inside it
 	if(config.modules.illegalitemsK.enabled && config.modules.illegalitemsK.entities.includes(entity.typeId)) {
-		Minecraft.system.runTimeout(() => {
+		system.runTimeout(() => {
 			const player = getClosestPlayer(entity);
 			if(!player) return;
 
@@ -777,7 +775,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 
 		if(distance > config.modules.reachA.reach && entity.typeId.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.typeId)) {
 			const checkGmc = world.getPlayers({
-				excludeGameModes: [Minecraft.GameMode.creative],
+				excludeGameModes: [GameMode.creative],
 				name: player.name
 			});
 
@@ -854,7 +852,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
 	world.getDimension("overworld").runCommandAsync("scoreboard players set scythe:config gametestapi 1");
 });
 
-Minecraft.system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
+system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	// We try to stop any watchdog crashes incase malicious users try to make the scripts lag
 	// and causing the server to crash
 	watchdogTerminate.cancel = true;

@@ -1,5 +1,5 @@
 // @ts-check
-import * as Minecraft from "@minecraft/server";
+import { world, ItemTypes, ItemStack } from "@minecraft/server";
 import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 
 import { flag, parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
@@ -10,8 +10,6 @@ import { getInvseeMsg } from "../commands/utility/invsee.js";
 
 import config from "../data/config.js";
 import data from "../data/data.js";
-
-const world = Minecraft.world;
 
 const playerIcons = [
     "textures/ui/icon_alex.png",
@@ -580,6 +578,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 function serverManagementMenu(player) {
     player.playSound("mob.chicken.plop");
 
+    // @ts-expect-error
     const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 
     const menu = new ActionFormData()
@@ -632,7 +631,7 @@ function debugSettingsMenu(player) {
 
             case 1: {
                 const container = player.getComponent("inventory").container;
-                const allItems = Minecraft.ItemTypes.getAll();
+                const allItems = ItemTypes.getAll();
 
                 const totalItems = [];
                 for (let i = 0; i < 36; i++) {
@@ -646,7 +645,7 @@ function debugSettingsMenu(player) {
                     }
                     totalItems.push(randomItem.id);
 
-                    container.setItem(i, new Minecraft.ItemStack(randomItem, 1));
+                    container.setItem(i, new ItemStack(randomItem, 1));
                 }
                 break;
             }
