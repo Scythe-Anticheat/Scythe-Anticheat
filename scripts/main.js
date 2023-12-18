@@ -376,7 +376,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		const emptySlots = container.emptySlotsCount;
 		if(container.size > 27) startNumber = container.size / 2;
 
-		for (let i = startNumber; i < container.size; i++) {
+		for(let i = startNumber; i < container.size; i++) {
 			const item = container.getItem(i);
 			if(!item) continue;
 

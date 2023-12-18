@@ -105,9 +105,9 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     currentVl++;
 
     if(debug) {
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debug}§r§7)§4. VL= ${currentVl}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debug}§r§7)§4. VL= ${currentVl}`, ["notify"]);
     } else {
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}`, ["notify"]);
     }
 
     if(typeof slot === "number") {

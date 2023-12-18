@@ -406,6 +406,7 @@ export default
 				"minecraft:trapped_chest",
 				"minecraft:barrel",
 				"minecraft:beacon",
+				"minecraft:furnace",
 				"minecraft:blast_furnace",
 				"minecraft:brewing_stand",
 				"minecraft:dispenser",
@@ -444,8 +445,9 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
+		// This should only be enabled if your realm/server is being targetted by advanced hacking groups
 		"instabreakA": {
-			"enabled": true,
+			"enabled": false,
 			"unbreakable_blocks": [
 				"minecraft:bedrock",
 				"minecraft:end_portal",
@@ -477,14 +479,14 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"namespoofA": {
-			"enabled": false,
+			"enabled": true,
 			"minNameLength": 3,
 			"maxNameLength": 16,
 			"punishment": "kick",
 			"minVlbeforePunishment": 1
 		},
 		"namespoofB": {
-			"enabled": false,
+			"enabled": true,
 			"punishment": "kick",
 			"minVlbeforePunishment": 1
 		},
