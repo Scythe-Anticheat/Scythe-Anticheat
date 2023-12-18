@@ -25,9 +25,9 @@ registerCommand({
         if(member.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban other staff members.");
 
         // Remove old ban data
-        member.getTags().forEach(t => {
+        for(const t of member.getTags()) {
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) member.removeTag(t);
-        });
+        }
 
         member.addTag(`reason:${reason}`);
         member.addTag(`by:${player.name}`);

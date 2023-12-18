@@ -137,10 +137,10 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
 
-            // this removes old ban stuff
-            player.getTags().forEach(t => {
+            // Remove old ban data
+            for(const t of player.getTags()) {
                 if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-            });
+            }
 
             const punishmentLength = checkData.punishmentLength?.toLowerCase();
             let banLength;
@@ -190,11 +190,11 @@ export function banMessage(player) {
     if(data.unbanQueue.includes(player.name.toLowerCase())) {
         player.removeTag("isBanned");
 
-       tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
 
-        player.getTags().forEach(t => {
+        for(const t of player.getTags()) {
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-        });
+        }
 
         // remove the player from the unban queue
         for(let i = -1; i < data.unbanQueue.length; i++) {
@@ -210,22 +210,24 @@ export function banMessage(player) {
     let by;
     let time;
 
-    player.getTags().forEach(t => {
+    for(const t of player.getTags()) {
         if(t.startsWith("by:")) by = t.slice(3);
             else if(t.startsWith("reason:")) reason = t.slice(7);
-            else if(t.startsWith("time:")) time = t.slice(5);
-    });
+            else if(t.startsWith("time:")) time = Number(t.slice(5));
+    }
 
 
     if(time) {
         if(time < Date.now()) {
            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned.`, ["notify"]);
 
-            // ban expired, woo
+            // Ban expired, woo
             player.removeTag("isBanned");
-            player.getTags().forEach(t => {
+
+            for(const t of player.getTags()) {
                 if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-            });
+            }
+
             return;
         }
 

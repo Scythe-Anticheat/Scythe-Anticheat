@@ -380,7 +380,6 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 			const item = container.getItem(i);
 			if(!item) continue;
 
-			// an item exists within the container, get fucked hacker!
 			container.setItem(i, undefined);
 			didFindItems = true;
 		}
@@ -392,7 +391,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	}
 
 	if(config.modules.illegalitemsJ.enabled && block.typeId.includes("sign")) {
-		// we need to wait 1 tick before we can get the sign text
+		// We need to wait 1 tick before we can get the sign text
 		system.runTimeout(() => {
 			// @ts-expect-error
 			const text = block.getComponent("sign").text;
@@ -409,14 +408,15 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		const pos2 = {x: block.location.x + 2, y: block.location.y + 2, z: block.location.z + 2};
 
 		let foundDispenser = false;
-		getBlocksBetween(pos1, pos2).forEach((block) => {
+
+		for(const block of getBlocksBetween(pos1, pos2)) {
 			const blockType = player.dimension.getBlock(block);
 
-			if(blockType?.typeId !== "minecraft:dispenser") return;
+			if(blockType?.typeId !== "minecraft:dispenser") continue;
 
 			blockType.setType("air");
 			foundDispenser = true;
-		});
+		}
 
 		if(foundDispenser) {
 			player.dimension.getBlock({x:block.location.x, y: block.location.y, z: block.location.z})?.setType("air");
@@ -694,13 +694,13 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 			const pos1 = {x: entity.location.x - 2, y: entity.location.y - 2, z: entity.location.z - 2};
 			const pos2 = {x: entity.location.x + 2, y: entity.location.y + 2, z: entity.location.z + 2};
 
-			getBlocksBetween(pos1, pos2).forEach((block) => {
+			for(const block of getBlocksBetween(pos1, pos2)) {
 				const blockType = block.dimension.getBlock(block);
-				if(!config.modules.commandblockexploitG.blockSummonCheck.includes(blockType.typeId)) return;
+				if(!config.modules.commandblockexploitG.blockSummonCheck.includes(blockType.typeId)) continue;
 
 				blockType.setType("air");
 				entity.kill();
-			});
+			}
 		}
 	}
 

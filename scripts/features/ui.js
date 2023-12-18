@@ -198,10 +198,10 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         const banLength = parseTime(`${formValues[1]}d`);
         const permBan = formValues[2];
 
-        // remove old ban tags
-        playerSelected.getTags().forEach(t => {
+        // Remove old ban data
+        for(const t of playerSelected.getTags()) {
             if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) playerSelected.removeTag(t);
-        });
+        }
         
         playerSelected.addTag(`reason:${reason}`);
         playerSelected.addTag(`by:${player.name}`);
