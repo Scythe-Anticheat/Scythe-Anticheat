@@ -28,7 +28,7 @@ function execute(message, args, commandName) {
 
 	if(!name) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} data:\n${JSON.stringify(moduleData, null, 2)}`);
 
-	if(!moduleData[name]) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} does not have a setting called ${name}. Please select a setting from this list: ${Object.keys(moduleData).join(", ")}`);
+	if(moduleData[name] === undefined) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} does not have a setting called ${name}. Please select a setting from this list: ${Object.keys(moduleData).join(", ")}`);
     
 	let newValue;
 	switch(typeof moduleData[name]) {

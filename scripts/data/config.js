@@ -78,11 +78,6 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["removecb","rcb"]
 		},
-		"worldborder": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["wb"]
-		},
 		"invalidsprint": {
 			"enabled": true,
 			"requiredTags": ["op"],
@@ -607,6 +602,11 @@ export default
 			"enabled": false,
 			// You can use [@player] to mention the player name
 			"message": "Welcome [@player] to our server!"
+		},
+		"worldborder": {
+			"enabled": false,
+			"max_x": 10000,
+			"max_z": 10000
 		}
 	},
 	"itemLists": {

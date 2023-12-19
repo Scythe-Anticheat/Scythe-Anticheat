@@ -42,8 +42,6 @@ tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!invalidsprint§r -
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!npc§r - Enables/disables killing all NPCs."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!removeCommandBlocks§r - Enables/disables clearing nearby command blocks."}]}
-tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§3!worldborder§r - Enables/disables the world border and its size."}]}
-
 # Gametest disabled
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/modules§r - View all enabled or disabled modules."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§3/function settings/antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}

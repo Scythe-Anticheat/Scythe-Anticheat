@@ -27,7 +27,6 @@ import "./commands/settings/npc.js";
 import "./commands/settings/invalidsprint.js";
 import "./commands/settings/overridecommandblocksenabled.js";
 import "./commands/settings/removecommandblocks.js";
-import "./commands/settings/worldborder.js";
 import "./commands/utility/tag.js";
 import "./commands/utility/ecwipe.js";
 import "./commands/utility/freeze.js";

@@ -22,13 +22,5 @@ tellraw @s[scores={cmds=2..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Overr
 tellraw @s[scores={npc=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Anti-NPC is set to §aENABLED"}]}
 tellraw @s[scores={npc=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Anti-NPC is set to §4DISABLED"}]}
 
-tellraw @s[scores={worldborder=1}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a1k"}]}
-tellraw @s[scores={worldborder=2}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a5k"}]}
-tellraw @s[scores={worldborder=3}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a10k"}]}
-tellraw @s[scores={worldborder=4}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a25k"}]}
-tellraw @s[scores={worldborder=5}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a50k"}]}
-tellraw @s[scores={worldborder=6..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World border is set to §a100k"}]}
-tellraw @s[scores={worldborder=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r World Border is set to §4DISABLED"}]}
-
 tellraw @s[scores={invalidsprint=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Invalid-Sprint is currently §4DISABLED"}]}
 tellraw @s[scores={invalidsprint=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Invalid-Sprint is currently §aENABLED"}]}

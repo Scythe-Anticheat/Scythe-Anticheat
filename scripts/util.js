@@ -92,7 +92,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     // Cancel the message/placement if possible
     if(cancelObject) cancelObject.cancel = true;
 
-    if(shouldTP) player.teleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : player.lastGoodPosition, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
+    if(shouldTP) player.tryTeleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : player.lastGoodPosition, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
 
     const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
 

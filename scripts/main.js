@@ -328,7 +328,7 @@ system.runInterval(() => {
 			}
 			*/
 
-			if(player.location.y < -104) player.teleport({x: player.location.x, y: -104, z: player.location.z});
+			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
 
 			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
 		
@@ -336,6 +336,19 @@ system.runInterval(() => {
 			// When a movement-related check flags the player, they will be teleported to this position
 			// xRot and yRot being 0 means the player position was modified from player.teleport, which we should ignore
 			if(player.rotation.x !== 0 && player.rotation.y !== 0) player.lastGoodPosition = player.location;
+
+			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
+				player.tryTeleport({
+					// Check if the number is greater than 0, if it is then subtract 1, else add 1
+					x: player.location.x - (player.location.x >= 0 ? 1 : -1),
+					y: player.location.y,
+					z: player.location.z - (player.location.z >= 0 ? 1 : -1)
+				}, {
+					checkForBlocks: false
+				});
+
+				player.sendMessage("§r§6[§aScythe§6]§r You have reached the world border.");
+			}
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
