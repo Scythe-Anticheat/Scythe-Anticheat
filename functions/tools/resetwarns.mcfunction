@@ -21,5 +21,5 @@ scoreboard players set @s[type=player,tag=!op,scores={noslowvl=1..}] noslowvl 0
 scoreboard players set @s[type=player,tag=!op,scores={nukervl=1..}] nukervl 0
 scoreboard players set @s[type=player,tag=!op,scores={reachvl=1..}] reachvl 0
 scoreboard players set @s[type=player,tag=!op,scores={spammervl=1..}] spammervl 0
-scoreboard players set @s[type=player,tag=!op,scores={towervl=1..}] towervl 0
+scoreboard players set @s[type=player,tag=!op,scores={scaffoldvl=1..}] scaffoldvl 0
 scoreboard players set @s[type=player,tag=!op,scores={gamemodevl=1..}] gamemodevl 0

@@ -221,17 +221,12 @@ export default
 			// If players with scythe-op can bypass this check (Optional)
 			"exclude_scythe_op": false,
 			// The punishment. Can either be "none", "mute", "kick" or "ban"
-			"punishment": "ban",
+			"punishment": "none",
 			// PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
 			// To perm ban the user the should string be empty.
 			"punishmentLength": "",
 			// How much violations the player must first have to start punishing them
 			"minVlbeforePunishment": 1
-		},
-		"aimA": {
-			"enabled": true,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
 		},
 		"autoclickerA": {
 			"enabled": true,
@@ -487,6 +482,7 @@ export default
 		},
 		"namespoofB": {
 			"enabled": true,
+			"regex": /[^A-Za-z0-9_\-() ]/,
 			"punishment": "kick",
 			"minVlbeforePunishment": 1
 		},
@@ -544,9 +540,14 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
-		"towerA": {
+		"scaffoldA": {
 			"enabled": true,
 			"max_y_pos_diff": 0.35,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"scaffoldB": {
+			"enabled": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

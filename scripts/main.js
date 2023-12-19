@@ -93,7 +93,8 @@ system.runInterval(() => {
 	// run as each player
 	for(const player of world.getPlayers()) {
 		try {
-			const { selectedSlot } = player;
+			player.velocity = player.getVelocity();
+			player.rotation = player.getRotation();
 
 			if(player.isGlobalBanned) {
 				player.addTag("by:Scythe Anticheat");
@@ -106,7 +107,7 @@ system.runInterval(() => {
 
 			if(player.blocksBroken >= 1 && config.modules.nukerA.enabled) player.blocksBroken = 0;
 			if(player.entitiesHit?.length >= 1 && config.modules.killauraC.enabled) player.entitiesHit = [];
-			if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== selectedSlot) {
+			if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
 				player.flagAutotoolA = true;
 				player.autotoolSwitchDelay = Date.now() - player.startBreakTime;
 			}
@@ -136,9 +137,7 @@ system.runInterval(() => {
 				setScore(player, "zPos", Math.floor(player.location.z));
 			}
 
-			const playerVelocity = player.getVelocity();
-
-			const playerSpeed = Number(Math.sqrt(Math.abs(playerVelocity.x**2 +playerVelocity.z**2)).toFixed(2));
+			const playerSpeed = Number(Math.sqrt(Math.abs(player.velocity.x**2 +player.velocity.z**2)).toFixed(2));
 
 			// NoSlow/A = speed limit check
 			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && player.dimension.id && getScore(player, "right") >= 5) {
@@ -299,13 +298,13 @@ system.runInterval(() => {
 				flag(player, "InvalidSprint", "A", "Movement", undefined, false, true);
 
 			// fly/a
-			if(config.modules.flyA.enabled && Math.abs(playerVelocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
+			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
 				const pos1 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 				const pos2 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
 
 				const isInAir = !getBlocksBetween(pos1, pos2).some((block) => player.dimension.getBlock(block)?.typeId !== "minecraft:air");
 
-				if(isInAir) flag(player, "Fly", "A", "Movement", `vertical_speed=${Math.abs(playerVelocity.y).toFixed(4)}`, true);
+				if(isInAir) flag(player, "Fly", "A", "Movement", `vertical_speed=${Math.abs(player.velocity.y).toFixed(4)}`, true);
 					else if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
 			}
 
@@ -333,15 +332,10 @@ system.runInterval(() => {
 
 			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
 		
-			const rotation = player.getRotation();
-			// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
-			// The check was later updated to check if the x rotation or the y rotation is a flat number to further detect any other aim related hacks
-			if((Number.isInteger(rotation.x) || Number.isInteger(rotation.y)) && rotation.x !== 0 && rotation.y !== 0) flag(player, "Aim", "A", "Combat", `xRot=${rotation.x},yRot=${rotation.y}`, true);
-		
 			// Store the players last good position
 			// When a movement-related check flags the player, they will be teleported to this position
 			// xRot and yRot being 0 means the player position was modified from player.teleport, which we should ignore
-			if(rotation.x !== 0 && rotation.y !== 0) player.lastGoodPosition = player.location;
+			if(player.rotation.x !== 0 && player.rotation.y !== 0) player.lastGoodPosition = player.location;
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
@@ -418,7 +412,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		}
 	}
 
-	if(config.modules.towerA.enabled) {
+	if(config.modules.scaffoldA.enabled) {
 		// get block under player
 		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 
@@ -426,14 +420,14 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		if(!player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z && !player.getEffect("jump_boost") && !block.typeId.includes("fence") && !block.typeId.includes("wall") && !block.typeId.includes("_shulker_box")) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 
-			if(yPosDiff > config.modules.towerA.max_y_pos_diff) {
+			if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff) {
 				const checkGmc = world.getPlayers({
 					excludeGameModes: [GameMode.creative],
 					name: player.name
 				});
 
 				if(checkGmc.length) {
-					flag(player, "Tower", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
+					flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
 					block.setType("air");
 				}
 			}
@@ -459,6 +453,14 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 			block.setType("air");
 		}
 	}
+	
+	// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
+	// The check was later updated to check if the x rotation or the y rotation is a flat number to further detect any other aim related hacks
+	if(config.modules.scaffoldB.enabled && ((Number.isInteger(player.rotation.x) && player.rotation.x !== 0) || (Number.isInteger(player.rotation.x) && player.rotation.y !== 0))) {
+		flag(player, "Scaffold", "B", "Combat", `xRot=${player.rotation.x},yRot=${player.rotation.y}`, true);
+		block.setType("air");
+	}
+		
 });
 
 world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {

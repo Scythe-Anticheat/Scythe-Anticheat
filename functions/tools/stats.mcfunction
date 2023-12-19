@@ -25,7 +25,7 @@ execute @s[scores={noslowvl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text"
 execute @s[scores={nukervl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Nuker violations: §c"},{"score":{"name":"@s","objective":"nukervl"}}]}
 execute @s[scores={reachvl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Reach violations: §c"},{"score":{"name":"@s","objective":"reachvl"}}]}
 execute @s[scores={spammervl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Spammer violations: §c"},{"score":{"name":"@s","objective":"spammervl"}}]}
-execute @s[scores={towervl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Tower violations: §c"},{"score":{"name":"@s","objective":"towervl"}}]}
+execute @s[scores={scaffoldvl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Scaffold violations: §c"},{"score":{"name":"@s","objective":"scaffoldvl"}}]}
 execute @s[scores={gamemodevl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Gamemode change violations: §c"},{"score":{"name":"@s","objective":"gamemodevl"}}]}
 
 execute @s[tag=freeze] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r "},{"selector":"@s"},{"text":" is currently frozen by a staff member."}]}

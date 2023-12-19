@@ -22,9 +22,6 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 
 # Hacks detected by Scythe Anticheat
 *\* indicates that the check requires Beta APIs to be enabled in world settings.*<br/>
-  Aim -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for a flat x rotation or y rotation (e.g. 10, 20, 30).\*<br/>
-
   AutoClicker -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS.\*<br/>
 
@@ -119,8 +116,9 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks if a player sends a message while having a chest opened.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks if a player sends multiple messages too quick.\*<br/>
 
-  Tower -><br/>
+  Scaffold -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check for tower-like behavior.\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for a flat x rotation or y rotation (e.g. 10, 20, 30).\*<br/>
 
   Xray -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Alerts staff if a player finds a diamond or ancient debris.\* (Disabled by default)
