@@ -272,6 +272,9 @@ system.runInterval(() => {
 
 							if(config.modules.badenchantsC.multi_protection) {
 								item2Enchants.addEnchantment(new Enchantment(enchantData.type, 1));
+
+								// @ts-expect-error
+								item2.getComponent("enchantments").enchantments = item2Enchants;
 							}
 						}
 

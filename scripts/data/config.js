@@ -1,5 +1,8 @@
 export default
 {
+	// This value sholud not be changed unless you know what you are doing.
+	// It is used to make Scythe be able to work with older versions of the config
+	"version": "2.20.0",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -183,7 +186,7 @@ export default
 		},
 		"globalmute": {
 			"enabled": true,
-			// If this is enabled, then all players can see who disabled the chat globally
+			// If this is enabled then all players can see who disabled the chat globally
 			"showModeratorName": false,
 			"requiredTags": ["op"],
 			"aliases": ["gm"]
