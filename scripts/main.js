@@ -330,7 +330,7 @@ system.runInterval(() => {
 			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
 
 			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
-		
+
 			// Store the players last good position
 			// When a movement-related check flags the player, they will be teleported to this position
 			// xRot and yRot being 0 means the player position was modified from player.teleport, which we should ignore
@@ -404,6 +404,26 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		}, 1);
 	}
 
+	if(config.modules.illegalitemsM.enabled && block.typeId.includes("shulker_box")) {
+		// @ts-expect-error
+		const container = block.getComponent("inventory").container;
+		if(!container) return; // This should not happen
+
+		const illegalItems = [];
+
+		for (let i = 0; i < 27; i++) {
+			const item = container.getItem(i);
+			if(!item) continue;
+
+			if(config.itemLists.items_very_illegal.includes(item.typeId) || config.itemLists.cbe_items.includes(item.typeId)) illegalItems.push(illegalItems);
+		}
+
+		if(illegalItems.length >= 1) {
+			flag(player, "IllegalItems", "N", "Exploit", `items_count=${illegalItems.length}`, false, undefined, player.selectedSlot);
+			block.setType("air");
+		}
+	}
+
 	if(config.modules.commandblockexploitH.enabled && block.typeId === "minecraft:hopper") {
 		const pos1 = {x: block.location.x - 2, y: block.location.y - 2, z: block.location.z - 2};
 		const pos2 = {x: block.location.x + 2, y: block.location.y + 2, z: block.location.z + 2};
@@ -424,12 +444,24 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		}
 	}
 
+	// Get block under player
 	if(config.modules.scaffoldA.enabled) {
-		// get block under player
 		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 
-		// @ts-expect-error
-		if(!player.isFlying && player.isJumping && blockUnder.location.x === block.location.x && blockUnder.location.y === block.location.y && blockUnder.location.z === block.location.z && !player.getEffect("jump_boost") && !block.typeId.includes("fence") && !block.typeId.includes("wall") && !block.typeId.includes("_shulker_box")) {
+		// Scaffold/A = Check for Tower like behavior
+		if(
+			!player.isFlying &&
+			player.isJumping &&
+			player.velocity.y < 1 &&
+			player.fallDistance < 0 &&
+			block.location.x === blockUnder?.location.x &&
+			block.location.y === blockUnder?.location.y &&
+			block.location?.z === blockUnder.location.z &&
+			!player.getEffect("jump_boost") &&
+			!block.typeId.includes("fence") &&
+			!block.typeId.includes("wall") &&
+			!block.typeId.includes("_shulker_box")
+		) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 
 			if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff) {
@@ -446,33 +478,19 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		}
 	}
 
-	if(config.modules.illegalitemsM.enabled && block.typeId.includes("shulker_box")) {
-		// @ts-expect-error
-		const container = block.getComponent("inventory").container;
-		if(!container) return; // This should not happen
-
-		const illegalItems = [];
-
-		for (let i = 0; i < 27; i++) {
-			const item = container.getItem(i);
-			if(!item) continue;
-
-			if(config.itemLists.items_very_illegal.includes(item.typeId) || config.itemLists.cbe_items.includes(item.typeId)) illegalItems.push(illegalItems);
-		}
-
-		if(illegalItems.length >= 1) {
-			flag(player, "IllegalItems", "N", "Exploit", `items_count=${illegalItems.length}`, false, undefined, player.selectedSlot);
-			block.setType("air");
-		}
-	}
-	
 	// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
 	// The check was later updated to check if the x rotation or the y rotation is a flat number to further detect any other aim related hacks
 	if(config.modules.scaffoldB.enabled && ((Number.isInteger(player.rotation.x) && player.rotation.x !== 0) || (Number.isInteger(player.rotation.x) && player.rotation.y !== 0))) {
-		flag(player, "Scaffold", "B", "Combat", `xRot=${player.rotation.x},yRot=${player.rotation.y}`, true);
+		flag(player, "Scaffold", "B", "World", `xRot=${player.rotation.x},yRot=${player.rotation.y}`, true);
 		block.setType("air");
 	}
-		
+
+	// Scaffold/C = Check if a player placed a block under them whilst looking up
+	// Make sure the players's y location is greater than the block placed's y location.
+	if(config.modules.scaffoldC.enabled && player.location.y > block.location.y && player.rotation.x < config.modules.scaffoldC.min_x_rot) {
+		flag(player, "Scaffold", "C", "World", `xRot=${player.rotation.x},yRotPlayer=${player.location.y},yBlockPos=${block.location.y}`);
+		block.setType("air");
+	}
 });
 
 world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {

@@ -555,6 +555,13 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
+		"scaffoldC": {
+			"enabled": true,
+			// Checks if the player's x rot is higher than this
+			"min_x_rot": 5,
+			"punishment": "none",
+			"minVLbeforePunishment": 0
+		},
 		"xrayA": {
 			"enabled": false,
 			"punishment": "none",

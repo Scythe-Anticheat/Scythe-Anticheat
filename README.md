@@ -119,6 +119,7 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
   Scaffold -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check for tower-like behavior.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for a flat x rotation or y rotation (e.g. 10, 20, 30).\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if a player places a block under them whilst looking upwards.\*<br/>
 
   Xray -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Alerts staff if a player finds a diamond or ancient debris.\* (Disabled by default)
