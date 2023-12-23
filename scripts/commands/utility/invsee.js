@@ -43,20 +43,22 @@ export function getInvseeMsg(player) {
 	let inventory = `§r§6[§aScythe§6]§r ${player.name}'s inventory:\n\n`;
 
 	// This function loops through every enchantment on the item and then adds it to the inventory string. It is used if show_enchantments is enabled in the config
-	const loopEnchants = (iterator) => {
-		const iteratorResult = iterator.next();
-		if(iteratorResult.done) return;
+	const loopEnchants = (enchantmentData) => {
+		const iterator = enchantmentData[Symbol.iterator]();
+		let iteratorData = iterator.next();
 
-		const { value } = iteratorResult;
+		while(!iteratorData.done) {
+			const { value } = iteratorData;
 
-		const id = value.type.id;
-		const level = value.level;
+			const id = value.type.id;
+			const level = value.level;
 
-		const enchantmentName = capitalizeFirstLetter(id);
+			const enchantmentName = capitalizeFirstLetter(id);
 
-		inventory += `    | ${enchantmentName} ${level}\n`;
+			inventory += `    | ${enchantmentName} ${level}\n`;
 
-		loopEnchants(iterator);
+			iteratorData = iterator.next();
+		}
 	};
 
 	// Loop through every armor slot
@@ -74,7 +76,7 @@ export function getInvseeMsg(player) {
 			inventory += `§r§6[§aScythe§6]§r ${equipmentList[equipment]}: ${item.typeId} x${item.amount}\n`;
 
 			if(config.customcommands.invsee.show_enchantments) {
-				loopEnchants(item.getComponent("enchantments")?.enchantments[Symbol.iterator]());
+				loopEnchants(item.getComponent("enchantments")?.enchantments);
 			}
 		}
 
@@ -93,7 +95,7 @@ export function getInvseeMsg(player) {
 		inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId} x${item.amount}\n`;
 
 		if(config.customcommands.invsee.show_enchantments) {
-			loopEnchants(item.getComponent("enchantments")?.enchantments[Symbol.iterator]());
+			loopEnchants(item.getComponent("enchantments")?.enchantments);
 		}
 	}
 	

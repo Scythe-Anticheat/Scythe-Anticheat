@@ -242,10 +242,11 @@ export default
 				/*
 				If your realm uses enchantments with levels higher then vanilla then you need to exclude them here.
 				To add an exclusion, add ' "<enchantment name>": <max level> ' below the examples
-				Anything in this area will be considered as a comment, and wont take effect,
 
 				"efficiency": 69,
 				"sharpness": 420
+
+				=== PUT LEVEL EXCLUSIONS BELOW THE NEXT LINE ===
 				*/
 			},
 			"punishment": "kick",
@@ -253,12 +254,12 @@ export default
 		},
 		"badenchantsB": {
 			"enabled": true,
-			"multi_protection": true,
 			"punishment": "kick",
 			"minVlbeforePunishment": 1
 		},
 		"badenchantsC": {
 			"enabled": true,
+			"multi_protection": true,
 			"punishment": "kick",
 			"minVlbeforePunishment": 1
 		},

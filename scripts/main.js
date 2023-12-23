@@ -244,25 +244,25 @@ system.runInterval(() => {
 					const item2Enchants = item2.getComponent("enchantments").enchantments;
 					const enchantments = [];
 
-					const loopIterator = (iterator) => {
-						const iteratorResult = iterator.next();
-						if(iteratorResult.done) return;
+					const iterator = itemEnchants[Symbol.iterator]();
+					let iteratorData = iterator.next();
 
-						const enchantData = iteratorResult.value;
+					while(!iteratorData.done) {
+						const enchantData = iteratorData.value;
 
 						// badenchants/A = checks for items with invalid enchantment levels
 						if(config.modules.badenchantsA.enabled) {
-							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id];
+							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id] ?? enchantData.type.maxLevel;
 
-							if(typeof maxLevel === "number") {
-								if(enchantData.level > maxLevel) flag(player, "BadEnchants", "A", "Exploit", `enchant=minecraft:${enchantData.type.id},level=${enchantData.level}`, false, undefined, i);
-							} else if(enchantData.level > enchantData.type.maxLevel)
+							if(enchantData.level > maxLevel) {
 								flag(player, "BadEnchants", "A", "Exploit", `enchant=${enchantData.type.id},level=${enchantData.level}`, false, undefined, i);
+							}
 						}
 
 						// badenchants/B = checks for negative enchantment levels
-						if(config.modules.badenchantsB.enabled && enchantData.level <= 0)
+						if(config.modules.badenchantsB.enabled && enchantData.level <= 0) {
 							flag(player, "BadEnchants", "B", "Exploit", `enchant=${enchantData.type.id},level=${enchantData.level}`, false, undefined, i);
+						}
 
 						// badenchants/C = checks if an item has an enchantment which isn't support by the item
 						if(config.modules.badenchantsC.enabled) {
@@ -270,11 +270,8 @@ system.runInterval(() => {
 								flag(player, "BadEnchants", "C", "Exploit", `item=${item.typeId},enchant=${enchantData.type.id},level=${enchantData.level}`, false, undefined, i);
 							}
 
-							if(config.modules.badenchantsB.multi_protection) {
+							if(config.modules.badenchantsC.multi_protection) {
 								item2Enchants.addEnchantment(new Enchantment(enchantData.type, 1));
-
-								// @ts-expect-error
-								item2.getComponent("enchantments").enchantments = item2Enchants;
 							}
 						}
 
@@ -287,9 +284,8 @@ system.runInterval(() => {
 							enchantments.push(enchantData.type.id);
 						}
 
-						loopIterator(iterator);
-					};
-					loopIterator(itemEnchants[Symbol.iterator]());
+						iteratorData = iterator.next();
+					}
 				}
 			}
 
