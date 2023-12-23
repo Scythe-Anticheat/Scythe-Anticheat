@@ -767,7 +767,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
 	if(player.typeId !== "minecraft:player" || !entity.isValid()) return;
 
-	// killaura/C = checks for multi-aura
+	// Killaura/C = checks for multi-aura
 	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) {
 		player.entitiesHit.push(entity.id);
 
@@ -776,9 +776,9 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 		}
 	}
 
-	// reach/A = check if a player hits an entity more then 5.1 blocks away
+	// Reach/A = Check if a player hits an entity more then 5.1 blocks away
 	if(config.modules.reachA.enabled) {
-		// get the difference between 2 three dimensional coordinates
+		// Get the difference between 2 three dimensional coordinates
 		const distance = Math.sqrt((entity.location.x - player.location.x)**2 + (entity.location.y - player.location.y)**2 + (entity.location.z - player.location.z)**2);
 		if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag ?? entity.typeId} with a distance of ${distance}`);
 
@@ -808,12 +808,17 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 		}
 	}
 
-	// Autoclicker/a = check for high cps. The rest of the handling is in the tick event
+	// Autoclicker/A = check for high cps. The rest of the handling is in the tick event
 	if(config.modules.autoclickerA.enabled) player.cps++;
 
-	// Check if the player attacks an entity while sleeping
+	// Kilaura/D = Check if the player attacks an entity while sleeping
 	if(config.modules.killauraD.enabled && player.hasTag("sleeping")) {
 		flag(player, "Killaura", "D", "Combat");
+	}
+
+	// Killaura/E = Check if the player attacks an entity while having a container open
+	if(config.modules.killauraE.enabled && player.hasTag("hasGUIopen")) {
+		flag(player, "Killaura", "E", "Combat");
 	}
 
 	if(config.debug) console.warn(player.getTags());

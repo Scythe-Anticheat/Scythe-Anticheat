@@ -472,6 +472,11 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
+		"killauraE": {
+			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
 		"namespoofA": {
 			"enabled": true,
 			"minNameLength": 3,
