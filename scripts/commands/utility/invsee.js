@@ -17,8 +17,10 @@ const equipmentList = {
 // Found the inventory viewing script in the bedrock addons discord, unsure of the original owner (not my code)
 registerCommand({
 	name: "invsee",
+    description: "Shows the inventory of any player",
 	usage: "<player>",
 	minArgCount: 1,
+    category: "utility",
 	execute: (message, args) => {
 		const player = message.sender;
 

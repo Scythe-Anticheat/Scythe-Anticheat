@@ -3,6 +3,8 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "notify",
+    description: "Recieve alerts when a player gets flagged by Scythe Anticheat",
+    category: "moderation",
     execute: (message) => {
         const player = message.sender;
 

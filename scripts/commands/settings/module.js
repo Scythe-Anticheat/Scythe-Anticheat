@@ -4,13 +4,17 @@ import config from "../../data/config.js";
 
 registerCommand({
     name: "module",
+    description: "Change the data of scythe modules",
 	usage: "<module name> <setting> [value]",
+    category: "settings",
     execute: execute
 });
 
 registerCommand({
     name: "misc_module",
+    description: "Change the data of optional scythe modules",
 	usage: "<module name> <setting> [value]",
+    category: "settings",
     execute: execute
 });
 

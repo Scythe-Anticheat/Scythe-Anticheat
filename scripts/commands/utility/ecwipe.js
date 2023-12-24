@@ -3,8 +3,10 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "ecwipe",
+    description: "Remove all items in a player's ender chest",
     usage: "<player>",
     minArgCount: 1,
+    category: "utility",
     execute: (message, args) => {
         const player = message.sender;
 

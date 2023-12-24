@@ -4,8 +4,10 @@ import config from "../../data/config.js";
 
 registerCommand({
     name: "tag",
+    description: "Edit the rank that is shown beside the player's name in chat messages",
     usage: "[player] <tag | reset>",
     minArgCount: 1,
+    category: "utility",
     execute: (message, args) => {
         const player = message.sender;
 

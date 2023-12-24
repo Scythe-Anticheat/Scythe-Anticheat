@@ -3,6 +3,8 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "vanish",
+    description: "Make yourself invisible. Can be used to spy on potential cheaters",
+    category: "utility",
     execute: (message) => {
         const player = message.sender;
 

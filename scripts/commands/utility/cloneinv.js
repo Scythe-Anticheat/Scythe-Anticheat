@@ -11,8 +11,10 @@ const equipmentList = [
 
 registerCommand({
 	name: "cloneinv",
+    description: "Copy all the items in a player's inventory to your inventory",
 	usage: "<player>",
 	minArgCount: 1,
+    category: "utility",
 	execute: (message, args) => {
 		const player = message.sender;
 

@@ -3,8 +3,10 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "mute",
+    description: "Remove a player's ability to send chat messages",
     usage: "<player> [reason]",
     minArgCount: 1,
+    category: "moderation",
     execute: (message, args) => {
         const player = message.sender;
 

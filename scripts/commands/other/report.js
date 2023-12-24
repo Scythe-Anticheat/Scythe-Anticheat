@@ -3,8 +3,10 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "report",
+    description: "Sends a player report to all currently online staff members",
     usage: "<player> [reason]",
     minArgCount: 1,
+    category: "other",
     execute: (message, args) => {
         const player = message.sender;
         const reason = args.slice(1).join(" ") ?? "No reason specified";

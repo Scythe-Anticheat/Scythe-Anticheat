@@ -3,8 +3,10 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "freeze",
+    description: "Toggle a player's ability to move",
     usage: "<player>",
     minArgCount: 1,
+    category: "utility",
     execute: (message, args) => {
         const player = message.sender;
 

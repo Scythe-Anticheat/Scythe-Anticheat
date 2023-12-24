@@ -3,8 +3,10 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "op",
+    description: "Give a specific player Scythe-OP",
     usage: "<player>",
     minArgCount: 1,
+    category: "moderation",
     execute: (message, args) => {
         const player = message.sender;
 

@@ -4,14 +4,16 @@ import { world, system } from "@minecraft/server";
 import config from "../data/config.js";
 
 const prefix = config.customcommands.prefix ?? "!";
-const commands = {};
+export const commands = {};
 
 /**
  * @name registerCommand
  * @param {object} data - Command data
  * @param {string} data.name - Command name
+ * @param {string} data.description - Command description
  * @param {string} [data.usage] - Command usage
  * @param {number} [data.minArgCount] - How many arguments the command expects to have
+ * @param {string} data.category - The category that the command belongs to
  * @param {function} data.execute - The function that should be ran
  */
 export function registerCommand(data) {

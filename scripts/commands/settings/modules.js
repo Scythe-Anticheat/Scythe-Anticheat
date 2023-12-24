@@ -6,6 +6,8 @@ const disabled = "§8[§4DISABLED§8]";
 
 registerCommand({
 	name: "modules",
+    description: "Shows all modules and if they are enabled or not",
+    category: "settings",
 	execute: (message) => {
 		let msg = "";
 

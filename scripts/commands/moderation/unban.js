@@ -4,8 +4,10 @@ import data from "../../data/data.js";
 
 registerCommand({
     name: "unban",
+    description: "Unban a player and allow them to be able to join the world again",
     usage: "<player> [reason]",
     minArgCount: 1,
+    category: "moderation",
     execute: (message, args) => {
         const player = message.sender;
 

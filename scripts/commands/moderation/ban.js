@@ -3,8 +3,10 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "ban",
+    description: "Ban the specified user from joining the world",
     usage: "<player> [time] [reason]",
     minArgCount: 1,
+    category: "moderation",
     execute: (message, args) => {
         const player = message.sender;
         const time = args[1] ? parseTime(args[1]) : undefined;

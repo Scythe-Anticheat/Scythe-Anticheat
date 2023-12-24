@@ -3,8 +3,10 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "unmute",
+    description: "Unmute a player and let them speak in chat again",
     usage: "<player> [reason]",
     minArgCount: 1,
+    category: "moderation",
     execute: (message, args) => {
         const player = message.sender;
 

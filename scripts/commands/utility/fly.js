@@ -4,7 +4,9 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "fly",
+    description: "Toggle the ability to fly in survival or adventure mode",
     usage: "[player]",
+    category: "utility",
     execute: (message, args) => {
         const player = message.sender;
 

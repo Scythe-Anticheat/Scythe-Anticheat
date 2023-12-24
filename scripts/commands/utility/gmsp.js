@@ -4,7 +4,9 @@ import config from "../../data/config.js";
 
 registerCommand({
     name: "gmsp",
+    description: "Change your or another player's gamemode to spectator",
 	usage: "[player]",
+    category: "utility",
     execute: (message, args) => {
         const player = message.sender;
 

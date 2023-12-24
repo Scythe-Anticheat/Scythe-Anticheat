@@ -6,8 +6,10 @@ const logo = "§r§6[§aScythe§6]§r";
 
 registerCommand({
 	name: "stats",
+	description: "Show all checks a player was flagged for",
 	usage: "<player>",
 	minArgCount: 1,
+    category: "moderation",
 	execute: (message, args) => {
 		const player = message.sender;
 

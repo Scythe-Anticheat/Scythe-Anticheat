@@ -4,8 +4,10 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "resetwarns",
+    description: "Reset a player's violation history",
     usage: "<player>",
     minArgCount: 1,
+    category: "moderation",
     execute: (message, args) => {
         const player = message.sender;
 
