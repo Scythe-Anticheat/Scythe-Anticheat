@@ -100,8 +100,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
 
     let currentVl = getScore(player, scoreboardObjective, 0);
-    setScore(player, scoreboardObjective, currentVl + 1);
-
     currentVl++;
 
     if(debug) {
@@ -110,6 +108,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}`, ["notify"]);
     }
 
+    setScore(player, scoreboardObjective, currentVl);
+
     if(typeof slot === "number") {
 		const container = player.getComponent("inventory").container;
 		container.setItem(slot, undefined);
@@ -117,7 +117,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     if(!checkData.enabled) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 
-    // punishment stuff
+    // Handle punishments
     const punishment = checkData.punishment?.toLowerCase();
     if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
 
@@ -146,11 +146,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             let banLength;
 
             if(punishmentLength) {
-                if(isNaN(punishmentLength)) {
-                    banLength = parseTime(punishmentLength);
-                } else {
-                    banLength = Number(punishmentLength);
-                }
+                banLength = isNaN(punishmentLength) ? parseTime(punishmentLength) : Number(punishmentLength);
             }
 
             player.addTag("by:Scythe Anticheat");
@@ -308,6 +304,7 @@ export function msToTime(ms) {
     const h = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
     const s = Math.floor((ms % (1000 * 60)) / 1000);
+
     return {
         w: w,
         d: d,
@@ -332,8 +329,7 @@ export function getScore(player, objective, defaultValue = 0) {
     if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
 
     try {
-        // @ts-expect-error
-       return world.scoreboard.getObjective(objective).getScore(player) ?? defaultValue;
+       return world.scoreboard.getObjective(objective)?.getScore(player) ?? defaultValue;
     } catch {
         return defaultValue;
     }
@@ -375,11 +371,11 @@ export function capitalizeFirstLetter(string) {
 export function findPlayerByName(name) {
 	const searchName = name.toLowerCase().replace(/\\|@/g, "");
 
-	let player;
+    let player;
 
-	for(const pl of world.getPlayers()) {
+    for(const pl of world.getPlayers()) {
         const lowercaseName = pl.name.toLowerCase();
-		if(searchName !== lowercaseName && !lowercaseName.includes(searchName)) continue;
+        if(searchName !== lowercaseName && !lowercaseName.includes(searchName)) continue;
 
 		// Found a valid player
 		player = pl;
@@ -435,8 +431,8 @@ export function tellAllStaff(message, tags = ["op"]) {
  * @returns {Array} coordinates - Each possible coordinate
  */
 export function getBlocksBetween(pos1, pos2) {
-    const { x: minX, y: minY, z: minZ} = pos1;
-    const { x: maxX, y: maxY, z: maxZ} = pos2;
+    const { x: minX, y: minY, z: minZ } = pos1;
+    const { x: maxX, y: maxY, z: maxZ } = pos2;
 
     const coordinates = [];
 

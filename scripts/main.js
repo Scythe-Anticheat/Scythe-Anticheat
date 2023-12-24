@@ -17,8 +17,8 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	if(message.includes("the best minecraft bedrock utility mod") || message.includes("disepi/ambrosial")) msg.cancel = true;
 
 	if(player.hasTag("isMuted")) {
-		msg.cancel = true;
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
+		msg.cancel = true;
 	}
 
 	commandHandler(msg);
@@ -96,12 +96,6 @@ system.runInterval(() => {
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
 
-			if(player.isGlobalBanned) {
-				player.addTag("by:Scythe Anticheat");
-				player.addTag("reason:You are Scythe Anticheat global banned!");
-				player.addTag("isBanned");
-			}
-
 			// sexy looking ban message
 			if(player.hasTag("isBanned")) banMessage(player);
 
@@ -118,17 +112,6 @@ system.runInterval(() => {
 				Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000)
 					flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 			*/
-
-			// anti-namespoof
-			// these values are set in the playerJoin event
-			if(player.flagNamespoofA) {
-				flag(player, "Namespoof", "A", "Exploit", `nameLength=${player.name.length}`);
-				player.flagNamespoofA = false;
-			}
-			if(player.flagNamespoofB) {
-				flag(player, "Namespoof", "B", "Exploit");
-				player.flagNamespoofB = false;
-			}
 
 			// player position shit
 			if(player.hasTag("moving")) {
@@ -169,11 +152,7 @@ system.runInterval(() => {
 					if(!player.hasTag("op")) {
 						let flagPlayer = false;
 
-						// patch element blocks
-						if(config.itemLists.elements && item.typeId.startsWith("minecraft:element_"))
-							flagPlayer = true;
-
-						// patch spawn eggs
+						// Check spawn eggs
 						if(item.typeId.endsWith("_spawn_egg")) {
 							if(config.itemLists.spawnEggs.clearVanillaSpawnEggs && item.typeId.startsWith("minecraft:"))
 								flagPlayer = true;
@@ -182,7 +161,12 @@ system.runInterval(() => {
 								flagPlayer = true;
 						}
 
-						if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) {
+						if(
+							// Check for element blocks
+							(config.itemLists.elements && item.typeId.startsWith("minecraft:element_")) ||
+							config.itemLists.items_semi_illegal.includes(item.typeId) ||
+							flagPlayer
+						) {
 							const checkGmc = world.getPlayers({
 								excludeGameModes: [GameMode.creative],
 								name: player.name
@@ -213,7 +197,7 @@ system.runInterval(() => {
 				if(config.modules.badenchantsD.enabled) {
 					const lore = String(item.getLore());
 
-					if(lore && !config.modules.badenchantsD.exclusions.includes(lore)) {
+					if(!config.modules.badenchantsD.exclusions.includes(lore)) {
 						flag(player, "BadEnchants", "D", "Exploit", `lore=${lore}`, false, undefined, i);
 					}
 				}
@@ -394,9 +378,9 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	if(config.modules.illegalitemsJ.enabled && block.typeId.includes("sign")) {
 		// We need to wait 1 tick before we can get the sign text
 		system.runTimeout(() => {
-			// @ts-expect-error
-			const text = block.getComponent("sign").text;
+			const text = block.getComponent("sign")?.getText();
 
+			// @ts-expect-error
 			if(text.length >= 1) {
 				flag(player, "IllegalItems", "J", "Exploit", `signText=${text}`, false, undefined, player.selectedSlot);
 				block.setType("air");
@@ -409,18 +393,14 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		const container = block.getComponent("inventory").container;
 		if(!container) return; // This should not happen
 
-		const illegalItems = [];
-
-		for (let i = 0; i < 27; i++) {
+		for(let i = 0; i < 27; i++) {
 			const item = container.getItem(i);
-			if(!item) continue;
+			if(!item || !config.itemLists.items_very_illegal.includes(item.typeId) || !config.itemLists.cbe_items.includes(item.typeId)) continue;
 
-			if(config.itemLists.items_very_illegal.includes(item.typeId) || config.itemLists.cbe_items.includes(item.typeId)) illegalItems.push(illegalItems);
-		}
+			flag(player, "IllegalItems", "N", "Exploit", `item_count=${container.size - container.emptySlotsCount}`, false, undefined, player.selectedSlot);
+			container.clearAll();
 
-		if(illegalItems.length >= 1) {
-			flag(player, "IllegalItems", "N", "Exploit", `items_count=${illegalItems.length}`, false, undefined, player.selectedSlot);
-			block.setType("air");
+			break;
 		}
 	}
 
@@ -506,15 +486,15 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 		player.blocksBroken++;
 
 		if(player.blocksBroken > config.modules.nukerA.maxBlocks) {
-			revertBlock = true;
 			flag(player, "Nuker", "A", "Misc", `blocksBroken=${player.blocksBroken}`);
+			revertBlock = true;
 		}
 	}
 
 	// Autotool/A = checks for player slot mismatch
 	if(config.modules.autotoolA.enabled && player.flagAutotoolA) {
-		revertBlock = true;
 		flag(player, "AutoTool", "A", "Misc", `selectedSlot=${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
+		revertBlock = true;
 	}
 
 	/*
@@ -529,8 +509,8 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 		});
 
 		if(checkGmc.length) {
-			revertBlock = true;
 			flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
+			revertBlock = true;
 		}
 	}
 
@@ -616,7 +596,7 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	const { initialSpawn, player } = playerJoin;
 	if(!initialSpawn) return;
 
-	// declare all needed variables in player
+	// Declare all needed variables
 	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
 	if(config.modules.autoclickerA.enabled) {
 		player.firstAttack = Date.now();
@@ -629,7 +609,7 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 
 	player.lastGoodPosition = player.location;
 
-	// remove tags
+	// Remove tags
 	player.removeTag("attack");
 	player.removeTag("hasGUIopen");
 	player.removeTag("right");
@@ -659,26 +639,34 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 
 	// Namespoof/A = username length check.
 	if(config.modules.namespoofA.enabled) {
+		let flagNamespoofA = false;
 		// checks if 2 players are logged in with the same name
 		// minecraft adds a suffix to the end of the name which we detect
 		if(player.name.endsWith(")") && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
-			player.flagNamespoofA = true;
+			flagNamespoofA = true;
 
 		if(!player.name.endsWith(")") && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
-			player.flagNamespoofA = true;
+			flagNamespoofA = true;
 
-		if(player.flagNamespoofA) {
+		if(flagNamespoofA) {
 			const extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
 			player.nameTag = player.name.slice(0, -extraLength) + "...";
+
+			flag(player, "Namespoof", "A", "Exploit", `nameLength=${player.name.length}`);
 		}
 	}
 
 	// Namespoof/B = regex check
-	if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name))
-		player.flagNamespoofB = true;
+	if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) {
+		flag(player, "Namespoof", "B", "Exploit");
+	}
 
 	// check if the player is in the global ban list
-	if(banList.includes(player.name.toLowerCase())) player.isGlobalBanned = true;
+	if(banList.includes(player.name.toLowerCase())) {
+		player.addTag("by:Scythe Anticheat");
+		player.addTag("reason:You are Scythe Anticheat global banned!");
+		player.addTag("isBanned");
+	}
 
 	// @ts-expect-error
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
@@ -810,7 +798,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 		}
 	}
 
-	// Badpackets[3] = checks if a player attacks themselves
+	// BadPackets[3] = checks if a player attacks themselves
 	// Some (bad) hacks use this to bypass anti-movement cheat checks
 	if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
 
@@ -892,19 +880,17 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	console.warn(`${new Date().toISOString()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${watchdogTerminate.terminateReason}`);
 });
 
-// when using /reload, the variables defined in playerJoin don't persist
-if(world.getPlayers().length) {
-	for(const player of world.getPlayers()) {
-		if(config.modules.nukerA.enabled) player.blocksBroken = 0;
-		if(config.modules.autoclickerA.enabled) {
-			player.firstAttack = Date.now();
-			player.cps = 0;
-		}
-		if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;
-		if(config.modules.killauraC.enabled) player.entitiesHit = [];
-		if(config.modules.spammerE.enabled) player.lastMessageSent = Date.now();
-		if(config.customcommands.report.enabled) player.reports = [];
-
-		player.lastGoodPosition = player.location;
+// When using /reload, the variables defined in playerJoin don't persist
+for(const player of world.getPlayers()) {
+	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
+	if(config.modules.autoclickerA.enabled) {
+		player.firstAttack = Date.now();
+		player.cps = 0;
 	}
+	if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;
+	if(config.modules.killauraC.enabled) player.entitiesHit = [];
+	if(config.modules.spammerE.enabled) player.lastMessageSent = Date.now();
+	if(config.customcommands.report.enabled) player.reports = [];
+
+	player.lastGoodPosition = player.location;
 }

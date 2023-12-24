@@ -111,12 +111,11 @@ export function commandHandler(msg) {
  */
 function runCommand(msg, commandName, args) {
     const message = {
-        message: msg.message
+        message: msg.message,
+        sender: world.getPlayers({
+            name: msg.sender.name
+        })[0]
     };
-
-    message.sender = world.getPlayers({
-        name: msg.sender.name
-    })[0];
 
     system.run(async () => {
         try {

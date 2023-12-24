@@ -5,10 +5,7 @@ declare module "@minecraft/server" {
 		Player
 
 		// Booleans
-		isGlobalBanned: boolean
 		flagAutotoolA: boolean
-		flagNamespoofA: boolean
-		flagNamespoofB: boolean
 
 		// Numbers
 		blocksBroken: number
