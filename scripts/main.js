@@ -516,7 +516,6 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 
 	if(config.modules.xrayA.enabled && config.itemLists.xray_items.includes(brokenBlockId) && !player.hasTag("op")) {
 		flag(player, "Xray", "A", "Misc", `block=${brokenBlockId}`);
-		revertBlock = true;
 	}
 
 	if(revertBlock) {
