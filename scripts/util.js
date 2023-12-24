@@ -1,8 +1,6 @@
 // @ts-check
 
-// 'Player' and 'Entity' is needed for JSDoc typing checks
-// eslint-disable-next-line no-unused-vars
-import { world, Player, Entity } from "@minecraft/server";
+import { world } from "@minecraft/server";
 import config from "./data/config.js";
 import data from "./data/data.js";
 
@@ -171,7 +169,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
 /**
  * @name banMessage
- * @param {Player} player - The player object
+ * @param {import("@minecraft/server").Player} player - The player object
  * @example banMessage(player);
  * @remarks Bans the player from the game.
  */
@@ -316,7 +314,7 @@ export function msToTime(ms) {
 
 /**
  * @name getScore
- * @param {Entity} player - The player to get the scoreboard value from
+ * @param {import("@minecraft/server").Entity} player - The player to get the scoreboard value from
  * @param {string} objective - The player to get the scoreboard value from
  * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl", 0)
@@ -337,7 +335,7 @@ export function getScore(player, objective, defaultValue = 0) {
 
 /**
  * @name setScore
- * @param {Entity} player - The player to set the score for
+ * @param {import("@minecraft/server").Entity} player - The player to set the score for
  * @param {string} objective - The scoreboard objective
  * @param {number} value - The new value of the scoreboard objective
  * @example getScore(player, "cbevl", 0)
@@ -366,7 +364,7 @@ export function capitalizeFirstLetter(string) {
  * @name findPlayerByName
  * @remarks Finds a player object by a player name
  * @param {string} name - The player to look for
- * @returns {Player | undefined} [player] - The player found
+ * @returns {import("@minecraft/server").Player | undefined} [player] - The player found
  */
 export function findPlayerByName(name) {
 	const searchName = name.toLowerCase().replace(/\\|@/g, "");
@@ -388,8 +386,8 @@ export function findPlayerByName(name) {
 /**
  * @name addOp
  * @remarks Add Scythe-OP status to a player
- * @param {Player} initiator - The player that initiated the request
- * @param {Player} player - The player that will be given scythe-op status
+ * @param {import("@minecraft/server").Player} initiator - The player that initiated the request
+ * @param {import("@minecraft/server").Player} player - The player that will be given scythe-op status
  */
 export function addOp(initiator, player) {
     tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has given ${player.name} scythe-op status.`);
@@ -402,8 +400,8 @@ export function addOp(initiator, player) {
 /**
  * @name removeOp
  * @remarks Remove Scythe-OP status from a player
- * @param {Player} initiator - The player that initiated the request
- * @param {Player} player - The player that will be given scythe-op status
+ * @param {import("@minecraft/server").Player} initiator - The player that initiated the request
+ * @param {import("@minecraft/server").Player} player - The player that will be given scythe-op status
  */
 export function removeOp(initiator, player) {
     tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has removed ${player.name}'s scythe-op status.`);

@@ -63,6 +63,8 @@ registerCommand({
 				message += `§r§3${prefix}${command.name} ${command.usage ?? ""}§r - ${command.description}\n`;
 			}
 
+			message += "\nNeed extra help? Ask your question in the support server: https://discord.gg/9m9TbgJ973.\n";
+
 			player.sendMessage(message);
 		} else {
 			// Give help for a command

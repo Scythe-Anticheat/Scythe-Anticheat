@@ -45,7 +45,7 @@ export function commandHandler(msg) {
     if(!message.startsWith(prefix)) return;
 
     // Converts '!ban "test player" 14d hacker' to ['!ban','test player','14d','hacker']
-    const args = message.slice(prefix.length).match(/(".*?"|\S+)/g).map(match => match.replace(/"/g, ''));
+    const args = message.slice(prefix.length).match(/(".*?"|\S+)/g).map((/** @type {string} */ match) => match.replace(/"/g, ''));
 
     const command = args.shift().toLowerCase().trim();
 
@@ -83,7 +83,7 @@ export function commandHandler(msg) {
 
         if(!commands[commandName]) throw Error(`Command "${commandName}" was found in config.js but the command was not registered.`);
 
-        if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some(tag => !player.hasTag(tag))) {
+        if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some((/** @type {any} */ tag) => !player.hasTag(tag))) {
             player.sendMessage("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: /function op");
             return;
         }
@@ -98,33 +98,31 @@ export function commandHandler(msg) {
             return;
         }
 
-        runCommand(msg, commandName, args);
+        const newMsg = {
+            message: msg.message,
+            sender: world.getPlayers({
+                name: msg.sender.name
+            })[0]
+        };
+    
+        system.run(async () => {
+            try {
+               await commands[commandName].execute(newMsg, args, commandName);
+            } catch (error) {
+                reportError(error, newMsg.sender, newMsg.message);
+            }
+        });
     } catch (error) {
-        console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
-        player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message}\n${error}\n${error.stack || "\n"}-------------------------`);
+        reportError(error, player, message);
     }
 }
 
 /**
- * @name runCommand
- * @param {object} msg - Msg data
- * @param {string} commandName - Command name
- * @param {array} args - Command arguments
+ * @param {object} error
+ * @param {import("@minecraft/server").Player} player
+ * @param {string} message
  */
-function runCommand(msg, commandName, args) {
-    const message = {
-        message: msg.message,
-        sender: world.getPlayers({
-            name: msg.sender.name
-        })[0]
-    };
-
-    system.run(async () => {
-        try {
-           await commands[commandName].execute(msg, args, commandName);
-        } catch (error) {
-            console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
-            message.sender.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message.message}\n${error}\n${error.stack || "\n"}-------------------------`);
-        }
-    });
+function reportError(error, player, message) {
+    console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
+    player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message}\n${error}\n${error.stack || "\n"}-------------------------`);
 }
