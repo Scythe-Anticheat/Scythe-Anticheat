@@ -12,9 +12,6 @@ tellraw @s[scores={gms=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Anti-G
 tellraw @s[scores={gmc=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Anti-GMC is currently §4DISABLED"}]}
 tellraw @s[scores={gmc=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Anti-GMC is currently §aENABLED"}]}
 
-tellraw @s[scores={commandblocks=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r RemoveCommandBlocks is currently §4DISABLED"}]}
-tellraw @s[scores={commandblocks=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r RemoveCommandBlocks is currently §aENABLED"}]}
-
 tellraw @s[scores={cmds=..0}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r OverrideCommandBlocksEnabled is currently §4DISABLED"}]}
 tellraw @s[scores={cmds=1}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r OverrideCommandBlocksEnabled is set to §aENABLED"}]}
 tellraw @s[scores={cmds=2..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r OverrideCommandBlocksEnabled is set to §4DISABLED"}]}

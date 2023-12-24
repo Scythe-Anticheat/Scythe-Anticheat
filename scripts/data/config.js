@@ -76,11 +76,6 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["overridecbe","overridecommandblocksenabled","ocbe"]
 		},
-		"removecommandblocks": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["removecb","rcb"]
-		},
 		"invalidsprint": {
 			"enabled": true,
 			"requiredTags": ["op"],

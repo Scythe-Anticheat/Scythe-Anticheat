@@ -8,5 +8,4 @@ execute @a[tag=isBanned,scores={gametestapi=..0}] ~~~ function checks/ban
 execute @a[tag=!op,m=a,scores={gma=1..}] ~~~ function checks/optional/gamemodeA
 execute @a[tag=!op,m=c,scores={gmc=1..}] ~~~ function checks/optional/gamemodeC
 execute @a[tag=!op,m=s,scores={gms=1..}] ~~~ function checks/optional/gamemodeS
-execute @a[scores={commandblocks=1..}] ~~~ function checks/optional/nocommandblocks
 execute @r[scores={cmds=1..}] ~~~ function checks/optional/overridecommandblocksenabled
