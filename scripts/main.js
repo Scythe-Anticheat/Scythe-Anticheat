@@ -183,7 +183,7 @@ system.runInterval(() => {
 				if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.typeId))
 					flag(player, "CommandBlockExploit", "H", "Exploit", `item=${item.typeId}`, false, undefined, i);
 
-				// Illegalitems/F = Checks if an item has a name longer then 32 characters
+				// Illegalitems/F = Checks if an item has a name longer than 32 characters
 				// @ts-expect-error
 				if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
 					// @ts-expect-error
@@ -782,7 +782,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 		}
 	}
 
-	// Reach/A = Check if a player hits an entity more then 5.1 blocks away
+	// Reach/A = Check if a player hits an entity more than 5.1 blocks away
 	if(config.modules.reachA.enabled) {
 		// Get the difference between 2 three dimensional coordinates
 		const distance = Math.sqrt((entity.location.x - player.location.x)**2 + (entity.location.y - player.location.y)**2 + (entity.location.z - player.location.z)**2);

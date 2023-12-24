@@ -243,7 +243,7 @@ export default
 			"enabled": true,
 			"levelExclusions": {
 				/*
-				If your realm uses enchantments with levels higher then vanilla then you need to exclude them here.
+				If your realm uses enchantments with levels higher than vanilla then you need to exclude them here.
 				To add an exclusion, add ' "<enchantment name>": <max level> ' below the examples
 
 				"efficiency": 69,
