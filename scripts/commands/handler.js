@@ -31,13 +31,14 @@ export function registerCommand(data) {
 
 /**
  * @name commandHandler
- * @param {object} msg - Message data
+ * @param {import("@minecraft/server").ChatSendBeforeEvent} msg - Message data
  */
 export function commandHandler(msg) {
     // validate that required params are defined
     if(typeof msg !== "object") throw TypeError(`msg is type of ${typeof msg}. Expected "object"`);
 
     const { message, sender: player } = msg;
+    if(!message) return;
 
     if(config.debug) console.warn(`${new Date().toISOString()} | did run command handler`);
 
@@ -45,9 +46,10 @@ export function commandHandler(msg) {
     if(!message.startsWith(prefix)) return;
 
     // Converts '!ban "test player" 14d hacker' to ['!ban','test player','14d','hacker']
-    const args = message.slice(prefix.length).match(/(".*?"|\S+)/g).map((/** @type {string} */ match) => match.replace(/"/g, ''));
+    const args = message.slice(prefix.length).match(/(".*?"|\S+)/g)?.map((/** @type {string} */ match) => match.replace(/"/g, ''));
+    if(!args) return;
 
-    const command = args.shift().toLowerCase().trim();
+    const command = args.shift()?.toLowerCase().trim();
 
     if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
 
@@ -59,7 +61,7 @@ export function commandHandler(msg) {
             commandData = config.customcommands[command];
             commandName = command;
         } else {
-            // check if the command is an alias
+            // Check if the command is an alias
             for(const cmd of Object.keys(config.customcommands)) {
                 const data = config.customcommands[cmd];
                 if(!data.aliases?.includes(command)) continue;
@@ -69,12 +71,13 @@ export function commandHandler(msg) {
                 break;
             }
 
-            // command does not exist
             if(!commandData) {
+                // Command does not exist
                 if(config.customcommands.sendInvalidCommandMsg) {
                     player.sendMessage(`§r§6[§aScythe§6]§c The command "${command}" was not found. Please make sure it exists.`);
                     msg.cancel = true;
                 }
+
                 return;
             }
         }
@@ -118,7 +121,7 @@ export function commandHandler(msg) {
 }
 
 /**
- * @param {object} error
+ * @param {Error} error
  * @param {import("@minecraft/server").Player} player
  * @param {string} message
  */

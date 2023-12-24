@@ -126,7 +126,7 @@ function banMenuSelect(player, selection) {
 
         if(allPlayers.length > response.selection) {
             if(selection === 0) kickPlayerMenu(player, allPlayers[response.selection]);
-                else if(selection === 1) banPlayerMenu(player, allPlayers[response.selection]);
+                else banPlayerMenu(player, allPlayers[response.selection]);
         } else banMenu(player);
     });
 }
@@ -212,7 +212,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
 }
 
 function unbanPlayerMenu(player) {
-    if(!config.customcommands.unban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
+    if(!config.customcommands.unban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Unbanning players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
     const menu = new ModalFormData()
@@ -378,17 +378,8 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         .button(playerSelected.hasTag("flying") ? "Disable Fly Mode" : "Enable Fly Mode", "textures/ui/levitation_effect.png")
         .button(playerSelected.hasTag("freeze") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
-    if(playerSelected.hasTag("isMuted")) {
-        menu.button("Unmute Player", icons.mute_off);
-    } else {
-        menu.button("Mute Player", icons.mute_on);
-    }
-
-    if(playerSelected.hasTag("op")) {
-        menu.button("Remove Player as Scythe-Op", icons.member);
-    } else {
-        menu.button("Set Player as Scythe-Op", icons.op);
-    }
+    playerSelected.hasTag("isMuted") ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
+    playerSelected.hasTag("op") ? menu.button("Remove Player as Scythe-Op", icons.member) :  menu.button("Set Player as Scythe-Op", icons.op);
 
     menu
         .button(playerSelected.hasTag("vanish") ? "Unvanish Player" : "Vanish Player", icons.invisibility)
@@ -436,7 +427,6 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 playerSettingsMenuSelected(player, playerSelected);
                 break;
 
-
             case 6:
                 if(!config.customcommands.freeze.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Frozen State is disabled in config.js.");
@@ -476,11 +466,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
                 }
 
-                if(playerSelected.hasTag("op")) {
-                    removeOp(player, playerSelected);
-                } else {
-                    addOp(player, playerSelected);
-                }
+                playerSelected.hasTag("op") ? removeOp(player, playerSelected) : addOp(player, playerSelected);
                 break;
 
             case 9:
@@ -584,12 +570,9 @@ function serverManagementMenu(player) {
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
         .button("Full Report", icons.info);
 
-    if(globalmute.muted) {
-        menu.button("Disable Global Mute", icons.mute_off);
-    } else {
-        menu.button("Enable Global Mute", icons.mute_on);
-    }
+    globalmute.muted ? menu.button("Disable Global Mute", icons.mute_off) : menu.button("Enable Global Mute", icons.mute_on);
 
+    menu.button("Back", icons.back);
     menu.show(player).then((response) => {
         switch(response.selection) {
             case 0:
@@ -600,6 +583,10 @@ function serverManagementMenu(player) {
 
             case 1:
                 toggleGlobalMute(player);
+                break;
+            
+            case 2:
+                mainGui(player);
         }
     });
 }
