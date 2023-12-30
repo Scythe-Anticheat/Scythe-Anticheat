@@ -120,15 +120,15 @@ system.runInterval(() => {
 				setScore(player, "zPos", Math.floor(player.location.z));
 			}
 
-			const playerSpeed = Number(Math.sqrt(Math.abs(player.velocity.x**2 +player.velocity.z**2)).toFixed(2));
+			const playerSpeed = Number(Math.sqrt(Math.abs(player.velocity.x ** 2 + player.velocity.z ** 2)).toFixed(2));
 
 			// NoSlow/A = speed limit check
-			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && player.dimension.id && getScore(player, "right") >= 5) {
-				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z}) ?? {typeId: "minecraft:air"};
+			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
+				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
 
 				const heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlot);
 
-				if(!blockBelow.typeId.includes("ice")) {
+				if(blockBelow && !blockBelow.typeId.includes("ice")) {
 					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem?.typeId ?? "minecraft:air"},blockBelow=${blockBelow.typeId}`, true);
 				}
 			}
@@ -182,16 +182,16 @@ system.runInterval(() => {
 				if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.typeId))
 					flag(player, "CommandBlockExploit", "H", "Exploit", `item=${item.typeId}`, false, undefined, i);
 
-				// Illegalitems/F = Checks if an item has a name longer than 32 characters
+				// Illegalitems/F = Check if an item has a name longer than 32 characters
 				if(config.modules.illegalitemsF.enabled && (item.nameTag?.length ?? 0) > config.modules.illegalitemsF.length) {
 					flag(player, "IllegalItems", "F", "Exploit", `"name=${item.nameTag},length=${item.nameTag?.length}`, false, undefined, i);
 				}
 
-				// IllegalItems/L = check for keep on death items
+				// IllegalItems/L = Check for keep on death items
 				if(config.modules.illegalitemsL.enabled && item.keepOnDeath)
 					flag(player, "IllegalItems", "L", "Exploit", undefined, false, undefined, i);
 
-				// BadEnchants/D = checks if an item has a lore
+				// BadEnchants/D = Check if an item has a lore
 				if(config.modules.badenchantsD.enabled) {
 					const lore = String(item.getLore());
 
@@ -220,8 +220,8 @@ system.runInterval(() => {
 					const itemEnchants = item.getComponent("enchantable")?.getEnchantments() ?? [];
 
 					const item2 = new ItemStack(itemType, 1);
-
 					const item2Enchants = item2.getComponent("enchantable");
+
 					const enchantments = [];
 
 					for(const enchantData of itemEnchants) {
@@ -284,7 +284,7 @@ system.runInterval(() => {
 			if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
 				const cps = player.cps / ((Date.now() - player.firstAttack) / 1000);
 
-				// autoclicker/A = checks for high cps
+				// Autoclicker/A = Check for high cps
 				if(cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", `cps=${cps}`);
 
 				player.firstAttack = Date.now();
@@ -305,23 +305,22 @@ system.runInterval(() => {
 
 			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
 
+			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
+				player.applyKnockback(
+					// Check if the number is greater than 0, if it is then subtract 1, else add 1
+					player.location.x >= 0 ? -1 : 1,
+					player.location.z >= 0 ? -1 : 1,
+					0.5,
+					0.05
+				);
+
+				player.sendMessage("§r§6[§aScythe§6]§r You have reached the world border.");
+			}
+
 			// Store the players last good position
 			// When a movement-related check flags the player, they will be teleported to this position
 			// xRot and yRot being 0 means the player position was modified from player.teleport, which we should ignore
 			if(player.rotation.x !== 0 && player.rotation.y !== 0) player.lastGoodPosition = player.location;
-
-			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
-				player.tryTeleport({
-					// Check if the number is greater than 0, if it is then subtract 1, else add 1
-					x: player.location.x - (player.location.x >= 0 ? 1 : -1),
-					y: player.location.y,
-					z: player.location.z - (player.location.z >= 0 ? 1 : -1)
-				}, {
-					checkForBlocks: false
-				});
-
-				player.sendMessage("§r§6[§aScythe§6]§r You have reached the world border.");
-			}
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
