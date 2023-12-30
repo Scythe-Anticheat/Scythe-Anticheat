@@ -1,8 +1,7 @@
 // @ts-check
-
-import { world } from "@minecraft/server";
 import config from "./data/config.js";
 import data from "./data/data.js";
+import { world } from "@minecraft/server";
 
 /**
  * @name flag
@@ -129,11 +128,10 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             player.triggerEvent("scythe:kick");
             break;
         }
+
         case "ban": {
             // Check if auto-banning is disabled
             if(!config.autoban) break;
-
-            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
 
             // Remove old ban data
             for(const t of player.getTags()) {
@@ -152,8 +150,10 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
             player.addTag("isBanned");
 
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
             break;
         }
+
         case "mute": {
             player.addTag("isMuted");
             player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
@@ -161,9 +161,26 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             // remove chat ability
             player.runCommandAsync("ability @s mute true");
 
-            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
             break;
         }
+
+        case "freeze": {
+            player.addEffect("weakness", 99999, {
+                amplifier: 255,
+                showParticles: false
+            });
+            player.triggerEvent("scythe:freeze");
+            player.addTag("freeze");
+            player.runCommandAsync("inputpermission set @s movement disabled");
+        
+            player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by Scythe Anticheat for Unfair Advantage.");
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been frozen by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
+            break;
+        }
+
+        default:
+            throw Error(`Unknown punishment type "${punishment}".`);
     }
 }
 

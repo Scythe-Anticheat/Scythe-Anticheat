@@ -1,4 +1,4 @@
-import { tellAllStaff } from "../../util.js"; 
+import { tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 import data from "../../data/data.js";
 

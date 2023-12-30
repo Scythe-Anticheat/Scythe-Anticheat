@@ -213,7 +213,7 @@ export default
 			"enabled": true,
 			// If players with scythe-op can bypass this check (Optional)
 			"exclude_scythe_op": false,
-			// The punishment. Can either be "none", "mute", "kick" or "ban"
+			// The punishment. Can either be "none", "mute", "kick", "ban" or "freeze"
 			"punishment": "none",
 			// PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
 			// To perm ban the user the should string be empty.
