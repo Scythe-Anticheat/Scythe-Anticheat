@@ -7,6 +7,7 @@ import { getStatsMsg } from "../commands/moderation/stats.js";
 import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
 import { wipeEnderchest } from "../commands/utility/ecwipe.js";
 import { getInvseeMsg } from "../commands/utility/invsee.js";
+import { freezePlayer, unfreezePlayer } from "../commands/utility/freeze.js";
 
 import config from "../data/config.js";
 import data from "../data/data.js";
@@ -429,16 +430,10 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
             case 6:
                 if(!config.customcommands.freeze.enabled) {
-                    return player.sendMessage("§r§6[§aScythe§6]§r Toggling Frozen State is disabled in config.js.");
+                    return player.sendMessage("§r§6[§aScythe§6]§r Freezing players is disabled in config.js.");
                 }
 
-                if(playerSelected.hasTag("freeze")) {
-                    playerSelected.runCommandAsync("function tools/freeze");
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unfrozen for ${playerSelected.name}.`);
-                } else {
-                    playerSelected.runCommandAsync("function tools/freeze");
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has frozen for ${playerSelected.name}.`);
-                }
+                playerSelected.hasTag("freeze") ? unfreezePlayer(playerSelected, player) : freezePlayer(playerSelected, player);
 
                 playerSettingsMenuSelected(player, playerSelected);
                 break;
