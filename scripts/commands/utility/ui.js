@@ -1,4 +1,5 @@
-import { ItemTypes, ItemStack, Enchantment} from "@minecraft/server";
+// @ts-check
+import { ItemStack} from "@minecraft/server";
 import config from "../../data/config.js";
 import { registerCommand } from "../handler.js";
 
@@ -23,28 +24,15 @@ registerCommand({
             return player.sendMessage("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 
         // Create the item that opens the UI
-        let itemType = ItemTypes.get(config.customcommands.ui.ui_item);
-        let didError = false;
-
-        if(!itemType) {
-            console.error(`Unable to create item type, most likely the item name is invalid. Defaulted to using wooden axe.`);
-
-            didError = true;
-            itemType = ItemTypes.get("minecraft:wooden_axe");
-        }
-
-        const item = new ItemStack(itemType, 1);
+        const item = new ItemStack(config.customcommands.ui.ui_item, 1);
 
         item.nameTag = config.customcommands.ui.ui_item_name;
 
         // Enchant the item with Unbreaking 3
-        const enchantments = item.getComponent("enchantments").enchantments;
-        enchantments.addEnchantment(new Enchantment("unbreaking", 3));
-
-        item.getComponent("enchantments").enchantments = enchantments;
+        item.getComponent("enchantable")?.addEnchantment({type: "unbreaking", level: 3});
 
         container.addItem(item);
 
-        player.sendMessage(`§r§6[§aScythe§6]§r The UI item has been added to your inventory.${didError ? "\n§4[§cWARNING§4]§r There was an error trying to create the custom UI item. The UI item has been defaulted to a wooden axe." : ""}`);
+        player.sendMessage("§r§6[§aScythe§6]§r The UI item has been added to your inventory.");
     }
 });

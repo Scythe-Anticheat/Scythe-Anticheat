@@ -1,6 +1,4 @@
 // @ts-check
-// eslint-disable-next-line no-unused-vars
-import { Player } from "@minecraft/server";
 import config from "../../data/config.js";
 
 import { capitalizeFirstLetter, findPlayerByName } from "../../util.js";
@@ -35,31 +33,23 @@ registerCommand({
 
 /**
  * @name getInvseeMsg
- * @param {Player} player 
+ * @param {import("@minecraft/server").Player} player 
  * @returns {string} msg - A list of all the items in the players inventory
  */
 export function getInvseeMsg(player) {
-	// @ts-expect-error
-	const container = player.getComponent("inventory").container;
+	const container = player.getComponent("inventory")?.container;
 
 	let inventory = `§r§6[§aScythe§6]§r ${player.name}'s inventory:\n\n`;
 
 	// This function loops through every enchantment on the item and then adds it to the inventory string. It is used if show_enchantments is enabled in the config
-	const loopEnchants = (enchantmentData) => {
-		const iterator = enchantmentData[Symbol.iterator]();
-		let iteratorData = iterator.next();
-
-		while(!iteratorData.done) {
-			const { value } = iteratorData;
-
-			const id = value.type.id;
-			const level = value.level;
+	const loopEnchants = (allEnchantments) => {
+		for(const enchantment of allEnchantments) {
+			const id = enchantment.type.id;
+			const level = enchantment.level;
 
 			const enchantmentName = capitalizeFirstLetter(id);
 
 			inventory += `    | ${enchantmentName} ${level}\n`;
-
-			iteratorData = iterator.next();
 		}
 	};
 
@@ -70,7 +60,7 @@ export function getInvseeMsg(player) {
 
 		for(const equipment of Object.keys(equipmentList)) {
 			// @ts-expect-error
-			const item = armor.getEquipment(equipment);
+			const item = armor?.getEquipment(equipment);
 			if(!item) continue;
 
 			foundItem = true;
@@ -78,7 +68,7 @@ export function getInvseeMsg(player) {
 			inventory += `§r§6[§aScythe§6]§r ${equipmentList[equipment]}: ${item.typeId} x${item.amount}\n`;
 
 			if(config.customcommands.invsee.show_enchantments) {
-				loopEnchants(item.getComponent("enchantments")?.enchantments);
+				loopEnchants(item.getComponent("enchantable")?.getEnchantments());
 			}
 		}
 
@@ -97,7 +87,7 @@ export function getInvseeMsg(player) {
 		inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId} x${item.amount}\n`;
 
 		if(config.customcommands.invsee.show_enchantments) {
-			loopEnchants(item.getComponent("enchantments")?.enchantments);
+			loopEnchants(item.getComponent("enchantable")?.getEnchantments());
 		}
 	}
 	

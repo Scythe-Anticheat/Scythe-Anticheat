@@ -1,5 +1,5 @@
 // @ts-check
-import { world, system, GameMode, ItemTypes, ItemStack, Enchantment } from "@minecraft/server";
+import { world, system, GameMode, ItemTypes, ItemStack } from "@minecraft/server";
 
 import { flag, banMessage, getClosestPlayer, getScore, setScore, getBlocksBetween, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
@@ -54,34 +54,34 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	// Spammer/A = checks if someone sends a message while moving and on ground
 	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping) {
 		flag(player, "Spammer", "A", "Movement");
-		return msg.sendToTargets = false;
+		return;
 	}
 
 	// Spammer/B = checks if someone sends a message while swinging their hand
 	if(config.modules.spammerB.enabled && player.hasTag('left') && !player.getEffect("mining_fatigue")) {
 		flag(player, "Spammer", "B", "Combat");
-		return msg.sendToTargets = false;
+		return;
 	}
 
 	// Spammer/C = checks if someone sends a message while using an item
 	if(config.modules.spammerC.enabled && player.hasTag('right')) {
 		flag(player, "Spammer", "C", "Misc");
-		return msg.sendToTargets = false;
+		return;
 	}
 
 	// Spammer/D = checks if someone sends a message while having a GUI open
 	if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen')) {
 		flag(player, "Spammer", "D", "Misc");
-		return msg.sendToTargets = false;
+		return;
 	}
 
 	if(config.modules.spammerE.enabled) {
 		const lastMessageSentMS = Date.now() - player.lastMessageSent;
 		if(lastMessageSentMS < config.modules.spammerE.messageRatelimit) {
 			flag(player, "Spammer", "E", "Misc", `lastMessageSent=${lastMessageSentMS}`);
-			msg.sendToTargets = false;
 
 			if(config.modules.spammerE.sendWarningMessage) player.sendMessage("§r§6[§aScythe§6]§r Stop spamming! You are sending messages too fast.");
+			return;
 		}
 		player.lastMessageSent = Date.now();
 	}
@@ -125,16 +125,15 @@ system.runInterval(() => {
 			// NoSlow/A = speed limit check
 			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && player.dimension.id && getScore(player, "right") >= 5) {
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z}) ?? {typeId: "minecraft:air"};
-				// @ts-expect-error
-				const heldItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
+
+				const heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlot);
 
 				if(!blockBelow.typeId.includes("ice")) {
 					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem?.typeId ?? "minecraft:air"},blockBelow=${blockBelow.typeId}`, true);
 				}
 			}
 
-			// @ts-expect-error
-			const container = player.getComponent("inventory").container;
+			const container = player.getComponent("inventory")?.container;
 			for(let i = 0; i < 36; i++) {
 				// @ts-expect-error
 				const item = container.getItem(i);
@@ -184,10 +183,9 @@ system.runInterval(() => {
 					flag(player, "CommandBlockExploit", "H", "Exploit", `item=${item.typeId}`, false, undefined, i);
 
 				// Illegalitems/F = Checks if an item has a name longer than 32 characters
-				// @ts-expect-error
-				if(config.modules.illegalitemsF.enabled && item.nameTag?.length > config.modules.illegalitemsF.length)
-					// @ts-expect-error
-					flag(player, "IllegalItems", "F", "Exploit", `"name=${item.nameTag},length=${item.nameTag.length}`, false, undefined, i);
+				if(config.modules.illegalitemsF.enabled && (item.nameTag?.length ?? 0) > config.modules.illegalitemsF.length) {
+					flag(player, "IllegalItems", "F", "Exploit", `"name=${item.nameTag},length=${item.nameTag?.length}`, false, undefined, i);
+				}
 
 				// IllegalItems/L = check for keep on death items
 				if(config.modules.illegalitemsL.enabled && item.keepOnDeath)
@@ -212,66 +210,58 @@ system.runInterval(() => {
 				const itemType = item.type ?? ItemTypes.get("minecraft:book");
 
 				if(config.misc_modules.resetItemData.enabled && config.misc_modules.resetItemData.items.includes(item.typeId)) {
-					// This creates a duplicate version of the item without any attributes such as NBT.
+					// This creates a duplicate version of the item without any NBT attributes
 					const item2 = new ItemStack(itemType, item.amount);
-					// @ts-expect-error
-					container.setItem(i, item2);
+
+					container?.setItem(i, item2);
 				}
 
 				if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled || config.modules.badenchantsE.enabled) {
-					// @ts-expect-error
-					const itemEnchants = item.getComponent("enchantments").enchantments;
+					const itemEnchants = item.getComponent("enchantable")?.getEnchantments() ?? [];
 
 					const item2 = new ItemStack(itemType, 1);
 
-					// @ts-expect-error
-					const item2Enchants = item2.getComponent("enchantments").enchantments;
+					const item2Enchants = item2.getComponent("enchantable");
 					const enchantments = [];
 
-					const iterator = itemEnchants[Symbol.iterator]();
-					let iteratorData = iterator.next();
-
-					while(!iteratorData.done) {
-						const enchantData = iteratorData.value;
+					for(const enchantData of itemEnchants) {
+						// @ts-expect-error
+						const enchantTypeId = enchantData.type.id;
 
 						// badenchants/A = checks for items with invalid enchantment levels
 						if(config.modules.badenchantsA.enabled) {
-							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type.id] ?? enchantData.type.maxLevel;
+							// @ts-expect-error
+							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type] ?? enchantData.type.maxLevel;
 
 							if(enchantData.level > maxLevel) {
-								flag(player, "BadEnchants", "A", "Exploit", `enchant=${enchantData.type.id},level=${enchantData.level}`, false, undefined, i);
+								flag(player, "BadEnchants", "A", "Exploit", `enchant=${enchantData.type},level=${enchantData.level}`, false, undefined, i);
 							}
 						}
 
 						// badenchants/B = checks for negative enchantment levels
 						if(config.modules.badenchantsB.enabled && enchantData.level <= 0) {
-							flag(player, "BadEnchants", "B", "Exploit", `enchant=${enchantData.type.id},level=${enchantData.level}`, false, undefined, i);
+							flag(player, "BadEnchants", "B", "Exploit", `enchant=${enchantData.type},level=${enchantData.level}`, false, undefined, i);
 						}
 
 						// badenchants/C = checks if an item has an enchantment which isn't support by the item
-						if(config.modules.badenchantsC.enabled) {
-							if(!item2Enchants.canAddEnchantment(new Enchantment(enchantData.type, 1))) {
-								flag(player, "BadEnchants", "C", "Exploit", `item=${item.typeId},enchant=${enchantData.type.id},level=${enchantData.level}`, false, undefined, i);
+						if(config.modules.badenchantsC.enabled && item2Enchants) {
+							if(!item2Enchants.canAddEnchantment({type: enchantData.type, level: 1})) {
+								flag(player, "BadEnchants", "C", "Exploit", `item=${item.typeId},enchant=${enchantTypeId},level=${enchantData.level}`, false, undefined, i);
 							}
 
 							if(config.modules.badenchantsC.multi_protection) {
-								item2Enchants.addEnchantment(new Enchantment(enchantData.type, 1));
-
-								// @ts-expect-error
-								item2.getComponent("enchantments").enchantments = item2Enchants;
+								item2Enchants.addEnchantment({type: enchantData.type, level: 1});
 							}
 						}
 
 						// BadEnchants/E = checks if an item has duplicated enchantments
 						if(config.modules.badenchantsE.enabled) {
-							if(enchantments.includes(enchantData.type.id)) {
+							if(enchantments.includes(enchantTypeId)) {
 								flag(player, "BadEnchants", "E", "Exploit", `enchantments=${enchantments.join(", ")}`, false, undefined, i);
 							}
 
-							enchantments.push(enchantData.type.id);
+							enchantments.push(enchantTypeId);
 						}
-
-						iteratorData = iterator.next();
 					}
 				}
 			}
@@ -348,17 +338,14 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	if(config.modules.illegalitemsH.enabled && block.typeId === "minecraft:piston" || block.typeId === "minecraft:sticky_piston") {
 		const piston = block.getComponent("piston");
 
-		// @ts-expect-error
-		if(!piston.isRetracted || piston.isMoving || piston.isExpanded) {
-			// @ts-expect-error
-			flag(player, "IllegalItems", "H", "Exploit", `isRetracted=${piston.isRetracted},isRetracting=${piston.isRetracting},isMoving=${piston.isMoving},isExpanding=${piston.isExpanding},isExpanded=${piston.isExpanded}`, false, undefined, player.selectedSlot);
+		if(piston && (piston.isMoving || piston.state !== "Retracted")) {
+			flag(player, "IllegalItems", "H", "Exploit", `state=${piston.state},isMoving=${piston.isMoving}`, false, undefined, player.selectedSlot);
 			block.setType("air");
 		}
 	}
 
 	if(config.modules.illegalitemsI.enabled && config.modules.illegalitemsI.container_blocks.includes(block.typeId) && !player.hasTag("op")) {
-		// @ts-expect-error
-		const container = block.getComponent("inventory").container;
+		const container = block.getComponent("inventory")?.container;
 		if(!container) return; // This should not happen
 
 		let startNumber = 0;
@@ -380,8 +367,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		system.runTimeout(() => {
 			const text = block.getComponent("sign")?.getText();
 
-			// @ts-expect-error
-			if(text.length >= 1) {
+			if(text && text.length >= 1) {
 				flag(player, "IllegalItems", "J", "Exploit", `signText=${text}`, false, undefined, player.selectedSlot);
 				block.setType("air");
 			}
@@ -389,8 +375,7 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	}
 
 	if(config.modules.illegalitemsM.enabled && block.typeId.includes("shulker_box")) {
-		// @ts-expect-error
-		const container = block.getComponent("inventory").container;
+		const container = block.getComponent("inventory")?.container;
 		if(!container) return; // This should not happen
 
 		for(let i = 0; i < 27; i++) {
@@ -718,14 +703,13 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 		}
 	}
 
-	if(entity.typeId === "minecraft:item") {
-		// @ts-expect-error
-		const item = entity.getComponent("item").itemStack;
+	if(config.modules.illegalitemsB.enabled && entity.typeId === "minecraft:item") {
+		const itemId = entity.getComponent("item")?.itemStack.typeId;
 
-		if(config.modules.illegalitemsB.enabled && (
-			config.itemLists.items_very_illegal.includes(item.typeId) ||
-			config.itemLists.items_semi_illegal.includes(item.typeId) ||
-			config.itemLists.cbe_items.includes(item.typeId))
+		if(itemId && (
+			config.itemLists.items_very_illegal.includes(itemId) ||
+			config.itemLists.items_semi_illegal.includes(itemId) ||
+			config.itemLists.cbe_items.includes(itemId))
 		) entity.kill();
 	}
 
@@ -735,8 +719,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 			const player = getClosestPlayer(entity);
 			if(!player) return;
 
-			// @ts-expect-error
-			const container = entity.getComponent("inventory").container;
+			const container = entity.getComponent("inventory")?.container;
 
 			if(container && container.size !== container.emptySlotsCount) {
 				for (let i = 0; i < container.size; i++) {
@@ -803,8 +786,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 
 	// Check if the player was hit with the UI item, and if so open the UI for that player
 	if(config.customcommands.ui.enabled && entity.typeId === "minecraft:player" && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
-		// @ts-expect-error
-		const container = player.getComponent("inventory").container;
+		const container = player.getComponent("inventory")?.container;
 		if(!container) return; // This should not happen
 
 		const item = container.getItem(player.selectedSlot);
