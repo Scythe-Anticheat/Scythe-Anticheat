@@ -149,19 +149,14 @@ system.runInterval(() => {
 						}
 
 						if(
-							// Check for element blocks
-							(config.itemLists.elements && item.typeId.startsWith("minecraft:element_")) ||
-							config.itemLists.items_semi_illegal.includes(item.typeId) ||
-							flagPlayer
+							(
+								// Check for element blocks
+								(config.itemLists.elements && item.typeId.startsWith("minecraft:element_")) ||
+								config.itemLists.items_semi_illegal.includes(item.typeId) ||
+								flagPlayer
+							) && player.matches({excludeGameModes: [GameMode.creative]})
 						) {
-							const checkGmc = world.getPlayers({
-								excludeGameModes: [GameMode.creative],
-								name: player.name
-							});
-
-							if(checkGmc.length) {
-								flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
-							}
+							flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
 						}
 					}
 				}
@@ -429,16 +424,9 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 		) {
 			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 
-			if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff) {
-				const checkGmc = world.getPlayers({
-					excludeGameModes: [GameMode.creative],
-					name: player.name
-				});
-
-				if(checkGmc.length) {
-					flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
-					block.setType("air");
-				}
+			if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.matches({excludeGameModes: [GameMode.creative]})) {
+				flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
+				block.setType("air");
 			}
 		}
 	}
@@ -487,16 +475,9 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 		While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasses
 		that can be used
 	*/
-	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId)) {
-		const checkGmc = world.getPlayers({
-			excludeGameModes: [GameMode.creative],
-			name: player.name
-		});
-
-		if(checkGmc.length) {
-			flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
-			revertBlock = true;
-		}
+	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId) && player.matches({excludeGameModes: [GameMode.creative]})) {
+		flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
+		revertBlock = true;
 	}
 
 	if(config.modules.xrayA.enabled && config.itemLists.xray_items.includes(brokenBlockId) && !player.hasTag("op")) {
@@ -770,13 +751,13 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 		const distance = Math.sqrt((entity.location.x - player.location.x)**2 + (entity.location.y - player.location.y)**2 + (entity.location.z - player.location.z)**2);
 		if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag ?? entity.typeId} with a distance of ${distance}`);
 
-		if(distance > config.modules.reachA.reach && entity.typeId.startsWith("minecraft:") && !config.modules.reachA.entities_blacklist.includes(entity.typeId)) {
-			const checkGmc = world.getPlayers({
-				excludeGameModes: [GameMode.creative],
-				name: player.name
-			});
-
-			if(checkGmc.length) flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance}`);
+		if(
+			distance > config.modules.reachA.reach &&
+			entity.typeId.startsWith("minecraft:") &&
+			!config.modules.reachA.entities_blacklist.includes(entity.typeId) &&
+			player.matches({excludeGameModes: [GameMode.creative]})
+		) {
+			flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance}`);
 		}
 	}
 
