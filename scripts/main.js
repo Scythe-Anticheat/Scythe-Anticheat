@@ -493,7 +493,7 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 			type: "item"
 		});
 
-		for(const item of droppedItems) item.kill();
+		for(const item of droppedItems) item.remove();
 
 		block.setPermutation(blockBreak.brokenBlockPermutation);
 	}
@@ -652,21 +652,21 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 
 		if(data.entitiesSpawnedInLastTick > config.misc_modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
 			if(config.debug) console.warn(`Killed "${entity.typeId}" due to entity spawn ratelimit reached.`);
-			entity.kill();
+			entity.remove();
 		}
 	}
 
 	if(config.modules.commandblockexploitG.enabled) {
 		if(config.modules.commandblockexploitG.entities.includes(entity.typeId.toLowerCase())) {
 			flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", `entity=${entity.typeId}`);
-			entity.kill();
+			entity.remove();
 		} else if(config.modules.commandblockexploitG.npc && entity.typeId === "minecraft:npc") {
 			entity.runCommandAsync("scoreboard players operation @s npc = scythe:config npc");
 			entity.runCommandAsync("testfor @s[scores={npc=1..}]")
 				.then((commandResult) => {
 					if(commandResult.successCount < 1) return;
 					flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", `entity=${entity.typeId}`);
-					entity.kill();
+					entity.remove();
 				});
 		}
 
@@ -679,7 +679,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 				if(!config.modules.commandblockexploitG.blockSummonCheck.includes(blockType.typeId)) continue;
 
 				blockType.setType("air");
-				entity.kill();
+				entity.remove();
 			}
 		}
 	}
@@ -691,7 +691,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 			config.itemLists.items_very_illegal.includes(itemId) ||
 			config.itemLists.items_semi_illegal.includes(itemId) ||
 			config.itemLists.cbe_items.includes(itemId))
-		) entity.kill();
+		) entity.remove();
 	}
 
 	// IllegalItems/K = checks if a player places a chest boat with items already inside it
@@ -708,7 +708,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 				}
 
 				flag(player, "IllegalItems", "K", "Exploit", `totalSlots=${container.size},emptySlots=${container.emptySlotsCount}`, false, undefined, player.selectedSlot);
-				entity.kill();
+				entity.remove();
 			}
 		}, 1);
 	}
@@ -724,7 +724,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 			tellAllStaff(`§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area.`, ["notify"]);
 
 			for(const entityLoop of entities) {
-				entityLoop.kill();
+				entityLoop.remove();
 			}
 		}
 	}
