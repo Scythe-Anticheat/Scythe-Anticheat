@@ -33,10 +33,10 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if((config.disable_flags_from_scythe_op || checkData.exclude_scythe_op) && player.hasTag("op")) return;
 
     if(debug) {
-        // remove characters and newlines to prevent commands from breaking
+        // Remove characters and newlines to prevent commands from breaking
         debug = debug.replace(/"|\\|\n/gm, "");
 
-        // malicious users may try make the debug field ridiculously large to lag any clients that may
+        // Malicious users may try make the debug field ridiculously large to lag any clients that may
         // try to view the alert (anybody with the 'notify' tag)
         if(debug.length > 256) {
             const extraLength = debug.length - 256;
@@ -44,7 +44,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
     }
 
-    // If debug is enabled, then we log everything we know about the player.
+    // If debug is enabled, then log everything we know about the player.
     if(config.debug) {
         const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
 
@@ -311,7 +311,9 @@ export function msToTime(ms) {
     // validate that required params are defined
     if(typeof ms !== "number") throw TypeError(`Error: ms is type of ${typeof ms}. Expected "number"`);
 
-    if(ms > Date.now()) ms = ms - Date.now();
+    // If the milliseconds count is greater than now, subtract now.
+    const now = Date.now();
+    if(ms > now) ms = ms - now;
 
     // turn milliseconds into days, minutes, seconds, etc
     const w = Math.floor(ms / (1000 * 60 * 60 * 24 * 7));

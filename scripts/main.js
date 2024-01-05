@@ -76,14 +76,16 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	}
 
 	if(config.modules.spammerE.enabled) {
-		const lastMessageSent = Date.now() - player.lastMessageSent;
+		const now = Date.now();
+
+		const lastMessageSent = now - player.lastMessageSent;
 		if(lastMessageSent < config.modules.spammerE.messageRatelimit) {
 			flag(player, "Spammer", "E", "Misc", `lastMessageSent=${lastMessageSent}`);
 
 			if(config.modules.spammerE.sendWarningMessage) player.sendMessage("§r§6[§aScythe§6]§r Stop spamming! You are sending messages too fast.");
 			return;
 		}
-		player.lastMessageSent = Date.now();
+		player.lastMessageSent = now;
 	}
 });
 
@@ -133,10 +135,10 @@ system.runInterval(() => {
 
 				// Illegalitems/D = Additional item clearing check
 				if(config.modules.illegalitemsD.enabled) {
-					if(config.itemLists.items_very_illegal.includes(item.typeId)) flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
-
-					// Semi-illegal items
-					if(!player.hasTag("op")) {
+					if(config.itemLists.items_very_illegal.includes(item.typeId)) {
+						flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
+					} else if(!player.hasTag("op") && player.matches({excludeGameModes: [GameMode.creative]})) {
+						// Semi-illegal items
 						let flagPlayer = false;
 
 						// Check for spawn eggs
@@ -149,12 +151,10 @@ system.runInterval(() => {
 						}
 
 						if(
-							(
-								// Check for element blocks
-								(config.itemLists.elements && item.typeId.startsWith("minecraft:element_")) ||
-								config.itemLists.items_semi_illegal.includes(item.typeId) ||
-								flagPlayer
-							) && player.matches({excludeGameModes: [GameMode.creative]})
+							// Check for element blocks
+							(config.itemLists.elements && item.typeId.startsWith("minecraft:element_")) ||
+							config.itemLists.items_semi_illegal.includes(item.typeId) ||
+							flagPlayer
 						) {
 							flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
 						}
@@ -324,9 +324,7 @@ system.runInterval(() => {
 	}
 }, 0);
 
-world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
-	const { block, player } = blockPlace;
-
+world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
 
 	// IllegalItems/H = checks for pistons that can break any block
@@ -458,9 +456,8 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	}
 });
 
-world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
-	const brokenBlockId = blockBreak.brokenBlockPermutation.type.id;
-	const { player, dimension, block } = blockBreak;
+world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, brokenBlockPermutation }) => {
+	const brokenBlockId = brokenBlockPermutation.type.id;
 
 	let revertBlock = false;
 
@@ -507,7 +504,7 @@ world.afterEvents.playerBreakBlock.subscribe((blockBreak) => {
 
 		for(const item of droppedItems) item.remove();
 
-		block.setPermutation(blockBreak.brokenBlockPermutation);
+		block.setPermutation(brokenBlockPermutation);
 	}
 });
 
@@ -569,8 +566,7 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 });
 */
 
-world.afterEvents.playerSpawn.subscribe((playerJoin) => {
-	const { initialSpawn, player } = playerJoin;
+world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	if(!initialSpawn) return;
 
 	// Declare all needed variables
@@ -579,9 +575,9 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 		player.firstAttack = Date.now();
 		player.cps = 0;
 	}
-	if(config.modules.fastuseA.enabled) player.lastThrow = Date.now();
+	if(config.modules.fastuseA.enabled) player.lastThrow = 0;
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
-	if(config.modules.spammerE.enabled) player.lastMessageSent = Date.now();
+	if(config.modules.spammerE.enabled) player.lastMessageSent = 0;
 	if(config.customcommands.report.enabled) player.reports = [];
 
 	player.lastGoodPosition = player.location;
@@ -652,9 +648,7 @@ world.afterEvents.playerSpawn.subscribe((playerJoin) => {
 	if(config.misc_modules.welcomeMessage.enabled) player.sendMessage(config.misc_modules.welcomeMessage.message.replace(/\[@player]/g, player.name));
 });
 
-world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
-	const { entity } = entitySpawn;
-
+world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 	// If the entity dies right before this event triggers, an error will be thrown if any property is accessed
 	// This fixes that
 	if(!entity.isValid()) return;
@@ -742,9 +736,7 @@ world.afterEvents.entitySpawn.subscribe((entitySpawn) => {
 	}
 });
 
-world.afterEvents.entityHitEntity.subscribe((entityHit) => {
-	const { hitEntity: entity, damagingEntity: player} = entityHit;
-
+world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity: player}) => {
 	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
 	if(player.typeId !== "minecraft:player" || !entity.isValid()) return;
 
@@ -804,9 +796,7 @@ world.afterEvents.entityHitEntity.subscribe((entityHit) => {
 	if(config.debug) console.warn(player.getTags());
 });
 
-world.afterEvents.entityHitBlock.subscribe((entityHit) => {
-	const { damagingEntity: player} = entityHit;
-
+world.afterEvents.entityHitBlock.subscribe(({ damagingEntity: player}) => {
 	player.flagAutotoolA = false;
 	player.lastSelectedSlot = player.selectedSlot;
 	player.startBreakTime = Date.now();
@@ -819,21 +809,21 @@ world.beforeEvents.itemUse.subscribe((itemUse) => {
 	if(player.typeId !== "minecraft:player") return;
 
 	if(config.modules.fastuseA.enabled) {
-		const lastThrowTime = Date.now() - player.lastThrow;
+		const now = Date.now();
+
+		const lastThrowTime = now - player.lastThrow;
 		if(lastThrowTime > config.modules.fastuseA.min_use_delay && lastThrowTime < config.modules.fastuseA.max_use_delay) {
 			// flag(player, "FastUse", "A", "Combat", `lastThrowTime=${lastThrowTime}`);
 			itemUse.cancel = true;
 		}
-		player.lastThrow = Date.now();
+		player.lastThrow = now;
 	}
 
-	// patch bypasses for the freeze system
+	// Patch bypasses for the freeze system
 	if(player.hasTag("freeze")) itemUse.cancel = true;
 });
 
-world.afterEvents.itemUse.subscribe((itemUse) => {
-	const { itemStack: item, source: player } = itemUse;
-
+world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	// itemUse can be triggered from entities
 	if(player.typeId !== "minecraft:player") return;
 
@@ -851,19 +841,19 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	// and causing the server to crash
 	watchdogTerminate.cancel = true;
 
-	console.warn(`${new Date().toISOString()} | A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${watchdogTerminate.terminateReason}`);
+	tellAllStaff(`§r§6[§aScythe§6]§r A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${watchdogTerminate.terminateReason}`);
 });
 
-// When using /reload, the variables defined in playerJoin don't persist
+// When using /reload, the variables defined in playerJoin don't persist. This fixes that
 for(const player of world.getPlayers()) {
 	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
 	if(config.modules.autoclickerA.enabled) {
 		player.firstAttack = Date.now();
 		player.cps = 0;
 	}
-	if(config.modules.fastuseA.enabled) player.lastThrow = Date.now() - 200;
+	if(config.modules.fastuseA.enabled) player.lastThrow = 0;
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
-	if(config.modules.spammerE.enabled) player.lastMessageSent = Date.now();
+	if(config.modules.spammerE.enabled) player.lastMessageSent = 0;
 	if(config.customcommands.report.enabled) player.reports = [];
 
 	player.lastGoodPosition = player.location;

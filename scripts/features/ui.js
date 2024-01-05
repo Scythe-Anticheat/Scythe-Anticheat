@@ -165,7 +165,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
 }
 
 function banPlayerMenu(player, playerSelected, lastMenu = 0) {
-    if(!config.customcommands.kick.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Banning players is disabled in config.js.");
+    if(!config.customcommands.ban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Banning players is disabled in config.js.");
 
     player.playSound("mob.chicken.plop");
 
@@ -388,6 +388,10 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     menu.show(player).then((response) => {
         switch (response.selection) {
             case 0:
+                if(!config.customcommands.invsee.enabled) {
+                    return player.sendMessage("§r§6[§aScythe§6]§r Invsee is disabled in config.js.");
+                }
+
                 player.sendMessage(getInvseeMsg(playerSelected));
                 break;
 
@@ -400,6 +404,10 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 break;
 
             case 3:
+                if(!config.customcommands.stats.enabled) {
+                    return player.sendMessage("§r§6[§aScythe§6]§r Player Stats is disabled in config.js.");
+                }
+
                 player.sendMessage(getStatsMsg(playerSelected));
                 break;
 
