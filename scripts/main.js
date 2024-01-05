@@ -211,7 +211,7 @@ system.runInterval(() => {
 						// @ts-expect-error
 						const enchantTypeId = enchantData.type.id;
 
-						// badenchants/A = checks for items with invalid enchantment levels
+						// BadEnchants/A = checks for items with invalid enchantment levels
 						if(config.modules.badenchantsA.enabled) {
 							// @ts-expect-error
 							const maxLevel = config.modules.badenchantsA.levelExclusions[enchantData.type] ?? enchantData.type.maxLevel;
@@ -405,29 +405,28 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	}
 
 	// Get block under player
-	if(config.modules.scaffoldA.enabled) {
-		const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
+	const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
 
-		// Scaffold/A = Check for Tower like behavior
-		if(
-			!player.isFlying &&
-			player.isJumping &&
-			player.velocity.y < 1 &&
-			player.fallDistance < 0 &&
-			block.location.x === blockUnder?.location.x &&
-			block.location.y === blockUnder?.location.y &&
-			block.location?.z === blockUnder.location.z &&
-			!player.getEffect("jump_boost") &&
-			!block.typeId.includes("fence") &&
-			!block.typeId.includes("wall") &&
-			!block.typeId.includes("_shulker_box")
-		) {
-			const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
+	// Scaffold/A = Check for Tower like behavior
+	if(
+		config.modules.scaffoldA.enabled &&
+		!player.isFlying &&
+		player.isJumping &&
+		player.velocity.y < 1 &&
+		player.fallDistance < 0 &&
+		block.location.x === blockUnder?.location.x &&
+		block.location.y === blockUnder?.location.y &&
+		block.location?.z === blockUnder.location.z &&
+		!player.getEffect("jump_boost") &&
+		!block.typeId.includes("fence") &&
+		!block.typeId.includes("wall") &&
+		!block.typeId.includes("_shulker_box")
+	) {
+		const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
 
-			if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.matches({excludeGameModes: [GameMode.creative]})) {
-				flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
-				block.setType("air");
-			}
+		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.matches({excludeGameModes: [GameMode.creative]})) {
+			flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
+			block.setType("air");
 		}
 	}
 
@@ -442,6 +441,19 @@ world.afterEvents.playerPlaceBlock.subscribe((blockPlace) => {
 	// Make sure the players's y location is greater than the block placed's y location.
 	if(config.modules.scaffoldC.enabled && player.location.y > block.location.y && player.rotation.x < config.modules.scaffoldC.min_x_rot) {
 		flag(player, "Scaffold", "C", "World", `xRot=${player.rotation.x},yRotPlayer=${player.location.y},yBlockPos=${block.location.y}`);
+		block.setType("air");
+	}
+
+	// Scaffold/D = Check for downwards scaffold
+	// This checks if a player places a block under the block they are currently standing on
+	if(
+		config.modules.scaffoldD.enabled &&
+		blockUnder?.isSolid &&
+		Math.trunc(player.location.x) === block.location.x &&
+		(Math.trunc(player.location.y) - 2) === block.location.y &&
+		Math.trunc(player.location.z) === block.location.z
+	) {
+		flag(player, "Scaffold", "D", "World", `playerYpos=${player.location.y},blockXpos=${block.location.x},blockYpos=${block.location.y},blockZpos=${block.location.z}`);
 		block.setType("air");
 	}
 });
