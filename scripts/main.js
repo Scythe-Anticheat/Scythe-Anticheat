@@ -88,12 +88,12 @@ world.afterEvents.chatSend.subscribe((msg) => {
 });
 
 system.runInterval(() => {
+	const now = Date.now();
 	if(config.misc_modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
 	// Run as each player
 	for(const player of world.getPlayers()) {
 		try {
-			const now = Date.now();
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
 
@@ -121,38 +121,25 @@ system.runInterval(() => {
 				setScore(player, "zPos", Math.floor(player.location.z));
 			}
 
-			const playerSpeed = Number(Math.sqrt(Math.abs(player.velocity.x ** 2 + player.velocity.z ** 2)).toFixed(2));
-
-			// NoSlow/A = speed limit check
-			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
-				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
-
-				const heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlot);
-
-				if(blockBelow && !blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem?.typeId ?? "minecraft:air"},blockBelow=${blockBelow.typeId}`, true);
-				}
-			}
-
 			const container = player.getComponent("inventory")?.container;
 			for(let i = 0; i < 36; i++) {
 				// @ts-expect-error
 				const item = container.getItem(i);
 				if(!item) continue;
 
-				// Illegalitems/C = item stacked over 64 check
+				// Illegalitems/C = Check for items stacked over max amount
 				if(config.modules.illegalitemsC.enabled && item.amount > item.maxAmount)
 					flag(player, "IllegalItems", "C", "Exploit", `stack=${item.amount}`, false, undefined, i);
 
-				// Illegalitems/D = additional item clearing check
+				// Illegalitems/D = Additional item clearing check
 				if(config.modules.illegalitemsD.enabled) {
 					if(config.itemLists.items_very_illegal.includes(item.typeId)) flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
 
-					// semi illegal items
+					// Semi-illegal items
 					if(!player.hasTag("op")) {
 						let flagPlayer = false;
 
-						// Check spawn eggs
+						// Check for spawn eggs
 						if(item.typeId.endsWith("_spawn_egg")) {
 							if(config.itemLists.spawnEggs.clearVanillaSpawnEggs && item.typeId.startsWith("minecraft:"))
 								flagPlayer = true;
@@ -179,7 +166,7 @@ system.runInterval(() => {
 					}
 				}
 
-				// CommandBlockExploit/H = clear items
+				// CommandBlockExploit/H = Clear CBE Items
 				if(config.modules.commandblockexploitH.enabled && config.itemLists.cbe_items.includes(item.typeId))
 					flag(player, "CommandBlockExploit", "H", "Exploit", `item=${item.typeId}`, false, undefined, i);
 
@@ -264,6 +251,19 @@ system.runInterval(() => {
 							enchantments.push(enchantTypeId);
 						}
 					}
+				}
+			}
+
+			const playerSpeed = Number(Math.sqrt(Math.abs(player.velocity.x ** 2 + player.velocity.z ** 2)).toFixed(2));
+
+			// NoSlow/A = Speed limit check
+			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
+				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
+
+				const heldItem = container?.getItem(player.selectedSlot);
+
+				if(blockBelow && !blockBelow.typeId.includes("ice")) {
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem?.typeId ?? "minecraft:air"},blockBelow=${blockBelow.typeId}`, true);
 				}
 			}
 
