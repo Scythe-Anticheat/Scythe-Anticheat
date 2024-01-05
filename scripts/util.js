@@ -335,7 +335,7 @@ export function msToTime(ms) {
  * @param {string} objective - The player to get the scoreboard value from
  * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl", 0)
- * @remarks Get's the scoreboard objective value for a player
+ * @remarks Gets the scoreboard objective value for a player
  * @returns {number} score - The scoreboard objective value
  */
 export function getScore(player, objective, defaultValue = 0) {
@@ -442,7 +442,7 @@ export function tellAllStaff(message, tags = ["op"]) {
 
 /**
  * @name getBlocksBetween
- * @remarks Find every possible coordinate between two sets of Vector3's
+ * @remarks Find every possible coordinate between two sets of Vector3
  * @param {object} pos1 - First set of coordinates
  * @param {object} pos2 - Second set of coordinates
  * @returns {Array} coordinates - Each possible coordinate

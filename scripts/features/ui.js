@@ -46,8 +46,8 @@ const punishments = {
 
 const punishmentSettings = ["punishment","punishmentLength","minVlbeforePunishment"];
 
-// this is the function that will be called when the player wants to open the GUI
-// all other GUI functions will be called from here
+// This is the function that will be called when the player wants to open the GUI
+// All other GUI functions will be called from here
 export function mainGui(player, error) {
     player.playSound("mob.chicken.plop");
 
@@ -123,12 +123,10 @@ function banMenuSelect(player, selection) {
 
     menu.show(player).then((response) => {
         // Check if the form was cancelled. Response.selection is checked if its undefined to prevent typing errors
-        if(response.selection === undefined) return banMenu(player);
+        if(response.selection === undefined || allPlayers.length < response.selection) return banMenu(player);
 
-        if(allPlayers.length > response.selection) {
-            if(selection === 0) kickPlayerMenu(player, allPlayers[response.selection]);
-                else banPlayerMenu(player, allPlayers[response.selection]);
-        } else banMenu(player);
+        if(selection === 0) kickPlayerMenu(player, allPlayers[response.selection]);
+            else banPlayerMenu(player, allPlayers[response.selection]);
     });
 }
 
@@ -572,10 +570,10 @@ function debugSettingsMenu(player) {
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
         .button("Disable Debug Intents", icons.debug)
         .button("Randomize Inventory", icons.debug)
-        .button("Test flag", icons.debug)
+        .button("Test Flag", icons.debug)
         .button("Force Watchdog Stack Overflow", icons.debug)
         .button("Force Watchdog Hang", icons.debug)
-        .button("Force Watchdog Memory Crash Type 1", icons.debug)
+        .button("Force Watchdog Memory Crash", icons.debug)
         .button("Back", icons.back);
     menu.show(player).then((response) => {
         switch(response.selection) {
@@ -610,9 +608,7 @@ function debugSettingsMenu(player) {
                 break;
 
             case 3: {
-                const troll = () => {
-                    troll();
-                };
+                const troll = () => troll();
                 troll();
                 break;
             }
@@ -620,8 +616,6 @@ function debugSettingsMenu(player) {
             case 4:
                 // eslint-disable-next-line no-constant-condition
                 while(true) {}
-                // eslint-disable-next-line
-                break;
 
             case 5:
                 config.array = [config];
@@ -629,8 +623,6 @@ function debugSettingsMenu(player) {
                 while(true) {
                     config.array.push(config);
                 }
-                // eslint-disable-next-line
-                break;
 
             default:
                 mainGui(player);

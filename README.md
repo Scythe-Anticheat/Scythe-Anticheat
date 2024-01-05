@@ -51,7 +51,7 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 
   Command Block Exploit -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Kill all spawned in command block minecarts.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Kills all NPC's. (to enable use /function settings/npc)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Kill all NPCs. (to enable use /function settings/npc)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Instant despawn time for command block minecarts.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(F) => Prevents the placement of beehives, beenests and movingblocks.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(G) => Additional killing check.\*<br/>

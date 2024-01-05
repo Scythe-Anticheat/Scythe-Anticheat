@@ -31,8 +31,8 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	}
 
 	if(!msg.cancel) {
-		// add's user custom tags to their messages if it exists or we fall back
-		// also filter for non ASCII characters and remove them in messages
+		// Adds user custom tags to their messages if it exists or we fall back
+		// Also filter for non ASCII characters and remove them in messages
 		if(player.name !== player.nameTag && !config.misc_modules.filterUnicodeChat.enabled) {
 			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
 			msg.cancel = true;
@@ -76,9 +76,9 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	}
 
 	if(config.modules.spammerE.enabled) {
-		const lastMessageSentMS = Date.now() - player.lastMessageSent;
-		if(lastMessageSentMS < config.modules.spammerE.messageRatelimit) {
-			flag(player, "Spammer", "E", "Misc", `lastMessageSent=${lastMessageSentMS}`);
+		const lastMessageSent = Date.now() - player.lastMessageSent;
+		if(lastMessageSent < config.modules.spammerE.messageRatelimit) {
+			flag(player, "Spammer", "E", "Misc", `lastMessageSent=${lastMessageSent}`);
 
 			if(config.modules.spammerE.sendWarningMessage) player.sendMessage("§r§6[§aScythe§6]§r Stop spamming! You are sending messages too fast.");
 			return;
@@ -90,20 +90,21 @@ world.afterEvents.chatSend.subscribe((msg) => {
 system.runInterval(() => {
 	if(config.misc_modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
 
-	// run as each player
+	// Run as each player
 	for(const player of world.getPlayers()) {
 		try {
+			const now = Date.now();
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
 
-			// sexy looking ban message
+			// Sexy looking ban message
 			if(player.hasTag("isBanned")) banMessage(player);
 
 			if(player.blocksBroken >= 1 && config.modules.nukerA.enabled) player.blocksBroken = 0;
 			if(player.entitiesHit?.length >= 1 && config.modules.killauraC.enabled) player.entitiesHit = [];
-			if(Date.now() - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
+			if(now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
 				player.flagAutotoolA = true;
-				player.autotoolSwitchDelay = Date.now() - player.startBreakTime;
+				player.autotoolSwitchDelay = now - player.startBreakTime;
 			}
 
 			/*
@@ -281,13 +282,13 @@ system.runInterval(() => {
 					else if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
 			}
 
-			if(config.modules.autoclickerA.enabled && player.cps > 0 && Date.now() - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
-				const cps = player.cps / ((Date.now() - player.firstAttack) / 1000);
+			if(config.modules.autoclickerA.enabled && player.cps > 0 && now - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
+				const cps = player.cps / ((now - player.firstAttack) / 1000);
 
 				// Autoclicker/A = Check for high cps
 				if(cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", `cps=${cps}`);
 
-				player.firstAttack = Date.now();
+				player.firstAttack = now;
 				player.cps = 0;
 			}
 
