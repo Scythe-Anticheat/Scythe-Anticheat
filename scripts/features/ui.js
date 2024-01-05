@@ -8,6 +8,7 @@ import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
 import { wipeEnderchest } from "../commands/utility/ecwipe.js";
 import { getInvseeMsg } from "../commands/utility/invsee.js";
 import { freezePlayer, unfreezePlayer } from "../commands/utility/freeze.js";
+import { disableFly, enableFly } from "../commands/utility/fly.js";
 
 import config from "../data/config.js";
 import data from "../data/data.js";
@@ -393,9 +394,11 @@ export function playerSettingsMenuSelected(player, playerSelected) {
             case 0:
                 player.sendMessage(getInvseeMsg(playerSelected));
                 break;
+
             case 1:
                 kickPlayerMenu(player, playerSelected, 1);
                 break;
+
             case 2:
                 banPlayerMenu(player, playerSelected, 1);
                 break;
@@ -417,15 +420,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
                 }
 
-                if(playerSelected.hasTag("flying")) {
-                    playerSelected.runCommandAsync("function tools/fly");
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has disabled fly mode for ${playerSelected.name}.`);
-                } else {
-                    playerSelected.runCommandAsync("function tools/fly");
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has enabled fly mode for ${playerSelected.name}.`);
-                }
-
-                playerSettingsMenuSelected(player, playerSelected);
+                playerSelected.hasTag("flying") ? disableFly(playerSelected, player) : enableFly(playerSelected, player);
                 break;
 
             case 6:
@@ -434,8 +429,6 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 }
 
                 playerSelected.hasTag("freeze") ? unfreezePlayer(playerSelected, player) : freezePlayer(playerSelected, player);
-
-                playerSettingsMenuSelected(player, playerSelected);
                 break;
 
             case 7:
@@ -476,8 +469,6 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     playerSelected.runCommandAsync("function tools/vanish");
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unvanished ${playerSelected.name}.`);
                 }
-
-                playerSettingsMenuSelected(player, playerSelected);
                 break;
 
             case 10:
