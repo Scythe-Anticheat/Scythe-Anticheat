@@ -23,7 +23,6 @@ const icons = {
     mute_off: "textures/ui/mute_off.png",
     mute_on: "textures/ui/mute_on.png",
     debug: "textures/ui/debug_glyph_color.png",
-    invisibility: "textures/ui/invisibility_effect.png",
     arrow: "textures/ui/arrow.png"
 };
 
@@ -384,7 +383,6 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     playerSelected.hasTag("op") ? menu.button("Remove Player as Scythe-Op", icons.member) :  menu.button("Set Player as Scythe-Op", icons.op);
 
     menu
-        .button(playerSelected.hasTag("vanish") ? "Unvanish Player" : "Vanish Player", icons.invisibility)
         .button("Teleport", icons.arrow)
         .button("Switch Gamemode", icons.op)
         .button("Back", icons.back);
@@ -458,24 +456,10 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                 break;
 
             case 9:
-                if(!config.customcommands.vanish.enabled) {
-                    return player.sendMessage("§r§6[§aScythe§6]§r Toggling Vanish is disabled in config.js.");
-                }
-
-                if(playerSelected.hasTag("vanished")) {
-                    playerSelected.runCommandAsync("function tools/vanish");
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has put ${playerSelected.name} into vanish.`);
-                } else {
-                    playerSelected.runCommandAsync("function tools/vanish");
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unvanished ${playerSelected.name}.`);
-                }
-                break;
-
-            case 10:
                 playerSettingsMenuSelectedTeleport(player, playerSelected);
                 break;
 
-            case 11:
+            case 10:
                 playerSettingsMenuSelectedGamemode(player, playerSelected);
                 break;
 
@@ -520,7 +504,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         .button("Gamemode Survival", icons.member)
         .button("Gamemode Creative", icons.op)
         .button("Gamemode Adventure", "textures/ui/permissions_visitor_hand.png")
-        .button("Gamemode Spectator", icons.invisibility)
+        .button("Gamemode Spectator", "textures/ui/invisibility_effect.png")
         .button("Default Gamemode", "textures/ui/recap_glyph_desaturated.png")
         .button("Back", icons.back);
 
