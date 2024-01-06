@@ -8,7 +8,7 @@
 						"jump": "query.is_jumping"
 					}],
 					"on_entry": [
-						"/tag @s remove jump",
+						// "/tag @s remove jump",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aJUMP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -17,7 +17,7 @@
 						"default": "!query.is_jumping"
 					}],
 					"on_entry": [
-						"/tag @s add jump",
+						// "/tag @s add jump",
 						"/tp @s[tag=freeze] ~~-0.5~",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aJUMP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
@@ -31,7 +31,7 @@
 						"glide": "query.is_gliding"
 					}],
 					"on_entry": [
-						"/tag @s remove gliding",
+						// "/tag @s remove gliding",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGLIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -40,7 +40,7 @@
 						"default": "!query.is_gliding"
 					}],
 					"on_entry": [
-						"/tag @s add gliding",
+						// "/tag @s add gliding",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGLIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
@@ -53,7 +53,7 @@
 						"levitate": "query.is_levitating"
 					}],
 					"on_entry": [
-						"/tag @s remove levitating",
+						// "/tag @s remove levitating",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEVITATE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -62,7 +62,7 @@
 						"default": "!query.is_levitating"
 					}],
 					"on_entry": [
-						"/tag @s add levitating",
+						// "/tag @s add levitating",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEVITATE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
@@ -97,7 +97,7 @@
 						"dead": "!query.is_alive"
 					}],
 					"on_entry": [
-						"/tag @s remove dead",
+						// "/tag @s remove dead",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aDEATH§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -106,7 +106,7 @@
 						"default": "query.is_alive"
 					}],
 					"on_entry": [
-						"/tag @s add dead",
+						// "/tag @s add dead",
 						"/tag @s remove right",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aDEATH§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
@@ -164,7 +164,7 @@
 			"states": {
 				"default": {
 					"transitions": [{
-					// wacky solution at fixing a false positive, but whatever
+						// Wacky solution at fixing a false positive, but whatever
 						"right": "query.is_using_item && query.get_equipped_item_name != 'fishing_rod'"
 					}],
 					"on_entry": [
@@ -238,7 +238,7 @@
 						"swim": "query.is_swimming"
 					}],
 					"on_entry": [
-						"/tag @s remove swimming",
+						// "/tag @s remove swimming",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -247,7 +247,7 @@
 						"default": "!query.is_swimming"
 					}],
 					"on_entry": [
-						"/tag @s add swimming",
+						// "/tag @s add swimming",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}

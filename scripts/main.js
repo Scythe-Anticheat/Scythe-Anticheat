@@ -267,7 +267,7 @@ system.runInterval(() => {
 				flag(player, "InvalidSprint", "A", "Movement", undefined, false, true);
 
 			// fly/a
-			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.hasTag("levitating") && player.hasTag("moving")) {
+			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.getEffect("levitation") && player.hasTag("moving")) {
 				const pos1 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 				const pos2 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
 
@@ -322,7 +322,7 @@ system.runInterval(() => {
 			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
 		}
 	}
-}, 0);
+}, 1);
 
 world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
@@ -588,7 +588,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.removeTag("right");
 	player.removeTag("left");
 	player.removeTag("ground");
-	player.removeTag("gliding");
+	// player.removeTag("gliding");
 	player.removeTag("sprinting");
 	player.removeTag("moving");
 	player.removeTag("sleeping");
