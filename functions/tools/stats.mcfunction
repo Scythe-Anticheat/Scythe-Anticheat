@@ -5,7 +5,6 @@ execute @s[m=spectator] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[�
 execute @s[m=c] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Gamemode: Creative"}]}
 execute @s[m=s] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Gamemode: Survival"}]}
 execute @s[m=a] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Gamemode: Adventure"}]}
-tellraw @a[tag=notify,scores={gametestapi=1..}] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Position: "},{"score":{"name":"@s","objective":"xPos"}},{"text":", "},{"score":{"name":"@s","objective":"yPos"}},{"text":", "},{"score":{"name":"@s","objective":"zPos"}}]}
 
 execute @s[scores={autoclickervl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Autoclicker violations: §c"},{"score":{"name":"@s","objective":"autoclickervl"}}]}
 execute @s[scores={autoshieldvl=1..}] ~~~ tellraw @a[tag=notify] {"rawtext":[{"text":"§r§6[§aScythe§6]§r Autoshield violations: §c"},{"score":{"name":"@s","objective":"autoshieldvl"}}]}
