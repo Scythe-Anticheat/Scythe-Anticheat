@@ -42,7 +42,7 @@ export function getInvseeMsg(player) {
 	let inventory = `§r§6[§aScythe§6]§r ${player.name}'s inventory:\n\n`;
 
 	// This function loops through every enchantment on the item and then adds it to the inventory string. It is used if show_enchantments is enabled in the config
-	const loopEnchants = (allEnchantments) => {
+	const loopEnchants = (allEnchantments = []) => {
 		for(const enchantment of allEnchantments) {
 			const id = enchantment.type.id;
 			const level = enchantment.level;
