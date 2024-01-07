@@ -1,7 +1,7 @@
 // @ts-check
 import { world, system, GameMode, ItemTypes, ItemStack } from "@minecraft/server";
 
-import { flag, banMessage, getClosestPlayer, getScore, setScore, getBlocksBetween, tellAllStaff } from "./util.js";
+import { flag, banMessage, getClosestPlayer, getScore, getBlocksBetween, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 import banList from "./data/globalban.js";
@@ -115,13 +115,6 @@ system.runInterval(() => {
 				Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000)
 					flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 			*/
-
-			// player position shit
-			if(player.hasTag("moving")) {
-				setScore(player, "xPos", Math.floor(player.location.x));
-				setScore(player, "yPos", Math.floor(player.location.y));
-				setScore(player, "zPos", Math.floor(player.location.z));
-			}
 
 			const container = player.getComponent("inventory")?.container;
 			for(let i = 0; i < 36; i++) {
