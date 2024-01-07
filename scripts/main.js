@@ -396,7 +396,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	}
 
 	// Get block under player
-	const blockUnder = player.dimension.getBlock({x: Math.floor(player.location.x), y: Math.floor(player.location.y) - 1, z: Math.floor(player.location.z)});
+	const blockUnder = player.dimension.getBlock({x: Math.trunc(player.location.x), y: Math.trunc(player.location.y) - 1, z: Math.trunc(player.location.z)});
 
 	// Scaffold/A = Check for Tower like behavior
 	if(
@@ -413,7 +413,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		!block.typeId.includes("wall") &&
 		!block.typeId.includes("_shulker_box")
 	) {
-		const yPosDiff = player.location.y - Math.floor(Math.abs(player.location.y));
+		const yPosDiff = player.location.y - Math.trunc(Math.abs(player.location.y));
 
 		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.matches({excludeGameModes: [GameMode.creative]})) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
