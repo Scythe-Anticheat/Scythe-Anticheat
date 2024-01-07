@@ -633,6 +633,7 @@ export default
 		"elements": true,
 		"xray_items": [
 			"minecraft:diamond_ore",
+			"minecraft:deepslate_diamond_ore",
 			"minecraft:ancient_debris"
 		],
 		"cbe_items": [
