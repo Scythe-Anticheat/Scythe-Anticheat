@@ -488,7 +488,7 @@ export default
 		"noslowA": {
 			"enabled": true,
 			"speed": 0.12,
-			"maxSpeed": 0.16,
+			"maxSpeed": 0.28,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

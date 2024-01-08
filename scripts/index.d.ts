@@ -1,4 +1,4 @@
-import { Player, Entity, EntityComponent, Container, ItemComponent, EnchantmentList, Vector2, Vector3 } from "@minecraft/server";
+import { Player, Entity, EntityComponent, Container, ItemComponent, Vector2, Vector3 } from "@minecraft/server";
 
 declare module "@minecraft/server" {
 	interface Player {
