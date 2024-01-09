@@ -116,7 +116,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     // Handle punishments
     const punishment = checkData.punishment?.toLowerCase();
-    if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
 
     if(punishment === "none" || punishment === "" || currentVl < checkData.minVlbeforePunishment) return;
 

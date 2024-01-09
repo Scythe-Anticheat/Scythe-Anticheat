@@ -1,13 +1,6 @@
+import { EquipmentSlot } from "@minecraft/server";
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
-
-const equipmentList = [
-	"head",
-	"chest",
-	"legs",
-	"feet",
-	"offhand"
-];
 
 registerCommand({
 	name: "cloneinv",
@@ -24,12 +17,12 @@ registerCommand({
 		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
 		const playerInv = player.getComponent("inventory").container;
-		const playerArmor = player.getComponent("equipment_inventory");
+		const playerArmor = player.getComponent("equippable");
 
 		const memberInv = member.getComponent("inventory").container;
-		const memberArmor = player.getComponent("equipment_inventory");
+		const memberArmor = player.getComponent("equippable");
 
-		for(const equipment of equipmentList) {
+		for(const equipment of Object.keys(EquipmentSlot)) {
 			playerArmor.setEquipment(equipment, memberArmor.getEquipment(equipment));
 		}
 
