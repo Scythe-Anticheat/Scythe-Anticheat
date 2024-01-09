@@ -592,15 +592,44 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
 
 	// Backwards compatibility
-	for(const tag of player.getTags()) {
-		if(!tag.startsWith("tag:")) continue;
+	let reason;
+	let by;
+	let time;
 
-		player.setDynamicProperty("tag", tag.slice(4));
-		player.removeTag(tag);
+	for(const tag of player.getTags()) {
+		switch(tag.split(":")[0]) {
+			case "tag":
+				player.setDynamicProperty("tag", tag.slice(4));
+				player.removeTag(tag);
+				break;
+			
+			case "reason":
+				reason = tag;
+				player.removeTag(tag);
+				break;
+
+			case "by":
+				by = tag;
+				player.removeTag(tag);
+				break;
+			
+			case "time":
+				time = tag;
+				player.removeTag(tag);
+				break;
+		}
 	}
 
 	const tag = player.getDynamicProperty("tag");
 	if(tag) player.nameTag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${player.nameTag}`;
+
+	if(reason && by && time) {
+		player.setDynamicProperty("banInfo", JSON.stringify({
+			by: by.slice(3),
+			reason: reason.slice(7),
+			time: time ? Number(time.slice(5)) : null
+		}));
+	}
 
 	// Namespoof/A = username length check.
 	if(config.modules.namespoofA.enabled) {
