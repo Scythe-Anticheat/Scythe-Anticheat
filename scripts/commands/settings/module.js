@@ -48,7 +48,7 @@ function execute(message, args, commandName) {
 			newValue = value;
 			break;
 			
-		// "Object" type is kind of a wildcard, it can refer to normal objects, arrays,, regexs, promises, etc
+		// "Object" type is kind of a wildcard, it can refer to normal objects, arrays, regexs, promises, etc
 		case "object": {
 			// Normal objects and Arrays can both be parsed with JSON.parse
 			if(moduleData[name] instanceof RegExp) {

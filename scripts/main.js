@@ -1,12 +1,12 @@
 // @ts-check
+import banList from "./data/globalban.js";
+import config from "./data/config.js";
 import { world, system, GameMode, ItemTypes, ItemStack } from "@minecraft/server";
-
 import { flag, banMessage, getClosestPlayer, getScore, getBlocksBetween, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
-import banList from "./data/globalban.js";
-import config from "./data/config.js";
-import data from "./data/data.js";
+
+let entitiesSpawnedInLastTick = 0;
 
 if(config.debug) console.warn(`${new Date().toISOString()} | Im not a ******* and this actually worked :sunglasses:`);
 
@@ -91,7 +91,7 @@ world.afterEvents.chatSend.subscribe((msg) => {
 
 system.runInterval(() => {
 	const now = Date.now();
-	if(config.misc_modules.itemSpawnRateLimit.enabled) data.entitiesSpawnedInLastTick = 0;
+	if(config.misc_modules.itemSpawnRateLimit.enabled) entitiesSpawnedInLastTick = 0;
 
 	// Run as each player
 	for(const player of world.getPlayers()) {
@@ -676,9 +676,9 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 	if(!entity.isValid()) return;
 
 	if(config.misc_modules.itemSpawnRateLimit.enabled) {
-		data.entitiesSpawnedInLastTick++;
+		entitiesSpawnedInLastTick++;
 
-		if(data.entitiesSpawnedInLastTick > config.misc_modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
+		if(entitiesSpawnedInLastTick > config.misc_modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
 			if(config.debug) console.warn(`Killed "${entity.typeId}" due to entity spawn ratelimit reached.`);
 			entity.remove();
 		}
