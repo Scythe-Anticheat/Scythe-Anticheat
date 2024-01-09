@@ -100,7 +100,7 @@ system.runInterval(() => {
 			player.rotation = player.getRotation();
 
 			// Sexy looking ban message
-			if(player.hasTag("isBanned")) banMessage(player);
+			if(player.getDynamicProperty("banInfo")) banMessage(player);
 
 			if(player.blocksBroken >= 1 && config.modules.nukerA.enabled) player.blocksBroken = 0;
 			if(player.entitiesHit?.length >= 1 && config.modules.killauraC.enabled) player.entitiesHit = [];
@@ -370,7 +370,6 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 
 			flag(player, "IllegalItems", "N", "Exploit", `item_count=${container.size - container.emptySlotsCount}`, false, undefined, player.selectedSlot);
 			container.clearAll();
-
 			break;
 		}
 	}
@@ -629,9 +628,11 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	// check if the player is in the global ban list
 	if(banList.includes(player.name.toLowerCase())) {
-		player.addTag("by:Scythe Anticheat");
-		player.addTag("reason:You are Scythe Anticheat global banned!");
-		player.addTag("isBanned");
+		player.setDynamicProperty("banInfo", JSON.stringify({
+			by: "Scythe Anticheat",
+			reason: "You are Scythe Anticheat global banned!",
+			time: null
+		}));
 	}
 
 	// @ts-expect-error

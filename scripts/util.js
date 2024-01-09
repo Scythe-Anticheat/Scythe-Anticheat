@@ -133,11 +133,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             // Check if auto-banning is disabled
             if(!config.autoban) break;
 
-            // Remove old ban data
-            for(const t of player.getTags()) {
-                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-            }
-
             const punishmentLength = checkData.punishmentLength?.toLowerCase();
             let banLength;
 
@@ -145,10 +140,11 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 banLength = isNaN(punishmentLength) ? parseTime(punishmentLength) : Number(punishmentLength);
             }
 
-            player.addTag("by:Scythe Anticheat");
-            player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
-            if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
-            player.addTag("isBanned");
+            player.setDynamicProperty("banInfo", JSON.stringify({
+                by: "Scythe Anticheat",
+                reason: `Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`,
+                time: typeof banLength === "number" ? Date.now() + banLength : null
+            }));
 
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
             break;
@@ -199,17 +195,13 @@ export function banMessage(player) {
 
     // @ts-expect-error
     if(data.unbanQueue.includes(player.name.toLowerCase())) {
-        player.removeTag("isBanned");
+        player.setDynamicProperty("banInfo", undefined);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
 
-        for(const t of player.getTags()) {
-            if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-        }
-
-        // remove the player from the unban queue
+        // Remove the player from the unban queue
         for(let i = -1; i < data.unbanQueue.length; i++) {
-            if(data.unbanQueue[i] !== player.name.toLowerCase().split(" ")[0]) continue;
+            if(data.unbanQueue[i] !== player.name.toLowerCase()) continue;
 
             data.unbanQueue.splice(i, 1);
             break;
@@ -217,38 +209,26 @@ export function banMessage(player) {
         return;
     }
 
-    let reason;
-    let by;
-    let time;
+    // @ts-expect-error
+    const { by, reason, time } = JSON.parse(player.getDynamicProperty("banInfo"));
+    
+    let friendlyTime;
 
-    for(const t of player.getTags()) {
-        if(t.startsWith("by:")) by = t.slice(3);
-            else if(t.startsWith("reason:")) reason = t.slice(7);
-            else if(t.startsWith("time:")) time = Number(t.slice(5));
-    }
-
-
-    if(time) {
+    if(time && time !== null) {
         if(time < Date.now()) {
-           tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned.`, ["notify"]);
+           tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned.`);
 
-            // Ban expired, woo
-            player.removeTag("isBanned");
-
-            for(const t of player.getTags()) {
-                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-            }
-
+            player.setDynamicProperty("banInfo", undefined);
             return;
         }
 
-        time = msToTime(Number(time));
-        time = `${time.w} weeks, ${time.d} days, ${time.h} hours, ${time.m} minutes, ${time.s} seconds`;
+        const { w, d, h, m, s} = msToTime(Number(time));
+        friendlyTime = `${w} weeks, ${d} days, ${h} hours, ${m} minutes, ${s} seconds`;
     }
 
     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason ?? "You are banned!"}.`);
 
-    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${time || "Permanent"}`);
+    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${friendlyTime || "Permanent"}`);
     player.triggerEvent("scythe:kick");
 }
 

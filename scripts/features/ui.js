@@ -196,15 +196,11 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         const banLength = parseTime(`${formValues[1]}d`);
         const permBan = formValues[2];
 
-        // Remove old ban data
-        for(const t of playerSelected.getTags()) {
-            if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) playerSelected.removeTag(t);
-        }
-
-        playerSelected.addTag(`reason:${reason}`);
-        playerSelected.addTag(`by:${player.name}`);
-        if(banLength && !permBan) playerSelected.addTag(`time:${Date.now() + banLength}`);
-        playerSelected.addTag("isBanned");
+        player.setDynamicProperty("banInfo", JSON.stringify({
+            by: player.name,
+            reason: reason,
+            time: (banLength && !permBan) ? Date.now() + banLength : null
+        }));
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${playerSelected.nameTag} for ${reason}`);
     });
