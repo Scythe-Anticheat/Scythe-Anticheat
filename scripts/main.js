@@ -579,7 +579,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.removeTag("hasGUIopen");
 	player.removeTag("right");
 	player.removeTag("left");
-	player.removeTag("ground");
 	// player.removeTag("gliding");
 	player.removeTag("sprinting");
 	player.removeTag("moving");
