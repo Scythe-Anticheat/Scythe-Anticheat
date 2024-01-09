@@ -20,8 +20,9 @@ registerCommand({
         // Make sure they don't have the UI item in their current slot
         const currentItem = container.getItem(player.selectedSlot);
 
-        if(currentItem?.typeId === config.customcommands.ui.ui_item && currentItem?.nameTag === config.customcommands.ui.ui_item_name)
+        if(currentItem?.typeId === config.customcommands.ui.ui_item && currentItem?.nameTag === config.customcommands.ui.ui_item_name) {
             return player.sendMessage("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
+        }
 
         // Create the item that opens the UI
         const item = new ItemStack(config.customcommands.ui.ui_item, 1);

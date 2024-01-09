@@ -33,7 +33,7 @@ registerCommand({
 
 /**
  * @name getInvseeMsg
- * @param {import("@minecraft/server").Player} player 
+ * @param {import("@minecraft/server").Player} player
  * @returns {string} msg - A list of all the items in the players inventory
  */
 export function getInvseeMsg(player) {
@@ -90,7 +90,7 @@ export function getInvseeMsg(player) {
 			loopEnchants(item.getComponent("enchantable")?.getEnchantments());
 		}
 	}
-	
+
 	if(!foundItem) return `§r§6[§aScythe§6]§r ${player.name}'s inventory is empty.`;
 
 	return inventory.replace(/\n+$/, "");

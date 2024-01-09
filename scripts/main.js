@@ -601,7 +601,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 				player.setDynamicProperty("tag", tag.slice(4));
 				player.removeTag(tag);
 				break;
-			
+
 			case "reason":
 				reason = tag;
 				player.removeTag(tag);
@@ -611,7 +611,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 				by = tag;
 				player.removeTag(tag);
 				break;
-			
+
 			case "time":
 				time = tag;
 				player.removeTag(tag);

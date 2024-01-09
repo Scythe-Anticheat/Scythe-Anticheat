@@ -351,11 +351,9 @@ function playerSettingsMenu(player) {
     const menu = createSelectPlayerMenu("Player Menu", allPlayers, player);
 
     menu.show(player).then((response) => {
-        if(response.selection !== undefined && allPlayers.length > response.selection) {
-            playerSettingsMenuSelected(player, allPlayers[response.selection]);
-        } else {
-            mainGui(player);
-        }
+        if(response.selection === undefined || allPlayers.length < response.selection) return mainGui(player);
+
+        playerSettingsMenuSelected(player, allPlayers[response.selection]);
     });
 }
 
@@ -522,7 +520,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
                 playerSelected.runCommandAsync("gamemode 5");
                 break;
 
-            // Handles changing to survival, creative and adventure
+            // Handles changing to survival, creative, and adventure
             default:
                 playerSelected.runCommandAsync(`gamemode ${response.selection}`);
         }
@@ -556,7 +554,7 @@ function serverManagementMenu(player) {
             case 1:
                 toggleGlobalMute(player);
                 break;
-            
+
             case 2:
                 mainGui(player);
         }

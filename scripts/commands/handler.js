@@ -1,5 +1,4 @@
 // @ts-check
-
 import { world, system } from "@minecraft/server";
 import config from "../data/config.js";
 
@@ -38,7 +37,6 @@ export function commandHandler(msg) {
     if(typeof msg !== "object") throw TypeError(`msg is type of ${typeof msg}. Expected "object"`);
 
     const { message, sender: player } = msg;
-    if(!message) return;
 
     if(config.debug) console.warn(`${new Date().toISOString()} | did run command handler`);
 
@@ -46,7 +44,8 @@ export function commandHandler(msg) {
     if(!message.startsWith(prefix)) return;
 
     // Converts '!ban "test player" 14d hacker' to ['!ban','test player','14d','hacker']
-    const args = message.slice(prefix.length).match(/(".*?"|\S+)/g)?.map((/** @type {string} */ match) => match.replace(/"/g, ''));
+    // Remove the first @ symbol as its used for auto-filling usernames and isn't needed
+    const args = message.slice(prefix.length).replace("@", "").match(/(".*?"|\S+)/g)?.map((/** @type {string} */ match) => match.replace(/"/g, ''));
     if(!args) return;
 
     const command = args.shift()?.toLowerCase().trim();
@@ -107,7 +106,7 @@ export function commandHandler(msg) {
                 name: msg.sender.name
             })[0]
         };
-    
+
         system.run(async () => {
             try {
                await commands[commandName].execute(newMsg, args, commandName);
