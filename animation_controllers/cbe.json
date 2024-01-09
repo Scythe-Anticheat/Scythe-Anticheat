@@ -9,8 +9,8 @@
 					"on_entry": [
 						"/scoreboard players add @p cbevl 1",
 						"/execute @p ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(command_block_minecart)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
-						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace bee_nest -1",
-						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace beehive -1",
+						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air replace bee_nest",
+						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air replace beehive",
 						"/kill @e[type=command_block_minecart]",
 						"/kill @s"
 					]
@@ -25,8 +25,8 @@
 						"/scoreboard players operation @s npc = scythe:config npc",
 						"/execute @s[scores={npc=1..}] ~~~ scoreboard players add @p cbevl 1",
 						"/execute @s[scores={npc=1..}] ~~~ execute @p ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(npc)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
-						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace bee_nest -1",
-						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air 0 replace beehive -1",
+						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air replace bee_nest",
+						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air replace beehive",
 						"/execute @s[scores={npc=1..}] ~~~ kill @e[type=npc]",
 						"/kill @s[scores={npc=1..}]",
 						"/event entity @s[scores={npc=1..}] scythe:despawn"

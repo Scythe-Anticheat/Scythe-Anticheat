@@ -14,11 +14,7 @@
 	"modules": [{
 			"type": "data",
 			"uuid": "d059cc96-9272-4a33-90c8-f572bcc7fa56",
-			"version": [
-				1,
-				0,
-				0
-			]
+			"version": [ 1, 0, 0 ]
 		},
 		{
 			"description": "Scythe Anticheat Beta API Features",
