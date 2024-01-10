@@ -230,6 +230,10 @@ function unbanPlayerMenu(player) {
         // @ts-expect-error
         const playerToUnban = formValues[0].toLowerCase(); // String
 
+        if(playerToUnban.length > 20) {
+            return player.sendMessage("§r§6[§aScythe§6]§r That player name is too long. It must be less than 20 characters long.");
+        }
+
         // @ts-expect-error
         const reason = formValues[1].replace(/"|\\/g, "") ?? "No Reason Provided";
 

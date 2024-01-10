@@ -15,7 +15,7 @@ registerCommand({
         if(time) args.splice(1, 1);
 
         // Remove player name and join all arguments together
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "") ?? "No reason specified";
+        const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
         // Find the player requested
         const member = findPlayerByName(args[0]);

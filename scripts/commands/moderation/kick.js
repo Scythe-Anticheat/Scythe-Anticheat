@@ -13,7 +13,7 @@ registerCommand({
         let isSilent = false;
         if(args[1] === "-s" || args[1] === "--silent") isSilent = true;
 
-        const reason = args.slice(1).join(" ").replace(/-s|-silent|"|\\/g, "") ?? "No reason specified";
+        const reason = args.slice(1).join(" ").replace(/-s|-silent|"|\\/g, "") || "No reason specified";
 
         // Find the player requested
         const member = findPlayerByName(args[0]);
