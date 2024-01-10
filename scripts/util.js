@@ -1,6 +1,5 @@
 // @ts-check
 import config from "./data/config.js";
-import data from "./data/data.js";
 import { world } from "@minecraft/server";
 
 /**
@@ -193,18 +192,17 @@ export function banMessage(player) {
     if(config.flagWhitelist.includes(player.name) && player.hasTag("op")) return;
 
     // @ts-expect-error
-    if(data.unbanQueue.includes(player.name.toLowerCase())) {
+    const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue"));
+
+    // We check for an array as a player can join with a spoofed name such as "__proto__" and automatically get unbanned, as an Object...
+    // has a property called "__proto__"
+    if(Array.isArray(unbanQueue[player.name.toLowerCase()])) {
         player.setDynamicProperty("banInfo", undefined);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
 
-        // Remove the player from the unban queue
-        for(let i = -1; i < data.unbanQueue.length; i++) {
-            if(data.unbanQueue[i] !== player.name.toLowerCase()) continue;
-
-            data.unbanQueue.splice(i, 1);
-            break;
-        }
+        delete unbanQueue[player.name.toLowerCase()];
+        world.setDynamicProperty("unbanQueue", JSON.stringify(unbanQueue));
         return;
     }
 

@@ -9,6 +9,18 @@ if(!world.getDynamicProperty("globalmute")) {
 	}));
 }
 
+if(!world.getDynamicProperty("unbanQueue")) {
+	/*
+		The data in the object should have the following format:
+
+		Key: <player username>
+		Value: [<unbanner>, <reason>]
+
+		The data is stored in an array to conserve storage as dynamic property strings have a limit of 32767 characters
+	*/
+	world.setDynamicProperty("unbanQueue", "{}");
+}
+
 // Register all commands
 import "./commands/moderation/kick.js";
 import "./commands/other/help.js";

@@ -1,6 +1,6 @@
+import { world } from "@minecraft/server";
 import { tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
-import data from "../../data/data.js";
 
 registerCommand({
     name: "unban",
@@ -13,11 +13,16 @@ registerCommand({
 
         const reason = args.slice(1).join(" ").replace(/"|\\/g, "") ?? "No reason specified";
 
-        const member = args[0].replace(/\\/g, "");
+        const member = args[0].replace(/\\/g, "").toLowerCase();
 
-        if(data.unbanQueue.includes(member)) return player.sendMessage(`§r§6[§aScythe§6]§r ${member} is already queued for an unban.`);
+        const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue")); // Returns Object
 
-        data.unbanQueue.push(member.toLowerCase());
+        if(Object.keys(unbanQueue).length > 1000) return player.sendMessage("§r§6[§aScythe§6]§r The unban queue has reached the limit of 100 members.");
+
+        if(unbanQueue[member]) return player.sendMessage(`§r§6[§aScythe§6]§r ${member} is already queued for an unban.`);
+
+        unbanQueue[member] = [player.name, reason];
+        world.setDynamicProperty("unbanQueue", JSON.stringify(unbanQueue));
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has added ${member} to the unban queue. Reason: ${reason}`);
     }

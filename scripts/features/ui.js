@@ -11,7 +11,6 @@ import { freezePlayer, unfreezePlayer } from "../commands/utility/freeze.js";
 import { disableFly, enableFly } from "../commands/utility/fly.js";
 
 import config from "../data/config.js";
-import data from "../data/data.js";
 
 // Commonly used icons
 const icons = {
@@ -208,6 +207,14 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
 
 function unbanPlayerMenu(player) {
     if(!config.customcommands.unban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Unbanning players is disabled in config.js.");
+
+    // @ts-expect-error
+    const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue")); // Returns Object
+
+    if(Object.keys(unbanQueue).length > 100) {
+        return player.sendMessage("§r§6[§aScythe§6]§r The unban queue has reached the limit of 100 members.");
+    }
+
     player.playSound("mob.chicken.plop");
 
     const menu = new ModalFormData()
@@ -220,13 +227,14 @@ function unbanPlayerMenu(player) {
 
         const formValues = response.formValues ?? [];
 
-        const playerToUnban = formValues[0];
+        // @ts-expect-error
+        const playerToUnban = formValues[0].toLowerCase(); // String
 
         // @ts-expect-error
         const reason = formValues[1].replace(/"|\\/g, "") ?? "No Reason Provided";
 
-        // @ts-expect-error
-        data.unbanQueue.push(playerToUnban.toLowerCase());
+        unbanQueue[playerToUnban] = [player.name, reason];
+        world.setDynamicProperty("unbanQueue", JSON.stringify(unbanQueue));
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has added ${playerToUnban} into the unban queue. Reason: ${reason}`);
     });
