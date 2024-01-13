@@ -271,7 +271,7 @@ system.runInterval(() => {
 			}
 
 			if(config.modules.autoclickerA.enabled && player.cps > 0 && now - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
-				const cps = player.cps / ((now - player.firstAttack) / 1000);
+				const cps = player.cps / ((now - player.firstAttack) / config.modules.autoclickerA.checkCPSAfter);
 
 				// Autoclicker/A = Check for high cps
 				if(cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", `cps=${cps}`);

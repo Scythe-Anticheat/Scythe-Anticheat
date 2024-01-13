@@ -587,12 +587,12 @@ export default
 			"entitiesBeforeRateLimit": 45
 		},
 		/*
-        Enabling this module is highly discouraged, as it breaks items names, enchantments, durability
-        and item data relating to it.
-        These items can contain large nbt data which can cause the world file size to dramatically increase.
-        In anarchy environments, this module can help greatly to prevent world corruption.
-        You're welcome, Carthe.
-        */
+		Enabling this module is highly discouraged, as it breaks items names, enchantments, durability
+		and item data relating to it.
+		These items can contain large nbt data which can cause the world file size to dramatically increase.
+		In anarchy environments, this module can help greatly to prevent world corruption.
+		You're welcome, Carthe.
+		*/
 		"resetItemData": {
 			"enabled": false,
 			"items": [
