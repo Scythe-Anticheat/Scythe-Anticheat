@@ -160,7 +160,7 @@ system.runInterval(() => {
 
 				// Illegalitems/F = Check if an item has a name longer than 32 characters
 				if(config.modules.illegalitemsF.enabled && (item.nameTag?.length ?? 0) > config.modules.illegalitemsF.length) {
-					flag(player, "IllegalItems", "F", "Exploit", `"name=${item.nameTag},length=${item.nameTag?.length}`, false, undefined, i);
+					flag(player, "IllegalItems", "F", "Exploit", `name=${item.nameTag},length=${item.nameTag?.length}`, false, undefined, i);
 				}
 
 				// IllegalItems/L = Check for keep on death items
