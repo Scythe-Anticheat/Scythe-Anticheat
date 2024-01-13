@@ -102,9 +102,9 @@ system.runInterval(() => {
 			// Sexy looking ban message
 			if(player.getDynamicProperty("banInfo")) banMessage(player);
 
-			if(player.blocksBroken >= 1 && config.modules.nukerA.enabled) player.blocksBroken = 0;
-			if(player.entitiesHit?.length >= 1 && config.modules.killauraC.enabled) player.entitiesHit = [];
-			if(now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
+			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) player.blocksBroken = 0;
+			if(config.modules.killauraC.enabled && player.entitiesHit?.length >= 1) player.entitiesHit = [];
+			if(config.modules.autotoolA.enabled && now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
 				player.flagAutotoolA = true;
 				player.autotoolSwitchDelay = now - player.startBreakTime;
 			}
@@ -185,17 +185,17 @@ system.runInterval(() => {
 				*/
 				const itemType = item.type ?? ItemTypes.get("minecraft:book");
 
-				if(config.misc_modules.resetItemData.enabled && config.misc_modules.resetItemData.items.includes(item.typeId)) {
-					// This creates a duplicate version of the item without any NBT attributes
-					const item2 = new ItemStack(itemType, item.amount);
+				// Used for ResetItemData misc module and BadEnchants/C
+				const item2 = new ItemStack(itemType, item.amount);
 
+				if(config.misc_modules.resetItemData.enabled && config.misc_modules.resetItemData.items.includes(item.typeId)) {
+					// Replace item with a duplicate version of the item without any NBT attributes
 					container?.setItem(i, item2);
 				}
 
 				if(config.modules.badenchantsA.enabled || config.modules.badenchantsB.enabled || config.modules.badenchantsC.enabled || config.modules.badenchantsE.enabled) {
 					const itemEnchants = item.getComponent("enchantable")?.getEnchantments() ?? [];
 
-					const item2 = new ItemStack(itemType, 1);
 					const item2Enchants = item2.getComponent("enchantable");
 
 					const enchantments = [];
@@ -292,7 +292,9 @@ system.runInterval(() => {
 
 			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
 
-			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
+			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) {
+				flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
+			}
 
 			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
 				player.applyKnockback(
@@ -368,7 +370,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			const item = container.getItem(i);
 			if(!item || !config.itemLists.items_very_illegal.includes(item.typeId) || !config.itemLists.cbe_items.includes(item.typeId)) continue;
 
-			flag(player, "IllegalItems", "N", "Exploit", `item_count=${container.size - container.emptySlotsCount}`, false, undefined, player.selectedSlot);
+			flag(player, "IllegalItems", "M", "Exploit", `item_count=${container.size - container.emptySlotsCount}`, false, undefined, player.selectedSlot);
 			container.clearAll();
 			break;
 		}
