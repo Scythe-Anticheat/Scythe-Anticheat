@@ -156,8 +156,10 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
         const isSilent = formValues[1];
 
-        if(!isSilent) player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`);
-        playerSelected.triggerEvent("scythe:kick");
+        if(!isSilent) {
+            player.runCommandAsync(`kick "${playerSelected.name}" ${reason}`)
+                .catch(() => player.triggerEvent("scythe:kick")); // Incase /kick fails we despawn them from the world
+        } else playerSelected.triggerEvent("scythe:kick");
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}`);
     });

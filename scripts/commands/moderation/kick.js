@@ -23,9 +23,10 @@ registerCommand({
         // Make sure they don't kick themselves
         if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
 
-        if(!isSilent) player.runCommandAsync(`kick "${member.name}" ${reason}`);
-
-        member.triggerEvent("scythe:kick");
+        if(!isSilent) {
+            player.runCommandAsync(`kick "${member.name}" ${reason}`)
+                .catch(() => player.triggerEvent("scythe:kick")); // Incase /kick fails we despawn them from the world
+        } else member.triggerEvent("scythe:kick");
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${member.name} ${isSilent ? "(Silent) ": ""}for ${reason}`);
     }
