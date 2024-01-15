@@ -461,6 +461,13 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
+		"killauraB": {
+			"enabled": true,
+			"wait_ticks": 20,
+			"max_swing_delay": 2000,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
 		"killauraC": {
 			"enabled": true,
 			"entities": 2,

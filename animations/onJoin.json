@@ -39,7 +39,6 @@
 					"/scoreboard objectives add illegalitemsvl dummy",
 					"/scoreboard objectives add killauravl dummy",
 					"/scoreboard objectives add invalidsprintvl dummy",
-					"/scoreboard objectives add last_attack dummy",
 					"/scoreboard objectives add last_move dummy",
 					// If enabled from previous login then activate
 					"/ability @s[tag=flying,m=!c] mayfly true",

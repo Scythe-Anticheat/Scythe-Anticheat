@@ -144,7 +144,6 @@
 					}],
 					"on_entry": [
 						"/tag @s remove left",
-						"/scoreboard players set @s last_attack 0",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -154,7 +153,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add left",
-						"/scoreboard players set @s last_attack 0",
+						"/scriptevent scythe:left",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
@@ -282,8 +281,7 @@
 						"trident": "query.get_equipped_item_name == 'trident'"
 					}],
 					"on_entry": [
-						"/tag @s remove trident",
-						"/scoreboard players set @s last_attack 0"
+						"/tag @s remove trident"
 					]
 				},
 				"trident": {

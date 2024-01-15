@@ -573,6 +573,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
 	if(config.modules.spammerE.enabled) player.lastMessageSent = 0;
 	if(config.customcommands.report.enabled) player.reports = [];
+	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 
 	player.lastGoodPosition = player.location;
 
@@ -764,15 +765,6 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
 	if(player.typeId !== "minecraft:player" || !entity.isValid()) return;
 
-	// Killaura/C = checks for multi-aura
-	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) {
-		player.entitiesHit.push(entity.id);
-
-		if(player.entitiesHit.length >= config.modules.killauraC.entities) {
-			flag(player, "KillAura", "C", "Combat", `entitiesHit=${player.entitiesHit.length}`);
-		}
-	}
-
 	// Reach/A = Check if a player hits an entity more than 5.1 blocks away
 	if(config.modules.reachA.enabled) {
 		// Get the difference between 2 three dimensional coordinates
@@ -806,6 +798,30 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 	// Autoclicker/A = check for high cps. The rest of the handling is in the tick event
 	if(config.modules.autoclickerA.enabled) player.cps++;
+
+	/**
+	 * Killaura/B = Check for no swing
+	 * For this check to work correctly Scythe has to be put at the top of the behavior packs list
+	 * Players with the haste effect are excluded as the effect can make players not swing their hand
+	 */
+	if(config.modules.killauraB.enabled && !player.hasTag("trident") && !player.getEffect("haste")) {
+		system.runTimeout(() => {
+			const swingDelay = Date.now() - player.lastLeftClick;
+
+			if(swingDelay > config.modules.killauraB.max_swing_delay) {
+				flag(player, "Killaura", "B", "Combat", `swingDelay=${swingDelay}`);
+			}
+		}, config.modules.killauraB.wait_ticks);
+	}
+
+	// Killaura/C = Check for multi-aura
+	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) {
+		player.entitiesHit.push(entity.id);
+
+		if(player.entitiesHit.length >= config.modules.killauraC.entities) {
+			flag(player, "KillAura", "C", "Combat", `entitiesHit=${player.entitiesHit.length}`);
+		}
+	}
 
 	// Kilaura/D = Check if the player attacks an entity while sleeping
 	if(config.modules.killauraD.enabled && player.hasTag("sleeping")) {
@@ -860,6 +876,16 @@ world.afterEvents.worldInitialize.subscribe(() => {
 	world.getDimension("overworld").runCommandAsync("scoreboard players set scythe:config gametestapi 1");
 });
 
+system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity }) => {
+	if(!sourceEntity || !id.startsWith("scythe:")) return;
+
+	const splitId = id.split(":");
+	switch(splitId[1]) {
+		case "left":
+			sourceEntity.lastLeftClick = Date.now();
+	}
+});
+
 system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	// We try to stop any watchdog crashes incase malicious users try to make the scripts lag
 	// and causing the server to crash
@@ -879,6 +905,7 @@ for(const player of world.getPlayers()) {
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
 	if(config.modules.spammerE.enabled) player.lastMessageSent = 0;
 	if(config.customcommands.report.enabled) player.reports = [];
+	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 
 	player.lastGoodPosition = player.location;
 }
