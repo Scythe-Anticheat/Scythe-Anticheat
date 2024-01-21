@@ -161,11 +161,6 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["ub"]
 		},
-		"unbanlist": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["ubl","unbanl", "ul"]
-		},
 		"ui": {
 			"enabled": true,
 			"ui_item_name": "§r§l§aRight click to Open the UI",
