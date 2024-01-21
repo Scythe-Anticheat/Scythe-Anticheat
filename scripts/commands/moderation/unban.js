@@ -22,19 +22,19 @@ registerCommand({
 
 				const member = args[1].replace(/\\/g, "").toLowerCase(); // String
 
-				const reason = args.slice(2).join(" ").replace(/"|\\/g, "") || "No reason specified";
-
 				if(member.length > 20) {
 					return player.sendMessage("§r§6[§aScythe§6]§r That player name is too long. It must be less than 20 characters long.");
 				}
 
-				if(Object.keys(unbanQueue).length > 1000) {
+				if(Object.keys(unbanQueue).length > 100) {
 					return player.sendMessage("§r§6[§aScythe§6]§r The unban queue has reached the limit of 100 members.");
 				}
 
 				if(unbanQueue[member]) {
 					return player.sendMessage(`§r§6[§aScythe§6]§r ${member} is already queued for an unban.`);
 				}
+
+				const reason = args.slice(2).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
 				unbanQueue[member] = [player.name, reason];
 				world.setDynamicProperty("unbanQueue", JSON.stringify(unbanQueue));
@@ -79,7 +79,7 @@ registerCommand({
 			}
 
 			default:
-				player.sendMessage(`Unknown subcommand "${args[0]}".`);
+				player.sendMessage(`§r§6[§aScythe§6]§r Unknown subcommand "${args[0]}".`);
 		}
 	}
 });
