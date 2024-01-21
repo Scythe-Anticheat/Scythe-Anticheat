@@ -16,7 +16,7 @@ registerCommand({
 		// Find the player requested
 		const member = findPlayerByName(args[0]);
 
-		if(!member) return player.sendMessage("${logo} Couldn't find that player.");
+		if(!member) return player.sendMessage(`${logo} Couldn't find that player.`);
 
 		player.sendMessage(getStatsMsg(member));
 	}
