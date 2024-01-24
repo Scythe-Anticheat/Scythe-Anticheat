@@ -351,6 +351,9 @@ function editSettingMenu(player, check) {
             checkData[name] = name === "punishment" ? Object.keys(punishments)[formValues[id]] : formValues[id];
         }
 
+        // Save config
+        world.setDynamicProperty("config", JSON.stringify(config));
+
         player.sendMessage(`§r§6[§aScythe§6]§r Successfully updated the settings for ${check}.\n§r§6[§aScythe§6]§r New Data:\n${JSON.stringify(checkData, null, 2)}`);
     });
 }

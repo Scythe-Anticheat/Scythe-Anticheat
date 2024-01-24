@@ -1,6 +1,7 @@
 // @ts-check
-import { registerCommand } from "../handler.js";
 import config from "../../data/config.js";
+import { world } from "@minecraft/server";
+import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "module",
@@ -61,6 +62,9 @@ function execute(message, args, commandName) {
 	}
 
 	moduleData[name] = newValue;
+
+	// Save config
+	world.setDynamicProperty("config", JSON.stringify(config));
 
 	player.sendMessage(`§r§6[§aScythe§6]§r ${module}'s data has been updated. New Data: ${JSON.stringify(moduleData, null, 2)}`);
 }
