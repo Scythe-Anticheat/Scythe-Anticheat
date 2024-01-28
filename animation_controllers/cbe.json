@@ -27,8 +27,6 @@
 						"/execute @s[scores={npc=1..}] ~~~ execute @p ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has attempted to use §7(Exploit) §4Command Block Exploit! §7(npc)§4 VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"cbevl\"}}]}",
 						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air replace bee_nest",
 						"/fill ~10 ~10 ~10 ~-10 ~-10 ~-10 air replace beehive",
-						"/execute @s[scores={npc=1..}] ~~~ kill @e[type=npc]",
-						"/kill @s[scores={npc=1..}]",
 						"/event entity @s[scores={npc=1..}] scythe:despawn"
 					]
 				}
