@@ -679,7 +679,8 @@ export default
 			"minecraft:frosted_ice",
 			"minecraft:npc_spawn_egg",
 			"minecraft:reinforced_deepslate",
-			"minecraft:farmland"
+			"minecraft:farmland",
+			"minecraft:trial_spawner"
 		],
 		"items_very_illegal": [
 			"minecraft:flowing_water",

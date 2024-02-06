@@ -32,7 +32,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if((config.disable_flags_from_scythe_op || checkData.exclude_scythe_op) && player.hasTag("op")) return;
 
     if(debug) {
-        // Remove characters and newlines to prevent commands from breaking
+        // Remove characters that may break commands
         debug = debug.replace(/"|\\|\n/gm, "");
 
         // Malicious users may try make the debug field ridiculously large to lag any clients that may
@@ -43,7 +43,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
     }
 
-    // If debug is enabled, then log everything we know about the player.
+    // If debug is enabled then log everything we know about the player.
     if(config.debug) {
         const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
 
