@@ -90,11 +90,11 @@
 				}
 			}
 		},
-		"controller.animation.noswing": {
+		"controller.animation.attack": {
 			"states": {
 				"default": {
 					"transitions": [{
-						"noswing": "query.skin_id == 1"
+						"attack": "query.skin_id == 1"
 					}],
 					"on_entry": [
 						"/tag @s remove attack",
@@ -102,7 +102,7 @@
 						"@s scythe:reset_skinid"
 					]
 				},
-				"noswing": {
+				"attack": {
 					"transitions": [{
 						"default": "query.skin_id != 1"
 					}],

@@ -1,6 +1,7 @@
 // @ts-check
-import { registerCommand } from "../handler.js";
 import config from "../../data/config.js";
+import { world } from "@minecraft/server";
+import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "module",
@@ -33,13 +34,13 @@ function execute(message, args, commandName) {
 	if(!name) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} data:\n${JSON.stringify(moduleData, null, 2)}`);
 
 	if(moduleData[name] === undefined) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} does not have a setting called ${name}. Please select a setting from this list: ${Object.keys(moduleData).join(", ")}`);
-    
+
 	let newValue;
 	switch(typeof moduleData[name]) {
-		case "boolean": 
+		case "boolean":
 			newValue = value === "true" ? true : false;
 			break;
-			
+
 		case "number":
 			newValue = Number(value);
 			break;
@@ -47,8 +48,8 @@ function execute(message, args, commandName) {
 		case "string":
 			newValue = value;
 			break;
-			
-		// "Object" type is kind of a wildcard, it can refer to normal objects, arrays,, regexs, promises, etc
+
+		// "Object" type is kind of a wildcard, it can refer to normal objects, arrays, regexs, promises, etc
 		case "object": {
 			// Normal objects and Arrays can both be parsed with JSON.parse
 			if(moduleData[name] instanceof RegExp) {
@@ -61,6 +62,9 @@ function execute(message, args, commandName) {
 	}
 
 	moduleData[name] = newValue;
+
+	// Save config
+	world.setDynamicProperty("config", JSON.stringify(config));
 
 	player.sendMessage(`§r§6[§aScythe§6]§r ${module}'s data has been updated. New Data: ${JSON.stringify(moduleData, null, 2)}`);
 }

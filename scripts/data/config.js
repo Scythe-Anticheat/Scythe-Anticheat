@@ -213,7 +213,7 @@ export default
 			"enabled": true,
 			// If players with scythe-op can bypass this check (Optional)
 			"exclude_scythe_op": false,
-			// The punishment. Can either be "none", "mute", "kick" or "ban"
+			// The punishment. Can either be "none", "mute", "kick", "ban" or "freeze"
 			"punishment": "none",
 			// PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
 			// To perm ban the user the should string be empty.
@@ -456,6 +456,13 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
+		"killauraB": {
+			"enabled": true,
+			"wait_ticks": 20,
+			"max_swing_delay": 2000,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
 		"killauraC": {
 			"enabled": true,
 			"entities": 2,
@@ -488,7 +495,7 @@ export default
 		"noslowA": {
 			"enabled": true,
 			"speed": 0.12,
-			"maxSpeed": 0.16,
+			"maxSpeed": 0.28,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
@@ -557,6 +564,11 @@ export default
 			"punishment": "none",
 			"minVLbeforePunishment": 0
 		},
+		"scaffoldD": {
+			"enabled": true,
+			"punishment": "none",
+			"minVLbeforePunishment": 0,
+		},
 		"xrayA": {
 			"enabled": false,
 			"punishment": "none",
@@ -577,12 +589,12 @@ export default
 			"entitiesBeforeRateLimit": 45
 		},
 		/*
-        Enabling this module is highly discouraged, as it breaks items names, enchantments, durability
-        and item data relating to it.
-        These items can contain large nbt data which can cause the world file size to dramatically increase.
-        In anarchy environments, this module can help greatly to prevent world corruption.
-        Your welcome, Carthe.
-        */
+		Enabling this module is highly discouraged, as it breaks items names, enchantments, durability
+		and item data relating to it.
+		These items can contain large nbt data which can cause the world file size to dramatically increase.
+		In anarchy environments, this module can help greatly to prevent world corruption.
+		You're welcome, Carthe.
+		*/
 		"resetItemData": {
 			"enabled": false,
 			"items": [
@@ -628,6 +640,7 @@ export default
 		"elements": true,
 		"xray_items": [
 			"minecraft:diamond_ore",
+			"minecraft:deepslate_diamond_ore",
 			"minecraft:ancient_debris"
 		],
 		"cbe_items": [

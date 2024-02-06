@@ -17,7 +17,7 @@ registerCommand({
     category: "other",
 	execute: (message, args) => {
 		const player = message.sender;
-		
+
 		for(const command of Object.values(commands)) {
 			if(didFillCaches) break; // Dont loop through all commands again
 

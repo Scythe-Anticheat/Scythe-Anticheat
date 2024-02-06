@@ -1,4 +1,5 @@
 // This is the initial file that runs. It is used to load everything for Scythe
+import config from "./data/config.js";
 import { world } from "@minecraft/server";
 
 // Set dynamic properties
@@ -7,6 +8,29 @@ if(!world.getDynamicProperty("globalmute")) {
 		muted: false,
 		muter: ""
 	}));
+}
+
+if(!world.getDynamicProperty("unbanQueue")) {
+	/*
+		The data in the object should have the following format:
+
+		Key: <player username>
+		Value: [<unbanner>, <reason>]
+
+		The data is stored in an array to conserve storage as dynamic property strings have a limit of 32767 characters
+	*/
+	world.setDynamicProperty("unbanQueue", "{}");
+}
+
+const dpConfig = world.getDynamicProperty("config"); // Object
+if(dpConfig) {
+	const parsedConfig = JSON.parse(dpConfig);
+
+	for(const item of Object.keys(parsedConfig)) {
+		config[item] = parsedConfig[item];
+	}
+
+	console.warn("Loaded Scythe Config from Dynamic Properties");
 }
 
 // Register all commands

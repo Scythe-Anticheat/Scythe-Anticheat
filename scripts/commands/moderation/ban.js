@@ -11,9 +11,11 @@ registerCommand({
         const player = message.sender;
         const time = args[1] ? parseTime(args[1]) : undefined;
 
-        if(!time) args.splice(1, 1);
+        // Remove time from args
+        if(time) args.splice(1, 1);
 
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "") ?? "No reason specified";
+        // Remove player name and join all arguments together
+        const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
         // Find the player requested
         const member = findPlayerByName(args[0]);
@@ -26,15 +28,11 @@ registerCommand({
         // Don't allow staff to ban other staff members
         if(member.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban other staff members.");
 
-        // Remove old ban data
-        for(const t of member.getTags()) {
-            if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) member.removeTag(t);
-        }
-
-        member.addTag(`reason:${reason}`);
-        member.addTag(`by:${player.name}`);
-        if(typeof time === "number") member.addTag(`time:${Date.now() + time}`);
-        member.addTag("isBanned");
+        player.setDynamicProperty("banInfo", JSON.stringify({
+            by: player.name,
+            reason: reason,
+            time: typeof time === "number" ? Date.now() + time : null
+        }));
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${member.name} for ${reason}`);
     }

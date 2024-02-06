@@ -16,14 +16,14 @@ registerCommand({
 		// Find the player requested
 		const member = findPlayerByName(args[0]);
 
-		if(!member) return player.sendMessage("${logo} Couldn't find that player.");
+		if(!member) return player.sendMessage(`${logo} Couldn't find that player.`);
 
 		player.sendMessage(getStatsMsg(member));
 	}
 });
 
 export function getStatsMsg(player) {
-	let statsMsg = `${logo} Showing all Scythe logs for ${player.name}:\n${logo} ==== BASIC INFO ====\n${logo} Unique ID: ${player.id}\n${logo} Gamemode: N/A\n${logo} Dimension: ${capitalizeFirstLetter(player.dimension.id.replace("minecraft:", ""))}\n${logo} Position: ${Math.floor(player.location.x)}, ${Math.floor(player.location.y)}, ${Math.floor(player.location.z)}\n${logo} Current selected slot: ${player.selectedSlot}\n${logo} XP Levels: ${player.level}\n${logo} ==== VIOLATIONS ====\n`;
+	let statsMsg = `${logo} Showing all Scythe logs for ${player.name}:\n${logo} ==== BASIC INFO ====\n${logo} Unique ID: ${player.id}\n${logo} Gamemode: N/A\n${logo} Dimension: ${capitalizeFirstLetter(player.dimension.id.replace("minecraft:", ""))}\n${logo} Position: ${Math.trunc(player.location.x)}, ${Math.trunc(player.location.y)}, ${Math.trunc(player.location.z)}\n${logo} Current selected slot: ${player.selectedSlot}\n${logo} XP Levels: ${player.level}\n${logo} ==== VIOLATIONS ====\n`;
 
 	let totalViolations = 0;
 	for(const objective of world.scoreboard.getObjectives()) {

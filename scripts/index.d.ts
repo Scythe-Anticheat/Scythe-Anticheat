@@ -1,9 +1,7 @@
-import { Player, Entity, EntityComponent, Container, ItemComponent, EnchantmentList, Vector2, Vector3 } from "@minecraft/server";
+import { Player, Entity, EntityComponent, Container, ItemComponent, Vector2, Vector3 } from "@minecraft/server";
 
 declare module "@minecraft/server" {
 	interface Player {
-		Player
-
 		// Booleans
 		flagAutotoolA: boolean
 
@@ -28,8 +26,6 @@ declare module "@minecraft/server" {
 	}
 
 	interface Entity {
-		Entity,
-		
 		// Booleans
 		flagAutotoolA: boolean
 
@@ -44,6 +40,7 @@ declare module "@minecraft/server" {
 		lastSelectedSlot: number
 		autotoolSwitchDelay: number
 		lastMessageSent: number
+		lastLeftClick: number
 
 		// Arrays
 		entitiesHit: Array<String>

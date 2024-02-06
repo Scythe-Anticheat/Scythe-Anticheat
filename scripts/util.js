@@ -1,8 +1,6 @@
 // @ts-check
-
-import { world } from "@minecraft/server";
 import config from "./data/config.js";
-import data from "./data/data.js";
+import { world } from "@minecraft/server";
 
 /**
  * @name flag
@@ -34,10 +32,10 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if((config.disable_flags_from_scythe_op || checkData.exclude_scythe_op) && player.hasTag("op")) return;
 
     if(debug) {
-        // remove characters and newlines to prevent commands from breaking
+        // Remove characters and newlines to prevent commands from breaking
         debug = debug.replace(/"|\\|\n/gm, "");
 
-        // malicious users may try make the debug field ridiculously large to lag any clients that may
+        // Malicious users may try make the debug field ridiculously large to lag any clients that may
         // try to view the alert (anybody with the 'notify' tag)
         if(debug.length > 256) {
             const extraLength = debug.length - 256;
@@ -45,7 +43,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
     }
 
-    // If debug is enabled, then we log everything we know about the player.
+    // If debug is enabled, then log everything we know about the player.
     if(config.debug) {
         const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
 
@@ -117,28 +115,20 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     // Handle punishments
     const punishment = checkData.punishment?.toLowerCase();
-    if(typeof punishment !== "string") throw TypeError(`Error: punishment is type of ${typeof punishment}. Expected "string"`);
 
     if(punishment === "none" || punishment === "" || currentVl < checkData.minVlbeforePunishment) return;
 
     switch(punishment) {
         case "kick": {
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`, ["notify"]);
-            player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`);
-            // incase /kick fails, we despawn them from the world
-            player.triggerEvent("scythe:kick");
+            player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`)
+                .catch(() => player.triggerEvent("scythe:kick")); // Incase /kick fails we despawn them from the world
             break;
         }
+
         case "ban": {
             // Check if auto-banning is disabled
             if(!config.autoban) break;
-
-            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
-
-            // Remove old ban data
-            for(const t of player.getTags()) {
-                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-            }
 
             const punishmentLength = checkData.punishmentLength?.toLowerCase();
             let banLength;
@@ -147,13 +137,16 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 banLength = isNaN(punishmentLength) ? parseTime(punishmentLength) : Number(punishmentLength);
             }
 
-            player.addTag("by:Scythe Anticheat");
-            player.addTag(`reason:Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`);
-            if(typeof banLength === "number") player.addTag(`time:${Date.now() + banLength}`);
-            player.addTag("isBanned");
+            player.setDynamicProperty("banInfo", JSON.stringify({
+                by: "Scythe Anticheat",
+                reason: `Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`,
+                time: typeof banLength === "number" ? Date.now() + banLength : null
+            }));
 
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
             break;
         }
+
         case "mute": {
             player.addTag("isMuted");
             player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
@@ -161,9 +154,26 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             // remove chat ability
             player.runCommandAsync("ability @s mute true");
 
-            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
             break;
         }
+
+        case "freeze": {
+            player.addEffect("weakness", 99999, {
+                amplifier: 255,
+                showParticles: false
+            });
+            player.triggerEvent("scythe:freeze");
+            player.addTag("freeze");
+            player.runCommandAsync("inputpermission set @s movement disabled");
+
+            player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by Scythe Anticheat for Unfair Advantage.");
+            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been frozen by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
+            break;
+        }
+
+        default:
+            throw Error(`Unknown punishment type "${punishment}".`);
     }
 }
 
@@ -181,58 +191,41 @@ export function banMessage(player) {
     if(config.flagWhitelist.includes(player.name) && player.hasTag("op")) return;
 
     // @ts-expect-error
-    if(data.unbanQueue.includes(player.name.toLowerCase())) {
-        player.removeTag("isBanned");
+    const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue"));
+
+    // We check for an array as a player can join with a spoofed name such as "__proto__" and automatically get unbanned, as an Object...
+    // has a property called "__proto__"
+    if(Array.isArray(unbanQueue[player.name.toLowerCase()])) {
+        player.setDynamicProperty("banInfo", undefined);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
 
-        for(const t of player.getTags()) {
-            if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-        }
-
-        // remove the player from the unban queue
-        for(let i = -1; i < data.unbanQueue.length; i++) {
-            if(data.unbanQueue[i] !== player.name.toLowerCase().split(" ")[0]) continue;
-
-            data.unbanQueue.splice(i, 1);
-            break;
-        }
+        delete unbanQueue[player.name.toLowerCase()];
+        world.setDynamicProperty("unbanQueue", JSON.stringify(unbanQueue));
         return;
     }
 
-    let reason;
-    let by;
-    let time;
+    // @ts-expect-error
+    const { by, reason, time } = JSON.parse(player.getDynamicProperty("banInfo"));
 
-    for(const t of player.getTags()) {
-        if(t.startsWith("by:")) by = t.slice(3);
-            else if(t.startsWith("reason:")) reason = t.slice(7);
-            else if(t.startsWith("time:")) time = Number(t.slice(5));
-    }
+    let friendlyTime;
 
-
-    if(time) {
+    if(time && time !== null) {
         if(time < Date.now()) {
-           tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned.`, ["notify"]);
+           tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned.`);
 
-            // Ban expired, woo
-            player.removeTag("isBanned");
-
-            for(const t of player.getTags()) {
-                if(t.startsWith("reason:") || t.startsWith("by:") || t.startsWith("time:")) player.removeTag(t);
-            }
-
+            player.setDynamicProperty("banInfo", undefined);
             return;
         }
 
-        time = msToTime(Number(time));
-        time = `${time.w} weeks, ${time.d} days, ${time.h} hours, ${time.m} minutes, ${time.s} seconds`;
+        const { w, d, h, m, s} = msToTime(Number(time));
+        friendlyTime = `${w} weeks, ${d} days, ${h} hours, ${m} minutes, ${s} seconds`;
     }
 
     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason ?? "You are banned!"}.`);
 
-    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${time || "Permanent"}`);
-    player.triggerEvent("scythe:kick");
+    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${friendlyTime || "Permanent"}`)
+        .catch(() => player.triggerEvent("scythe:kick")); // Incase /kick fails we despawn them from the world
 }
 
 /**
@@ -294,7 +287,9 @@ export function msToTime(ms) {
     // validate that required params are defined
     if(typeof ms !== "number") throw TypeError(`Error: ms is type of ${typeof ms}. Expected "number"`);
 
-    if(ms > Date.now()) ms = ms - Date.now();
+    // If the milliseconds count is greater than now, subtract now.
+    const now = Date.now();
+    if(ms > now) ms = ms - now;
 
     // turn milliseconds into days, minutes, seconds, etc
     const w = Math.floor(ms / (1000 * 60 * 60 * 24 * 7));
@@ -318,7 +313,7 @@ export function msToTime(ms) {
  * @param {string} objective - The player to get the scoreboard value from
  * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl", 0)
- * @remarks Get's the scoreboard objective value for a player
+ * @remarks Gets the scoreboard objective value for a player
  * @returns {number} score - The scoreboard objective value
  */
 export function getScore(player, objective, defaultValue = 0) {
@@ -336,18 +331,20 @@ export function getScore(player, objective, defaultValue = 0) {
 /**
  * @name setScore
  * @param {import("@minecraft/server").Entity} player - The player to set the score for
- * @param {string} objective - The scoreboard objective
+ * @param {string} objectiveName - The scoreboard objective
  * @param {number} value - The new value of the scoreboard objective
  * @example getScore(player, "cbevl", 0)
  * @remarks Sets the scoreboard objective value for a player
  */
-export function setScore(player, objective, value) {
+export function setScore(player, objectiveName, value) {
     if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
-    if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
+    if(typeof objectiveName !== "string") throw TypeError(`Error: objective is type of ${typeof objectiveName}. Expected "string"`);
     if(typeof value !== "number") throw TypeError(`Error: value is type of ${typeof value}. Expected "number"`);
 
-    // @ts-expect-error
-    world.scoreboard.getObjective(objective).setScore(player, value);
+    const objective = world.scoreboard.getObjective(objectiveName);
+    if(!objective) throw Error(`Objective "${objectiveName}" does not exist`);
+
+    objective.setScore(player, value);
 }
 
 /**
@@ -423,7 +420,7 @@ export function tellAllStaff(message, tags = ["op"]) {
 
 /**
  * @name getBlocksBetween
- * @remarks Find every possible coordinate between two sets of Vector3's
+ * @remarks Find every possible coordinate between two sets of Vector3
  * @param {object} pos1 - First set of coordinates
  * @param {object} pos2 - Second set of coordinates
  * @returns {Array} coordinates - Each possible coordinate

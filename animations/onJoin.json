@@ -29,6 +29,7 @@
 					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
 					// Anticheat Objectives
 					// Checks that are entirely gametest related dont need to be put here, as the notify function in util.js automatically creates them when needed
+					"/scoreboard objectives add badpacketsvl dummy",
 					"/scoreboard objectives add autototemvl dummy",
 					"/scoreboard objectives add autoshieldvl dummy",
 					"/scoreboard objectives add invmovevl dummy",
@@ -37,11 +38,7 @@
 					"/scoreboard objectives add gamemodevl dummy",
 					"/scoreboard objectives add illegalitemsvl dummy",
 					"/scoreboard objectives add killauravl dummy",
-					"/scoreboard objectives add xPos dummy",
-					"/scoreboard objectives add yPos dummy",
-					"/scoreboard objectives add zPos dummy",
 					"/scoreboard objectives add invalidsprintvl dummy",
-					"/scoreboard objectives add last_attack dummy",
 					"/scoreboard objectives add last_move dummy",
 					// If enabled from previous login then activate
 					"/ability @s[tag=flying,m=!c] mayfly true",
