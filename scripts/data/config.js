@@ -2,7 +2,7 @@ export default
 {
 	// This value sholud not be changed unless you know what you are doing.
 	// It is used to make Scythe be able to work with older versions of the config
-	"version": "2.20.0",
+	"version": "2.21.0",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
