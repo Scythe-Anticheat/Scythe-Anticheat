@@ -33,6 +33,14 @@ if(dpConfig) {
 	console.warn("Loaded Scythe Config from Dynamic Properties");
 }
 
+// Update config to support the latest Scythe version
+switch(config.version) {
+	case "2.20.0":
+		config.modules.namespoofB.regex = "/[^A-Za-z0-9_\\-() ]/";
+}
+
+config.version = "2.21.0";
+
 // Register all commands
 import "./commands/moderation/kick.js";
 import "./commands/other/help.js";

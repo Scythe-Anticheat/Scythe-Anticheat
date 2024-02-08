@@ -488,7 +488,8 @@ export default
 		},
 		"namespoofB": {
 			"enabled": true,
-			"regex": /[^A-Za-z0-9_\-() ]/,
+			// This should be a string.
+			"regex": "/[^A-Za-z0-9_\\-() ]/",
 			"punishment": "kick",
 			"minVlbeforePunishment": 1
 		},

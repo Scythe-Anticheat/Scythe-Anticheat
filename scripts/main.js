@@ -653,7 +653,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	}
 
 	// Namespoof/B = regex check
-	if(config.modules.namespoofB.enabled && config.modules.namespoofB.regex.test(player.name)) {
+	if(config.modules.namespoofB.enabled && RegExp(config.modules.namespoofB.regex).test(player.name)) {
 		flag(player, "Namespoof", "B", "Exploit");
 	}
 
@@ -670,12 +670,13 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	if(globalmute.muted && player.hasTag("op")) player.sendMessage(`§r§6[§aScythe§6]§r NOTE: Chat has been currently disabled by ${globalmute.muter}. Chat can be re-enabled by running the !globalmute command.`);
 
-	if(config.misc_modules.welcomeMessage.enabled) player.sendMessage(config.misc_modules.welcomeMessage.message.replace(/\[@player]/g, player.name));
+	if(config.misc_modules.welcomeMessage.enabled) {
+		player.sendMessage(config.misc_modules.welcomeMessage.message.replace(/\[@player]/g, player.name));
+	}
 });
 
 world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 	// If the entity dies right before this event triggers, an error will be thrown if any property is accessed
-	// This fixes that
 	if(!entity.isValid()) return;
 
 	if(config.misc_modules.itemSpawnRateLimit.enabled) {
