@@ -297,6 +297,7 @@ system.runInterval(() => {
 			}
 
 			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
+				/*
 				player.applyKnockback(
 					// Check if the number is greater than 0, if it is then subtract 1, else add 1
 					player.location.x >= 0 ? -1 : 1,
@@ -304,6 +305,16 @@ system.runInterval(() => {
 					0.5,
 					0.05
 				);
+				*/
+
+				player.tryTeleport({
+					// Check if the number is greater than 0, if it is then subtract 1 else add 1
+					x: player.location.x - (player.location.x >= 0 ? 1 : -1),
+					y: player.location.y,
+					z: player.location.z - (player.location.z >= 0 ? 1 : -1)
+				}, {
+					checkForBlocks: false
+				});
 
 				player.sendMessage("§r§6[§aScythe§6]§r You have reached the world border.");
 			}
