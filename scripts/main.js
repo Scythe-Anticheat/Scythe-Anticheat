@@ -171,7 +171,7 @@ system.runInterval(() => {
 				if(config.modules.badenchantsD.enabled) {
 					const lore = String(item.getLore());
 
-					if(!config.modules.badenchantsD.exclusions.includes(lore)) {
+					if(lore && !config.modules.badenchantsD.exclusions.includes(lore)) {
 						flag(player, "BadEnchants", "D", "Exploit", `lore=${lore}`, false, undefined, i);
 					}
 				}
