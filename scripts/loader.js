@@ -37,6 +37,11 @@ if(dpConfig) {
 switch(config.version) {
 	case "2.20.0":
 		config.modules.namespoofB.regex = "/[^A-Za-z0-9_\\-() ]/";
+
+		config.logAlertsToConsole = true;
+
+		config.disableFlagsFromScytheOp = config.disable_flags_from_scythe_op;
+		delete config.disable_flags_from_scythe_op;
 }
 
 config.version = "2.21.0";
@@ -81,3 +86,5 @@ import "./commands/utility/gmsp.js";
 
 // Run anticheat core
 import "./main.js";
+
+console.log("Scythe has successfully loaded!");

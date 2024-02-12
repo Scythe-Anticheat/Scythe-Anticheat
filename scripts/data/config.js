@@ -12,7 +12,8 @@ export default
 	Although this may be a useful feature, it can be exploited by hackers to completely disable the anticheat for themselves.
 	It is a much better idea to add "exclude_scythe_op" for each individual check instead of globally
 	*/
-	"disable_flags_from_scythe_op": false,
+	"disableFlagsFromScytheOp": false,
+	"logAlertsToConsole": true,
 	"customcommands": {
 		"prefix": "!",
 		"sendInvalidCommandMsg": false,

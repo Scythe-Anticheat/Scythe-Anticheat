@@ -29,7 +29,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
     if(!checkData) throw Error(`No valid check data was found for ${check}/${checkType}.`);
 
-    if((config.disable_flags_from_scythe_op || checkData.exclude_scythe_op) && player.hasTag("op")) return;
+    if((config.disableFlagsFromScytheOp || checkData.exclude_scythe_op) && player.hasTag("op")) return;
 
     if(debug) {
         // Remove characters that may break commands
@@ -98,11 +98,10 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     let currentVl = getScore(player, scoreboardObjective, 0);
     currentVl++;
 
-    if(debug) {
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()} §7(${debug}§r§7)§4. VL= ${currentVl}`, ["notify"]);
-    } else {
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}. VL= ${currentVl}`, ["notify"]);
-    }
+    const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${currentVl}`;
+    
+    if(config.logAlertsToConsole) console.log(flagMessage.replace(/§./g, ""));
+    tellAllStaff(flagMessage, ["notify"]);
 
     setScore(player, scoreboardObjective, currentVl);
 

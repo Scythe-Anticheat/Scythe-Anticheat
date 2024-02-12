@@ -8,8 +8,6 @@ import { commandHandler } from "./commands/handler.js";
 
 let entitiesSpawnedInLastTick = 0;
 
-if(config.debug) console.warn(`${new Date().toISOString()} | Im not a ******* and this actually worked :sunglasses:`);
-
 world.beforeEvents.chatSend.subscribe((msg) => {
 	const message = msg.message.toLowerCase();
 	const player = msg.sender;
@@ -473,14 +471,14 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 		player.blocksBroken++;
 
 		if(player.blocksBroken > config.modules.nukerA.maxBlocks) {
-			flag(player, "Nuker", "A", "Misc", `blocksBroken=${player.blocksBroken}`);
+			flag(player, "Nuker", "A", "World", `blocksBroken=${player.blocksBroken}`);
 			revertBlock = true;
 		}
 	}
 
 	// Autotool/A = checks for player slot mismatch
 	if(config.modules.autotoolA.enabled && player.flagAutotoolA) {
-		flag(player, "AutoTool", "A", "Misc", `selectedSlot=${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
+		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
 		revertBlock = true;
 	}
 
