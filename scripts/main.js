@@ -688,13 +688,9 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 	// If the entity dies right before this event triggers, an error will be thrown if any property is accessed
 	if(!entity.isValid()) return;
 
-	if(config.misc_modules.itemSpawnRateLimit.enabled) {
-		entitiesSpawnedInLastTick++;
-
-		if(entitiesSpawnedInLastTick > config.misc_modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
-			if(config.debug) console.warn(`Killed "${entity.typeId}" due to entity spawn ratelimit reached.`);
-			entity.remove();
-		}
+	if(config.misc_modules.itemSpawnRateLimit.enabled && ++entitiesSpawnedInLastTick > config.misc_modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
+		if(config.debug) console.warn(`Killed "${entity.typeId}" due to entity spawn ratelimit reached.`);
+		entity.remove();
 	}
 
 	if(config.modules.commandblockexploitG.enabled) {

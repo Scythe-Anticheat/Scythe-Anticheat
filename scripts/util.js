@@ -96,9 +96,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
 
     let currentVl = getScore(player, scoreboardObjective, 0);
-    currentVl++;
 
-    const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${currentVl}`;
+    const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${++currentVl}`;
     
     if(config.logAlertsToConsole) console.log(flagMessage.replace(/§./g, ""));
     tellAllStaff(flagMessage, ["notify"]);
