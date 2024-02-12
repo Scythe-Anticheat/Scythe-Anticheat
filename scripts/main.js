@@ -257,7 +257,7 @@ system.runInterval(() => {
 
 			// invalidsprint/a = checks for sprinting with the blindness effect
 			if(config.modules.invalidsprintA.enabled && player.isSprinting && player.getEffect("blindness"))
-				flag(player, "InvalidSprint", "A", "Movement", undefined, false, true);
+				flag(player, "InvalidSprint", "A", "Movement", undefined, true);
 
 			// fly/a
 			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.getEffect("levitation") && player.hasTag("moving")) {
