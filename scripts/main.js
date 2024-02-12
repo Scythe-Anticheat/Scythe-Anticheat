@@ -703,12 +703,11 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 			entity.remove();
 		} else if(config.modules.commandblockexploitG.npc && entity.typeId === "minecraft:npc") {
 			entity.runCommandAsync("scoreboard players operation @s npc = scythe:config npc");
-			entity.runCommandAsync("testfor @s[scores={npc=1..}]")
-				.then((commandResult) => {
-					if(commandResult.successCount < 1) return;
-					flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", `entity=${entity.typeId}`);
-					entity.remove();
-				});
+
+			if(getScore(entity, "npc") >= 1) {
+				flag(getClosestPlayer(entity), "CommandBlockExploit", "G", "Exploit", `entity=${entity.typeId}`);
+				entity.remove();
+			}
 		}
 
 		if(config.modules.commandblockexploitG.blockSummonCheck.includes(entity.typeId)) {

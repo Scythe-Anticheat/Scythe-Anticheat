@@ -8,11 +8,11 @@
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
-					"cbe"
+					// "cbe"
 				]
 			},
 			"animations": {
-				"cbe": "controller.animation.cbe"
+				// "cbe": "controller.animation.cbe"
 			}
 		},
 		"components": {

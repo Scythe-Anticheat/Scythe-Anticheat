@@ -311,7 +311,7 @@ export function msToTime(ms) {
  * @param {import("@minecraft/server").Entity} player - The player to get the scoreboard value from
  * @param {string} objective - The player to get the scoreboard value from
  * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
- * @example getScore(player, "cbevl", 0)
+ * @example getScore(player, "cbevl")
  * @remarks Gets the scoreboard objective value for a player
  * @returns {number} score - The scoreboard objective value
  */

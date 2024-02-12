@@ -8,11 +8,11 @@
             "is_experimental": false,
             "scripts": {
                 "animate": [
-                    "npc"
+                    // "npc"
                 ]
             },
             "animations": {
-                "npc": "controller.animation.npc"
+                // "npc": "controller.animation.npc"
             }
         },
         "component_groups": {
