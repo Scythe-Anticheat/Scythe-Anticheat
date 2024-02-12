@@ -160,7 +160,7 @@ export default
 		"unban": {
 			"enabled": true,
 			"requiredTags": ["op"],
-			"aliases": ["ub"]
+			"aliases": ["ub","pardon"]
 		},
 		"ui": {
 			"enabled": true,

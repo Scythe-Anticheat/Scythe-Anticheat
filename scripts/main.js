@@ -433,7 +433,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 
 	// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
 	// The check was later updated to check if the x rotation or the y rotation is a flat number to further detect any other aim related hacks
-	if(config.modules.scaffoldB.enabled && ((Number.isInteger(player.rotation.x) && player.rotation.x !== 0) || (Number.isInteger(player.rotation.x) && player.rotation.y !== 0))) {
+	if(config.modules.scaffoldB.enabled && ((Number.isInteger(player.rotation.x) && player.rotation.x !== 0) || (Number.isInteger(player.rotation.y) && player.rotation.y !== 0))) {
 		flag(player, "Scaffold", "B", "World", `xRot=${player.rotation.x},yRot=${player.rotation.y}`, true);
 		block.setType("air");
 	}
