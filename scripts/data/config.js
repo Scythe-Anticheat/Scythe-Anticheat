@@ -166,7 +166,7 @@ export default
 			"enabled": true,
 			"ui_item_name": "§r§l§aRight click to Open the UI",
 			"ui_item": "minecraft:wooden_axe",
-			// Players without this tag wont be able to use the UI command and use the UI item
+			// Players without this tag wont be able to use the Scythe UI
 			"requiredTags": ["op"],
 			"aliases": ["gui"]
 		},
@@ -182,7 +182,7 @@ export default
 		},
 		"globalmute": {
 			"enabled": true,
-			// If this is enabled then all players can see who disabled the chat globally
+			// If this is enabled then all players can see who disabled the chat
 			"showModeratorName": false,
 			"requiredTags": ["op"],
 			"aliases": ["gm"]
@@ -216,8 +216,8 @@ export default
 			"exclude_scythe_op": false,
 			// The punishment. Can either be "none", "mute", "kick", "ban" or "freeze"
 			"punishment": "none",
-			// PunishmentLength can be either a length ('7d', '2w 1h'), how long the ban should be in milliseconds
-			// To perm ban the user the should string be empty.
+			// PunishmentLength can be either a length ('7d', '2w 1h') or how long the ban should be in milliseconds
+			// To permamently ban a user the string should be empty.
 			"punishmentLength": "",
 			// How much violations the player must first have to start punishing them
 			"minVlbeforePunishment": 1
@@ -239,8 +239,8 @@ export default
 			"enabled": true,
 			"levelExclusions": {
 				/*
-				If your realm uses enchantments with levels higher than vanilla then you need to exclude them here.
-				To add an exclusion, add ' "<enchantment name>": <max level> ' below the examples
+				If your realm uses enchantments with levels higher than vanilla limits then you need to exclude them here.
+				To add an exclusion, add '"<enchantment name>": <max level>,' below the examples
 
 				"efficiency": 69,
 				"sharpness": 420
@@ -454,6 +454,12 @@ export default
 		},
 		"invalidsprintA": {
 			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"killauraA": {
+			"enabled": true,
+			"rightTicks": 3,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

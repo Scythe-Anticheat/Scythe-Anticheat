@@ -36,12 +36,19 @@ if(dpConfig) {
 // Update config to support the latest Scythe version
 switch(config.version) {
 	case "2.20.0":
-		config.modules.namespoofB.regex = "/[^A-Za-z0-9_\\-() ]/";
+		config.modules.namespoofB.regex = String(config.modules.namespoofB.regex);
 
 		config.logAlertsToConsole = true;
 
 		config.disableFlagsFromScytheOp = config.disable_flags_from_scythe_op;
 		delete config.disable_flags_from_scythe_op;
+
+		config.modules.killauraA = {
+			enabled: true,
+			rightTicks: 3,
+			punishment: "none",
+			minVlbeforePunishment: 0
+		};
 }
 
 config.version = "2.21.0";

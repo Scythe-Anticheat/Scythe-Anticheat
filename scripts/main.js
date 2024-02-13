@@ -176,8 +176,8 @@ system.runInterval(() => {
 
 				/*
 					As of 1.19.30, Mojang removed all illegal items from MinecraftItemTypes, although this change
-					doesn't matter, they mistakenly removed 'written_book', which can be obtained normally.
-					Written books will make this code error out, and make any items that haven't been check bypass
+					doesn't matter, they mistakenly removed 'written_book' which can be obtained normally.
+					Written books will make this code error out and make any items that haven't been check bypass
 					anti32k checks. In older versions, this error will also make certain players not get checked
 					leading to a Scythe Semi-Gametest Disabler method.
 				*/
@@ -467,13 +467,9 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	if(config.debug) console.warn(`${player.name} has broken the block ${brokenBlockId}`);
 
 	// nuker/a = checks if a player breaks more than 3 blocks in a tick
-	if(config.modules.nukerA.enabled) {
-		player.blocksBroken++;
-
-		if(player.blocksBroken > config.modules.nukerA.maxBlocks) {
-			flag(player, "Nuker", "A", "World", `blocksBroken=${player.blocksBroken}`);
-			revertBlock = true;
-		}
+	if(config.modules.nukerA.enabled && ++player.blocksBroken > config.modules.nukerA.maxBlocks) {
+		flag(player, "Nuker", "A", "World", `blocksBroken=${player.blocksBroken}`);
+		revertBlock = true;
 	}
 
 	// Autotool/A = checks for player slot mismatch
@@ -801,8 +797,17 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		}
 	}
 
-	// Autoclicker/A = check for high cps. The rest of the handling is in the tick event
+	// Autoclicker/A = Check for high CPS. The rest of the handling is in the tick event
 	if(config.modules.autoclickerA.enabled) player.cps++;
+
+	// Killaura/A = Check if a player attacks an entity while using an item
+	if(config.modules.killauraA.enabled && player.hasTag("right")) {
+		const rightTicks = getScore(player, "right");
+
+		if(rightTicks > config.modules.killauraA.rightTicks) {
+			flag(player, "Killaura", "A", "Combat", `ticks=${rightTicks}`);
+		}
+	}
 
 	/**
 	 * Killaura/B = Check for no swing
