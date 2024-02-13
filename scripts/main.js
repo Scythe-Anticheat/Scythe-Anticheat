@@ -246,10 +246,10 @@ system.runInterval(() => {
 			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && getScore(player, "right") >= 5) {
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
 
-				const heldItem = container?.getItem(player.selectedSlot);
+				const heldItemId = container?.getItem(player.selectedSlot)?.typeId ?? "minecraft:air";
 
 				if(blockBelow && !blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem?.typeId ?? "minecraft:air"},blockBelow=${blockBelow.typeId}`, true);
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItemId},blockBelow=${blockBelow.typeId}`, true);
 				}
 			}
 
@@ -417,13 +417,13 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		player.fallDistance < 0 &&
 		block.location.x === blockUnder?.location.x &&
 		block.location.y === blockUnder?.location.y &&
-		block.location?.z === blockUnder.location.z &&
+		block.location.z === blockUnder?.location.z &&
 		!player.getEffect("jump_boost") &&
 		!block.typeId.includes("fence") &&
 		!block.typeId.includes("wall") &&
 		!block.typeId.includes("_shulker_box")
 	) {
-		const yPosDiff = player.location.y - Math.trunc(Math.abs(player.location.y));
+		const yPosDiff = Math.abs(player.location.y - Math.trunc(player.location.y));
 
 		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.matches({excludeGameModes: [GameMode.creative]})) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
