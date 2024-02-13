@@ -423,7 +423,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		!block.typeId.includes("wall") &&
 		!block.typeId.includes("_shulker_box")
 	) {
-		const yPosDiff = Math.abs(player.location.y - Math.trunc(player.location.y));
+		const yPosDiff = Math.abs(player.location.y % 1);
 
 		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.matches({excludeGameModes: [GameMode.creative]})) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
