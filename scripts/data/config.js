@@ -577,6 +577,11 @@ export default
 			"punishment": "none",
 			"minVLbeforePunishment": 0,
 		},
+		"scaffoldE": {
+			"enabled": true,
+			"punishment": "none",
+			"minVLbeforePunishment": 0,
+		},
 		"xrayA": {
 			"enabled": false,
 			"punishment": "none",

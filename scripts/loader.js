@@ -49,6 +49,12 @@ switch(config.version) {
 			punishment: "none",
 			minVlbeforePunishment: 0
 		};
+
+		config.modules.scaffoldE = {
+			enabled: true,
+			punishment: "none",
+			minVLbeforePunishment: 0,
+		};
 }
 
 config.version = "2.21.0";

@@ -457,6 +457,23 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		flag(player, "Scaffold", "D", "World", `playerYpos=${player.location.y},blockXpos=${block.location.x},blockYpos=${block.location.y},blockZpos=${block.location.z}`);
 		block.setType("air");
 	}
+
+	// Scaffold/E = Checks for placing blocks onto air or liquid tiles
+	if(config.modules.scaffoldE.enabled) {
+		const surroundingBlocks = [
+			block.above(),
+			block.below(),
+			block.north(),
+			block.east(),
+			block.south(),
+			block.west()
+		];
+
+		if(!surroundingBlocks.some(adjacentBlock => adjacentBlock && !adjacentBlock.isAir && !adjacentBlock.isLiquid)) {
+			flag(player, "Scaffold", "E", "World");
+			block.setType("air");
+		}
+	}
 });
 
 world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, brokenBlockPermutation }) => {
