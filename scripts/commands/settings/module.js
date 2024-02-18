@@ -35,6 +35,8 @@ function execute(message, args, commandName) {
 
 	if(moduleData[name] === undefined) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} does not have a setting called ${name}. Please select a setting from this list: ${Object.keys(moduleData).join(", ")}`);
 
+	if(value === "") return player.sendMessage(`§r§6[§aScythe§6]§r You need enter a value for this setting.`);
+
 	let newValue;
 	switch(typeof moduleData[name]) {
 		case "boolean":
