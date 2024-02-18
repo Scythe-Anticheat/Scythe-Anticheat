@@ -490,7 +490,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	}
 
 	// Autotool/A = checks for player slot mismatch
-	if(config.modules.autotoolA.enabled && player.flagAutotoolA) {
+	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.matches({excludeGameModes: [GameMode.creative]})) {
 		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
 		revertBlock = true;
 	}
