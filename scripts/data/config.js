@@ -327,8 +327,8 @@ export default
 		},
 		"commandblockexploitH": {
 			"enabled": true,
-			"punishment": "kick",
-			"minVlbeforePunishment": 1
+			"punishment": "none",
+			"minVlbeforePunishment": 0
 		},
 		/*
 		// This hack has been entirely patched out

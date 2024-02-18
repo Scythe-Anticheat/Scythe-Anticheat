@@ -243,13 +243,13 @@ system.runInterval(() => {
 			const playerSpeed = Number(Math.sqrt(Math.abs(player.velocity.x ** 2 + player.velocity.z ** 2)).toFixed(2));
 
 			// NoSlow/A = Speed limit check
-			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && !player.hasTag("riding") && getScore(player, "right") >= 5) {
+			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && !player.hasTag("riding")) {
+				const right = getScore(player, "right");
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
-
 				const heldItemId = container?.getItem(player.selectedSlot)?.typeId ?? "minecraft:air";
 
-				if(blockBelow && !blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItemId},blockBelow=${blockBelow.typeId}`, true);
+				if(blockBelow && right >= 10 && !blockBelow.typeId.includes("ice")) {
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItemId},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
 				}
 			}
 
