@@ -50,7 +50,7 @@ world.afterEvents.chatSend.subscribe((msg) => {
 	*/
 
 	// Spammer/A = checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping) {
+	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping && !player.hasTag("riding")) {
 		flag(player, "Spammer", "A", "Movement", undefined, true);
 		return;
 	}
