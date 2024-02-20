@@ -455,7 +455,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 
 	// Scaffold/C = Check if a player placed a block under them whilst looking up
 	// Make sure the players's y location is greater than the block placed's y location.
-	if(config.modules.scaffoldC.enabled && player.location.y > block.location.y && player.rotation.x < config.modules.scaffoldC.min_x_rot) {
+	if(config.modules.scaffoldC.enabled && Math.trunc(player.location.y) > Math.trunc(block.location.y) && player.rotation.x < config.modules.scaffoldC.min_x_rot) {
 		flag(player, "Scaffold", "C", "World", `xRot=${player.rotation.x},yRotPlayer=${player.location.y},yBlockPos=${block.location.y}`);
 		block.setType("air");
 	}
