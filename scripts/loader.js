@@ -50,13 +50,7 @@ switch(config.version) {
 			minVlbeforePunishment: 0
 		};
 
-		config.modules.invalidsprintB = {
-			enabled: true,
-			punishment: "none",
-			minVLbeforePunishment: 0,
-		};
-
-		config.modules.invalidsprintE = {
+		config.modules.scaffoldE = {
 			enabled: true,
 			punishment: "none",
 			minVLbeforePunishment: 0,
@@ -80,6 +74,7 @@ import "./commands/settings/antigms.js";
 import "./commands/settings/module.js";
 import "./commands/settings/modules.js";
 import "./commands/settings/npc.js";
+import "./commands/settings/invalidsprint.js";
 import "./commands/settings/overridecommandblocksenabled.js";
 import "./commands/utility/tag.js";
 import "./commands/utility/ecwipe.js";

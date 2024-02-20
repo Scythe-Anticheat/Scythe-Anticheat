@@ -96,7 +96,6 @@ system.runInterval(() => {
 		try {
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
-
 			// Sexy looking ban message
 			if(player.getDynamicProperty("banInfo")) banMessage(player);
 
@@ -253,26 +252,11 @@ system.runInterval(() => {
 				}
 			}
 
-			if(player.isSprinting) {
-				// InvalidSprint/A = Checks for sprinting while having the blindness effect
-				if(config.modules.invalidsprintA.enabled && player.getEffect("blindness")) {
-					flag(player, "InvalidSprint", "A", "Movement", undefined, true);
-				}
+			// invalidsprint/a = checks for sprinting with the blindness effect
+			if(config.modules.invalidsprintA.enabled && player.isSprinting && player.getEffect("blindness"))
+				flag(player, "InvalidSprint", "A", "Movement", undefined, true);
 
-				// InvalidSprint/C = Check for sprinting while sneaking
-				if(config.modules.invalidsprintC.enabled && player.isSneaking) {
-					flag(player, "InvalidSprint", "C", "Movement", undefined, true);
-				}
-
-				const lastMoved = getScore(player, "last_move");
-
-				// InvalidSprint/E = Check for sprinting while riding an entity
-				if(config.modules.invalidsprintE.enabled && player.hasTag("riding") && lastMoved > 5) {
-					flag(player, "InvalidSprint", "E", "Movement", `lastMoved=${lastMoved}`, true);
-				}
-			}
-
-			// Fly/A
+			// fly/a
 			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.getEffect("levitation") && player.hasTag("moving")) {
 				const pos1 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 				const pos2 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};

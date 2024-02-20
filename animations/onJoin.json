@@ -17,6 +17,8 @@
 					"/scoreboard players add scythe:config npc 0",
 					"/scoreboard objectives add gametestapi dummy",
 					"/scoreboard players add scythe:config gametestapi 0",
+					"/scoreboard objectives add invalidsprint dummy",
+					"/scoreboard players add scythe:config invalidsprint 0",
 					// Setting Operations For Objective Types
 					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a gma = scythe:config gma",
@@ -24,6 +26,7 @@
 					"/scoreboard players operation @a gms = scythe:config gms",
 					"/scoreboard players operation @a cmds = scythe:config cmds",
 					"/scoreboard players operation @a gametestapi = scythe:config gametestapi",
+					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
 					// Anticheat Objectives
 					// Checks that are entirely gametest related dont need to be put here, as the notify function in util.js automatically creates them when needed
 					"/scoreboard objectives add badpacketsvl dummy",
@@ -34,6 +37,8 @@
 					"/scoreboard objectives add cbevl dummy",
 					"/scoreboard objectives add gamemodevl dummy",
 					"/scoreboard objectives add illegalitemsvl dummy",
+					"/scoreboard objectives add killauravl dummy",
+					"/scoreboard objectives add invalidsprintvl dummy",
 					"/scoreboard objectives add last_move dummy",
 					// If enabled from previous login then activate
 					"/ability @s[tag=flying,m=!c] mayfly true",

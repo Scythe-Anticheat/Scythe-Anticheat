@@ -77,6 +77,11 @@ export default
 			"requiredTags": ["op"],
 			"aliases": ["overridecbe","overridecommandblocksenabled","ocbe"]
 		},
+		"invalidsprint": {
+			"enabled": true,
+			"requiredTags": ["op"],
+			"aliases": ["is"]
+		},
 		"ecwipe": {
 			"enabled": true,
 			"requiredTags": ["op"],
@@ -448,16 +453,6 @@ export default
 			"minVlbeforePunishment": 1
 		},
 		"invalidsprintA": {
-			"enabled": true,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
-		},
-		"invalidsprintC": {
-			"enabled": true,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
-		},
-		"invalidsprintE": {
 			"enabled": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
