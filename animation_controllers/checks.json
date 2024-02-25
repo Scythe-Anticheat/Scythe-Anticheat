@@ -45,28 +45,6 @@
 				}
 			}
 		},
-		"controller.animation.invmove": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"invmove": "query.variant == 1"
-					}],
-					"on_entry": [
-						"/tag @s remove hasGUIopen",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				},
-				"invmove": {
-					"transitions": [{
-						"default": "query.variant != 1"
-					}],
-					"on_entry": [
-						"/tag @s add hasGUIopen",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
 		"controller.animation.sprint": {
 			"states": {
 				"default": {
@@ -86,30 +64,6 @@
 						"/tag @s add sprint",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"/execute @s[scores={invalidsprint=1..}] ~~~ function checks/invalidsprint"
-					]
-				}
-			}
-		},
-		"controller.animation.attack": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"attack": "query.skin_id == 1"
-					}],
-					"on_entry": [
-						"/tag @s remove attack",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}",
-						"@s scythe:reset_skinid"
-					]
-				},
-				"attack": {
-					"transitions": [{
-						"default": "query.skin_id != 1"
-					}],
-					"on_entry": [
-						"/tag @s add attack",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"@s scythe:reset_skinid"
 					]
 				}
 			}

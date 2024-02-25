@@ -599,7 +599,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.lastGoodPosition = player.location;
 
 	// Remove tags
-	player.removeTag("attack");
 	player.removeTag("hasGUIopen");
 	player.removeTag("right");
 	player.removeTag("left");

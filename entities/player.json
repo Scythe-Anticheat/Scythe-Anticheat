@@ -26,8 +26,6 @@
 					"autototem",
 					"autoshield",
 					"sprint",
-					"attack",
-					"invmove",
 					"swim",
 					"sleep",
 					"trident"
@@ -53,8 +51,6 @@
 				"autototem": "controller.animation.autototem",
 				"autoshield": "controller.animation.autoshield",
 				"sprint": "controller.animation.sprint",
-				"attack": "controller.animation.attack",
-				"invmove": "controller.animation.invmove",
 				"swim": "controller.animation.swim",
 				"sleep": "controller.animation.sleep",
 				"trident": "controller.animation.trident"
@@ -95,31 +91,6 @@
 				},
 				"minecraft:spell_effects": {
 					"remove_effects": "bad_omen"
-				}
-			},
-			"scythe:reset_skinid": {
-				"minecraft:skin_id": {
-					"value": 0
-				}
-			},
-			"scythe:reset_variant": {
-				"minecraft:variant": {
-					"value": 0
-				}
-			},
-			"scythe:onAttack": {
-				"minecraft:skin_id": {
-					"value": 1
-				}
-			},
-			"scythe:gui": {
-				"minecraft:variant": {
-					"value": 1
-				}
-			},
-			"scythe:illegal": {
-				"minecraft:skin_id": {
-					"value": 2
 				}
 			},
 			"scythe:kick": {
@@ -341,9 +312,15 @@
 								"operator": "==",
 								"subject": "self",
 								"value": true
+							},
+							{
+								"test": "has_tag",
+								"operator": "!=",
+								"subject": "self",
+								"value": "hasGUIopen"
 							}]
 						},
-						"event": "scythe:guiopen"
+						"event": "scythe:openedGui"
 					},
 					{
 						"filters": {
@@ -352,9 +329,15 @@
 								"operator": "==",
 								"subject": "self",
 								"value": false
+							},
+							{
+								"test": "has_tag",
+								"operator": "==",
+								"subject": "self",
+								"value": "hasGUIopen"
 							}]
 						},
-						"event": "scythe:reset_variant"
+						"event": "scythe:closedGui"
 					},
 					{
 						"filters": {
@@ -685,67 +668,39 @@
 		},
 		"events": {
 			"scythe:attacked": {
-				"add": {
-					"component_groups": [
-						"scythe:onAttack"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:reset_skinid"
+				"queue_command": {
+					"command": "tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+				}
+			},
+			"scythe:openedGui": {
+				"queue_command": {
+					"command": [
+						"tag @s add hasGUIopen",
+						"tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			},
-			"scythe:guiopen": {
-				"add": {
-					"component_groups": [
-						"scythe:gui"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:reset_variant"
+			"scythe:closedGui": {
+				"queue_command": {
+					"command": [
+						"tag @s remove hasGUIopen",
+						"tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				}
 			},
 			"scythe:illegal": {
-				"add": {
-					"component_groups": [
-						"scythe:illegal"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:reset_skinid"
-					]
-				}
-			},
-			"scythe:reset_skinid": {
-				"add": {
-					"component_groups": [
-						"scythe:reset_skinid"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:onAttack",
-						"scythe:illegal"
-					]
-				}
-			},
-			"scythe:reset_variant": {
-				"add": {
-					"component_groups": [
-						"scythe:reset_variant"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:gui"
+				"queue_command": {
+					"command": [
+						"function checks/alerts/illegalitems2",
+						"tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(other)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					]
 				}
 			},
 			"scythe:kick": {
+				"queue_command": {
+					"command": "kick @s §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r N/A\n§bReason:§r N/A\n§aBan Length:§r Permanent"
+				},
+				// We probably don't need this anymore as we run '/kick @s'
 				"add": {
 					"component_groups": [
 						"scythe:kick"
@@ -773,21 +728,6 @@
 				"remove": {
 					"component_groups": [
 						"scythe:freeze"
-					]
-				}
-			},
-			"minecraft:entity_spawn": {
-				"add": {
-					"component_groups": [
-						"scythe:reset_variant",
-						"scythe:reset_skinid"
-					]
-				},
-				"remove": {
-					"component_groups": [
-						"scythe:onAttack",
-						"scythe:gui",
-						"scythe:illegal"
 					]
 				}
 			},

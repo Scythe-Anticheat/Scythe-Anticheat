@@ -313,9 +313,6 @@
 						},
 						{
 							"mangrove_double_slab": "query.get_equipped_item_name == 'mangrove_double_slab'"
-						},
-						{
-							"other": "query.skin_id == 2"
 						}
 					]
 				},
@@ -1244,16 +1241,6 @@
 					],
 					"transitions": [{
 						"check_illegal": "query.get_equipped_item_name != 'mangrove_double_slab'"
-					}]
-				},
-				"other": {
-					"on_entry": [
-						"/function checks/alerts/illegalitems2",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(other)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}",
-						"@s scythe:reset_skinid"
-					],
-					"transitions": [{
-						"check_illegal": "query.skin_id != 3"
 					}]
 				}
 			}
