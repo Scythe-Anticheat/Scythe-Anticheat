@@ -23,8 +23,6 @@ tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 tellraw @s {"rawtext":[{"text":"§3/function settings/modules§r - View all enabled or disabled modules."}]}
 tellraw @s {"rawtext":[{"text":"§3/function settings/invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s {"rawtext":[{"text":"§3/function settings/npc§r - Enables/disables killing all NPCs."}]}
-tellraw @s {"rawtext":[{"text":"§3/function settings/overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
-
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilities"}]}
 
 tellraw @s {"rawtext":[{"text":"§3/execute as <username> run function tools/ecwipe§r - Clears a players ender chest."}]}

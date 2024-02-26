@@ -71,6 +71,8 @@ switch(config.version) {
 		delete config.customcommands.antigma;
 		delete config.customcommands.antigmc;
 		delete config.customcommands.antigms;
+
+		delete config.customcommands.overridecommandblocksenabled;
 }
 
 config.version = "2.21.0";
@@ -88,7 +90,6 @@ import "./commands/settings/module.js";
 import "./commands/settings/modules.js";
 import "./commands/settings/npc.js";
 import "./commands/settings/invalidsprint.js";
-import "./commands/settings/overridecommandblocksenabled.js";
 import "./commands/utility/tag.js";
 import "./commands/utility/ecwipe.js";
 import "./commands/utility/freeze.js";
