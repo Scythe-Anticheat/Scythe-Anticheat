@@ -38,29 +38,26 @@ function execute(message, args, commandName) {
 	if(value === "") return player.sendMessage(`§r§6[§aScythe§6]§r You need enter a value for this setting.`);
 
 	let newValue;
-	switch(typeof moduleData[name]) {
-		case "boolean":
+	switch(moduleData[name]?.constructor.name) {
+		case "Boolean":
 			newValue = value === "true" ? true : false;
 			break;
 
-		case "number":
+		case "Number":
 			newValue = Number(value);
 			break;
 
-		case "string":
+		case "String":
 			newValue = value;
 			break;
-
-		// "Object" type is kind of a wildcard, it can refer to normal objects, arrays, regexs, promises, etc
-		case "object": {
-			// Normal objects and Arrays can both be parsed with JSON.parse
-			if(moduleData[name] instanceof RegExp) {
-				newValue = RegExp(value);
-			} else {
-				newValue = JSON.parse(value);
-			}
+		
+		case "Array":
+			newValue = JSON.parse(value.replace(/'/g, '"'));
 			break;
-		}
+
+		case "RegExp":
+			newValue = RegExp(value);
+			break;
 	}
 
 	moduleData[name] = newValue;

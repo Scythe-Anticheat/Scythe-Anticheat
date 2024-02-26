@@ -40,21 +40,6 @@ export default
 			"enabled": true,
 			"requiredTags": []
 		},
-		"antigma": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["allowgma","agma"]
-		},
-		"antigmc": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["allowgmc","agmc"]
-		},
-		"antigms": {
-			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["allowgms","agms"]
-		},
 		"misc_module": {
 			"enabled": true,
 			"requiredTags": ["op"],
@@ -593,6 +578,18 @@ export default
 			"enabled": true,
 			"radius": 5,
 			"max_armor_stand_count": 50
+		},
+		"antiGamemode": {
+			"enabled": false,
+			"blockedGamemodes": [
+				/*
+				Example:
+
+				creative,
+				spectator,
+				adventure
+				*/
+			]
 		},
 		"filterUnicodeChat": {
 			"enabled": false

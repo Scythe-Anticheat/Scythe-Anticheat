@@ -21,9 +21,6 @@ tellraw @s {"rawtext":[{"text":"§3/tag <player name> add op§r - Op's a player 
 tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
 tellraw @s {"rawtext":[{"text":"§3/function settings/modules§r - View all enabled or disabled modules."}]}
-tellraw @s {"rawtext":[{"text":"§3/function settings/antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
-tellraw @s {"rawtext":[{"text":"§3/function settings/antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
-tellraw @s {"rawtext":[{"text":"§3/function settings/antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
 tellraw @s {"rawtext":[{"text":"§3/function settings/invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s {"rawtext":[{"text":"§3/function settings/npc§r - Enables/disables killing all NPCs."}]}
 tellraw @s {"rawtext":[{"text":"§3/function settings/overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}

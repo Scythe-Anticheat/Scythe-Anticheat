@@ -1,7 +1,7 @@
 // @ts-check
 import banList from "./data/globalban.js";
 import config from "./data/config.js";
-import { world, system, GameMode, ItemTypes, ItemStack } from "@minecraft/server";
+import { world, system, ItemTypes, ItemStack } from "@minecraft/server";
 import { flag, banMessage, getClosestPlayer, getScore, getBlocksBetween, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -96,6 +96,7 @@ system.runInterval(() => {
 		try {
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
+
 			// Sexy looking ban message
 			if(player.getDynamicProperty("banInfo")) banMessage(player);
 
@@ -127,7 +128,7 @@ system.runInterval(() => {
 				if(config.modules.illegalitemsD.enabled) {
 					if(config.itemLists.items_very_illegal.includes(item.typeId)) {
 						flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
-					} else if(!player.hasTag("op") && player.matches({excludeGameModes: [GameMode.creative]})) {
+					} else if(!player.hasTag("op") && player.gamemode !== "creative") {
 						// Semi-illegal items
 						let flagPlayer = false;
 
@@ -424,7 +425,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	) {
 		const yPosDiff = Math.abs(player.location.y % 1);
 
-		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.matches({excludeGameModes: [GameMode.creative]})) {
+		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "creative" && !player.hasTag("flying")) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
 			block.setType("air");
 		}
@@ -489,7 +490,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	}
 
 	// Autotool/A = checks for player slot mismatch
-	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.matches({excludeGameModes: [GameMode.creative]})) {
+	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== "creative") {
 		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
 		revertBlock = true;
 	}
@@ -499,7 +500,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 		While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasses
 		that can be used
 	*/
-	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId) && player.matches({excludeGameModes: [GameMode.creative]})) {
+	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId) && player.gamemode !== "creative") {
 		flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
 		revertBlock = true;
 	}
@@ -557,16 +558,9 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 					flagPlayer = true;
 			}
 
-			if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) {
-				const checkGmc = world.getPlayers({
-					excludeGameModes: [Minecraft.GameMode.creative],
-					name: player.name
-				});
-
-				if(checkGmc.length) {
-					flag(player, "IllegalItems", "E", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlot);
-					beforeItemUseOn.cancel = true;
-				}
+			if((config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) && player.gamemode !== "creative") {
+				flag(player, "IllegalItems", "E", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlot);
+				beforeItemUseOn.cancel = true;
 			}
 		}
 
@@ -672,7 +666,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 		}
 	}
 
-	// Namespoof/B = regex check
+	// Namespoof/B = Regex check
 	if(config.modules.namespoofB.enabled && RegExp(config.modules.namespoofB.regex).test(player.name)) {
 		flag(player, "Namespoof", "B", "Exploit");
 	}
@@ -791,7 +785,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 			distance > config.modules.reachA.reach &&
 			entity.typeId.startsWith("minecraft:") &&
 			!config.modules.reachA.entities_blacklist.includes(entity.typeId) &&
-			player.matches({excludeGameModes: [GameMode.creative]})
+			player.gamemode !== "creative"
 		) {
 			flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance}`);
 		}
@@ -901,6 +895,21 @@ world.afterEvents.worldInitialize.subscribe(() => {
 	world.getDimension("overworld").runCommandAsync("scoreboard players set scythe:config gametestapi 1");
 });
 
+world.afterEvents.playerGameModeChange.subscribe(({fromGameMode, player, toGameMode}) => {
+	player.gamemode = toGameMode;
+
+	if(
+		!config.misc_modules.antiGamemode.enabled ||
+		// @ts-expect-error
+		!config.misc_modules.antiGamemode.blockedGamemodes.includes(toGameMode) ||
+		player.hasTag("op")
+	) return;
+
+	// Player entered a blocked gamemode
+	player.setGameMode(fromGameMode);
+	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §4tried changing their gamemode to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
+});
+
 system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity }) => {
 	if(!sourceEntity || !id.startsWith("scythe:")) return;
 
@@ -932,5 +941,6 @@ for(const player of world.getPlayers()) {
 	if(config.customcommands.report.enabled) player.reports = [];
 	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 
+	player.gamemode = player.getGameMode();
 	player.lastGoodPosition = player.location;
 }

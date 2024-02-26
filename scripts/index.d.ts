@@ -1,4 +1,4 @@
-import { Player, Entity, EntityComponent, Container, ItemComponent, Vector2, Vector3 } from "@minecraft/server";
+import { Player, Entity, EntityComponent, Container, ItemComponent, Vector2, Vector3, GameMode } from "@minecraft/server";
 
 declare module "@minecraft/server" {
 	interface Player {
@@ -31,6 +31,7 @@ declare module "@minecraft/server" {
 
 		// Strings
 		name: string
+		gamemode: GameMode
 
 		// Numbers
 		cps: number,
