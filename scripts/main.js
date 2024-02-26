@@ -469,7 +469,8 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			block.west()
 		];
 
-		if(!surroundingBlocks.some(adjacentBlock => adjacentBlock && !adjacentBlock.isAir && !adjacentBlock.isLiquid)) {
+		// TODO: Properly handle placing lilypads on water without flags
+		if(!surroundingBlocks.some(adjacentBlock => adjacentBlock && !adjacentBlock.isAir/* && !adjacentBlock.isLiquid*/)) {
 			flag(player, "Scaffold", "E", "World");
 			block.setType("air");
 		}
