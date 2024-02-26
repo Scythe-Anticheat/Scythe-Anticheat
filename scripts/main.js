@@ -248,7 +248,10 @@ system.runInterval(() => {
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
 				const heldItemId = container?.getItem(player.selectedSlot)?.typeId ?? "minecraft:air";
 
-				if(blockBelow && right >= 10 && !blockBelow.typeId.includes("ice")) {
+				// Make sure there are no entities below the player
+				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
+
+				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity.typeId !== "minecraft:player") && !blockBelow.typeId.includes("ice")) {
 					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItemId},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
 				}
 			}
