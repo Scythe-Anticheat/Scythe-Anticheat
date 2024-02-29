@@ -5,7 +5,7 @@ scoreboard players operation @s gametestapi = scythe:config gametestapi
 tellraw @s {"rawtext":[{"text":"§l§aScythe AntiCheat Command Help"}]}
 
 # Alert the player if gametest is disabled
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"\n§l§4Beta APIs are disabled in this world."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§l§4Beta APIs are disabled in this world."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§l§4Please enable Beta APIs and Education Edition in world settings to ensure all features work properly."}]}
 
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§l§4You are currently viewing the function-based help menu. Use '!help' instead of this command."}]}

@@ -1,5 +1,5 @@
 // @ts-check
-import { world, ItemTypes, ItemStack } from "@minecraft/server";
+import { world, ItemTypes, ItemStack, GameMode } from "@minecraft/server";
 import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 
 import { flag, parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
@@ -530,7 +530,7 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
 
         switch(response.selection) {
             case 3:
-                playerSelected.runCommandAsync("gamemode spectator");
+                playerSelected.setGameMode(GameMode.spectator);
                 break;
 
             case 4:
