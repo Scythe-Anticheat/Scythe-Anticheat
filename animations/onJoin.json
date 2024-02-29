@@ -26,16 +26,14 @@
 					"/scoreboard objectives add invmovevl dummy",
 					"/scoreboard objectives add right dummy",
 					"/scoreboard objectives add cbevl dummy",
-					"/scoreboard objectives add gamemodevl dummy",
 					"/scoreboard objectives add illegalitemsvl dummy",
-					"/scoreboard objectives add killauravl dummy",
 					"/scoreboard objectives add invalidsprintvl dummy",
 					"/scoreboard objectives add last_move dummy",
 					// If enabled from previous login then activate
 					"/ability @s[tag=flying,m=!c] mayfly true",
 					"/ability @s[tag=isMuted] mute true",
 					"/event entity @s[tag=freeze] scythe:freeze",
-					// alert the user if Gametest Framework is not enabled
+					// Alert the user if Gametest Framework is not enabled
 					"/tellraw @s[tag=op,scores={gametestapi=..0}] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r Beta APIs are not enabled! Please go to your world settings and enable it to ensure all Scythe features work properly.\"}]}"
 				]
 			},
