@@ -8,7 +8,7 @@ registerCommand({
 	usage: "[player]",
 	category: "utility",
 	execute: (message, args) => {
-		const player = message.sender;
+		const { player } = message;
 
 		// Find the player requested
 		const member = args.length ? findPlayerByName(args[0]) : player;

@@ -5,6 +5,6 @@ registerCommand({
     description: "Show credits for the anticheat",
     category: "other",
     execute: (message) => {
-        message.sender.runCommandAsync("function credits");
+        message.player.runCommandAsync("function credits");
     }
 });

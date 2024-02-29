@@ -4,27 +4,27 @@ import { world } from "@minecraft/server";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
-    name: "module",
-    description: "Change the data of scythe modules",
+	name: "module",
+	description: "Change the data of scythe modules",
 	usage: "<module name> <setting> [value]",
-    category: "settings",
-    execute: execute
+	category: "settings",
+	execute: execute
 });
 
 registerCommand({
-    name: "misc_module",
-    description: "Change the data of optional scythe modules",
+	name: "misc_module",
+	description: "Change the data of optional scythe modules",
 	usage: "<module name> <setting> [value]",
-    category: "settings",
-    execute: execute
+	category: "settings",
+	execute: execute
 });
 
 function execute(message, args, commandName) {
-	const player = message.sender;
-	const category = commandName === "module" ? "modules" : "misc_modules";
-    const module = args[0];
-	const name = args[1];
+	const { player } = message;
+	const [ module, name ] = args;
 	const value = args.slice(2).join(" ");
+
+	const category = commandName === "module" ? "modules" : "misc_modules";
 
 	if(!module) return player.sendMessage(`§r§6[§aScythe§6]§r Module list: ${Object.keys(config[category]).join(", ")}`);
 
@@ -50,7 +50,7 @@ function execute(message, args, commandName) {
 		case "String":
 			newValue = value;
 			break;
-		
+
 		case "Array":
 			newValue = JSON.parse(value.replace(/'/g, '"'));
 			break;

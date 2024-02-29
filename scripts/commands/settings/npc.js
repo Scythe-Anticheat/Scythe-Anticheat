@@ -5,6 +5,6 @@ registerCommand({
     description: "Toggles the anti-NPC module",
     category: "settings",
     execute: (message) => {
-        message.sender.runCommandAsync("function settings/npc");
+        message.player.runCommandAsync("function settings/npc");
     }
 });

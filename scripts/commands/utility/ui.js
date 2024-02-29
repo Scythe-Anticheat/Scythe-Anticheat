@@ -8,7 +8,7 @@ registerCommand({
     description: "Access the Scythe UI for world and player management",
     category: "utility",
     execute: (message) => {
-        const player = message.sender;
+        const { player } = message;
 
         // Get the player's inventory component
         const container = player.getComponent("inventory").container;

@@ -6,7 +6,7 @@ registerCommand({
     description: "Make yourself invisible. Can be used to spy on potential cheaters",
     category: "utility",
     execute: (message) => {
-        const player = message.sender;
+        const { player } = message;
 
         if(player.hasTag("vanish")) {
             player.removeTag("vanish");

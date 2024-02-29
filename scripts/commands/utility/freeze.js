@@ -8,7 +8,7 @@ registerCommand({
 	minArgCount: 1,
 	category: "utility",
 	execute: (message, args) => {
-		const player = message.sender;
+		const { player } = message;
 
 		// Find the player requested
 		const member = findPlayerByName(args[0]);

@@ -11,7 +11,7 @@ registerCommand({
 	minArgCount: 1,
 	category: "moderation",
 	execute: (message, args) => {
-		const player = message.sender;
+		const { player } = message;
 
 		const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue")); // Object
 		switch(args[0]) {

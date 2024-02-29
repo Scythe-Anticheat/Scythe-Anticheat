@@ -8,7 +8,7 @@ registerCommand({
     category: "utility",
     execute: (message) => {
         for(const player of world.getPlayers()) {
-            message.sender.sendMessage(getStatsMsg(player));
+            message.player.sendMessage(getStatsMsg(player));
         }
     }
 });

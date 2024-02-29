@@ -19,6 +19,6 @@ registerCommand({
 			msg += `§r§6[§aScythe§6]§r ${misc_module} ${config.misc_modules[misc_module].enabled ? enabled : disabled}\n`;
 		}
 
-		message.sender.sendMessage(msg);
+		message.player.sendMessage(msg);
 	}
 });
