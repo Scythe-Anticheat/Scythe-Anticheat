@@ -9,10 +9,10 @@ import { commandHandler } from "./commands/handler.js";
 let entitiesSpawnedInLastTick = 0;
 
 world.beforeEvents.chatSend.subscribe((msg) => {
-	const message = msg.message.toLowerCase();
-	const player = msg.sender;
+	const { sender: player, message } = msg;
+	const lowerCaseMsg = message.toLowerCase();
 
-	if(message.includes("the best minecraft bedrock utility mod") || message.includes("disepi/ambrosial")) msg.cancel = true;
+	if(lowerCaseMsg.includes("the best minecraft bedrock utility mod") || lowerCaseMsg.includes("disepi/ambrosial")) msg.cancel = true;
 
 	if(player.hasTag("isMuted")) {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
@@ -28,16 +28,14 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		msg.cancel = true;
 	}
 
-	if(!msg.cancel) {
-		// Adds user custom tags to their messages if it exists or we fall back
-		// Also filter for non ASCII characters and remove them in messages
-		if(player.name !== player.nameTag && !config.misc_modules.filterUnicodeChat.enabled) {
-			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
-			msg.cancel = true;
-		} else if(player.name === player.nameTag && config.misc_modules.filterUnicodeChat.enabled) {
-			world.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
-			msg.cancel = true;
-		}
+	// Make sure that player has a custom nametag or filter unicode chat is enabled
+	if(!msg.cancel && (player.name !== player.nameTag || config.misc_modules.filterUnicodeChat.enabled)) {
+		// Adds user custom tags to their messages and filter any non-ASCII characters
+		const playerTag = player.name !== player.nameTag ? `${player.nameTag}§7:§r` : `<${player.nameTag}>`;
+		const message_ = config.misc_modules.filterUnicodeChat.enabled ? message.replace(/[^\x00-\xFF]/g, "") : message;
+
+		world.sendMessage(`${playerTag} ${message_}`);
+		msg.cancel = true;
 	}
 });
 
