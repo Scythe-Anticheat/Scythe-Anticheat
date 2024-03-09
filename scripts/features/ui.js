@@ -197,7 +197,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         const banLength = parseTime(`${formValues[1]}d`);
         const permBan = formValues[2];
 
-        player.setDynamicProperty("banInfo", JSON.stringify({
+        playerSelected.setDynamicProperty("banInfo", JSON.stringify({
             by: player.name,
             reason: reason,
             time: (banLength && !permBan) ? Date.now() + banLength : null
