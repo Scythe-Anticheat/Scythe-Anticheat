@@ -1,7 +1,7 @@
 // @ts-check
 import banList from "./data/globalban.js";
 import config from "./data/config.js";
-import { world, system, GameMode, ItemTypes, ItemStack } from "@minecraft/server";
+import { world, system, ItemTypes, ItemStack } from "@minecraft/server";
 import { flag, banMessage, getClosestPlayer, getScore, getBlocksBetween, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -9,10 +9,10 @@ import { commandHandler } from "./commands/handler.js";
 let entitiesSpawnedInLastTick = 0;
 
 world.beforeEvents.chatSend.subscribe((msg) => {
-	const message = msg.message.toLowerCase();
-	const player = msg.sender;
+	const { sender: player, message } = msg;
+	const lowerCaseMsg = message.toLowerCase();
 
-	if(message.includes("the best minecraft bedrock utility mod") || message.includes("disepi/ambrosial")) msg.cancel = true;
+	if(lowerCaseMsg.includes("the best minecraft bedrock utility mod") || lowerCaseMsg.includes("disepi/ambrosial")) msg.cancel = true;
 
 	if(player.hasTag("isMuted")) {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
@@ -28,16 +28,14 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		msg.cancel = true;
 	}
 
-	if(!msg.cancel) {
-		// Adds user custom tags to their messages if it exists or we fall back
-		// Also filter for non ASCII characters and remove them in messages
-		if(player.name !== player.nameTag && !config.misc_modules.filterUnicodeChat.enabled) {
-			world.sendMessage(`${player.nameTag}§7:§r ${msg.message}`);
-			msg.cancel = true;
-		} else if(player.name === player.nameTag && config.misc_modules.filterUnicodeChat.enabled) {
-			world.sendMessage(`<${player.nameTag}> ${msg.message.replace(/[^\x00-\xFF]/g, "")}`);
-			msg.cancel = true;
-		}
+	// Make sure that player has a custom nametag or filter unicode chat is enabled
+	if(!msg.cancel && (player.name !== player.nameTag || config.misc_modules.filterUnicodeChat.enabled)) {
+		// Adds user custom tags to their messages and filter any non-ASCII characters
+		const playerTag = player.name !== player.nameTag ? `${player.nameTag}§7:§r` : `<${player.nameTag}>`;
+		const message_ = config.misc_modules.filterUnicodeChat.enabled ? message.replace(/[^\x00-\xFF]/g, "") : message;
+
+		world.sendMessage(`${playerTag} ${message_}`);
+		msg.cancel = true;
 	}
 });
 
@@ -96,6 +94,7 @@ system.runInterval(() => {
 		try {
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
+
 			// Sexy looking ban message
 			if(player.getDynamicProperty("banInfo")) banMessage(player);
 
@@ -127,7 +126,7 @@ system.runInterval(() => {
 				if(config.modules.illegalitemsD.enabled) {
 					if(config.itemLists.items_very_illegal.includes(item.typeId)) {
 						flag(player, "IllegalItems", "D", "Exploit", `item=${item.typeId}`, false, undefined, i);
-					} else if(!player.hasTag("op") && player.matches({excludeGameModes: [GameMode.creative]})) {
+					} else if(!player.hasTag("op") && player.gamemode !== "creative") {
 						// Semi-illegal items
 						let flagPlayer = false;
 
@@ -247,7 +246,10 @@ system.runInterval(() => {
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
 				const heldItemId = container?.getItem(player.selectedSlot)?.typeId ?? "minecraft:air";
 
-				if(blockBelow && right >= 10 && !blockBelow.typeId.includes("ice")) {
+				// Make sure there are no entities below the player
+				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
+
+				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity.typeId !== "minecraft:player") && !blockBelow.typeId.includes("ice")) {
 					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItemId},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
 				}
 			}
@@ -424,7 +426,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	) {
 		const yPosDiff = Math.abs(player.location.y % 1);
 
-		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.matches({excludeGameModes: [GameMode.creative]})) {
+		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "creative" && !player.hasTag("flying")) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
 			block.setType("air");
 		}
@@ -468,7 +470,8 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			block.west()
 		];
 
-		if(!surroundingBlocks.some(adjacentBlock => adjacentBlock && !adjacentBlock.isAir && !adjacentBlock.isLiquid)) {
+		// TODO: Properly handle placing lilypads on water without flags
+		if(!surroundingBlocks.some(adjacentBlock => adjacentBlock && !adjacentBlock.isAir/* && !adjacentBlock.isLiquid*/)) {
 			flag(player, "Scaffold", "E", "World");
 			block.setType("air");
 		}
@@ -489,7 +492,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	}
 
 	// Autotool/A = checks for player slot mismatch
-	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.matches({excludeGameModes: [GameMode.creative]})) {
+	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== "creative") {
 		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
 		revertBlock = true;
 	}
@@ -499,7 +502,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 		While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasses
 		that can be used
 	*/
-	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId) && player.matches({excludeGameModes: [GameMode.creative]})) {
+	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId) && player.gamemode !== "creative") {
 		flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
 		revertBlock = true;
 	}
@@ -557,16 +560,9 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 					flagPlayer = true;
 			}
 
-			if(config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) {
-				const checkGmc = world.getPlayers({
-					excludeGameModes: [Minecraft.GameMode.creative],
-					name: player.name
-				});
-
-				if(checkGmc.length) {
-					flag(player, "IllegalItems", "E", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlot);
-					beforeItemUseOn.cancel = true;
-				}
+			if((config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) && player.gamemode !== "creative") {
+				flag(player, "IllegalItems", "E", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlot);
+				beforeItemUseOn.cancel = true;
 			}
 		}
 
@@ -672,7 +668,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 		}
 	}
 
-	// Namespoof/B = regex check
+	// Namespoof/B = Regex check
 	if(config.modules.namespoofB.enabled && RegExp(config.modules.namespoofB.regex).test(player.name)) {
 		flag(player, "Namespoof", "B", "Exploit");
 	}
@@ -791,7 +787,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 			distance > config.modules.reachA.reach &&
 			entity.typeId.startsWith("minecraft:") &&
 			!config.modules.reachA.entities_blacklist.includes(entity.typeId) &&
-			player.matches({excludeGameModes: [GameMode.creative]})
+			player.gamemode !== "creative"
 		) {
 			flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance}`);
 		}
@@ -901,6 +897,21 @@ world.afterEvents.worldInitialize.subscribe(() => {
 	world.getDimension("overworld").runCommandAsync("scoreboard players set scythe:config gametestapi 1");
 });
 
+world.afterEvents.playerGameModeChange.subscribe(({fromGameMode, player, toGameMode}) => {
+	player.gamemode = toGameMode;
+
+	if(
+		!config.misc_modules.antiGamemode.enabled ||
+		// @ts-expect-error
+		!config.misc_modules.antiGamemode.blockedGamemodes.includes(toGameMode) ||
+		player.hasTag("op")
+	) return;
+
+	// Player entered a blocked gamemode
+	player.setGameMode(fromGameMode);
+	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §4tried changing their gamemode to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
+});
+
 system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity }) => {
 	if(!sourceEntity || !id.startsWith("scythe:")) return;
 
@@ -932,5 +943,6 @@ for(const player of world.getPlayers()) {
 	if(config.customcommands.report.enabled) player.reports = [];
 	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 
+	player.gamemode = player.getGameMode();
 	player.lastGoodPosition = player.location;
 }

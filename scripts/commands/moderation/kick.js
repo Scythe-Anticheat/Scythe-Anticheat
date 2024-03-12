@@ -8,7 +8,7 @@ registerCommand({
     minArgCount: 1,
     category: "moderation",
     execute: (message, args) => {
-        const player = message.sender;
+        const { player } = message;
 
         let isSilent = false;
         if(args[1] === "-s" || args[1] === "--silent") isSilent = true;

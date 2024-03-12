@@ -101,9 +101,9 @@ export function commandHandler(msg) {
         }
 
         const newMsg = {
-            message: msg.message,
-            sender: world.getPlayers({
-                name: msg.sender.name
+            message: message,
+            player: world.getPlayers({
+                name: player.name
             })[0]
         };
 
@@ -111,7 +111,7 @@ export function commandHandler(msg) {
             try {
                await commands[commandName].execute(newMsg, args, commandName);
             } catch (error) {
-                reportError(error, newMsg.sender, newMsg.message);
+                reportError(error, newMsg.player, newMsg.message);
             }
         });
     } catch (error) {

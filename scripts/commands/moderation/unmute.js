@@ -8,7 +8,7 @@ registerCommand({
     minArgCount: 1,
     category: "moderation",
     execute: (message, args) => {
-        const player = message.sender;
+        const { player } = message;
 
         const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 

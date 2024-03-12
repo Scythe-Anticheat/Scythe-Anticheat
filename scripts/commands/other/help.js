@@ -16,7 +16,7 @@ registerCommand({
 	usage: "[commandName]",
     category: "other",
 	execute: (message, args) => {
-		const player = message.sender;
+		const { player } = message;
 
 		for(const command of Object.values(commands)) {
 			if(didFillCaches) break; // Dont loop through all commands again
@@ -66,21 +66,22 @@ registerCommand({
 			message += "\nNeed extra help? Ask your question in the support server: https://discord.gg/9m9TbgJ973.\n";
 
 			player.sendMessage(message);
-		} else {
-			// Give help for a command
-			const name = args[0].toLowerCase();
-			if(!commands[name]) return player.sendMessage(`§r§6[§aScythe§6]§r The command '${name}' was not found`);
-
-			const { description, usage, minArgCount, category } = commands[name];
-
-			let commandInfo = `§r§6[§aScythe§6]§r Info for command: ${name}\n§r§6[§aScythe§6]§r Description: ${description}\n`;
-
-			if(usage) commandInfo += `§r§6[§aScythe§6]§r Command Usage: ${prefix}${name} ${usage}\n`;
-			if(minArgCount) commandInfo += `§r§6[§aScythe§6]§r Minimium Argument Count: ${minArgCount}\n`;
-
-			commandInfo += `§r§6[§aScythe§6]§r Command Category: ${capitalizeFirstLetter(category)}\n§r§6[§aScythe§6]§r Enabled: ${config.customcommands[name].enabled ? "§atrue" : "§4false"}`;
-
-			player.sendMessage(commandInfo);
+			return;
 		}
+
+		// Give help for a command
+		const name = args[0].toLowerCase();
+		if(!commands[name]) return player.sendMessage(`§r§6[§aScythe§6]§r The command '${name}' was not found`);
+
+		const { description, usage, minArgCount, category } = commands[name];
+
+		let commandInfo = `§r§6[§aScythe§6]§r Info for command: ${name}\n§r§6[§aScythe§6]§r Description: ${description}\n`;
+
+		if(usage) commandInfo += `§r§6[§aScythe§6]§r Command Usage: ${prefix}${name} ${usage}\n`;
+		if(minArgCount) commandInfo += `§r§6[§aScythe§6]§r Minimium Argument Count: ${minArgCount}\n`;
+
+		commandInfo += `§r§6[§aScythe§6]§r Command Category: ${capitalizeFirstLetter(category)}\n§r§6[§aScythe§6]§r Enabled: ${config.customcommands[name].enabled ? "§atrue" : "§4false"}`;
+
+		player.sendMessage(commandInfo);
 	}
 });

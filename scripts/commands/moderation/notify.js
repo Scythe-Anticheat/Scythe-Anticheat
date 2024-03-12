@@ -6,7 +6,7 @@ registerCommand({
     description: "Recieve alerts when a player gets flagged by Scythe Anticheat",
     category: "moderation",
     execute: (message) => {
-        const player = message.sender;
+        const { player } = message;
 
         if(player.hasTag("notify")) {
             player.removeTag("notify");

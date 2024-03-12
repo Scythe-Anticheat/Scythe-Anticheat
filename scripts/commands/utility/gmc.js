@@ -8,7 +8,7 @@ registerCommand({
 	usage: "[player]",
     category: "utility",
     execute: (message, args) => {
-        const player = message.sender;
+        const { player } = message;
 
 		if(args[0] && !config.customcommands.gmc.canChangeOtherPeopleGamemode) player.sendMessage("§r§6[§aScythe§6]§r You cannot change other people's gamemodes.");
 

@@ -5,7 +5,7 @@ scoreboard players operation @s gametestapi = scythe:config gametestapi
 tellraw @s {"rawtext":[{"text":"§l§aScythe AntiCheat Command Help"}]}
 
 # Alert the player if gametest is disabled
-tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"\n§l§4Beta APIs are disabled in this world."}]}
+tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§l§4Beta APIs are disabled in this world."}]}
 tellraw @s[scores={gametestapi=..0}] {"rawtext":[{"text":"§l§4Please enable Beta APIs and Education Edition in world settings to ensure all features work properly."}]}
 
 tellraw @s[scores={gametestapi=1..}] {"rawtext":[{"text":"§l§4You are currently viewing the function-based help menu. Use '!help' instead of this command."}]}
@@ -21,13 +21,8 @@ tellraw @s {"rawtext":[{"text":"§3/tag <player name> add op§r - Op's a player 
 tellraw @s {"rawtext":[{"text":"\n§l§aOptional Features"}]}
 
 tellraw @s {"rawtext":[{"text":"§3/function settings/modules§r - View all enabled or disabled modules."}]}
-tellraw @s {"rawtext":[{"text":"§3/function settings/antiGMA§r - Enables/disables gamemode 2 (Adventure) to be used."}]}
-tellraw @s {"rawtext":[{"text":"§3/function settings/antiGMC§r - Enables/disables gamemode 1 (Creative) to be used."}]}
-tellraw @s {"rawtext":[{"text":"§3/function settings/antiGMS§r - Enables/disables gamemode 0 (Survival) to be used."}]}
 tellraw @s {"rawtext":[{"text":"§3/function settings/invalidsprint§r - Enables/disables anti-invalidsprint."}]}
 tellraw @s {"rawtext":[{"text":"§3/function settings/npc§r - Enables/disables killing all NPCs."}]}
-tellraw @s {"rawtext":[{"text":"§3/function settings/overrideCommandBlocksEnabled§r - Forces the commandblocksenabled gamerule to be enabled or disabled at all times."}]}
-
 tellraw @s {"rawtext":[{"text":"\n§l§aTools and Utilities"}]}
 
 tellraw @s {"rawtext":[{"text":"§3/execute as <username> run function tools/ecwipe§r - Clears a players ender chest."}]}

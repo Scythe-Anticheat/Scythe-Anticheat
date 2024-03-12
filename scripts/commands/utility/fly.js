@@ -1,5 +1,4 @@
 // @ts-check
-import { GameMode } from "@minecraft/server";
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -9,14 +8,14 @@ registerCommand({
 	usage: "[player]",
 	category: "utility",
 	execute: (message, args) => {
-		const player = message.sender;
+		const { player } = message;
 
 		// Find the player requested
 		const member = args.length ? findPlayerByName(args[0]) : player;
 
 		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		if(!player.matches({excludeGameModes: [GameMode.creative, GameMode.spectator]})) return player.sendMessage("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
+		if(player.gamemode === "creative") return player.sendMessage("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
 
 		member.hasTag("flying") ? disableFly(member, player) : enableFly(member, player);
 	}

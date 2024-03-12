@@ -36,12 +36,16 @@ if(dpConfig) {
 // Update config to support the latest Scythe version
 switch(config.version) {
 	case "2.20.0":
+		config.itemLists.items_semi_illegal.push("minecraft:trial_spawner");
+
 		config.modules.namespoofB.regex = String(config.modules.namespoofB.regex);
 
 		config.logAlertsToConsole = true;
 
 		config.disableFlagsFromScytheOp = config.disable_flags_from_scythe_op;
 		delete config.disable_flags_from_scythe_op;
+
+		config.customcommands.unban.push("pardon");
 
 		config.modules.killauraA = {
 			enabled: true,
@@ -55,6 +59,20 @@ switch(config.version) {
 			punishment: "none",
 			minVLbeforePunishment: 0,
 		};
+
+		config.modules.commandblockexploitH.punishment = "none";
+		config.modules.commandblockexploitH.minVlbeforePunishment = 0;
+
+		config.misc_modules.antiGamemode = {
+			enabled: false,
+			blockedgamemodes: []
+		};
+
+		delete config.customcommands.antigma;
+		delete config.customcommands.antigmc;
+		delete config.customcommands.antigms;
+
+		delete config.customcommands.overridecommandblocksenabled;
 }
 
 config.version = "2.21.0";
@@ -68,14 +86,10 @@ import "./commands/moderation/ban.js";
 import "./commands/moderation/mute.js";
 import "./commands/moderation/unmute.js";
 import "./commands/other/credits.js";
-import "./commands/settings/antigma.js";
-import "./commands/settings/antigmc.js";
-import "./commands/settings/antigms.js";
 import "./commands/settings/module.js";
 import "./commands/settings/modules.js";
 import "./commands/settings/npc.js";
 import "./commands/settings/invalidsprint.js";
-import "./commands/settings/overridecommandblocksenabled.js";
 import "./commands/utility/tag.js";
 import "./commands/utility/ecwipe.js";
 import "./commands/utility/freeze.js";

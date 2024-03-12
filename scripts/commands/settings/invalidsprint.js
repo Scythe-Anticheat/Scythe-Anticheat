@@ -5,6 +5,6 @@ registerCommand({
     description: "Enable the anti-invalid sprint module",
     category: "settings",
     execute: (message) => {
-        message.sender.runCommandAsync("function settings/invalidsprint");
+        message.player.runCommandAsync("function settings/invalidsprint");
     }
 });

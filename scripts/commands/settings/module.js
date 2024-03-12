@@ -4,27 +4,27 @@ import { world } from "@minecraft/server";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
-    name: "module",
-    description: "Change the data of scythe modules",
+	name: "module",
+	description: "Change the data of scythe modules",
 	usage: "<module name> <setting> [value]",
-    category: "settings",
-    execute: execute
+	category: "settings",
+	execute: execute
 });
 
 registerCommand({
-    name: "misc_module",
-    description: "Change the data of optional scythe modules",
+	name: "misc_module",
+	description: "Change the data of optional scythe modules",
 	usage: "<module name> <setting> [value]",
-    category: "settings",
-    execute: execute
+	category: "settings",
+	execute: execute
 });
 
 function execute(message, args, commandName) {
-	const player = message.sender;
-	const category = commandName === "module" ? "modules" : "misc_modules";
-    const module = args[0];
-	const name = args[1];
+	const { player } = message;
+	const [ module, name ] = args;
 	const value = args.slice(2).join(" ");
+
+	const category = commandName === "module" ? "modules" : "misc_modules";
 
 	if(!module) return player.sendMessage(`§r§6[§aScythe§6]§r Module list: ${Object.keys(config[category]).join(", ")}`);
 
@@ -38,29 +38,26 @@ function execute(message, args, commandName) {
 	if(value === "") return player.sendMessage(`§r§6[§aScythe§6]§r You need enter a value for this setting.`);
 
 	let newValue;
-	switch(typeof moduleData[name]) {
-		case "boolean":
+	switch(moduleData[name]?.constructor.name) {
+		case "Boolean":
 			newValue = value === "true" ? true : false;
 			break;
 
-		case "number":
+		case "Number":
 			newValue = Number(value);
 			break;
 
-		case "string":
+		case "String":
 			newValue = value;
 			break;
 
-		// "Object" type is kind of a wildcard, it can refer to normal objects, arrays, regexs, promises, etc
-		case "object": {
-			// Normal objects and Arrays can both be parsed with JSON.parse
-			if(moduleData[name] instanceof RegExp) {
-				newValue = RegExp(value);
-			} else {
-				newValue = JSON.parse(value);
-			}
+		case "Array":
+			newValue = JSON.parse(value.replace(/'/g, '"'));
 			break;
-		}
+
+		case "RegExp":
+			newValue = RegExp(value);
+			break;
 	}
 
 	moduleData[name] = newValue;

@@ -8,7 +8,7 @@ registerCommand({
     minArgCount: 1,
     category: "moderation",
     execute: (message, args) => {
-        const player = message.sender;
+        const { player } = message;
         const time = args[1] ? parseTime(args[1]) : undefined;
 
         // Remove time from args
