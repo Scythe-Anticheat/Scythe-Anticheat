@@ -75,7 +75,7 @@ switch(config.version) {
 		delete config.customcommands.overridecommandblocksenabled;
 }
 
-config.version = "2.21.0";
+config.version = "2.22.0";
 
 // Register all commands
 import "./commands/moderation/kick.js";
