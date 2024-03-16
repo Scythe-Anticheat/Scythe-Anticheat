@@ -19,7 +19,7 @@ registerCommand({
         } else {
             player.addTag("vanish");
 
-            player.runCommandAsync("gamemode spectator");
+            player.setGameMode("spectator");
 
             player.sendMessage("§r§6[§aScythe§6]§r You are now vanished.");
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} is now vanished.`);

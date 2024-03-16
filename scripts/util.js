@@ -239,7 +239,7 @@ export function getClosestPlayer(entity) {
 
     const nearestPlayer = entity.dimension.getPlayers({
         closest: 1,
-        location: {x: entity.location.x, y: entity.location.y, z: entity.location.z}
+        location: entity.location
     })[0];
 
     return nearestPlayer;
@@ -289,19 +289,13 @@ export function msToTime(ms) {
     const now = Date.now();
     if(ms > now) ms = ms - now;
 
-    // turn milliseconds into days, minutes, seconds, etc
-    const w = Math.floor(ms / (1000 * 60 * 60 * 24 * 7));
-    const d = Math.floor((ms % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
-    const h = Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((ms % (1000 * 60)) / 1000);
-
+    // Turn milliseconds into days, minutes, seconds, etc
     return {
-        w: w,
-        d: d,
-        h: h,
-        m: m,
-        s: s
+        w: Math.floor(ms / (1000 * 60 * 60 * 24 * 7)),
+        d: Math.floor((ms % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24)),
+        h: Math.floor((ms % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        m: Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60)),
+        s: Math.floor((ms % (1000 * 60)) / 1000)
     };
 }
 
@@ -364,18 +358,13 @@ export function capitalizeFirstLetter(string) {
 export function findPlayerByName(name) {
 	const searchName = name.toLowerCase().replace(/\\|@/g, "");
 
-    let player;
-
-    for(const pl of world.getPlayers()) {
-        const lowercaseName = pl.name.toLowerCase();
+    for(const player of world.getPlayers()) {
+        const lowercaseName = player.name.toLowerCase();
         if(searchName !== lowercaseName && !lowercaseName.includes(searchName)) continue;
 
 		// Found a valid player
-		player = pl;
-		break;
+		return player;
 	}
-
-	return player;
 }
 
 /**
