@@ -17,7 +17,7 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		member.runCommandAsync("gamemode survival");
+		member.setGameMode("survival");
 
 		tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has changed ${player.id === member.id ? "their" : `${member.name}'s`} gamemode to survival.`);
     }

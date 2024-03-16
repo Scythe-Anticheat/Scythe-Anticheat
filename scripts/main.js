@@ -512,7 +512,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	}
 
 	if(revertBlock) {
-		// kill the items dropped items
+		// Remove the dropped items
 		const droppedItems = dimension.getEntities({
 			location: {x: block.location.x, y: block.location.y, z: block.location.z},
 			minDistance: 0,
