@@ -1,0 +1,25 @@
+name: Send release notification
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Run Javascript file
+        run: node ./.github/workflows/sendReleaseInfo.js
+        env:
+          RELEASE_WEBHOOK: ${{ secrets.RELEASE_WEBHOOK }}
+          GITHUB_EVENT_DATA: ${{ toJson(github.event) }}
