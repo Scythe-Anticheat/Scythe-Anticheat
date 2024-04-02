@@ -7,13 +7,9 @@
 			"is_summonable": true,
 			"is_experimental": false,
 			"scripts": {
-				"animate": [
-					// "flight_duration"
-				]
+				"animate": []
 			},
-			"animations": {
-				// "flight_duration": "controller.animation.flight_duration"
-			}
+			"animations": {}
 		},
 		"component_groups": {
 			"scythe:flight_duration": {
@@ -34,7 +30,7 @@
 			},
 			"minecraft:conditional_bandwidth_optimization": {
 				"default_values": {
-					"max_optimized_distance": 80.0,
+					"max_optimized_distance": 80,
 					"max_dropped_ticks": 10,
 					"use_motion_prediction_hints": true
 				}

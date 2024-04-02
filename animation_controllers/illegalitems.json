@@ -1,87 +1,87 @@
-// As of June 27, 2023, this animation controller has been deprecated. It is no longer in use.
 {
 	"format_version": "1.10.0",
 	"animation_controllers": {
 		"controller.animation.illegals": {
 			"states": {
 				"check_illegal": {
-					"transitions": [{
-							"bedrock": "query.get_equipped_item_name == 'bedrock'"
+					"transitions": [
+						{
+							"bedrock": "query.get_equipped_item_name=='bedrock'"
 						},
 						{
-							"end_portal_frame": "query.get_equipped_item_name == 'end_portal_frame'"
+							"end_portal_frame": "query.get_equipped_item_name=='end_portal_frame'"
 						},
 						{
-							"dragon_egg": "query.get_equipped_item_name == 'dragon_egg'"
+							"dragon_egg": "query.get_equipped_item_name=='dragon_egg'"
 						},
 						{
-							"monster_egg": "query.get_equipped_item_name == 'monster_egg'"
+							"monster_egg": "query.get_equipped_item_name=='monster_egg'"
 						},
 						{
-							"infested_deepslate": "query.get_equipped_item_name == 'infested_deepslate'"
+							"infested_deepslate": "query.get_equipped_item_name=='infested_deepslate'"
 						},
 						{
-							"chorus_plant": "query.get_equipped_item_name == 'chorus_plant'"
+							"chorus_plant": "query.get_equipped_item_name=='chorus_plant'"
 						},
 						{
-							"mob_spawner": "query.get_equipped_item_name == 'mob_spawner'"
+							"mob_spawner": "query.get_equipped_item_name=='mob_spawner'"
 						},
 						{
-							"budding_amethyst": "query.get_equipped_item_name == 'budding_amethyst'"
+							"budding_amethyst": "query.get_equipped_item_name=='budding_amethyst'"
 						},
 						{
-							"spawn_egg": "query.get_equipped_item_name == 'spawn_egg'"
+							"spawn_egg": "query.get_equipped_item_name=='spawn_egg'"
 						},
 						{
-							"command_block": "query.get_equipped_item_name == 'command_block'"
+							"command_block": "query.get_equipped_item_name=='command_block'"
 						},
 						{
-							"chain_command_block": "query.get_equipped_item_name == 'chain_command_block'"
+							"chain_command_block": "query.get_equipped_item_name=='chain_command_block'"
 						},
 						{
-							"repeating_command_block": "query.get_equipped_item_name == 'repeating_command_block'"
+							"repeating_command_block": "query.get_equipped_item_name=='repeating_command_block'"
 						},
 						{
-							"command_block_minecart": "query.get_equipped_item_name == 'command_block_minecart'"
+							"command_block_minecart": "query.get_equipped_item_name=='command_block_minecart'"
 						},
 						{
-							"barrier": "query.get_equipped_item_name == 'barrier'"
+							"barrier": "query.get_equipped_item_name=='barrier'"
 						},
 						{
-							"structure_block": "query.get_equipped_item_name == 'structure_block'"
+							"structure_block": "query.get_equipped_item_name=='structure_block'"
 						},
 						{
-							"structure_void": "query.get_equipped_item_name == 'structure_void'"
+							"structure_void": "query.get_equipped_item_name=='structure_void'"
 						},
 						{
-							"jigsaw": "query.get_equipped_item_name == 'jigsaw'"
+							"jigsaw": "query.get_equipped_item_name=='jigsaw'"
 						},
 						{
-							"allow": "query.get_equipped_item_name == 'allow'"
+							"allow": "query.get_equipped_item_name=='allow'"
 						},
 						{
-							"deny": "query.get_equipped_item_name == 'deny'"
+							"deny": "query.get_equipped_item_name=='deny'"
 						},
 						{
-							"light_block": "query.get_equipped_item_name == 'light_block'"
+							"light_block": "query.get_equipped_item_name=='light_block'"
 						},
 						{
-							"border_block": "query.get_equipped_item_name == 'border_block'"
+							"border_block": "query.get_equipped_item_name=='border_block'"
 						},
 						{
-							"chemistry_table": "query.get_equipped_item_name == 'chemistry_table'"
+							"chemistry_table": "query.get_equipped_item_name=='chemistry_table'"
 						},
 						{
-							"frosted_ice": "query.get_equipped_item_name == 'frosted_ice'"
+							"frosted_ice": "query.get_equipped_item_name=='frosted_ice'"
 						},
 						{
-							"reinforced_deepslate": "query.get_equipped_item_name == 'reinforced_deepslate'"
+							"reinforced_deepslate": "query.get_equipped_item_name=='reinforced_deepslate'"
 						},
 						{
-							"farmland": "query.get_equipped_item_name == 'farmland'"
+							"farmland": "query.get_equipped_item_name=='farmland'"
 						},
 						{
-							"npc_spawn_egg": "query.get_equipped_item_name == 'npc_spawn_egg'"
+							"npc_spawn_egg": "query.get_equipped_item_name=='npc_spawn_egg'"
 						}
 					]
 				},
@@ -91,9 +91,11 @@
 						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
 						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(bedrock)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'bedrock'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='bedrock'"
+						}
+					]
 				},
 				"end_portal_frame": {
 					"on_entry": [
@@ -101,9 +103,11 @@
 						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
 						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(end_portal_frame)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'end_portal_frame'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='end_portal_frame'"
+						}
+					]
 				},
 				"dragon_egg": {
 					"on_entry": [
@@ -111,9 +115,11 @@
 						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
 						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(dragon_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'dragon_egg'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='dragon_egg'"
+						}
+					]
 				},
 				"monster_egg": {
 					"on_entry": [
@@ -121,9 +127,11 @@
 						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
 						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(monster_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'monster_egg'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='monster_egg'"
+						}
+					]
 				},
 				"infested_deepslate": {
 					"on_entry": [
@@ -131,9 +139,11 @@
 						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
 						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(infested_deepslate)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'infested_deepslate'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='infested_deepslate'"
+						}
+					]
 				},
 				"chorus_plant": {
 					"on_entry": [
@@ -141,9 +151,11 @@
 						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
 						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(chorus_plant)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'chorus_plant'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='chorus_plant'"
+						}
+					]
 				},
 				"mob_spawner": {
 					"on_entry": [
@@ -151,9 +163,11 @@
 						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
 						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(mob_spawner)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'mob_spawner'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='mob_spawner'"
+						}
+					]
 				},
 				"budding_amethyst": {
 					"on_entry": [
@@ -161,9 +175,11 @@
 						"/scoreboard players add @s[tag=!op,m=!c] illegalitemsvl 1",
 						"/execute @s[tag=!op,m=!c] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(budding_amethyst)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'budding_amethyst'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='budding_amethyst'"
+						}
+					]
 				},
 				"spawn_egg": {
 					"on_entry": [
@@ -171,9 +187,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'spawn_egg'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='spawn_egg'"
+						}
+					]
 				},
 				"command_block": {
 					"on_entry": [
@@ -181,9 +199,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'command_block'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='command_block'"
+						}
+					]
 				},
 				"chain_command_block": {
 					"on_entry": [
@@ -191,9 +211,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(chain_command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'chain_command_block'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='chain_command_block'"
+						}
+					]
 				},
 				"repeating_command_block": {
 					"on_entry": [
@@ -201,9 +223,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(repeating_command_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'repeating_command_block'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='repeating_command_block'"
+						}
+					]
 				},
 				"command_block_minecart": {
 					"on_entry": [
@@ -211,9 +235,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(command_block_minecart)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'command_block_minecart'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='command_block_minecart'"
+						}
+					]
 				},
 				"barrier": {
 					"on_entry": [
@@ -221,9 +247,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(barrier)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'barrier'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='barrier'"
+						}
+					]
 				},
 				"structure_block": {
 					"on_entry": [
@@ -231,9 +259,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(structure_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'structure_block'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='structure_block'"
+						}
+					]
 				},
 				"structure_void": {
 					"on_entry": [
@@ -241,9 +271,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(structure_void)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'structure_void'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='structure_void'"
+						}
+					]
 				},
 				"jigsaw": {
 					"on_entry": [
@@ -251,9 +283,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(jigsaw)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'jigsaw'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='jigsaw'"
+						}
+					]
 				},
 				"allow": {
 					"on_entry": [
@@ -261,9 +295,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(allow)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'allow'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='allow'"
+						}
+					]
 				},
 				"deny": {
 					"on_entry": [
@@ -271,9 +307,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(deny)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'deny'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='deny'"
+						}
+					]
 				},
 				"light_block": {
 					"on_entry": [
@@ -281,9 +319,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(light_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'light_block'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='light_block'"
+						}
+					]
 				},
 				"border_block": {
 					"on_entry": [
@@ -291,9 +331,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(border_block)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'border_block'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='border_block'"
+						}
+					]
 				},
 				"chemistry_table": {
 					"on_entry": [
@@ -301,9 +343,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(chemistry_table)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'chemistry_table'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='chemistry_table'"
+						}
+					]
 				},
 				"frosted_ice": {
 					"on_entry": [
@@ -311,9 +355,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(frosted_ice)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'frosted_ice'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='frosted_ice'"
+						}
+					]
 				},
 				"reinforced_deepslate": {
 					"on_entry": [
@@ -321,9 +367,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(reinforced_deepslate)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'reinforced_deepslate'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='reinforced_deepslate'"
+						}
+					]
 				},
 				"farmland": {
 					"on_entry": [
@@ -331,9 +379,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(farmland)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'farmland'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='farmland'"
+						}
+					]
 				},
 				"npc_spawn_egg": {
 					"on_entry": [
@@ -341,9 +391,11 @@
 						"/scoreboard players add @s[tag=!op] illegalitemsvl 1",
 						"/execute @s[tag=!op] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(npc_spawn_egg)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					],
-					"transitions": [{
-						"check_illegal": "query.get_equipped_item_name != 'npc_spawn_egg'"
-					}]
+					"transitions": [
+						{
+							"check_illegal": "query.get_equipped_item_name!='npc_spawn_egg'"
+						}
+					]
 				}
 			}
 		}

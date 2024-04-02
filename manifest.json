@@ -1,7 +1,7 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "Scythe Anticheat v2.22.0",
+		"name": "Scythe Anticheat v2.22.0 (Customized)",
 		"description": "The best minecraft bedrock anticheat, designed for realms and servers.",
 		"uuid": "c68ba0c1-b9e4-46ad-b6c8-88bbd28f1fa5",
 		"version": [2, 22, 0],

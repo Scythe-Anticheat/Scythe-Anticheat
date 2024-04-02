@@ -12,7 +12,7 @@
 				"minecraft:explode": {
 					"fuse_length": {
 						"range_min": 0.5,
-						"range_max": 2.0
+						"range_max": 2
 					},
 					"fuse_lit": true,
 					"power": 4,
@@ -22,7 +22,10 @@
 		},
 		"components": {
 			"minecraft:type_family": {
-				"family": ["tnt", "inanimate"]
+				"family": [
+					"tnt",
+					"inanimate"
+				]
 			},
 			"minecraft:collision_box": {
 				"width": 0.98,
@@ -39,13 +42,13 @@
 				"is_pushable": false,
 				"is_pushable_by_piston": true
 			},
-            "minecraft:conditional_bandwidth_optimization": {
-                "default_values": {
-                    "max_optimized_distance": 80,
-                    "max_dropped_ticks": 5,
-                    "use_motion_prediction_hints": true
-                }
-            }
+			"minecraft:conditional_bandwidth_optimization": {
+				"default_values": {
+					"max_optimized_distance": 80,
+					"max_dropped_ticks": 5,
+					"use_motion_prediction_hints": true
+				}
+			}
 		},
 		"events": {
 			"from_explosion": {

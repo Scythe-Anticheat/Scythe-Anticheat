@@ -7,17 +7,16 @@
 			"is_summonable": false,
 			"is_experimental": false,
 			"scripts": {
-				"animate": [
-					// "cbe"
-				]
+				"animate": []
 			},
-			"animations": {
-				// "cbe": "controller.animation.cbe"
-			}
+			"animations": {}
 		},
 		"components": {
 			"minecraft:type_family": {
-				"family": ["minecart", "inanimate"]
+				"family": [
+					"minecart",
+					"inanimate"
+				]
 			},
 			"minecraft:instant_despawn": {
 				"remove_child_entities": true

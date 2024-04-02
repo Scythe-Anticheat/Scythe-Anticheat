@@ -3,7 +3,7 @@ export default
 	// This value sholud not be changed unless you know what you are doing.
 	// It is used to make Scythe be able to work with older versions of the config
 	"version": "2.22.0",
-	"debug": true,
+	"debug": false,
 	// If checks can auto-ban
 	"autoban": true,
 	"flagWhitelist": [],
@@ -15,7 +15,7 @@ export default
 	"disableFlagsFromScytheOp": false,
 	"logAlertsToConsole": true,
 	"customcommands": {
-		"prefix": "!",
+		"prefix": "-",
 		"sendInvalidCommandMsg": false,
 		"ban": {
 			"enabled": true,
@@ -37,6 +37,10 @@ export default
 			"requiredTags": ["op"]
 		},
 		"credits": {
+			"enabled": true,
+			"requiredTags": []
+		},
+		"reset": {
 			"enabled": true,
 			"requiredTags": []
 		},

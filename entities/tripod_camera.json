@@ -7,10 +7,13 @@
 			"is_summonable": false,
 			"is_experimental": false
 		},
-
 		"components": {
 			"minecraft:type_family": {
-				"family": ["tripodcamera", "inanimate", "mob"]
+				"family": [
+					"tripodcamera",
+					"inanimate",
+					"mob"
+				]
 			},
 			"minecraft:instant_despawn": {
 				"remove_child_entities": true

@@ -7,7 +7,6 @@
 			"is_summonable": false,
 			"is_experimental": false
 		},
-
 		"components": {
 			"minecraft:is_hidden_when_invisible": {},
 			"minecraft:experience_reward": {
@@ -54,7 +53,7 @@
 				"avoid_water": true
 			},
 			"minecraft:movement.basic": {
-				"max_turn": 180.0
+				"max_turn": 180
 			},
 			"minecraft:jump.static": {},
 			"minecraft:can_climb": {},
@@ -73,7 +72,8 @@
 			},
 			"minecraft:behavior.nearest_attackable_target": {
 				"priority": 3,
-				"entity_types": [{
+				"entity_types": [
+					{
 						"filters": {
 							"test": "is_family",
 							"subject": "other",
@@ -83,7 +83,8 @@
 					},
 					{
 						"filters": {
-							"all_of": [{
+							"all_of": [
+								{
 									"test": "is_family",
 									"subject": "other",
 									"operator": "!=",
@@ -117,7 +118,13 @@
 				"priority": 7
 			},
 			"minecraft:type_family": {
-				"family": ["wither", "skeleton", "monster", "undead", "mob"]
+				"family": [
+					"wither",
+					"skeleton",
+					"monster",
+					"undead",
+					"mob"
+				]
 			},
 			"minecraft:persistent": {},
 			"minecraft:physics": {},
@@ -127,11 +134,8 @@
 			},
 			"minecraft:conditional_bandwidth_optimization": {}
 		},
-
 		"events": {
-			"minecraft:entity_spawned": {
-
-			}
+			"minecraft:entity_spawned": {}
 		}
 	}
 }

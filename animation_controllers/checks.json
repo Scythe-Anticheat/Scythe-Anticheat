@@ -4,9 +4,11 @@
 		"controller.animation.autototem": {
 			"states": {
 				"autototem": {
-					"transitions": [{
-						"totem": "query.get_equipped_item_name('off_hand') == 'totem_of_undying'"
-					}]
+					"transitions": [
+						{
+							"totem": "query.get_equipped_item_name('off_hand')=='totem_of_undying'"
+						}
+					]
 				},
 				"totem": {
 					"on_entry": [
@@ -17,18 +19,22 @@
 						"/scoreboard players add @s[tag=left] autototemvl 1",
 						"/execute @s[tag=left] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoTotem/C VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autototemvl\"}}]}"
 					],
-					"transitions": [{
-						"autototem": "query.get_equipped_item_name('off_hand') != 'totem_of_undying'"
-					}]
+					"transitions": [
+						{
+							"autototem": "query.get_equipped_item_name('off_hand')!='totem_of_undying'"
+						}
+					]
 				}
 			}
 		},
 		"controller.animation.autoshield": {
 			"states": {
 				"autoshield": {
-					"transitions": [{
-						"shield": "query.get_equipped_item_name('off_hand') == 'shield'"
-					}]
+					"transitions": [
+						{
+							"shield": "query.get_equipped_item_name('off_hand')=='shield'"
+						}
+					]
 				},
 				"shield": {
 					"on_entry": [
@@ -39,27 +45,33 @@
 						"/scoreboard players add @s[tag=left] autoshield 1",
 						"/execute @s[tag=left] ~~~ tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Combat) §4AutoShield/C VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"autoshieldvl\"}}]}"
 					],
-					"transitions": [{
-						"autoshield": "query.get_equipped_item_name('off_hand') != 'shield'"
-					}]
+					"transitions": [
+						{
+							"autoshield": "query.get_equipped_item_name('off_hand')!='shield'"
+						}
+					]
 				}
 			}
 		},
 		"controller.animation.sprint": {
 			"states": {
 				"default": {
-					"transitions": [{
-						"sprint": "query.is_sprinting"
-					}],
+					"transitions": [
+						{
+							"sprint": "query.is_sprinting"
+						}
+					],
 					"on_entry": [
 						"/tag @s remove sprint",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"sprint": {
-					"transitions": [{
-						"default": "!query.is_sprinting"
-					}],
+					"transitions": [
+						{
+							"default": "!query.is_sprinting"
+						}
+					],
 					"on_entry": [
 						"/tag @s add sprint",
 						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSPRINT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
@@ -68,27 +80,5 @@
 				}
 			}
 		}
-		// As of June 27, 2023, this animation controller has been deprecated. It is no longer in use.
-		/*
-		"controller.animation.invalid_offhand": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"invalid_offhand": "query.get_equipped_item_name('off_hand') != '' && query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name('off_hand') != 'totem_of_undying' && query.get_equipped_item_name('off_hand') != 'filled_map' && query.get_equipped_item_name('off_hand') != 'arrow' && query.get_equipped_item_name('off_hand') != 'firework_rocket' && query.get_equipped_item_name('off_hand') != 'nautilus_shell'"
-					}]
-				},
-				"invalid_offhand": {
-					"on_entry": [
-						"/scoreboard players add @s illegalitemsvl 1",
-						"/replaceitem entity @s slot.weapon.offhand 0 air",
-						"/tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/M. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
-					],
-					"transitions": [{
-						"default": "query.get_equipped_item_name('off_hand') == '' || query.get_equipped_item_name('off_hand') == 'shield' || query.get_equipped_item_name('off_hand') == 'totem_of_undying' || query.get_equipped_item_name('off_hand') == 'filled_map' || query.get_equipped_item_name('off_hand') == 'arrow' || query.get_equipped_item_name('off_hand') == 'firework_rocket' || query.get_equipped_item_name('off_hand') == 'nautilus_shell'"
-					}]
-				}
-			}
-		}
-		*/
 	}
 }

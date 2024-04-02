@@ -19,9 +19,6 @@
 					"right",
 					"sneak",
 					"jump",
-					// "illegals",
-					// "illegals2",
-					// "cbeitems",
 					"move",
 					"autototem",
 					"autoshield",
@@ -29,7 +26,6 @@
 					"swim",
 					"sleep",
 					"trident"
-					// "invalid_offhand"
 				]
 			},
 			"animations": {
@@ -44,9 +40,6 @@
 				"right": "controller.animation.right",
 				"sneak": "controller.animation.sneak",
 				"jump": "controller.animation.jump",
-				// "illegals": "controller.animation.illegals",
-				// "illegals2": "controller.animation.illegals2",
-				// "cbeitems": "controller.animation.cbeitems",
 				"move": "controller.animation.move",
 				"autototem": "controller.animation.autototem",
 				"autoshield": "controller.animation.autoshield",
@@ -54,18 +47,19 @@
 				"swim": "controller.animation.swim",
 				"sleep": "controller.animation.sleep",
 				"trident": "controller.animation.trident"
-				// "invalid_offhand": "controller.animation.invalid_offhand"
 			}
 		},
 		"component_groups": {
 			"minecraft:add_bad_omen": {
 				"minecraft:spell_effects": {
-					"add_effects": [{
-						"effect": "bad_omen",
-						"duration": 6000,
-						"visible": false,
-						"display_on_screen_animation": true
-					}]
+					"add_effects": [
+						{
+							"effect": "bad_omen",
+							"duration": 6000,
+							"visible": false,
+							"display_on_screen_animation": true
+						}
+					]
 				},
 				"minecraft:timer": {
 					"time": [
@@ -94,8 +88,6 @@
 				}
 			},
 			"scythe:kick": {
-				// https://discord.com/channels/879970475483217940/933913999765024818/1022005158865031188
-				// new kick method by Tutinoko9900#1841
 				"minecraft:explode": {
 					"fuse_length": 0,
 					"fuse_lit": true,
@@ -125,7 +117,7 @@
 		},
 		"components": {
 			"minecraft:experience_reward": {
-				"on_death": "Math.Min(query.player_level * 7, 100)"
+				"on_death": "math.min(query.player_level*7,100)"
 			},
 			"minecraft:type_family": {
 				"family": [
@@ -145,16 +137,18 @@
 				"value": 0.1
 			},
 			"minecraft:hurt_on_condition": {
-				"damage_conditions": [{
-					"filters": {
-						"test": "in_lava",
-						"subject": "self",
-						"operator": "==",
-						"value": true
-					},
-					"cause": "lava",
-					"damage_per_tick": 4
-				}]
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
 			},
 			"minecraft:attack": {
 				"damage": 1
@@ -166,7 +160,7 @@
 				"mine": 0.005,
 				"attack": 0.1,
 				"damage": 0.1,
-				"walk": 0.0,
+				"walk": 0,
 				"sprint": 0.1,
 				"swim": 0.01
 			},
@@ -190,11 +184,52 @@
 				"total_supply": 15,
 				"suffocate_time": -1,
 				"inhale_time": 3.75,
-				"generates_bubbles": false
+				"generates_bubbles": false,
+				"on_hit": {
+					"run_command": {
+						"target": "other",
+						"command": [
+							"tag @s add assist",
+							"scoreboard players add @s EXP 1",
+							"xp 1 @s"
+						]
+					}
+				},
+				"on_hit_copy": {
+					"run_command": {
+						"target": "other",
+						"command": [
+							"tag @s add assist",
+							"scoreboard players add @s EXP 1",
+							"xp 1 @s"
+						]
+					}
+				}
 			},
 			"minecraft:nameable": {
 				"always_show": true,
-				"allow_name_tag_renaming": false
+				"allow_name_tag_renaming": false,
+				"on_death_by_player": {
+					"run_command": {
+						"target": "other",
+						"command": [
+							"tag @s remove assist",
+							"scoreboard players add @s Kills 1",
+							"scoreboard players add @s EXP 5",
+							"scoreboard players add @s Killstreak 1",
+							"scoreboard players add @s[scores={Scorestreak=!3}] Scorestreak 1",
+							"scoreboard players add @s[scores={Scorestreak=3}] EXP 10",
+							"effect @s[tag=!Assassin] instant_health 1 0 true",
+							"effect @s[tag=Assassin] instant_health 1 1 true",
+							"scoreboard players operation @s Score += @s Scorestreak",
+							"function stategained",
+							"give @s emerald",
+							"give @s[scores={Scorestreak=3}] emerald",
+							"xp 7 @s",
+							"playsound random.orb @s"
+						]
+					}
+				}
 			},
 			"minecraft:physics": {
 				"push_towards_closest_space": true
@@ -207,11 +242,111 @@
 				"days_until_insomnia": 3
 			},
 			"minecraft:damage_sensor": {
-				"triggers": [{
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"all_of": [
+											{
+												"test": "has_tag",
+												"subject": "self",
+												"value": "Red"
+											},
+											{
+												"test": "has_tag",
+												"subject": "other",
+												"value": "Red"
+											}
+										]
+									},
+									{
+										"all_of": [
+											{
+												"test": "has_tag",
+												"subject": "self",
+												"value": "Blue"
+											},
+											{
+												"test": "has_tag",
+												"subject": "other",
+												"value": "Blue"
+											}
+										]
+									},
+									{
+										"all_of": [
+											{
+												"test": "has_tag",
+												"subject": "self",
+												"value": "Green"
+											},
+											{
+												"test": "has_tag",
+												"subject": "other",
+												"value": "Green"
+											}
+										]
+									},
+									{
+										"all_of": [
+											{
+												"test": "has_tag",
+												"subject": "self",
+												"value": "Yellow"
+											},
+											{
+												"test": "has_tag",
+												"subject": "other",
+												"value": "Yellow"
+											}
+										]
+									},
+									{
+										"all_of": [
+											{
+												"test": "has_tag",
+												"subject": "self",
+												"value": "Neutral"
+											},
+											{
+												"test": "has_tag",
+												"subject": "other",
+												"value": "Neutral"
+											}
+										]
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "has_damage",
+										"value": "fatal"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									}
+								]
+							},
+							"target": "other",
+							"event": "on_death_by_player"
+						}
+					},
+					{
 						"cause": "all",
 						"on_damage": {
 							"filters": {
-								"all_of": [{
+								"all_of": [
+									{
 										"test": "has_tag",
 										"operator": "==",
 										"subject": "self",
@@ -229,10 +364,31 @@
 						"deals_damage": false
 					},
 					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"test": "has_damage",
+										"operator": "==",
+										"value": "attack"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									}
+								]
+							},
+							"target": "other",
+							"event": "on_hit"
+						}
+					},
+					{
 						"cause": "all",
 						"on_damage": {
 							"filters": {
-								"any_of": [{
+								"any_of": [
+									{
 										"test": "has_tag",
 										"operator": "==",
 										"subject": "self",
@@ -253,11 +409,13 @@
 						"cause": "entity_attack",
 						"on_damage": {
 							"filters": {
-								"any_of": [{
-									"test": "is_family",
-									"subject": "other",
-									"value": "player"
-								}]
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									}
+								]
 							},
 							"event": "scythe:attacked",
 							"target": "other"
@@ -271,14 +429,23 @@
 					"parrot_tame"
 				],
 				"pull_in_entities": true,
-				"seats": [{
-						"position": [0.4, -0.2, -0.1],
+				"seats": [
+					{
+						"position": [
+							0.4,
+							-0.2,
+							-0.1
+						],
 						"min_rider_count": 0,
 						"max_rider_count": 0,
 						"lock_rider_rotation": 0
 					},
 					{
-						"position": [-0.4, -0.2, -0.1],
+						"position": [
+							-0.4,
+							-0.2,
+							-0.1
+						],
 						"min_rider_count": 1,
 						"max_rider_count": 2,
 						"lock_rider_rotation": 0
@@ -288,9 +455,11 @@
 			"minecraft:conditional_bandwidth_optimization": {},
 			"minecraft:block_climber": {},
 			"minecraft:environment_sensor": {
-				"triggers": [{
+				"triggers": [
+					{
 						"filters": {
-							"all_of": [{
+							"all_of": [
+								{
 									"test": "has_mob_effect",
 									"subject": "self",
 									"value": "bad_omen"
@@ -299,7 +468,6 @@
 									"test": "is_in_village",
 									"subject": "self",
 									"value": true
-
 								}
 							]
 						},
@@ -307,41 +475,46 @@
 					},
 					{
 						"filters": {
-							"all_of": [{
-								"test": "has_container_open",
-								"operator": "==",
-								"subject": "self",
-								"value": true
-							},
-							{
-								"test": "has_tag",
-								"operator": "!=",
-								"subject": "self",
-								"value": "hasGUIopen"
-							}]
+							"all_of": [
+								{
+									"test": "has_container_open",
+									"operator": "==",
+									"subject": "self",
+									"value": true
+								},
+								{
+									"test": "has_tag",
+									"operator": "!=",
+									"subject": "self",
+									"value": "hasGUIopen"
+								}
+							]
 						},
 						"event": "scythe:openedGui"
 					},
 					{
 						"filters": {
-							"all_of": [{
-								"test": "has_container_open",
-								"operator": "==",
-								"subject": "self",
-								"value": false
-							},
-							{
-								"test": "has_tag",
-								"operator": "==",
-								"subject": "self",
-								"value": "hasGUIopen"
-							}]
+							"all_of": [
+								{
+									"test": "has_container_open",
+									"operator": "==",
+									"subject": "self",
+									"value": false
+								},
+								{
+									"test": "has_tag",
+									"operator": "==",
+									"subject": "self",
+									"value": "hasGUIopen"
+								}
+							]
 						},
 						"event": "scythe:closedGui"
 					},
 					{
 						"filters": {
-							"any_of": [{
+							"any_of": [
+								{
 									"test": "has_equipment",
 									"domain": "any",
 									"operator": "==",
@@ -700,7 +873,6 @@
 				"queue_command": {
 					"command": "kick @s §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r N/A\n§bReason:§r N/A\n§aBan Length:§r Permanent"
 				},
-				// We probably don't need this anymore as we run '/kick @s'
 				"add": {
 					"component_groups": [
 						"scythe:kick"
@@ -761,6 +933,37 @@
 				"remove": {
 					"component_groups": [
 						"minecraft:raid_trigger"
+					]
+				}
+			},
+			"on_death_by_player": {
+				"run_command": {
+					"target": "other",
+					"command": [
+						"tag @s remove assist",
+						"scoreboard players add @s Kills 1",
+						"scoreboard players add @s EXP 5",
+						"scoreboard players add @s Killstreak 1",
+						"scoreboard players add @s[scores={Scorestreak=!3}] Scorestreak 1",
+						"scoreboard players add @s[scores={Scorestreak=3}] EXP 10",
+						"effect @s[tag=!Assassin] instant_health 1 0 true",
+						"effect @s[tag=Assassin] instant_health 1 1 true",
+						"scoreboard players operation @s Score += @s Scorestreak",
+						"function stategained",
+						"give @s emerald",
+						"give @s[scores={Scorestreak=3}] emerald",
+						"xp 7 @s",
+						"playsound random.orb @s"
+					]
+				}
+			},
+			"on_hit": {
+				"run_command": {
+					"target": "other",
+					"command": [
+						"tag @s add assist",
+						"scoreboard players add @s EXP 1",
+						"xp 1 @s"
 					]
 				}
 			}

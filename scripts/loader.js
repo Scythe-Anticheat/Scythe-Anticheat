@@ -75,7 +75,7 @@ switch(config.version) {
 		delete config.customcommands.overridecommandblocksenabled;
 }
 
-config.version = "2.22.0";
+config.version = "2.22.0-custom";
 
 // Register all commands
 import "./commands/moderation/kick.js";
@@ -104,6 +104,7 @@ import "./commands/moderation/unban.js";
 import "./commands/utility/ui.js";
 import "./commands/moderation/resetwarns.js";
 import "./commands/other/version.js";
+import "./commands/other/reset.js";
 import "./commands/moderation/deop.js";
 import "./commands/moderation/globalmute.js";
 import "./commands/utility/gma.js";

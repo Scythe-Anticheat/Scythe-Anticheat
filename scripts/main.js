@@ -1,7 +1,7 @@
 // @ts-check
 import banList from "./data/globalban.js";
 import config from "./data/config.js";
-import { world, system, ItemTypes, ItemStack } from "@minecraft/server";
+import { world, system, ItemTypes, ItemStack, BlockPermutation } from "@minecraft/server";
 import { flag, banMessage, getClosestPlayer, getScore, getBlocksBetween, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -17,6 +17,41 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	if(player.hasTag("isMuted")) {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
 		msg.cancel = true;
+	}
+
+	const redeemCodes = {
+        "kitpvp": "KitPvP",
+        "specialupdate13": "SpecialUpdate13",
+        "realtree27": "RealTree27",
+        "fancywindmill49": "FancyWindmill49",
+        "darkforest83": "DarkForest83",
+        "beautifulview63": "BeautifulView63"
+    }; // if you want to redeem all the code even though you can give yourself some score, go ahead but just dont tell anyone :)
+
+    const code = message.substring(8).toLowerCase();
+    
+    if (redeemCodes.hasOwnProperty(code)) {
+        msg.cancel = true;
+        player.runCommandAsync("function redeemCodes/" + redeemCodes[code]);
+    } else if (message.includes(".redeem")) {
+        msg.cancel = true;
+        if (!player.hasTag("validCode")) {
+            player.sendMessage("§r§7[§cRedeem§7]§e Invalid code.");
+        }
+    }
+
+    const bannedWords = [
+        // "you're bad",
+        // "youre bad"
+    ]; // if you want to make the server friendly, consider unleash the code and you can also add some words that you don't want to hear.
+    
+    
+    if (bannedWords.some(word => message.toUpperCase().includes(word.toUpperCase()))) {
+        msg.cancel = true; 
+    }
+	if(player.hasTag("isMuted")) {
+		msg.cancel = true;
+		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
 	}
 
 	commandHandler(msg);
@@ -98,13 +133,84 @@ system.runInterval(() => {
 			// Sexy looking ban message
 			if(player.getDynamicProperty("banInfo")) banMessage(player);
 
+			/**
+			for (let player of world.getPlayers()) {
+				let nametag = player.getTags().find((tag) => tag.startsWith("nametag:"));
+				if (!nametag) {
+					player.nameTag = player.name;
+					continue;
+				}
+				nametag = nametag.replace("nametag:", "").replaceAll("@s", player.name);
+				switch (nametag) {
+					case "red":
+					player.nameTag = ` §7[§4§lTeam Red§r§7]§r ${player.name} `;
+					break;
+					case "blue":
+					player.nameTag = ` §7[§1§lTeam Blue§r§7]§r ${player.name} `;
+					break;
+					case "green":
+					player.nameTag = ` §7[§2§lTeam Green§r§7]§r ${player.name} `;
+					break;
+					case "yellow":
+					player.nameTag = ` §7[§e§lTeam Yellow§r§7]§r ${player.name} `;
+					break;
+					default:
+					player.nameTag = nametag; // you can still make custom nametag
+				}
+			}
+			*/
+			
+			let playerTags = player.getTags();
+			
+			let updatePlayerNameColor = "§r"
+			
+			const tag = player.getDynamicProperty("tag");
+			
+            playerTags.forEach(playerTag => {
+				switch (playerTag) {
+					case "Red":
+					    config.customcommands.tag.playerNameColor = `§4`;
+					    updatePlayerNameColor = `§4`;
+						break;
+					case "Blue":
+						config.customcommands.tag.playerNameColor = `§1`;
+						updatePlayerNameColor = `§1`;
+						break;
+					case "Green":
+						config.customcommands.tag.playerNameColor = `§2`;
+						updatePlayerNameColor = `§2`; 
+						break;
+					case "Yellow":
+						config.customcommands.tag.playerNameColor = `§e`;
+						updatePlayerNameColor = `§e`;
+						break;
+					case "Neutral":
+			    		config.customcommands.tag.playerNameColor = `§r`;
+				}
+			});
+			
+			if (player.hasTag("updateTag")) {
+				
+				const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
+				
+                const tag = player.getDynamicProperty("tag");
+    
+                if (tag) {
+                    // player.nameTag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${updatePlayerNameColor}${player.nameTag}`
+                    player.nameTag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${updatePlayerNameColor}${player.name}`
+                }
+    
+    player.removeTag("updateTag");
+    console.warn(`Tag updated.`);
+	        }
+
 			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) player.blocksBroken = 0;
 			if(config.modules.killauraC.enabled && player.entitiesHit?.length >= 1) player.entitiesHit = [];
 			if(config.modules.autotoolA.enabled && now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
 				player.flagAutotoolA = true;
 				player.autotoolSwitchDelay = now - player.startBreakTime;
 			}
-
+			
 			/*
 			// Crasher/A = invalid pos check
 			if(config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
@@ -512,7 +618,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	}
 
 	if(revertBlock) {
-		// Remove the dropped items
+		// kill the items dropped items
 		const droppedItems = dimension.getEntities({
 			location: {x: block.location.x, y: block.location.y, z: block.location.z},
 			minDistance: 0,
@@ -893,6 +999,58 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	}
 });
 
+world.beforeEvents.itemUseOn.subscribe(({ itemStack: item, source: player, block: block }) => {
+    // itemUse can be triggered from entities
+    if (player.typeId !== "minecraft:player") return;
+    
+        const itemId = item.typeId
+        const blockId = block.typeId
+        const blockWoodAxis = block.permutation.getState("pillar_axis"); // check woods state
+
+		const axeList = [
+			"minecraft:wooden_axe",
+			"minecraft:stone_axe",
+			"minecraft:iron_axe",
+			"minecraft:golden_axe",
+			"minecraft:diamond_axe",
+			"minecraft:netherite_axe"
+		];
+
+		const strippableList = [
+			"minecraft:oak_log",
+			"minecraft:spruce_log",
+			"minecraft:birch_log",
+			"minecraft:jungle_log",
+			"minecraft:acaia_log",
+			"minecraft:dark_oak_log",
+			"minecraft:mangrove_log",
+			"minecraft:cherry_log",
+			"minecraft:crimson_stem",
+			"minecraft:warped_stem"
+		]
+
+        // console.warn(`item: ${JSON.stringify(item.typeId)}  Player: ${JSON.stringify(player)} block: ${JSON.stringify(block.typeId)}`);
+
+        // console.warn(`${blockWoodAxis}`)
+        
+		if (!player.hasTag("op")) {
+			if (axeList.includes(itemId) && strippableList.includes(blockId)) 
+			{
+				player.runCommandAsync(`setblock ${block.location.x} ${block.location.y} ${block.location.z} spruce_log`)
+	
+				// @ts-ignore
+				const setWoodAxis = (BlockPermutation.resolve("spruce_log", { "pillar_axis": blockWoodAxis }));
+				system.run(() => {
+					block.setPermutation(setWoodAxis)
+				});
+	
+				console.warn(`${player.name} used the Axe and stripped the wood.`)
+			}
+		}
+
+        // player.runCommandAsync(`setblock ${block.location.x} ${block.location.y} ${block.location.z} dirt`)
+}); 
+
 world.afterEvents.worldInitialize.subscribe(() => {
 	world.getDimension("overworld").runCommandAsync("scoreboard players set scythe:config gametestapi 1");
 });
@@ -900,8 +1058,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
 world.afterEvents.playerGameModeChange.subscribe(({fromGameMode, player, toGameMode}) => {
 	player.gamemode = toGameMode;
 
-	if(
-		!config.misc_modules.antiGamemode.enabled ||
+	if(!config.misc_modules.antiGamemode.enabled ||
 		// @ts-expect-error
 		!config.misc_modules.antiGamemode.blockedGamemodes.includes(toGameMode) ||
 		player.hasTag("op")
