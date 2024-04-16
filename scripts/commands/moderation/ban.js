@@ -28,7 +28,7 @@ registerCommand({
         // Don't allow staff to ban other staff members
         if(member.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban other staff members.");
 
-        player.setDynamicProperty("banInfo", JSON.stringify({
+        member.setDynamicProperty("banInfo", JSON.stringify({
             by: player.name,
             reason: reason,
             time: typeof time === "number" ? Date.now() + time : null
