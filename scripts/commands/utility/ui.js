@@ -1,5 +1,5 @@
 // @ts-check
-import { ItemStack} from "@minecraft/server";
+import { ItemStack, EnchantmentType } from "@minecraft/server";
 import config from "../../data/config.js";
 import { registerCommand } from "../handler.js";
 
@@ -30,7 +30,7 @@ registerCommand({
         item.nameTag = config.customcommands.ui.ui_item_name;
 
         // Enchant the item with Unbreaking 3
-        item.getComponent("enchantable")?.addEnchantment({type: "unbreaking", level: 3});
+        item.getComponent("enchantable")?.addEnchantment({type: new EnchantmentType("unbreaking"), level: 3});
 
         container.addItem(item);
 
