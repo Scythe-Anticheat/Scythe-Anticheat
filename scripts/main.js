@@ -999,6 +999,20 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	}
 });
 
+/** // might be a better version to prevent logs from stripping but i prefer the current one that i used
+// i haven't implemented it yet but this must can be optional for those who want to prevent players from placing blocks
+world.beforeEvents.itemUseOn.subscribe(event => {
+        const player = event.source; 
+        
+        if (!player.hasTag("op")) {
+                event.cancel = true;
+                system.run(() => {
+                    player.sendMessage(`You don't have permission to place a block.`);
+                }); 
+            }
+});
+*/
+
 world.beforeEvents.itemUseOn.subscribe(({ itemStack: item, source: player, block: block }) => {
     // itemUse can be triggered from entities
     if (player.typeId !== "minecraft:player") return;
@@ -1036,15 +1050,15 @@ world.beforeEvents.itemUseOn.subscribe(({ itemStack: item, source: player, block
 		if (!player.hasTag("op")) {
 			if (axeList.includes(itemId) && strippableList.includes(blockId)) 
 			{
-				player.runCommandAsync(`setblock ${block.location.x} ${block.location.y} ${block.location.z} spruce_log`)
+				player.runCommandAsync(`setblock ${block.location.x} ${block.location.y} ${block.location.z} ${blockId}`)
 	
 				// @ts-ignore
-				const setWoodAxis = (BlockPermutation.resolve("spruce_log", { "pillar_axis": blockWoodAxis }));
+				const setWoodAxis = (BlockPermutation.resolve(blockId, { "pillar_axis": blockWoodAxis }));
 				system.run(() => {
 					block.setPermutation(setWoodAxis)
 				});
 	
-				console.warn(`${player.name} used the Axe and stripped the wood.`)
+				// console.warn(`${player.name} used the Axe and stripped the wood.`)
 			}
 		}
 
