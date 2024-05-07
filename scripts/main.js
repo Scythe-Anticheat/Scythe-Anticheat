@@ -10,9 +10,6 @@ let entitiesSpawnedInLastTick = 0;
 
 world.beforeEvents.chatSend.subscribe((msg) => {
 	const { sender: player, message } = msg;
-	const lowerCaseMsg = message.toLowerCase();
-
-	if(lowerCaseMsg.includes("the best minecraft bedrock utility mod") || lowerCaseMsg.includes("disepi/ambrosial")) msg.cancel = true;
 
 	if(player.hasTag("isMuted")) {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
