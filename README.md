@@ -122,9 +122,6 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks for downwards scaffold.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) =>Checks for placing blocks onto air or liquid tiles.\*<br/>
 
-  Xray -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Alerts staff if a player finds a diamond or ancient debris.\* (Disabled by default)
-
 # Extra Commands
 To receive anti-cheat alerts use: ```!notify```
 

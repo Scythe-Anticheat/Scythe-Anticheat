@@ -73,9 +73,20 @@ switch(config.version) {
 		delete config.customcommands.antigms;
 
 		delete config.customcommands.overridecommandblocksenabled;
+		break;
+	
+	case "2.22.0":
+		config.misc_modules.oreAlerts = {
+			enabled: config.modules.xrayA.enabled,
+			blocks: config.itemLists.xray_items
+		};
+
+		delete config.modules.xrayA;
+		delete config.itemLists.xray_items;
+		break;
 }
 
-config.version = "2.22.0";
+config.version = "2.23.0";
 
 // Register all commands
 import "./commands/moderation/kick.js";

@@ -503,8 +503,8 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 		revertBlock = true;
 	}
 
-	if(config.modules.xrayA.enabled && config.itemLists.xray_items.includes(brokenBlockId) && !player.hasTag("op")) {
-		flag(player, "Xray", "A", "Misc", `block=${brokenBlockId}`);
+	if(config.misc_modules.oreAlerts.enabled && config.misc_modules.oreAlerts.blocks.includes(brokenBlockId) && !player.hasTag("op")) {
+		tellAllStaff(`§r§6[§aScythe§6]§r [Ore Alerts] ${player.name} has broken 1x ${brokenBlockId}`, ["notify"]);
 	}
 
 	if(revertBlock) {

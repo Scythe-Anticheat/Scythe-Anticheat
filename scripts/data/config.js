@@ -2,7 +2,7 @@ export default
 {
 	// This value sholud not be changed unless you know what you are doing.
 	// It is used to make Scythe be able to work with older versions of the config
-	"version": "2.22.0",
+	"version": "2.23.0",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -561,11 +561,6 @@ export default
 			"enabled": true,
 			"punishment": "none",
 			"minVLbeforePunishment": 0,
-		},
-		"xrayA": {
-			"enabled": false,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
 		}
 	},
 	"misc_modules": {
@@ -635,6 +630,14 @@ export default
 			"enabled": false,
 			"max_x": 10000,
 			"max_z": 10000
+		},
+		"oreAlerts": {
+			"enabled": false,
+			"blocks": [
+				"minecraft:diamond_ore",
+				"minecraft:deepslate_diamond_ore",
+				"minecraft:ancient_debris"
+			]
 		}
 	},
 	"itemLists": {
@@ -643,11 +646,6 @@ export default
 			"clearCustomSpawnEggs": false
 		},
 		"elements": true,
-		"xray_items": [
-			"minecraft:diamond_ore",
-			"minecraft:deepslate_diamond_ore",
-			"minecraft:ancient_debris"
-		],
 		"cbe_items": [
 			"minecraft:beehive",
 			"minecraft:bee_nest",
