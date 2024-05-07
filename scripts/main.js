@@ -510,7 +510,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	if(revertBlock) {
 		// Remove the dropped items
 		const droppedItems = dimension.getEntities({
-			location: {x: block.location.x, y: block.location.y, z: block.location.z},
+			location: block.location,
 			minDistance: 0,
 			maxDistance: 2,
 			type: "item"
@@ -754,13 +754,13 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 
 	if(config.misc_modules.antiArmorStandCluster.enabled && entity.typeId === "minecraft:armor_stand") {
 		const entities = entity.dimension.getEntities({
-			location: {x: entity.location.x, y: entity.location.y, z: entity.location.z},
+			location: entity.location,
 			maxDistance: config.misc_modules.antiArmorStandCluster.radius,
 			type: "armor_stand"
 		});
 
 		if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
-			tellAllStaff(`§r§6[§aScythe§6]§r Potential lag machine detected at X: ${entity.location.x}, Y: ${entity.location.y}, Z: ${entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area.`, ["notify"]);
+			tellAllStaff(`§r§6[§aScythe§6]§r Potential lag machine detected at X: ${~entity.location.x}, Y: ${~entity.location.y}, Z: ${~entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area.`, ["notify"]);
 
 			for(const entityLoop of entities) {
 				entityLoop.remove();

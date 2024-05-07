@@ -696,7 +696,7 @@ function createSelectPlayerMenu(title, players, self) {
         if(player.id === self.id) playerName += " §1[YOU]";
         if(player.hasTag("op")) playerName += " §1[OP]";
 
-        menu.button(playerName, playerIcons[Math.floor(Math.random() * playerIcons.length)]);
+        menu.button(playerName, playerIcons[~(Math.random() * playerIcons.length)]);
     }
 
     menu.button("Back", icons.back);
