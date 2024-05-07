@@ -36,9 +36,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	}
 });
 
-world.afterEvents.chatSend.subscribe((msg) => {
-	const player = msg.sender;
-
+world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 	/*
 	// BadPackets[2] = checks for invalid chat message length
 	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", `messageLength=${message.length}`, undefined, msg);
