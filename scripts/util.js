@@ -26,7 +26,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(typeof cancelObject !== "object" && cancelObject !== undefined) throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined"`);
     if(typeof slot !== "number" && slot !== undefined) throw TypeError(`Error: slot is type of ${typeof slot}. Expected "number" or "undefined"`);
 
-    const checkData = config.modules[check.toLowerCase() + checkType.toUpperCase()];
+    const checkData = config.modules[check + checkType];
     if(!checkData) throw Error(`No valid check data was found for ${check}/${checkType}.`);
 
     if((config.disableFlagsFromScytheOp || checkData.exclude_scythe_op) && player.hasTag("op")) return;
@@ -98,7 +98,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     let currentVl = getScore(player, scoreboardObjective, 0);
 
     const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${++currentVl}`;
-    
+
     if(config.logAlertsToConsole) console.log(flagMessage.replace(/§./g, ""));
     tellAllStaff(flagMessage, ["notify"]);
 
@@ -112,9 +112,9 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(!checkData.enabled) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 
     // Handle punishments
-    const punishment = checkData.punishment?.toLowerCase();
+    const { punishment } = checkData;
 
-    if(punishment === "none" || punishment === "" || currentVl < checkData.minVlbeforePunishment) return;
+    if(currentVl < checkData.minVlbeforePunishment) return;
 
     switch(punishment) {
         case "kick": {
@@ -169,6 +169,9 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been frozen by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
             break;
         }
+
+        case "none":
+            break;
 
         default:
             throw Error(`Unknown punishment type "${punishment}".`);
