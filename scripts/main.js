@@ -1,5 +1,4 @@
 // @ts-check
-import banList from "./data/globalban.js";
 import config from "./data/config.js";
 import { world, system, ItemTypes, ItemStack } from "@minecraft/server";
 import { flag, banMessage, getClosestPlayer, getScore, getBlocksBetween, tellAllStaff } from "./util.js";
@@ -662,15 +661,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	// Namespoof/B = Regex check
 	if(config.modules.namespoofB.enabled && RegExp(config.modules.namespoofB.regex).test(player.name)) {
 		flag(player, "Namespoof", "B", "Exploit");
-	}
-
-	// Check if the player is in the global ban list
-	if(banList.includes(player.name.toLowerCase())) {
-		player.setDynamicProperty("banInfo", JSON.stringify({
-			by: "Scythe Anticheat",
-			reason: "You are Scythe Anticheat global banned!",
-			time: null
-		}));
 	}
 
 	// @ts-expect-error
