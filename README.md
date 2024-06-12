@@ -62,7 +62,6 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 
   Fly -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for fly-like motion.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for negative fall damage.\*
 
   IllegalItems -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Clear illegal dropped items.\*<br/>
