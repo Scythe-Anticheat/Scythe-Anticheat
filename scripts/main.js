@@ -283,9 +283,12 @@ system.runInterval(() => {
 
 			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
 
+			/*
+			// The 'fallDistance' property in Player has been removed.
 			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) {
 				flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
 			}
+			*/
 
 			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
 				/*
@@ -405,7 +408,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		!player.isFlying &&
 		player.isJumping &&
 		player.velocity.y < 1 &&
-		player.fallDistance < 0 &&
+		// player.fallDistance < 0 &&
 		block.location.x === blockUnder?.location.x &&
 		block.location.y === blockUnder?.location.y &&
 		block.location.z === blockUnder?.location.z &&
