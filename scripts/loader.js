@@ -1,3 +1,4 @@
+// @ts-check
 // This is the initial file that runs. It is used to load everything for Scythe
 import config from "./data/config.js";
 import { world } from "@minecraft/server";
@@ -24,6 +25,7 @@ if(!world.getDynamicProperty("unbanQueue")) {
 
 const dpConfig = world.getDynamicProperty("config"); // Object
 if(dpConfig) {
+	// @ts-expect-error
 	const parsedConfig = JSON.parse(dpConfig);
 
 	for(const item of Object.keys(parsedConfig)) {
@@ -65,7 +67,7 @@ switch(config.version) {
 
 		config.misc_modules.antiGamemode = {
 			enabled: false,
-			blockedgamemodes: []
+			blockedGamemodes: []
 		};
 
 		delete config.customcommands.antigma;
