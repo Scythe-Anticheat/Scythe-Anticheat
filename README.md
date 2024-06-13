@@ -74,7 +74,7 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(J) => Checks if a player places a sign with text already inside it.\* (Disabled by default)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(K) => Checks if a player places a chest boat/minecart with items already inside it\* (Disabled by default).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(L) => Checks for keep on death items.\* (Disabled by default)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(M) => Check for shulker boxs with illegal items.\* (Disabled by default)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(M) => Checks for shulker boxes with illegal items.\* (Disabled by default)<br/>
 
   InstaBreak -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player breaks an unbreakable block whilst in survival.\*<br/>
@@ -105,7 +105,7 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player breaks more than 3 blocks in a single tick.\*
 
   Reach -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check if a player hits a player outside a 5 block radius.\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player hits an entity farther than normally possible.\*<br/>
 
   Spammer -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player sends a message while moving.\*<br/>

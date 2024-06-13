@@ -230,6 +230,7 @@ system.runInterval(() => {
 				}
 			}
 
+			// Find the magnitude of the vector
 			const playerSpeed = Number(Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(2));
 
 			// NoSlow/A = Speed limit check
@@ -379,14 +380,17 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		}
 	}
 
+	// A CBE bypass involves finding a dispenser from a Jungle Temple and using a hopper to insert items inside it.
+	// To patch this, we check if the placed hopper is near any dispensers, and remove any that are found.
+	// Older versions of Scythe used to get rid of dispensers when a player got near it, and bypass was used to circumvent that check.
 	if(config.modules.commandblockexploitH.enabled && block.typeId === "minecraft:hopper") {
 		const pos1 = {x: block.location.x - 2, y: block.location.y - 2, z: block.location.z - 2};
 		const pos2 = {x: block.location.x + 2, y: block.location.y + 2, z: block.location.z + 2};
 
 		let foundDispenser = false;
 
-		for(const block of getBlocksBetween(pos1, pos2)) {
-			const blockType = player.dimension.getBlock(block);
+		for(const b of getBlocksBetween(pos1, pos2)) {
+			const blockType = player.dimension.getBlock(b);
 
 			if(blockType?.typeId !== "minecraft:dispenser") continue;
 
@@ -394,9 +398,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			foundDispenser = true;
 		}
 
-		if(foundDispenser) {
-			player.dimension.getBlock({x:block.location.x, y: block.location.y, z: block.location.z})?.setType("air");
-		}
+		if(foundDispenser) block.setType("air");
 	}
 
 	// Get block under player
@@ -761,10 +763,11 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
 	if(player.typeId !== "minecraft:player" || !entity.isValid()) return;
 
-	// Reach/A = Check if a player hits an entity more than 5.1 blocks away
+	// Reach/A = Check if a player hits an entity farther than normally possible
 	if(config.modules.reachA.enabled) {
-		// Get the difference between 2 three dimensional coordinates
+		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
 		const distance = Math.sqrt((entity.location.x - player.location.x)**2 + (entity.location.y - player.location.y)**2 + (entity.location.z - player.location.z)**2);
+
 		if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag ?? entity.typeId} with a distance of ${distance}`);
 
 		if(
