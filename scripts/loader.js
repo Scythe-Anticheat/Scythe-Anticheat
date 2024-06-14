@@ -88,7 +88,7 @@ switch(config.version) {
 		break;
 }
 
-config.version = "2.23.0";
+config.version = "2.23.1";
 
 // Register all commands
 import "./commands/moderation/kick.js";

@@ -26,7 +26,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(typeof cancelObject !== "object" && cancelObject !== undefined) throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined"`);
     if(typeof slot !== "number" && slot !== undefined) throw TypeError(`Error: slot is type of ${typeof slot}. Expected "number" or "undefined"`);
 
-    const checkData = config.modules[check + checkType];
+    const checkData = config.modules[check.toLowerCase() + checkType];
     if(!checkData) throw Error(`No valid check data was found for ${check}/${checkType}.`);
 
     if((config.disableFlagsFromScytheOp || checkData.exclude_scythe_op) && player.hasTag("op")) return;
