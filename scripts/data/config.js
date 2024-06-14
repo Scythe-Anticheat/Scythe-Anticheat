@@ -1,6 +1,6 @@
 export default
 {
-	// This value sholud not be changed unless you know what you are doing.
+	// This value should not be changed unless you know what you are doing.
 	// It is used to make Scythe be able to work with older versions of the config
 	"version": "2.23.1",
 	"debug": true,
