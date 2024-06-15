@@ -502,7 +502,8 @@ export default
 				"minecraft:enderman",
 				"minecraft:fireball",
 				"minecraft:ender_dragon",
-				"minecraft:ghast"
+				"minecraft:ghast",
+				"minecraft:wind_charge_projectile"
 			],
 			"punishment": "none",
 			"minVlbeforePunishment": 0
