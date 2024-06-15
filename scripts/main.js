@@ -94,7 +94,7 @@ system.runInterval(() => {
 
 			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) player.blocksBroken = 0;
 			if(config.modules.killauraC.enabled && player.entitiesHit?.length >= 1) player.entitiesHit = [];
-			if(config.modules.autotoolA.enabled && now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlot) {
+			if(config.modules.autotoolA.enabled && now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlotIndex) {
 				player.flagAutotoolA = true;
 				player.autotoolSwitchDelay = now - player.startBreakTime;
 			}
@@ -237,7 +237,7 @@ system.runInterval(() => {
 			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && !player.hasTag("riding")) {
 				const right = getScore(player, "right");
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
-				const heldItemId = container?.getItem(player.selectedSlot)?.typeId ?? "minecraft:air";
+				const heldItemId = container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
 
 				// Make sure there are no entities below the player
 				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
@@ -278,7 +278,7 @@ system.runInterval(() => {
 			/*
 			if(config.modules.badpackets4.enabled && selectedSlot < 0 || selectedSlot > 8) {
 				flag(player, "BadPackets", "4", "Exploit", `selectedSlot=${selectedSlot}`);
-				player.selectedSlot = 0;
+				player.selectedSlotIndex = 0;
 			}
 			*/
 
@@ -333,7 +333,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		const piston = block.getComponent("piston");
 
 		if(piston && (piston.isMoving || piston.state !== "Retracted")) {
-			flag(player, "IllegalItems", "H", "Exploit", `state=${piston.state},isMoving=${piston.isMoving}`, false, undefined, player.selectedSlot);
+			flag(player, "IllegalItems", "H", "Exploit", `state=${piston.state},isMoving=${piston.isMoving}`, false, undefined, player.selectedSlotIndex);
 			block.setType("air");
 		}
 	}
@@ -349,7 +349,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			if(!item) continue;
 
 			container.clearAll();
-			flag(player, "IllegalItems", "I", "Exploit", `containerBlock=${block.typeId},totalSlots=${container.size},emptySlots=${container.emptySlotsCount}`, false, undefined, player.selectedSlot);
+			flag(player, "IllegalItems", "I", "Exploit", `containerBlock=${block.typeId},totalSlots=${container.size},emptySlots=${container.emptySlotsCount}`, false, undefined, player.selectedSlotIndex);
 			break;
 		}
 	}
@@ -360,7 +360,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			const text = block.getComponent("sign")?.getText();
 
 			if(text && text.length >= 1) {
-				flag(player, "IllegalItems", "J", "Exploit", `signText=${text}`, false, undefined, player.selectedSlot);
+				flag(player, "IllegalItems", "J", "Exploit", `signText=${text}`, false, undefined, player.selectedSlotIndex);
 				block.setType("air");
 			}
 		}, 1);
@@ -374,7 +374,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			const item = container.getItem(i);
 			if(!item || !config.itemLists.items_very_illegal.includes(item.typeId) || !config.itemLists.cbe_items.includes(item.typeId)) continue;
 
-			flag(player, "IllegalItems", "M", "Exploit", `item_count=${container.size - container.emptySlotsCount}`, false, undefined, player.selectedSlot);
+			flag(player, "IllegalItems", "M", "Exploit", `item_count=${container.size - container.emptySlotsCount}`, false, undefined, player.selectedSlotIndex);
 			container.clearAll();
 			break;
 		}
@@ -488,7 +488,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 
 	// Autotool/A = checks for player slot mismatch
 	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== "creative") {
-		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlot},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
+		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlotIndex},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
 		revertBlock = true;
 	}
 
@@ -528,7 +528,7 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 
 	// commandblockexploit/f = cancels the placement of cbe items
 	if(config.modules.commandblockexploitF.enabled && config.itemLists.cbe_items.includes(item.typeId)) {
-		flag(player, "CommandBlockExploit","F", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlot);
+		flag(player, "CommandBlockExploit","F", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlotIndex);
 		beforeItemUseOn.cancel = true;
 	}
 
@@ -556,14 +556,14 @@ world.afterEvents.beforeItemUseOn.subscribe((beforeItemUseOn) => {
 			}
 
 			if((config.itemLists.items_semi_illegal.includes(item.typeId) || flagPlayer) && player.gamemode !== "creative") {
-				flag(player, "IllegalItems", "E", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlot);
+				flag(player, "IllegalItems", "E", "Exploit", `block=${item.typeId}`, false, undefined, player.selectedSlotIndex);
 				beforeItemUseOn.cancel = true;
 			}
 		}
 
 		// items that cannot be obtained normally
 		if(config.itemLists.items_very_illegal.includes(item.typeId)) {
-			flag(player, "IllegalItems", "E", "Exploit", `item=${item.typeId}`, false, undefined, player.selectedSlot);
+			flag(player, "IllegalItems", "E", "Exploit", `item=${item.typeId}`, false, undefined, player.selectedSlotIndex);
 			beforeItemUseOn.cancel = true;
 		}
 	}
@@ -736,7 +736,7 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 					container.setItem(i, undefined);
 				}
 
-				flag(player, "IllegalItems", "K", "Exploit", `totalSlots=${container.size},emptySlots=${container.emptySlotsCount}`, false, undefined, player.selectedSlot);
+				flag(player, "IllegalItems", "K", "Exploit", `totalSlots=${container.size},emptySlots=${container.emptySlotsCount}`, false, undefined, player.selectedSlotIndex);
 				entity.remove();
 			}
 		}, 1);
@@ -789,7 +789,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		const container = player.getComponent("inventory")?.container;
 		if(!container) return; // This should not happen
 
-		const item = container.getItem(player.selectedSlot);
+		const item = container.getItem(player.selectedSlotIndex);
 		if(item?.typeId === config.customcommands.ui.ui_item && item?.nameTag === config.customcommands.ui.ui_item_name) {
 			playerSettingsMenuSelected(player, entity);
 		}
@@ -846,7 +846,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 world.afterEvents.entityHitBlock.subscribe(({ damagingEntity: player}) => {
 	player.flagAutotoolA = false;
-	player.lastSelectedSlot = player.selectedSlot;
+	player.lastSelectedSlot = player.selectedSlotIndex;
 	player.startBreakTime = Date.now();
 	player.autotoolSwitchDelay = 0;
 });

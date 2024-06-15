@@ -45,7 +45,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     // If debug is enabled then log everything we know about the player.
     if(config.debug) {
-        const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlot);
+        const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlotIndex);
 
         const data = {
             timestamp: Date.now(),
@@ -64,7 +64,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 rotation: player.rotation,
                 tags: String(player.getTags()).replace(/[\r\n"]/gm, ""),
                 currentItem: currentItem?.typeId ?? "minecraft:air",
-                selectedSlot: player.selectedSlot,
+                selectedSlotIndex: player.selectedSlotIndex,
                 dimension: player.dimension.id,
                 fallDistance: player.fallDistance,
                 extra: {
