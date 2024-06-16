@@ -385,7 +385,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
         .button("Ban Player", icons.anvil)
         .button("View Anticheat Logs", icons.info)
         .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
-        .button(playerSelected.hasTag("flying") ? "Disable Fly Mode" : "Enable Fly Mode", "textures/ui/levitation_effect.png")
+        .button(playerSelected.hasTag("flying") ? "Disable Fly" : "Enable Fly", "textures/ui/levitation_effect.png")
         .button(playerSelected.hasTag("freeze") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
     playerSelected.hasTag("isMuted") ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
@@ -499,11 +499,17 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
     menu.show(player).then((response) => {
         switch(response.selection) {
             case 0:
-                player.teleport(playerSelected.location);
+                player.teleport(playerSelected.location, {
+                    checkForBlocks: false,
+                    dimension: playerSelected.dimension
+                });
                 break;
 
             case 1:
-                playerSelected.teleport(player.location);
+                playerSelected.teleport(player.location, {
+                    checkForBlocks: false,
+                    dimension: playerSelected.dimension
+                });
                 break;
 
             default:
@@ -696,7 +702,9 @@ function createSelectPlayerMenu(title, players, self) {
         if(player.id === self.id) playerName += " §1[YOU]";
         if(player.hasTag("op")) playerName += " §1[OP]";
 
-        menu.button(playerName, playerIcons[~(Math.random() * playerIcons.length)]);
+        // Using bitwise operators to remove decimals is much faster than using Math.trunc()
+        // https://stackoverflow.com/a/38714503
+        menu.button(playerName, playerIcons[~~(Math.random() * playerIcons.length)]);
     }
 
     menu.button("Back", icons.back);
