@@ -251,7 +251,9 @@ system.runInterval(() => {
 			if(config.modules.invalidsprintA.enabled && player.isSprinting && player.getEffect("blindness"))
 				flag(player, "InvalidSprint", "A", "Movement", undefined, true);
 
-			// fly/a
+			// Fly/a
+			// This check no longer works.
+			/*
 			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.getEffect("levitation") && player.hasTag("moving")) {
 				const pos1 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 				const pos2 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
@@ -261,6 +263,7 @@ system.runInterval(() => {
 				if(isInAir) flag(player, "Fly", "A", "Movement", `vertical_speed=${Math.abs(player.velocity.y).toFixed(4)}`, true);
 					else if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
 			}
+			*/
 
 			if(config.modules.autoclickerA.enabled && player.cps > 0 && now - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
 				const cps = player.cps / ((now - player.firstAttack) / config.modules.autoclickerA.checkCPSAfter);
