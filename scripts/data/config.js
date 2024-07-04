@@ -454,7 +454,8 @@ export default
 		},
 		"killauraC": {
 			"enabled": true,
-			"entities": 2,
+			// It is only possible to attack one entity per tick, but incase of lag someone may be able to attack two entites at once.
+			"entities": 3,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
