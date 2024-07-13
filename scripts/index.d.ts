@@ -14,6 +14,7 @@ declare module "@minecraft/server" {
 		firstAttack: number
 		lastThrow: number
 		lastMessageSent: number
+		previousGamemode: number
 
 		// Arrays
 		entitiesHit: Array<String>
