@@ -125,6 +125,8 @@ export default
 			"borderColor": "§8",
 			// Color of player name. Leave blank for none.
 			"playerNameColor": "§r",
+			// If players should have a default tag when they join. Leave blank to disable this.
+			"defaultTag": "Member",
 			"requiredTags": ["op"],
 			"aliases": ["rank"]
 		},
@@ -187,6 +189,10 @@ export default
 			"canChangeOtherPeopleGamemode": true,
 			"requiredTags": ["op"]
 		},
+		"resetconfig": {
+			"enabled": true,
+			"requiredTags": ["op"]
+		}
 	},
 	"modules": {
 		"exampleA": {
@@ -447,8 +453,9 @@ export default
 		},
 		"killauraB": {
 			"enabled": true,
-			"wait_ticks": 20,
-			"max_swing_delay": 2000,
+			// Wait 2 seconds before checking if the player has swinged
+			"wait_ticks": 40,
+			"max_swing_delay": 5000,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

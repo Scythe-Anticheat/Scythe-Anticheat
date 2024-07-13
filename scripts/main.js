@@ -605,7 +605,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
 
 	// load custom nametag
-	const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
+	const { mainColor, borderColor, playerNameColor, defaultTag } = config.customcommands.tag;
 
 	// Backwards compatibility
 	let reason;
@@ -636,7 +636,11 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 		}
 	}
 
-	const tag = player.getDynamicProperty("tag");
+	let tag = player.getDynamicProperty("tag");
+
+	// Add default tag if enabled
+	if(!tag && defaultTag) tag = defaultTag;
+
 	if(tag) player.nameTag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${player.nameTag}`;
 
 	if(reason && by && time) {

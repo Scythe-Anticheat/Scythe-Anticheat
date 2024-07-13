@@ -123,6 +123,7 @@ import "./commands/utility/gma.js";
 import "./commands/utility/gmc.js";
 import "./commands/utility/gms.js";
 import "./commands/utility/gmsp.js";
+import "./commands/settings/resetconfig.js";
 
 // Run anticheat core
 import "./main.js";
