@@ -163,7 +163,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             });
             player.triggerEvent("scythe:freeze");
             player.addTag("freeze");
-            player.runCommandAsync("inputpermission set @s movement disabled");
+            player.inputPermissions.movementEnabled = false;
 
             player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by Scythe Anticheat for Unfair Advantage.");
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been frozen by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);

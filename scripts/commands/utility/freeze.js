@@ -26,7 +26,7 @@ export function freezePlayer(player, initator) {
 	});
 	player.triggerEvent("scythe:freeze");
 	player.addTag("freeze");
-	player.runCommandAsync("inputpermission set @s movement disabled");
+	player.inputPermissions.movementEnabled = false;
 
 	player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by a staff member.");
 	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has frozen ${player.name}.`);
@@ -36,7 +36,7 @@ export function unfreezePlayer(player, initator) {
 	player.removeEffect("weakness");
 	player.triggerEvent("scythe:unfreeze");
 	player.removeTag("freeze");
-	player.runCommandAsync("inputpermission set @s movement enabled");
+	player.inputPermissions.movementEnabled = true;
 
 	player.sendMessage("§r§6[§aScythe§6]§r You are no longer frozen.");
 	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has unfrozen ${player.name}.`);
