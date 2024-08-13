@@ -694,7 +694,8 @@ export default
 			"minecraft:npc_spawn_egg",
 			"minecraft:reinforced_deepslate",
 			"minecraft:farmland",
-			"minecraft:trial_spawner"
+			"minecraft:trial_spawner",
+			"minecraft:petrified_oak_slab"
 		],
 		"items_very_illegal": [
 			"minecraft:flowing_water",
