@@ -5,14 +5,11 @@
 			"timeline": {
 				"9.0": [
 					// Settings Objectives
-					"/scoreboard objectives add npc dummy",
-					"/scoreboard players add scythe:config npc 0",
 					"/scoreboard objectives add gametestapi dummy",
 					"/scoreboard players add scythe:config gametestapi 0",
 					"/scoreboard objectives add invalidsprint dummy",
 					"/scoreboard players add scythe:config invalidsprint 0",
 					// Setting Operations For Objective Types
-					"/scoreboard players operation @a npc = scythe:config npc",
 					"/scoreboard players operation @a gametestapi = scythe:config gametestapi",
 					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
 					// Anticheat Objectives

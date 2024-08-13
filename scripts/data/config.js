@@ -53,10 +53,6 @@ export default
 			"enabled": true,
 			"requiredTags": ["op"]
 		},
-		"npc": {
-			"enabled": true,
-			"requiredTags": ["op"]
-		},
 		"invalidsprint": {
 			"enabled": true,
 			"requiredTags": ["op"],

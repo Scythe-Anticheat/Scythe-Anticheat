@@ -128,7 +128,6 @@ import "./commands/moderation/unmute.js";
 import "./commands/other/credits.js";
 import "./commands/settings/module.js";
 import "./commands/settings/modules.js";
-import "./commands/settings/npc.js";
 import "./commands/settings/invalidsprint.js";
 import "./commands/utility/tag.js";
 import "./commands/utility/ecwipe.js";
