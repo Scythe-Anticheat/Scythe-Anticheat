@@ -19,7 +19,7 @@ registerCommand({
         for(const objective of world.scoreboard.getObjectives()) {
             const { id } = objective;
 
-            if(!id.endsWith("vl") || id === "cbevl") continue;
+            if(!id.endsWith("vl")) continue;
 
             setScore(member, id, 0);
         }

@@ -14,11 +14,17 @@
 </div>
 
 # How To Setup
-To install this anticheat to your realm, you will need to install the .mcpack to your device, apply it to your realm/server and enable Beta APIs in world settings. Once you have done that, the anticheat should be fully up and running.
+To install this anticheat to your realm, you will need to install the .mcpack to your device, apply it to your realm/server, and enable Beta APIs in world settings. Once you have done that, the anticheat should be fully up and running!
 
-To be able to receive anticheat alerts, run the command: ```!notify```.
+> [!IMPORTANT]
+> Scythe must be applied at the top of the behavior packs list to ensure all features work properly.
 
-To run any chat commands or be able to use certain blocks run the command ```/function op```. This command requires you to have operator permissions on the server and have Beta APIs enabled.
+To be able to use any chat commands, you will need to be Scythe-Opped. You can gain Scythe-OP by running `/function op` in Minecraft chat.
+
+By default, notifications for when players are cheating are not shown. To be able to see cheat notifications you will need to run the `!notify` command.
+
+> [!TIP]
+> Scythe contains a variety of additional commands that can be used to help moderator your Realm or server. You can see a list of these additional commands by running the `!help` command.
 
 # Hacks detected by Scythe Anticheat
 *\* indicates that the check requires Beta APIs to be enabled in world settings.*<br/>
@@ -38,40 +44,12 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if a player equips a totem while using an item.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if a player equips a totem while swinging their hand.<br/>
 
-  BadEnchants -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for enchantment levels exceeding vanilla limits.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for negative enchantment levels.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if an item is enchanted with an enchant that can't be applied to the item.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks if an item has a lore.\* (Disabled by default)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks if an item has duplicated enchantments.\*<br/>
-
   BadPackets -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) => Checks for invalid player head rotations.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) => Checks for self-hurt.\*<br/>
 
-  Command Block Exploit -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Kill all spawned in command block minecarts.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Kill all NPCs. (to enable use /function settings/npc)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Instant despawn time for command block minecarts.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(F) => Prevents the placement of beehives, beenests and movingblocks.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(G) => Additional killing check.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(H) => Additional item clearing check.\*<br/>
-
   FastUse -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for using/throwing items at a very fast rate.\*
-
-  IllegalItems -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Clear illegal dropped items.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks for items that are stacked over 64.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Additional item clearing check.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Cancel placement of illegal items.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(F) => Checks if an item has a name longer than 32 characters.\* (Disabled by default)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(H) => Checks if a player places an invalid piston.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(I) => Checks if a player places a chest with items already inside it.\* (Disabled by default)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(J) => Checks if a player places a sign with text already inside it.\* (Disabled by default)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(K) => Checks if a player places a chest boat/minecart with items already inside it\* (Disabled by default).<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(L) => Checks for keep on death items.\* (Disabled by default)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(M) => Checks for shulker boxes with illegal items.\* (Disabled by default)<br/>
 
   InstaBreak -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player breaks an unbreakable block whilst in survival.\*<br/>
@@ -118,30 +96,9 @@ To run any chat commands or be able to use certain blocks run the command ```/fu
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks for downwards scaffold.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) =>Checks for placing blocks onto air or liquid tiles.\*<br/>
 
-# Extra Commands
-To receive anti-cheat alerts use: ```!notify```
-
-To ban a player use: ```!ban <player> [time] [reason]```
-
-To freeze a player use: ```!freeze <player>```
-
-To enter vanish use: ```!vanish```
-
-To be able to fly in survival mode use: ```!fly [player]```
-
-To view a players anticheat logs use: ```!stats <player>```
-
-To clear someones ender chest use: ```!ecwipe <player>```
-
-Additionally, there are custom features you can enable like anti-gamemode change to further enhance your realm security, these options can be listed with ```!modules```
-
 # FAQ
-
 Q1: Does the AntiCheat auto-ban?<br/>
-Yes. Currently only BadPackets[3], CommandBlockExploit/F, and IllegalItems/E autoban.
+Yes. Currently only BadPackets[3] autoban.
 
 Q2: Is it customizable?<br/>
 A2: Yes you can edit the config.js file to disable or change the settings of certain checks. A guide can be found [here](https://github.com/Scythe-Anticheat/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
-
-# Notes
-When applying the pack to your world, make sure the addon is at the top of the behavior packs list and Beta APIs are enabled. This is to ensure all checks work properly.

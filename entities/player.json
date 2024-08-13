@@ -19,9 +19,6 @@
 					"right",
 					"sneak",
 					"jump",
-					// "illegals",
-					// "illegals2",
-					// "cbeitems",
 					"move",
 					"autototem",
 					"autoshield",
@@ -29,7 +26,6 @@
 					"swim",
 					"sleep",
 					"trident"
-					// "invalid_offhand"
 				]
 			},
 			"animations": {
@@ -44,9 +40,6 @@
 				"right": "controller.animation.right",
 				"sneak": "controller.animation.sneak",
 				"jump": "controller.animation.jump",
-				// "illegals": "controller.animation.illegals",
-				// "illegals2": "controller.animation.illegals2",
-				// "cbeitems": "controller.animation.cbeitems",
 				"move": "controller.animation.move",
 				"autototem": "controller.animation.autototem",
 				"autoshield": "controller.animation.autoshield",
@@ -54,7 +47,6 @@
 				"swim": "controller.animation.swim",
 				"sleep": "controller.animation.sleep",
 				"trident": "controller.animation.trident"
-				// "invalid_offhand": "controller.animation.invalid_offhand"
 			}
 		},
 		"component_groups": {
@@ -334,330 +326,6 @@
 							}]
 						},
 						"event": "scythe:closedGui"
-					},
-					{
-						"filters": {
-							"any_of": [{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:invisiblebedrock"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:pistonarmcollision"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:stickypistonarmcollision"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:tripwire"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:brewingstandblock"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:real_double_stone_slab"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.acacia_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.bed"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.beetroot"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.birch_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.cake"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.camera"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.campfire"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.cauldron"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.chain"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.crimson_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.dark_oak_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.flower_pot"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.frame"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.glow_frame"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.hopper"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.iron_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.jungle_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.kelp"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.nether_sprouts"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.nether_wart"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.reeds"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.skull"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.soul_campfire"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.spruce_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.warped_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.wheat"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.wooden_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.brewing_stand"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:tnt:2"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:tnt:3"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:stonebrick:4"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:real_double_stone_slab3"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:real_double_stone_slab4"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:double_stone_slab:2"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:cave_vines"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:cave_vines_body_with_berries"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:cave_vines_head_with_berries"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:purpur_block:1"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:purpur_block:3"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:real_double_stone_slab2"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:arrow:1"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:arrow:2"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:arrow:3"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:arrow:4"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:arrow:5"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:item.mangrove_door"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "any",
-									"operator": "==",
-									"value": "minecraft:double_stone_block_slab"
-								}
-							]
-						},
-						"event": "scythe:illegal"
 					}
 				]
 			}
@@ -681,14 +349,6 @@
 					"command": [
 						"tag @s remove hasGUIopen",
 						"tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aOpenChest§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
-					]
-				}
-			},
-			"scythe:illegal": {
-				"queue_command": {
-					"command": [
-						"function checks/alerts/illegalitems2",
-						"tellraw @a[tag=notify] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r \"},{\"selector\":\"@s\"},{\"text\":\" §1has failed §7(Exploit) §4IllegalItems/A §7(other)§4. VL= \"},{\"score\":{\"name\":\"@s\",\"objective\":\"illegalitemsvl\"}}]}"
 					]
 				}
 			},

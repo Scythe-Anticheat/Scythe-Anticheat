@@ -86,9 +86,36 @@ switch(config.version) {
 		delete config.modules.xrayA;
 		delete config.itemLists.xray_items;
 		break;
+
+	case "2.24.0":
+		delete config.modules.badenchantsA;
+		delete config.modules.badenchantsB;
+		delete config.modules.badenchantsC;
+		delete config.modules.badenchantsD;
+		delete config.modules.badenchantsE;
+
+		delete config.modules.commandblockexploitF;
+		delete config.modules.commandblockexploitG;
+		delete config.modules.commandblockexploitH;
+
+		delete config.modules.illegalitemsB;
+		delete config.modules.illegalitemsC;
+		delete config.modules.illegalitemsD;
+		delete config.modules.illegalitemsE;
+		delete config.modules.illegalitemsF;
+		delete config.modules.illegalitemsH;
+		delete config.modules.illegalitemsI;
+		delete config.modules.illegalitemsJ;
+		delete config.modules.illegalitemsK;
+		delete config.modules.illegalitemsL;
+		delete config.modules.illegalitemsM;
+
+		delete config.misc_modules.resetItemData;
+
+		delete config.itemLists;
 }
 
-config.version = "2.24.0";
+config.version = "3.0.0";
 
 // Register all commands
 import "./commands/moderation/kick.js";

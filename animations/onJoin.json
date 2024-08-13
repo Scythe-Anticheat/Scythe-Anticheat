@@ -22,8 +22,6 @@
 					"/scoreboard objectives add autoshieldvl dummy",
 					"/scoreboard objectives add invmovevl dummy",
 					"/scoreboard objectives add right dummy",
-					"/scoreboard objectives add cbevl dummy",
-					"/scoreboard objectives add illegalitemsvl dummy",
 					"/scoreboard objectives add invalidsprintvl dummy",
 					"/scoreboard objectives add last_move dummy",
 					// If enabled from previous login then activate

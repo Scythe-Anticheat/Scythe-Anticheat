@@ -618,7 +618,7 @@ function debugSettingsMenu(player) {
 
                     const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
 
-                    if(totalItems.includes(randomItem.id) || config.itemLists.cbe_items.includes(randomItem.id) || config.itemLists.items_semi_illegal.includes(randomItem.id) || config.itemLists.items_very_illegal.includes(randomItem.id) || randomItem.id.includes("element")) {
+                    if(totalItems.includes(randomItem.id)) {
                         i--;
                         continue;
                     }

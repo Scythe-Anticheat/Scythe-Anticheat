@@ -90,7 +90,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     if(shouldTP) player.tryTeleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : player.lastGoodPosition, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
 
-    const scoreboardObjective = check === "CommandBlockExploit" ? "cbevl" : `${check.toLowerCase()}vl`;
+    const scoreboardObjective = `${check.toLowerCase()}vl`;
 
     // If the VL scoreboard object doesn't exist then create one
     if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
@@ -233,7 +233,7 @@ export function banMessage(player) {
  * @name getClosestPlayer
  * @param {object} entity - The entity to check
  * @example getClosestPlayer(entity);
- * @remarks Gets the nearest player to an entity.
+ * @remarks Gets the nearest player to an entity. (Unused for now)
  * @returns {object} player - The player that was found
  */
 export function getClosestPlayer(entity) {
