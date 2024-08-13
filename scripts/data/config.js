@@ -126,7 +126,7 @@ export default
 			// Color of player name. Leave blank for none.
 			"playerNameColor": "§r",
 			// If players should have a default tag when they join. Leave blank to disable this.
-			"defaultTag": "Member",
+			"defaultTag": "",
 			"requiredTags": ["op"],
 			"aliases": ["rank"]
 		},
