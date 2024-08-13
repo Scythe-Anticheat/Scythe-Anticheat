@@ -508,7 +508,7 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
             case 1:
                 playerSelected.teleport(player.location, {
                     checkForBlocks: false,
-                    dimension: playerSelected.dimension
+                    dimension: player.dimension
                 });
                 break;
 
