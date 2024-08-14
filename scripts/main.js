@@ -1,7 +1,7 @@
 // @ts-check
 import config from "./data/config.js";
 import { world, system } from "@minecraft/server";
-import { flag, banMessage, getScore, tellAllStaff } from "./util.js";
+import { flag, banMessage, getScore, tellAllStaff, setScore } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 
@@ -347,7 +347,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	player.lastGoodPosition = player.location;
 
-	// Remove tags
+	// Remove tags from previous session
 	player.removeTag("hasGUIopen");
 	player.removeTag("right");
 	player.removeTag("left");
@@ -356,10 +356,10 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.removeTag("moving");
 	player.removeTag("sleeping");
 
-	// fix a disabler method
+	// Patch a method of disabling anticheats
 	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
 
-	// load custom nametag
+	// Load custom nametags
 	const { mainColor, borderColor, playerNameColor, defaultTag } = config.customcommands.tag;
 
 	// Backwards compatibility
@@ -429,6 +429,9 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	if(config.modules.namespoofB.enabled && RegExp(config.modules.namespoofB.regex).test(player.name)) {
 		flag(player, "Namespoof", "B", "Exploit");
 	}
+
+	// This is used in the onJoin.json animation to check if Beta APIs are enabled
+	setScore(player, "gametestapi", 1);
 
 	// @ts-expect-error
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
@@ -586,10 +589,6 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	}
 });
 
-world.afterEvents.worldInitialize.subscribe(() => {
-	world.getDimension("overworld").runCommandAsync("scoreboard players set scythe:config gametestapi 1");
-});
-
 world.afterEvents.playerGameModeChange.subscribe(({fromGameMode, player, toGameMode}) => {
 	player.gamemode = toGameMode;
 
@@ -623,7 +622,7 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	tellAllStaff(`§r§6[§aScythe§6]§r A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${watchdogTerminate.terminateReason}`);
 });
 
-// When using /reload, the variables defined in playerJoin don't persist. This fixes that
+// When using /reload, the variables defined in playerSpawn event do not persist so we reapply them.
 for(const player of world.getPlayers()) {
 	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
 	if(config.modules.autoclickerA.enabled) {

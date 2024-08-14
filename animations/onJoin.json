@@ -4,15 +4,13 @@
 		"animation.onJoin": {
 			"timeline": {
 				"9.0": [
-					// Settings Objectives
+					// Create scoreboard objectives needed for the anticheat
 					"/scoreboard objectives add gametestapi dummy",
-					"/scoreboard players add scythe:config gametestapi 0",
 					"/scoreboard objectives add invalidsprint dummy",
-					"/scoreboard players add scythe:config invalidsprint 0",
-					// Setting Operations For Objective Types
-					"/scoreboard players operation @a gametestapi = scythe:config gametestapi",
+					// Set the scoreboard objective to the proper values
 					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
-					// Anticheat Objectives
+					"/scoreboard players add scythe:config gametestapi 0",
+					// Anticheat objectives
 					// Checks that are entirely gametest related dont need to be put here, as the notify function in util.js automatically creates them when needed
 					"/scoreboard objectives add badpacketsvl dummy",
 					"/scoreboard objectives add autototemvl dummy",
@@ -26,6 +24,7 @@
 					"/ability @s[tag=isMuted] mute true",
 					"/event entity @s[tag=freeze] scythe:freeze",
 					// Alert the user if Gametest Framework is not enabled
+					// The playerSpawn event in 'main.js' will set the gametestapi scoreboard value to be 1. If it is set to 0, then we know that Beta APIs are not enabled
 					"/tellraw @s[tag=op,scores={gametestapi=..0}] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r Beta APIs are not enabled! Please go to your world settings and enable it to ensure all Scythe features work properly.\"}]}"
 				]
 			},
