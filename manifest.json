@@ -12,26 +12,24 @@
 		"url": "https://github.com/Scythe-Anticheat/Scythe-AntiCheat"
 	},
 	"modules": [{
-			"type": "data",
-			"uuid": "d059cc96-9272-4a33-90c8-f572bcc7fa56",
-			"version": [ 1, 0, 0 ]
-		},
-		{
-			"description": "Scythe Anticheat Beta API Features",
-			"language": "javascript",
-			"type": "script",
-			"uuid": "ab31620b-f498-4355-9bea-498922f5940e",
-			"version": [0, 0, 1],
-			"entry": "scripts/loader.js"
-		}
-	],
+		"type": "data",
+		"uuid": "d059cc96-9272-4a33-90c8-f572bcc7fa56",
+		"version": [1, 0, 0]
+	},
+	{
+		"description": "Scythe Anticheat Beta API Features",
+		"language": "javascript",
+		"type": "script",
+		"uuid": "ab31620b-f498-4355-9bea-498922f5940e",
+		"version": [0, 0, 1],
+		"entry": "scripts/loader.js"
+	}],
 	"dependencies": [{
-			"module_name": "@minecraft/server",
-			"version": "1.14.0-beta"
-		},
-		{
-			"module_name": "@minecraft/server-ui",
-			"version": "1.3.0-beta"
-		}
-	]
+		"module_name": "@minecraft/server",
+		"version": "1.14.0-beta"
+	},
+	{
+		"module_name": "@minecraft/server-ui",
+		"version": "1.3.0-beta"
+	}]
 }
