@@ -24,7 +24,7 @@ To be able to use any chat commands, you will need to be Scythe-Opped. You can g
 By default, notifications for when players are cheating are not shown. To be able to see cheat notifications you will need to run the `!notify` command.
 
 > [!TIP]
-> Scythe contains a variety of additional commands that can be used to help moderator your Realm or server. You can see a list of these additional commands by running the `!help` command.
+> Scythe contains a variety of additional commands that can be used to help moderate your Realm or server. You can see a list of these additional commands by running the `!help` command.
 
 # Hacks detected by Scythe Anticheat
 *\* indicates that the check requires Beta APIs to be enabled in world settings.*<br/>
@@ -92,10 +92,10 @@ By default, notifications for when players are cheating are not shown. To be abl
 
   Scaffold -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check for tower-like behavior.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for a flat x rotation or y rotation (e.g. 10, 20, 30).\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for a flat X rotation or Y rotation (e.g. 10, 20, 30).\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if a player places a block under them whilst looking upwards.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks for downwards scaffold.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) =>Checks for placing blocks onto air or liquid tiles.\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks for placing blocks onto air or liquid tiles.\*<br/>
 
 # FAQ
 Q1: Does the AntiCheat auto-ban?<br/>
