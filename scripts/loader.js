@@ -113,6 +113,14 @@ switch(config.version) {
 		delete config.misc_modules.resetItemData;
 
 		delete config.itemLists;
+		
+		config.modules.badpackets2 = {
+			enabled: true,
+			maxLength: 512,
+			punishment: "ban",
+			punishmentLength: "",
+			minVlbeforePunishment: 1
+		};
 }
 
 config.version = "3.0.0";

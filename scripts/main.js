@@ -15,6 +15,14 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		msg.cancel = true;
 	}
 
+	// BadPackets[2] = Checks for invalid chat message length
+	if(config.modules.badpackets2.enabled && (message.length === 0 || message.length > config.modules.badpackets2.maxLength)) {
+		system.runTimeout(() => {
+			flag(player, "BadPackets", "2", "Exploit", `messageLength=${message.length}`, undefined, msg);
+		}, 1);
+		msg.cancel = true;
+	}
+
 	commandHandler(msg);
 
 	// @ts-expect-error
@@ -36,11 +44,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 });
 
 world.afterEvents.chatSend.subscribe(({ sender: player }) => {
-	/*
-	// BadPackets[2] = checks for invalid chat message length
-	if(config.modules.badpackets2.enabled && message.length > config.modules.badpackets2.maxlength || message.length < config.modules.badpackets2.minLength) flag(player, "BadPackets", "2", "Exploit", `messageLength=${message.length}`, undefined, msg);
-	*/
-
 	// Spammer/A = checks if someone sends a message while moving and on ground
 	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping && !player.hasTag("riding")) {
 		flag(player, "Spammer", "A", "Movement", undefined, true);
