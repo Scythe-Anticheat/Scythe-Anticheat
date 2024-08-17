@@ -199,6 +199,8 @@ system.runInterval(() => {
 				player.sendMessage("§r§6[§aScythe§6]§r You have reached the world border.");
 			}
 
+			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!")
+
 			// Store the players last good position
 			// When a movement-related check flags the player, they will be teleported to this position
 			// xRot and yRot being 0 means the player position was modified from player.teleport, which we should ignore
