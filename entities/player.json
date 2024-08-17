@@ -197,7 +197,8 @@
 			},
 			"minecraft:damage_sensor": {
 				"triggers": [{
-						"cause": "all",
+					// Make players with the mayfly ability (people who use the '!fly' command) not receive fall damage
+						"cause": "fall",
 						"on_damage": {
 							"filters": {
 								"all_of": [{
