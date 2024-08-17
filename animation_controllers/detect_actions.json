@@ -9,7 +9,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s remove jump",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aJUMP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aJUMP§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"jump": {
@@ -19,7 +19,7 @@
 					"on_entry": [
 						// "/tag @s add jump",
 						"/tp @s[tag=freeze] ~~-0.5~",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aJUMP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aJUMP§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -32,7 +32,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s remove gliding",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGLIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGLIDE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"glide": {
@@ -41,7 +41,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s add gliding",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGLIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGLIDE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -54,7 +54,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s remove levitating",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEVITATE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEVITATE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"levitate": {
@@ -63,7 +63,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s add levitating",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEVITATE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEVITATE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -76,7 +76,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove ground",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGROUND§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGROUND§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"ground": {
@@ -85,7 +85,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add ground",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGROUND§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGROUND§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -98,7 +98,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s remove dead",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aDEATH§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aDEATH§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"dead": {
@@ -108,7 +108,7 @@
 					"on_entry": [
 						// "/tag @s add dead",
 						"/tag @s remove right",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aDEATH§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aDEATH§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -121,7 +121,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove riding",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIDE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"ride": {
@@ -130,7 +130,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add riding",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIDE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIDE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"/tag @s remove moving"
 					]
 				}
@@ -144,7 +144,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove left",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEFT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"left": {
@@ -154,7 +154,7 @@
 					"on_entry": [
 						"/tag @s add left",
 						"/scriptevent scythe:left",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEFT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aLEFT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -168,7 +168,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove right",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIGHT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop,ticks=\"},{\"score\":{\"name\":\"@s\",\"objective\":\"right\"}},{\"text\":\")\"}]}",
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIGHT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop,ticks=\"},{\"score\":{\"name\":\"@s\",\"objective\":\"right\"}},{\"text\":\")\"}]}",
 						"/scoreboard players set @s right 0"
 					]
 				},
@@ -178,7 +178,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add right",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIGHT§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start,ticks=0)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIGHT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start,ticks=0)\"}]}"
 						// Temporarily disabled due to false positives. The hasGUIopen tag can take around 500ms to be removed once the player closes the chest
 						// This delay is mainly because the method uses player.json environmental sensors instead of regular animation controllers which are faster
 						// "/execute @s[tag=hasGUIopen] ~~~ function checks/alerts/invmove"
@@ -194,7 +194,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove sneak",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSNEAK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSNEAK§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"sneak": {
@@ -203,7 +203,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add sneak",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSNEAK§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSNEAK§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -216,7 +216,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove moving",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aMOVE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"move": {
@@ -225,8 +225,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add moving",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aMOVE§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/tp @s[tag=freeze] ~~~",
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aMOVE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
 						"/scoreboard players set @s last_move 0"
 					]
 				}
@@ -240,7 +239,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s remove swimming",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"swim": {
@@ -249,7 +248,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s add swimming",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -262,7 +261,7 @@
 					}],
 					"on_entry": [
 						"/tag @s remove sleeping",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"sleeping": {
@@ -271,7 +270,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add sleeping",
-						"/tellraw @a[tag=packetlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}

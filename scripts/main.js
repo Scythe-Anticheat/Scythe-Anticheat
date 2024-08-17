@@ -477,6 +477,8 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
 	if(player.typeId !== "minecraft:player" || !entity.isValid()) return;
 
+	tellAllStaff(`§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g${player.name} §7(isSprinting=${player.isSprinting})`, ["actionlogger"])
+
 	// Reach/A = Check if a player hits an entity farther than normally possible
 	if(config.modules.reachA.enabled) {
 		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
