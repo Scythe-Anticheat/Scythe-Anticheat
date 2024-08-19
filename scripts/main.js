@@ -199,7 +199,7 @@ system.runInterval(() => {
 				player.sendMessage("§r§6[§aScythe§6]§r You have reached the world border.");
 			}
 
-			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!")
+			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
 
 			// Store the players last good position
 			// When a movement-related check flags the player, they will be teleported to this position
@@ -235,7 +235,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	) {
 		const yPosDiff = Math.abs(player.location.y % 1);
 
-		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "creative" && !player.hasTag("flying")) {
+		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "creative" && !player.isFlying) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
 			block.setType("air");
 		}
@@ -477,7 +477,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
 	if(player.typeId !== "minecraft:player" || !entity.isValid()) return;
 
-	tellAllStaff(`§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g${player.name} §7(isSprinting=${player.isSprinting})`, ["actionlogger"])
+	tellAllStaff(`§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g${player.name} §7(isSprinting=${player.isSprinting})`, ["actionlogger"]);
 
 	// Reach/A = Check if a player hits an entity farther than normally possible
 	if(config.modules.reachA.enabled) {
