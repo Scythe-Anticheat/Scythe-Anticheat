@@ -156,7 +156,7 @@ system.runInterval(() => {
 				const isInAir = !getBlocksBetween(pos1, pos2).some((block) => player.dimension.getBlock(block)?.typeId !== "minecraft:air");
 
 				if(isInAir) flag(player, "Fly", "A", "Movement", `vertical_speed=${Math.abs(player.velocity.y).toFixed(4)}`, true);
-					else if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} was detected with flyA motion but was found near solid blocks.`);
+					else if(config.debug) console.warn(`${player.name} was detected with flyA motion but was found near solid blocks.`);
 			}
 			*/
 

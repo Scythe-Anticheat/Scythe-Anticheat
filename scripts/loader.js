@@ -32,7 +32,7 @@ if(dpConfig) {
 		config[item] = parsedConfig[item];
 	}
 
-	console.warn("Loaded Scythe Config from Dynamic Properties");
+	console.log("Loaded Scythe Config from Dynamic Properties");
 }
 
 // Update config to support the latest Scythe version

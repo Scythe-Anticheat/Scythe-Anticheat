@@ -48,7 +48,7 @@ export function commandHandler(msg) {
 
     const command = args.shift()?.toLowerCase().trim();
 
-    if(config.debug) console.warn(`${new Date().toISOString()} | ${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
+    if(config.debug) console.warn(`${player.name} used the command: ${prefix}${command} ${args.join(" ")}`);
 
     try {
         let commandData;
@@ -123,6 +123,6 @@ export function commandHandler(msg) {
  * @param {string} message
  */
 function reportError(error, player, message) {
-    console.error(`${new Date().toISOString()} | ${error} ${error.stack}`);
+    console.error(`${error} ${error.stack}`);
     player.sendMessage(`§r§6[§aScythe§6]§r There was an error while trying to run this command. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\nCommand: ${message}\n${error}\n${error.stack || "\n"}-------------------------`);
 }
