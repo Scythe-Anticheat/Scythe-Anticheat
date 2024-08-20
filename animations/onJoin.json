@@ -3,13 +3,15 @@
 	"animations": {
 		"animation.onJoin": {
 			"timeline": {
+				// This animation triggers before the player fully loads into the world. This means that commands cannot be used on them.
+				// We wait 9 seconds to make sure they fully load into the game before we run all our commands.
 				"9.0": [
 					// Create scoreboard objectives needed for the anticheat
 					"/scoreboard objectives add gametestapi dummy",
 					"/scoreboard objectives add invalidsprint dummy",
 					// Set the scoreboard objective to the proper values
 					"/scoreboard players operation @a invalidsprint = scythe:config invalidsprint",
-					"/scoreboard players add scythe:config gametestapi 0",
+					"/scoreboard players add @s gametestapi 0",
 					// Anticheat objectives
 					// Checks that are entirely gametest related dont need to be put here, as the notify function in util.js automatically creates them when needed
 					"/scoreboard objectives add badpacketsvl dummy",

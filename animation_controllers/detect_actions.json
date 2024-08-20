@@ -163,7 +163,9 @@
 			"states": {
 				"default": {
 					"transitions": [{
-						// Wacky solution at fixing a false positive, but whatever
+						// Fishing rods are extremely buggy with the is_using_item query. If you were to right click twice extremely fast,
+						// it would not properly add/remove the 'right' tag from you.
+						// And unlike other items that you can use, fishing rods don't slow you down or prohibit you from sprinting.
 						"right": "query.is_using_item && query.get_equipped_item_name != 'fishing_rod'"
 					}],
 					"on_entry": [
@@ -271,26 +273,6 @@
 					"on_entry": [
 						"/tag @s add sleeping",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-					]
-				}
-			}
-		},
-		"controller.animation.trident": {
-			"states": {
-				"default": {
-					"transitions": [{
-						"trident": "query.get_equipped_item_name == 'trident'"
-					}],
-					"on_entry": [
-						"/tag @s remove trident"
-					]
-				},
-				"trident": {
-					"transitions": [{
-						"default": "query.get_equipped_item_name != 'trident'"
-					}],
-					"on_entry": [
-						"/tag @s add trident"
 					]
 				}
 			}

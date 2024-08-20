@@ -24,8 +24,7 @@
 					"autoshield",
 					"sprint",
 					"swim",
-					"sleep",
-					"trident"
+					"sleep"
 				]
 			},
 			"animations": {
@@ -45,8 +44,7 @@
 				"autoshield": "controller.animation.autoshield",
 				"sprint": "controller.animation.sprint",
 				"swim": "controller.animation.swim",
-				"sleep": "controller.animation.sleep",
-				"trident": "controller.animation.trident"
+				"sleep": "controller.animation.sleep"
 			}
 		},
 		"component_groups": {

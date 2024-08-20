@@ -109,27 +109,40 @@ system.runInterval(() => {
 					flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 			*/
 
+			// Get the currently held item by the player
+			const container = player.getComponent("inventory")?.container;
+			const heldItem = container?.getItem(player.selectedSlotIndex);
+
+			player.holdingTrident = heldItem?.typeId === "minecraft:trident";
+
 			// Find the magnitude of the vector
 			const playerSpeed = Number(Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(2));
 
 			// NoSlow/A = Speed limit check
-			if(config.modules.noslowA.enabled && playerSpeed >= config.modules.noslowA.speed && playerSpeed <= config.modules.noslowA.maxSpeed && player.isOnGround && !player.isJumping && !player.isGliding && !player.getEffect("speed") && player.hasTag('right') && !player.hasTag("trident") && !player.hasTag("riding")) {
+			if(
+				config.modules.noslowA.enabled &&
+				playerSpeed >= config.modules.noslowA.speed &&
+				playerSpeed <= config.modules.noslowA.maxSpeed &&
+				player.isOnGround &&
+				!player.isJumping &&
+				!player.isGliding &&
+				!player.holdingTrident &&
+				!player.getEffect("speed") &&
+				player.hasTag('right') &&
+				!player.hasTag("riding")
+			) {
 				const right = getScore(player, "right");
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
-
-				// Get the item that the player is holding
-				const container = player.getComponent("inventory")?.container;
-				const heldItemId = container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
 
 				// Make sure there are no entities below the player
 				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
 
 				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity.typeId !== "minecraft:player") && !blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItemId},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem?.typeId ?? "minecraft:air"},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
 				}
 			}
 
-			// InvalidSpring/A = Checks for sprinting with the blindness effect
+			// InvalidSprint/A = Checks for sprinting with the blindness effect
 			if(config.modules.invalidsprintA.enabled && player.isSprinting && player.getEffect("blindness"))
 				flag(player, "InvalidSprint", "A", "Movement", undefined, true);
 
@@ -171,7 +184,7 @@ system.runInterval(() => {
 
 			/*
 			// The 'fallDistance' property in Player has been removed.
-			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.hasTag("trident")) {
+			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.holdingTrident) {
 				flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
 			}
 			*/
@@ -528,7 +541,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	 * For this check to work correctly Scythe has to be put at the top of the behavior packs list
 	 * Players with the haste effect are excluded as the effect can make players not swing their hand
 	 */
-	if(config.modules.killauraB.enabled && !player.hasTag("trident") && !player.getEffect("haste")) {
+	if(config.modules.killauraB.enabled && !player.holdingTrident && !player.getEffect("haste")) {
 		system.runTimeout(() => {
 			const swingDelay = Date.now() - player.lastLeftClick;
 

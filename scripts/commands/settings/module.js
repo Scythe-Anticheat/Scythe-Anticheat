@@ -40,7 +40,7 @@ function execute(message, args, commandName) {
 	let newValue;
 	switch(moduleData[name]?.constructor.name) {
 		case "Boolean":
-			newValue = value === "true" ? true : false;
+			newValue = value === "true";
 			break;
 
 		case "Number":
