@@ -358,10 +358,10 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 		player.cps = 0;
 	}
 	if(config.modules.fastuseA.enabled) player.lastThrow = 0;
+	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
 	if(config.modules.spammerE.enabled) player.lastMessageSent = 0;
 	if(config.customcommands.report.enabled) player.reports = [];
-	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 
 	player.lastGoodPosition = player.location;
 
@@ -524,8 +524,14 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		}
 	}
 
-	// Autoclicker/A = Check for high CPS. The rest of the handling is in the tick event
-	if(config.modules.autoclickerA.enabled) player.cps++;
+	/*
+		Autoclicker/A = Check for high CPS. The rest of the handling for this check is in the tick event
+	
+		Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
+		The AutoclickerA check will increment your CPS by the amount of entities in the group, which could result in a false flag if there are lots of entities in the group.
+		To prevent this, we don't increment the player's CPS if they are holding a trident. 
+	*/
+	if(config.modules.autoclickerA.enabled && !player.holdingTrident) player.cps++;
 
 	// Killaura/A = Check if a player attacks an entity while using an item
 	if(config.modules.killauraA.enabled && player.hasTag("right")) {
@@ -538,8 +544,8 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 	/**
 	 * Killaura/B = Check for no swing
-	 * For this check to work correctly Scythe has to be put at the top of the behavior packs list
-	 * Players with the haste effect are excluded as the effect can make players not swing their hand
+	 * For this check to work correctly Scythe has to be put at the top of the behavior packs list.
+	 * Players with the haste effect are excluded as the effect can make players not swing their hand.
 	 */
 	if(config.modules.killauraB.enabled && !player.holdingTrident && !player.getEffect("haste")) {
 		system.runTimeout(() => {
@@ -551,8 +557,13 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		}, config.modules.killauraB.wait_ticks);
 	}
 
-	// Killaura/C = Check for multi-aura
-	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id)) {
+	/*
+		Killaura/C = Check for multi-aura
+
+		Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
+		The KillauraC check will see that the player attacked multiple entities at once, and falsely flag the player. To prevent this, we check if the player is holding a trident.
+	*/
+	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id) && !player.holdingTrident) {
 		player.entitiesHit.push(entity.id);
 
 		if(player.entitiesHit.length >= config.modules.killauraC.entities) {
@@ -650,10 +661,10 @@ for(const player of world.getPlayers()) {
 		player.cps = 0;
 	}
 	if(config.modules.fastuseA.enabled) player.lastThrow = 0;
+	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
 	if(config.modules.spammerE.enabled) player.lastMessageSent = 0;
 	if(config.customcommands.report.enabled) player.reports = [];
-	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 
 	player.gamemode = player.getGameMode();
 	player.lastGoodPosition = player.location;
