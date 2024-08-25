@@ -11,14 +11,16 @@ registerCommand({
         if(player.getDynamicProperty("vanished")) {
             player.setDynamicProperty("vanished", false);
 
-            player.setGameMode(player.previousGamemode);
+            player.setGameMode(player.getDynamicProperty("previousGamemode"));
+            player.setDynamicProperty("previousGamemode", undefined);
 
             player.sendMessage("§r§6[§aScythe§6]§r You are now no longer vanished.");
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} is no longer vanished.`);
         } else {
             player.setDynamicProperty("vanished", true);
 
-            player.previousGamemode = player.gamemode;
+            // Store the player's previous gamemode so we can return them back when they exit out of vanish
+            player.setDynamicProperty("previousGamemode", player.gamemode);
             player.setGameMode("spectator");
 
             player.sendMessage("§r§6[§aScythe§6]§r You are now vanished.");
