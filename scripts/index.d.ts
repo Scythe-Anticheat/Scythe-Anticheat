@@ -28,11 +28,11 @@ declare module "@minecraft/server" {
 	interface Entity {
 		// Booleans
 		flagAutotoolA: boolean
-		holdingTrident: boolean
 
 		// Strings
 		name: string
 		gamemode: GameMode
+		heldItem: string
 
 		// Numbers
 		cps: number,

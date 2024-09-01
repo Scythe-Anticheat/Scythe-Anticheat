@@ -113,7 +113,7 @@ system.runInterval(() => {
 			const container = player.getComponent("inventory")?.container;
 			const heldItem = container?.getItem(player.selectedSlotIndex);
 
-			player.holdingTrident = heldItem?.typeId === "minecraft:trident";
+			player.heldItem = heldItem?.typeId ?? "minecraft:air";
 
 			// Find the magnitude of the vector
 			const playerSpeed = Number(Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(2));
@@ -126,7 +126,7 @@ system.runInterval(() => {
 				player.isOnGround &&
 				!player.isJumping &&
 				!player.isGliding &&
-				!player.holdingTrident &&
+				player.heldItem !== "minecraft:trident" &&
 				!player.getEffect("speed") &&
 				player.hasTag('right') &&
 				!player.hasTag("riding")
@@ -501,11 +501,12 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 		if(
 			distance > config.modules.reachA.reach &&
+			player.gamemode !== "creative" &&
 			entity.typeId.startsWith("minecraft:") &&
-			!config.modules.reachA.entities_blacklist.includes(entity.typeId) &&
-			player.gamemode !== "creative"
+			!config.modules.reachA.excluded_entities.includes(entity.typeId) &&
+			!config.modules.reachA.excluded_items.includes(player.heldItem)
 		) {
-			flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance}`);
+			flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance},item=${player.heldItem}`);
 		}
 	}
 
@@ -531,7 +532,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		The AutoclickerA check will increment your CPS by the amount of entities in the group, which could result in a false flag if there are lots of entities in the group.
 		To prevent this, we don't increment the player's CPS if they are holding a trident. 
 	*/
-	if(config.modules.autoclickerA.enabled && !player.holdingTrident) player.cps++;
+	if(config.modules.autoclickerA.enabled && player.heldItem !== "minecraft:trident") player.cps++;
 
 	// Killaura/A = Check if a player attacks an entity while using an item
 	if(config.modules.killauraA.enabled && player.hasTag("right")) {
@@ -547,7 +548,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	 * For this check to work correctly Scythe has to be put at the top of the behavior packs list.
 	 * Players with the haste effect are excluded as the effect can make players not swing their hand.
 	 */
-	if(config.modules.killauraB.enabled && !player.holdingTrident && !player.getEffect("haste")) {
+	if(config.modules.killauraB.enabled && player.heldItem !== "minecraft:trident" && !player.getEffect("haste")) {
 		system.runTimeout(() => {
 			const swingDelay = Date.now() - player.lastLeftClick;
 
@@ -563,7 +564,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
 		The KillauraC check will see that the player attacked multiple entities at once, and falsely flag the player. To prevent this, we check if the player is holding a trident.
 	*/
-	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id) && !player.holdingTrident) {
+	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id) && player.heldItem !== "minecraft:trident") {
 		player.entitiesHit.push(entity.id);
 
 		if(player.entitiesHit.length >= config.modules.killauraC.entities) {

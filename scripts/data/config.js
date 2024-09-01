@@ -332,12 +332,16 @@ export default
 		"reachA": {
 			"enabled": true,
 			"reach": 6,
-			"entities_blacklist": [
+			"excluded_entities": [
 				"minecraft:enderman",
 				"minecraft:fireball",
 				"minecraft:ender_dragon",
 				"minecraft:ghast",
 				"minecraft:wind_charge_projectile"
+			],
+			"excluded_items": [
+				"minecraft:trident",
+				"minecraft:mace"
 			],
 			"punishment": "none",
 			"minVlbeforePunishment": 0

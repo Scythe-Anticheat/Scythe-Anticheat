@@ -121,6 +121,14 @@ switch(config.version) {
 			punishmentLength: "",
 			minVlbeforePunishment: 1
 		};
+
+		config.modules.reachA.excluded_entities = config.modules.reachA.entities_blacklist;
+		delete config.modules.reachA.entities_blacklist;
+
+		config.modules.reachA.excluded_items = [
+			"minecraft:trident",
+			"minecraft:mace"
+		];
 }
 
 config.version = "3.0.0";
