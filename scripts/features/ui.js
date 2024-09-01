@@ -122,7 +122,7 @@ function banMenuSelect(player, selection) {
 
     menu.show(player).then((response) => {
         // Check if the form was cancelled. Response.selection is checked if its undefined to prevent typing errors
-        if(response.selection === undefined || allPlayers.length < response.selection) return banMenu(player);
+        if(response.selection === undefined || allPlayers.length <= response.selection) return banMenu(player);
 
         if(selection === 0) kickPlayerMenu(player, allPlayers[response.selection]);
             else banPlayerMenu(player, allPlayers[response.selection]);
@@ -254,7 +254,7 @@ function settingsMenu(player) {
 
     const menu = new ActionFormData()
         .title("Configure Settings")
-        .body("Please select a sub-check to edit.");
+        .body("Please select a check to edit.\n\n§cWARNING: The Scythe config is an advanced feature and you should only be editing it if you know what you are doing. If you improperly change certain settings, you can easily break stuff.");
 
     for(const subModule of modules) {
         menu.button(capitalizeFirstLetter(subModule));
@@ -274,8 +274,8 @@ function settingsCheckSelectMenu(player, selection) {
     const subCheck = modules[selection];
 
     const menu = new ActionFormData()
-        .title("Configure Settings")
-        .body("Please select a check to edit.");
+        .title(`Configure Settings - ${capitalizeFirstLetter(subCheck)}`)
+        .body("Please select a sub-check to edit.");
 
     const checks = [];
     for(const module of moduleList) {
@@ -306,7 +306,7 @@ function editSettingMenu(player, check) {
     let optionsMap = [];
 
     const menu = new ModalFormData()
-        .title(`Editing check: ${capitalizeFirstLetter(check)}`);
+        .title(`Configure Settings - ${capitalizeFirstLetter(check)}`);
 
     for(const key of Object.keys(checkData)) {
         if(punishmentSettings.includes(key)) continue;
@@ -368,7 +368,7 @@ function playerSettingsMenu(player) {
     const menu = createSelectPlayerMenu("Player Menu", allPlayers, player);
 
     menu.show(player).then((response) => {
-        if(response.selection === undefined || allPlayers.length < response.selection) return mainGui(player);
+        if(response.selection === undefined || allPlayers.length <= response.selection) return mainGui(player);
 
         playerSettingsMenuSelected(player, allPlayers[response.selection]);
     });
