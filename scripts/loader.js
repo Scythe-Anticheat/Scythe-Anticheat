@@ -47,7 +47,7 @@ switch(config.version) {
 		config.disableFlagsFromScytheOp = config.disable_flags_from_scythe_op;
 		delete config.disable_flags_from_scythe_op;
 
-		config.customcommands.unban.push("pardon");
+		config.customcommands.unban.aliases.push("pardon");
 
 		config.modules.killauraA = {
 			enabled: true,
