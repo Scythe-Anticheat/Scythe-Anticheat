@@ -379,7 +379,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     const menu = new ActionFormData()
         .title("Player Menu - " + playerSelected.name)
-        .body(`Player Info:\n\nName: ${playerSelected.name}\nUnique ID: ${playerSelected.id}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(playerSelected.location.x)}, ${Math.trunc(playerSelected.location.y)}, ${Math.trunc(playerSelected.location.z)}\nGamemode: ${capitalizeFirstLetter(player.gamemode)}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.hasTag("isMuted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.hasTag("freeze") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.getDynamicProperty("vanished")}\nFlying: ${playerSelected.isFlying}`)
+        .body(`Player Info:\n\nName: ${playerSelected.name}\nUnique ID: ${playerSelected.id}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(playerSelected.location.x)}, ${Math.trunc(playerSelected.location.y)}, ${Math.trunc(playerSelected.location.z)}\nGamemode: ${capitalizeFirstLetter(playerSelected.gamemode)}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.hasTag("isMuted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.hasTag("freeze") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.getDynamicProperty("vanished")}\nFlying: ${playerSelected.isFlying}`)
         .button("View Inventory", "textures/blocks/chest_front.png")
         .button("Kick Player", icons.anvil)
         .button("Ban Player", icons.anvil)
