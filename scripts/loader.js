@@ -28,14 +28,15 @@ if(dpConfig) {
 	// @ts-expect-error
 	const parsedConfig = JSON.parse(dpConfig);
 
-	for(const item of Object.keys(parsedConfig)) {
-		config[item] = parsedConfig[item];
+	for(const i of Object.keys(parsedConfig)) {
+		config[i] = parsedConfig[i];
 	}
 
 	console.log("Loaded Scythe Config from Dynamic Properties");
 }
 
 // Update config to support the latest Scythe version
+/* eslint-disable no-fallthrough */
 switch(config.version) {
 	case "2.20.0":
 		config.itemLists.items_semi_illegal.push("minecraft:trial_spawner");
@@ -75,7 +76,6 @@ switch(config.version) {
 		delete config.customcommands.antigms;
 
 		delete config.customcommands.overridecommandblocksenabled;
-		break;
 	
 	case "2.22.0":
 		config.misc_modules.oreAlerts = {
@@ -85,7 +85,6 @@ switch(config.version) {
 
 		delete config.modules.xrayA;
 		delete config.itemLists.xray_items;
-		break;
 
 	case "2.24.0":
 		delete config.modules.badenchantsA;
