@@ -194,9 +194,10 @@
 				"days_until_insomnia": 3
 			},
 			"minecraft:damage_sensor": {
-				"triggers": [{
-					// Make players with the mayfly ability (people who use the '!fly' command) not receive fall damage
-						"cause": "fall",
+				"triggers": [
+					{
+						// Make players with the mayfly ability (people who use the '!fly' command) not receive fall damage
+						"cause": "all",
 						"on_damage": {
 							"filters": {
 								"all_of": [{
