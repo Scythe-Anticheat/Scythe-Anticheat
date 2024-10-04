@@ -23,6 +23,14 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		msg.cancel = true;
 	}
 
+	// BadPackets[4] = Checks for newlines or carriage returns characters in messages
+	if(config.modules.badpackets4.enabled && message.match(/\n|\r/)) {
+		system.runTimeout(() => {
+			flag(player, "BadPackets", "4", "Exploit", undefined, undefined, msg);
+		}, 1);
+		msg.cancel = true;
+	}
+
 	commandHandler(msg);
 
 	// @ts-expect-error
@@ -527,10 +535,10 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 	/*
 		Autoclicker/A = Check for high CPS. The rest of the handling for this check is in the tick event
-	
+
 		Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
 		The AutoclickerA check will increment your CPS by the amount of entities in the group, which could result in a false flag if there are lots of entities in the group.
-		To prevent this, we don't increment the player's CPS if they are holding a trident. 
+		To prevent this, we don't increment the player's CPS if they are holding a trident.
 	*/
 	if(config.modules.autoclickerA.enabled && player.heldItem !== "minecraft:trident") player.cps++;
 

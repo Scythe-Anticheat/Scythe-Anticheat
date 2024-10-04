@@ -1,8 +1,12 @@
 export default
 {
-	// This value should not be changed unless you know what you are doing.
-	// It is used to make Scythe be able to work with older versions of the config
-	"version": "3.0.0",
+	/*
+	This value should not be changed unless you know what you are doing.
+	It is used to make Scythe be able to work with older versions of the config
+
+	Internally we still call it the config version, however it should be referred to as the config revision.
+	*/
+	"version": "3.1.0",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -225,6 +229,12 @@ export default
 			"minVlbeforePunishment": 1
 		},
 		"badpackets3": {
+			"enabled": true,
+			"punishment": "ban",
+			"punishmentLength": "",
+			"minVlbeforePunishment": 1
+		},
+		"badpackets4": {
 			"enabled": true,
 			"punishment": "ban",
 			"punishmentLength": "",

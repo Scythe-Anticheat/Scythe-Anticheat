@@ -23,6 +23,8 @@ if(!world.getDynamicProperty("unbanQueue")) {
 	world.setDynamicProperty("unbanQueue", "{}");
 }
 
+const latestConfigVer = "3.1.0";
+
 const dpConfig = world.getDynamicProperty("config"); // Object
 if(dpConfig) {
 	// @ts-expect-error
@@ -76,7 +78,7 @@ switch(config.version) {
 		delete config.customcommands.antigms;
 
 		delete config.customcommands.overridecommandblocksenabled;
-	
+
 	case "2.22.0":
 		config.misc_modules.oreAlerts = {
 			enabled: config.modules.xrayA.enabled,
@@ -95,7 +97,7 @@ switch(config.version) {
 
 		delete config.modules.commandblockexploitF;
 		delete config.modules.commandblockexploitG;
-		delete config.modules.commandblockexploitH;
+		delete config.modules.tcommandblockexploitH;
 
 		delete config.modules.illegalitemsB;
 		delete config.modules.illegalitemsC;
@@ -112,7 +114,7 @@ switch(config.version) {
 		delete config.misc_modules.resetItemData;
 
 		delete config.itemLists;
-		
+
 		config.modules.badpackets2 = {
 			enabled: true,
 			maxLength: 512,
@@ -128,9 +130,26 @@ switch(config.version) {
 			"minecraft:trident",
 			"minecraft:mace"
 		];
+		break;
+
+	case "3.0.0":
+		config.modules.badpackets4 = {
+			enabled: true,
+			punishment: "ban",
+			punishmentLength: "",
+			minVlbeforePunishment: 1
+		};
+		break;
+
+	case latestConfigVer:
+		break;
+
+	default:
+		console.error(`Unknown config revision ${config.version}. It is probably best we revert to the default config.`);
+		world.setDynamicProperty("config", undefined);
 }
 
-config.version = "3.0.0";
+config.version = latestConfigVer;
 
 // Register all commands
 import "./commands/moderation/kick.js";
