@@ -6,47 +6,31 @@ declare module "@minecraft/server" {
 		flagAutotoolA: boolean
 		isMoving: boolean
 
+		// Strings
+		gamemode: GameMode
+		heldItem: string
+		name: string
+
 		// Numbers
-		blocksBroken: number
-		startBreakTime: number
-		lastSelectedSlot: number
 		autotoolSwitchDelay: number
+		blocksBroken: number
 		cps: number
 		firstAttack: number
-		lastThrow: number
+		lastLeftClick: number
 		lastMessageSent: number
+		lastSelectedSlot: number
+		lastThrow: number
+		selectedSlotIndex: number
+		startBreakTime: number
 
 		// Arrays
 		entitiesHit: Array<String>
 		reports: Array<String>
 		
 		// Objects
-		lastGoodPosition: Vector3
-		velocity: Vector3
-		rotation: Vector2
 		lastCursorItem?: ItemStack
-	}
-
-	interface Entity {
-		// Booleans
-		flagAutotoolA: boolean
-
-		// Strings
-		name: string
-		gamemode: GameMode
-		heldItem: string
-
-		// Numbers
-		cps: number,
-		selectedSlotIndex: number
-		lastThrow: number
-		startBreakTime: number
-		lastSelectedSlot: number
-		autotoolSwitchDelay: number
-		lastMessageSent: number
-		lastLeftClick: number
-
-		// Arrays
-		entitiesHit: Array<String>
+		lastGoodPosition: Vector3
+		rotation: Vector2
+		velocity: Vector3
 	}
 }

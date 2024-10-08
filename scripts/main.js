@@ -1,6 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
-import { world, system } from "@minecraft/server";
+import { world, system, Player } from "@minecraft/server";
 import { flag, banMessage, getScore, tellAllStaff, setScore } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -169,7 +169,7 @@ system.runInterval(() => {
 				// Make sure there are no entities below the player
 				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
 
-				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity.typeId !== "minecraft:player") && !blockBelow.typeId.includes("ice")) {
+				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity instanceof Player) && !blockBelow.typeId.includes("ice")) {
 					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${player.heldItem},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
 				}
 			}
@@ -520,7 +520,7 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 
 world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity: player}) => {
 	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
-	if(player.typeId !== "minecraft:player" || !entity.isValid()) return;
+	if(!(player instanceof Player) || !entity.isValid()) return;
 
 	tellAllStaff(`§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g${player.name} §7(isSprinting=${player.isSprinting})`, ["actionlogger"]);
 
@@ -547,7 +547,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
 
 	// Check if the player was hit with the UI item, and if so open the UI for that player
-	if(config.customcommands.ui.enabled && entity.typeId === "minecraft:player" && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
+	if(config.customcommands.ui.enabled && entity instanceof Player && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
 		const container = player.getComponent("inventory")?.container;
 		if(!container) return; // This should not happen
 
@@ -617,7 +617,9 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	if(config.debug) console.warn(player.getTags());
 });
 
-world.afterEvents.entityHitBlock.subscribe(({ damagingEntity: player}) => {
+world.afterEvents.entityHitBlock.subscribe(({ damagingEntity: player }) => {
+	if(!(player instanceof Player)) return;
+
 	player.flagAutotoolA = false;
 	player.lastSelectedSlot = player.selectedSlotIndex;
 	player.startBreakTime = Date.now();
@@ -627,7 +629,7 @@ world.afterEvents.entityHitBlock.subscribe(({ damagingEntity: player}) => {
 world.beforeEvents.itemUse.subscribe((itemUse) => {
 	const { source: player } = itemUse;
 
-	if(player.typeId !== "minecraft:player") return;
+	if(!(player instanceof Player)) return;
 
 	if(config.modules.fastuseA.enabled) {
 		const now = Date.now();
@@ -646,7 +648,7 @@ world.beforeEvents.itemUse.subscribe((itemUse) => {
 
 world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	// itemUse can be triggered from entities
-	if(player.typeId !== "minecraft:player") return;
+	if(!(player instanceof Player)) return;
 
 	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
 		mainGui(player);
@@ -668,8 +670,8 @@ world.afterEvents.playerGameModeChange.subscribe(({fromGameMode, player, toGameM
 	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §4tried changing their gamemode to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
 });
 
-system.afterEvents.scriptEventReceive.subscribe(({id, sourceEntity }) => {
-	if(!sourceEntity || !id.startsWith("scythe:")) return;
+system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
+	if(!(sourceEntity instanceof Player) || !id.startsWith("scythe:")) return;
 
 	const splitId = id.split(":");
 	switch(splitId[1]) {
