@@ -39,7 +39,7 @@ export function getStatsMsg(player) {
 		statsMsg += `${logo} ${capitalizeFirstLetter(id).replace("vl", "")} violations: §c${score}\n`;
 	}
 
-	statsMsg += `\n${logo} Total violations: ${totalViolations === 0 ? "§a0" : `§c${totalViolations}`}\n${logo} ==== USER FLAGS ====\n${logo} Scythe OP: ${player.hasTag("op") ? "§atrue" : "false"}\n${logo} Vanished: ${player.getDynamicProperty("vanished") ?? false}\n${logo} Frozen: ${player.hasTag("freeze") ? "§ctrue" : "§afalse"}\n${logo} Muted: ${player.hasTag("isMuted") ? "§ctrue" : "§afalse"}\n${logo} Flying: ${player.isFlying}\n${logo} ==== END OF STATS ====`;
+	statsMsg += `\n${logo} Total violations: ${totalViolations === 0 ? "§a0" : `§c${totalViolations}`}\n${logo} ==== USER FLAGS ====\n${logo} Scythe OP: ${player.hasTag("op") ? "§atrue" : "false"}\n${logo} Vanished: ${player.getDynamicProperty("vanished") ?? false}\n${logo} Frozen: ${player.hasTag("freeze") ? "§ctrue" : "§afalse"}\n${logo} Muted: ${player.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n${logo} Flying: ${player.isFlying}\n${logo} ==== END OF STATS ====`;
 
 	return statsMsg;
 }

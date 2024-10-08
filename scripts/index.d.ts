@@ -9,7 +9,6 @@ declare module "@minecraft/server" {
 		// Strings
 		gamemode: GameMode
 		heldItem: string
-		name: string
 
 		// Numbers
 		autotoolSwitchDelay: number

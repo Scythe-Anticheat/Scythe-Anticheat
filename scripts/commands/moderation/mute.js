@@ -20,7 +20,7 @@ registerCommand({
         // Make sure they don't mute themselves
         if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
-        member.addTag("isMuted");
+        member.setDynamicProperty("muted", true);
         member.sendMessage(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
 
         // Remove chat ability

@@ -4,7 +4,7 @@ import { world } from "@minecraft/server";
 
 /**
  * @name flag
- * @param {object} player - The player object
+ * @param {import("@minecraft/server").Player} player - The player object
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. A, B, C).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
@@ -43,9 +43,11 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
     }
 
+    const container = player.getComponent("inventory")?.container;
+
     // If debug is enabled then log everything we know about the player.
     if(config.debug) {
-        const currentItem = player.getComponent("inventory").container.getItem(player.selectedSlotIndex);
+        const currentItem = container?.getItem(player.selectedSlotIndex);
 
         const data = {
             timestamp: Date.now(),
@@ -66,7 +68,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 currentItem: currentItem?.typeId ?? "minecraft:air",
                 selectedSlotIndex: player.selectedSlotIndex,
                 dimension: player.dimension.id,
-                fallDistance: player.fallDistance,
                 extra: {
                     blocksBroken: player.blocksBroken ?? -1,
                     entitiesHitTick: player.entitiesHit,
@@ -105,8 +106,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     setScore(player, scoreboardObjective, currentVl);
 
     if(typeof slot === "number") {
-		const container = player.getComponent("inventory").container;
-		container.setItem(slot, undefined);
+		container?.setItem(slot, undefined);
 	}
 
     if(!checkData.enabled) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
@@ -146,7 +146,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
 
         case "mute": {
-            player.addTag("isMuted");
+            player.setDynamicProperty("muted", true);
             player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
 
             // remove chat ability

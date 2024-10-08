@@ -17,7 +17,7 @@ registerCommand({
 
         if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        member.removeTag("isMuted");
+        member.setDynamicProperty("muted", undefined);
         member.sendMessage("§r§6[§aScythe§6]§r You have been unmuted.");
 
         // Add chat ability

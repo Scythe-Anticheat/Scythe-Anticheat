@@ -10,7 +10,7 @@ let entitiesSpawnedInLastTick = 0;
 world.beforeEvents.chatSend.subscribe((msg) => {
 	const { sender: player, message } = msg;
 
-	if(player.hasTag("isMuted")) {
+	if(player.getDynamicProperty("muted")) {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
 		msg.cancel = true;
 	}
@@ -493,6 +493,11 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	if(config.misc_modules.welcomeMessage.enabled) {
 		player.sendMessage(config.misc_modules.welcomeMessage.message.replace(/\[@player]/g, player.name));
 	}
+
+	// If enabled from previous login then activate
+	if(player.hasTag("flying") && player.gamemode !== "creative") player.runCommandAsync("ability @s mayfly true");
+	if(player.getDynamicProperty("muted")) player.runCommandAsync("ability @s mute true");
+	if(player.hasTag("freeze")) player.triggerEvent("scythe:freeze");
 });
 
 world.afterEvents.entitySpawn.subscribe(({ entity }) => {
