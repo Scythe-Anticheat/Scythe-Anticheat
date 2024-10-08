@@ -52,25 +52,28 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 });
 
 world.afterEvents.chatSend.subscribe(({ sender: player }) => {
-	// Spammer/A = checks if someone sends a message while moving and on ground
+	// Spammer/A = Checks if someone sends a message while moving and on ground
 	if(config.modules.spammerA.enabled && player.isMoving && player.isOnGround && !player.isJumping && !player.hasTag("riding")) {
 		flag(player, "Spammer", "A", "Movement", undefined, true);
 		return;
 	}
 
-	// Spammer/B = checks if someone sends a message while swinging their hand
+	/*
+	Spammer/B = Checks if someone sends a message while swinging their hand
+	Mining fatigue can make the arm swing animation last longer than normal so we ignore players with that effect
+	*/
 	if(config.modules.spammerB.enabled && player.hasTag("left") && !player.getEffect("mining_fatigue")) {
 		flag(player, "Spammer", "B", "Combat");
 		return;
 	}
 
-	// Spammer/C = checks if someone sends a message while using an item
+	// Spammer/C = Checks if someone sends a message while using an item
 	if(config.modules.spammerC.enabled && player.hasTag("right")) {
 		flag(player, "Spammer", "C", "Misc");
 		return;
 	}
 
-	// Spammer/D = checks if someone sends a message while having a GUI open
+	// Spammer/D = Checks if someone sends a message while having a GUI open
 	if(config.modules.spammerD.enabled && player.hasTag("hasGUIopen")) {
 		flag(player, "Spammer", "D", "Misc");
 		return;
@@ -670,13 +673,23 @@ world.afterEvents.playerGameModeChange.subscribe(({fromGameMode, player, toGameM
 	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §4tried changing their gamemode to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
 });
 
-system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
-	if(!(sourceEntity instanceof Player) || !id.startsWith("scythe:")) return;
+system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) => {
+	if(!(player instanceof Player) || !id.startsWith("scythe:")) return;
 
 	const splitId = id.split(":");
 	switch(splitId[1]) {
 		case "left":
-			sourceEntity.lastLeftClick = Date.now();
+			player.lastLeftClick = Date.now();
+			break;
+
+		// Backup command to reset the config in emergency cases
+		case "resetconfig":
+			// Nice try...
+			if(!player.hasTag("op")) break;
+
+			world.setDynamicProperty("config", undefined);
+			player.sendMessage("§r§6[§aScythe§6]§r The scythe config has been reset. Run '/reload' to apply the changes.");
+			break;
 	}
 });
 
