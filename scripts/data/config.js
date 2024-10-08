@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -278,6 +278,11 @@ export default
 		},
 		"invalidsprintA": {
 			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"inventorymodsB": {
+			"enabled": false,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

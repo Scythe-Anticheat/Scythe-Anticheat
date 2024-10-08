@@ -53,7 +53,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 	// Spammer/A = checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.hasTag("moving") && player.isOnGround && !player.isJumping && !player.hasTag("riding")) {
+	if(config.modules.spammerA.enabled && player.isMoving && player.isOnGround && !player.isJumping && !player.hasTag("riding")) {
 		flag(player, "Spammer", "A", "Movement", undefined, true);
 		return;
 	}
@@ -97,11 +97,20 @@ system.runInterval(() => {
 	// Run as each player
 	for(const player of world.getPlayers()) {
 		try {
+			// --- Prerequisite variables that are used by checks later on ---
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
 
-			// Sexy looking ban message
-			if(player.getDynamicProperty("banInfo")) banMessage(player);
+			// Get the currently held item by the player
+			player.heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
+
+			// Find the magnitude of the vector
+			const playerSpeed = Number(Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(2));
+
+			player.isMoving = playerSpeed !== 0;
+
+			// Get the item that the player is holding in their cursor
+			const cursorItem = player.getComponent("cursor_inventory")?.item;
 
 			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) player.blocksBroken = 0;
 			if(config.modules.killauraC.enabled && player.entitiesHit?.length >= 1) player.entitiesHit = [];
@@ -110,21 +119,36 @@ system.runInterval(() => {
 				player.autotoolSwitchDelay = now - player.startBreakTime;
 			}
 
+			// Sexy looking ban message
+			if(player.getDynamicProperty("banInfo")) banMessage(player);
+
 			/*
-			// Crasher/A = invalid pos check
-			if(config.modules.crasherA.enabled && Math.abs(player.location.x) > 30000000 ||
-				Math.abs(player.location.y) > 30000000 || Math.abs(player.location.z) > 30000000)
-					flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
+			// Crasher/A = Invalid pos check
+			if(
+				config.modules.crasherA.enabled &&
+				Math.abs(player.location.x) > 30000000 ||
+				Math.abs(player.location.y) > 30000000 ||
+				Math.abs(player.location.z) > 30000000
+			) flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 			*/
 
-			// Get the currently held item by the player
-			const container = player.getComponent("inventory")?.container;
-			const heldItem = container?.getItem(player.selectedSlotIndex);
+			/*
+			InventoryMods/B = Check if a player switches the item they are holding while moving
+			The 'player.isMoving' property does not allow us to see if the player was moved from them pressing the move buttons, or if an external factor moved them.
+			Because of that, we will have to check if a player was not moved by one of those external factors
 
-			player.heldItem = heldItem?.typeId ?? "minecraft:air";
-
-			// Find the magnitude of the vector
-			const playerSpeed = Number(Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(2));
+			NOTE: This is an experiemental check. It should only be enabled on development versions of Scythe
+			*/
+			if(
+				cursorItem?.typeId !== player.lastCursorItem?.typeId &&
+				player.isMoving &&
+				player.isOnGround &&
+				!player.isGliding &&
+				!player.isInWater &&
+				!player.hasTag("riding")
+			) {
+				flag(player, "InventoryMods", "B", "Inventory", `oldItem=${cursorItem?.typeId},newItem=${player.lastCursorItem?.typeId}`);
+			}
 
 			// NoSlow/A = Speed limit check
 			if(
@@ -146,7 +170,7 @@ system.runInterval(() => {
 				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
 
 				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity.typeId !== "minecraft:player") && !blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${heldItem?.typeId ?? "minecraft:air"},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${player.heldItem},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
 				}
 			}
 
@@ -157,7 +181,7 @@ system.runInterval(() => {
 			// Fly/a
 			// This check no longer works.
 			/*
-			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.getEffect("levitation") && player.hasTag("moving")) {
+			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.getEffect("levitation") && player.isMoving) {
 				const pos1 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
 				const pos2 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
 
@@ -198,16 +222,6 @@ system.runInterval(() => {
 			*/
 
 			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
-				/*
-				player.applyKnockback(
-					// Check if the number is greater than 0, if it is then subtract 1, else add 1
-					player.location.x >= 0 ? -1 : 1,
-					player.location.z >= 0 ? -1 : 1,
-					0.5,
-					0.05
-				);
-				*/
-
 				player.tryTeleport({
 					// Check if the number is greater than 0, if it is then subtract 1 else add 1
 					x: player.location.x - (player.location.x >= 0 ? 1 : -1),
@@ -221,6 +235,8 @@ system.runInterval(() => {
 			}
 
 			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
+
+			player.lastCursorItem = cursorItem;
 
 			// Store the players last good position
 			// When a movement-related check flags the player, they will be teleported to this position
@@ -242,13 +258,13 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	// Scaffold/A = Check for Tower like behavior
 	if(
 		config.modules.scaffoldA.enabled &&
-		!player.isFlying &&
-		player.isJumping &&
-		player.velocity.y < 1 &&
-		// player.fallDistance < 0 &&
 		block.location.x === blockUnder?.location.x &&
 		block.location.y === blockUnder?.location.y &&
 		block.location.z === blockUnder?.location.z &&
+		!player.isFlying &&
+		player.isJumping &&
+		player.isFalling &&
+		player.velocity.y < 1 &&
 		!player.getEffect("jump_boost") &&
 		!block.typeId.includes("fence") &&
 		!block.typeId.includes("wall") &&
@@ -300,7 +316,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			block.west()
 		];
 
-		const validBlockPlace = surroundingBlocks.some(adjacentBlock => 
+		const validBlockPlace = surroundingBlocks.some(adjacentBlock =>
 			// Check if block is valid
 			adjacentBlock &&
 			// Check if there is a nearby block that isn't air

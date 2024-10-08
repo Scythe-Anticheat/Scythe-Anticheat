@@ -1,9 +1,10 @@
-import { Player, Entity, EntityComponent, Container, ItemComponent, Vector2, Vector3, GameMode } from "@minecraft/server";
+import { Player, Entity, ItemStack, Vector2, Vector3, GameMode } from "@minecraft/server";
 
 declare module "@minecraft/server" {
 	interface Player {
 		// Booleans
 		flagAutotoolA: boolean
+		isMoving: boolean
 
 		// Numbers
 		blocksBroken: number
@@ -23,6 +24,7 @@ declare module "@minecraft/server" {
 		lastGoodPosition: Vector3
 		velocity: Vector3
 		rotation: Vector2
+		lastCursorItem?: ItemStack
 	}
 
 	interface Entity {

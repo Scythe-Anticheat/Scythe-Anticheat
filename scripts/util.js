@@ -90,7 +90,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     if(shouldTP) player.tryTeleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : player.lastGoodPosition, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
 
-    const scoreboardObjective = `${check.toLowerCase()}vl`;
+    const scoreboardObjective = check !== "InventoryMods" ? `${check.toLowerCase()}vl` : "invmovevl";
 
     // If the VL scoreboard object doesn't exist then create one
     if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
