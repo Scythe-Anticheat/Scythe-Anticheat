@@ -36,7 +36,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	// @ts-expect-error
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	if(!msg.cancel && globalmute.muted && !player.hasTag("op")) {
-		player.sendMessage(config.customcommands.globalmute.showModeratorName ? `§r§6[§aScythe§6]§r Chat has been disabled by ${globalmute.muter}` : "§r§6[§aScythe§6]§r Chat has been disabled by a server admin.");
+		player.sendMessage(`§r§6[§aScythe§6]§r Chat has been disabled by ${config.customcommands.globalmute.showModeratorName ? globalmute.muter : "a server admin"}.`);
 		msg.cancel = true;
 	}
 
