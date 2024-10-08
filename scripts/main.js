@@ -53,25 +53,25 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 	// Spammer/A = checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.hasTag('moving') && player.isOnGround && !player.isJumping && !player.hasTag("riding")) {
+	if(config.modules.spammerA.enabled && player.hasTag("moving") && player.isOnGround && !player.isJumping && !player.hasTag("riding")) {
 		flag(player, "Spammer", "A", "Movement", undefined, true);
 		return;
 	}
 
 	// Spammer/B = checks if someone sends a message while swinging their hand
-	if(config.modules.spammerB.enabled && player.hasTag('left') && !player.getEffect("mining_fatigue")) {
+	if(config.modules.spammerB.enabled && player.hasTag("left") && !player.getEffect("mining_fatigue")) {
 		flag(player, "Spammer", "B", "Combat");
 		return;
 	}
 
 	// Spammer/C = checks if someone sends a message while using an item
-	if(config.modules.spammerC.enabled && player.hasTag('right')) {
+	if(config.modules.spammerC.enabled && player.hasTag("right")) {
 		flag(player, "Spammer", "C", "Misc");
 		return;
 	}
 
 	// Spammer/D = checks if someone sends a message while having a GUI open
-	if(config.modules.spammerD.enabled && player.hasTag('hasGUIopen')) {
+	if(config.modules.spammerD.enabled && player.hasTag("hasGUIopen")) {
 		flag(player, "Spammer", "D", "Misc");
 		return;
 	}
@@ -136,7 +136,7 @@ system.runInterval(() => {
 				!player.isGliding &&
 				player.heldItem !== "minecraft:trident" &&
 				!player.getEffect("speed") &&
-				player.hasTag('right') &&
+				player.hasTag("right") &&
 				!player.hasTag("riding")
 			) {
 				const right = getScore(player, "right");
@@ -300,9 +300,17 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			block.west()
 		];
 
-		// TODO: Properly handle placing lilypads on water without flags
-		if(!surroundingBlocks.some(adjacentBlock => adjacentBlock && !adjacentBlock.isAir/* && !adjacentBlock.isLiquid*/)) {
-			flag(player, "Scaffold", "E", "World");
+		const validBlockPlace = surroundingBlocks.some(adjacentBlock => 
+			// Check if block is valid
+			adjacentBlock &&
+			// Check if there is a nearby block that isn't air
+			!adjacentBlock.isAir &&
+			// Check if there is a nearby block that isn't a liquid and that the placed block isn't a lilypad
+			(!adjacentBlock.isLiquid || block.typeId == "minecraft:waterlily")
+		);
+
+		if(!validBlockPlace) {
+			flag(player, "Scaffold", "E", "World", `block=${block.typeId}`);
 			block.setType("air");
 		}
 	}
