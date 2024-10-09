@@ -43,13 +43,9 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
     }
 
-    const container = player.getComponent("inventory")?.container;
-
     // If debug is enabled then log everything we know about the player.
     if(config.debug) {
-        const currentItem = container?.getItem(player.selectedSlotIndex);
-
-        const data = {
+       const data = {
             timestamp: Date.now(),
             time: new Date().toISOString(),
             check: `${check}/${checkType}`,
@@ -65,7 +61,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 velocity: player.velocity,
                 rotation: player.rotation,
                 tags: String(player.getTags()).replace(/[\r\n"]/gm, ""),
-                currentItem: currentItem?.typeId ?? "minecraft:air",
+                currentItem: player.heldItem,
                 selectedSlotIndex: player.selectedSlotIndex,
                 dimension: player.dimension.id,
                 extra: {
@@ -106,6 +102,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     setScore(player, scoreboardObjective, currentVl);
 
     if(typeof slot === "number") {
+        const container = player.getComponent("inventory")?.container;
+
 		container?.setItem(slot, undefined);
 	}
 
