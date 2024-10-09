@@ -1,10 +1,10 @@
 // @ts-check
 import config from "./data/config.js";
-import { world } from "@minecraft/server";
+import { world, Entity, Player } from "@minecraft/server";
 
 /**
  * @name flag
- * @param {import("@minecraft/server").Player} player - The player object
+ * @param {Player} player - The player object
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. A, B, C).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
@@ -17,7 +17,7 @@ import { world } from "@minecraft/server";
  */
 export function flag(player, check, checkType, hackType, debug, shouldTP = false, cancelObject, slot) {
     // validate that required params are defined
-    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
+    if(!(player instanceof Player)) throw TypeError(`Error: player is not an instance of Player.`);
     if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
     if(typeof checkType !== "string") throw TypeError(`Error: checkType is type of ${typeof checkType}. Expected "string"`);
     if(typeof hackType !== "string") throw TypeError(`Error: hackType is type of ${typeof hackType}. Expected "string"`);
@@ -180,13 +180,13 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
 /**
  * @name banMessage
- * @param {import("@minecraft/server").Player} player - The player object
+ * @param {Player} player - The player object
  * @example banMessage(player);
  * @remarks Bans the player from the game.
  */
 export function banMessage(player) {
     // validate that required params are defined
-    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
+    if(!(player instanceof Player)) throw TypeError(`Error: player is not an instance of Player.`);
 
     // @ts-expect-error
     if(config.flagWhitelist.includes(player.name) && player.hasTag("op")) return;
@@ -219,7 +219,7 @@ export function banMessage(player) {
             return;
         }
 
-        const { w, d, h, m, s} = msToTime(Number(time));
+        const { w, d, h, m, s } = msToTime(Number(time));
         friendlyTime = `${w} weeks, ${d} days, ${h} hours, ${m} minutes, ${s} seconds`;
     }
 
@@ -231,14 +231,14 @@ export function banMessage(player) {
 
 /**
  * @name getClosestPlayer
- * @param {object} entity - The entity to check
+ * @param {Entity} entity - The entity to check
  * @example getClosestPlayer(entity);
  * @remarks Gets the nearest player to an entity. (Unused for now)
  * @returns {object} player - The player that was found
  */
 export function getClosestPlayer(entity) {
     // validate that required params are defined
-    if(typeof entity !== "object") return TypeError(`Error: entity is type of ${typeof entity}. Expected "object"`);
+    if(!(entity instanceof Entity)) throw TypeError(`Error: entity is not an instance of Entity.`);
 
     const nearestPlayer = entity.dimension.getPlayers({
         closest: 1,
@@ -304,20 +304,20 @@ export function msToTime(ms) {
 
 /**
  * @name getScore
- * @param {import("@minecraft/server").Entity} player - The player to get the scoreboard value from
- * @param {string} objective - The player to get the scoreboard value from
+ * @param {Entity} entity - The entity to get the scoreboard value from
+ * @param {string} objective - The name of the scoreboard objective
  * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl")
  * @remarks Gets the scoreboard objective value for a player
  * @returns {number} score - The scoreboard objective value
  */
-export function getScore(player, objective, defaultValue = 0) {
-    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
+export function getScore(entity, objective, defaultValue = 0) {
+    if(!(entity instanceof Entity)) throw TypeError(`Error: entity is not an instance of Entity.`);
     if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
     if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
 
     try {
-       return world.scoreboard.getObjective(objective)?.getScore(player) ?? defaultValue;
+       return world.scoreboard.getObjective(objective)?.getScore(entity) ?? defaultValue;
     } catch {
         return defaultValue;
     }
@@ -325,21 +325,21 @@ export function getScore(player, objective, defaultValue = 0) {
 
 /**
  * @name setScore
- * @param {import("@minecraft/server").Entity} player - The player to set the score for
+ * @param {Entity} entity - The player to set the score for
  * @param {string} objectiveName - The scoreboard objective
  * @param {number} value - The new value of the scoreboard objective
  * @example getScore(player, "cbevl", 0)
  * @remarks Sets the scoreboard objective value for a player
  */
-export function setScore(player, objectiveName, value) {
-    if(typeof player !== "object") throw TypeError(`Error: player is type of ${typeof player}. Expected "object"`);
+export function setScore(entity, objectiveName, value) {
+    if(!(entity instanceof Entity)) throw TypeError(`Error: entity is not an instance of Entity.`);
     if(typeof objectiveName !== "string") throw TypeError(`Error: objective is type of ${typeof objectiveName}. Expected "string"`);
     if(typeof value !== "number") throw TypeError(`Error: value is type of ${typeof value}. Expected "number"`);
 
     const objective = world.scoreboard.getObjective(objectiveName);
     if(!objective) throw Error(`Objective "${objectiveName}" does not exist`);
 
-    objective.setScore(player, value);
+    objective.setScore(entity, value);
 }
 
 /**
@@ -356,7 +356,7 @@ export function capitalizeFirstLetter(string) {
  * @name findPlayerByName
  * @remarks Finds a player object by a player name
  * @param {string} name - The player to look for
- * @returns {import("@minecraft/server").Player | undefined} [player] - The player found
+ * @returns {Player | undefined} [player] - The player found
  */
 export function findPlayerByName(name) {
 	const searchName = name.toLowerCase().replace(/\\|@/g, "");
@@ -373,8 +373,8 @@ export function findPlayerByName(name) {
 /**
  * @name addOp
  * @remarks Add Scythe-OP status to a player
- * @param {import("@minecraft/server").Player} initiator - The player that initiated the request
- * @param {import("@minecraft/server").Player} player - The player that will be given scythe-op status
+ * @param {Player} initiator - The player that initiated the request
+ * @param {Player} player - The player that will be given scythe-op status
  */
 export function addOp(initiator, player) {
     tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has given ${player.name} scythe-op status.`);
@@ -387,8 +387,8 @@ export function addOp(initiator, player) {
 /**
  * @name removeOp
  * @remarks Remove Scythe-OP status from a player
- * @param {import("@minecraft/server").Player} initiator - The player that initiated the request
- * @param {import("@minecraft/server").Player} player - The player that will be given scythe-op status
+ * @param {Player} initiator - The player that initiated the request
+ * @param {Player} player - The player that will be given scythe-op status
  */
 export function removeOp(initiator, player) {
     tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has removed ${player.name}'s scythe-op status.`);
