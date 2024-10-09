@@ -65,5 +65,5 @@ function execute(message, args, commandName) {
 	// Save config
 	world.setDynamicProperty("config", JSON.stringify(config));
 
-	player.sendMessage(`§r§6[§aScythe§6]§r ${module}'s data has been updated. New Data: ${JSON.stringify(moduleData, null, 2)}`);
+	player.sendMessage(`§r§6[§aScythe§6]§r ${module}'s data has been updated. New data:\n${JSON.stringify(moduleData, null, 2)}`);
 }

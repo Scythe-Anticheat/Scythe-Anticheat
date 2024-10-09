@@ -20,8 +20,6 @@
 					"sneak",
 					"jump",
 					"move",
-					"autototem",
-					"autoshield",
 					"sprint",
 					"swim",
 					"sleep"
@@ -40,8 +38,6 @@
 				"sneak": "controller.animation.sneak",
 				"jump": "controller.animation.jump",
 				"move": "controller.animation.move",
-				"autototem": "controller.animation.autototem",
-				"autoshield": "controller.animation.autoshield",
 				"sprint": "controller.animation.sprint",
 				"swim": "controller.animation.swim",
 				"sleep": "controller.animation.sleep"

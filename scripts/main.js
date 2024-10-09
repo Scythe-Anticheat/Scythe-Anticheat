@@ -1,6 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
-import { world, system, Player } from "@minecraft/server";
+import { world, system, Player, EquipmentSlot } from "@minecraft/server";
 import { flag, banMessage, getScore, tellAllStaff, setScore } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -115,6 +115,9 @@ system.runInterval(() => {
 			// Get the item that the player is holding in their cursor
 			const cursorItem = player.getComponent("cursor_inventory")?.item;
 
+			// Get the item in the player's offhand
+			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
+
 			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) player.blocksBroken = 0;
 			if(config.modules.killauraC.enabled && player.entitiesHit?.length >= 1) player.entitiesHit = [];
 			if(config.modules.autotoolA.enabled && now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlotIndex) {
@@ -134,24 +137,6 @@ system.runInterval(() => {
 				Math.abs(player.location.z) > 30000000
 			) flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 			*/
-
-			/*
-			InventoryMods/B = Check if a player switches the item they are holding while moving
-			The 'player.isMoving' property does not allow us to see if the player was moved from them pressing the move buttons, or if an external factor moved them.
-			Because of that, we will have to check if a player was not moved by one of those external factors
-
-			NOTE: This is an experiemental check. It should only be enabled on development versions of Scythe
-			*/
-			if(
-				cursorItem?.typeId !== player.lastCursorItem?.typeId &&
-				player.isMoving &&
-				player.isOnGround &&
-				!player.isGliding &&
-				!player.isInWater &&
-				!player.hasTag("riding")
-			) {
-				flag(player, "InventoryMods", "B", "Inventory", `oldItem=${cursorItem?.typeId},newItem=${player.lastCursorItem?.typeId}`);
-			}
 
 			// NoSlow/A = Speed limit check
 			if(
@@ -224,6 +209,53 @@ system.runInterval(() => {
 			}
 			*/
 
+			/*
+			InventoryMods/B = Check if a player switches the item they are holding while moving
+			The 'player.isMoving' property does not allow us to see if the player was moved from them pressing the move buttons, or if an external factor moved them.
+			Because of that, we will have to check if a player was not moved by one of those external factors
+
+			NOTE: This is an experiemental check. It should only be enabled on development versions of Scythe
+			TODO: Fix false positives when gliding across ice. Maybe we can check if playerSpeed is lower than normal walking speed?
+			*/
+			if(
+				config.modules.inventorymodsB.enabled &&
+				player.lastCursorItem?.typeId !== cursorItem?.typeId &&
+				player.isMoving &&
+				player.isOnGround &&
+				!player.isGliding &&
+				!player.isInWater &&
+				!player.hasTag("riding")
+			) flag(player, "InventoryMods", "B", "Inventory", `oldItem=${player.lastCursorItem?.typeId},newItem=${cursorItem?.typeId}`, true);
+
+			// Check if an item was equipped to the offhand
+			if(!player.lastOffhandItem && offhandItem) {
+				/*
+				AutoOffhand/A = Checks if a player changes the item in their offhand while moving
+
+				Same points in InventoryModsB apply here
+				*/
+				if(
+					config.modules.autooffhandA.enabled &&
+					player.isMoving &&
+					player.isOnGround &&
+					!player.isGliding &&
+					!player.isInWater &&
+					!player.hasTag("riding")
+				) flag(player, "AutoOffhand", "A", "Inventory", `item=${offhandItem?.typeId}`, true);
+
+				// AutoOffhand/B = Checks if a player changes the item in their offhand while using an item
+				if(
+					config.modules.autooffhandB.enabled &&
+					player.hasTag("right")
+				) flag(player, "AutoOffhand", "B", "Inventory", `item=${offhandItem?.typeId}`);
+
+				// AutoOffhand/C = Checks if a player changes the item in their offhand while swinging their hand
+				if(
+					config.modules.autooffhandC.enabled &&
+					player.hasTag("left")
+				) flag(player, "AutoOffhand", "C", "Inventory", `item=${offhandItem?.typeId}`);
+			}
+
 			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
 				player.tryTeleport({
 					// Check if the number is greater than 0, if it is then subtract 1 else add 1
@@ -240,6 +272,7 @@ system.runInterval(() => {
 			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
 
 			player.lastCursorItem = cursorItem;
+			player.lastOffhandItem = offhandItem;
 
 			// Store the players last good position
 			// When a movement-related check flags the player, they will be teleported to this position

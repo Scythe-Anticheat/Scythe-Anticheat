@@ -28,6 +28,7 @@ declare module "@minecraft/server" {
 		
 		// Objects
 		lastCursorItem?: ItemStack
+		lastOffhandItem?: ItemStack
 		lastGoodPosition: Vector3
 		rotation: Vector2
 		velocity: Vector3

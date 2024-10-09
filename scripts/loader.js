@@ -23,7 +23,7 @@ if(!world.getDynamicProperty("unbanQueue")) {
 	world.setDynamicProperty("unbanQueue", "{}");
 }
 
-const latestConfigVer = "3.1.1";
+const latestConfigVer = "6";
 
 const dpConfig = world.getDynamicProperty("config"); // Object
 if(dpConfig) {
@@ -144,6 +144,26 @@ switch(config.version) {
 			enabled: false,
 			punishment: "none",
 			minVlbeforePunishment: 1
+		};
+		break;
+
+	case "3.1.1":
+		config.modules.autooffhandA = {
+			enabled: false,
+			punishment: "none",
+			minVlbeforePunishment: 0
+		};
+
+		config.modules.autooffhandB = {
+			enabled: true,
+			punishment: "none",
+			minVlbeforePunishment: 0
+		};
+
+		config.modules.autooffhandC = {
+			enabled: true,
+			punishment: "none",
+			minVlbeforePunishment: 0
 		};
 		break;
 

@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "3.1.1",
+	"version": "6",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -212,6 +212,21 @@ export default
 			"enabled": true,
 			"maxCPS": 12,
 			"checkCPSAfter": 1000,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"autooffhandA": {
+			"enabled": false,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"autooffhandB": {
+			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"autooffhandC": {
+			"enabled": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
