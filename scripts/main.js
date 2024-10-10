@@ -109,7 +109,6 @@ system.runInterval(() => {
 
 			// Find the magnitude of the vector
 			const playerSpeed = Number(Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(2));
-
 			player.isMoving = playerSpeed !== 0;
 
 			// Get the item that the player is holding in their cursor
@@ -213,15 +212,13 @@ system.runInterval(() => {
 			InventoryMods/B = Check if a player switches the item they are holding while moving
 			The 'player.isMoving' property does not allow us to see if the player was moved from them pressing the move buttons, or if an external factor moved them.
 			Because of that, we will have to check if a player was not moved by one of those external factors
-
-			NOTE: This is an experiemental check. It should only be enabled on development versions of Scythe
-			TODO: Fix false positives when gliding across ice. Maybe we can check if playerSpeed is lower than normal walking speed?
 			*/
 			if(
 				config.modules.inventorymodsB.enabled &&
 				player.lastCursorItem?.typeId !== cursorItem?.typeId &&
 				player.isMoving &&
 				player.isOnGround &&
+				playerSpeed > 0.10 &&
 				!player.isGliding &&
 				!player.isInWater &&
 				!player.hasTag("riding")
@@ -229,27 +226,24 @@ system.runInterval(() => {
 
 			// Check if an item was equipped to the offhand
 			if(!player.lastOffhandItem && offhandItem) {
-				/*
-				AutoOffhand/A = Checks if a player changes the item in their offhand while moving
-
-				Same points in InventoryModsB apply here
-				*/
+				// AutoOffhand/A = Checks if a player equips an item in their offhand while moving
 				if(
 					config.modules.autooffhandA.enabled &&
 					player.isMoving &&
 					player.isOnGround &&
+					playerSpeed > 0.10 &&
 					!player.isGliding &&
 					!player.isInWater &&
 					!player.hasTag("riding")
 				) flag(player, "AutoOffhand", "A", "Inventory", `item=${offhandItem?.typeId}`, true);
 
-				// AutoOffhand/B = Checks if a player changes the item in their offhand while using an item
+				// AutoOffhand/B = Checks if a player equips an item in their offhand while using an item
 				if(
 					config.modules.autooffhandB.enabled &&
 					player.hasTag("right")
 				) flag(player, "AutoOffhand", "B", "Inventory", `item=${offhandItem?.typeId}`);
 
-				// AutoOffhand/C = Checks if a player changes the item in their offhand while swinging their hand
+				// AutoOffhand/C = Checks if a player equips an item in their offhand while swinging their hand
 				if(
 					config.modules.autooffhandC.enabled &&
 					player.hasTag("left")

@@ -216,7 +216,7 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"autooffhandA": {
-			"enabled": false,
+			"enabled": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
@@ -297,7 +297,7 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"inventorymodsB": {
-			"enabled": false,
+			"enabled": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

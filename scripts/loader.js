@@ -141,7 +141,7 @@ switch(config.version) {
 		};
 
 		config.modules.inventorymodsB = {
-			enabled: false,
+			enabled: true,
 			punishment: "none",
 			minVlbeforePunishment: 1
 		};
@@ -149,7 +149,7 @@ switch(config.version) {
 
 	case "3.1.1":
 		config.modules.autooffhandA = {
-			enabled: false,
+			enabled: true,
 			punishment: "none",
 			minVlbeforePunishment: 0
 		};

@@ -49,7 +49,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             timestamp: Date.now(),
             time: new Date().toISOString(),
             check: `${check}/${checkType}`,
-            hackType: hackType,
             debug: `${debug}§r`,
             shouldTP: shouldTP,
             slot: slot,
