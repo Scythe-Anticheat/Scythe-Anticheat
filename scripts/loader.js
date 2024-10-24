@@ -130,7 +130,6 @@ switch(config.version) {
 			"minecraft:trident",
 			"minecraft:mace"
 		];
-		break;
 
 	case "3.0.0":
 		config.modules.badpackets4 = {
@@ -145,7 +144,6 @@ switch(config.version) {
 			punishment: "none",
 			minVlbeforePunishment: 1
 		};
-		break;
 
 	case "3.1.1":
 		config.modules.autooffhandA = {
@@ -165,7 +163,6 @@ switch(config.version) {
 			punishment: "none",
 			minVlbeforePunishment: 0
 		};
-		break;
 
 	case latestConfigVer:
 		break;
