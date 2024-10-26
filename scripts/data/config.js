@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "7",
+	"version": "8",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -379,6 +379,18 @@ export default
 				"minecraft:trident",
 				"minecraft:mace"
 			],
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"reachB": {
+			"enabled": true,
+			"reach": 7,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"reachC": {
+			"enabled": true,
+			"reach": 7,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

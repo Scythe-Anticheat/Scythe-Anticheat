@@ -282,6 +282,43 @@ system.runInterval(() => {
 world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
 
+	/*
+	Reach/C = Checks if a player places a block farther than normally possible.
+
+	When in Survival, the place block reach can get up to ~5 blocks on all devices.
+	When in Creative, the place block reach changes depending on the device:
+		- Desktop: Reach limit remains the same
+		- Mobile: Reach limit increases to ~11 blocks, depending on angle
+		- Console: TODO
+	*/
+	if(config.modules.reachC.enabled) {
+		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
+		const distance = Math.sqrt((block.location.x - player.location.x)**2 + (block.location.y - player.location.y)**2 + (block.location.z - player.location.z)**2);
+		const platformType = player.clientSystemInfo.platformType;
+
+		if(config.debug) console.log(distance);
+
+		let reachLimit = NaN;
+		switch(platformType) {
+			case "Desktop":
+				reachLimit = 5;
+				break;
+			
+			case "Mobile":
+				reachLimit = 11;
+				break;
+			
+			case "Console":
+				// TODO, setting this as 12 for now
+				reachLimit = 12;
+		}
+
+		// To avoid visually unpleasing code we calculate reach limit based on device first and then gamemode
+		if(player.gamemode === "survival") reachLimit = 5;
+
+		if(reachLimit < distance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},device=${platformType}`);
+	}
+
 	// Get block under player
 	const blockUnder = player.dimension.getBlock({x: Math.trunc(player.location.x), y: Math.trunc(player.location.y) - 1, z: Math.trunc(player.location.z)});
 
