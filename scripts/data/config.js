@@ -383,13 +383,13 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"reachB": {
-			"enabled": true,
+			"enabled": false,
 			"reach": 7,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
 		"reachC": {
-			"enabled": true,
+			"enabled": false,
 			"reach": 7,
 			"punishment": "none",
 			"minVlbeforePunishment": 0

@@ -174,14 +174,14 @@ switch(config.version) {
 	
 	case "7":
 		config.modules.reachB = {
-			enabled: true,
+			enabled: false,
 			reach: 7,
 			punishment: "none",
 			minVlbeforePunishment: 1
 		};
 
 		config.modules.reachC = {
-			enabled: true,
+			enabled: false,
 			reach: 7,
 			punishment: "none",
 			minVlbeforePunishment: 1
