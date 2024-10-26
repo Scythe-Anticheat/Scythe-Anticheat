@@ -510,6 +510,17 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 		flag(player, "Namespoof", "B", "Exploit");
 	}
 
+	/*
+	BadPackets[5] = Checks if the player has an invalid max render distance.
+
+	This value is *not* the player's current render distance, but rather the max the player could set their render distance to.
+	Vanilla clients would have this value set to 6-96 according to https://minecraftbedrock-archive.fandom.com/wiki/Render_Distance
+	*/
+	if(
+		config.modules.badpackets5.enabled &&
+		(player.clientSystemInfo.maxRenderDistance < 6 || player.clientSystemInfo.maxRenderDistance > 96)
+	) flag(player, "BadPackets", "5", "Exploit", `maxRenderDistance=${player.clientSystemInfo.maxRenderDistance}`);
+
 	// This is used in the onJoin.json animation to check if Beta APIs are enabled
 	setScore(player, "gametestapi", 1);
 

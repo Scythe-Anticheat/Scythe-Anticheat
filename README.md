@@ -44,6 +44,7 @@ By default, notifications for when players are cheating are not shown. To be abl
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) => Checks if chat messages have abnormal message lengths.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) => Checks for self-hurt.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) => Checks for newlines or carriage returns characters in messages.\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(5) => Checks if the player has an invalid max render distance.\*<br/>
 
   FastUse -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for using/throwing items at a very fast rate.\*

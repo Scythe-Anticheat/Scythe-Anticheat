@@ -9,6 +9,6 @@ registerCommand({
         const { player } = message;
 
         player.runCommandAsync("function version");
-        player.sendMessage(`§r§6[§aScythe§6]§r Config revision: ${config.version}.`);
+        player.sendMessage(`§r§6[§aScythe§6]§r Config revision: ${config.version}`);
     }
 });

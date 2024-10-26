@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "6",
+	"version": "7",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -250,6 +250,12 @@ export default
 			"minVlbeforePunishment": 1
 		},
 		"badpackets4": {
+			"enabled": true,
+			"punishment": "ban",
+			"punishmentLength": "",
+			"minVlbeforePunishment": 1
+		},
+		"badpackets5": {
 			"enabled": true,
 			"punishment": "ban",
 			"punishmentLength": "",

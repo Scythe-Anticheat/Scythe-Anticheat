@@ -23,7 +23,7 @@ registerCommand({
 });
 
 export function getStatsMsg(player) {
-	let statsMsg = `${logo} Showing all Scythe logs for ${player.name}:\n${logo} ==== BASIC INFO ====\n${logo} Unique ID: ${player.id}\n${logo} Gamemode: ${capitalizeFirstLetter(player.gamemode)}\n${logo} Dimension: ${capitalizeFirstLetter(player.dimension.id.replace("minecraft:", ""))}\n${logo} Position: ${Math.trunc(player.location.x)}, ${Math.trunc(player.location.y)}, ${Math.trunc(player.location.z)}\n${logo} Current selected slot: ${player.selectedSlotIndex}\n${logo} XP Levels: ${player.level}\n${logo} ==== VIOLATIONS ====\n`;
+	let statsMsg = `${logo} Showing all Scythe logs for ${player.name}:\n${logo} ==== BASIC INFO ====\n${logo} Unique ID: ${player.id}\n${logo} Gamemode: ${capitalizeFirstLetter(player.gamemode)}\n${logo} Dimension: ${capitalizeFirstLetter(player.dimension.id.replace("minecraft:", ""))}\n${logo} Position: ${Math.trunc(player.location.x)}, ${Math.trunc(player.location.y)}, ${Math.trunc(player.location.z)}\n${logo} Platform: ${player.clientSystemInfo.platformType}\n${logo} ==== VIOLATIONS ====\n`;
 
 	let totalViolations = 0;
 	for(const objective of world.scoreboard.getObjectives()) {

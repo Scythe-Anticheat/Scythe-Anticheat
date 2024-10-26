@@ -23,7 +23,7 @@ if(!world.getDynamicProperty("unbanQueue")) {
 	world.setDynamicProperty("unbanQueue", "{}");
 }
 
-const latestConfigVer = "6";
+const latestConfigVer = "7";
 
 const dpConfig = world.getDynamicProperty("config"); // Object
 if(dpConfig) {
@@ -162,6 +162,14 @@ switch(config.version) {
 			enabled: true,
 			punishment: "none",
 			minVlbeforePunishment: 0
+		};
+
+	case "6":
+		config.modules.badpackets5 = {
+			enabled: true,
+			punishment: "ban",
+			punishmentLength: "",
+			minVlbeforePunishment: 1
 		};
 
 	case latestConfigVer:
