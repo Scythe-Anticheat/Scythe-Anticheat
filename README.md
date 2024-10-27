@@ -32,7 +32,7 @@ By default, notifications for when players are cheating are not shown. To be abl
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high CPS.\*<br/>
 
   AutoOffhand -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player equips an item in their offhand while moving.\* (Disabled by default)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player equips an item in their offhand while moving.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if a player equips an item in their offhand while using an item.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if a player equips an item in their offhand while swinging their hand.\*<br/>
 
