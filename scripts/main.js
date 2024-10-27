@@ -471,7 +471,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	// player.removeTag("gliding");
 	player.removeTag("sprinting");
 	player.removeTag("moving");
-	player.removeTag("sleeping");
+	// player.removeTag("sleeping");
 
 	// Patch a method of disabling anticheats
 	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
@@ -688,7 +688,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	}
 
 	// Kilaura/D = Check if the player attacks an entity while sleeping
-	if(config.modules.killauraD.enabled && player.hasTag("sleeping")) {
+	if(config.modules.killauraD.enabled && player.isSleeping) {
 		flag(player, "Killaura", "D", "Combat");
 	}
 

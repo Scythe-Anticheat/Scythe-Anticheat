@@ -12,7 +12,7 @@ export default
 	"autoban": true,
 	"flagWhitelist": [],
 	/*
-	By enabling this toggle, you can prevent anybody will scythe op from getting flagged from the anticheat
+	By enabling this toggle, you can prevent anybody with Scythe-Op from getting flagged from the anticheat
 	Although this may be a useful feature, it can be exploited by hackers to completely disable the anticheat for themselves.
 	It is a much better idea to add "exclude_scythe_op" for each individual check instead of globally
 	*/

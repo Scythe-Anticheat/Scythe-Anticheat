@@ -75,7 +75,7 @@
 						"ground": "query.is_on_ground"
 					}],
 					"on_entry": [
-						"/tag @s remove ground",
+						// "/tag @s remove ground",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGROUND§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -84,7 +84,7 @@
 						"default": "!query.is_on_ground"
 					}],
 					"on_entry": [
-						"/tag @s add ground",
+						// "/tag @s add ground",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aGROUND§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
@@ -262,7 +262,7 @@
 						"sleeping": "query.is_sleeping"
 					}],
 					"on_entry": [
-						"/tag @s remove sleeping",
+						// "/tag @s remove sleeping",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -271,7 +271,7 @@
 						"default": "!query.is_sleeping"
 					}],
 					"on_entry": [
-						"/tag @s add sleeping",
+						// "/tag @s add sleeping",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
