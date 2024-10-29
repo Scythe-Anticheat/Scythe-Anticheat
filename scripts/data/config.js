@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "9",
+	"version": "10",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -385,13 +385,11 @@ export default
 		},
 		"reachB": {
 			"enabled": false,
-			"reach": 7,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
 		"reachC": {
 			"enabled": false,
-			"reach": 7,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

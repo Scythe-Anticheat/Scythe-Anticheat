@@ -23,7 +23,7 @@ if(!world.getDynamicProperty("unbanQueue")) {
 	world.setDynamicProperty("unbanQueue", "{}");
 }
 
-const latestConfigVer = "9";
+const latestConfigVer = "10";
 
 const dpConfig = world.getDynamicProperty("config"); // Object
 if(dpConfig) {
@@ -176,20 +176,22 @@ switch(config.version) {
 	case "7":
 		config.modules.reachB = {
 			enabled: false,
-			reach: 7,
 			punishment: "none",
 			minVlbeforePunishment: 1
 		};
 
 		config.modules.reachC = {
 			enabled: false,
-			reach: 7,
 			punishment: "none",
 			minVlbeforePunishment: 1
 		};
 	
 	case "8":
 		config.modules.badpackets5.exclude_scythe_op = true;
+
+	case "9":
+		delete config.modules.reachB.reach;
+		delete config.modules.reachC.reach;
 
 	case latestConfigVer:
 		break;

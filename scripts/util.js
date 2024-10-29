@@ -8,11 +8,11 @@ import { world, Entity, Player } from "@minecraft/server";
  * @param {string} check - What check ran the function.
  * @param {string} checkType - What sub-check ran the function (ex. A, B, C).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
- * @param {string | undefined} [debug] - Debug info.
+ * @param {string} [debug] - Debug info.
  * @param {boolean} [shouldTP] - Whether to tp the player to itself.
- * @param {object | undefined} [cancelObject] - object with property "cancel" to cancel.
- * @param {number | undefined} [slot] - Slot to clear an item out.
- * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg, undefined);
+ * @param {object} [cancelObject] - object with property "cancel" to cancel.
+ * @param {number} [slot] - Slot to clear an item out.
+ * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
  * @remarks Alerts staff if a player is hacking.
  */
 export function flag(player, check, checkType, hackType, debug, shouldTP = false, cancelObject, slot) {
@@ -45,35 +45,80 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     // If debug is enabled then log everything we know about the player.
     if(config.debug) {
+        const {
+            name,
+            nameTag,
+            location,
+            velocity,
+            rotation,
+            heldItem,
+            selectedSlotIndex,
+            isEmoting,
+            isFlying,
+            isGliding,
+            isJumping,
+            isClimbing,
+            isFalling,
+            isInWater,
+            isOnGround,
+            isSleeping,
+            isSneaking,
+            isSprinting,
+            isSwimming,
+            blocksBroken,
+            entitiesHit,
+            cps,
+            firstAttack,
+            lastSelectedSlot,
+            startBreakTime,
+            lastThrow,
+            autotoolSwitchDelay,
+            lastMessageSent,
+            lastGoodPosition
+        } = player;
+
        const data = {
             timestamp: Date.now(),
             time: new Date().toISOString(),
             check: `${check}/${checkType}`,
             debug: `${debug}§r`,
-            shouldTP: shouldTP,
-            slot: slot,
+            shouldTP,
+            slot,
             playerData: {
-                name: player.name,
-                nametag: player.nameTag,
-                location: player.location,
-                headLocation: player.getHeadLocation(),
-                velocity: player.velocity,
-                rotation: player.rotation,
-                tags: String(player.getTags()).replace(/[\r\n"]/gm, ""),
-                currentItem: player.heldItem,
-                selectedSlotIndex: player.selectedSlotIndex,
+                name,
+                nameTag,
                 dimension: player.dimension.id,
-                extra: {
-                    blocksBroken: player.blocksBroken ?? -1,
-                    entitiesHitTick: player.entitiesHit,
-                    cps: player.cps ?? -1,
-                    firstAttack: player.firstAttack ?? -1,
-                    lastSelectedSlot: player.lastSelectedSlot ?? -1,
-                    startBreakTime: player.startBreakTime,
-                    lastThrow: player.lastThrow,
-                    autotoolSwitchDelay: player.autotoolSwitchDelay ?? -1,
-                    lastMessageSent: player.lastMessageSent,
-                    lastGoodPosition: player.lastGoodPosition
+                location,
+                headLocation: player.getHeadLocation(),
+                velocity,
+                rotation,
+                tags: String(player.getTags()).replace(/[\r\n"]/gm, ""),
+                heldItem,
+                selectedSlotIndex,
+                platform: player.clientSystemInfo.platformType,
+                isEmoting,
+                isFlying,
+                isGliding,
+                isJumping,
+                isClimbing,
+                isFalling,
+                isInWater,
+                isOnGround,
+                isSleeping,
+                isSneaking,
+                isSprinting,
+                isSwimming,
+                scythe: {
+                    blocksBroken,
+                    entitiesHit,
+                    cps,
+                    firstAttack,
+                    lastSelectedSlot,
+                    startBreakTime,
+                    lastThrow,
+                    autotoolSwitchDelay,
+                    lastMessageSent,
+                    lastGoodPosition
                 }
             }
         };
@@ -84,7 +129,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     // Cancel the message/placement if possible
     if(cancelObject) cancelObject.cancel = true;
 
-    if(shouldTP) player.tryTeleport(check === "Crasher" ? {x: 30000000, y: 30000000, z: 30000000} : player.lastGoodPosition, {dimension: player.dimension, rotation: {x: 0, y: 0}, keepVelocity: false});
+    if(shouldTP) player.tryTeleport(player.lastGoodPosition, { dimension: player.dimension, rotation: { x: 0, y: 0 }, keepVelocity: false });
 
     const scoreboardObjective = check !== "InventoryMods" ? `${check.toLowerCase()}vl` : "invmovevl";
 
@@ -92,13 +137,12 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
 
     let currentVl = getScore(player, scoreboardObjective, 0);
+    setScore(player, scoreboardObjective, ++currentVl);
 
-    const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType.toUpperCase()}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${++currentVl}`;
+    const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${currentVl}`;
 
     if(config.logAlertsToConsole) console.log(flagMessage.replace(/§./g, ""));
     tellAllStaff(flagMessage, ["notify"]);
-
-    setScore(player, scoreboardObjective, currentVl);
 
     if(typeof slot === "number") {
         const container = player.getComponent("inventory")?.container;

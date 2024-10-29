@@ -162,8 +162,17 @@ system.runInterval(() => {
 			}
 
 			// InvalidSprint/A = Checks for sprinting with the blindness effect
-			if(config.modules.invalidsprintA.enabled && player.isSprinting && player.getEffect("blindness"))
-				flag(player, "InvalidSprint", "A", "Movement", undefined, true);
+			// TODO: Once 1.21.50 comes out, move this to the playerButtonInput event
+			if(
+				config.modules.invalidsprintA.enabled &&
+				player.isSprinting &&
+				player.getEffect("blindness")
+			) {
+				const blindTicks = Date.now() - player.blindedAt;
+				// If a player is given the blindness effect while sprinting, they are able to continue sprinting which gives a false flag
+				if(blindTicks < 100 || isNaN(blindTicks)) player.teleport(player.location);
+					else flag(player, "InvalidSprint", "A", "Movement", `blindTicks=${blindTicks}`, true);
+			}
 
 			// Fly/a
 			// This check no longer works.
@@ -209,7 +218,7 @@ system.runInterval(() => {
 			*/
 
 			/*
-			InventoryMods/B = Check if a player switches the item they are holding while moving
+			InventoryMods/B = Check if a player switches the item they selected in the inventory while moving
 			The 'player.isMoving' property does not allow us to see if the player was moved from them pressing the move buttons, or if an external factor moved them.
 			Because of that, we will have to check if a player was not moved by one of those external factors
 			*/
@@ -751,6 +760,12 @@ world.afterEvents.playerGameModeChange.subscribe(({fromGameMode, player, toGameM
 	// Player entered a blocked gamemode
 	player.setGameMode(fromGameMode);
 	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §4tried changing their gamemode to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
+});
+
+world.afterEvents.effectAdd.subscribe(({ effect, entity: player}) => {
+	if(!(player instanceof Player)) return;
+
+	if(effect.typeId === "blindness") player.blindedAt = Date.now();
 });
 
 system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) => {
