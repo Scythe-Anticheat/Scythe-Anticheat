@@ -374,7 +374,8 @@ export default
 				"minecraft:fireball",
 				"minecraft:ender_dragon",
 				"minecraft:ghast",
-				"minecraft:wind_charge_projectile"
+				"minecraft:wind_charge_projectile",
+				"minecraft:llama_spit"
 			],
 			"excluded_items": [
 				"minecraft:trident",
