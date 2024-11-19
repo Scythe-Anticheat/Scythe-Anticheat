@@ -53,8 +53,19 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 	// Spammer/A = Checks if someone sends a message while moving and on ground
-	if(config.modules.spammerA.enabled && player.isMoving && player.isOnGround && !player.isJumping && !player.hasTag("riding")) {
-		flag(player, "Spammer", "A", "Movement", undefined, true);
+
+	const last_move = getScore(player, "last_move");
+	if(
+		config.modules.spammerA.enabled &&
+		player.isMoving &&
+		player.isOnGround &&
+		!player.isJumping &&
+		!player.hasTag("riding") &&
+		// Make sure that the player hasn't moved within the last two seconds
+		// Jumping and sending a chat message at the exact time you hit the ground causes a false positive
+		getScore(player, "last_move") > 40
+	) {
+		flag(player, "Spammer", "A", "Movement", `last_move=${last_move}`, true);
 		return;
 	}
 
