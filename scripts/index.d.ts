@@ -21,6 +21,7 @@ declare module "@minecraft/server" {
 		lastThrow: number
 		selectedSlotIndex: number
 		startBreakTime: number
+		movedAt: number
 		blindedAt: number
 
 		// Arrays

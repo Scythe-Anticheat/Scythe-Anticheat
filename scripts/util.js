@@ -74,7 +74,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             lastThrow,
             autotoolSwitchDelay,
             lastMessageSent,
-            lastGoodPosition
+            lastGoodPosition,
+            movedAt
         } = player;
 
        const data = {
@@ -118,7 +119,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                     lastThrow,
                     autotoolSwitchDelay,
                     lastMessageSent,
-                    lastGoodPosition
+                    lastGoodPosition,
+                    movedAt
                 }
             }
         };

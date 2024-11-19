@@ -53,19 +53,18 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 	// Spammer/A = Checks if someone sends a message while moving and on ground
-
-	const last_move = getScore(player, "last_move");
+	const firstMoved = Date.now() - player.movedAt;
 	if(
 		config.modules.spammerA.enabled &&
 		player.isMoving &&
-		player.isOnGround &&
-		!player.isJumping &&
-		!player.hasTag("riding") &&
 		// Make sure that the player hasn't moved within the last two seconds
 		// Jumping and sending a chat message at the exact time you hit the ground causes a false positive
-		getScore(player, "last_move") > 40
+		firstMoved > 2000 &&
+		player.isOnGround &&
+		!player.isJumping &&
+		!player.hasTag("riding")
 	) {
-		flag(player, "Spammer", "A", "Movement", `last_move=${last_move}`, true);
+		flag(player, "Spammer", "A", "Movement", `firstMoved=${firstMoved}`, true);
 		return;
 	}
 
@@ -121,6 +120,8 @@ system.runInterval(() => {
 			// Find the magnitude of the vector
 			const playerSpeed = Number(Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(2));
 			player.isMoving = playerSpeed !== 0;
+
+			const firstMoved = now - player.movedAt;
 
 			// Get the item that the player is holding in their cursor
 			const cursorItem = player.getComponent("cursor_inventory")?.item;
@@ -237,6 +238,7 @@ system.runInterval(() => {
 				config.modules.inventorymodsB.enabled &&
 				player.lastCursorItem?.typeId !== cursorItem?.typeId &&
 				player.isMoving &&
+				firstMoved > 2000 &&
 				player.isOnGround &&
 				playerSpeed > 0.10 &&
 				!player.isGliding &&
@@ -250,6 +252,7 @@ system.runInterval(() => {
 				if(
 					config.modules.autooffhandA.enabled &&
 					player.isMoving &&
+					firstMoved > 2000 &&
 					player.isOnGround &&
 					playerSpeed > 0.10 &&
 					!player.isGliding &&
@@ -786,6 +789,10 @@ system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) =
 	switch(splitId[1]) {
 		case "left":
 			player.lastLeftClick = Date.now();
+			break;
+		
+		case "startMove":
+			player.movedAt = Date.now();
 			break;
 
 		// Backup command to reset the config in emergency cases
