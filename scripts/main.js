@@ -546,16 +546,16 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 		}));
 	}
 
-	// Namespoof/A = username length check.
+	// Namespoof/A = Username length check
 	if(config.modules.namespoofA.enabled) {
 		let flagNamespoofA = false;
-		// checks if 2 players are logged in with the same name
-		// minecraft adds a suffix to the end of the name which we detect
-		if(player.name.endsWith(")") && (player.name.length > config.modules.namespoofA.maxNameLength + 3 || player.name.length < config.modules.namespoofA.minNameLength))
+		// When a sub-client joins a world, their name has a suffix of (x), with x being a number between 1-3.
+		// To prevent any false positives with this, we make sure to omit that suffix from being calculated in the length checks
+		const maxLength = config.modules.namespoofA.maxNameLength + (player.name.endsWith(")") ? 3 : 0);
+	
+		if(player.name.length < config.modules.namespoofA.minNameLength || player.name.length > maxLength) {
 			flagNamespoofA = true;
-
-		if(!player.name.endsWith(")") && (player.name.length < config.modules.namespoofA.minNameLength || player.name.length > config.modules.namespoofA.maxNameLength))
-			flagNamespoofA = true;
+		}
 
 		if(flagNamespoofA) {
 			const extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
