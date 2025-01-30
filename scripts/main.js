@@ -474,17 +474,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	if(!initialSpawn) return;
 
 	// Declare all needed variables
-	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
-	if(config.modules.autoclickerA.enabled) {
-		player.firstAttack = Date.now();
-		player.cps = 0;
-	}
-	if(config.modules.fastuseA.enabled) player.lastThrow = 0;
-	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
-	if(config.modules.killauraC.enabled) player.entitiesHit = [];
-	if(config.modules.spammerE.enabled) player.lastMessageSent = 0;
-	if(config.customcommands.report.enabled) player.reports = [];
-
 	player.lastGoodPosition = player.location;
 
 	// Remove tags from previous session
@@ -503,6 +492,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	const { mainColor, borderColor, playerNameColor, defaultTag } = config.customcommands.tag;
 
 	// Backwards compatibility
+	// This will be removed in Scythe v3.5.0
 	let reason;
 	let by;
 	let time;
@@ -816,17 +806,6 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 
 // When using /reload, the variables defined in playerSpawn event do not persist so we reapply them.
 for(const player of world.getPlayers()) {
-	if(config.modules.nukerA.enabled) player.blocksBroken = 0;
-	if(config.modules.autoclickerA.enabled) {
-		player.firstAttack = Date.now();
-		player.cps = 0;
-	}
-	if(config.modules.fastuseA.enabled) player.lastThrow = 0;
-	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
-	if(config.modules.killauraC.enabled) player.entitiesHit = [];
-	if(config.misc_modules.antiSpam.enabled) player.lastMessageSent = 0;
-	if(config.customcommands.report.enabled) player.reports = [];
-
 	player.gamemode = player.getGameMode();
 	player.lastGoodPosition = player.location;
 }

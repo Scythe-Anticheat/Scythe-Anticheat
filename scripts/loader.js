@@ -212,6 +212,9 @@ switch(config.version) {
 
 config.version = latestConfigVer;
 
+// Load class extensions
+import "./extensions/Player.js";
+
 // Register all commands
 import "./commands/moderation/kick.js";
 import "./commands/other/help.js";
