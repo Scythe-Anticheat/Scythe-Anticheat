@@ -23,7 +23,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		msg.cancel = true;
 	}
 
-	// BadPackets[4] = Checks for newlines or carriage returns characters in messages
+	// BadPackets[4] = Checks for newline or carriage return characters in messages
 	if(config.modules.badpackets4.enabled && message.match(/\n|\r/)) {
 		system.runTimeout(() => {
 			flag(player, "BadPackets", "4", "Exploit", undefined, undefined, msg);
@@ -38,6 +38,19 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	if(!msg.cancel && globalmute.muted && !player.hasTag("op")) {
 		player.sendMessage(`§r§6[§aScythe§6]§r Chat has been disabled by ${config.customcommands.globalmute.showModeratorName ? globalmute.muter : "a server admin"}.`);
 		msg.cancel = true;
+	}
+
+	if(config.misc_modules.antiSpam.enabled && !player.hasTag("op")) {
+		const now = Date.now();
+
+		const messageDelay = now - player.lastMessageSent;
+		if(messageDelay < config.misc_modules.antiSpam.messageRatelimit) {
+			tellAllStaff(`§o§7<${player.name}> ${message}\n§r§6[§aScythe§6]§r ${player.name}'s message has been blocked due to spam. (delay=${messageDelay})`, ["notify"]);
+
+			player.sendMessage("§r§6[§aScythe§6]§r Stop spamming! You are sending messages too fast.");
+			msg.cancel = true;
+		}
+		player.lastMessageSent = now;
 	}
 
 	// Make sure that player has a custom nametag or filter unicode chat is enabled
@@ -87,19 +100,6 @@ world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 	if(config.modules.spammerD.enabled && player.hasTag("hasGUIopen")) {
 		flag(player, "Spammer", "D", "Misc");
 		return;
-	}
-
-	if(config.modules.spammerE.enabled) {
-		const now = Date.now();
-
-		const lastMessageSent = now - player.lastMessageSent;
-		if(lastMessageSent < config.modules.spammerE.messageRatelimit) {
-			flag(player, "Spammer", "E", "Misc", `lastMessageSent=${lastMessageSent}`);
-
-			if(config.modules.spammerE.sendWarningMessage) player.sendMessage("§r§6[§aScythe§6]§r Stop spamming! You are sending messages too fast.");
-			return;
-		}
-		player.lastMessageSent = now;
 	}
 });
 
@@ -326,11 +326,11 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			case "Desktop":
 				reachLimit = 5;
 				break;
-			
+
 			case "Mobile":
 				reachLimit = 11;
 				break;
-			
+
 			case "Console":
 				// TODO, setting this as 12 for now
 				reachLimit = 12;
@@ -790,7 +790,7 @@ system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) =
 		case "left":
 			player.lastLeftClick = Date.now();
 			break;
-		
+
 		case "startMove":
 			player.movedAt = Date.now();
 			break;
@@ -808,7 +808,7 @@ system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) =
 
 system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	// We try to stop any watchdog crashes incase malicious users try to make the scripts lag
-	// and causing the server to crash
+	// and cause the server to crash
 	watchdogTerminate.cancel = true;
 
 	tellAllStaff(`§r§6[§aScythe§6]§r A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${watchdogTerminate.terminateReason}`);
@@ -824,7 +824,7 @@ for(const player of world.getPlayers()) {
 	if(config.modules.fastuseA.enabled) player.lastThrow = 0;
 	if(config.modules.killauraB.enabled) player.lastLeftClick = NaN;
 	if(config.modules.killauraC.enabled) player.entitiesHit = [];
-	if(config.modules.spammerE.enabled) player.lastMessageSent = 0;
+	if(config.misc_modules.antiSpam.enabled) player.lastMessageSent = 0;
 	if(config.customcommands.report.enabled) player.reports = [];
 
 	player.gamemode = player.getGameMode();

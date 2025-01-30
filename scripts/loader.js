@@ -23,7 +23,7 @@ if(!world.getDynamicProperty("unbanQueue")) {
 	world.setDynamicProperty("unbanQueue", "{}");
 }
 
-const latestConfigVer = "10";
+const latestConfigVer = "11";
 
 const dpConfig = world.getDynamicProperty("config"); // Object
 if(dpConfig) {
@@ -192,6 +192,15 @@ switch(config.version) {
 	case "9":
 		delete config.modules.reachB.reach;
 		delete config.modules.reachC.reach;
+
+	case "10":
+		config.misc_modules.antiSpam = {
+			enabled: config.modules.spammerE.enabled,
+			messageRatelimit: config.modules.spammerE.messageRatelimit,
+			sendWarningMessage: config.modules.spammerE.sendWarningMessage
+		};
+
+		delete config.modules.spammerE;
 
 	case latestConfigVer:
 		break;

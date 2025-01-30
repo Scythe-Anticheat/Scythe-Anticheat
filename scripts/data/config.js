@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "10",
+	"version": "11",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -414,15 +414,6 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
-		"spammerE": {
-			"enabled": true,
-			// How fast players can send messages in milliseconds
-			"messageRatelimit": 500,
-			// If a warning message should be sent to the spammer
-			"sendWarningMessage": true,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
-		},
 		"scaffoldA": {
 			"enabled": true,
 			"max_y_pos_diff": 0.35,
@@ -469,6 +460,11 @@ export default
 				adventure
 				*/
 			]
+		},
+		"antiSpam": {
+			"enabled": false,
+			// How fast players can send messages in milliseconds
+			"messageRatelimit": 500
 		},
 		"filterUnicodeChat": {
 			"enabled": false

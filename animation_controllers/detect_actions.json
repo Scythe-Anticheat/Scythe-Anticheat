@@ -242,7 +242,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s remove swimming",
-						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"swim": {
@@ -251,7 +251,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s add swimming",
-						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSWIM§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
@@ -264,7 +264,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s remove sleeping",
-						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
 				"sleeping": {
@@ -273,7 +273,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s add sleeping",
-						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r packet from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSLEEP§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}

@@ -43,7 +43,7 @@ By default, notifications for when players are cheating are not shown. To be abl
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) => Checks for invalid player head rotations.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) => Checks if chat messages have abnormal message lengths.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) => Checks for self-hurt.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) => Checks for newlines or carriage returns characters in messages.\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) => Checks for newline or carriage return characters in messages.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(5) => Checks if the player has an invalid max render distance.\*<br/>
 
   FastUse -><br/>
@@ -87,7 +87,6 @@ By default, notifications for when players are cheating are not shown. To be abl
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks if a player sends a message while swinging their hand.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if a player sends a message while using an item.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks if a player sends a message while having a chest opened.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks if a player sends multiple messages too quick.\*<br/>
 
   Scaffold -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check for tower-like behavior.\*<br/>
