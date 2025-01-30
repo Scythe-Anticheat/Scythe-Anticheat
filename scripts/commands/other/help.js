@@ -18,6 +18,7 @@ registerCommand({
 	execute: (message, args) => {
 		const { player } = message;
 
+		// Looping over every single command every time the help command is obviously bad for performance, so we cache all the command data.
 		for(const command of Object.values(commands)) {
 			if(didFillCaches) break; // Dont loop through all commands again
 
@@ -43,7 +44,7 @@ registerCommand({
 
 		if(!args.length) {
 			// Display all commands to the user
-			let message = "§l§aScythe AntiCheat Command Help\n\n§l§aModeration Commands\n";
+			let message = "§l§aScythe Anticheat Command Help\n\n§l§aModeration Commands\n";
 			for(const command of moderationCommands) {
 				message += `§r§3${prefix}${command.name} ${command.usage ?? ""}§r - ${command.description}\n`;
 			}

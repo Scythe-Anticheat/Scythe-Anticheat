@@ -57,9 +57,9 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	if(!msg.cancel && (player.name !== player.nameTag || config.misc_modules.filterUnicodeChat.enabled)) {
 		// Adds user custom tags to their messages and filter any non-ASCII characters
 		const playerTag = player.name !== player.nameTag ? `${player.nameTag}§7:§r` : `<${player.nameTag}>`;
-		const message_ = config.misc_modules.filterUnicodeChat.enabled ? message.replace(/[^\x00-\xFF]/g, "") : message;
+		const newMsg = config.misc_modules.filterUnicodeChat.enabled ? message.replace(/[^\x00-\xFF]/g, "") : message;
 
-		world.sendMessage(`${playerTag} ${message_}`);
+		world.sendMessage(`${playerTag} ${newMsg}`);
 		msg.cancel = true;
 	}
 });
@@ -174,7 +174,6 @@ system.runInterval(() => {
 			}
 
 			// InvalidSprint/A = Checks for sprinting with the blindness effect
-			// TODO: Once 1.21.50 comes out, move this to the playerButtonInput event
 			if(
 				config.modules.invalidsprintA.enabled &&
 				player.isSprinting &&
@@ -210,29 +209,13 @@ system.runInterval(() => {
 				player.cps = 0;
 			}
 
-			// BadPackets[4] = checks for invalid selected slot
-			// The handler for the player hotbar packet runs a function called PlayerInventory::selectSlot. This function checks for invalid selected slot
-			// thus making this check useless.
-			/*
-			if(config.modules.badpackets4.enabled && selectedSlot < 0 || selectedSlot > 8) {
-				flag(player, "BadPackets", "4", "Exploit", `selectedSlot=${selectedSlot}`);
-				player.selectedSlotIndex = 0;
-			}
-			*/
-
 			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
 
 			/*
-			// The 'fallDistance' property in Player has been removed.
-			if(config.modules.flyB.enabled && player.fallDistance < -1 && !player.isSwimming && !player.isJumping && !player.holdingTrident) {
-				flag(player, "Fly", "B", "Movement", `fallDistance=${player.fallDistance}`, true);
-			}
-			*/
-
-			/*
 			InventoryMods/B = Check if a player switches the item they selected in the inventory while moving
-			The 'player.isMoving' property does not allow us to see if the player was moved from them pressing the move buttons, or if an external factor moved them.
-			Because of that, we will have to check if a player was not moved by one of those external factors
+
+			The 'player.isMoving' property does not allow us to see if the player was moved from the player pressing the move buttons
+			or from an external factor (e.g. water) so we will have to confirm that the player was not moved from these external factors
 			*/
 			if(
 				config.modules.inventorymodsB.enabled &&
@@ -345,12 +328,14 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	// Get block under player
 	const blockUnder = player.dimension.getBlock({x: Math.trunc(player.location.x), y: Math.trunc(player.location.y) - 1, z: Math.trunc(player.location.z)});
 
+	console.log(blockUnder?.isAir);
 	// Scaffold/A = Check for Tower like behavior
 	if(
 		config.modules.scaffoldA.enabled &&
-		block.location.x === blockUnder?.location.x &&
-		block.location.y === blockUnder?.location.y &&
-		block.location.z === blockUnder?.location.z &&
+		blockUnder &&
+		block.location.x === blockUnder.location.x &&
+		block.location.y === blockUnder.location.y &&
+		block.location.z === blockUnder.location.z &&
 		!player.isFlying &&
 		player.isJumping &&
 		player.isFalling &&
@@ -360,10 +345,11 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		!block.typeId.includes("wall") &&
 		!block.typeId.includes("_shulker_box")
 	) {
-		const yPosDiff = Math.abs(player.location.y % 1);
+		// Get the decimal portion of the Y position
+		const yDecimal = Math.abs(player.location.y % 1);
 
-		if(yPosDiff > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "creative" && !player.isFlying) {
-			flag(player, "Scaffold", "A", "World", `yPosDiff=${yPosDiff},block=${block.typeId}`, true);
+		if(yDecimal > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "creative" && !player.isFlying) {
+			flag(player, "Scaffold", "A", "World", `yPosDiff=${yDecimal},block=${block.typeId}`, true);
 			block.setType("air");
 		}
 	}
@@ -377,7 +363,14 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 
 	// Scaffold/C = Check if a player placed a block under them whilst looking up
 	// Make sure the players's y location is greater than the block placed's y location.
-	if(config.modules.scaffoldC.enabled && Math.trunc(player.location.y) > Math.trunc(block.location.y) && player.rotation.x < config.modules.scaffoldC.min_x_rot && !player.isSwimming && block.isSolid && !player.hasTag("riding")) {
+	if(
+		config.modules.scaffoldC.enabled &&
+		Math.trunc(player.location.y) > Math.trunc(block.location.y) &&
+		player.rotation.x < config.modules.scaffoldC.min_x_rot &&
+		!player.isSwimming &&
+		block.isSolid &&
+		!player.hasTag("riding")
+	) {
 		flag(player, "Scaffold", "C", "World", `xRot=${player.rotation.x},yPosPlayer=${player.location.y},yPosBlock=${block.location.y}`);
 		block.setType("air");
 	}
@@ -565,10 +558,12 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	This value is *not* the player's current render distance, but rather the max the player could set their render distance to.
 	Vanilla clients would have this value set to 6-96 according to https://minecraftbedrock-archive.fandom.com/wiki/Render_Distance
+
+	This article is slightly outdated as it is possible for really low-end devices to have a max render distance of 5.
 	*/
 	if(
 		config.modules.badpackets5.enabled &&
-		(player.clientSystemInfo.maxRenderDistance < 6 || player.clientSystemInfo.maxRenderDistance > 96)
+		(player.clientSystemInfo.maxRenderDistance < 5 || player.clientSystemInfo.maxRenderDistance > 96)
 	) flag(player, "BadPackets", "5", "Exploit", `maxRenderDistance=${player.clientSystemInfo.maxRenderDistance}`);
 
 	// This is used in the onJoin.json animation to check if Beta APIs are enabled

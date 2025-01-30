@@ -7,7 +7,7 @@ const logo = "§r§6[§aScythe§6]§r";
 registerCommand({
 	name: "unban",
 	description: "Manage the unban queue",
-	usage: "[add | list | remove] [player name]",
+	usage: "<add | list | remove> [player name]",
 	minArgCount: 1,
 	category: "moderation",
 	execute: (message, args) => {
