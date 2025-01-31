@@ -328,7 +328,6 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	// Get block under player
 	const blockUnder = player.dimension.getBlock({x: Math.trunc(player.location.x), y: Math.trunc(player.location.y) - 1, z: Math.trunc(player.location.z)});
 
-	console.log(blockUnder?.isAir);
 	// Scaffold/A = Check for Tower like behavior
 	if(
 		config.modules.scaffoldA.enabled &&
@@ -531,16 +530,11 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	// Namespoof/A = Username length check
 	if(config.modules.namespoofA.enabled) {
-		let flagNamespoofA = false;
 		// When a sub-client joins a world, their name has a suffix of (x), with x being a number between 1-3.
 		// To prevent any false positives with this, we make sure to omit that suffix from being calculated in the length checks
 		const maxLength = config.modules.namespoofA.maxNameLength + (player.name.endsWith(")") ? 3 : 0);
 	
 		if(player.name.length < config.modules.namespoofA.minNameLength || player.name.length > maxLength) {
-			flagNamespoofA = true;
-		}
-
-		if(flagNamespoofA) {
 			const extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
 			player.nameTag = player.name.slice(0, -extraLength) + "...";
 
