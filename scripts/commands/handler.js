@@ -83,7 +83,7 @@ export function commandHandler(msg) {
 
         if(!commands[commandName]) throw Error(`Command "${commandName}" was found in config.js but the command was not registered.`);
 
-        if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some((/** @type {any} */ tag) => !player.hasTag(tag))) {
+        if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some((tag) => !player.hasTag(tag))) {
             player.sendMessage("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: /function op");
             return;
         }

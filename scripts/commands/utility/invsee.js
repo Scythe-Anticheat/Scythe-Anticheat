@@ -12,7 +12,6 @@ const equipmentList = {
 	"Offhand": "Offhand"
 };
 
-// Found the inventory viewing script in the bedrock addons discord, unsure of the original owner (not my code)
 registerCommand({
 	name: "invsee",
     description: "Shows the inventory of any player",

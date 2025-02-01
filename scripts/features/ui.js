@@ -100,8 +100,9 @@ function banMenu(player) {
 
     menu.show(player).then((response) => {
         switch(response.selection) {
+            case 0:
             case 1:
-                banMenuSelect(player, 1);
+                banMenuSelect(player, response.selection);
                 break;
 
             case 2:

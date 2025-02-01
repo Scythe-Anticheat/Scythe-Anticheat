@@ -615,7 +615,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	This reach detection is rather annoying, as the vanilla client can attack an entity if their collision box is in range
 	however this reach calculation doesn't account for the collision box but rather the entity's center
 	This causes false positives when attacking entities with large collision boxes such as Ender Dragons
-	To prevent any sort of false positives, we just only check reach when the player attacks another player
+	To prevent any sort of false positives, we only check reach when the player attacks another player
 	*/
 	if(
 		config.modules.reachA.enabled &&
