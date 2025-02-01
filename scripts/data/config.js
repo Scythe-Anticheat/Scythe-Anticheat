@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "11",
+	"version": "12",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -369,14 +369,6 @@ export default
 		"reachA": {
 			"enabled": true,
 			"reach": 6,
-			"excluded_entities": [
-				"minecraft:enderman",
-				"minecraft:fireball",
-				"minecraft:ender_dragon",
-				"minecraft:ghast",
-				"minecraft:wind_charge_projectile",
-				"minecraft:llama_spit"
-			],
 			"excluded_items": [
 				"minecraft:trident",
 				"minecraft:mace"

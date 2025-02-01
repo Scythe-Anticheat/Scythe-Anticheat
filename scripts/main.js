@@ -609,8 +609,15 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 	tellAllStaff(`§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g${player.name} §7(isSprinting=${player.isSprinting})`, ["actionlogger"]);
 
-	// Reach/A = Check if a player hits an entity farther than normally possible
-	if(config.modules.reachA.enabled) {
+	/*
+	Reach/A = Check if a player hits a player farther than normally possible
+
+	This reach detection is rather annoying, as the vanilla client can attack an entity if their collision box is in range
+	however this reach calculation doesn't account for the collision box but rather the entity's center
+	This causes false positives when attacking entities with large collision boxes such as Ender Dragons
+	To prevent any sort of false positives, we just only check reach when the player attacks another player
+	*/
+	if(config.modules.reachA.enabled && entity instanceof Player) {
 		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
 		const distance = Math.sqrt((entity.location.x - player.location.x)**2 + (entity.location.y - player.location.y)**2 + (entity.location.z - player.location.z)**2);
 
@@ -620,10 +627,9 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 			distance > config.modules.reachA.reach &&
 			player.gamemode !== "creative" &&
 			entity.typeId.startsWith("minecraft:") &&
-			!config.modules.reachA.excluded_entities.includes(entity.typeId) &&
 			!config.modules.reachA.excluded_items.includes(player.heldItem)
 		) {
-			flag(player, "Reach", "A", "Combat", `entity=${entity.typeId},distance=${distance},item=${player.heldItem}`);
+			flag(player, "Reach", "A", "Combat", `distance=${distance},item=${player.heldItem}`);
 		}
 	}
 

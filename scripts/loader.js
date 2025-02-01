@@ -3,6 +3,8 @@
 import config from "./data/config.js";
 import { world } from "@minecraft/server";
 
+const latestConfigVer = "12";
+
 // Set dynamic properties
 if(!world.getDynamicProperty("globalmute")) {
 	world.setDynamicProperty("globalmute", JSON.stringify({
@@ -22,8 +24,6 @@ if(!world.getDynamicProperty("unbanQueue")) {
 	*/
 	world.setDynamicProperty("unbanQueue", "{}");
 }
-
-const latestConfigVer = "11";
 
 const dpConfig = world.getDynamicProperty("config"); // Object
 if(dpConfig) {
@@ -201,6 +201,9 @@ switch(config.version) {
 		};
 
 		delete config.modules.spammerE;
+	
+	case "11":
+		delete config.modules.reachA.excluded_entities;
 
 	case latestConfigVer:
 		break;
