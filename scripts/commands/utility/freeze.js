@@ -15,7 +15,7 @@ registerCommand({
 
 		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		member.hasTag("freeze") ? unfreezePlayer(member, player) : freezePlayer(member, player);
+		player.getDynamicProperty("frozen") ? unfreezePlayer(member, player) : freezePlayer(member, player);
 	}
 });
 
@@ -25,7 +25,7 @@ export function freezePlayer(player, initator) {
 		showParticles: false
 	});
 	player.triggerEvent("scythe:freeze");
-	player.addTag("freeze");
+	player.setDynamicProperty("frozen", true);
 	player.inputPermissions.movementEnabled = false;
 
 	player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by a staff member.");
@@ -35,7 +35,7 @@ export function freezePlayer(player, initator) {
 export function unfreezePlayer(player, initator) {
 	player.removeEffect("weakness");
 	player.triggerEvent("scythe:unfreeze");
-	player.removeTag("freeze");
+	player.setDynamicProperty("frozen", undefined);
 	player.inputPermissions.movementEnabled = true;
 
 	player.sendMessage("§r§6[§aScythe§6]§r You are no longer frozen.");

@@ -18,7 +18,6 @@
 					}],
 					"on_entry": [
 						// "/tag @s add jump",
-						"/tp @s[tag=freeze] ~~-0.5~",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aJUMP§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}

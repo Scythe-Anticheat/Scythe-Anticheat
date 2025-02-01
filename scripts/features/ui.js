@@ -379,14 +379,14 @@ export function playerSettingsMenuSelected(player, playerSelected) {
 
     const menu = new ActionFormData()
         .title("Player Menu - " + playerSelected.name)
-        .body(`Player Info:\n\nName: ${playerSelected.name}\nUnique ID: ${playerSelected.id}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(playerSelected.location.x)}, ${Math.trunc(playerSelected.location.y)}, ${Math.trunc(playerSelected.location.z)}\nGamemode: ${capitalizeFirstLetter(playerSelected.gamemode)}\nPlatform: ${playerSelected.clientSystemInfo.platformType}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.hasTag("freeze") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.getDynamicProperty("vanished") ?? false}\nFlying: ${playerSelected.isFlying}`)
+        .body(`Player Info:\n\nName: ${playerSelected.name}\nUnique ID: ${playerSelected.id}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(playerSelected.location.x)}, ${Math.trunc(playerSelected.location.y)}, ${Math.trunc(playerSelected.location.z)}\nGamemode: ${capitalizeFirstLetter(playerSelected.gamemode)}\nPlatform: ${playerSelected.clientSystemInfo.platformType}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.getDynamicProperty("vanished") ?? false}\nFlying: ${playerSelected.isFlying}`)
         .button("View Inventory", "textures/blocks/chest_front.png")
         .button("Kick Player", icons.anvil)
         .button("Ban Player", icons.anvil)
         .button("View Anticheat Logs", icons.info)
         .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
         .button(playerSelected.hasTag("flying") ? "Disable Fly" : "Enable Fly", "textures/ui/levitation_effect.png")
-        .button(playerSelected.hasTag("freeze") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
+        .button(player.getDynamicProperty("frozen") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
     playerSelected.getDynamicProperty("muted") ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
     playerSelected.hasTag("op") ? menu.button("Remove Player as Scythe-Op", icons.member) :  menu.button("Set Player as Scythe-Op", icons.op);
@@ -443,7 +443,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Freezing players is disabled in config.js.");
                 }
 
-                playerSelected.hasTag("freeze") ? unfreezePlayer(playerSelected, player) : freezePlayer(playerSelected, player);
+                player.getDynamicProperty("frozen") ? unfreezePlayer(playerSelected, player) : freezePlayer(playerSelected, player);
                 break;
 
             case 7:
