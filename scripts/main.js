@@ -533,7 +533,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 		// When a sub-client joins a world, their name has a suffix of (x), with x being a number between 1-3.
 		// To prevent any false positives with this, we make sure to omit that suffix from being calculated in the length checks
 		const maxLength = config.modules.namespoofA.maxNameLength + (player.name.endsWith(")") ? 3 : 0);
-	
+
 		if(player.name.length < config.modules.namespoofA.minNameLength || player.name.length > maxLength) {
 			const extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
 			player.nameTag = player.name.slice(0, -extraLength) + "...";
@@ -617,16 +617,25 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	This causes false positives when attacking entities with large collision boxes such as Ender Dragons
 	To prevent any sort of false positives, we just only check reach when the player attacks another player
 	*/
-	if(config.modules.reachA.enabled && entity instanceof Player) {
+	if(
+		config.modules.reachA.enabled &&
+		player.gamemode !== "creative" &&
+		entity instanceof Player
+	) {
+		// Calculate reach from the player's head location
+		const headLocation = player.getHeadLocation();
+
 		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
-		const distance = Math.sqrt((entity.location.x - player.location.x)**2 + (entity.location.y - player.location.y)**2 + (entity.location.z - player.location.z)**2);
+		const distance = Math.sqrt(
+			(entity.location.x - headLocation.x)**2 +
+			(entity.location.y - headLocation.y)**2 +
+			(entity.location.z - headLocation.z)**2
+		);
 
 		if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag ?? entity.typeId} with a distance of ${distance}`);
 
 		if(
 			distance > config.modules.reachA.reach &&
-			player.gamemode !== "creative" &&
-			entity.typeId.startsWith("minecraft:") &&
 			!config.modules.reachA.excluded_items.includes(player.heldItem)
 		) {
 			flag(player, "Reach", "A", "Combat", `distance=${distance},item=${player.heldItem}`);
@@ -643,7 +652,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		if(!container) return; // This should not happen
 
 		const item = container.getItem(player.selectedSlotIndex);
-		if(item?.typeId === config.customcommands.ui.ui_item && item?.nameTag === config.customcommands.ui.ui_item_name) {
+		if(item?.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name) {
 			playerSettingsMenuSelected(player, entity);
 		}
 	}
