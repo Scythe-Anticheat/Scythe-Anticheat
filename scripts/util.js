@@ -237,8 +237,8 @@ export function banMessage(player) {
     // @ts-expect-error
     const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue"));
 
-    // We check for an array as a player can join with a spoofed name such as "__proto__" and automatically get unbanned, as an Object...
-    // has a property called "__proto__"
+    // We check for an array as a player can join with a spoofed name such as "__proto__" and automatically get unbanned
+    // This is because Object's have a property called "__proto__"
     if(Array.isArray(unbanQueue[player.name.toLowerCase()])) {
         player.setDynamicProperty("banInfo", undefined);
 
@@ -277,7 +277,7 @@ export function banMessage(player) {
  * @param {Entity} entity - The entity to check
  * @example getClosestPlayer(entity);
  * @remarks Gets the nearest player to an entity. (Unused for now)
- * @returns {object} player - The player that was found
+ * @returns {Player} player - The player that was found
  */
 export function getClosestPlayer(entity) {
     // validate that required params are defined
@@ -443,7 +443,7 @@ export function removeOp(initiator, player) {
  * @name tellAllStaff
  * @remarks Send a message to all Scythe-Opped players
  * @param {string} message - The message to send
- * @param {Array} tags - What tags should be sent the message
+ * @param {string[]} tags - What tags does a player require to get this message
  */
 export function tellAllStaff(message, tags = ["op"]) {
     for(const player of world.getPlayers({tags})) {
@@ -456,7 +456,7 @@ export function tellAllStaff(message, tags = ["op"]) {
  * @remarks Find every possible coordinate between two sets of Vector3
  * @param {object} pos1 - First set of coordinates
  * @param {object} pos2 - Second set of coordinates
- * @returns {Array} coordinates - Each possible coordinate
+ * @returns {object[]} coordinates - Each possible coordinate
  */
 export function getBlocksBetween(pos1, pos2) {
     const { x: minX, y: minY, z: minZ } = pos1;
