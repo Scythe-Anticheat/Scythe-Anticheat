@@ -532,7 +532,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	if(config.modules.namespoofA.enabled) {
 		// When a sub-client joins a world, their name has a suffix of (x), with x being a number between 1-3.
 		// To prevent any false positives with this, we make sure to omit that suffix from being calculated in the length checks
-		const maxLength = config.modules.namespoofA.maxNameLength + (player.name.endsWith(")") ? 3 : 0);
+		const maxLength = config.modules.namespoofA.maxNameLength + ((/\([1-3]\)$/).test(player.name) ? 3 : 0);
 
 		if(player.name.length < config.modules.namespoofA.minNameLength || player.name.length > maxLength) {
 			const extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
