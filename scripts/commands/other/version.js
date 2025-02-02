@@ -3,7 +3,8 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "version",
-    description: "Shows what version the anticheat is using",
+    description: "Shows the version the anticheat is running",
+    aliases: ["ver","about"],
     category: "other",
     execute: (message) => {
         const { player } = message;

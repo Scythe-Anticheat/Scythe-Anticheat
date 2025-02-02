@@ -1,3 +1,4 @@
+// @ts-check
 import { parseTime, findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -6,6 +7,7 @@ registerCommand({
     description: "Ban the specified user from joining the world",
     usage: "<player> [time] [reason]",
     minArgCount: 1,
+    aliases: ["b"],
     category: "moderation",
     execute: (message, args) => {
         const { player } = message;

@@ -6,6 +6,7 @@ import { registerCommand } from "../handler.js";
 registerCommand({
 	name: "ui",
 	description: "Access the Scythe UI for world and player management",
+	aliases: ["gui"],
 	category: "utility",
 	execute: (message) => {
 		const { player } = message;

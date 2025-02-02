@@ -6,6 +6,7 @@ registerCommand({
     description: "Give a specific player Scythe-OP",
     usage: "<player>",
     minArgCount: 1,
+    aliases: ["staff"],
     category: "moderation",
     execute: (message, args) => {
         const { player } = message;

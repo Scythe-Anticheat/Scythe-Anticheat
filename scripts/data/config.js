@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "12",
+	"version": "13",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -23,18 +23,15 @@ export default
 		"sendInvalidCommandMsg": false,
 		"ban": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["b"]
+			"requiredTags": ["op"]
 		},
 		"help": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["support","commands"]
+			"requiredTags": ["op"]
 		},
 		"op": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["staff"]
+			"requiredTags": ["op"]
 		},
 		"deop": {
 			"enabled": true,
@@ -46,8 +43,7 @@ export default
 		},
 		"misc_module": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["mm"]
+			"requiredTags": ["op"]
 		},
 		"module": {
 			"enabled": true,
@@ -59,13 +55,11 @@ export default
 		},
 		"invalidsprint": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["is"]
+			"requiredTags": ["op"]
 		},
 		"ecwipe": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["enderchestwipe", "ecw", "clearec", "cec"]
+			"requiredTags": ["op"]
 		},
 		"freeze": {
 			"enabled": true,
@@ -73,28 +67,23 @@ export default
 		},
 		"stats": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["info"]
+			"requiredTags": ["op"]
 		},
 		"fullreport": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["fr"]
+			"requiredTags": ["op"]
 		},
 		"kick": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["k"]
+			"requiredTags": ["op"]
 		},
 		"mute": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["m"]
+			"requiredTags": ["op"]
 		},
 		"unmute": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["um"]
+			"requiredTags": ["op"]
 		},
 		"fly": {
 			"enabled": true,
@@ -104,13 +93,11 @@ export default
 			"enabled": true,
 			"show_enchantments": true,
 			"show_armor": true,
-			"requiredTags": ["op"],
-			"aliases": ["inv"]
+			"requiredTags": ["op"]
 		},
 		"cloneinv": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["invclone", "invc"]
+			"requiredTags": ["op"]
 		},
 		"notify": {
 			"enabled": true,
@@ -127,13 +114,11 @@ export default
 			"playerNameColor": "§r",
 			// If players should have a default tag when they join. Leave blank to disable this.
 			"defaultTag": "",
-			"requiredTags": ["op"],
-			"aliases": ["rank"]
+			"requiredTags": ["op"]
 		},
 		"vanish": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["v"]
+			"requiredTags": ["op"]
 		},
 		"report": {
 			"enabled": true,
@@ -141,33 +126,28 @@ export default
 		},
 		"unban": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["ub","pardon"]
+			"requiredTags": ["op"]
 		},
 		"ui": {
 			"enabled": true,
 			"ui_item_name": "§r§l§aRight click to Open the UI",
 			"ui_item": "minecraft:wooden_axe",
 			// Players without this tag wont be able to use the Scythe UI
-			"requiredTags": ["op"],
-			"aliases": ["gui"]
+			"requiredTags": ["op"]
 		},
 		"resetwarns": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["rw"]
+			"requiredTags": ["op"]
 		},
 		"version": {
 			"enabled": true,
-			"requiredTags": ["op"],
-			"aliases": ["ver","about"]
+			"requiredTags": ["op"]
 		},
 		"globalmute": {
 			"enabled": true,
 			// If this is enabled then all players can see who disabled the chat
 			"showModeratorName": false,
-			"requiredTags": ["op"],
-			"aliases": ["gm"]
+			"requiredTags": ["op"]
 		},
 		"gma": {
 			"enabled": true,

@@ -7,6 +7,7 @@ registerCommand({
     description: "Copy all the items in a player's inventory to your inventory",
 	usage: "<player>",
 	minArgCount: 1,
+	aliases: ["invclone", "invc"],
     category: "utility",
 	execute: (message, args) => {
 		const { player } = message;

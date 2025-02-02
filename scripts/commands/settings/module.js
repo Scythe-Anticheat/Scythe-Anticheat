@@ -15,6 +15,7 @@ registerCommand({
 	name: "misc_module",
 	description: "Change the data of optional scythe modules",
 	usage: "<module name> <setting> [value]",
+	aliases: ["mm"],
 	category: "settings",
 	execute: execute
 });

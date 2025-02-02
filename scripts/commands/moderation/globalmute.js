@@ -5,6 +5,7 @@ import { registerCommand } from "../handler.js";
 registerCommand({
 	name: "globalmute",
 	description: "Prevent any players from sending messages in chat. Useful incase your world gets hit by a spam attack",
+	aliases: ["gm"],
     category: "moderation",
 	execute: (message) => {
 		toggleGlobalMute(message.player);

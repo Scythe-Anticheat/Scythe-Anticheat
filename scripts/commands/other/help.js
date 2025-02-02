@@ -14,6 +14,7 @@ registerCommand({
 	name: "help",
 	description: "Shows this help page",
 	usage: "[commandName]",
+	aliases: ["support", "commands"],
     category: "other",
 	execute: (message, args) => {
 		const { player } = message;
@@ -74,14 +75,15 @@ registerCommand({
 		const name = args[0].toLowerCase();
 		if(!commands[name]) return player.sendMessage(`§r§6[§aScythe§6]§r The command '${name}' was not found`);
 
-		const { description, usage, minArgCount, category } = commands[name];
+		const { description, usage, minArgCount, category, aliases } = commands[name];
 
 		let commandInfo = `§r§6[§aScythe§6]§r Info for command: ${name}\n§r§6[§aScythe§6]§r Description: ${description}\n`;
 
-		if(usage) commandInfo += `§r§6[§aScythe§6]§r Command Usage: ${prefix}${name} ${usage}\n`;
+		if(usage) commandInfo += `§r§6[§aScythe§6]§r Usage: ${prefix}${name} ${usage}\n`;
 		if(minArgCount) commandInfo += `§r§6[§aScythe§6]§r Minimium Argument Count: ${minArgCount}\n`;
+		if(aliases) commandInfo += `§r§6[§aScythe§6]§r Aliases: ${aliases.join(", ")}\n`;
 
-		commandInfo += `§r§6[§aScythe§6]§r Command Category: ${capitalizeFirstLetter(category)}\n§r§6[§aScythe§6]§r Enabled: ${config.customcommands[name].enabled ? "§atrue" : "§4false"}`;
+		commandInfo += `§r§6[§aScythe§6]§r Category: ${capitalizeFirstLetter(category)}\n§r§6[§aScythe§6]§r Enabled: ${config.customcommands[name].enabled ? "§atrue" : "§4false"}`;
 
 		player.sendMessage(commandInfo);
 	}

@@ -9,6 +9,7 @@ registerCommand({
 	description: "Show all checks a player was flagged for",
 	usage: "<player>",
 	minArgCount: 1,
+	aliases: ["info", "lookup"],
     category: "moderation",
 	execute: (message, args) => {
 		const { player } = message;

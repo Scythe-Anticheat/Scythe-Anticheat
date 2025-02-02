@@ -7,6 +7,7 @@ registerCommand({
     description: "Reset a player's violation history",
     usage: "<player>",
     minArgCount: 1,
+    aliases: ["rw"],
     category: "moderation",
     execute: (message, args) => {
         const { player } = message;

@@ -9,6 +9,7 @@ registerCommand({
 	description: "Manage the unban queue",
 	usage: "<add | list | remove> [player name]",
 	minArgCount: 1,
+	aliases: ["ub","pardon"],
 	category: "moderation",
 	execute: (message, args) => {
 		const { player } = message;

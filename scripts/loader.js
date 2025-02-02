@@ -3,7 +3,7 @@
 import config from "./data/config.js";
 import { world } from "@minecraft/server";
 
-const latestConfigVer = "12";
+const latestConfigVer = "13";
 
 // Set dynamic properties
 if(!world.getDynamicProperty("globalmute")) {
@@ -204,6 +204,12 @@ switch(config.version) {
 	
 	case "11":
 		delete config.modules.reachA.excluded_entities;
+
+	case "12":
+		for(const command of Object.values(config.customcommands)) {
+			// @ts-expect-error
+			delete command.aliases;
+		}
 
 	case latestConfigVer:
 		break;

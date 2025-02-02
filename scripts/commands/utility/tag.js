@@ -7,6 +7,7 @@ registerCommand({
     description: "Edit the rank that is shown beside the player's name in chat messages",
     usage: "[player] <tag | reset>",
     minArgCount: 1,
+    aliases: ["rank"],
     category: "utility",
     execute: (message, args) => {
         const { player } = message;

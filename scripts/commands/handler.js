@@ -5,6 +5,9 @@ import config from "../data/config.js";
 const prefix = config.customcommands.prefix ?? "!";
 export const commands = {};
 
+// A map of command aliases and the command they belong to
+const aliasMap = {};
+
 /**
  * @name registerCommand
  * @param {object} data - Command data
@@ -12,11 +15,12 @@ export const commands = {};
  * @param {string} data.description - Command description
  * @param {string} [data.usage] - Command usage
  * @param {number} [data.minArgCount] - How many arguments the command expects to have
+ * @param {string[]} [data.aliases] - Alternative command names that can be used
  * @param {string} data.category - The category that the command belongs to
  * @param {function} data.execute - The function that should be ran
  */
 export function registerCommand(data) {
-    const { name, execute } = data;
+    const { name, execute, aliases = [] } = data;
 
     if(typeof name !== "string") throw TypeError(`data.name is type of ${typeof name}. Expected "string"`);
     if(typeof execute !== "function") throw TypeError(`data.execute is type of ${typeof execute}. Expected "function"`);
@@ -24,6 +28,13 @@ export function registerCommand(data) {
     if(commands[name]) throw Error(`Command "${name}" has already been registered`);
 
     if(!config.customcommands[name]) throw Error(`No valid config found for ${name}`);
+
+    // To make it easy for the handler function to determine if a command name is an alias, we map all command aliases to the command they belong to
+    for(const alias of aliases) {
+        if(aliasMap[alias]) throw Error(`Command "${name}" has the alias "${alias}" when it's being used by another command.`);
+
+        aliasMap[alias] = name;
+    }
 
     commands[name] = data;
 }
@@ -43,7 +54,7 @@ export function commandHandler(msg) {
 
     // Converts '!ban "test player" 14d hacker' to ['!ban','test player','14d','hacker']
     // Remove the first @ symbol as its used for auto-filling usernames and isn't needed
-    const args = message.slice(prefix.length).replace("@", "").match(/(".*?"|\S+)/g)?.map((/** @type {string} */ match) => match.replace(/"/g, ''));
+    const args = message.slice(prefix.length).replace("@", "").match(/(".*?"|\S+)/g)?.map((match) => match.replace(/"/g, ''));
     if(!args) return;
 
     const command = args.shift()?.toLowerCase().trim();
@@ -55,28 +66,19 @@ export function commandHandler(msg) {
         let commandName;
 
         if(typeof config.customcommands[command] === "object") {
-            commandData = config.customcommands[command];
             commandName = command;
+            commandData = config.customcommands[command];
+        } else if (aliasMap[command]) {
+            commandName = aliasMap[command];
+            commandData = config.customcommands[commandName];
         } else {
-            // Check if the command is an alias
-            for(const cmd of Object.keys(config.customcommands)) {
-                const data = config.customcommands[cmd];
-                if(!data.aliases?.includes(command)) continue;
-
-                commandData = data;
-                commandName = cmd;
-                break;
+            // Command does not exist
+            if(config.customcommands.sendInvalidCommandMsg) {
+                player.sendMessage(`§r§6[§aScythe§6]§c The command "${command}" was not found. Please make sure it exists.`);
+                msg.cancel = true;
             }
 
-            if(!commandData) {
-                // Command does not exist
-                if(config.customcommands.sendInvalidCommandMsg) {
-                    player.sendMessage(`§r§6[§aScythe§6]§c The command "${command}" was not found. Please make sure it exists.`);
-                    msg.cancel = true;
-                }
-
-                return;
-            }
+            return;
         }
 
         msg.cancel = true;

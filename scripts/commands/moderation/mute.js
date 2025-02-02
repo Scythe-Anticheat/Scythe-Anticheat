@@ -6,6 +6,7 @@ registerCommand({
     description: "Remove a player's ability to send chat messages",
     usage: "<player> [reason]",
     minArgCount: 1,
+    aliases: ["m"],
     category: "moderation",
     execute: (message, args) => {
         const { player } = message;

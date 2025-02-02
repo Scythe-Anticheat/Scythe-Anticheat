@@ -6,6 +6,7 @@ registerCommand({
     description: "Remove all items in a player's ender chest",
     usage: "<player>",
     minArgCount: 1,
+    aliases: ["ecw", "clearec"],
     category: "utility",
     execute: (message, args) => {
         const { player } = message;

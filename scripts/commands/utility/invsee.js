@@ -17,6 +17,7 @@ registerCommand({
     description: "Shows the inventory of any player",
 	usage: "<player>",
 	minArgCount: 1,
+	aliases: ["inv"],
     category: "utility",
 	execute: (message, args) => {
 		const { player } = message;

@@ -6,6 +6,7 @@ registerCommand({
     description: "Unmute a player and let them speak in chat again",
     usage: "<player> [reason]",
     minArgCount: 1,
+    aliases: ["um"],
     category: "moderation",
     execute: (message, args) => {
         const { player } = message;
