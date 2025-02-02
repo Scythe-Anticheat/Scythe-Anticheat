@@ -96,7 +96,7 @@ export function commandHandler(msg) {
         }
 
         if(args.length < commands[commandName].minArgCount) {
-            player.sendMessage(`§r§6[§aScythe§6]§r Invalid command usage.\n${prefix}${commandName} ${commands[commandName].usage}`);
+            player.sendMessage(`§r§6[§aScythe§6]§r Invalid command usage.\n${prefix}${command} ${commands[commandName].usage}`);
             return;
         }
 
