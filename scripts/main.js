@@ -149,6 +149,20 @@ system.runInterval(() => {
 			) flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 			*/
 
+			/*
+			BadPackets[1] = Invalid viewing angles check
+
+			BadPackets[1] is one of the oldest checks in Scythe that still exists today.
+			It was originally added around August 2020 to 2021, before Scythe even became publicly available on GitHub
+			Originally a function-based check, it has now been ported to the Scripting API.
+			*/
+			if(
+				config.modules.badpackets1.enabled &&
+				(Math.abs(player.rotation.x) > 90 || Math.abs(player.rotation.y) > 180)
+			) {
+				flag(player, "BadPackets", "1", "Exploit", `xRot=${player.rotation.x},yRot=${player.rotation.y}`, true);
+			}
+
 			// NoSlow/A = Speed limit check
 			if(
 				config.modules.noslowA.enabled &&

@@ -40,7 +40,7 @@ By default, notifications for when players are cheating are not shown. To be abl
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player switches their slot right after they start breaking a block.\*<br/>
 
   BadPackets -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) => Checks for invalid player head rotations.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1) => Checks for invalid player head rotations.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2) => Checks if chat messages have abnormal message lengths.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(3) => Checks for self-hurt.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(4) => Checks for newline or carriage return characters in messages.\*<br/>
@@ -58,7 +58,7 @@ By default, notifications for when players are cheating are not shown. To be abl
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks for sprinting while riding an entity.<br/>
 
   InventoryMods-><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Check if a player switches the item they selected in the inventory while moving<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Check if a player switches the item they have selected in the inventory while moving.\*<br/>
 
   Killaura -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for attacking while using an item.\*<br/>
@@ -97,7 +97,7 @@ By default, notifications for when players are cheating are not shown. To be abl
 
 # FAQ
 Q1: Does the AntiCheat auto-ban?<br/>
-Yes. Currently only BadPackets[3] autoban.
+Yes. Currently only the BadPackets[1], BadPackets[2], BadPackets[3], BadPackets[4], and BadPackets[5] checks autoban.
 
 Q2: Is it customizable?<br/>
 A2: Yes you can edit the config.js file to disable or change the settings of certain checks. A guide can be found [here](https://github.com/Scythe-Anticheat/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)

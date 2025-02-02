@@ -3,7 +3,7 @@
 import config from "./data/config.js";
 import { world } from "@minecraft/server";
 
-const latestConfigVer = "13";
+const latestConfigVer = "14";
 
 // Set dynamic properties
 if(!world.getDynamicProperty("globalmute")) {
@@ -210,6 +210,14 @@ switch(config.version) {
 			// @ts-expect-error
 			delete command.aliases;
 		}
+	
+	case "13":
+		config.modules.badpackets1 = {
+			enabled: true,
+			punishment: "ban",
+			punishmentLength: "",
+			minVlbeforePunishment: 1
+		};
 
 	case latestConfigVer:
 		break;
