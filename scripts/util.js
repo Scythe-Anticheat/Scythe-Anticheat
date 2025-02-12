@@ -162,8 +162,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     switch(punishment) {
         case "kick": {
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`, ["notify"]);
-            player.runCommandAsync(`kick "${player.name}" §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`)
-                .catch(() => player.triggerEvent("scythe:kick")); // Incase /kick fails we despawn them from the world
+            player.runCommandAsync(`kick @s §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`);
             break;
         }
 
@@ -268,8 +267,7 @@ export function banMessage(player) {
 
     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason ?? "You are banned!"}.`);
 
-    player.runCommandAsync(`kick "${player.name}" §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${friendlyTime || "Permanent"}`)
-        .catch(() => player.triggerEvent("scythe:kick")); // Incase /kick fails we despawn them from the world
+    player.runCommandAsync(`kick @s §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${friendlyTime || "Permanent"}`);
 }
 
 /**
