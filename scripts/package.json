@@ -1,6 +1,6 @@
 {
   "name": "scythe-anticheat",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "Scythe Anticheat - The best anticheat designed for Minecraft Bedrock realms/worlds/servers",
   "main": "main.js",
   "repository": {
