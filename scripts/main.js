@@ -497,50 +497,12 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	// Load custom nametags
 	const { mainColor, borderColor, playerNameColor, defaultTag } = config.customcommands.tag;
 
-	// Backwards compatibility
-	// This will be removed in Scythe v3.5.0
-	let reason;
-	let by;
-	let time;
-
-	for(const tag of player.getTags()) {
-		switch(tag.split(":")[0]) {
-			case "tag":
-				player.setDynamicProperty("tag", tag.slice(4));
-				player.removeTag(tag);
-				break;
-
-			case "reason":
-				reason = tag;
-				player.removeTag(tag);
-				break;
-
-			case "by":
-				by = tag;
-				player.removeTag(tag);
-				break;
-
-			case "time":
-				time = tag;
-				player.removeTag(tag);
-				break;
-		}
-	}
-
 	let tag = player.getDynamicProperty("tag");
 
 	// Add default tag if enabled
 	if(!tag && defaultTag) tag = defaultTag;
 
 	if(tag) player.nameTag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${player.nameTag}`;
-
-	if(reason && by && time) {
-		player.setDynamicProperty("banInfo", JSON.stringify({
-			by: by.slice(3),
-			reason: reason.slice(7),
-			time: time ? Number(time.slice(5)) : null
-		}));
-	}
 
 	// Namespoof/A = Username length check
 	if(config.modules.namespoofA.enabled) {
