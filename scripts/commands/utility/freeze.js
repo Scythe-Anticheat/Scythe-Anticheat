@@ -15,7 +15,7 @@ registerCommand({
 
 		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		player.getDynamicProperty("frozen") ? unfreezePlayer(member, player) : freezePlayer(member, player);
+		member.getDynamicProperty("frozen") ? unfreezePlayer(member, player) : freezePlayer(member, player);
 	}
 });
 
