@@ -26,11 +26,17 @@ const icons = {
 };
 
 const moduleList = Object.keys(config.modules).concat(Object.keys(config.misc_modules));
+// Using a Set() here would be a lot better for performance, however it becomes annoying later on in the code
 const modules = [];
 
+// Get a list of all modules without the sub-check
 for(const fullModule of moduleList) {
     if(fullModule.startsWith("example")) continue;
-    const module = fullModule[fullModule.length - 1].toUpperCase() === fullModule[fullModule.length - 1] ? fullModule.slice(0, fullModule.length - 1) : fullModule;
+
+    // We want the list to only contain the module name without the sub-check (e.g. A, B, or C), and to do this we need to remove the last letter from the check name.
+    // However misc modules do not contain a type, so to check if the module has types, we check if the last letter is a capital.
+    const lastLetter = fullModule[fullModule.length - 1];
+    const module = lastLetter === lastLetter.toUpperCase() ? fullModule.slice(0, -1) : fullModule;
 
     if(modules.includes(module)) continue;
     modules.push(module);
@@ -284,6 +290,7 @@ function settingsCheckSelectMenu(player, selection) {
         menu.button(`${capitalizeFirstLetter(subCheck)}/${module[module.length - 1]}\n${checkData.enabled ? "§8[§aENABLED§8]" : "§8[§4DISABLED§8]"}`);
     }
 
+    // If there are only one sub-check, then it's completely unnecessary to show a list of sub-checks
     if(checks.length === 1) return editSettingMenu(player, checks[0]);
 
     menu.button("Back", icons.back);
@@ -361,8 +368,8 @@ function editSettingMenu(player, check) {
 // ====================== //
 function playerSettingsMenu(player) {
     player.playSound("mob.chicken.plop");
-    const allPlayers = world.getPlayers();
 
+    const allPlayers = world.getPlayers();
     const menu = createSelectPlayerMenu("Player Menu", allPlayers, player);
 
     menu.show(player).then((response) => {
@@ -384,7 +391,7 @@ export function playerSettingsMenuSelected(player, target) {
         .button("View Anticheat Logs", icons.info)
         .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
         .button(target.hasTag("flying") ? "Disable Fly" : "Enable Fly", "textures/ui/levitation_effect.png")
-        .button(player.getDynamicProperty("frozen") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
+        .button(target.getDynamicProperty("frozen") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
     target.getDynamicProperty("muted") ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
     target.hasTag("op") ? menu.button("Remove Player as Scythe-Op", icons.member) :  menu.button("Set Player as Scythe-Op", icons.op);
