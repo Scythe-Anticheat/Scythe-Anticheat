@@ -13,7 +13,7 @@ declare module "@minecraft/server" {
 		// Numbers
 		autotoolSwitchDelay: number
 		blocksBroken: number
-		cps: number
+		clicks: number
 		firstAttack: number
 		lastLeftClick: number
 		lastMessageSent: number

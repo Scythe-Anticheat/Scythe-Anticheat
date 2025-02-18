@@ -67,7 +67,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             isSwimming,
             blocksBroken,
             entitiesHit,
-            cps,
+            clicks,
             firstAttack,
             lastSelectedSlot,
             startBreakTime,
@@ -112,7 +112,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 scythe: {
                     blocksBroken,
                     entitiesHit,
-                    cps,
+                    clicks,
                     firstAttack,
                     lastSelectedSlot,
                     startBreakTime,

@@ -213,16 +213,6 @@ system.runInterval(() => {
 			}
 			*/
 
-			if(config.modules.autoclickerA.enabled && player.cps > 0 && now - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
-				const cps = player.cps / ((now - player.firstAttack) / config.modules.autoclickerA.checkCPSAfter);
-
-				// Autoclicker/A = Check for high cps
-				if(cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", `cps=${cps}`);
-
-				player.firstAttack = now;
-				player.cps = 0;
-			}
-
 			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
 
 			/*
@@ -330,6 +320,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 
 			case "Console":
 				// Xbox consoles have a reach limit of ~5 blocks, meanwhile Switch consoles have a reach limit of ~6.5 blocks
+				// We can't differentiate between the two platforms so the Switch reach limit is used.
 				reachLimit = 6.5;
 		}
 
@@ -641,13 +632,28 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	}
 
 	/*
-		Autoclicker/A = Check for high CPS. The rest of the handling for this check is in the tick event
+		Autoclicker/A = Check for high CPS.
+
+		To find the player's CPS, we divide the amount of times they have clicked between now and the last marked click, divided by the amount of time that has passed between those two points
+		The time is measured in milliseconds, so we multiply the time by 1000 to get the seconds between now and their last marked click.
 
 		Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
-		The AutoclickerA check will increment your CPS by the amount of entities in the group, which could result in a false flag if there are lots of entities in the group.
-		To prevent this, we don't increment the player's CPS if they are holding a trident.
+		The AutoclickerA check will increment your clicks by the amount of entities in the group, which could result in a false flag if there are lots of entities in the group.
+		To prevent this, we don't increment the player's clicks if they are holding a trident.
 	*/
-	if(config.modules.autoclickerA.enabled && player.heldItem !== "minecraft:trident") player.cps++;
+	if(config.modules.autoclickerA.enabled && player.heldItem !== "minecraft:trident") {
+		player.clicks++;
+
+		const now = Date.now();
+		if(now - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
+			const cps = player.clicks / ((now - player.firstAttack) / 1000);
+
+			if(cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", `cps=${cps}`);
+
+			player.firstAttack = now;
+			player.clicks = 0;
+		}
+	}
 
 	// Killaura/A = Check if a player attacks an entity while using an item
 	if(config.modules.killauraA.enabled && player.hasTag("right")) {

@@ -6,7 +6,7 @@ import { Player } from "@minecraft/server";
 // and an admin were to enable the module, Scythe would break due to the required properties not being initialized.
 Player.prototype.blocksBroken = 0;
 Player.prototype.firstAttack = 0;
-Player.prototype.cps = 0;
+Player.prototype.clicks = 0;
 Player.prototype.lastThrow = 0;
 // We set this to NaN to prevent any KillauraB false flags which can be caused
 // if Scythe is not at the top of the behavior packs list.
