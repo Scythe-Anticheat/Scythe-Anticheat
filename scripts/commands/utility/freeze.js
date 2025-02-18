@@ -11,33 +11,33 @@ registerCommand({
 		const { player } = message;
 
 		// Find the player requested
-		const member = findPlayerByName(args[0]);
+		const target = findPlayerByName(args[0]);
 
-		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+		if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		member.getDynamicProperty("frozen") ? unfreezePlayer(member, player) : freezePlayer(member, player);
+		target.getDynamicProperty("frozen") ? unfreezePlayer(target, player) : freezePlayer(target, player);
 	}
 });
 
-export function freezePlayer(player, initator) {
-	player.addEffect("weakness", 99999, {
+export function freezePlayer(target, initator) {
+	target.addEffect("weakness", 99999, {
 		amplifier: 255,
 		showParticles: false
 	});
-	player.triggerEvent("scythe:freeze");
-	player.setDynamicProperty("frozen", true);
-	player.inputPermissions.movementEnabled = false;
+	target.triggerEvent("scythe:freeze");
+	target.setDynamicProperty("frozen", true);
+	target.inputPermissions.movementEnabled = false;
 
-	player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by a staff member.");
-	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has frozen ${player.name}.`);
+	target.sendMessage("§r§6[§aScythe§6]§r You have been frozen by a staff member.");
+	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has frozen ${target.name}.`);
 }
 
-export function unfreezePlayer(player, initator) {
-	player.removeEffect("weakness");
-	player.triggerEvent("scythe:unfreeze");
-	player.setDynamicProperty("frozen", undefined);
-	player.inputPermissions.movementEnabled = true;
+export function unfreezePlayer(target, initator) {
+	target.removeEffect("weakness");
+	target.triggerEvent("scythe:unfreeze");
+	target.setDynamicProperty("frozen", undefined);
+	target.inputPermissions.movementEnabled = true;
 
-	player.sendMessage("§r§6[§aScythe§6]§r You are no longer frozen.");
-	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has unfrozen ${player.name}.`);
+	target.sendMessage("§r§6[§aScythe§6]§r You are no longer frozen.");
+	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has unfrozen ${target.name}.`);
 }

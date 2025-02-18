@@ -15,16 +15,16 @@ registerCommand({
 		const { player } = message;
 
 		// Find the player requested
-		const member = findPlayerByName(args[0]);
+		const target = findPlayerByName(args[0]);
 
-		if(!member) return player.sendMessage(`${logo} Couldn't find that player.`);
+		if(!target) return player.sendMessage(`${logo} Couldn't find that player.`);
 
-		player.sendMessage(getStatsMsg(member));
+		player.sendMessage(getStatsMsg(target));
 	}
 });
 
-export function getStatsMsg(player) {
-	let statsMsg = `${logo} Showing all Scythe logs for ${player.name}:\n${logo} ==== BASIC INFO ====\n${logo} Unique ID: ${player.id}\n${logo} Gamemode: ${capitalizeFirstLetter(player.gamemode)}\n${logo} Dimension: ${capitalizeFirstLetter(player.dimension.id.replace("minecraft:", ""))}\n${logo} Position: ${Math.trunc(player.location.x)}, ${Math.trunc(player.location.y)}, ${Math.trunc(player.location.z)}\n${logo} Platform: ${player.clientSystemInfo.platformType}\n${logo} ==== VIOLATIONS ====\n`;
+export function getStatsMsg(target) {
+	let statsMsg = `${logo} Showing all Scythe logs for ${target.name}:\n${logo} ==== BASIC INFO ====\n${logo} Unique ID: ${target.id}\n${logo} Gamemode: ${capitalizeFirstLetter(target.gamemode)}\n${logo} Dimension: ${capitalizeFirstLetter(target.dimension.id.replace("minecraft:", ""))}\n${logo} Position: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\n${logo} Platform: ${target.clientSystemInfo.platformType}\n${logo} ==== VIOLATIONS ====\n`;
 
 	let totalViolations = 0;
 	for(const objective of world.scoreboard.getObjectives()) {
@@ -32,7 +32,7 @@ export function getStatsMsg(player) {
 
 		if(!id.endsWith("vl")) continue;
 
-		const score = objective.getScore(player);
+		const score = objective.getScore(target);
 		if(!score) continue;
 
 		totalViolations += score;
@@ -40,7 +40,7 @@ export function getStatsMsg(player) {
 		statsMsg += `${logo} ${capitalizeFirstLetter(id).replace("vl", "")} violations: §c${score}\n`;
 	}
 
-	statsMsg += `\n${logo} Total violations: ${totalViolations === 0 ? "§a0" : `§c${totalViolations}`}\n${logo} ==== USER FLAGS ====\n${logo} Scythe OP: ${player.hasTag("op") ? "§atrue" : "false"}\n${logo} Vanished: ${player.getDynamicProperty("vanished") ?? false}\n${logo} Frozen: ${player.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n${logo} Muted: ${player.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n${logo} Flying: ${player.isFlying}\n${logo} ==== END OF STATS ====`;
+	statsMsg += `\n${logo} Total violations: ${totalViolations === 0 ? "§a0" : `§c${totalViolations}`}\n${logo} ==== USER FLAGS ====\n${logo} Scythe OP: ${target.hasTag("op") ? "§atrue" : "false"}\n${logo} Vanished: ${target.getDynamicProperty("vanished") ?? false}\n${logo} Frozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n${logo} Muted: ${target.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n${logo} Flying: ${target.isFlying}\n${logo} ==== END OF STATS ====`;
 
 	return statsMsg;
 }

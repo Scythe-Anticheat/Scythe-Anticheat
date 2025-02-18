@@ -12,19 +12,19 @@ registerCommand({
         const reason = args.slice(1).join(" ") || "No reason specified";
 
         // Find the player requested
-        const member = findPlayerByName(args[0]);
+        const target = findPlayerByName(args[0]);
 
-        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+        if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         // Make sure they don't report themselves
-        if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot report yourself.");
+        if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot report yourself.");
 
         // Prevent report spam
-        if(player.reports.includes(member.id)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
-        player.reports.push(member.id);
+        if(player.reports.includes(target.id)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
+        player.reports.push(target.id);
 
-        player.sendMessage(`§r§6[§aScythe§6]§r You have reported ${member.name} for ${reason}.`);
+        player.sendMessage(`§r§6[§aScythe§6]§r You have reported ${target.name} for ${reason}.`);
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reported ${member.name} for ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reported ${target.name} for ${reason}`);
     }
 });

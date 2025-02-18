@@ -130,12 +130,12 @@ function banMenuSelect(player, selection) {
     });
 }
 
-function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
+function kickPlayerMenu(player, target, lastMenu = 0) {
     if(!config.customcommands.kick.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
     const menu = new ModalFormData()
-        .title("Kick Player Menu - " + playerSelected.name)
+        .title("Kick Player Menu - " + target.name)
         .textField("Kick Reason:", "§o§7No Reason Provided")
         .toggle("Silent", false);
 
@@ -146,7 +146,7 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
                     banMenuSelect(player, lastMenu);
                     break;
                 case 1:
-                    playerSettingsMenuSelected(player, playerSelected);
+                    playerSettingsMenuSelected(player, target);
             }
             return;
         }
@@ -157,19 +157,19 @@ function kickPlayerMenu(player, playerSelected, lastMenu = 0) {
         const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
         const isSilent = formValues[1];
 
-        isSilent ? playerSelected.triggerEvent("scythe:kick") : playerSelected.runCommandAsync(`kick @s ${reason}`);
+        isSilent ? target.triggerEvent("scythe:kick") : target.runCommandAsync(`kick @s ${reason}`);
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${playerSelected.name} (Silent:${isSilent}). Reason: ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${target.name} (Silent:${isSilent}). Reason: ${reason}`);
     });
 }
 
-function banPlayerMenu(player, playerSelected, lastMenu = 0) {
+function banPlayerMenu(player, target, lastMenu = 0) {
     if(!config.customcommands.ban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Banning players is disabled in config.js.");
 
     player.playSound("mob.chicken.plop");
 
     const menu = new ModalFormData()
-        .title("Ban Player Menu - " + playerSelected.name)
+        .title("Ban Player Menu - " + target.name)
         .textField("Ban Reason:", "§o§7No Reason Provided")
         .slider("Ban Length (in days)", 1, 365, 1)
         .toggle("Permanant Ban", false);
@@ -182,7 +182,7 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
                     break;
 
                 case 1:
-                    playerSettingsMenuSelected(player, playerSelected);
+                    playerSettingsMenuSelected(player, target);
                     break;
             }
             return;
@@ -195,13 +195,13 @@ function banPlayerMenu(player, playerSelected, lastMenu = 0) {
         const banLength = parseTime(`${formValues[1]}d`);
         const permBan = formValues[2];
 
-        playerSelected.setDynamicProperty("banInfo", JSON.stringify({
+        target.setDynamicProperty("banInfo", JSON.stringify({
             by: player.name,
             reason: reason,
             time: (banLength && !permBan) ? Date.now() + banLength : null
         }));
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${playerSelected.nameTag} for ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${target.nameTag} for ${reason}`);
     });
 }
 
@@ -372,22 +372,22 @@ function playerSettingsMenu(player) {
     });
 }
 
-export function playerSettingsMenuSelected(player, playerSelected) {
+export function playerSettingsMenuSelected(player, target) {
     player.playSound("mob.chicken.plop");
 
     const menu = new ActionFormData()
-        .title("Player Menu - " + playerSelected.name)
-        .body(`Player Info:\n\nName: ${playerSelected.name}\nUnique ID: ${playerSelected.id}\nDimension: ${capitalizeFirstLetter((playerSelected.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(playerSelected.location.x)}, ${Math.trunc(playerSelected.location.y)}, ${Math.trunc(playerSelected.location.z)}\nGamemode: ${capitalizeFirstLetter(playerSelected.gamemode)}\nPlatform: ${playerSelected.clientSystemInfo.platformType}\nScythe Opped: ${playerSelected.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${playerSelected.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${playerSelected.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n§rVanished: ${playerSelected.getDynamicProperty("vanished") ?? false}\nFlying: ${playerSelected.isFlying}`)
+        .title("Player Menu - " + target.name)
+        .body(`Player Info:\n\nName: ${target.name}\nUnique ID: ${target.id}\nDimension: ${capitalizeFirstLetter((target.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\nGamemode: ${capitalizeFirstLetter(target.gamemode)}\nPlatform: ${target.clientSystemInfo.platformType}\nScythe Opped: ${target.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${target.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n§rVanished: ${target.getDynamicProperty("vanished") ?? false}\nFlying: ${target.isFlying}`)
         .button("View Inventory", "textures/blocks/chest_front.png")
         .button("Kick Player", icons.anvil)
         .button("Ban Player", icons.anvil)
         .button("View Anticheat Logs", icons.info)
         .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
-        .button(playerSelected.hasTag("flying") ? "Disable Fly" : "Enable Fly", "textures/ui/levitation_effect.png")
+        .button(target.hasTag("flying") ? "Disable Fly" : "Enable Fly", "textures/ui/levitation_effect.png")
         .button(player.getDynamicProperty("frozen") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
-    playerSelected.getDynamicProperty("muted") ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
-    playerSelected.hasTag("op") ? menu.button("Remove Player as Scythe-Op", icons.member) :  menu.button("Set Player as Scythe-Op", icons.op);
+    target.getDynamicProperty("muted") ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
+    target.hasTag("op") ? menu.button("Remove Player as Scythe-Op", icons.member) :  menu.button("Set Player as Scythe-Op", icons.op);
 
     menu
         .button("Teleport", icons.arrow)
@@ -401,15 +401,15 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Invsee is disabled in config.js.");
                 }
 
-                player.sendMessage(getInvseeMsg(playerSelected));
+                player.sendMessage(getInvseeMsg(target));
                 break;
 
             case 1:
-                kickPlayerMenu(player, playerSelected, 1);
+                kickPlayerMenu(player, target, 1);
                 break;
 
             case 2:
-                banPlayerMenu(player, playerSelected, 1);
+                banPlayerMenu(player, target, 1);
                 break;
 
             case 3:
@@ -417,7 +417,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Player Stats is disabled in config.js.");
                 }
 
-                player.sendMessage(getStatsMsg(playerSelected));
+                player.sendMessage(getStatsMsg(target));
                 break;
 
             case 4:
@@ -425,7 +425,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
                 }
 
-                wipeEnderchest(player, playerSelected);
+                wipeEnderchest(player, target);
                 break;
 
             case 5:
@@ -433,7 +433,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
                 }
 
-                playerSelected.hasTag("flying") ? disableFly(playerSelected, player) : enableFly(playerSelected, player);
+                target.hasTag("flying") ? disableFly(target, player) : enableFly(target, player);
                 break;
 
             case 6:
@@ -441,7 +441,7 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Freezing players is disabled in config.js.");
                 }
 
-                player.getDynamicProperty("frozen") ? unfreezePlayer(playerSelected, player) : freezePlayer(playerSelected, player);
+                player.getDynamicProperty("frozen") ? unfreezePlayer(target, player) : freezePlayer(target, player);
                 break;
 
             case 7:
@@ -449,16 +449,16 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Muting players is disabled in config.js.");
                 }
 
-                if(playerSelected.getDynamicProperty("muted")) {
-                    playerSelected.setDynamicProperty("muted", undefined);
-                    playerSelected.runCommandAsync("ability @s mute false");
+                if(target.getDynamicProperty("muted")) {
+                    target.setDynamicProperty("muted", undefined);
+                    target.runCommandAsync("ability @s mute false");
 
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${playerSelected.name}.`);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${target.name}.`);
                 } else {
-                    playerSelected.setDynamicProperty("muted", true);
-                    playerSelected.runCommandAsync("ability @s mute true");
+                    target.setDynamicProperty("muted", true);
+                    target.runCommandAsync("ability @s mute true");
 
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${playerSelected.name}.`);
+                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${target.name}.`);
                 }
                 break;
 
@@ -467,15 +467,15 @@ export function playerSettingsMenuSelected(player, playerSelected) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
                 }
 
-                playerSelected.hasTag("op") ? removeOp(player, playerSelected) : addOp(player, playerSelected);
+                target.hasTag("op") ? removeOp(player, target) : addOp(player, target);
                 break;
 
             case 9:
-                playerSettingsMenuSelectedTeleport(player, playerSelected);
+                playerSettingsMenuSelectedTeleport(player, target);
                 break;
 
             case 10:
-                playerSettingsMenuSelectedGamemode(player, playerSelected);
+                playerSettingsMenuSelectedGamemode(player, target);
                 break;
 
             default:
@@ -484,12 +484,12 @@ export function playerSettingsMenuSelected(player, playerSelected) {
     });
 }
 
-function playerSettingsMenuSelectedTeleport(player, playerSelected) {
+function playerSettingsMenuSelectedTeleport(player, target) {
     player.playSound("mob.chicken.plop");
 
     const menu = new ActionFormData()
         .title("Teleport Menu")
-        .body(`Managing ${playerSelected.name}.`)
+        .body(`Managing ${target.name}.`)
         .button("Teleport To", icons.arrow)
         .button("Teleport Here", "textures/ui/arrow_down.png")
         .button("Back", icons.back);
@@ -497,31 +497,31 @@ function playerSettingsMenuSelectedTeleport(player, playerSelected) {
     menu.show(player).then((response) => {
         switch(response.selection) {
             case 0:
-                player.teleport(playerSelected.location, {
+                player.teleport(target.location, {
                     checkForBlocks: false,
-                    dimension: playerSelected.dimension
+                    dimension: target.dimension
                 });
                 break;
 
             case 1:
-                playerSelected.teleport(player.location, {
+                target.teleport(player.location, {
                     checkForBlocks: false,
                     dimension: player.dimension
                 });
                 break;
 
             default:
-                playerSettingsMenuSelected(player, playerSelected);
+                playerSettingsMenuSelected(player, target);
         }
     });
 }
 
-function playerSettingsMenuSelectedGamemode(player, playerSelected) {
+function playerSettingsMenuSelectedGamemode(player, target) {
     player.playSound("mob.chicken.plop");
 
     const menu = new ActionFormData()
         .title("Gamemode Menu")
-        .body(`Switching ${playerSelected.name}'s gamemode.`)
+        .body(`Switching ${target.name}'s gamemode.`)
         .button("Gamemode Survival", icons.member)
         .button("Gamemode Creative", icons.op)
         .button("Gamemode Adventure", "textures/ui/permissions_visitor_hand.png")
@@ -530,20 +530,20 @@ function playerSettingsMenuSelectedGamemode(player, playerSelected) {
         .button("Back", icons.back);
 
     menu.show(player).then((response) => {
-        if(response.selection === 5 || response.canceled) return playerSettingsMenuSelected(player, playerSelected);
+        if(response.selection === 5 || response.canceled) return playerSettingsMenuSelected(player, target);
 
         switch(response.selection) {
             case 3:
-                playerSelected.setGameMode(GameMode.spectator);
+                target.setGameMode(GameMode.spectator);
                 break;
 
             case 4:
-                playerSelected.runCommandAsync("gamemode 5");
+                target.runCommandAsync("gamemode 5");
                 break;
 
             // Handles changing to survival, creative, and adventure
             default:
-                playerSelected.runCommandAsync(`gamemode ${response.selection}`);
+                target.runCommandAsync(`gamemode ${response.selection}`);
         }
     });
 }

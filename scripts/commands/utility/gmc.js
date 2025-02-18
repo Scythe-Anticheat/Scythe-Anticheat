@@ -13,12 +13,12 @@ registerCommand({
 		if(args[0] && !config.customcommands.gmc.canChangeOtherPeopleGamemode) player.sendMessage("§r§6[§aScythe§6]§r You cannot change other people's gamemodes.");
 
         // Find the player requested
-        const member = args.length ? findPlayerByName(args[0]) : player;
+        const target = args.length ? findPlayerByName(args[0]) : player;
 
-        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+        if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		member.setGameMode("creative");
+		target.setGameMode("creative");
 
-		tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has changed ${player.id === member.id ? "their" : `${member.name}'s`} gamemode to creative.`);
+		tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has changed ${player.id === target.id ? "their" : `${target.name}'s`} gamemode to creative.`);
     }
 });

@@ -14,16 +14,16 @@ registerCommand({
         const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
         // Find the player requested
-        const member = findPlayerByName(args[0]);
+        const target = findPlayerByName(args[0]);
 
-        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+        if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        member.setDynamicProperty("muted", undefined);
-        member.sendMessage("§r§6[§aScythe§6]§r You have been unmuted.");
+        target.setDynamicProperty("muted", undefined);
+        target.sendMessage("§r§6[§aScythe§6]§r You have been unmuted.");
 
         // Add chat ability
-        member.runCommandAsync("ability @s mute false");
+        target.runCommandAsync("ability @s mute false");
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${member.name} for ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${target.name} for ${reason}`);
     }
 });

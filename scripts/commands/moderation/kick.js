@@ -17,15 +17,15 @@ registerCommand({
         const reason = args.slice(1).join(" ").replace(/-s|-silent|"|\\/g, "") || "No reason specified";
 
         // Find the player requested
-        const member = findPlayerByName(args[0]);
+        const target = findPlayerByName(args[0]);
 
-        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+        if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         // Make sure they don't kick themselves
-        if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
+        if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
 
-        isSilent ? member.triggerEvent("scythe:kick") : member.runCommandAsync(`kick @s ${reason}`);
+        isSilent ? target.triggerEvent("scythe:kick") : target.runCommandAsync(`kick @s ${reason}`);
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${member.name} ${isSilent ? "(Silent) ": ""}for ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${target.name} ${isSilent ? "(Silent) ": ""}for ${reason}`);
     }
 });

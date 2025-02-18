@@ -14,19 +14,19 @@ registerCommand({
         const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
         // Find the player requested
-        const member = findPlayerByName(args[0]);
+        const target = findPlayerByName(args[0]);
 
-        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+        if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         // Make sure they don't mute themselves
-        if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot mute yourself.");
+        if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
-        member.setDynamicProperty("muted", true);
-        member.sendMessage(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
+        target.setDynamicProperty("muted", true);
+        target.sendMessage(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
 
         // Remove chat ability
-        member.runCommandAsync("ability @s mute true");
+        target.runCommandAsync("ability @s mute true");
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${member.name} for ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${target.name} for ${reason}`);
     }
 });

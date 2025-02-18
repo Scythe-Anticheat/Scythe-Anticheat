@@ -20,22 +20,22 @@ registerCommand({
         const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
 
         // Find the player requested
-        const member = findPlayerByName(args[0]);
+        const target = findPlayerByName(args[0]);
 
-        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+        if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         // Make sure they don't ban themselves
-        if(member.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban yourself.");
+        if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban yourself.");
 
         // Don't allow staff to ban other staff members
-        if(member.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban other staff members.");
+        if(target.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban other staff members.");
 
-        member.setDynamicProperty("banInfo", JSON.stringify({
+        target.setDynamicProperty("banInfo", JSON.stringify({
             by: player.name,
             reason: reason,
             time: typeof time === "number" ? Date.now() + time : null
         }));
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${member.name} for ${reason}`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${target.name} for ${reason}`);
     }
 });

@@ -13,18 +13,18 @@ registerCommand({
         const { player } = message;
 
         // Find the player requested
-        const member = findPlayerByName(args[0]);
+        const target = findPlayerByName(args[0]);
 
-        if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+        if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         for(const objective of world.scoreboard.getObjectives()) {
             const { id } = objective;
 
             if(!id.endsWith("vl")) continue;
 
-            setScore(member, id, 0);
+            setScore(target, id, 0);
         }
 
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reset ${member.name}'s warns.`);
+        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reset ${target.name}'s warns.`);
     }
 });

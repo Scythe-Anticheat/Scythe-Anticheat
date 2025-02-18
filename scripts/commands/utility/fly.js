@@ -11,30 +11,30 @@ registerCommand({
 		const { player } = message;
 
 		// Find the player requested
-		const member = args.length ? findPlayerByName(args[0]) : player;
+		const target = args.length ? findPlayerByName(args[0]) : player;
 
-		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+		if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
 		if(player.gamemode === "creative") return player.sendMessage("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
 
-		member.hasTag("flying") ? disableFly(member, player) : enableFly(member, player);
+		target.hasTag("flying") ? disableFly(target, player) : enableFly(target, player);
 	}
 });
 
-export function enableFly(player, initator) {
-	player.addTag("flying");
+export function enableFly(target, initator) {
+	target.addTag("flying");
 
-	player.runCommandAsync("ability @s mayfly true");
-	player.sendMessage("§r§6[§aScythe§6]§r You are now in fly mode.");
+	target.runCommandAsync("ability @s mayfly true");
+	target.sendMessage("§r§6[§aScythe§6]§r You are now in fly mode.");
 
-	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has given ${initator.id === player.id ? "themselves" : `${player.name}'s`} fly mode.`);
+	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has given ${initator.id === target.id ? "themselves" : `${target.name}'s`} fly mode.`);
 }
 
-export function disableFly(player, initator) {
-	player.removeTag("flying");
+export function disableFly(target, initator) {
+	target.removeTag("flying");
 
-	player.runCommandAsync("ability @s mayfly false");
-	player.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
+	target.runCommandAsync("ability @s mayfly false");
+	target.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
 
-	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has removed ${player.id === initator.id ? "their" : `${player.name}'s`} fly mode.`);
+	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has removed ${target.id === initator.id ? "their" : `${target.name}'s`} fly mode.`);
 }

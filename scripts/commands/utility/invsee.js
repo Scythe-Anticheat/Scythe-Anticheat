@@ -23,23 +23,23 @@ registerCommand({
 		const { player } = message;
 
 		// Find the player requested
-		const member = findPlayerByName(args[0]);
+		const target = findPlayerByName(args[0]);
 
-		if(!member) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
+		if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		player.sendMessage(getInvseeMsg(member));
+		player.sendMessage(getInvseeMsg(target));
 	}
 });
 
 /**
  * @name getInvseeMsg
- * @param {import("@minecraft/server").Player} player
+ * @param {import("@minecraft/server").Player} target
  * @returns {string} msg - A list of all the items in the players inventory
  */
-export function getInvseeMsg(player) {
-	const container = player.getComponent("inventory")?.container;
+export function getInvseeMsg(target) {
+	const container = target.getComponent("inventory")?.container;
 
-	let inventory = `§r§6[§aScythe§6]§r ${player.name}'s inventory:\n\n`;
+	let inventory = `§r§6[§aScythe§6]§r ${target.name}'s inventory:\n\n`;
 
 	// This function loops through every enchantment on the item and then adds it to the inventory string. It is used if show_enchantments is enabled in the config
 	const loopEnchants = (allEnchantments = []) => {
@@ -56,7 +56,7 @@ export function getInvseeMsg(player) {
 	// Loop through every armor slot
 	let foundItem = false;
 	if(config.customcommands.invsee.show_armor) {
-		const armor = player.getComponent("equippable");
+		const armor = target.getComponent("equippable");
 
 		for(const equipment of Object.keys(equipmentList)) {
 			// @ts-expect-error
@@ -91,7 +91,7 @@ export function getInvseeMsg(player) {
 		}
 	}
 
-	if(!foundItem) return `§r§6[§aScythe§6]§r ${player.name}'s inventory is empty.`;
+	if(!foundItem) return `§r§6[§aScythe§6]§r ${target.name}'s inventory is empty.`;
 
 	return inventory.replace(/\n+$/, "");
 }
