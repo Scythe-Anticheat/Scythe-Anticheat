@@ -329,8 +329,8 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 				break;
 
 			case "Console":
-				// TODO, setting this as 12 for now
-				reachLimit = 12;
+				// Xbox consoles have a reach limit of ~5 blocks, meanwhile Switch consoles have a reach limit of ~6.5 blocks
+				reachLimit = 6.5;
 		}
 
 		// To avoid visually unpleasing code we calculate reach limit based on device first and then gamemode
@@ -441,7 +441,14 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 		revertBlock = true;
 	}
 
-	// Autotool/A = checks for player slot mismatch
+	/*
+	AutoTool/A = Checks for player slot mismatch
+
+	When you mine a block with Horion's autotool, it starts mining the block without switching the item you're holding, and around 30-100ms later,
+	it switches the item you're holding to the item that's fit to mine the block.
+
+	Scythe Anticheat checks if the player's selected slot changes right after the player starts mining the block to detect AutoTool.
+	*/
 	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== "creative") {
 		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlotIndex},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
 		revertBlock = true;

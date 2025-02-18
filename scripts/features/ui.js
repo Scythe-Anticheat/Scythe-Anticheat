@@ -618,10 +618,10 @@ function debugSettingsMenu(player) {
                 const allItems = ItemTypes.getAll();
 
                 const totalItems = [];
-                for (let i = 0; i < 36; i++) {
+                for(let i = 0; i < 36; i++) {
                     if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
 
-                    const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
+                    const randomItem = allItems[~~(Math.random() * allItems.length)];
 
                     if(totalItems.includes(randomItem.id)) {
                         i--;
