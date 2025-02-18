@@ -108,8 +108,13 @@ system.runInterval(() => {
 	if(config.misc_modules.itemSpawnRateLimit.enabled) entitiesSpawnedInLastTick = 0;
 
 	// Run as each player
-	for(const player of world.getPlayers()) {
+	const players = world.getPlayers();
+	// Oddly enough, this method of looping over all online player's is slightly more efficient than `for(const player of players)`
+	for(let i = 0; i < players.length; i++) {
+		const player = players[i];
+
 		try {
+
 			// --- Prerequisite variables that are used by checks later on ---
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
@@ -798,7 +803,8 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 });
 
 // When using /reload, the variables defined in playerSpawn event do not persist so we reapply them.
-for(const player of world.getPlayers()) {
+const players = world.getPlayers();
+for(const player of players) {
 	player.gamemode = player.getGameMode();
 	player.lastGoodPosition = player.location;
 }

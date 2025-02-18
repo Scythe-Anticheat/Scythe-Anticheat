@@ -402,7 +402,10 @@ export function capitalizeFirstLetter(string) {
 export function findPlayerByName(name) {
 	const searchName = name.toLowerCase().replace(/\\|@/g, "");
 
-    for(const player of world.getPlayers()) {
+    const players = world.getPlayers();
+    for(let i = 0; i < players.length; i++) {
+        const player = players[i];
+
         const lowercaseName = player.name.toLowerCase();
         if(searchName !== lowercaseName && !lowercaseName.includes(searchName)) continue;
 
@@ -444,7 +447,8 @@ export function removeOp(initiator, player) {
  * @param {string[]} tags - What tags does a player require to get this message
  */
 export function tellAllStaff(message, tags = ["op"]) {
-    for(const player of world.getPlayers({tags})) {
+    const players = world.getPlayers({ tags });
+    for(const player of players) {
         player.sendMessage(message);
     }
 }

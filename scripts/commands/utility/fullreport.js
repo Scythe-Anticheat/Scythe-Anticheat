@@ -8,8 +8,9 @@ registerCommand({
     aliases: ["fr"],
     category: "utility",
     execute: (message) => {
-        for(const player of world.getPlayers()) {
-            message.player.sendMessage(getStatsMsg(player));
+        const players = world.getPlayers();
+        for(let i = 0; i < players.length; i++) {
+            message.player.sendMessage(getStatsMsg(players[i]));
         }
     }
 });

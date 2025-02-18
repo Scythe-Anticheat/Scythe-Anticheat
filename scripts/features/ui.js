@@ -573,11 +573,14 @@ function serverManagementMenu(player) {
     menu.button("Back", icons.back);
     menu.show(player).then((response) => {
         switch(response.selection) {
-            case 0:
-                for(const pl of world.getPlayers()) {
+            case 0: {
+                const players = world.getPlayers();
+
+                for(const pl of players) {
                     player.sendMessage(getStatsMsg(pl));
                 }
                 break;
+            }
 
             case 1:
                 toggleGlobalMute(player);
