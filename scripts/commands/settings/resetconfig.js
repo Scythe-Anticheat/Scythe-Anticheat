@@ -1,3 +1,4 @@
+// @ts-check
 import { world } from "@minecraft/server";
 import { registerCommand } from "../handler.js";
 

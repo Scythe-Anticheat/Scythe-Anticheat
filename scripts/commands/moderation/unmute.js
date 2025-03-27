@@ -1,3 +1,4 @@
+// @ts-check
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -22,7 +23,7 @@ registerCommand({
         target.sendMessage("§r§6[§aScythe§6]§r You have been unmuted.");
 
         // Add chat ability
-        target.runCommandAsync("ability @s mute false");
+        target.runCommand("ability @s mute false");
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${target.name} for ${reason}`);
     }

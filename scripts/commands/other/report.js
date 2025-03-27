@@ -1,3 +1,4 @@
+// @ts-check
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 

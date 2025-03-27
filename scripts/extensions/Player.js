@@ -1,3 +1,4 @@
+// @ts-check
 // Add new methods to Scripting API classes
 import { Player } from "@minecraft/server";
 

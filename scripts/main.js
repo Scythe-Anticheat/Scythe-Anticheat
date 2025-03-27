@@ -551,14 +551,14 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	}
 
 	// If enabled from previous login then activate
-	if(player.hasTag("flying") && player.gamemode !== "creative") player.runCommandAsync("ability @s mayfly true");
-	if(player.getDynamicProperty("muted")) player.runCommandAsync("ability @s mute true");
+	if(player.hasTag("flying") && player.gamemode !== "creative") player.runCommand("ability @s mayfly true");
+	if(player.getDynamicProperty("muted")) player.runCommand("ability @s mute true");
 	if(player.getDynamicProperty("frozen")) player.triggerEvent("scythe:freeze");
 });
 
 world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 	// If the entity dies right before this event triggers, an error will be thrown if any property is accessed
-	if(!entity.isValid()) return;
+	if(!entity.isValid) return;
 
 	if(config.misc_modules.itemSpawnRateLimit.enabled && ++entitiesSpawnedInLastTick > config.misc_modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
 		if(config.debug) console.warn(`Killed "${entity.typeId}" due to entity spawn ratelimit reached.`);
@@ -583,8 +583,8 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 });
 
 world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity: player}) => {
-	// Hitting an end crystal causes an error when trying to get the entity location. isValid() fixes that
-	if(!(player instanceof Player) || !entity.isValid()) return;
+	// Hitting an end crystal causes an error when trying to get the entity location, so we make sure the entity is valid to fix that
+	if(!(player instanceof Player) || !entity.isValid) return;
 
 	tellAllStaff(`§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g${player.name} §7(isSprinting=${player.isSprinting})`, ["actionlogger"]);
 
@@ -803,8 +803,10 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 });
 
 // When using /reload, the variables defined in playerSpawn event do not persist so we reapply them.
-const players = world.getPlayers();
-for(const player of players) {
-	player.gamemode = player.getGameMode();
-	player.lastGoodPosition = player.location;
-}
+system.run(() => {
+	const players = world.getPlayers();
+	for(const player of players) {
+		player.gamemode = player.getGameMode();
+		player.lastGoodPosition = player.location;
+	}
+});

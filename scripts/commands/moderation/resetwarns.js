@@ -1,3 +1,4 @@
+// @ts-check
 import { world } from "@minecraft/server";
 import { findPlayerByName, tellAllStaff, setScore } from "../../util.js";
 import { registerCommand } from "../handler.js";

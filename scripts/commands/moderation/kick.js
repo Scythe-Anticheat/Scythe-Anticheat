@@ -1,3 +1,4 @@
+// @ts-check
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -24,7 +25,7 @@ registerCommand({
         // Make sure they don't kick themselves
         if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
 
-        isSilent ? target.triggerEvent("scythe:kick") : target.runCommandAsync(`kick @s ${reason}`);
+        isSilent ? target.triggerEvent("scythe:kick") : target.runCommand(`kick @s ${reason}`);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${target.name} ${isSilent ? "(Silent) ": ""}for ${reason}`);
     }

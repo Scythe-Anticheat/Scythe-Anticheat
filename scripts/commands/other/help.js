@@ -1,3 +1,4 @@
+// @ts-check
 import config from "../../data/config.js";
 import { capitalizeFirstLetter } from "../../util.js";
 import { registerCommand, commands } from "../handler.js";

@@ -1,3 +1,4 @@
+// @ts-check
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -6,6 +7,6 @@ registerCommand({
     aliases: ["is"],
     category: "settings",
     execute: (message) => {
-        message.player.runCommandAsync("function settings/invalidsprint");
+        message.player.runCommand("function settings/invalidsprint");
     }
 });

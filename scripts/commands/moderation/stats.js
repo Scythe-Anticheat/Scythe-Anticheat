@@ -1,3 +1,4 @@
+// @ts-check
 import { world } from "@minecraft/server";
 import { capitalizeFirstLetter, findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";

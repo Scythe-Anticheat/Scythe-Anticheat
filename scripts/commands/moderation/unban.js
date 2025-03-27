@@ -1,3 +1,4 @@
+// @ts-check
 import { world } from "@minecraft/server";
 import { tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
@@ -14,6 +15,7 @@ registerCommand({
 	execute: (message, args) => {
 		const { player } = message;
 
+		// @ts-expect-error
 		const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue")); // Object
 		switch(args[0]) {
 			case "add": {

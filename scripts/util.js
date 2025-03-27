@@ -162,7 +162,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     switch(punishment) {
         case "kick": {
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`, ["notify"]);
-            player.runCommandAsync(`kick @s §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`);
+            player.runCommand(`kick @s §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`);
             break;
         }
 
@@ -191,8 +191,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             player.setDynamicProperty("muted", true);
             player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
 
-            // remove chat ability
-            player.runCommandAsync("ability @s mute true");
+            // Remove chat ability
+            player.runCommand("ability @s mute true");
 
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
             break;
@@ -205,7 +205,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             });
             player.triggerEvent("scythe:freeze");
             player.setDynamicProperty("frozen", true);
-            player.inputPermissions.movementEnabled = false;
+            player.inputPermissions.setPermissionCategory(2, false);
 
             player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by Scythe Anticheat for Unfair Advantage.");
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been frozen by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
@@ -267,7 +267,7 @@ export function banMessage(player) {
 
     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason ?? "You are banned!"}.`);
 
-    player.runCommandAsync(`kick @s §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${friendlyTime || "Permanent"}`);
+    player.runCommand(`kick @s §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${friendlyTime || "Permanent"}`);
 }
 
 /**

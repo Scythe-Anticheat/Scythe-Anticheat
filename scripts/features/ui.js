@@ -143,7 +143,7 @@ function kickPlayerMenu(player, target, lastMenu = 0) {
     const menu = new ModalFormData()
         .title("Kick Player Menu - " + target.name)
         .textField("Kick Reason:", "§o§7No Reason Provided")
-        .toggle("Silent", false);
+        .toggle("Silent", { defaultValue: false });
 
     menu.show(player).then((response) => {
         if(response.canceled) {
@@ -163,7 +163,7 @@ function kickPlayerMenu(player, target, lastMenu = 0) {
         const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
         const isSilent = formValues[1];
 
-        isSilent ? target.triggerEvent("scythe:kick") : target.runCommandAsync(`kick @s ${reason}`);
+        isSilent ? target.triggerEvent("scythe:kick") : target.runCommand(`kick @s ${reason}`);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${target.name} (Silent:${isSilent}). Reason: ${reason}`);
     });
@@ -177,8 +177,8 @@ function banPlayerMenu(player, target, lastMenu = 0) {
     const menu = new ModalFormData()
         .title("Ban Player Menu - " + target.name)
         .textField("Ban Reason:", "§o§7No Reason Provided")
-        .slider("Ban Length (in days)", 1, 365, 1)
-        .toggle("Permanant Ban", false);
+        .slider("Ban Length (in days)", 1, 365, { valueStep: 1 })
+        .toggle("Permanant Ban", { defaultValue: false });
 
     menu.show(player).then((response) => {
         if(response.canceled) {
@@ -321,15 +321,15 @@ function editSettingMenu(player, check) {
 
         switch(typeof checkData[key]) {
             case "number":
-                menu.slider(settingName, 0, 100, Number.isInteger(checkData[key]) ? 1 : 0.01, checkData[key]);
+                menu.slider(settingName, 0, 100, { defaultValue: checkData[key], valueStep: Number.isInteger(checkData[key]) ? 1 : 0.01 });
                 optionsMap.push(key);
                 break;
             case "boolean":
-                menu.toggle(settingName, checkData[key]);
+                menu.toggle(settingName, { defaultValue: checkData[key] });
                 optionsMap.push(key);
                 break;
             case "string":
-                menu.textField(settingName, "Enter text here", checkData[key]);
+                menu.textField(settingName, "Enter text here", { defaultValue: checkData[key] });
                 optionsMap.push(key);
                 break;
         }
@@ -339,7 +339,7 @@ function editSettingMenu(player, check) {
     if(checkData.punishment) {
         menu.dropdown("Punishment", Object.keys(punishments), punishments[checkData.punishment]);
         menu.textField("Punishment Length", "Enter a length (ex: 12d, 1d, 1m, 30s", checkData["punishmentLength"]);
-        menu.slider("Minimum Violations Before Punishment", 0, 20, 1, checkData["minVlbeforePunishment"]);
+        menu.slider("Minimum Violations Before Punishment", 0, 20, { defaultValue: checkData["minVlbeforePunishment"], valueStep: 1 });
 
         optionsMap = optionsMap.concat(punishmentSettings);
     }
@@ -458,12 +458,12 @@ export function playerSettingsMenuSelected(player, target) {
 
                 if(target.getDynamicProperty("muted")) {
                     target.setDynamicProperty("muted", undefined);
-                    target.runCommandAsync("ability @s mute false");
+                    target.runCommand("ability @s mute false");
 
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${target.name}.`);
                 } else {
                     target.setDynamicProperty("muted", true);
-                    target.runCommandAsync("ability @s mute true");
+                    target.runCommand("ability @s mute true");
 
                     tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${target.name}.`);
                 }
@@ -545,12 +545,12 @@ function playerSettingsMenuSelectedGamemode(player, target) {
                 break;
 
             case 4:
-                target.runCommandAsync("gamemode 5");
+                target.runCommand("gamemode 5");
                 break;
 
             // Handles changing to survival, creative, and adventure
             default:
-                target.runCommandAsync(`gamemode ${response.selection}`);
+                target.runCommand(`gamemode ${response.selection}`);
         }
     });
 }
@@ -674,13 +674,13 @@ function debugSettingsFlag(player) {
 
     const menu = new ModalFormData()
         .title("Debug Menu - Test Flag")
-        .textField("Check", "Example", "Example")
-        .textField("Check type", "A", "A")
-        .textField("Hack type", "Combat", "Combat")
+        .textField("Check", "Example", { defaultValue: "Example" })
+        .textField("Check type", "A", { defaultValue: "A" })
+        .textField("Hack type", "Combat", { defaultValue: "Combat" })
         .textField("Debug", "")
-        .toggle("Should TP", false)
-        .toggle("Clear slot", false)
-        .slider("Slot", 0, 36, 1, 0);
+        .toggle("Should TP", { defaultValue: false })
+        .toggle("Clear slot", { defaultValue: false })
+        .slider("Slot", 0, 36, { defaultValue: 0, valueStep: 0 });
 
     menu.show(player).then((response) => {
         const formValues = response.formValues;

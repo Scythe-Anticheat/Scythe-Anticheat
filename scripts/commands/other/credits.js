@@ -1,3 +1,4 @@
+// @ts-check
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -5,6 +6,6 @@ registerCommand({
     description: "Show credits for the anticheat",
     category: "other",
     execute: (message) => {
-        message.player.runCommandAsync("function credits");
+        message.player.runCommand("function credits");
     }
 });

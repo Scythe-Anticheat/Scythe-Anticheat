@@ -1,232 +1,233 @@
 // @ts-check
 // This is the initial file that runs. It is used to load everything for Scythe
 import config from "./data/config.js";
-import { world } from "@minecraft/server";
+import { system, world } from "@minecraft/server";
 
 const latestConfigVer = "14";
 
 // Set dynamic properties
-if(!world.getDynamicProperty("globalmute")) {
-	world.setDynamicProperty("globalmute", JSON.stringify({
-		muted: false,
-		muter: ""
-	}));
-}
-
-if(!world.getDynamicProperty("unbanQueue")) {
-	/*
-		The data in the object should have the following format:
-
-		Key: <player username>
-		Value: [<unbanner>, <reason>]
-
-		The data is stored in an array to conserve storage as dynamic property strings have a limit of 32767 characters
-	*/
-	world.setDynamicProperty("unbanQueue", "{}");
-}
-
-const dpConfig = world.getDynamicProperty("config"); // Object
-if(dpConfig) {
-	// @ts-expect-error
-	const parsedConfig = JSON.parse(dpConfig);
-
-	for(const i of Object.keys(parsedConfig)) {
-		config[i] = parsedConfig[i];
+system.run(() => {
+	if(!world.getDynamicProperty("globalmute")) {
+		world.setDynamicProperty("globalmute", JSON.stringify({
+			muted: false,
+			muter: ""
+		}));
 	}
 
-	console.log("Loaded Scythe Config from Dynamic Properties");
-}
+	if(!world.getDynamicProperty("unbanQueue")) {
+		/*
+			The data in the object should have the following format:
 
-// Update config to support the latest Scythe version
-/* eslint-disable no-fallthrough */
-switch(config.version) {
-	case "2.20.0":
-		config.itemLists.items_semi_illegal.push("minecraft:trial_spawner");
+			Key: <player username>
+			Value: [<unbanner>, <reason>]
 
-		config.modules.namespoofB.regex = String(config.modules.namespoofB.regex);
+			The data is stored in an array to conserve storage as dynamic property strings have a limit of 32767 characters
+		*/
+		world.setDynamicProperty("unbanQueue", "{}");
+	}
 
-		config.logAlertsToConsole = true;
-
-		config.disableFlagsFromScytheOp = config.disable_flags_from_scythe_op;
-		delete config.disable_flags_from_scythe_op;
-
-		config.customcommands.unban.aliases.push("pardon");
-
-		config.modules.killauraA = {
-			enabled: true,
-			rightTicks: 3,
-			punishment: "none",
-			minVlbeforePunishment: 0
-		};
-
-		config.modules.scaffoldE = {
-			enabled: true,
-			punishment: "none",
-			minVLbeforePunishment: 0,
-		};
-
-		config.modules.commandblockexploitH.punishment = "none";
-		config.modules.commandblockexploitH.minVlbeforePunishment = 0;
-
-		config.misc_modules.antiGamemode = {
-			enabled: false,
-			blockedGamemodes: []
-		};
-
-		delete config.customcommands.antigma;
-		delete config.customcommands.antigmc;
-		delete config.customcommands.antigms;
-
-		delete config.customcommands.overridecommandblocksenabled;
-
-	case "2.22.0":
-		config.misc_modules.oreAlerts = {
-			enabled: config.modules.xrayA.enabled,
-			blocks: config.itemLists.xray_items
-		};
-
-		delete config.modules.xrayA;
-		delete config.itemLists.xray_items;
-
-	case "2.24.0":
-		delete config.modules.badenchantsA;
-		delete config.modules.badenchantsB;
-		delete config.modules.badenchantsC;
-		delete config.modules.badenchantsD;
-		delete config.modules.badenchantsE;
-
-		delete config.modules.commandblockexploitF;
-		delete config.modules.commandblockexploitG;
-		delete config.modules.tcommandblockexploitH;
-
-		delete config.modules.illegalitemsB;
-		delete config.modules.illegalitemsC;
-		delete config.modules.illegalitemsD;
-		delete config.modules.illegalitemsE;
-		delete config.modules.illegalitemsF;
-		delete config.modules.illegalitemsH;
-		delete config.modules.illegalitemsI;
-		delete config.modules.illegalitemsJ;
-		delete config.modules.illegalitemsK;
-		delete config.modules.illegalitemsL;
-		delete config.modules.illegalitemsM;
-
-		delete config.misc_modules.resetItemData;
-
-		delete config.itemLists;
-
-		config.modules.badpackets2 = {
-			enabled: true,
-			maxLength: 512,
-			punishment: "ban",
-			punishmentLength: "",
-			minVlbeforePunishment: 1
-		};
-
-		config.modules.reachA.excluded_entities = config.modules.reachA.entities_blacklist;
-		delete config.modules.reachA.entities_blacklist;
-
-		config.modules.reachA.excluded_items = [
-			"minecraft:trident",
-			"minecraft:mace"
-		];
-
-	case "3.0.0":
-		config.modules.badpackets4 = {
-			enabled: true,
-			punishment: "ban",
-			punishmentLength: "",
-			minVlbeforePunishment: 1
-		};
-
-		config.modules.inventorymodsB = {
-			enabled: true,
-			punishment: "none",
-			minVlbeforePunishment: 1
-		};
-
-	case "3.1.1":
-		config.modules.autooffhandA = {
-			enabled: true,
-			punishment: "none",
-			minVlbeforePunishment: 0
-		};
-
-		config.modules.autooffhandB = {
-			enabled: true,
-			punishment: "none",
-			minVlbeforePunishment: 0
-		};
-
-		config.modules.autooffhandC = {
-			enabled: true,
-			punishment: "none",
-			minVlbeforePunishment: 0
-		};
-
-	case "6":
+	const dpConfig = world.getDynamicProperty("config"); // Object
+	if(dpConfig) {
 		// @ts-expect-error
-		config.modules.badpackets5 = {
-			enabled: true,
-			punishment: "ban",
-			punishmentLength: "",
-			minVlbeforePunishment: 1
-		};
-	
-	case "7":
-		config.modules.reachB = {
-			enabled: false,
-			punishment: "none",
-			minVlbeforePunishment: 1
-		};
+		const parsedConfig = JSON.parse(dpConfig);
 
-		config.modules.reachC = {
-			enabled: false,
-			punishment: "none",
-			minVlbeforePunishment: 1
-		};
-	
-	case "8":
-		config.modules.badpackets5.exclude_scythe_op = true;
-
-	case "9":
-		delete config.modules.reachB.reach;
-		delete config.modules.reachC.reach;
-
-	case "10":
-		config.misc_modules.antiSpam = {
-			enabled: config.modules.spammerE.enabled,
-			messageRatelimit: config.modules.spammerE.messageRatelimit,
-			sendWarningMessage: config.modules.spammerE.sendWarningMessage
-		};
-
-		delete config.modules.spammerE;
-	
-	case "11":
-		delete config.modules.reachA.excluded_entities;
-
-	case "12":
-		for(const command of Object.values(config.customcommands)) {
-			// @ts-expect-error
-			delete command.aliases;
+		for(const i of Object.keys(parsedConfig)) {
+			config[i] = parsedConfig[i];
 		}
-	
-	case "13":
-		config.modules.badpackets1 = {
-			enabled: true,
-			punishment: "ban",
-			punishmentLength: "",
-			minVlbeforePunishment: 1
-		};
 
-	case latestConfigVer:
-		break;
+		console.log("Loaded Scythe Config from Dynamic Properties");
+	}
 
-	default:
-		console.error(`Unknown config revision ${config.version}. It is probably best we revert to the default config.`);
-		world.setDynamicProperty("config", undefined);
-}
+	// Update config to support the latest Scythe version
+	/* eslint-disable no-fallthrough */
+	switch(config.version) {
+		case "2.20.0":
+			config.itemLists.items_semi_illegal.push("minecraft:trial_spawner");
 
+			config.modules.namespoofB.regex = String(config.modules.namespoofB.regex);
+
+			config.logAlertsToConsole = true;
+
+			config.disableFlagsFromScytheOp = config.disable_flags_from_scythe_op;
+			delete config.disable_flags_from_scythe_op;
+
+			config.customcommands.unban.aliases.push("pardon");
+
+			config.modules.killauraA = {
+				enabled: true,
+				rightTicks: 3,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
+
+			config.modules.scaffoldE = {
+				enabled: true,
+				punishment: "none",
+				minVLbeforePunishment: 0,
+			};
+
+			config.modules.commandblockexploitH.punishment = "none";
+			config.modules.commandblockexploitH.minVlbeforePunishment = 0;
+
+			config.misc_modules.antiGamemode = {
+				enabled: false,
+				blockedGamemodes: []
+			};
+
+			delete config.customcommands.antigma;
+			delete config.customcommands.antigmc;
+			delete config.customcommands.antigms;
+
+			delete config.customcommands.overridecommandblocksenabled;
+
+		case "2.22.0":
+			config.misc_modules.oreAlerts = {
+				enabled: config.modules.xrayA.enabled,
+				blocks: config.itemLists.xray_items
+			};
+
+			delete config.modules.xrayA;
+			delete config.itemLists.xray_items;
+
+		case "2.24.0":
+			delete config.modules.badenchantsA;
+			delete config.modules.badenchantsB;
+			delete config.modules.badenchantsC;
+			delete config.modules.badenchantsD;
+			delete config.modules.badenchantsE;
+
+			delete config.modules.commandblockexploitF;
+			delete config.modules.commandblockexploitG;
+			delete config.modules.tcommandblockexploitH;
+
+			delete config.modules.illegalitemsB;
+			delete config.modules.illegalitemsC;
+			delete config.modules.illegalitemsD;
+			delete config.modules.illegalitemsE;
+			delete config.modules.illegalitemsF;
+			delete config.modules.illegalitemsH;
+			delete config.modules.illegalitemsI;
+			delete config.modules.illegalitemsJ;
+			delete config.modules.illegalitemsK;
+			delete config.modules.illegalitemsL;
+			delete config.modules.illegalitemsM;
+
+			delete config.misc_modules.resetItemData;
+
+			delete config.itemLists;
+
+			config.modules.badpackets2 = {
+				enabled: true,
+				maxLength: 512,
+				punishment: "ban",
+				punishmentLength: "",
+				minVlbeforePunishment: 1
+			};
+
+			config.modules.reachA.excluded_entities = config.modules.reachA.entities_blacklist;
+			delete config.modules.reachA.entities_blacklist;
+
+			config.modules.reachA.excluded_items = [
+				"minecraft:trident",
+				"minecraft:mace"
+			];
+
+		case "3.0.0":
+			config.modules.badpackets4 = {
+				enabled: true,
+				punishment: "ban",
+				punishmentLength: "",
+				minVlbeforePunishment: 1
+			};
+
+			config.modules.inventorymodsB = {
+				enabled: true,
+				punishment: "none",
+				minVlbeforePunishment: 1
+			};
+
+		case "3.1.1":
+			config.modules.autooffhandA = {
+				enabled: true,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
+
+			config.modules.autooffhandB = {
+				enabled: true,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
+
+			config.modules.autooffhandC = {
+				enabled: true,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
+
+		case "6":
+			// @ts-expect-error
+			config.modules.badpackets5 = {
+				enabled: true,
+				punishment: "ban",
+				punishmentLength: "",
+				minVlbeforePunishment: 1
+			};
+		
+		case "7":
+			config.modules.reachB = {
+				enabled: false,
+				punishment: "none",
+				minVlbeforePunishment: 1
+			};
+
+			config.modules.reachC = {
+				enabled: false,
+				punishment: "none",
+				minVlbeforePunishment: 1
+			};
+		
+		case "8":
+			config.modules.badpackets5.exclude_scythe_op = true;
+
+		case "9":
+			delete config.modules.reachB.reach;
+			delete config.modules.reachC.reach;
+
+		case "10":
+			config.misc_modules.antiSpam = {
+				enabled: config.modules.spammerE.enabled,
+				messageRatelimit: config.modules.spammerE.messageRatelimit,
+				sendWarningMessage: config.modules.spammerE.sendWarningMessage
+			};
+
+			delete config.modules.spammerE;
+		
+		case "11":
+			delete config.modules.reachA.excluded_entities;
+
+		case "12":
+			for(const command of Object.values(config.customcommands)) {
+				// @ts-expect-error
+				delete command.aliases;
+			}
+		
+		case "13":
+			config.modules.badpackets1 = {
+				enabled: true,
+				punishment: "ban",
+				punishmentLength: "",
+				minVlbeforePunishment: 1
+			};
+
+		case latestConfigVer:
+			break;
+
+		default:
+			console.error(`Unknown config revision ${config.version}. It is probably best we revert to the default config.`);
+			world.setDynamicProperty("config", undefined);
+	}
+});
 config.version = latestConfigVer;
 
 // Load class extensions

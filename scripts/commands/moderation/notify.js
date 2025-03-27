@@ -1,3 +1,4 @@
+// @ts-check
 import { tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 

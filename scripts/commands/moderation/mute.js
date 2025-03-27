@@ -1,3 +1,4 @@
+// @ts-check
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -25,7 +26,7 @@ registerCommand({
         target.sendMessage(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
 
         // Remove chat ability
-        target.runCommandAsync("ability @s mute true");
+        target.runCommand("ability @s mute true");
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${target.name} for ${reason}`);
     }

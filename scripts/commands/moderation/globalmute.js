@@ -1,3 +1,4 @@
+// @ts-check
 import { world } from "@minecraft/server";
 import { tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
@@ -13,6 +14,7 @@ registerCommand({
 });
 
 export function toggleGlobalMute(initiator) {
+	// @ts-expect-error
 	const muteData = JSON.parse(world.getDynamicProperty("globalmute"));
 
 	if(muteData.muted) {

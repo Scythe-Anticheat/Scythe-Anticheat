@@ -24,7 +24,7 @@ registerCommand({
 export function enableFly(target, initator) {
 	target.addTag("flying");
 
-	target.runCommandAsync("ability @s mayfly true");
+	target.runCommand("ability @s mayfly true");
 	target.sendMessage("§r§6[§aScythe§6]§r You are now in fly mode.");
 
 	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has given ${initator.id === target.id ? "themselves" : `${target.name}'s`} fly mode.`);
@@ -33,7 +33,7 @@ export function enableFly(target, initator) {
 export function disableFly(target, initator) {
 	target.removeTag("flying");
 
-	target.runCommandAsync("ability @s mayfly false");
+	target.runCommand("ability @s mayfly false");
 	target.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
 
 	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has removed ${target.id === initator.id ? "their" : `${target.name}'s`} fly mode.`);

@@ -1,3 +1,4 @@
+// @ts-check
 import { registerCommand } from "../handler.js";
 import config from "../../data/config.js";
 

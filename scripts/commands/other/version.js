@@ -1,3 +1,4 @@
+// @ts-check
 import config from "../../data/config.js";
 import { registerCommand } from "../handler.js";
 
@@ -9,7 +10,7 @@ registerCommand({
     execute: (message) => {
         const { player } = message;
 
-        player.runCommandAsync("function version");
+        player.runCommand("function version");
         player.sendMessage(`§r§6[§aScythe§6]§r Config revision: ${config.version}`);
     }
 });
