@@ -309,21 +309,21 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	if(config.modules.reachC.enabled) {
 		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
 		const distance = Math.sqrt((block.location.x - player.location.x)**2 + (block.location.y - player.location.y)**2 + (block.location.z - player.location.z)**2);
-		const platformType = player.clientSystemInfo.platformType;
+		const inputMode = player.inputInfo.lastInputModeUsed;
 
 		if(config.debug) console.log(distance);
 
 		let reachLimit = NaN;
-		switch(platformType) {
-			case "Desktop":
+		switch(inputMode) {
+			case "KeyboardAndMouse":
 				reachLimit = 5;
 				break;
 
-			case "Mobile":
-				reachLimit = 11;
+			case "Touch":
+				reachLimit = 11.5;
 				break;
 
-			case "Console":
+			case "Gamepad":
 				// Xbox consoles have a reach limit of ~5 blocks, meanwhile Switch consoles have a reach limit of ~6.5 blocks
 				// We can't differentiate between the two platforms so the Switch reach limit is used.
 				reachLimit = 6.5;
@@ -332,7 +332,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		// To avoid visually unpleasing code we calculate reach limit based on device first and then gamemode
 		if(player.gamemode === "survival") reachLimit = 5;
 
-		if(reachLimit < distance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},device=${platformType}`);
+		if(reachLimit < distance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${inputMode}`);
 	}
 
 	// Get block under player
