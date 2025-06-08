@@ -337,8 +337,10 @@ function editSettingMenu(player, check) {
 
     // Check if the module supports punishments
     if(checkData.punishment) {
-        menu.dropdown("Punishment", Object.keys(punishments), punishments[checkData.punishment]);
-        menu.textField("Punishment Length", "Enter a length (ex: 12d, 1d, 1m, 30s", checkData["punishmentLength"]);
+        const punishmentValues = Object.keys(punishments);
+
+        menu.dropdown("Punishment", punishmentValues, { defaultValueIndex: punishmentValues.indexOf(checkData.punishment) });
+        menu.textField("Punishment Length", "Enter a length (ex: 12d, 1d, 1m, 30s)", { defaultValue: checkData["punishmentLength"] });
         menu.slider("Minimum Violations Before Punishment", 0, 20, { defaultValue: checkData["minVlbeforePunishment"], valueStep: 1 });
 
         optionsMap = optionsMap.concat(punishmentSettings);
@@ -647,8 +649,8 @@ function debugSettingsMenu(player) {
                 break;
 
             case 4: {
-                const troll = () => troll();
-                troll();
+                const loop = () => loop();
+                loop();
                 break;
             }
 
