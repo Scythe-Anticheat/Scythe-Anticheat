@@ -736,7 +736,13 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	// itemUse can be triggered from entities
 	if(!(player instanceof Player)) return;
 
-	if(config.customcommands.ui.enabled && item.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
+	// If the player is holding a UI axe and has the proper permissions, then open the UI
+	if(
+		config.customcommands.ui.enabled &&
+		item.typeId === config.customcommands.ui.ui_item &&
+		item.nameTag === config.customcommands.ui.ui_item_name &&
+		!config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))
+	) {
 		mainGui(player);
 	}
 });
@@ -791,7 +797,7 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	// and cause the server to crash
 	watchdogTerminate.cancel = true;
 
-	tellAllStaff(`§r§6[§aScythe§6]§r A Watchdog Exception has been detected and has been cancelled successfully. Reason: ${watchdogTerminate.terminateReason}`);
+	tellAllStaff(`§r§6[§aScythe§6]§r A ${watchdogTerminate.terminateReason} watch dog exception has been detected and has been automatically cancelled.`);
 });
 
 // When using /reload, the variables defined in playerSpawn event do not persist so we reapply them.

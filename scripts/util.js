@@ -386,7 +386,7 @@ export function setScore(entity, objectiveName, value) {
 /**
  * @name capitalizeFirstLetter
  * @param {string} string - The string to modify
- * @remarks Capitalize the first
+ * @remarks Capitalize the first character of a string
  * @returns {string} string - The updated string
  */
 export function capitalizeFirstLetter(string) {
@@ -402,16 +402,23 @@ export function capitalizeFirstLetter(string) {
 export function findPlayerByName(name) {
 	const searchName = name.toLowerCase().replace(/\\|@/g, "");
 
+    /**
+     * We want to first try and see if there is an exact match for the player name.
+     * If there are no exact matches, we check if the name searched is a substring of a player name and return that
+     */
+    let partialMatch;
+
     const players = world.getPlayers();
     for(let i = 0; i < players.length; i++) {
         const player = players[i];
 
         const lowercaseName = player.name.toLowerCase();
-        if(searchName !== lowercaseName && !lowercaseName.includes(searchName)) continue;
+        if(searchName === lowercaseName) return player;
 
-		// Found a valid player
-		return player;
+        if(lowercaseName.includes(searchName)) partialMatch = player;
 	}
+
+    return partialMatch;
 }
 
 /**

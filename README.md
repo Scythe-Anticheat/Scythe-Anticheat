@@ -1,7 +1,4 @@
 <div align="center">
-  ⚠️ The Scythe Anticheat Repository is being transferred to https://github.com/Scythe-Anticheat/Scythe-Anticheat. Please update any links to the new URL. ⚠️
-
-
   <b>Scythe Anticheat - The best anticheat designed for Minecraft Bedrock realms/worlds/servers.</b>
 
   <img src="https://raw.githubusercontent.com/MrDiamond64/image-assets/main/scythe%20pog%20anticheat.png" width="600" alt="Scythe Anticheat"/>
