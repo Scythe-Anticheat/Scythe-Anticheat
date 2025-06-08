@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "14",
+	"version": "15",
 	"debug": true,
 	// If checks can auto-ban
 	"autoban": true,
@@ -446,10 +446,6 @@ export default
 		},
 		"filterUnicodeChat": {
 			"enabled": false
-		},
-		"itemSpawnRateLimit": {
-			"enabled": false,
-			"entitiesBeforeRateLimit": 45
 		},
 		"welcomeMessage": {
 			"enabled": false,

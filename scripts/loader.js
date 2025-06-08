@@ -3,7 +3,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "14";
+const latestConfigVer = "15";
 
 // Set dynamic properties
 system.run(() => {
@@ -219,6 +219,9 @@ system.run(() => {
 				punishmentLength: "",
 				minVlbeforePunishment: 1
 			};
+		
+		case "14":
+			delete config.misc_modules.itemSpawnRateLimit;
 
 		case latestConfigVer:
 			break;
@@ -227,8 +230,9 @@ system.run(() => {
 			console.error(`Unknown config revision ${config.version}. It is probably best we revert to the default config.`);
 			world.setDynamicProperty("config", undefined);
 	}
+
+	config.version = latestConfigVer;
 });
-config.version = latestConfigVer;
 
 // Load class extensions
 import "./extensions/Player.js";

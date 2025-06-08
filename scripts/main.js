@@ -5,8 +5,6 @@ import { flag, banMessage, getScore, tellAllStaff, setScore } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 
-let entitiesSpawnedInLastTick = 0;
-
 world.beforeEvents.chatSend.subscribe((msg) => {
 	const { sender: player, message } = msg;
 
@@ -105,7 +103,6 @@ world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 
 system.runInterval(() => {
 	const now = Date.now();
-	if(config.misc_modules.itemSpawnRateLimit.enabled) entitiesSpawnedInLastTick = 0;
 
 	// Run as each player
 	const players = world.getPlayers();
@@ -559,11 +556,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 	// If the entity dies right before this event triggers, an error will be thrown if any property is accessed
 	if(!entity.isValid) return;
-
-	if(config.misc_modules.itemSpawnRateLimit.enabled && ++entitiesSpawnedInLastTick > config.misc_modules.itemSpawnRateLimit.entitiesBeforeRateLimit) {
-		if(config.debug) console.warn(`Killed "${entity.typeId}" due to entity spawn ratelimit reached.`);
-		entity.remove();
-	}
 
 	if(config.misc_modules.antiArmorStandCluster.enabled && entity.typeId === "minecraft:armor_stand") {
 		const entities = entity.dimension.getEntities({
