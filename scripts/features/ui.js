@@ -2,7 +2,7 @@
 import { world, ItemTypes, ItemStack, GameMode } from "@minecraft/server";
 import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 
-import { flag, parseTime, capitalizeFirstLetter, addOp, removeOp, tellAllStaff } from "../util.js";
+import { flag, parseTime, capitalizeFirstLetter, tellAllStaff } from "../util.js";
 import { getStatsMsg } from "../commands/moderation/stats.js";
 import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
 import { wipeEnderchest } from "../commands/utility/ecwipe.js";
@@ -476,7 +476,7 @@ export function playerSettingsMenuSelected(player, target) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
                 }
 
-                target.hasTag("op") ? removeOp(player, target) : addOp(player, target);
+                target.hasTag("op") ? target.removeOp(player) : target.addOp(player);
                 break;
 
             case 9:

@@ -1,5 +1,5 @@
 // @ts-check
-import { findPlayerByName, addOp } from "../../util.js";
+import { findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -19,6 +19,6 @@ registerCommand({
 
         if(target.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r This player already has scythe-op.");
 
-        addOp(player, target);
+        target.addOp(player);
     }
 });

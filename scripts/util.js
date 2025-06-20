@@ -138,8 +138,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     // If the VL scoreboard object doesn't exist then create one
     if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
 
-    let currentVl = getScore(player, scoreboardObjective, 0);
-    setScore(player, scoreboardObjective, ++currentVl);
+    let currentVl = player.getScore(scoreboardObjective, 0);
+    player.setScore(scoreboardObjective, ++currentVl);
 
     const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${currentVl}`;
 
@@ -344,46 +344,6 @@ export function msToTime(ms) {
 }
 
 /**
- * @name getScore
- * @param {Entity} entity - The entity to get the scoreboard value from
- * @param {string} objective - The name of the scoreboard objective
- * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
- * @example getScore(player, "cbevl")
- * @remarks Gets the scoreboard objective value for a player
- * @returns {number} score - The scoreboard objective value
- */
-export function getScore(entity, objective, defaultValue = 0) {
-    if(!(entity instanceof Entity)) throw TypeError(`Error: entity is not an instance of Entity.`);
-    if(typeof objective !== "string") throw TypeError(`Error: objective is type of ${typeof objective}. Expected "string"`);
-    if(typeof defaultValue !== "number") throw TypeError(`Error: defaultValue is type of ${typeof defaultValue}. Expected "number"`);
-
-    try {
-       return world.scoreboard.getObjective(objective)?.getScore(entity) ?? defaultValue;
-    } catch {
-        return defaultValue;
-    }
-}
-
-/**
- * @name setScore
- * @param {Entity} entity - The player to set the score for
- * @param {string} objectiveName - The scoreboard objective
- * @param {number} value - The new value of the scoreboard objective
- * @example getScore(player, "cbevl", 0)
- * @remarks Sets the scoreboard objective value for a player
- */
-export function setScore(entity, objectiveName, value) {
-    if(!(entity instanceof Entity)) throw TypeError(`Error: entity is not an instance of Entity.`);
-    if(typeof objectiveName !== "string") throw TypeError(`Error: objective is type of ${typeof objectiveName}. Expected "string"`);
-    if(typeof value !== "number") throw TypeError(`Error: value is type of ${typeof value}. Expected "number"`);
-
-    const objective = world.scoreboard.getObjective(objectiveName);
-    if(!objective) throw Error(`Objective "${objectiveName}" does not exist`);
-
-    objective.setScore(entity, value);
-}
-
-/**
  * @name capitalizeFirstLetter
  * @param {string} string - The string to modify
  * @remarks Capitalize the first character of a string
@@ -419,32 +379,6 @@ export function findPlayerByName(name) {
 	}
 
     return partialMatch;
-}
-
-/**
- * @name addOp
- * @remarks Add Scythe-OP status to a player
- * @param {Player} initiator - The player that initiated the request
- * @param {Player} player - The player that will be given scythe-op status
- */
-export function addOp(initiator, player) {
-    tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has given ${player.name} scythe-op status.`);
-
-    player.addTag("op");
-
-    player.sendMessage("§r§6[§aScythe§6]§r §7You are now scythe-op.");
-}
-
-/**
- * @name removeOp
- * @remarks Remove Scythe-OP status from a player
- * @param {Player} initiator - The player that initiated the request
- * @param {Player} player - The player that will be given scythe-op status
- */
-export function removeOp(initiator, player) {
-    tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has removed ${player.name}'s scythe-op status.`);
-
-    player.removeTag("op");
 }
 
 /**

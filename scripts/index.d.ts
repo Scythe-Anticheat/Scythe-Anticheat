@@ -34,5 +34,15 @@ declare module "@minecraft/server" {
 		lastGoodPosition: Vector3
 		rotation: Vector2
 		velocity: Vector3
+
+		// Custom functions
+		addOp(initiator: Player): void
+		removeOp(initiator: Player): void
+	}
+
+	interface Entity {
+		// Custom functions
+		getScore(objective: String, defaultValue?: number): number
+		setScore(objectiveName: String, value: number): void
 	}
 }

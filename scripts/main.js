@@ -1,7 +1,7 @@
 // @ts-check
 import config from "./data/config.js";
 import { world, system, Player, EquipmentSlot } from "@minecraft/server";
-import { flag, banMessage, getScore, tellAllStaff, setScore } from "./util.js";
+import { flag, banMessage, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 
@@ -178,7 +178,7 @@ system.runInterval(() => {
 				player.hasTag("right") &&
 				!player.hasTag("riding")
 			) {
-				const right = getScore(player, "right");
+				const right = player.getScore("right");
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
 
 				// Make sure there are no entities below the player
@@ -537,7 +537,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	) flag(player, "BadPackets", "5", "Exploit", `maxRenderDistance=${player.clientSystemInfo.maxRenderDistance}`);
 
 	// This is used in the onJoin.json animation to check if Beta APIs are enabled
-	setScore(player, "gametestapi", 1);
+	player.setScore("gametestapi", 1);
 
 	// @ts-expect-error
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
@@ -654,7 +654,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 	// Killaura/A = Check if a player attacks an entity while using an item
 	if(config.modules.killauraA.enabled && player.hasTag("right")) {
-		const rightTicks = getScore(player, "right");
+		const rightTicks = player.getScore("right");
 
 		if(rightTicks > config.modules.killauraA.rightTicks) {
 			flag(player, "Killaura", "A", "Combat", `ticks=${rightTicks}`);

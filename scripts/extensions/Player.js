@@ -1,6 +1,7 @@
 // @ts-check
 // Add new methods to Scripting API classes
 import { Player } from "@minecraft/server";
+import { tellAllStaff } from "../util.js";
 
 // In older versions of Scythe, we would only add these properties if the necessary module was enabled
 // However this would bring along a problem where if a world is loaded without the module enabled,
@@ -15,3 +16,24 @@ Player.prototype.lastLeftClick = NaN;
 Player.prototype.entitiesHit = [];
 Player.prototype.lastMessageSent = 0;
 Player.prototype.reports = [];
+
+/**
+ * @remarks Add Scythe-OP status to a player
+ * @param {Player} initiator - The player that initiated the request
+ */
+Player.prototype.addOp = function(initiator) {
+    tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has given ${this.name} scythe-op status.`);
+
+    this.addTag("op");
+    this.sendMessage("§r§6[§aScythe§6]§r §7You are now scythe-op.");
+};
+
+/**
+ * @remarks Remove Scythe-OP status from a player
+ * @param {Player} initiator - The player that initiated the request
+ */
+Player.prototype.removeOp = function(initiator) {
+    tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has removed ${this.name}'s scythe-op status.`);
+
+    this.removeTag("op");
+};

@@ -1,5 +1,5 @@
 // @ts-check
-import { findPlayerByName, removeOp } from "../../util.js";
+import { findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -18,6 +18,6 @@ registerCommand({
 
         if(!target.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r This player does not have scythe-op.");
 
-        removeOp(player, target);
+        target.removeOp(player);
     }
 });
