@@ -386,7 +386,7 @@ export function playerSettingsMenuSelected(player, target) {
 
     const menu = new ActionFormData()
         .title("Player Menu - " + target.name)
-        .body(`Player Info:\n\nName: ${target.name}\nUnique ID: ${target.id}\nDimension: ${capitalizeFirstLetter((target.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\nGamemode: ${capitalizeFirstLetter(target.gamemode)}\nPlatform: ${target.clientSystemInfo.platformType}\nScythe Opped: ${target.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${target.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n§rVanished: ${target.getDynamicProperty("vanished") ?? false}\nFlying: ${target.isFlying}`)
+        .body(`Player Info:\n\nName: ${target.name}\nUnique ID: ${target.id}\nDimension: ${capitalizeFirstLetter((target.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\nGamemode: ${target.gamemode}\nPlatform: ${target.clientSystemInfo.platformType}\nScythe Opped: ${target.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${target.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n§rVanished: ${target.getDynamicProperty("vanished") ?? false}\nFlying: ${target.isFlying}`)
         .button("View Inventory", "textures/blocks/chest_front.png")
         .button("Kick Player", icons.anvil)
         .button("Ban Player", icons.anvil)
@@ -543,7 +543,7 @@ function playerSettingsMenuSelectedGamemode(player, target) {
 
         switch(response.selection) {
             case 3:
-                target.setGameMode(GameMode.spectator);
+                target.setGameMode(GameMode.Spectator);
                 break;
 
             case 4:

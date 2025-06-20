@@ -1,6 +1,6 @@
 // @ts-check
 import { world } from "@minecraft/server";
-import { findPlayerByName, tellAllStaff, setScore } from "../../util.js";
+import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -23,7 +23,7 @@ registerCommand({
 
             if(!id.endsWith("vl")) continue;
 
-            setScore(target, id, 0);
+            target.setScore(id, 0);
         }
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has reset ${target.name}'s warns.`);

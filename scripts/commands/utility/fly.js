@@ -15,7 +15,7 @@ registerCommand({
 
 		if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		if(player.gamemode === "creative") return player.sendMessage("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
+		if(player.gamemode === "Creative") return player.sendMessage("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
 
 		target.hasTag("flying") ? disableFly(target, player) : enableFly(target, player);
 	}

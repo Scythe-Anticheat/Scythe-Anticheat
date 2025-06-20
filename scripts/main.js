@@ -327,7 +327,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		}
 
 		// To avoid visually unpleasing code we calculate reach limit based on device first and then gamemode
-		if(player.gamemode === "survival") reachLimit = 5;
+		if(player.gamemode === "Survival") reachLimit = 5;
 
 		if(reachLimit < distance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${inputMode}`);
 	}
@@ -354,7 +354,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		// Get the decimal portion of the Y position
 		const yDecimal = Math.abs(player.location.y % 1);
 
-		if(yDecimal > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "creative" && !player.isFlying) {
+		if(yDecimal > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "Creative" && !player.isFlying) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yDecimal},block=${block.typeId}`, true);
 			block.setType("air");
 		}
@@ -442,7 +442,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 
 	Scythe Anticheat checks if the player's selected slot changes right after the player starts mining the block to detect AutoTool.
 	*/
-	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== "creative") {
+	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== "Creative") {
 		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlotIndex},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
 		revertBlock = true;
 	}
@@ -452,7 +452,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 		While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasses
 		that can be used
 	*/
-	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId) && player.gamemode !== "creative") {
+	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId) && player.gamemode !== "Creative") {
 		flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
 		revertBlock = true;
 	}
@@ -548,7 +548,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	}
 
 	// If enabled from previous login then activate
-	if(player.hasTag("flying") && player.gamemode !== "creative") player.runCommand("ability @s mayfly true");
+	if(player.hasTag("flying") && player.gamemode !== "Creative") player.runCommand("ability @s mayfly true");
 	if(player.getDynamicProperty("muted")) player.runCommand("ability @s mute true");
 	if(player.getDynamicProperty("frozen")) player.triggerEvent("scythe:freeze");
 });
@@ -590,7 +590,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	*/
 	if(
 		config.modules.reachA.enabled &&
-		player.gamemode !== "creative" &&
+		player.gamemode !== "Creative" &&
 		entity instanceof Player
 	) {
 		// Calculate reach from the player's head location
