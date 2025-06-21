@@ -5,7 +5,6 @@ import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 import { flag, parseTime, capitalizeFirstLetter, tellAllStaff } from "../util.js";
 import { getStatsMsg } from "../commands/moderation/stats.js";
 import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
-import { wipeEnderchest } from "../commands/utility/ecwipe.js";
 import { getInvseeMsg } from "../commands/utility/invsee.js";
 import { freezePlayer, unfreezePlayer } from "../commands/utility/freeze.js";
 import { disableFly, enableFly } from "../commands/utility/fly.js";
@@ -434,7 +433,7 @@ export function playerSettingsMenuSelected(player, target) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
                 }
 
-                wipeEnderchest(player, target);
+                target.wipeEnderchest(player);
                 break;
 
             case 5:

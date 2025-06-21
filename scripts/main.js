@@ -63,13 +63,22 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 });
 
 world.afterEvents.chatSend.subscribe(({ sender: player }) => {
-	// Spammer/A = Checks if someone sends a message while moving and on ground
+	/**
+	Each of these Spammer modules are designed to detect the Spammer module in hack clients such as Horion, which automatically sends messages on the behalf of the player
+	If you are looking for something to prevent people sending too many messages in chat, then use the antispam misc module
+
+	Spammer/A = Checks if someone sends a message while moving
+	Spammer/B = Checks if someone sends a message while swinging their hand
+	Spammer/C = Checks if someone sends a message while using an item
+	Spammer/D = Checks if someone sends a message while having a GUI open
+	*/
+
 	const firstMoved = Date.now() - player.movedAt;
 	if(
 		config.modules.spammerA.enabled &&
 		player.isMoving &&
 		// Make sure that the player hasn't moved within the last two seconds
-		// Jumping and sending a chat message at the exact time you hit the ground causes a false positive
+		// Jumping and sending a chat message at the exact time you hit the ground results in a false positive
 		firstMoved > 2000 &&
 		player.isOnGround &&
 		!player.isJumping &&
@@ -79,22 +88,17 @@ world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 		return;
 	}
 
-	/*
-	Spammer/B = Checks if someone sends a message while swinging their hand
-	Mining fatigue can make the arm swing animation last longer than normal so we ignore players with that effect
-	*/
+	// Mining fatigue can make the arm swing animation last longer than normal so we ignore players with that effect
 	if(config.modules.spammerB.enabled && player.hasTag("left") && !player.getEffect("mining_fatigue")) {
 		flag(player, "Spammer", "B", "Combat");
 		return;
 	}
 
-	// Spammer/C = Checks if someone sends a message while using an item
 	if(config.modules.spammerC.enabled && player.hasTag("right")) {
 		flag(player, "Spammer", "C", "Misc");
 		return;
 	}
 
-	// Spammer/D = Checks if someone sends a message while having a GUI open
 	if(config.modules.spammerD.enabled && player.hasTag("hasGUIopen")) {
 		flag(player, "Spammer", "D", "Misc");
 		return;
@@ -111,7 +115,6 @@ system.runInterval(() => {
 		const player = players[i];
 
 		try {
-
 			// --- Prerequisite variables that are used by checks later on ---
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
@@ -120,7 +123,7 @@ system.runInterval(() => {
 			player.heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
 
 			// Find the magnitude of the vector
-			const playerSpeed = Number(Math.sqrt(player.velocity.x**2 + player.velocity.z**2).toFixed(2));
+			const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
 			player.isMoving = playerSpeed !== 0;
 
 			const firstMoved = now - player.movedAt;
@@ -185,7 +188,7 @@ system.runInterval(() => {
 				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
 
 				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity instanceof Player) && !blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed},heldItem=${player.heldItem},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed.toFixed(2)},heldItem=${player.heldItem},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
 				}
 			}
 

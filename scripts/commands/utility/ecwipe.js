@@ -1,4 +1,4 @@
-import { findPlayerByName, tellAllStaff } from "../../util.js";
+import { findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -16,14 +16,6 @@ registerCommand({
 
         if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        wipeEnderchest(target, player);
+        target.wipeEnderchest(player);
     }
 });
-
-export function wipeEnderchest(target, initiator) {
-    tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has cleared ${target.name}'s enderchest.`);
-
-    for(let i = 0; i < 27; i++) {
-        target.runCommand(`replaceitem entity @s slot.enderchest ${i} air`);
-    }
-}

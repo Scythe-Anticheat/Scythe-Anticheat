@@ -36,8 +36,9 @@ declare module "@minecraft/server" {
 		velocity: Vector3
 
 		// Custom functions
-		addOp(initiator: Player): void
-		removeOp(initiator: Player): void
+		addOp(initiator?: Player): void
+		removeOp(initiator?: Player): void
+		wipeEnderchest(initiator?: Player): void
 	}
 
 	interface Entity {
