@@ -10,12 +10,11 @@ import { world, Entity, Player } from "@minecraft/server";
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string} [debug] - Debug info.
  * @param {boolean} [shouldTP] - Whether to tp the player to itself.
- * @param {object} [cancelObject] - object with property "cancel" to cancel.
  * @param {number} [slot] - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
  * @remarks Alerts staff if a player is hacking.
  */
-export function flag(player, check, checkType, hackType, debug, shouldTP = false, cancelObject, slot) {
+export function flag(player, check, checkType, hackType, debug, shouldTP = false, slot) {
     // validate that required params are defined
     if(!(player instanceof Player)) throw TypeError(`Error: player is not an instance of Player.`);
     if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
@@ -23,7 +22,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(typeof hackType !== "string") throw TypeError(`Error: hackType is type of ${typeof hackType}. Expected "string"`);
     if(typeof debug !== "string" && debug !== undefined) throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string", "number" or "undefined"`);
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
-    if(typeof cancelObject !== "object" && cancelObject !== undefined) throw TypeError(`Error: cancelObject is type of ${typeof cancelObject}. Expected "object" or "undefined"`);
     if(typeof slot !== "number" && slot !== undefined) throw TypeError(`Error: slot is type of ${typeof slot}. Expected "number" or "undefined"`);
 
     const checkData = config.modules[check.toLowerCase() + checkType];
@@ -127,9 +125,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
         console.warn(JSON.stringify(data));
     }
-
-    // Cancel the message/placement if possible
-    if(cancelObject) cancelObject.cancel = true;
 
     if(shouldTP) player.tryTeleport(player.lastGoodPosition, { dimension: player.dimension, rotation: { x: 0, y: 0 }, keepVelocity: false });
 

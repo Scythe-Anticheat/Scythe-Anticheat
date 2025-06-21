@@ -688,7 +688,7 @@ function debugSettingsFlag(player) {
         if(!formValues) return debugSettingsMenu(player);
 
         // @ts-expect-error
-        flag(player, formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], undefined, formValues[5] ? formValues[6] : undefined);
+        flag(player, formValues[0], formValues[1], formValues[2], formValues[3], formValues[4], formValues[5] ? formValues[6] : undefined);
     });
 }
 
