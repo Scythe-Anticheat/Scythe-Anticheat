@@ -235,6 +235,7 @@ system.run(() => {
 });
 
 // Load class extensions
+import "./extensions/Entity.js";
 import "./extensions/Player.js";
 
 // Register all commands
