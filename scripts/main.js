@@ -304,7 +304,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	When in Creative, the place block reach changes depending on the device:
 		- Desktop: Reach limit remains the same
 		- Mobile: Reach limit increases to ~11 blocks, depending on angle
-		- Console: TODO
+		- Console: Reach liit can vary around 5-6.5 blocks, depending on device
 	*/
 	if(config.modules.reachC.enabled) {
 		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
@@ -527,7 +527,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	}
 
 	/*
-	BadPackets[5] = Checks if the player has an invalid max render distance.
+	BadPackets[5] = Checks if the player has an invalid max render distance
 
 	This value is *not* the player's current render distance, but rather the max the player could set their render distance to.
 	Vanilla clients would have this value set to 6-96 according to https://minecraftbedrock-archive.fandom.com/wiki/Render_Distance

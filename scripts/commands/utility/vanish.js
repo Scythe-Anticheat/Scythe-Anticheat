@@ -1,3 +1,4 @@
+import { GameMode } from "@minecraft/server";
 import { tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -22,7 +23,7 @@ registerCommand({
 
             // Store the player's previous gamemode so we can return them back when they exit out of vanish
             player.setDynamicProperty("previousGamemode", player.gamemode);
-            player.setGameMode("spectator");
+            player.setGameMode(GameMode.Spectator);
 
             player.sendMessage("§r§6[§aScythe§6]§r You are now vanished.");
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} is now vanished.`);
