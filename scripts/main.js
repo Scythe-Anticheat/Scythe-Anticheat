@@ -1,6 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
-import { world, system, Player, EquipmentSlot } from "@minecraft/server";
+import { world, system, Player, EquipmentSlot, PlayerInventoryType } from "@minecraft/server";
 import { flag, banMessage, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -63,7 +63,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 });
 
 world.afterEvents.chatSend.subscribe(({ sender: player }) => {
-	/**
+	/*
 	Each of these Spammer modules are designed to detect the Spammer module in hack clients such as Horion, which automatically sends messages on the behalf of the player
 	If you are looking for something to prevent people sending too many messages in chat, then use the antispam misc module
 
@@ -126,7 +126,7 @@ system.runInterval(() => {
 			const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
 			player.isMoving = playerSpeed !== 0;
 
-			const firstMoved = now - player.movedAt;
+			const moveVector = player.inputInfo.getMovementVector();
 
 			// Get the item that the player is holding in their cursor
 			const cursorItem = player.getComponent("cursor_inventory")?.item;
@@ -155,11 +155,16 @@ system.runInterval(() => {
 			*/
 
 			/*
-			BadPackets[1] = Invalid viewing angles check
+			A player's pitch has a range of -90 to 90, and the player's yaw has a range of -180 to 180
+			There are some cheats and crash methods that make the player exceed these vanilla limits, which we can detect
 
-			BadPackets[1] is one of the oldest checks in Scythe that still exists today.
-			It was originally added around August 2020 to 2021, before Scythe even became publicly available on GitHub
-			Originally a function-based check, it has now been ported to the Scripting API.
+			In a vanilla game, it is possible to to exceed this limit by using Full Desktop Gameplay and using the arrow keys to move your camera
+			This will result in the player's pitch going beyond these limits, with a magnitude that is proportional to the rotation speed
+			The Scripting API does not allow us to determine if this option is enabled, so there is no way to fix this false positive
+
+			This check has a long history in Scythe. It was originally added somewhere in August 2020 ~ 2021, before the anticheat was public, as a function-based check
+			In July 2022, this check was ported to use the Scripting API, however there was a bug where using boats would make the player's viewing angles exceed the limit by an absurd value
+			It was reintroduced as a Scripting API after it was confirmed that the issue is no longer present
 			*/
 			if(
 				config.modules.badpackets1.enabled &&
@@ -204,52 +209,17 @@ system.runInterval(() => {
 					else flag(player, "InvalidSprint", "A", "Movement", `blindTicks=${blindTicks}`, true);
 			}
 
-			// Fly/a
-			// This check no longer works.
-			/*
-			if(config.modules.flyA.enabled && Math.abs(player.velocity.y).toFixed(4) === "0.1552" && !player.isJumping && !player.isGliding && !player.hasTag("riding") && !player.getEffect("levitation") && player.isMoving) {
-				const pos1 = {x: player.location.x - 2, y: player.location.y - 1, z: player.location.z - 2};
-				const pos2 = {x: player.location.x + 2, y: player.location.y + 2, z: player.location.z + 2};
-
-				const isInAir = !getBlocksBetween(pos1, pos2).some((block) => player.dimension.getBlock(block)?.typeId !== "minecraft:air");
-
-				if(isInAir) flag(player, "Fly", "A", "Movement", `vertical_speed=${Math.abs(player.velocity.y).toFixed(4)}`, true);
-					else if(config.debug) console.warn(`${player.name} was detected with flyA motion but was found near solid blocks.`);
-			}
-			*/
-
 			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
-
-			/*
-			InventoryMods/B = Check if a player switches the item they selected in the inventory while moving
-
-			The 'player.isMoving' property does not allow us to see if the player was moved from the player pressing the move buttons
-			or from an external factor (e.g. water) so we will have to confirm that the player was not moved from these external factors
-			*/
-			if(
-				config.modules.inventorymodsB.enabled &&
-				player.lastCursorItem?.typeId !== cursorItem?.typeId &&
-				player.isMoving &&
-				firstMoved > 2000 &&
-				player.isOnGround &&
-				playerSpeed > 0.10 &&
-				!player.isGliding &&
-				!player.isInWater &&
-				!player.hasTag("riding")
-			) flag(player, "InventoryMods", "B", "Inventory", `oldItem=${player.lastCursorItem?.typeId},newItem=${cursorItem?.typeId}`, true);
 
 			// Check if an item was equipped to the offhand
 			if(!player.lastOffhandItem && offhandItem) {
 				// AutoOffhand/A = Checks if a player equips an item in their offhand while moving
 				if(
 					config.modules.autooffhandA.enabled &&
-					player.isMoving &&
-					firstMoved > 2000 &&
 					player.isOnGround &&
-					playerSpeed > 0.10 &&
-					!player.isGliding &&
-					!player.isInWater &&
-					!player.hasTag("riding")
+					// Move vector allows us to check whether or not the player moved by pressing input keys and not other ways (such as water)
+					moveVector.x !== 0 &&
+					moveVector.y !== 0
 				) flag(player, "AutoOffhand", "A", "Inventory", `item=${offhandItem?.typeId}`, true);
 
 				// AutoOffhand/B = Checks if a player equips an item in their offhand while using an item
@@ -769,6 +739,23 @@ world.afterEvents.effectAdd.subscribe(({ effect, entity: player}) => {
 	if(!(player instanceof Player)) return;
 
 	if(effect.typeId === "blindness") player.blindedAt = Date.now();
+});
+
+world.afterEvents.playerInventoryItemChange.subscribe(({ beforeItemStack: oldItemStack, itemStack, player, slot, inventoryType }) => {
+	const moveVector = player.inputInfo.getMovementVector();
+
+	// InventoryMods/B = Check if a player switches their selected item in the inventory while moving
+	if(
+		config.modules.inventorymodsB.enabled &&
+		// This event can be trigged when equipping items in your hotbar by long-pressing
+		inventoryType === PlayerInventoryType.Inventory &&
+		player.isOnGround &&
+		// Make sure the item was not previously air to avoid false positives when picking up items
+		oldItemStack &&
+		// Move vector allows us to check whether or not the player moved by pressing input keys and not other ways (such as water)
+		moveVector.x !== 0 &&
+		moveVector.y !== 0
+	) flag(player, "InventoryMods", "B", "Inventory", `slot=${slot},oldItem=${oldItemStack?.typeId},newItem=${itemStack?.typeId}`, true);
 });
 
 system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) => {
