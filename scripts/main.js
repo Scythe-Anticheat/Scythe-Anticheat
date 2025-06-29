@@ -128,9 +128,6 @@ system.runInterval(() => {
 
 			const moveVector = player.inputInfo.getMovementVector();
 
-			// Get the item that the player is holding in their cursor
-			const cursorItem = player.getComponent("cursor_inventory")?.item;
-
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
 
@@ -250,7 +247,6 @@ system.runInterval(() => {
 
 			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
 
-			player.lastCursorItem = cursorItem;
 			player.lastOffhandItem = offhandItem;
 
 			// Store the players last good position

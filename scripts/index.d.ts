@@ -29,7 +29,6 @@ declare module "@minecraft/server" {
 		reports: Array<String>
 		
 		// Objects
-		lastCursorItem?: ItemStack
 		lastOffhandItem?: ItemStack
 		lastGoodPosition: Vector3
 		rotation: Vector2
