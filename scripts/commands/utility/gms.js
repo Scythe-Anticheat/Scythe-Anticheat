@@ -1,3 +1,4 @@
+import { GameMode } from "@minecraft/server";
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 import config from "../../data/config.js";
@@ -17,7 +18,7 @@ registerCommand({
 
         if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		target.setGameMode("survival");
+		target.setGameMode(GameMode.Survival);
 
 		tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has changed ${player.id === target.id ? "their" : `${target.name}'s`} gamemode to survival.`);
     }
