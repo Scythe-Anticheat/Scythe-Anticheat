@@ -132,7 +132,7 @@ system.runInterval(() => {
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
 
 			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) player.blocksBroken = 0;
-			if(config.modules.killauraC.enabled && player.entitiesHit?.length >= 1) player.entitiesHit = [];
+			if(config.modules.killauraC.enabled && player.entitiesHit.size >= 1) player.entitiesHit.clear();
 			if(config.modules.autotoolA.enabled && now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlotIndex) {
 				player.flagAutotoolA = true;
 				player.autotoolSwitchDelay = now - player.startBreakTime;
@@ -646,16 +646,18 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	}
 
 	/*
-		Killaura/C = Check for multi-aura
+		Killaura/C = Check for attacking multiple entities in a single tick
+
+		It is possible to attack the same entity more than one time in a single tick, so to avoid false positives we only count how many different entities were attacked
 
 		Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
 		The KillauraC check will see that the player attacked multiple entities at once, and falsely flag the player. To prevent this, we check if the player is holding a trident.
 	*/
-	if(config.modules.killauraC.enabled && !player.entitiesHit.includes(entity.id) && player.heldItem !== "minecraft:trident") {
-		player.entitiesHit.push(entity.id);
+	if(config.modules.killauraC.enabled && player.heldItem !== "minecraft:trident") {
+		player.entitiesHit.add(entity.id);
 
-		if(player.entitiesHit.length >= config.modules.killauraC.entities) {
-			flag(player, "KillAura", "C", "Combat", `entitiesHit=${player.entitiesHit.length}`);
+		if(player.entitiesHit.size >= config.modules.killauraC.entities) {
+			flag(player, "KillAura", "C", "Combat", `entitiesHit=${player.entitiesHit.size}`);
 		}
 	}
 

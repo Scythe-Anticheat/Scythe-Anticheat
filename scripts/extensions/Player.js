@@ -12,7 +12,7 @@ Player.prototype.clicks = 0;
 Player.prototype.lastThrow = 0;
 // We set this to NaN to prevent any KillauraB false flags which can be caused if Scythe is not at the top of the behavior packs list.
 Player.prototype.lastLeftClick = NaN;
-Player.prototype.entitiesHit = [];
+Player.prototype.entitiesHit = new Set();
 Player.prototype.lastMessageSent = 0;
 Player.prototype.reports = [];
 

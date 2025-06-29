@@ -25,7 +25,7 @@ declare module "@minecraft/server" {
 		blindedAt: number
 
 		// Arrays
-		entitiesHit: Array<String>
+		entitiesHit: Set<String>
 		reports: Array<String>
 		
 		// Objects
