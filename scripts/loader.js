@@ -3,7 +3,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "15";
+const latestConfigVer = "16";
 
 // Set dynamic properties
 system.run(() => {
@@ -222,6 +222,9 @@ system.run(() => {
 		
 		case "14":
 			delete config.misc_modules.itemSpawnRateLimit;
+
+		case "15":
+			delete config.autoban;
 
 		case latestConfigVer:
 			break;

@@ -8,8 +8,6 @@ export default
 	*/
 	"version": "15",
 	"debug": true,
-	// If checks can auto-ban
-	"autoban": true,
 	"flagWhitelist": [],
 	/*
 	By enabling this toggle, you can prevent anybody with Scythe-Op from getting flagged from the anticheat

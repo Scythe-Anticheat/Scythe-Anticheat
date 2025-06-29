@@ -162,9 +162,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
 
         case "ban": {
-            // Check if auto-banning is disabled
-            if(!config.autoban) break;
-
             const punishmentLength = checkData.punishmentLength?.toLowerCase();
             let banLength;
 
