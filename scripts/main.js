@@ -750,19 +750,19 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	}
 });
 
-world.afterEvents.playerGameModeChange.subscribe(({fromGameMode, player, toGameMode}) => {
+world.afterEvents.playerGameModeChange.subscribe(({ fromGameMode, player, toGameMode }) => {
 	player.gamemode = toGameMode;
 
 	if(
 		!config.misc_modules.antiGamemode.enabled ||
 		// @ts-expect-error
-		!config.misc_modules.antiGamemode.blockedGamemodes.includes(toGameMode) ||
+		!config.misc_modules.antiGamemode.blockedGamemodes.includes(toGameMode.toLowerCase()) ||
 		player.hasTag("op")
 	) return;
 
 	// Player entered a blocked gamemode
 	player.setGameMode(fromGameMode);
-	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §4tried changing their gamemode to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
+	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s§r §4gamemode was updated to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
 });
 
 world.afterEvents.effectAdd.subscribe(({ effect, entity: player}) => {
