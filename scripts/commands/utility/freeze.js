@@ -1,3 +1,5 @@
+// @ts-check
+import { InputPermissionCategory } from "@minecraft/server";
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -26,7 +28,7 @@ export function freezePlayer(target, initator) {
 	});
 	target.triggerEvent("scythe:freeze");
 	target.setDynamicProperty("frozen", true);
-	target.inputPermissions.movementEnabled = false;
+	target.inputPermissions.setPermissionCategory(InputPermissionCategory.Movement, false);
 
 	target.sendMessage("§r§6[§aScythe§6]§r You have been frozen by a staff member.");
 	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has frozen ${target.name}.`);
@@ -36,7 +38,7 @@ export function unfreezePlayer(target, initator) {
 	target.removeEffect("weakness");
 	target.triggerEvent("scythe:unfreeze");
 	target.setDynamicProperty("frozen", undefined);
-	target.inputPermissions.movementEnabled = true;
+	target.inputPermissions.setPermissionCategory(InputPermissionCategory.Movement, true);
 
 	target.sendMessage("§r§6[§aScythe§6]§r You are no longer frozen.");
 	tellAllStaff(`§r§6[§aScythe§6]§r ${initator.name} has unfrozen ${target.name}.`);
