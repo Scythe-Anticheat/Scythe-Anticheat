@@ -73,18 +73,13 @@ world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 	Spammer/D = Checks if someone sends a message while having a GUI open
 	*/
 
-	const firstMoved = Date.now() - player.movedAt;
+	const moveVector = player.inputInfo.getMovementVector();
 	if(
 		config.modules.spammerA.enabled &&
-		player.isMoving &&
-		// Make sure that the player hasn't moved within the last two seconds
-		// Jumping and sending a chat message at the exact time you hit the ground results in a false positive
-		firstMoved > 2000 &&
-		player.isOnGround &&
-		!player.isJumping &&
-		!player.hasTag("riding")
+		moveVector.x !== 0 &&
+		moveVector.y !== 0
 	) {
-		flag(player, "Spammer", "A", "Movement", `firstMoved=${firstMoved}`, true);
+		flag(player, "Spammer", "A", "Movement", undefined, true);
 		return;
 	}
 
@@ -127,6 +122,8 @@ system.runInterval(() => {
 			player.isMoving = playerSpeed !== 0;
 
 			const moveVector = player.inputInfo.getMovementVector();
+
+			console.log(moveVector.x, moveVector.y);
 
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
