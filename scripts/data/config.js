@@ -366,7 +366,7 @@ export default
 			"minVlbeforePunishment": 0
 		},
 		"reachC": {
-			"enabled": false,
+			"enabled": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
