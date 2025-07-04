@@ -485,15 +485,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.removeTag("moving");
 	// player.removeTag("sleeping");
 
-	/*
-	If you wanted to run a command on a player in early versions of the Scripting API, you would have to include the player's name into the command
-	If the player's name has spaces in it, you would have to surround the player's name in quotes
-
-	This brought an issue where if a malicious user used the Namespoof exploit to add characters like double quotes or the backslash, it would break the command syntax, effectively disabling the anticheat
-	To counteract this, all non-ASCII characters are removed from the player's name
-	*/
-	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
-
 	// Load custom nametags
 	const { mainColor, borderColor, playerNameColor, defaultTag } = config.customcommands.tag;
 
