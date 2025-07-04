@@ -122,8 +122,6 @@ system.runInterval(() => {
 
 			const moveVector = player.inputInfo.getMovementVector();
 
-			console.log(moveVector.x, moveVector.y);
-
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
 

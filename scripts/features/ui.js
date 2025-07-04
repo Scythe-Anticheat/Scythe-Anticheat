@@ -7,7 +7,6 @@ import { getStatsMsg } from "../commands/moderation/stats.js";
 import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
 import { getInvseeMsg } from "../commands/utility/invsee.js";
 import { freezePlayer, unfreezePlayer } from "../commands/utility/freeze.js";
-import { disableFly, enableFly } from "../commands/utility/fly.js";
 
 import config from "../data/config.js";
 
@@ -441,7 +440,7 @@ export function playerSettingsMenuSelected(player, target) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
                 }
 
-                target.hasTag("flying") ? disableFly(target, player) : enableFly(target, player);
+                target.hasTag("flying") ? target.disableFly(player) : target.enableFly(player);
                 break;
 
             case 6:

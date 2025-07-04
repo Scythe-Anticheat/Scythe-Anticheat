@@ -38,6 +38,32 @@ Player.prototype.removeOp = function(initiator) {
 };
 
 /**
+ * @remarks Give the player the mayfly ability so they can fly outside of Creative
+ * @param {Player} [initiator] - The player that initiated the request
+ */
+Player.prototype.enableFly = function(initiator) {
+    if(initiator) tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has given ${initiator.id === this.id ? "themselves" : `${this.name}'s`} fly mode.`);
+
+    this.addTag("flying");
+
+	this.runCommand("ability @s mayfly true");
+	this.sendMessage("§r§6[§aScythe§6]§r You are now in fly mode.");
+};
+
+/**
+ * @remarks Remove the mayflay ability from the player
+ * @param {Player} [initiator] - The player that initiated the request
+ */
+Player.prototype.disableFly = function(initiator) {
+    if(initiator) tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has removed ${initiator.id === this.id ? "their" : `${this.name}'s`} fly mode.`);
+
+	this.removeTag("flying");
+
+	this.runCommand("ability @s mayfly false");
+	this.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
+};
+
+/**
  * @remarks Wipe the ender chest of a player
  * @param {Player} [initiator] - The player that initiated the request
  */
