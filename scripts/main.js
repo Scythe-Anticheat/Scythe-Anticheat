@@ -175,6 +175,8 @@ system.runInterval(() => {
 				config.modules.noslowA.enabled &&
 				playerSpeed >= config.modules.noslowA.speed &&
 				playerSpeed <= config.modules.noslowA.maxSpeed &&
+				moveVector.x !== 0 &&
+				moveVector.y !== 0 &&
 				player.isOnGround &&
 				!player.isJumping &&
 				!player.isGliding &&
@@ -186,7 +188,7 @@ system.runInterval(() => {
 				const right = player.getScore("right");
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
 
-				// Make sure there are no entities below the player
+				// Make sure there are no entities below the player to fix false positives with boats
 				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
 
 				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity instanceof Player) && !blockBelow.typeId.includes("ice")) {
