@@ -33,15 +33,21 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         // Remove characters that may break commands
         debug = debug.replace(/"|\\|\n/gm, "");
 
-        // Malicious users may try make the debug field ridiculously large to lag any clients that may
-        // try to view the alert (anybody with the 'notify' tag)
+        /*
+        Back when the NBT exploit was still a major thing, Scythe had a check called IllegalItemsF that would log if an item had a name greater than 32 characters
+        This check would return the item name as part of the debug data to fix any false positives if there was a vanilla item with a longer name
+        The problem is that a malicious NBT could set an item's name to include thousands of characters which would lag and potentially crash any staff members who viewed the Scythe alert
+        To solve this, a character limit of 256 was imposed to stop this type of attack.
+        
+        While exploits such as NBTs are no longer a concern, this is good pratice for any other currently present modules that could be abused in a similiar fashion
+        */
         if(debug.length > 256) {
             const extraLength = debug.length - 256;
             debug = debug.slice(0, -extraLength) + ` (+${extraLength} additional characters)`;
         }
     }
 
-    // If debug is enabled then log everything we know about the player.
+    // If debug is enabled then log everything we know about the player
     if(config.debug) {
         const {
             name,

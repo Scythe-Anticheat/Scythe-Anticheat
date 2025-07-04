@@ -4,7 +4,7 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "vanish",
-    description: "Make yourself invisible. Can be used to spy on potential cheaters",
+    description: "Make yourself invisible to investigate players",
     aliases: ["v"],
     category: "utility",
     execute: (message) => {

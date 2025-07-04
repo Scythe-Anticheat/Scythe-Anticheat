@@ -87,7 +87,7 @@ By default, notifications for when players are cheating are not shown. To be abl
 
   Scaffold -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Check for tower-like behavior.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for a flat X rotation or Y rotation (e.g. 10, 20, 30).\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for a flat X/Y rotations (e.g. 10, 20, 30).\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks if a player places a block under them whilst looking upwards.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(D) => Checks for downwards scaffold.\*<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks for placing blocks onto air or liquid tiles.\*<br/>

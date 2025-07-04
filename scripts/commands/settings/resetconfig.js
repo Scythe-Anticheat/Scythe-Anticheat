@@ -9,6 +9,6 @@ registerCommand({
     execute: (message) => {
         world.setDynamicProperty("config", undefined);
 
-        message.player.sendMessage("§r§6[§aScythe§6]§r The scythe config has been reset. Run '/reload' to apply the changes.");
+        message.player.sendMessage("§r§6[§aScythe§6]§r The scythe config has been reset to defaults. Run '/reload' to apply the changes.");
     }
 });

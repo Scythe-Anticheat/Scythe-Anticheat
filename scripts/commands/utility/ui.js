@@ -14,6 +14,7 @@ registerCommand({
 		// Get the player's inventory component
 		const container = player.getComponent("inventory").container;
 
+		// Check if the player's inventory is full
 		if(container.emptySlotsCount === 0) {
 			return player.sendMessage("§r§6[§aScythe§6]§r Your inventory is full! Try removing some items and try again.");
 		}
@@ -31,7 +32,7 @@ registerCommand({
 		item.nameTag = config.customcommands.ui.ui_item_name;
 
 		// Enchant the item with Unbreaking 3
-		item.getComponent("enchantable")?.addEnchantment({type: new EnchantmentType("unbreaking"), level: 3});
+		item.getComponent("enchantable")?.addEnchantment({ type: new EnchantmentType("unbreaking"), level: 3 });
 
 		container.addItem(item);
 

@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "15",
+	"version": "16",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -130,7 +130,7 @@ export default
 			"enabled": true,
 			"ui_item_name": "§r§l§aRight click to Open the UI",
 			"ui_item": "minecraft:wooden_axe",
-			// Players without this tag wont be able to use the Scythe UI
+			// Players without this tag will not be able to use the Scythe UI
 			"requiredTags": ["op"]
 		},
 		"resetwarns": {
@@ -300,7 +300,7 @@ export default
 		},
 		"killauraB": {
 			"enabled": true,
-			// Wait 2 seconds before checking if the player has swinged
+			// Wait two seconds before checking if the player has swinged
 			"wait_ticks": 40,
 			"max_swing_delay": 5000,
 			"punishment": "none",
@@ -332,7 +332,7 @@ export default
 		},
 		"namespoofB": {
 			"enabled": true,
-			// This should be a string.
+			// This should be a string
 			"regex": "/[^A-Za-z0-9_\\-() ]/",
 			"punishment": "kick",
 			"minVlbeforePunishment": 1
@@ -403,7 +403,7 @@ export default
 		},
 		"scaffoldC": {
 			"enabled": true,
-			// Checks if the player's x rot is higher than this
+			// Checks if the player's x rotation is higher than this
 			"min_x_rot": 5,
 			"punishment": "none",
 			"minVLbeforePunishment": 0

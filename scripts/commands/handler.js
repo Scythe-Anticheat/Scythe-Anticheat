@@ -44,12 +44,12 @@ export function registerCommand(data) {
  * @param {import("@minecraft/server").ChatSendBeforeEvent} msg - Message data
  */
 export function commandHandler(msg) {
-    // validate that required params are defined
+    // Validate that required parameters are defined
     if(typeof msg !== "object") throw TypeError(`msg is type of ${typeof msg}. Expected "object"`);
 
     const { message, sender: player } = msg;
 
-    // checks if the message starts with our prefix, if not exit
+    // Check if the message starts with the Scythe prefix
     if(!message.startsWith(prefix)) return;
 
     // Converts '!ban "test player" 14d hacker' to ['!ban','test player','14d','hacker']
@@ -86,7 +86,7 @@ export function commandHandler(msg) {
         if(!commands[commandName]) throw Error(`Command "${commandName}" was found in config.js but the command was not registered.`);
 
         if(commandData.requiredTags.length >= 1 && commandData.requiredTags.some((tag) => !player.hasTag(tag))) {
-            player.sendMessage("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain scythe-op please run: /function op");
+            player.sendMessage("§r§6[§aScythe§6]§r You need to be Scythe-Opped to use this command. To gain Scythe-op please run: /function op");
             return;
         }
 
@@ -100,6 +100,7 @@ export function commandHandler(msg) {
             return;
         }
 
+        // The old msg object becomes invalid after the next tick, so if we want to be able to pass it into commands we need to recreate it
         const newMsg = {
             message: message,
             player: world.getPlayers({

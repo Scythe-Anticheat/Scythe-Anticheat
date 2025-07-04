@@ -23,10 +23,10 @@ registerCommand({
         if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
         target.setDynamicProperty("muted", true);
-        target.sendMessage(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
-
         // Remove chat ability
         target.runCommand("ability @s mute true");
+
+        target.sendMessage(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${target.name} for ${reason}`);
     }

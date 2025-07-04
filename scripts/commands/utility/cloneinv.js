@@ -2,6 +2,12 @@ import { EquipmentSlot } from "@minecraft/server";
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
+/*
+The clone inventory command was originally added as a way to debug anti-32k bypasses
+If a player was able to get a 32k item that was able to bypass Scythe, a moderator could copy the player's inventory (which includes NBT data) and investigate how exactly the bypass worked
+
+Now this command remains as a utility feature as a more indepth version of the inventory see command
+*/
 registerCommand({
 	name: "cloneinv",
     description: "Copy all the items in a player's inventory to your inventory",

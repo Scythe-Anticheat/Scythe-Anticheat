@@ -51,7 +51,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		player.lastMessageSent = now;
 	}
 
-	// Make sure that player has a custom nametag or filter unicode chat is enabled
+	// Run if the player has a custom nametag or filter unicode chat is enabled
 	if(!msg.cancel && (player.name !== player.nameTag || config.misc_modules.filterUnicodeChat.enabled)) {
 		// Adds user custom tags to their messages and filter any non-ASCII characters
 		const playerTag = player.name !== player.nameTag ? `${player.nameTag}§7:§r` : `<${player.nameTag}>`;
@@ -122,7 +122,7 @@ system.runInterval(() => {
 			// Get the currently held item by the player
 			player.heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
 
-			// Find the magnitude of the vector
+			// Find the magnitude of the velocity vector
 			const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
 			player.isMoving = playerSpeed !== 0;
 
@@ -142,7 +142,11 @@ system.runInterval(() => {
 			if(player.getDynamicProperty("banInfo")) banMessage(player);
 
 			/*
-			// Crasher/A = Invalid pos check
+			// Crasher/A = Invalid position check check
+			// Horion's old crasher would teleport the player to the position 4,294.967,295 in each coordinate plane
+			// This would result in the server crashing as it does not support such large player positions
+			// The vanilla game has a border at 30,000,000 which cannot be passed normally, even with commands like /tp
+			// If the player goes beyond that coordinate value, then we know an exploit, most likely Crasher, was being used
 			if(
 				config.modules.crasherA.enabled &&
 				Math.abs(player.location.x) > 30000000 ||
@@ -206,6 +210,11 @@ system.runInterval(() => {
 					else flag(player, "InvalidSprint", "A", "Movement", `blindTicks=${blindTicks}`, true);
 			}
 
+			/*
+			The Minecraft world has an invisible barrier at Y level -104 that is impossible to pass through
+			Using TP hacks or glitches, it is possible to go beyond that barrier
+			Scythe automatically teleports the player back up if they ever go beyond it
+			*/
 			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
 
 			// Check if an item was equipped to the offhand
@@ -274,7 +283,11 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	*/
 	if(config.modules.reachC.enabled) {
 		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
-		const distance = Math.sqrt((block.location.x - player.location.x)**2 + (block.location.y - player.location.y)**2 + (block.location.z - player.location.z)**2);
+		const distance = Math.sqrt(
+			(block.location.x - player.location.x)**2 +
+			(block.location.y - player.location.y)**2 +
+			(block.location.z - player.location.z)**2
+		);
 		const inputMode = player.inputInfo.lastInputModeUsed;
 
 		if(config.debug) console.log(distance);
@@ -301,10 +314,15 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		if(reachLimit < distance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${inputMode}`);
 	}
 
-	// Get block under player
+	// Get block underneath the player
 	const blockUnder = player.dimension.getBlock({x: Math.trunc(player.location.x), y: Math.trunc(player.location.y) - 1, z: Math.trunc(player.location.z)});
 
-	// Scaffold/A = Check for Tower like behavior
+	/*
+	Scaffold/A = Check for Tower-like behavior
+	The tower module in hack clients allows a player to quickly build up
+	When building up in a vanilla game, you place blocks while the decimal portion of the Y value is less than 35
+	Tower modules in hack clients place blocks while the decimal portion of the Y value is greater than that value
+	*/
 	if(
 		config.modules.scaffoldA.enabled &&
 		blockUnder &&
@@ -316,8 +334,10 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		player.isFalling &&
 		player.velocity.y < 1 &&
 		!player.getEffect("jump_boost") &&
+		// Fence and wall blocks have a bigger Y hitbox
 		!block.typeId.includes("fence") &&
 		!block.typeId.includes("wall") &&
+		// Standing on a shulker box and opening it pushes the player upwards
 		!block.typeId.includes("_shulker_box")
 	) {
 		// Get the decimal portion of the Y position
@@ -329,8 +349,13 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		}
 	}
 
-	// Credit to the dev of Isolate Anticheat for giving me the idea of checking if a player x rotation is 60 to detect horion scaffold
-	// The check was later updated to check if the x rotation or the y rotation is a flat number to further detect any other aim related hacks
+	/*
+	Scaffold/B = Checks for a flat X/Y rotations
+	A way to detect scaffold is if the player is in view of the block they placed. Hack client owners know this, so an option to make the player aim at the placed block was added to these clients
+	The problem however is some hack clients poorly implemented this workaround by setting the player's rotation to a flat XY value, which is impossible in vanilla gameplay
+
+	This check was donated to me by the developer of Isolate Anticheat
+	*/
 	if(config.modules.scaffoldB.enabled && ((Number.isInteger(player.rotation.x) && player.rotation.x !== 0) || (Number.isInteger(player.rotation.y) && player.rotation.y !== 0))) {
 		flag(player, "Scaffold", "B", "World", `xRot=${player.rotation.x},yRot=${player.rotation.y}`, true);
 		block.setType("air");
@@ -356,7 +381,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		config.modules.scaffoldD.enabled &&
 		blockUnder?.isSolid &&
 		Math.trunc(player.location.x) === block.location.x &&
-		(Math.trunc(player.location.y) - 2) === block.location.y &&
+		Math.trunc(player.location.y) - 2 === block.location.y &&
 		Math.trunc(player.location.z) === block.location.z
 	) {
 		flag(player, "Scaffold", "D", "World", `playerYpos=${player.location.y},blockXpos=${block.location.x},blockYpos=${block.location.y},blockZpos=${block.location.z}`);
@@ -397,7 +422,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 
 	if(config.debug) console.warn(`${player.name} has broken the block ${brokenBlockId}`);
 
-	// Nuker/a = checks if a player breaks more than 3 blocks in a tick
+	// Nuker/A = Check if a player breaks more than 3 blocks in a tick
 	if(config.modules.nukerA.enabled && ++player.blocksBroken > config.modules.nukerA.maxBlocks) {
 		flag(player, "Nuker", "A", "World", `blocksBroken=${player.blocksBroken}`);
 		revertBlock = true;
@@ -406,10 +431,8 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	/*
 	AutoTool/A = Checks for player slot mismatch
 
-	When you mine a block with Horion's autotool, it starts mining the block without switching the item you're holding, and around 30-100ms later,
-	it switches the item you're holding to the item that's fit to mine the block.
-
-	Scythe Anticheat checks if the player's selected slot changes right after the player starts mining the block to detect AutoTool.
+	When you mine a block with Horion's autotool, it starts mining the block without switching the item you're holding until 30-100ms later
+	At that point, the player's selected slot is switched to the one that contains the item best fit to mine the block
 	*/
 	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== "Creative") {
 		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlotIndex},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
@@ -417,11 +440,15 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	}
 
 	/*
-		InstaBreak/A = checks if a player in survival breaks an unbreakable block
-		While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasses
-		that can be used
+		InstaBreak/A = Checks if a player in survival breaks an unbreakable block
+
+		While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasse that exist
 	*/
-	if(config.modules.instabreakA.enabled && config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId) && player.gamemode !== "Creative") {
+	if(
+		config.modules.instabreakA.enabled &&
+		player.gamemode !== "Creative" && 
+		config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId)
+	) {
 		flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
 		revertBlock = true;
 	}
@@ -430,8 +457,9 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 		tellAllStaff(`§r§6[§aScythe§6]§r [Ore Alerts] ${player.name} has broken 1x ${brokenBlockId}`, ["notify"]);
 	}
 
+	// Revert the broken block if a check was trigged
 	if(revertBlock) {
-		// Remove the dropped items
+		// Remove the item the block dropped when broken
 		const droppedItems = dimension.getEntities({
 			location: block.location,
 			minDistance: 0,
@@ -441,6 +469,7 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 
 		for(const item of droppedItems) item.remove();
 
+		// Restore the block back to its original state
 		block.setPermutation(brokenBlockPermutation);
 	}
 });
@@ -460,7 +489,13 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.removeTag("moving");
 	// player.removeTag("sleeping");
 
-	// Patch a method of disabling anticheats
+	/*
+	If you wanted to run a command on a player in early versions of the Scripting API, you would have to include the player's name into the command
+	If the player's name has spaces in it, you would have to surround the player's name in quotes
+
+	This brought an issue where if a malicious user used the Namespoof exploit to add characters like double quotes or the backslash, it would break the command syntax, effectively disabling the anticheat
+	To counteract this, all non-ASCII characters are removed from the player's name
+	*/
 	player.nameTag = player.nameTag.replace(/[^A-Za-z0-9_\-() ]/gm, "").trim();
 
 	// Load custom nametags
@@ -495,10 +530,10 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	/*
 	BadPackets[5] = Checks if the player has an invalid max render distance
 
+
 	This value is *not* the player's current render distance, but rather the max the player could set their render distance to.
 	Vanilla clients would have this value set to 6-96 according to https://minecraftbedrock-archive.fandom.com/wiki/Render_Distance
-
-	This article is slightly outdated as it is possible for really low-end devices to have a max render distance of 5.
+	The article is slightly outdated as it is possible for really low-end devices to have a max render distance of 5.
 	*/
 	if(
 		config.modules.badpackets5.enabled &&
@@ -526,6 +561,7 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 	// If the entity dies right before this event triggers, an error will be thrown if any property is accessed
 	if(!entity.isValid) return;
 
+	// Detect a lag machine method that involves spamming armor stands in a close cluster
 	if(config.misc_modules.antiArmorStandCluster.enabled && entity.typeId === "minecraft:armor_stand") {
 		const entities = entity.dimension.getEntities({
 			location: entity.location,
@@ -582,7 +618,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		}
 	}
 
-	// BadPackets[3] = checks if a player attacks themselves
+	// BadPackets[3] = Checks if a player attacks themselves
 	// Some (bad) hacks use this to bypass anti-movement cheat checks
 	if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
 
@@ -598,14 +634,14 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	}
 
 	/*
-		Autoclicker/A = Check for high CPS.
+	Autoclicker/A = Check for high CPS
 
-		To find the player's CPS, we divide the amount of times they have clicked between now and the last marked click, divided by the amount of time that has passed between those two points
-		The time is measured in milliseconds, so we multiply the time by 1000 to get the seconds between now and their last marked click.
+	To find the player's CPS, we divide the amount of times they have clicked between now and the last marked click, divided by the amount of time that has passed between those two points
+	The time is measured in milliseconds, so we divide the time by 1000 to get the seconds between now and their last marked click.
 
-		Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
-		The AutoclickerA check will increment your clicks by the amount of entities in the group, which could result in a false flag if there are lots of entities in the group.
-		To prevent this, we don't increment the player's clicks if they are holding a trident.
+	Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
+	The AutoclickerA check will increment your clicks by the amount of entities in the group, which could result in a false flag if there are lots of entities in the group.
+	To prevent this, we don't increment the player's clicks if the player is are holding a trident
 	*/
 	if(config.modules.autoclickerA.enabled && player.heldItem !== "minecraft:trident") {
 		player.clicks++;
@@ -630,11 +666,11 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		}
 	}
 
-	/**
-	 * Killaura/B = Check for no swing
-	 * For this check to work correctly Scythe has to be put at the top of the behavior packs list.
-	 * Players with the haste effect are excluded as the effect can make players not swing their hand.
-	 */
+	/*
+	Killaura/B = Check for no swing
+	For this check to work correctly Scythe has to be put at the top of the behavior packs list.
+	Players with the haste effect are excluded as the effect can make players not swing their hand.
+	*/
 	if(config.modules.killauraB.enabled && player.heldItem !== "minecraft:trident" && !player.getEffect("haste")) {
 		system.runTimeout(() => {
 			const swingDelay = Date.now() - player.lastLeftClick;
@@ -646,12 +682,12 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	}
 
 	/*
-		Killaura/C = Check for attacking multiple entities in a single tick
+	Killaura/C = Check for attacking multiple entities in a single tick
 
-		It is possible to attack the same entity more than one time in a single tick, so to avoid false positives we only count how many different entities were attacked
+	It is possible to attack the same entity more than one time in a single tick, so to avoid false positives we only count how many different entities were attacked
 
-		Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
-		The KillauraC check will see that the player attacked multiple entities at once, and falsely flag the player. To prevent this, we check if the player is holding a trident.
+	Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
+	The KillauraC check will see that the player attacked multiple entities at once, and falsely flag the player. To prevent this, we check if the player is holding a trident.
 	*/
 	if(config.modules.killauraC.enabled && player.heldItem !== "minecraft:trident") {
 		player.entitiesHit.add(entity.id);
@@ -707,7 +743,7 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	// itemUse can be triggered from entities
 	if(!(player instanceof Player)) return;
 
-	// If the player is holding a UI axe and has the proper permissions, then open the UI
+	// If the player is holding the UI axe and has the proper permissions, then open the UI
 	if(
 		config.customcommands.ui.enabled &&
 		item.typeId === config.customcommands.ui.ui_item &&

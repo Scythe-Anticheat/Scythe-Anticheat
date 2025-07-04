@@ -5,7 +5,7 @@ import { registerCommand } from "../handler.js";
 registerCommand({
     name: "kick",
     description: "Kick out a player from the world",
-    usage: "<player> [-s] [--silent] [reason]",
+    usage: "<player> [-s | --silent] [reason]",
     minArgCount: 1,
     aliases: ["k"],
     category: "moderation",

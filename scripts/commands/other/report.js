@@ -4,7 +4,7 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "report",
-    description: "Sends a player report to all currently online staff members",
+    description: "Send a player report to all currently online staff members",
     usage: "<player> [reason]",
     minArgCount: 1,
     category: "other",

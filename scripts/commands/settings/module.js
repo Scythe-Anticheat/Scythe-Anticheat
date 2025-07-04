@@ -3,9 +3,10 @@ import config from "../../data/config.js";
 import { world } from "@minecraft/server";
 import { registerCommand } from "../handler.js";
 
+// These two commands are functionally identical so they have been combined into one file
 registerCommand({
 	name: "module",
-	description: "Change the data of scythe modules",
+	description: "Change the data of Scythe modules",
 	usage: "<module name> <setting> [value]",
 	category: "settings",
 	execute: execute
@@ -13,7 +14,7 @@ registerCommand({
 
 registerCommand({
 	name: "misc_module",
-	description: "Change the data of optional scythe modules",
+	description: "Change the data of optional Scythe modules",
 	usage: "<module name> <setting> [value]",
 	aliases: ["mm"],
 	category: "settings",
@@ -32,7 +33,7 @@ function execute(message, args, commandName) {
 	const moduleData = config[category][module];
 	if(!moduleData) return player.sendMessage(`§r§6[§aScythe§6]§r No such module as ${module} exists. Please select a module from this list: ${Object.keys(config[category]).join(", ")}`);
 
-	if(!name) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} data:\n${JSON.stringify(moduleData, null, 2)}`);
+	if(!name) return player.sendMessage(`§r§6[§aScythe§6]§r ${module}'s configuration data:\n${JSON.stringify(moduleData, null, 2)}`);
 
 	if(moduleData[name] === undefined) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} does not have a setting called ${name}. Please select a setting from this list: ${Object.keys(moduleData).join(", ")}`);
 
@@ -56,9 +57,8 @@ function execute(message, args, commandName) {
 			newValue = JSON.parse(value.replace(/'/g, '"'));
 			break;
 
-		case "RegExp":
-			newValue = RegExp(value);
-			break;
+		default:
+			throw Error(`Unimplemented case ${moduleData[name]?.constructor.name}`);
 	}
 
 	moduleData[name] = newValue;

@@ -13,7 +13,7 @@ registerCommand({
         const { player } = message;
         const time = args[1] ? parseTime(args[1]) : undefined;
 
-        // Remove time from args
+        // Remove time from arguments list if present
         if(time) args.splice(1, 1);
 
         // Remove player name and join all arguments together
