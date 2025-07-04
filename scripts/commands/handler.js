@@ -53,8 +53,7 @@ export function commandHandler(msg) {
     if(!message.startsWith(prefix)) return;
 
     // Converts '!ban "test player" 14d hacker' to ['!ban','test player','14d','hacker']
-    // Remove the first @ symbol as its used for auto-filling usernames and isn't needed
-    const args = message.slice(prefix.length).replace("@", "").match(/(".*?"|\S+)/g)?.map((match) => match.replace(/"/g, ''));
+    const args = message.slice(prefix.length).match(/(".*?"|\S+)/g)?.map((match) => match.replace(/"/g, ''));
     if(!args) return;
 
     const command = args.shift()?.toLowerCase().trim();

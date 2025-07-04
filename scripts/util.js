@@ -358,6 +358,7 @@ export function capitalizeFirstLetter(string) {
  * @returns {Player | undefined} [player] - The player found
  */
 export function findPlayerByName(name) {
+    // Remove characters that may been added when the player's name was autofilled
 	const searchName = name.toLowerCase().replace(/\\|@/g, "");
 
     /**
