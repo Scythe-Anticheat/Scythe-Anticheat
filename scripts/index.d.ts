@@ -4,7 +4,6 @@ declare module "@minecraft/server" {
 	interface Player {
 		// Booleans
 		flagAutotoolA: boolean
-		isMoving: boolean
 
 		// Strings
 		gamemode: GameMode

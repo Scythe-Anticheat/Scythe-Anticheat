@@ -119,7 +119,6 @@ system.runInterval(() => {
 
 			// Find the magnitude of the velocity vector
 			const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
-			player.isMoving = playerSpeed !== 0;
 
 			const moveVector = player.inputInfo.getMovementVector();
 
