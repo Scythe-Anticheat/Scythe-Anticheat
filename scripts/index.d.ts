@@ -38,6 +38,8 @@ declare module "@minecraft/server" {
 		removeOp(initiator?: Player): void
 		enableFly(initiator?: Player): void
 		disableFly(initiator?: Player): void
+		freeze(initiator?: Player): void
+		unfreeze(initiator?: Player): void
 		wipeEnderchest(initiator?: Player): void
 	}
 

@@ -6,7 +6,6 @@ import { flag, parseTime, capitalizeFirstLetter, tellAllStaff } from "../util.js
 import { getStatsMsg } from "../commands/moderation/stats.js";
 import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
 import { getInvseeMsg } from "../commands/utility/invsee.js";
-import { freezePlayer, unfreezePlayer } from "../commands/utility/freeze.js";
 
 import config from "../data/config.js";
 
@@ -448,7 +447,7 @@ export function playerSettingsMenuSelected(player, target) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Freezing players is disabled in config.js.");
                 }
 
-                player.getDynamicProperty("frozen") ? unfreezePlayer(target, player) : freezePlayer(target, player);
+                player.getDynamicProperty("frozen") ? target.unfreeze(player) : target.freeze(player);
                 break;
 
             case 7:

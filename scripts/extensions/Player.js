@@ -1,6 +1,6 @@
 // @ts-check
 // Add new methods to Scripting API classes
-import { Player } from "@minecraft/server";
+import { Player, InputPermissionCategory } from "@minecraft/server";
 import { tellAllStaff } from "../util.js";
 
 // In older versions of Scythe, we would only add these properties if the necessary module was enabled in the playerJoin event
@@ -61,6 +61,43 @@ Player.prototype.disableFly = function(initiator) {
 
 	this.runCommand("ability @s mayfly false");
 	this.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
+};
+
+/**
+ * @remarks Make the player unable to move
+ * @param {Player} [initiator] - The player that initiated the request
+ */
+Player.prototype.freeze = function(initiator) {
+    if(initiator) {
+        tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has frozen ${this.name}.`);
+
+        this.sendMessage("§r§6[§aScythe§6]§r You have been frozen by a staff member.");
+    }
+
+    this.setDynamicProperty("frozen", true);
+
+    // To prohibit the player from being able to attack entities
+    this.addEffect("weakness", 99999, { amplifier: 255, showParticles: false });
+    this.triggerEvent("scythe:freeze");
+    this.inputPermissions.setPermissionCategory(InputPermissionCategory.Movement, false);
+};
+
+/**
+ * @remarks Restore the player's ability to move
+ * @param {Player} [initiator] - The player that initiated the request
+ */
+Player.prototype.unfreeze = function(initiator) {
+    if(initiator) {
+        tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has unfrozen ${this.name}.`);
+
+        this.sendMessage("§r§6[§aScythe§6]§r You have been unfrozen.");
+    }
+
+    this.setDynamicProperty("frozen", false);
+
+    this.removeEffect("weakness");
+    this.triggerEvent("scythe:unfreeze");
+    this.inputPermissions.setPermissionCategory(InputPermissionCategory.Movement, true);
 };
 
 /**

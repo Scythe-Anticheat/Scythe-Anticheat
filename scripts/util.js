@@ -197,13 +197,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
 
         case "freeze": {
-            player.addEffect("weakness", 99999, {
-                amplifier: 255,
-                showParticles: false
-            });
-            player.triggerEvent("scythe:freeze");
-            player.setDynamicProperty("frozen", true);
-            player.inputPermissions.setPermissionCategory(2, false);
+            player.freeze();
 
             player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by Scythe Anticheat for Unfair Advantage.");
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been frozen by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
