@@ -194,7 +194,7 @@
 						"sneak": "query.is_sneaking"
 					}],
 					"on_entry": [
-						"/tag @s remove sneak",
+						// "/tag @s remove sneak",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSNEAK§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -203,7 +203,7 @@
 						"default": "!query.is_sneaking"
 					}],
 					"on_entry": [
-						"/tag @s add sneak",
+						// "/tag @s add sneak",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSNEAK§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
