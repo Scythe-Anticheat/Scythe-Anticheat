@@ -51,9 +51,9 @@ By default, notifications for when players are cheating are not shown. To be abl
 
   InvalidSprint -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for sprinting while having the blindness effect.\*<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks for sprinting while sneaking.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks for sprinting while riding an entity.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(F) => Checks if a player sprints while they do not have enough hunger
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(C) => Checks for sprinting while sneaking.\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks for sprinting while riding an entity.\*<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(F) => Checks if a player sprints while they do not have enough hunger.\*<br/>
 
   InventoryMods-><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Check if a player switches the item they have selected in the inventory while moving.\*<br/>

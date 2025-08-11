@@ -1,6 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
-import { world, system, Player, EquipmentSlot, PlayerInventoryType } from "@minecraft/server";
+import { world, system, Player, EquipmentSlot, PlayerInventoryType, GameMode } from "@minecraft/server";
 import { flag, banMessage, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -199,11 +199,41 @@ system.runInterval(() => {
 			if(!player.lastSprintState && player.isSprinting) {
 				/*
 				InvalidSprint/A = Checks if a player sprints while they have the Blindness effect
+				InvalidSprint/B = Checks if a player sprints while using an item
+				InvalidSprint/C = Checks if a player sprints while sneaking
+				InvalidSprint/D = Checks if a player sprints while using an elytra
 				InvalidSprint/F = Checks if a player sprints while they do not have enough hunger
 				*/
 
-				// InvalidSprint/A = Checks if a player sprints while they have the Blindness effect
 				if(config.modules.invalidsprintA.enabled && player.getEffect("blindness")) flag(player, "InvalidSprint", "A", "Movement", undefined, true);
+
+				// This module is disabled due to false flags
+				// When the player is about to finish eating food, the game makes the player sprint right before the player finishes eating
+				if(config.modules.invalidsprintB.enabled && player.hasTag("right")) {
+					const rightTicks = player.getScore("right");
+
+					if(rightTicks > 4) flag(player, "InvalidSprint", "B", "Movement", undefined, true);
+				}
+
+				if(
+					config.modules.invalidsprintC.enabled &&
+					player.isSneaking &&
+					player.gamemode !== GameMode.Creative &&
+					!player.isFlying
+				) flag(player, "InvalidSprint", "C", "Movement", undefined, true);
+
+				// This module is disabled due to false flags
+				// If you press the W and CTRL button at the same time, the client makes you sprint while gliding
+				if(config.modules.invalidsprintD.enabled && player.isGliding) flag(player, "InvalidSprint", "D", "Movement", undefined, true);
+
+				if(
+					config.modules.invalidsprintE.enabled &&
+					moveVector.x === 0 &&
+					moveVector.y === 0 &&
+					player.hasTag("riding") &&
+					// Make sure the player hasn't moved within the last four ticks (4 * 50)
+					now - player.movedAt > 200
+				) flag(player, "InvalidSprint", "E", "Movement", undefined, true);
 
 				if(config.modules.invalidsprintF.enabled) {
 					// Fallback incase the property is undefined

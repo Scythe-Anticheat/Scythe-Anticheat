@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "17",
+	"version": "18",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -48,10 +48,6 @@ export default
 			"requiredTags": ["op"]
 		},
 		"modules": {
-			"enabled": true,
-			"requiredTags": ["op"]
-		},
-		"invalidsprint": {
 			"enabled": true,
 			"requiredTags": ["op"]
 		},
@@ -283,6 +279,26 @@ export default
 			"minVlbeforePunishment": 1
 		},
 		"invalidsprintA": {
+			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"invalidsprintB": {
+			"enabled": false,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"invalidsprintC": {
+			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"invalidsprintD": {
+			"enabled": false,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"invalidsprintE": {
 			"enabled": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0

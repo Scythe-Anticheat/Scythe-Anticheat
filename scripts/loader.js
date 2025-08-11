@@ -3,7 +3,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "17";
+const latestConfigVer = "18";
 
 // Set dynamic properties
 system.run(() => {
@@ -233,6 +233,33 @@ system.run(() => {
 				minVlbeforePunishment: 0
 			};
 
+		case "17":
+			config.modules.invalidsprintB = {
+				enabled: false,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
+
+			config.modules.invalidsprintC = {
+				enabled: true,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
+
+			config.modules.invalidsprintD = {
+				enabled: false,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
+
+			config.modules.invalidsprintE = {
+				enabled: true,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
+
+			delete config.customcommands.invalidsprint;
+
 		case latestConfigVer:
 			break;
 
@@ -259,7 +286,6 @@ import "./commands/moderation/unmute.js";
 import "./commands/other/credits.js";
 import "./commands/settings/module.js";
 import "./commands/settings/modules.js";
-import "./commands/settings/invalidsprint.js";
 import "./commands/utility/tag.js";
 import "./commands/utility/ecwipe.js";
 import "./commands/utility/freeze.js";

@@ -18,8 +18,7 @@
 					}],
 					"on_entry": [
 						"/tag @s add sprint",
-						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSPRINT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}",
-						"/execute @s[scores={invalidsprint=1..}] ~~~ function checks/invalidsprint"
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aSPRINT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
 			}
