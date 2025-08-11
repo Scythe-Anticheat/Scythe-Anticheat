@@ -10,18 +10,24 @@
   <img src="https://img.shields.io/github/last-commit/Scythe-Anticheat/Scythe-AntiCheat?style=for-the-badge" alt="Last Commit"/>
 </div>
 
+# Introduction
+Scythe Anticheat is a Minecraft Bedrock anticheat for vanilla Realms and Servers. It utilizes the Scripting API to observe player behavior and check if such behaviors are possible in the vanilla game. Scythe is designed to be plug-and-play, so you just need to apply the pack to your world, upload it to your realm or server, and it should be up and ready.
+
 # How To Setup
-To install this anticheat to your realm, you will need to install the .mcpack to your device, apply it to your realm/server, and enable Beta APIs in world settings. Once you have done that, the anticheat should be fully up and running!
+To install this anticheat to your realm, you will need to download the .mcpack to your device, apply it to your realm/server (make sure that Scythe is at the top of the behavior packs list), and enable Beta APIs in world settings. Once you have done that, the anticheat should be fully up and running!
 
-> [!IMPORTANT]
-> Scythe must be applied at the top of the behavior packs list to ensure all features work properly.
+# Custom Commands
+To assist with server moderation, Scythe comes pre-included with a variety of commands. The most important ones are `!help`, `!notify`, `!stats`.
 
-To be able to use any chat commands, you will need to be Scythe-Opped. You can gain Scythe-OP by running `/function op` in Minecraft chat.
+By default, cheat alert notifications are not shown. To be able to see these notifications, run the command `!notify`. Running the command again toggles your notify state, so you will no longer be shown cheat notifications.
 
-By default, notifications for when players are cheating are not shown. To be able to see cheat notifications you will need to run the `!notify` command.
+The `!stats` command allows you to get an overview of a player's history with Scythe. Information such as their current device, any flagged checks, and whether they have Scythe-Op status are shown. You can rountinely check player history to see what kind of hacks they are using on your realm or server.
 
-> [!TIP]
-> Scythe contains a variety of additional commands that can be used to help moderate your Realm or server. You can see a list of these additional commands by running the `!help` command.
+For a full list of commands, you can run the `!help` command. This output a list of all Scythe commands, organized by category, which you can use. Along with the command names, the syntax of the command and a description is included to better allow you to understand how each command functions. For a more technical overview of a command, you can run `!help` with a command name as an argument.
+
+> [!NOTE]
+> To be able to utilize most of these custom commands, you must have Scythe-Op. You can run `/function op` to gain the proper permissions to use the commands.
+
 
 # Hacks detected by Scythe Anticheat
   AutoClicker -><br/>
@@ -94,7 +100,7 @@ By default, notifications for when players are cheating are not shown. To be abl
 
 # FAQ
 Q1: Does the AntiCheat auto-ban?<br/>
-Yes. Currently only the BadPackets[1], BadPackets[2], BadPackets[3], BadPackets[4], and BadPackets[5] checks autoban.
+A1: Yes. Currently only the BadPackets[1], BadPackets[2], BadPackets[3], BadPackets[4], and BadPackets[5] checks autoban.
 
 Q2: Is it customizable?<br/>
 A2: Yes you can edit the config.js file to disable or change the settings of certain checks. A guide can be found [here](https://github.com/Scythe-Anticheat/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)
