@@ -4,6 +4,7 @@ declare module "@minecraft/server" {
 	interface Player {
 		// Booleans
 		flagAutotoolA: boolean
+		lastSprintState: boolean
 
 		// Strings
 		gamemode: GameMode
@@ -21,7 +22,6 @@ declare module "@minecraft/server" {
 		selectedSlotIndex: number
 		startBreakTime: number
 		movedAt: number
-		blindedAt: number
 
 		// Arrays
 		entitiesHit: Set<String>

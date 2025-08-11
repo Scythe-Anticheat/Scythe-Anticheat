@@ -5,6 +5,7 @@ import { flag, banMessage, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 
+
 world.beforeEvents.chatSend.subscribe((msg) => {
 	const { sender: player, message } = msg;
 
@@ -194,16 +195,11 @@ system.runInterval(() => {
 				}
 			}
 
-			// InvalidSprint/A = Checks for sprinting with the blindness effect
-			if(
-				config.modules.invalidsprintA.enabled &&
-				player.isSprinting &&
-				player.getEffect("blindness")
-			) {
-				const blindTicks = Date.now() - player.blindedAt;
-				// If a player is given the blindness effect while sprinting, they are able to continue sprinting which gives a false flag
-				if(blindTicks < 100 || isNaN(blindTicks)) player.teleport(player.location);
-					else flag(player, "InvalidSprint", "A", "Movement", `blindTicks=${blindTicks}`, true);
+			// Check if the player just started sprinting
+			if(!player.lastSprintState && player.isSprinting) {
+				console.log("!!");
+				// InvalidSprint/A = Checks if a player sprints while they have the Blindness effect
+				if(config.modules.invalidsprintA.enabled && player.getEffect("blindness")) flag(player, "InvalidSprint", "A", "Movement", undefined, true);
 			}
 
 			/*
@@ -258,6 +254,8 @@ system.runInterval(() => {
 			// When a movement-related check flags the player, they will be teleported to this position
 			// xRot and yRot being 0 means the player position was modified from player.teleport, which we should ignore
 			if(player.rotation.x !== 0 && player.rotation.y !== 0) player.lastGoodPosition = player.location;
+
+			player.lastSprintState = player.isSprinting;
 		} catch (error) {
 			console.error(error, error.stack);
 			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
@@ -754,12 +752,6 @@ world.afterEvents.playerGameModeChange.subscribe(({ fromGameMode, player, toGame
 	// Player entered a blocked gamemode
 	player.setGameMode(fromGameMode);
 	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s§r §4gamemode was updated to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
-});
-
-world.afterEvents.effectAdd.subscribe(({ effect, entity: player}) => {
-	if(!(player instanceof Player)) return;
-
-	if(effect.typeId === "blindness") player.blindedAt = Date.now();
 });
 
 world.afterEvents.playerInventoryItemChange.subscribe(({ beforeItemStack: oldItemStack, itemStack, player, slot, inventoryType }) => {
