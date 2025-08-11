@@ -5,7 +5,6 @@ import { flag, banMessage, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
 
-
 world.beforeEvents.chatSend.subscribe((msg) => {
 	const { sender: player, message } = msg;
 
