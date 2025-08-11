@@ -197,13 +197,24 @@ system.runInterval(() => {
 
 			// Check if the player just started sprinting
 			if(!player.lastSprintState && player.isSprinting) {
-				console.log("!!");
+				/*
+				InvalidSprint/A = Checks if a player sprints while they have the Blindness effect
+				InvalidSprint/F = Checks if a player sprints while they do not have enough hunger
+				*/
+
 				// InvalidSprint/A = Checks if a player sprints while they have the Blindness effect
 				if(config.modules.invalidsprintA.enabled && player.getEffect("blindness")) flag(player, "InvalidSprint", "A", "Movement", undefined, true);
+
+				if(config.modules.invalidsprintF.enabled) {
+					// Fallback incase the property is undefined
+					const hunger = player.getComponent("player.hunger") ?? { currentValue: 20 };
+
+					if(hunger.currentValue <= 6) flag(player, "InvalidSprint", "F", "Movement", `hunger=${hunger.currentValue}`, true);
+				}
 			}
 
 			/*
-			The Minecraft world has an invisible barrier at Y level -104 that is impossible to pass through
+			The Minecraft world has an invisible barrier at Y level -104 that is impossible to pass through.
 			Using TP hacks or glitches, it is possible to go beyond that barrier
 			Scythe automatically teleports the player back up if they ever go beyond it
 			*/

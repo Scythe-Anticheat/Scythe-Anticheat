@@ -3,7 +3,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "16";
+const latestConfigVer = "17";
 
 // Set dynamic properties
 system.run(() => {
@@ -225,6 +225,13 @@ system.run(() => {
 
 		case "15":
 			delete config.autoban;
+
+		case "16":
+			config.modules.invalidsprintF = {
+				enabled: true,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
 
 		case latestConfigVer:
 			break;
