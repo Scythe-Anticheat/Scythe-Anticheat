@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/Scythe-Anticheat/Scythe-AntiCheat#readme",
   "devDependencies": {
-    "@minecraft/server": "2.1.0-beta.1.21.90-stable",
+    "@minecraft/server": "2.2.0-beta.1.21.100-stable",
     "@minecraft/server-ui": "2.1.0-beta.1.21.90-stable",
     "eslint": "^8.57.0"
   }
