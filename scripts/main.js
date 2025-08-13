@@ -1,6 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
-import { world, system, Player, EquipmentSlot, PlayerInventoryType, GameMode } from "@minecraft/server";
+import { world, system, Player, EquipmentSlot, PlayerInventoryType, GameMode, InputMode } from "@minecraft/server";
 import { flag, banMessage, tellAllStaff } from "./util.js";
 import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -328,22 +328,22 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 
 		let reachLimit = NaN;
 		switch(inputMode) {
-			case "KeyboardAndMouse":
+			case InputMode.KeyboardAndMouse:
 				reachLimit = 5;
 				break;
 
-			case "Touch":
+			case InputMode.Touch:
 				reachLimit = 11.5;
 				break;
 
-			case "Gamepad":
+			case InputMode.Gamepad:
 				// Xbox consoles have a reach limit of ~5 blocks, meanwhile Switch consoles have a reach limit of ~6.5 blocks
 				// We can't differentiate between the two platforms so the Switch reach limit is used.
 				reachLimit = 6.5;
 		}
 
 		// To avoid visually unpleasing code we calculate reach limit based on device first and then gamemode
-		if(player.gamemode === "Survival") reachLimit = 5;
+		if(player.gamemode === GameMode.Survival) reachLimit = 5;
 
 		if(reachLimit < distance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${inputMode}`);
 	}
