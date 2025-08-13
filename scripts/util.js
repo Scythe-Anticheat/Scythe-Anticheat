@@ -178,7 +178,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             player.ban(
                 null,
                 `Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`,
-                typeof banLength === "number" ? Date.now() + banLength : null
+                typeof banLength === "number" ? banLength : null
             );
 
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
