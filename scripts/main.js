@@ -1,8 +1,9 @@
 // @ts-check
 import config from "./data/config.js";
 import { world, system, Player, EquipmentSlot, PlayerInventoryType, GameMode, InputMode } from "@minecraft/server";
-import { flag, banMessage, tellAllStaff } from "./util.js";
-import { mainGui, playerSettingsMenuSelected } from "./features/ui.js";
+import { flag, tellAllStaff } from "./util.js";
+import { banMessage } from "./assets/ban.js";
+import { mainGui, playerSettingsMenuSelected } from "./assets/ui.js";
 import { commandHandler } from "./commands/handler.js";
 
 world.beforeEvents.chatSend.subscribe((msg) => {
@@ -131,9 +132,6 @@ system.runInterval(() => {
 				player.flagAutotoolA = true;
 				player.autotoolSwitchDelay = now - player.startBreakTime;
 			}
-
-			// Sexy looking ban message
-			if(player.getDynamicProperty("banInfo")) banMessage(player);
 
 			/*
 			// Crasher/A = Invalid position check check
@@ -512,6 +510,9 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 
 world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	if(!initialSpawn) return;
+
+	// Check if the player is banned, and if so show them the ban message
+	if(player.getDynamicProperty("banInfo")) banMessage(player);
 
 	// Declare all needed variables
 	player.lastGoodPosition = player.location;

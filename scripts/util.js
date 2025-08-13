@@ -213,56 +213,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 }
 
 /**
- * @name banMessage
- * @param {Player} player - The player object
- * @example banMessage(player);
- * @remarks Bans the player from the game.
- */
-export function banMessage(player) {
-    // validate that required params are defined
-    if(!(player instanceof Player)) throw TypeError(`Error: player is not an instance of Player.`);
-
-    // @ts-expect-error
-    if(config.flagWhitelist.includes(player.name) && player.hasTag("op")) return;
-
-    // @ts-expect-error
-    const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue"));
-
-    // We check for an array as a player can join with a spoofed name such as "__proto__" and automatically get unbanned
-    // This is because Object's have a property called "__proto__"
-    if(Array.isArray(unbanQueue[player.name.toLowerCase()])) {
-        player.setDynamicProperty("banInfo", undefined);
-
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
-
-        delete unbanQueue[player.name.toLowerCase()];
-        world.setDynamicProperty("unbanQueue", JSON.stringify(unbanQueue));
-        return;
-    }
-
-    // @ts-expect-error
-    const { by, reason, time } = JSON.parse(player.getDynamicProperty("banInfo"));
-
-    let friendlyTime;
-
-    if(time && time !== null) {
-        if(time < Date.now()) {
-           tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned.`);
-
-            player.setDynamicProperty("banInfo", undefined);
-            return;
-        }
-
-        const { w, d, h, m, s } = msToTime(Number(time));
-        friendlyTime = `${w} weeks, ${d} days, ${h} hours, ${m} minutes, ${s} seconds`;
-    }
-
-    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} was kicked for being banned. Ban Reason: ${reason ?? "You are banned!"}.`);
-
-    player.runCommand(`kick @s §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r ${by ?? "N/A"}\n§bReason:§r ${reason ?? "N/A"}\n§aBan Length:§r ${friendlyTime || "Permanent"}`);
-}
-
-/**
  * @name getClosestPlayer
  * @param {Entity} entity - The entity to check
  * @example getClosestPlayer(entity);

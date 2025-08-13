@@ -2,6 +2,7 @@
 // Add new methods to Scripting API classes
 import { Player, InputPermissionCategory } from "@minecraft/server";
 import { tellAllStaff } from "../util.js";
+import { banMessage } from "../assets/ban.js";
 
 // In older versions of Scythe, we would only add these properties if the necessary module was enabled in the playerJoin event
 // However this would bring along a problem where if a world is loaded without the module enabled,
@@ -53,6 +54,9 @@ Player.prototype.ban = function(initiator, reason = "No reason specified", time 
         reason,
         time: typeof time === "number" ? Date.now() + time : null
     }));
+
+    // Show the ban message to the player
+    banMessage(this);
 };
 
 /**
