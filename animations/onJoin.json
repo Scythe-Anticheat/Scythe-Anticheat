@@ -10,9 +10,6 @@
 					"/scoreboard objectives add gametestapi dummy",
 					// Set the scoreboard objective to the proper values
 					"/scoreboard players add @s gametestapi 0",
-					// Anticheat objectives
-					// Checks that are entirely gametest related don't need to be put here as the notify function in util.js automatically creates them when needed
-					"/scoreboard objectives add right dummy",
 					// Alert the user if Gametest Framework is not enabled
 					// The playerSpawn event in 'main.js' will set the gametestapi scoreboard value to be 1. If it is set to 0, then we know that Beta APIs are not enabled
 					"/tellraw @s[tag=op,scores={gametestapi=..0}] {\"rawtext\":[{\"text\":\"§r§6[§aScythe§6]§r Beta APIs are not enabled! Please go to your world settings and enable it to ensure all Scythe features work properly.\"}]}"

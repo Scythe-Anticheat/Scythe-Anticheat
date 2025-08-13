@@ -106,7 +106,7 @@
 					}],
 					"on_entry": [
 						// "/tag @s add dead",
-						"/tag @s remove right",
+						// "/tag @s remove right",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aDEATH§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 					]
 				}
@@ -168,9 +168,9 @@
 						"right": "query.is_using_item && query.get_equipped_item_name != 'fishing_rod'"
 					}],
 					"on_entry": [
-						"/tag @s remove right",
-						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIGHT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop,ticks=\"},{\"score\":{\"name\":\"@s\",\"objective\":\"right\"}},{\"text\":\")\"}]}",
-						"/scoreboard players set @s right 0"
+						// "/tag @s remove right",
+						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIGHT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop,ticks=\"},{\"score\":{\"name\":\"@s\",\"objective\":\"right\"}},{\"text\":\")\"}]}"
+						// "/scoreboard players set @s right 0"
 					]
 				},
 				"right": {
@@ -178,7 +178,7 @@
 						"default": "!query.is_using_item"
 					}],
 					"on_entry": [
-						"/tag @s add right",
+						// "/tag @s add right",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIGHT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start,ticks=0)\"}]}"
 					]
 				}
