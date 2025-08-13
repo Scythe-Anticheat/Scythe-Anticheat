@@ -89,7 +89,7 @@ world.afterEvents.chatSend.subscribe(({ sender: player }) => {
 		return;
 	}
 
-	if(config.modules.spammerC.enabled && player.hasTag("right")) {
+	if(config.modules.spammerC.enabled && player.isUsingItem) {
 		flag(player, "Spammer", "C", "Misc");
 		return;
 	}
@@ -179,18 +179,19 @@ system.runInterval(() => {
 				!player.isJumping &&
 				!player.isGliding &&
 				player.heldItem !== "minecraft:trident" &&
+				player.isUsingItem &&
+				// Make sure the player has been using the item for at least 10 ticks
+				now - player.itemUsedAt >= 500 &&
 				!player.getEffect("speed") &&
-				player.hasTag("right") &&
 				!player.hasTag("riding")
 			) {
-				const right = player.getScore("right");
 				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
 
 				// Make sure there are no entities below the player to fix false positives with boats
 				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
 
-				if(blockBelow && right >= 10 && !nearbyEntities.find(entity => entity instanceof Player) && !blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed.toFixed(2)},heldItem=${player.heldItem},blockBelow=${blockBelow.typeId},rightTicks=${right}`, true);
+				if(blockBelow && !nearbyEntities.find(entity => entity instanceof Player) && !blockBelow.typeId.includes("ice")) {
+					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed.toFixed(2)},heldItem=${player.heldItem},blockBelow=${blockBelow.typeId},timeUsingItem=${now - player.itemUsedAt}`, true);
 				}
 			}
 
@@ -208,11 +209,12 @@ system.runInterval(() => {
 
 				// This module is disabled due to false flags
 				// When the player is about to finish eating food, the game makes the player sprint right before the player finishes eating
-				if(config.modules.invalidsprintB.enabled && player.hasTag("right")) {
-					const rightTicks = player.getScore("right");
-
-					if(rightTicks > 4) flag(player, "InvalidSprint", "B", "Movement", undefined, true);
-				}
+				if(
+					config.modules.invalidsprintB.enabled &&
+					player.isUsingItem &&
+					// Make sure the player has been using the item for at least four ticks
+					now - player.itemUsedAt >= 200
+				) flag(player, "InvalidSprint", "B", "Movement", undefined, true);
 
 				if(
 					config.modules.invalidsprintC.enabled &&
@@ -263,7 +265,7 @@ system.runInterval(() => {
 				// AutoOffhand/B = Checks if a player equips an item in their offhand while using an item
 				if(
 					config.modules.autooffhandB.enabled &&
-					player.hasTag("right")
+					player.isUsingItem
 				) flag(player, "AutoOffhand", "B", "Inventory", `item=${offhandItem?.typeId}`);
 
 				// AutoOffhand/C = Checks if a player equips an item in their offhand while swinging their hand
@@ -516,7 +518,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	// Remove tags from previous session
 	player.removeTag("hasGUIopen");
-	player.removeTag("right");
 	player.removeTag("left");
 	// player.removeTag("gliding");
 	player.removeTag("sprinting");
@@ -683,13 +684,12 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	}
 
 	// Killaura/A = Check if a player attacks an entity while using an item
-	if(config.modules.killauraA.enabled && player.hasTag("right")) {
-		const rightTicks = player.getScore("right");
-
-		if(rightTicks > config.modules.killauraA.rightTicks) {
-			flag(player, "Killaura", "A", "Combat", `ticks=${rightTicks}`);
-		}
-	}
+	if(
+		config.modules.killauraA.enabled &&
+		player.isUsingItem &&
+		// Convert ms to ticks
+		(Date.now() - player.itemUsedAt) / 50 > config.modules.killauraA.rightTicks
+	) flag(player, "Killaura", "A", "Combat", `itemUsedFor=${Date.now() - player.itemUsedAt}`);
 
 	/*
 	Killaura/B = Check for no swing
@@ -810,6 +810,20 @@ world.afterEvents.playerInventoryItemChange.subscribe(({ beforeItemStack: oldIte
 		moveVector.y !== 0
 	) flag(player, "InventoryMods", "B", "Inventory", `slot=${slot},oldItem=${oldItemStack?.typeId},newItem=${itemStack?.typeId}`, true);
 });
+
+world.afterEvents.itemStartUse.subscribe(({ source: player, itemStack: item }) => {
+	// Fishing rods is a special useable item as you do not get slowed down when using it, and it does not cancel actions such as sprinting
+	// To avoid false positives, we simply don't count the player as using an item if the item they used is a fishing rod
+	if(item?.typeId === "minecraft:fishing_rod") return;
+
+	player.isUsingItem = true;
+	player.itemUsedAt = Date.now();
+});
+
+world.afterEvents.itemStopUse.subscribe(({ source: player }) => {
+	player.isUsingItem = false;
+});
+
 
 system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) => {
 	if(!(player instanceof Player) || !id.startsWith("scythe:")) return;

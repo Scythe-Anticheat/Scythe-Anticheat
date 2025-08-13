@@ -15,6 +15,8 @@ Player.prototype.lastLeftClick = NaN;
 Player.prototype.entitiesHit = new Set();
 Player.prototype.lastMessageSent = 0;
 Player.prototype.reports = [];
+Player.prototype.lastSprintState = false;
+Player.prototype.isUsingItem = false;
 
 /**
  * @remarks Add Scythe-OP status to a player
