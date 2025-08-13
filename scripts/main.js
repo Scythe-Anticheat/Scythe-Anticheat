@@ -521,7 +521,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.removeTag("left");
 	// player.removeTag("gliding");
 	player.removeTag("sprinting");
-	player.removeTag("moving");
 	// player.removeTag("sleeping");
 
 	// Load custom nametags
