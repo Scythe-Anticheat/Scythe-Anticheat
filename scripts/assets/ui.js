@@ -201,7 +201,7 @@ function banPlayerMenu(player, target, lastMenu = 0) {
         target.ban(
             player,
             reason,
-            (banLength && !permBan) ? Date.now() + banLength : null
+            (banLength && !permBan) ? banLength : null
         );
     });
 }
