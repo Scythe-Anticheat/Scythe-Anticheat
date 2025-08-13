@@ -180,9 +180,6 @@
 					"on_entry": [
 						"/tag @s add right",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIGHT§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start,ticks=0)\"}]}"
-						// Temporarily disabled due to false positives. The hasGUIopen tag can take around 500ms to be removed once the player closes the chest
-						// This delay is mainly because the method uses player.json environmental sensors instead of regular animation controllers which are faster
-						// "/execute @s[tag=hasGUIopen] ~~~ function checks/alerts/invmove"
 					]
 				}
 			}

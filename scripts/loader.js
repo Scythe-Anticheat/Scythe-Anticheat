@@ -3,7 +3,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "18";
+const latestConfigVer = "19";
 
 // Set dynamic properties
 system.run(() => {
@@ -259,6 +259,13 @@ system.run(() => {
 			};
 
 			delete config.customcommands.invalidsprint;
+
+		case "18":
+			config.modules.inventorymodsA = {
+				enabled: false,
+				punishment: "none",
+				minVlbeforePunishment: 0
+			};
 
 		case latestConfigVer:
 			break;

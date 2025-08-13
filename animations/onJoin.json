@@ -12,7 +12,6 @@
 					"/scoreboard players add @s gametestapi 0",
 					// Anticheat objectives
 					// Checks that are entirely gametest related don't need to be put here as the notify function in util.js automatically creates them when needed
-					"/scoreboard objectives add invmovevl dummy",
 					"/scoreboard objectives add right dummy",
 					// Alert the user if Gametest Framework is not enabled
 					// The playerSpawn event in 'main.js' will set the gametestapi scoreboard value to be 1. If it is set to 0, then we know that Beta APIs are not enabled

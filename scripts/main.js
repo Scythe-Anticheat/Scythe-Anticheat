@@ -818,6 +818,10 @@ world.afterEvents.itemStartUse.subscribe(({ source: player, itemStack: item }) =
 
 	player.isUsingItem = true;
 	player.itemUsedAt = Date.now();
+
+	// Temporarily disabled due to false positives. The hasGUIopen tag can take around 500ms to be removed once the player closes a chest
+	// To determine if a player has a GUI open, you need a environmental sensor in player.json, which are slow compared to animation controllers, causing the delay
+	if(player.hasTag("hasGUIopen")) flag(player, "InventoryMods", "A", "Inventory");
 });
 
 world.afterEvents.itemStopUse.subscribe(({ source: player }) => {

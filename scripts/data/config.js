@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "18",
+	"version": "19",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -305,6 +305,11 @@ export default
 		},
 		"invalidsprintF": {
 			"enabled": true,
+			"punishment": "none",
+			"minVlbeforePunishment": 0
+		},
+		"inventorymodsA": {
+			"enabled": false,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
