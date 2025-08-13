@@ -520,9 +520,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	// Remove tags from previous session
 	player.removeTag("hasGUIopen");
 	player.removeTag("left");
-	// player.removeTag("gliding");
-	player.removeTag("sprinting");
-	// player.removeTag("sleeping");
 
 	// Load custom nametags
 	const { mainColor, borderColor, playerNameColor, defaultTag } = config.customcommands.tag;
@@ -555,7 +552,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	/*
 	BadPackets[5] = Checks if the player has an invalid max render distance
-
 
 	This value is *not* the player's current render distance, but rather the max the player could set their render distance to.
 	Vanilla clients would have this value set to 6-96 according to https://minecraftbedrock-archive.fandom.com/wiki/Render_Distance
