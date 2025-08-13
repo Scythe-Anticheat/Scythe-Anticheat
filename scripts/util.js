@@ -9,7 +9,7 @@ import { world, Entity, Player } from "@minecraft/server";
  * @param {string} checkType - What sub-check ran the function (ex. A, B, C).
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string} [debug] - Debug info.
- * @param {boolean} [shouldTP] - Whether to tp the player to itself.
+ * @param {boolean} [shouldTP] - Whether to reset the player's position
  * @param {number} [slot] - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
  * @remarks Alerts staff if a player is hacking.
@@ -175,11 +175,11 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 banLength = isNaN(punishmentLength) ? parseTime(punishmentLength) : Number(punishmentLength);
             }
 
-            player.setDynamicProperty("banInfo", JSON.stringify({
-                by: "Scythe Anticheat",
-                reason: `Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`,
-                time: typeof banLength === "number" ? Date.now() + banLength : null
-            }));
+            player.ban(
+                null,
+                `Scythe Anticheat detected Unfair Advantage! Check: ${check}/${checkType}`,
+                typeof banLength === "number" ? Date.now() + banLength : null
+            );
 
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been banned by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
             break;

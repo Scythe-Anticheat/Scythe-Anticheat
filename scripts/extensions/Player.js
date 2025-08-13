@@ -40,6 +40,22 @@ Player.prototype.removeOp = function(initiator) {
 };
 
 /**
+ * @remarks Ban a player from the world
+ * @param {Player | null} [initiator] - The player that initiated the ban
+ * @param {String} [reason] - The reason for the ban
+ * @param {Number | null} [time] - How long in milliseconds the player should be banned for
+ */
+Player.prototype.ban = function(initiator, reason = "No reason specified", time = null) {
+    if(initiator) tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has banned ${this.name} for ${reason}`);
+
+    this.setDynamicProperty("banInfo", JSON.stringify({
+        by: initiator ? initiator.name : "Scythe Anticheat",
+        reason,
+        time: typeof time === "number" ? Date.now() + time : null
+    }));
+};
+
+/**
  * @remarks Give the player the mayfly ability so they can fly outside of Creative
  * @param {Player} [initiator] - The player that initiated the request
  */

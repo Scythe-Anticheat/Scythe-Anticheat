@@ -194,17 +194,15 @@ function banPlayerMenu(player, target, lastMenu = 0) {
         const formValues = response.formValues ?? [];
 
         // @ts-expect-error
-        const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
+        const reason = formValues[0].replace(/"|\\/g, "");
         const banLength = parseTime(`${formValues[1]}d`);
         const permBan = formValues[2];
 
-        target.setDynamicProperty("banInfo", JSON.stringify({
-            by: player.name,
-            reason: reason,
-            time: (banLength && !permBan) ? Date.now() + banLength : null
-        }));
-
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${target.nameTag} for ${reason}`);
+        target.ban(
+            player,
+            reason,
+            (banLength && !permBan) ? Date.now() + banLength : null
+        );
     });
 }
 

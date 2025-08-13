@@ -38,6 +38,7 @@ declare module "@minecraft/server" {
 		// Custom functions
 		addOp(initiator?: Player): void
 		removeOp(initiator?: Player): void
+		ban(initiator?: Player | null, reason?: String, time?: Number | null): void
 		enableFly(initiator?: Player): void
 		disableFly(initiator?: Player): void
 		freeze(initiator?: Player): void

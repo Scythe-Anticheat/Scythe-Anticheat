@@ -1,5 +1,5 @@
 // @ts-check
-import { parseTime, findPlayerByName, tellAllStaff } from "../../util.js";
+import { parseTime, findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -17,7 +17,7 @@ registerCommand({
         if(time) args.splice(1, 1);
 
         // Remove player name and join all arguments together
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
+        const reason = args.slice(1).join(" ").replace(/"|\\/g, "");
 
         // Find the player requested
         const target = findPlayerByName(args[0]);
@@ -30,12 +30,6 @@ registerCommand({
         // Don't allow staff to ban other staff members
         if(target.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r You cannot ban other staff members.");
 
-        target.setDynamicProperty("banInfo", JSON.stringify({
-            by: player.name,
-            reason: reason,
-            time: typeof time === "number" ? Date.now() + time : null
-        }));
-
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has banned ${target.name} for ${reason}`);
+        target.ban(player, reason, time);
     }
 });
