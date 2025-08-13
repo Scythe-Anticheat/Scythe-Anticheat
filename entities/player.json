@@ -8,7 +8,6 @@
 			"is_experimental": false,
 			"scripts": {
 				"animate": [
-					"onTick",
 					"onJoin",
 					"glide",
 					"levitate",
