@@ -118,9 +118,6 @@ system.runInterval(() => {
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
 
-			// Get the currently held item by the player
-			player.heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
-
 			// Find the magnitude of the velocity vector
 			const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
 
@@ -798,6 +795,11 @@ world.afterEvents.playerGameModeChange.subscribe(({ fromGameMode, player, toGame
 world.afterEvents.playerInventoryItemChange.subscribe(({ beforeItemStack: oldItemStack, itemStack, player, slot, inventoryType }) => {
 	const moveVector = player.inputInfo.getMovementVector();
 
+	// Check if the item in the player's current selected slot has changed
+	if(slot === player.selectedSlotIndex) {
+		player.heldItem = itemStack?.typeId ?? "minecraft:air";
+	}
+
 	// InventoryMods/B = Check if a player switches their selected item in the inventory while moving
 	if(
 		config.modules.inventorymodsB.enabled &&
@@ -829,6 +831,10 @@ world.afterEvents.itemStopUse.subscribe(({ source: player }) => {
 	player.isUsingItem = false;
 });
 
+world.afterEvents.playerHotbarSelectedSlotChange.subscribe(({ player, itemStack }) => {
+	// Update the player's stored held item after changing their selected slot
+	player.heldItem = itemStack?.typeId ?? "minecraft:air";
+});
 
 system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) => {
 	if(!(player instanceof Player) || !id.startsWith("scythe:")) return;
@@ -868,5 +874,6 @@ system.run(() => {
 	for(const player of players) {
 		player.gamemode = player.getGameMode();
 		player.lastGoodPosition = player.location;
+		player.heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
 	}
 });
