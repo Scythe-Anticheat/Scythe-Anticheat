@@ -213,9 +213,11 @@ system.runInterval(() => {
 				if(
 					config.modules.invalidsprintB.enabled &&
 					player.isUsingItem &&
+					// If a player uses a riptide trident, they will sprint right before the item is considered as not used
+					player.heldItem !== "minecraft:trident" &&
 					// Make sure the player has been using the item for at least four ticks
 					now - player.itemUsedAt >= 200
-				) flag(player, "InvalidSprint", "B", "Movement", undefined, true);
+				) flag(player, "InvalidSprint", "B", "Movement", `itemUsedFor=${now - player.itemUsedAt}`, true);
 
 				if(
 					config.modules.invalidsprintC.enabled &&
