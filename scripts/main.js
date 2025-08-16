@@ -40,11 +40,9 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	Spammer/D = Checks if someone sends a message while having a GUI open
 	*/
 
-	const moveVector = player.inputInfo.getMovementVector();
 	if(
 		config.modules.spammerA.enabled &&
-		moveVector.x !== 0 &&
-		moveVector.y !== 0
+		player.isUsingInputKeys()
 	) {
 		system.run(() => {
 			flag(player, "Spammer", "A", "Movement", undefined, true);
@@ -121,8 +119,6 @@ system.runInterval(() => {
 			// Find the magnitude of the velocity vector
 			const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
 
-			const moveVector = player.inputInfo.getMovementVector();
-
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
 
@@ -171,8 +167,6 @@ system.runInterval(() => {
 				config.modules.noslowA.enabled &&
 				playerSpeed >= config.modules.noslowA.speed &&
 				playerSpeed <= config.modules.noslowA.maxSpeed &&
-				moveVector.x !== 0 &&
-				moveVector.y !== 0 &&
 				player.isOnGround &&
 				!player.isJumping &&
 				!player.isGliding &&
@@ -180,6 +174,7 @@ system.runInterval(() => {
 				player.isUsingItem &&
 				// Make sure the player has been using the item for at least 10 ticks
 				now - player.itemUsedAt >= 500 &&
+				player.isUsingInputKeys() &&
 				!player.getEffect("speed") &&
 				!player.hasTag("riding")
 			) {
@@ -229,8 +224,7 @@ system.runInterval(() => {
 
 				if(
 					config.modules.invalidsprintE.enabled &&
-					moveVector.x === 0 &&
-					moveVector.y === 0 &&
+					player.isUsingInputKeys() &&
 					player.hasTag("riding") &&
 					// Make sure the player hasn't moved within the last four ticks (4 * 50)
 					now - player.movedAt > 200
@@ -257,9 +251,7 @@ system.runInterval(() => {
 				if(
 					config.modules.autooffhandA.enabled &&
 					player.isOnGround &&
-					// Move vector allows us to check whether or not the player moved by pressing input keys and not other ways (such as water)
-					moveVector.x !== 0 &&
-					moveVector.y !== 0
+					player.isUsingInputKeys()
 				) flag(player, "AutoOffhand", "A", "Inventory", `item=${offhandItem?.typeId}`, true);
 
 				// AutoOffhand/B = Checks if a player equips an item in their offhand while using an item
@@ -793,8 +785,6 @@ world.afterEvents.playerGameModeChange.subscribe(({ fromGameMode, player, toGame
 });
 
 world.afterEvents.playerInventoryItemChange.subscribe(({ beforeItemStack: oldItemStack, itemStack, player, slot, inventoryType }) => {
-	const moveVector = player.inputInfo.getMovementVector();
-
 	// Check if the item in the player's current selected slot has changed
 	if(slot === player.selectedSlotIndex) {
 		player.heldItem = itemStack?.typeId ?? "minecraft:air";
@@ -808,9 +798,7 @@ world.afterEvents.playerInventoryItemChange.subscribe(({ beforeItemStack: oldIte
 		player.isOnGround &&
 		// Make sure the item was not previously air to avoid false positives when picking up items
 		oldItemStack &&
-		// Move vector allows us to check whether or not the player moved by pressing input keys and not other ways (such as water)
-		moveVector.x !== 0 &&
-		moveVector.y !== 0
+		player.isUsingInputKeys()
 	) flag(player, "InventoryMods", "B", "Inventory", `slot=${slot},oldItem=${oldItemStack?.typeId},newItem=${itemStack?.typeId}`, true);
 });
 

@@ -123,6 +123,21 @@ Player.prototype.unfreeze = function(initiator) {
 };
 
 /**
+ * @remarks Checks if the player is either pressing one of the movement keys (WASD) or is moving the joystick
+ * @returns {Boolean} - Whether or not the player is using the input keys
+ */
+Player.prototype.isUsingInputKeys = function() {
+    /*
+    This is a good method to determine if a player is intentionally moving as it does not include movement from factors such as knockback, flowing water, pistons, etc
+    The only problem is that this data comes directly from the MoveVector field from the PlayerAuthInput packet, meaning it could be easily spoofed by a hack client
+    I'm not sure if Server Authoritative Movement triggers if the movement vector does not check out, so it might be necessary to implement checks for spoofed move vectors
+    */
+    const moveVector = this.inputInfo.getMovementVector();
+
+    return moveVector.x !== 0 || moveVector.y !== 0;
+};
+
+/**
  * @remarks Wipe the ender chest of a player
  * @param {Player} [initiator] - The player that initiated the request
  */

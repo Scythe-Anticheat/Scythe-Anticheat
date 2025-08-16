@@ -43,6 +43,7 @@ declare module "@minecraft/server" {
 		disableFly(initiator?: Player): void
 		freeze(initiator?: Player): void
 		unfreeze(initiator?: Player): void
+		isUsingInputKeys(): boolean
 		wipeEnderchest(initiator?: Player): void
 	}
 
