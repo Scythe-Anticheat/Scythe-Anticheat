@@ -425,17 +425,18 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	}
 });
 
-world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, brokenBlockPermutation }) => {
-	const brokenBlockId = brokenBlockPermutation.type.id;
+world.beforeEvents.playerBreakBlock.subscribe((data) => {
+	const { player, block } = data;
 
-	let revertBlock = false;
-
-	if(config.debug) console.warn(`${player.name} has broken the block ${brokenBlockId}`);
+	if(config.debug) console.warn(`${player.name} has broken the block ${block.typeId}`);
 
 	// Nuker/A = Check if a player breaks more than 3 blocks in a tick
 	if(config.modules.nukerA.enabled && ++player.blocksBroken > config.modules.nukerA.maxBlocks) {
-		flag(player, "Nuker", "A", "World", `blocksBroken=${player.blocksBroken}`);
-		revertBlock = true;
+		system.run(() => {
+			flag(player, "Nuker", "A", "World", `blocksBroken=${player.blocksBroken}`);
+		});
+
+		data.cancel = true;
 	}
 
 	/*
@@ -444,9 +445,12 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	When you mine a block with Horion's autotool, it starts mining the block without switching the item you're holding until 30-100ms later
 	At that point, the player's selected slot is switched to the one that contains the item best fit to mine the block
 	*/
-	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== "Creative") {
-		flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlotIndex},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
-		revertBlock = true;
+	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== GameMode.Creative) {
+		system.run(() => {
+			flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlotIndex},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
+		});
+
+		data.cancel = true;
 	}
 
 	/*
@@ -456,31 +460,18 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	*/
 	if(
 		config.modules.instabreakA.enabled &&
-		player.gamemode !== "Creative" && 
-		config.modules.instabreakA.unbreakable_blocks.includes(brokenBlockId)
+		player.gamemode !== GameMode.Creative && 
+		config.modules.instabreakA.unbreakable_blocks.includes(block.typeId)
 	) {
-		flag(player, "InstaBreak", "A", "Exploit", `block=${brokenBlockId}`);
-		revertBlock = true;
-	}
-
-	if(config.misc_modules.oreAlerts.enabled && config.misc_modules.oreAlerts.blocks.includes(brokenBlockId) && !player.hasTag("op")) {
-		tellAllStaff(`§r§6[§aScythe§6]§r [Ore Alerts] ${player.name} has broken 1x ${brokenBlockId}`, ["notify"]);
-	}
-
-	// Revert the broken block if a check was trigged
-	if(revertBlock) {
-		// Remove the item the block dropped when broken
-		const droppedItems = dimension.getEntities({
-			location: block.location,
-			minDistance: 0,
-			maxDistance: 2,
-			type: "item"
+		system.run(() => {
+			flag(player, "InstaBreak", "A", "Exploit", `block=${block.typeId}`);
 		});
 
-		for(const item of droppedItems) item.remove();
+		data.cancel = true;
+	}
 
-		// Restore the block back to its original state
-		block.setPermutation(brokenBlockPermutation);
+	if(config.misc_modules.oreAlerts.enabled && config.misc_modules.oreAlerts.blocks.includes(block.typeId) && !player.hasTag("op")) {
+		tellAllStaff(`§r§6[§aScythe§6]§r [Ore Alerts] ${player.name} has broken 1x ${block.typeId}`, ["notify"]);
 	}
 });
 
