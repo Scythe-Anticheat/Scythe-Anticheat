@@ -151,6 +151,52 @@ Player.prototype.unfreeze = function(initiator) {
 };
 
 /**
+ * @remarks Returns whether or not the player is muted
+ * @returns {Boolean} - If the player is muted
+ */
+Player.prototype.isMuted = function() {
+    return !!this.getDynamicProperty("muted");
+};
+
+/**
+ * @remarks Prevent a player from being able to send chat messages
+ * @param {Player | null} [initiator] - The player that muted the player
+ * @param {String} [reason] - The reason for the mute
+ */
+Player.prototype.mute = function(initiator, reason = "No reason specified") {
+    if(initiator) {
+        tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has muted ${this.name} for ${reason}.`);
+
+        this.sendMessage(`§r§6[§aScythe§6]§r You have been muted for ${reason}.`);
+    }
+
+    // Mark the player as muted
+    this.setDynamicProperty("muted", true);
+
+    // Remove the player's chat ability
+    this.runCommand("ability @s mute true");
+};
+
+/**
+ * @remarks Restore's a player ability to send chat messages
+ * @param {Player | null} [initiator] - The player that unmuted the player
+ * @param {String} [reason] - The reason for the unmute
+ */
+Player.prototype.unmute = function(initiator, reason = "No reason specified") {
+    if(initiator) {
+        tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has unmuted ${this.name} for ${reason}.`);
+
+        this.sendMessage(`§r§6[§aScythe§6]§r You have been unmuted.`);
+    }
+
+    // Unmar the player as muted
+    this.setDynamicProperty("muted", false);
+
+    // Restore the player's chat ability
+    this.runCommand("ability @s mute false");
+};
+
+/**
  * @remarks Checks if the player is either pressing one of the movement keys (WASD) or is moving the joystick
  * @returns {Boolean} - Whether or not the player is using the input keys
  */

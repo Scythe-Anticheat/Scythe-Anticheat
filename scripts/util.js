@@ -186,11 +186,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
 
         case "mute": {
-            player.setDynamicProperty("muted", true);
+            player.mute(null);
             player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
-
-            // Remove chat ability
-            player.runCommand("ability @s mute true");
 
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
             break;
@@ -198,8 +195,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
         case "freeze": {
             player.freeze();
-
             player.sendMessage("§r§6[§aScythe§6]§r You have been frozen by Scythe Anticheat for Unfair Advantage.");
+
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been frozen by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);
             break;
         }

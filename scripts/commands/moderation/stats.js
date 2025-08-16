@@ -41,7 +41,7 @@ export function getStatsMsg(target) {
 		statsMsg += `${logo} ${capitalizeFirstLetter(id).replace("vl", "")} violations: §c${score}\n`;
 	}
 
-	statsMsg += `\n${logo} Total violations: ${totalViolations === 0 ? "§a0" : `§c${totalViolations}`}\n${logo} ==== USER FLAGS ====\n${logo} Scythe OP: ${target.hasTag("op") ? "§atrue" : "false"}\n${logo} Vanished: ${target.getDynamicProperty("vanished") ?? false}\n${logo} Frozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n${logo} Muted: ${target.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n${logo} Flying: ${target.isFlying}\n${logo} ==== END OF STATS ====`;
+	statsMsg += `\n${logo} Total violations: ${totalViolations === 0 ? "§a0" : `§c${totalViolations}`}\n${logo} ==== USER FLAGS ====\n${logo} Scythe OP: ${target.hasTag("op") ? "§atrue" : "false"}\n${logo} Vanished: ${target.getDynamicProperty("vanished") ?? false}\n${logo} Frozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n${logo} Muted: ${target.isMuted() ? "§ctrue" : "§afalse"}\n${logo} Flying: ${target.isFlying}\n${logo} ==== END OF STATS ====`;
 
 	return statsMsg;
 }

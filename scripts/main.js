@@ -9,7 +9,7 @@ import { commandHandler } from "./commands/handler.js";
 world.beforeEvents.chatSend.subscribe((msg) => {
 	const { sender: player, message } = msg;
 
-	if(player.getDynamicProperty("muted")) {
+	if(player.isMuted()) {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
 		msg.cancel = true;
 	}
@@ -551,7 +551,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	// If enabled from previous login then activate
 	if(player.hasTag("flying") && player.gamemode !== GameMode.Creative) player.runCommand("ability @s mayfly true");
-	if(player.getDynamicProperty("muted")) player.runCommand("ability @s mute true");
+	if(player.isMuted()) player.runCommand("ability @s mute true");
 	if(player.getDynamicProperty("frozen")) player.triggerEvent("scythe:freeze");
 });
 

@@ -381,7 +381,7 @@ export function playerSettingsMenuSelected(player, target) {
 
     const menu = new ActionFormData()
         .title("Player Menu - " + target.name)
-        .body(`Player Info:\n\nName: ${target.name}\nUnique ID: ${target.id}\nDimension: ${capitalizeFirstLetter((target.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\nGamemode: ${target.gamemode}\nPlatform: ${target.clientSystemInfo.platformType}\nScythe Opped: ${target.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${target.getDynamicProperty("muted") ? "§ctrue" : "§afalse"}\n§rFrozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n§rVanished: ${target.getDynamicProperty("vanished") ?? false}\nFlying: ${target.isFlying}`)
+        .body(`Player Info:\n\nName: ${target.name}\nUnique ID: ${target.id}\nDimension: ${capitalizeFirstLetter((target.dimension.id).replace("minecraft:", ""))}\nCoordinates: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\nGamemode: ${target.gamemode}\nPlatform: ${target.clientSystemInfo.platformType}\nScythe Opped: ${target.hasTag("op") ? "§atrue" : "false"}\n§rMuted: ${target.isMuted() ? "§ctrue" : "§afalse"}\n§rFrozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n§rVanished: ${target.getDynamicProperty("vanished") ?? false}\nFlying: ${target.isFlying}`)
         .button("View Inventory", "textures/blocks/chest_front.png")
         .button("Kick Player", icons.anvil)
         .button("Ban Player", icons.anvil)
@@ -390,7 +390,7 @@ export function playerSettingsMenuSelected(player, target) {
         .button(target.hasTag("flying") ? "Disable Fly" : "Enable Fly", "textures/ui/levitation_effect.png")
         .button(target.getDynamicProperty("frozen") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
-    target.getDynamicProperty("muted") ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
+    target.isMuted() ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
     target.hasTag("op") ? menu.button("Remove Player as Scythe-Op", icons.member) :  menu.button("Set Player as Scythe-Op", icons.op);
 
     menu
@@ -453,17 +453,7 @@ export function playerSettingsMenuSelected(player, target) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Muting players is disabled in config.js.");
                 }
 
-                if(target.getDynamicProperty("muted")) {
-                    target.setDynamicProperty("muted", undefined);
-                    target.runCommand("ability @s mute false");
-
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has unmuted ${target.name}.`);
-                } else {
-                    target.setDynamicProperty("muted", true);
-                    target.runCommand("ability @s mute true");
-
-                    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${target.name}.`);
-                }
+                target.isMuted() ? target.unmute(player) : target.mute(player);
                 break;
 
             case 8:

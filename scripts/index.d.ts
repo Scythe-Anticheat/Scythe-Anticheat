@@ -38,13 +38,23 @@ declare module "@minecraft/server" {
 		// Custom functions
 		addOp(initiator?: Player): void
 		removeOp(initiator?: Player): void
+
 		ban(initiator?: Player | null, reason?: String, time?: Number | null): void
+
 		enableFly(initiator?: Player): void
 		disableFly(initiator?: Player): void
+
 		getMaxBlockPlaceDistance(): number
+
 		freeze(initiator?: Player): void
 		unfreeze(initiator?: Player): void
+
+		isMuted(): boolean
+		mute(initiator?: Player | null, reason?: String): void
+		unmute(initiator?: Player | null, reason?: String): void
+
 		isUsingInputKeys(): boolean
+
 		wipeEnderchest(initiator?: Player): void
 	}
 

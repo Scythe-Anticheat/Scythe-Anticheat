@@ -12,7 +12,7 @@ registerCommand({
     execute: (message, args) => {
         const { player } = message;
 
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "") || "No reason specified";
+        const reason = args.slice(1).join(" ").replace(/"|\\/g, "");
 
         // Find the player requested
         const target = findPlayerByName(args[0]);
@@ -22,11 +22,7 @@ registerCommand({
         // Make sure they don't mute themselves
         if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
-        target.setDynamicProperty("muted", true);
-        // Remove chat ability
-        target.runCommand("ability @s mute true");
-
-        target.sendMessage(`§r§6[§aScythe§6]§r You have been muted. Reason: ${reason}`);
+        target.mute(player, reason);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has muted ${target.name} for ${reason}`);
     }
