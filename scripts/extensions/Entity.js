@@ -3,6 +3,19 @@
 import { Entity, world } from "@minecraft/server";
 
 /**
+ * @remarks Returns the closest player to the calling entity
+ * @returns {import("@minecraft/server").Player} score - The player
+ */
+Entity.prototype.getClosestPlayer = function() {
+    const nearestPlayer = this.dimension.getPlayers({
+        closest: 1,
+        location: this.location
+    })[0];
+
+    return nearestPlayer;
+};
+
+/**
  * @param {string} objective - The name of the scoreboard objective
  * @param {number} [defaultValue] - Default value to return if unable to get scoreboard score
  * @example getScore(player, "cbevl")

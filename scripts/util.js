@@ -1,6 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
-import { world, Entity, Player } from "@minecraft/server";
+import { world, Player } from "@minecraft/server";
 
 /**
  * @name flag
@@ -210,25 +210,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         default:
             throw Error(`Unknown punishment type "${punishment}".`);
     }
-}
-
-/**
- * @name getClosestPlayer
- * @param {Entity} entity - The entity to check
- * @example getClosestPlayer(entity);
- * @remarks Gets the nearest player to an entity. (Unused for now)
- * @returns {Player} player - The player that was found
- */
-export function getClosestPlayer(entity) {
-    // validate that required params are defined
-    if(!(entity instanceof Entity)) throw TypeError(`Error: entity is not an instance of Entity.`);
-
-    const nearestPlayer = entity.dimension.getPlayers({
-        closest: 1,
-        location: entity.location
-    })[0];
-
-    return nearestPlayer;
 }
 
 /**

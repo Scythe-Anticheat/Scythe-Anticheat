@@ -49,6 +49,7 @@ declare module "@minecraft/server" {
 
 	interface Entity {
 		// Custom functions
+		getClosestPlayer(): Player
 		getScore(objective: String, defaultValue?: number): number
 		setScore(objectiveName: String, value: number): void
 	}
