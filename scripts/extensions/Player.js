@@ -1,6 +1,6 @@
 // @ts-check
 // Add new methods to Scripting API classes
-import { Player, InputPermissionCategory } from "@minecraft/server";
+import { Player, InputPermissionCategory, GameMode, InputMode } from "@minecraft/server";
 import { tellAllStaff } from "../util.js";
 import { banMessage } from "../assets/ban.js";
 
@@ -83,6 +83,34 @@ Player.prototype.disableFly = function(initiator) {
 
 	this.runCommand("ability @s mayfly false");
 	this.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
+};
+
+/**
+ * @remarks Determine how far the player can place blocks according to their gamemode and input method
+ * @returns {number} - How far the player can break blocks
+ */
+Player.prototype.getMaxBlockPlaceDistance = function() {
+    // Regardless of what input method you are using, the block place reach is capped if you are on survival
+    if(this.gamemode === GameMode.Survival) return 5;
+
+    const inputMode = this.inputInfo.lastInputModeUsed;
+
+    switch(inputMode) {
+        case InputMode.KeyboardAndMouse:
+            return 5;
+
+        case InputMode.Touch:
+            return 11.5;
+
+        case InputMode.Gamepad:
+            // Xbox consoles have a reach limit of ~5 blocks, meanwhile Switch consoles have a reach limit of ~6.5 blocks
+            // We can't differentiate between the two platforms so the Switch reach limit is used
+            return 6.5;
+
+        case InputMode.MotionController:
+            // Unknown
+            return 12;
+    }
 };
 
 /**

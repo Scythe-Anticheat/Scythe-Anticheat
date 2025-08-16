@@ -134,12 +134,12 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     if(shouldTP) player.tryTeleport(player.lastGoodPosition, { dimension: player.dimension, rotation: { x: 0, y: 0 }, keepVelocity: false });
 
-    const scoreboardObjective = check !== "InventoryMods" ? `${check.toLowerCase()}vl` : "invmovevl";
+    const scoreboardObjective = check.toLowerCase() + "vl";
 
-    // If the VL scoreboard object doesn't exist then create one
+    // Create the violation scoreboard objective if it does not yet exist
     if(!world.scoreboard.getObjective(scoreboardObjective)) world.scoreboard.addObjective(scoreboardObjective, scoreboardObjective);
 
-    let currentVl = player.getScore(scoreboardObjective, 0);
+    let currentVl = player.getScore(scoreboardObjective);
     player.setScore(scoreboardObjective, ++currentVl);
 
     const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${currentVl}`;

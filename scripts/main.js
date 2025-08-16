@@ -1,6 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
-import { world, system, Player, EquipmentSlot, PlayerInventoryType, GameMode, InputMode } from "@minecraft/server";
+import { world, system, Player, EquipmentSlot, PlayerInventoryType, GameMode } from "@minecraft/server";
 import { flag, tellAllStaff } from "./util.js";
 import { banMessage } from "./assets/ban.js";
 import { mainGui, playerSettingsMenuSelected } from "./assets/ui.js";
@@ -298,7 +298,7 @@ system.runInterval(() => {
 }, 1);
 
 world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
-	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}. Player Tags: ${player.getTags()}`);
+	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}`);
 
 	/*
 	Reach/C = Checks if a player places a block farther than normally possible.
@@ -316,30 +316,12 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 			(block.location.y - player.location.y)**2 +
 			(block.location.z - player.location.z)**2
 		);
-		const inputMode = player.inputInfo.lastInputModeUsed;
 
 		if(config.debug) console.log(distance);
 
-		let reachLimit = NaN;
-		switch(inputMode) {
-			case InputMode.KeyboardAndMouse:
-				reachLimit = 5;
-				break;
+		const maPlaceDistance = player.getMaxBlockPlaceDistance();
 
-			case InputMode.Touch:
-				reachLimit = 11.5;
-				break;
-
-			case InputMode.Gamepad:
-				// Xbox consoles have a reach limit of ~5 blocks, meanwhile Switch consoles have a reach limit of ~6.5 blocks
-				// We can't differentiate between the two platforms so the Switch reach limit is used.
-				reachLimit = 6.5;
-		}
-
-		// To avoid visually unpleasing code we calculate reach limit based on device first and then gamemode
-		if(player.gamemode === GameMode.Survival) reachLimit = 5;
-
-		if(reachLimit < distance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${inputMode}`);
+		if(distance > maPlaceDistance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${player.inputInfo.lastInputModeUsed}`);
 	}
 
 	// Get block underneath the player
@@ -371,7 +353,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		// Get the decimal portion of the Y position
 		const yDecimal = Math.abs(player.location.y % 1);
 
-		if(yDecimal > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== "Creative" && !player.isFlying) {
+		if(yDecimal > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== GameMode.Creative && !player.isFlying) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yDecimal},block=${block.typeId}`, true);
 			block.setType("air");
 		}
@@ -468,9 +450,9 @@ world.afterEvents.playerBreakBlock.subscribe(({ player, dimension, block, broken
 	}
 
 	/*
-		InstaBreak/A = Checks if a player in survival breaks an unbreakable block
+	InstaBreak/A = Checks if a player in survival breaks an unbreakable block
 
-		While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasse that exist
+	While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasse that exist
 	*/
 	if(
 		config.modules.instabreakA.enabled &&
@@ -568,7 +550,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	}
 
 	// If enabled from previous login then activate
-	if(player.hasTag("flying") && player.gamemode !== "Creative") player.runCommand("ability @s mayfly true");
+	if(player.hasTag("flying") && player.gamemode !== GameMode.Creative) player.runCommand("ability @s mayfly true");
 	if(player.getDynamicProperty("muted")) player.runCommand("ability @s mute true");
 	if(player.getDynamicProperty("frozen")) player.triggerEvent("scythe:freeze");
 });
@@ -611,7 +593,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	*/
 	if(
 		config.modules.reachA.enabled &&
-		player.gamemode !== "Creative" &&
+		player.gamemode !== GameMode.Creative &&
 		entity instanceof Player
 	) {
 		// Calculate reach from the player's head location

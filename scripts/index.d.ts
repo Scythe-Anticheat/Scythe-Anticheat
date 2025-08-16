@@ -41,6 +41,7 @@ declare module "@minecraft/server" {
 		ban(initiator?: Player | null, reason?: String, time?: Number | null): void
 		enableFly(initiator?: Player): void
 		disableFly(initiator?: Player): void
+		getMaxBlockPlaceDistance(): number
 		freeze(initiator?: Player): void
 		unfreeze(initiator?: Player): void
 		isUsingInputKeys(): boolean
