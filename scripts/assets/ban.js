@@ -34,7 +34,8 @@ export function banMessage(player) {
 
     let friendlyTime;
 
-    if(time && time !== null) {
+    // Check if the ban data includes an unban time
+    if(time) {
         if(time < Date.now()) {
            tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s ban has expired and has now been unbanned.`);
 
