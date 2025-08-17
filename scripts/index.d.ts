@@ -49,6 +49,8 @@ declare module "@minecraft/server" {
 		freeze(initiator?: Player): void
 		unfreeze(initiator?: Player): void
 
+		kick(initiator?: Player | null, reason?: String, silent?: Boolean): void
+
 		isMuted(): boolean
 		mute(initiator?: Player | null, reason?: String): void
 		unmute(initiator?: Player | null, reason?: String): void

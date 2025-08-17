@@ -157,12 +157,10 @@ function kickPlayerMenu(player, target, lastMenu = 0) {
         const formValues = response.formValues ?? [];
 
         // @ts-expect-error
-        const reason = formValues[0].replace(/"|\\/g, "") ?? "No Reason Provided";
+        const reason = formValues[0].replace(/"|\\/g, "");
         const isSilent = formValues[1];
 
-        isSilent ? target.triggerEvent("scythe:kick") : target.runCommand(`kick @s ${reason}`);
-
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${target.name} (Silent:${isSilent}). Reason: ${reason}`);
+        target.kick(player, reason, isSilent);
     });
 }
 

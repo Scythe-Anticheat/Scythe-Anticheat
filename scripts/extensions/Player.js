@@ -157,6 +157,18 @@ Player.prototype.unfreeze = function(initiator) {
 };
 
 /**
+ * @remarks Kick the calling player from the game
+ * @param {Player | null} [initiator] - The player that initiated the kick
+ * @param {String} [reason] - The reason for the kick
+ * @param {Boolean} [silent] - If the player should be shown a vague disconnect message instead of a kick message
+ */
+Player.prototype.kick = function(initiator, reason = "No reason specified", silent = false) {
+    if(initiator) tellAllStaff(`§r§6[§aScythe§6]§r ${initiator.name} has kicked ${this.name} for ${reason}.`);
+
+    silent ? this.triggerEvent("scythe:kick") : this.runCommand(`kick @s ${reason}`);
+};
+
+/**
  * @remarks Returns whether or not the player is muted
  * @returns {Boolean} - If the player is muted
  */

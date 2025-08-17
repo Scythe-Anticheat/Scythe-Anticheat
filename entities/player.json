@@ -76,8 +76,9 @@
 				}
 			},
 			"scythe:kick": {
+				// This kick method was added after Mojang patched the previous method of using the minecraft:instant_despawn component group
+				// Fortunately a new kick method was discovered by Tutinoko9900#1841 which we use here
 				// https://discord.com/channels/879970475483217940/933913999765024818/1022005158865031188
-				// new kick method by Tutinoko9900#1841
 				"minecraft:explode": {
 					"fuse_length": 0,
 					"fuse_lit": true,
@@ -348,10 +349,6 @@
 				}
 			},
 			"scythe:kick": {
-				"queue_command": {
-					"command": "kick @s §r\n§l§cYOU ARE BANNED!\n§eBanned By:§r N/A\n§bReason:§r N/A\n§aBan Length:§r Permanent"
-				},
-				// We probably don't need this anymore as we run '/kick @s'
 				"add": {
 					"component_groups": [
 						"scythe:kick"

@@ -1,5 +1,5 @@
 // @ts-check
-import { findPlayerByName, tellAllStaff } from "../../util.js";
+import { findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
 registerCommand({
@@ -12,10 +12,10 @@ registerCommand({
     execute: (message, args) => {
         const { player } = message;
 
-        let isSilent = false;
-        if(args[1] === "-s" || args[1] === "--silent") isSilent = true;
+        const isSilent = args[1] === "-s" || args[1] === "--silent";
+        if(isSilent) args.shift();
 
-        const reason = args.slice(1).join(" ").replace(/-s|-silent|"|\\/g, "") || "No reason specified";
+        const reason = args.slice(1).join(" ").replace(/"|\\/g, "");
 
         // Find the player requested
         const target = findPlayerByName(args[0]);
@@ -25,8 +25,6 @@ registerCommand({
         // Make sure they don't kick themselves
         if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
 
-        isSilent ? target.triggerEvent("scythe:kick") : target.runCommand(`kick @s ${reason}`);
-
-        tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has kicked ${target.name} ${isSilent ? "(Silent) ": ""}for ${reason}`);
+        target.kick(player, reason, isSilent);
     }
 });

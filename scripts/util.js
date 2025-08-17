@@ -163,7 +163,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     switch(punishment) {
         case "kick": {
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been automatically kicked by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`, ["notify"]);
-            player.runCommand(`kick @s §r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`);
+
+            player.kick(null, `§r§6[§aScythe§6]§r You have been kicked for hacking. Check: ${check}/${checkType}`);
             break;
         }
 

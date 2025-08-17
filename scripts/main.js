@@ -274,7 +274,6 @@ system.runInterval(() => {
 
 			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
 				player.tryTeleport({
-					// Check if the number is greater than 0, if it is then subtract 1 else add 1
 					x: player.location.x - (player.location.x >= 0 ? 1 : -1),
 					y: player.location.y,
 					z: player.location.z - (player.location.z >= 0 ? 1 : -1)
