@@ -44,6 +44,8 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		system.run(() => {
 			flag(player, "Spammer", "A", "Movement", undefined, true);
 		});
+
+		msg.cancel = true;
 	}
 
 	// Mining fatigue can make the arm swing animation last longer than normal so we ignore players with that effect
@@ -51,12 +53,16 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		system.run(() => {
 			flag(player, "Spammer", "B", "Combat");
 		});
+
+		msg.cancel = true;
 	}
 
 	if(config.modules.spammerC.enabled && player.isUsingItem) {
 		system.run(() => {
 			flag(player, "Spammer", "C", "Misc");
 		});
+
+		msg.cancel = true;
 	}
 
 	if(config.modules.spammerD.enabled && player.hasTag("hasGUIopen")) {
@@ -64,6 +70,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 			flag(player, "Spammer", "D", "Misc");
 		});
 
+		msg.cancel = true;
 	}
 
 	commandHandler(msg);
@@ -85,6 +92,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 			player.sendMessage("§r§6[§aScythe§6]§r Stop spamming! You are sending messages too fast.");
 			msg.cancel = true;
 		}
+
 		player.lastMessageSent = now;
 	}
 
