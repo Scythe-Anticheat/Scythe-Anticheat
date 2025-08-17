@@ -15,7 +15,6 @@ registerCommand({
 
         // Find the player requested
         const target = findPlayerByName(args[0]);
-
         if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         for(const objective of world.scoreboard.getObjectives()) {

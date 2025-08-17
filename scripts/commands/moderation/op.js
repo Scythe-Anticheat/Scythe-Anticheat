@@ -14,7 +14,6 @@ registerCommand({
 
         // Find the player requested
         const target = findPlayerByName(args[0]);
-
         if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
         if(target.hasTag("op")) return player.sendMessage("§r§6[§aScythe§6]§r This player already has scythe-op.");

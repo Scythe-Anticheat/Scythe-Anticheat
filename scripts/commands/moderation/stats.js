@@ -17,7 +17,6 @@ registerCommand({
 
 		// Find the player requested
 		const target = findPlayerByName(args[0]);
-
 		if(!target) return player.sendMessage(`${logo} Couldn't find that player.`);
 
 		player.sendMessage(getStatsMsg(target));

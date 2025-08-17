@@ -12,7 +12,6 @@ registerCommand({
 
 		// Find the player requested
 		const target = args.length ? findPlayerByName(args[0]) : player;
-
 		if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
 		if(player.gamemode === "Creative") return player.sendMessage("§r§6[§aScythe§6]§r No need! This player is in creative which allows flying by default.");
