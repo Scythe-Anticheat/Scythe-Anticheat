@@ -213,6 +213,7 @@
 						},
 						"deals_damage": false
 					},
+					// Prevent frozen players from being able to attack or be attacked by other entities
 					{
 						"cause": "all",
 						"on_damage": {
@@ -233,20 +234,6 @@
 							}
 						},
 						"deals_damage": false
-					},
-					{
-						"cause": "entity_attack",
-						"on_damage": {
-							"filters": {
-								"any_of": [{
-									"test": "is_family",
-									"subject": "other",
-									"value": "player"
-								}]
-							},
-							"event": "scythe:attacked",
-							"target": "other"
-						}
 					}
 				]
 			},
@@ -327,11 +314,6 @@
 			}
 		},
 		"events": {
-			"scythe:attacked": {
-				"queue_command": {
-					"command": "tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
-				}
-			},
 			"scythe:openedGui": {
 				"queue_command": {
 					"command": [
