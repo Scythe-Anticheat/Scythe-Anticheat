@@ -3,7 +3,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "19";
+const latestConfigVer = "20";
 
 // Set dynamic properties
 system.run(() => {
@@ -53,6 +53,7 @@ system.run(() => {
 
 			config.customcommands.unban.aliases.push("pardon");
 
+			// @ts-expect-error
 			config.modules.killauraA = {
 				enabled: true,
 				rightTicks: 3,
@@ -266,6 +267,10 @@ system.run(() => {
 				punishment: "none",
 				minVlbeforePunishment: 0
 			};
+		
+		case "19":
+			// Convert the previous time in ticks to milliseconds
+			config.modules.killauraA.min_item_use_time = config.modules.killauraA.rightTicks * 50;
 
 		case latestConfigVer:
 			break;

@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "19",
+	"version": "20",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -320,7 +320,8 @@ export default
 		},
 		"killauraA": {
 			"enabled": true,
-			"rightTicks": 3,
+			// Minimum time the player should be using the item for a flag
+			"min_item_use_time": 150,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

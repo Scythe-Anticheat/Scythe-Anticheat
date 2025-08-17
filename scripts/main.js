@@ -646,8 +646,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	if(
 		config.modules.killauraA.enabled &&
 		player.isUsingItem &&
-		// Convert ms to ticks
-		(Date.now() - player.itemUsedAt) / 50 > config.modules.killauraA.rightTicks
+		Date.now() - player.itemUsedAt > config.modules.killauraA.min_item_use_time
 	) flag(player, "Killaura", "A", "Combat", `itemUsedFor=${Date.now() - player.itemUsedAt}`);
 
 	/*
