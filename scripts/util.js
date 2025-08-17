@@ -186,7 +186,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         }
 
         case "mute": {
-            player.mute(null);
+            player.mute();
             player.sendMessage(`§r§6[§aScythe§6]§r You have been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}`);
 
             tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has automatically been muted by Scythe Anticheat for Unfair Advantage. Check: ${check}/${checkType}.`);

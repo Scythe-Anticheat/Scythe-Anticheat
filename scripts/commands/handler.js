@@ -1,5 +1,5 @@
 // @ts-check
-import { world, system } from "@minecraft/server";
+import { world, system, ChatSendBeforeEvent } from "@minecraft/server";
 import config from "../data/config.js";
 
 const prefix = config.customcommands.prefix ?? "!";
@@ -41,11 +41,11 @@ export function registerCommand(data) {
 
 /**
  * @name commandHandler
- * @param {import("@minecraft/server").ChatSendBeforeEvent} msg - Message data
+ * @param {ChatSendBeforeEvent} msg - Message data
  */
 export function commandHandler(msg) {
     // Validate that required parameters are defined
-    if(typeof msg !== "object") throw TypeError(`msg is type of ${typeof msg}. Expected "object"`);
+    if(!(msg instanceof ChatSendBeforeEvent)) throw TypeError("msg is not an instance of ChatSendBeforeEvent.");
 
     const { message, sender: player } = msg;
 

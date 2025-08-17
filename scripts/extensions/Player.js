@@ -95,6 +95,12 @@ Player.prototype.getMaxBlockPlaceDistance = function() {
 
     const inputMode = this.inputInfo.lastInputModeUsed;
 
+    /*
+	When in Creative, the place block reach changes depending on the device:
+		- Desktop: Reach limit remains the same
+		- Mobile: Reach limit increases to ~11 blocks, depending on angle
+		- Console: Reach liit can vary around 5-6.5 blocks, depending on device
+    */
     switch(inputMode) {
         case InputMode.KeyboardAndMouse:
             return 5;

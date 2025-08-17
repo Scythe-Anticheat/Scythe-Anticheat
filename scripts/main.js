@@ -40,10 +40,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	Spammer/D = Checks if someone sends a message while having a GUI open
 	*/
 
-	if(
-		config.modules.spammerA.enabled &&
-		player.isUsingInputKeys()
-	) {
+	if(config.modules.spammerA.enabled && player.isUsingInputKeys()) {
 		system.run(() => {
 			flag(player, "Spammer", "A", "Movement", undefined, true);
 		});
@@ -300,15 +297,7 @@ system.runInterval(() => {
 world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}`);
 
-	/*
-	Reach/C = Checks if a player places a block farther than normally possible.
-
-	When in Survival, the place block reach can get up to ~5 blocks on all devices.
-	When in Creative, the place block reach changes depending on the device:
-		- Desktop: Reach limit remains the same
-		- Mobile: Reach limit increases to ~11 blocks, depending on angle
-		- Console: Reach liit can vary around 5-6.5 blocks, depending on device
-	*/
+	// Reach/C = Checks if a player places a block farther than normally possible.
 	if(config.modules.reachC.enabled) {
 		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
 		const distance = Math.sqrt(
@@ -319,9 +308,9 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 
 		if(config.debug) console.log(distance);
 
-		const maPlaceDistance = player.getMaxBlockPlaceDistance();
+		const maxPlaceDistance = player.getMaxBlockPlaceDistance();
 
-		if(distance > maPlaceDistance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${player.inputInfo.lastInputModeUsed}`);
+		if(distance > maxPlaceDistance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${player.inputInfo.lastInputModeUsed}`);
 	}
 
 	// Get block underneath the player
@@ -797,7 +786,7 @@ world.afterEvents.playerHotbarSelectedSlotChange.subscribe(({ player, itemStack 
 	player.heldItem = itemStack?.typeId ?? "minecraft:air";
 });
 
-system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity: player }) => {
+system.afterEvents.scriptEventReceive.subscribe(({ sourceEntity: player, id }) => {
 	if(!(player instanceof Player) || !id.startsWith("scythe:")) return;
 
 	const splitId = id.split(":");
