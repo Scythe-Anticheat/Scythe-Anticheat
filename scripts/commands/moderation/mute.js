@@ -19,7 +19,7 @@ registerCommand({
         // Make sure they don't mute themselves
         if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot mute yourself.");
 
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "");
+        const reason = args.slice(1).join(" ");
 
         target.mute(player, reason);
     }

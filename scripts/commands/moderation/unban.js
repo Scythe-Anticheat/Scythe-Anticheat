@@ -37,7 +37,7 @@ registerCommand({
 					return player.sendMessage("§r§6[§aScythe§6]§r The unban queue has reached the limit of 100 members.");
 				}
 
-				const reason = args.slice(2).join(" ").replace(/"|\\/g, "") || "No reason specified";
+				const reason = args.slice(2).join(" ") || "No reason specified";
 
 				unbanQueue[member] = [player.name, reason];
 				world.setDynamicProperty("unbanQueue", JSON.stringify(unbanQueue));
@@ -68,7 +68,7 @@ registerCommand({
 
 				const member = args[1].replace(/\\/g, "").toLowerCase(); // String
 
-				const reason = args.slice(2).join(" ").replace(/"|\\/g, "") || "No reason specified";
+				const reason = args.slice(2).join(" ") || "No reason specified";
 
 				if(!unbanQueue[member]) {
 					return player.sendMessage(`§r§6[§aScythe§6]§r ${member} is not in the unban queue.`);

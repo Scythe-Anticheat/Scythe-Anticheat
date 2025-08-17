@@ -26,8 +26,7 @@ registerCommand({
         const time = args[1] ? parseTime(args[1]) : undefined;
         if(time) args.splice(1, 1);
 
-        // Remove player name and join all arguments together
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "");
+        const reason = args.slice(1).join(" ");
 
         target.ban(player, reason, time);
     }

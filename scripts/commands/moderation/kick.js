@@ -22,7 +22,7 @@ registerCommand({
         const isSilent = args[1] === "-s" || args[1] === "--silent";
         if(isSilent) args.shift();
 
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "");
+        const reason = args.slice(1).join(" ");
 
         target.kick(player, reason, isSilent);
     }

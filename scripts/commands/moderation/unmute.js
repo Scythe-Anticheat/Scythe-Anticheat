@@ -16,7 +16,7 @@ registerCommand({
         const target = findPlayerByName(args[0]);
         if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-        const reason = args.slice(1).join(" ").replace(/"|\\/g, "");
+        const reason = args.slice(1).join(" ");
 
         target.unmute(player, reason);
     }
