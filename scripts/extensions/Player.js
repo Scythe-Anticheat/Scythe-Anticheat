@@ -15,7 +15,7 @@ Player.prototype.lastThrow = 0;
 Player.prototype.lastLeftClick = NaN;
 Player.prototype.entitiesHit = new Set();
 Player.prototype.lastMessageSent = 0;
-Player.prototype.reports = [];
+Player.prototype.reports = new Set();
 Player.prototype.lastSprintState = false;
 Player.prototype.isUsingItem = false;
 

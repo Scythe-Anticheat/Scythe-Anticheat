@@ -19,8 +19,8 @@ registerCommand({
         if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot report yourself.");
 
         // Prevent report spam
-        if(player.reports.includes(target.id)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
-        player.reports.push(target.id);
+        if(player.reports.has(target.id)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
+        player.reports.add(target.id);
 
         const reason = args.slice(1).join(" ") || "No reason specified";
 

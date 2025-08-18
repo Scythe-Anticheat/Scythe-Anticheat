@@ -27,7 +27,7 @@ declare module "@minecraft/server" {
 
 		// Arrays
 		entitiesHit: Set<String>
-		reports: Array<String>
+		reports: Set<String>
 		
 		// Objects
 		lastOffhandItem?: ItemStack
