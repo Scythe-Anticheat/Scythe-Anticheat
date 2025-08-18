@@ -99,7 +99,7 @@ system.run(() => {
 
 			delete config.modules.commandblockexploitF;
 			delete config.modules.commandblockexploitG;
-			delete config.modules.tcommandblockexploitH;
+			delete config.modules.commandblockexploitH;
 
 			delete config.modules.illegalitemsB;
 			delete config.modules.illegalitemsC;
@@ -117,6 +117,8 @@ system.run(() => {
 
 			delete config.itemLists;
 
+			delete config.customcommands.npc;
+
 			config.modules.badpackets2 = {
 				enabled: true,
 				maxLength: 512,
@@ -132,6 +134,13 @@ system.run(() => {
 				"minecraft:trident",
 				"minecraft:mace"
 			];
+
+			config.customcommands.tag.defaultTag = "";
+
+			config.customcommands.resetconfig = {
+				enabled: true,
+				requiredTags: ["op"]
+			};
 
 		case "3.0.0":
 			config.modules.badpackets4 = {
@@ -198,8 +207,7 @@ system.run(() => {
 		case "10":
 			config.misc_modules.antiSpam = {
 				enabled: config.modules.spammerE.enabled,
-				messageRatelimit: config.modules.spammerE.messageRatelimit,
-				sendWarningMessage: config.modules.spammerE.sendWarningMessage
+				messageRatelimit: config.modules.spammerE.messageRatelimit
 			};
 
 			delete config.modules.spammerE;
@@ -271,6 +279,7 @@ system.run(() => {
 		case "19":
 			// Convert the previous time in ticks to milliseconds
 			config.modules.killauraA.min_item_use_time = config.modules.killauraA.rightTicks * 50;
+			delete config.modules.killauraA.rightTicks;
 
 		case latestConfigVer:
 			break;
