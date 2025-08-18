@@ -5,8 +5,8 @@ import { registerCommand } from "../handler.js";
 registerCommand({
     name: "report",
     description: "Send a player report to all currently online staff members",
-    usage: "<player> [reason]",
-    minArgCount: 1,
+    usage: "<player> <reason>",
+    minArgCount: 2,
     category: "other",
     execute: (message, args) => {
         const { player } = message;
@@ -22,7 +22,8 @@ registerCommand({
         if(player.reports.has(target.id)) return player.sendMessage("§r§6[§aScythe§6]§r You have already reported this player.");
         player.reports.add(target.id);
 
-        const reason = args.slice(1).join(" ") || "No reason specified";
+        const reason = args.slice(1).join(" ");
+        if(reason.length <= 5) return player.sendMessage("§r§6[§aScythe§6]§r The reason for your report must be at least 5 characters long");
 
         player.sendMessage(`§r§6[§aScythe§6]§r You have reported ${target.name} for ${reason}.`);
 
