@@ -20,7 +20,7 @@ registerCommand({
         if(target.id === player.id) return player.sendMessage("§r§6[§aScythe§6]§r You cannot kick yourself.");
 
         const isSilent = args[1] === "-s" || args[1] === "--silent";
-        if(isSilent) args.shift();
+        if(isSilent) args.splice(1, 1);
 
         const reason = args.slice(1).join(" ");
 
