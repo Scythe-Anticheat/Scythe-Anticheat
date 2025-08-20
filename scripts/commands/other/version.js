@@ -4,7 +4,7 @@ import { registerCommand } from "../handler.js";
 
 registerCommand({
     name: "version",
-    description: "Shows the version the anticheat is running",
+    description: "Get the current version of Scythe",
     aliases: ["ver","about"],
     category: "other",
     execute: (message) => {

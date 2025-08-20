@@ -5,76 +5,39 @@ import { registerCommand, commands } from "../handler.js";
 
 const prefix = config.customcommands.prefix;
 
-let didFillCaches = false;
-const moderationCommands = [];
-const settingsCommands = [];
-const utilityCommands = [];
-const otherCommands = [];
+const commandData = {
+	filledCache: false,
+	moderation: [],
+	settings: [],
+	utility: [],
+	other: []
+};
+
+const friendlyCategoryNames = {
+	moderation: "Moderation Commands",
+	settings: "Settings Commands",
+	utility: "Tools and Utilities",
+	other: "Other Commands"
+};
 
 registerCommand({
 	name: "help",
 	description: "Shows this help page",
 	usage: "[commandName]",
-	aliases: ["support", "commands"],
+	aliases: ["support", "commands", "man"],
     category: "other",
 	execute: (message, args) => {
 		const { player } = message;
 
-		// Looping over every single command every time the help command is obviously bad for performance, so we cache all the command data.
-		for(const command of Object.values(commands)) {
-			if(didFillCaches) break; // Dont loop through all commands again
+		// Looping over every single command every time is obviously bad for performance, so we cache all the generated command data
+		if(!commandData.filledCache) generateCommandData();
 
-			switch(command.category) {
-				case "moderation":
-					moderationCommands.push(command);
-					break;
-				case "settings":
-					settingsCommands.push(command);
-					break;
-				case "utility":
-					utilityCommands.push(command);
-					break;
-				case "other":
-					otherCommands.push(command);
-					break;
-				default:
-					throw Error(`Unknown command category "${command.category}".`);
-			}
-		}
-
-		didFillCaches = true;
-
-		if(!args.length) {
-			// Display all commands to the user
-			let message = "§l§aScythe Anticheat Command Help\n\n§l§aModeration Commands\n";
-			for(const command of moderationCommands) {
-				message += `§r§3${prefix}${command.name} ${command.usage ?? ""}§r - ${command.description}\n`;
-			}
-
-			message += "\n§l§aOptional Features\n";
-			for(const command of settingsCommands) {
-				message += `§r§3${prefix}${command.name} ${command.usage ?? ""}§r - ${command.description}\n`;
-			}
-
-			message += "\n§l§aTools and Utilities\n";
-			for(const command of utilityCommands) {
-				message += `§r§3${prefix}${command.name} ${command.usage ?? ""}§r - ${command.description}\n`;
-			}
-
-			message += "\n§l§aOther Commands\n";
-			for(const command of otherCommands) {
-				message += `§r§3${prefix}${command.name} ${command.usage ?? ""}§r - ${command.description}\n`;
-			}
-
-			message += "\nNeed extra help? Ask your question in the support server: https://discord.gg/9m9TbgJ973.\n";
-
-			player.sendMessage(message);
-			return;
-		}
+		// If no command was passed in then send the user all avaliable commands
+		if(!args.length) return player.sendMessage(getHelpMessage());
 
 		// Give help for a command
 		const name = args[0].toLowerCase();
-		if(!commands[name]) return player.sendMessage(`§r§6[§aScythe§6]§r The command '${name}' was not found`);
+		if(!commands[name]) return player.sendMessage(`§r§6[§aScythe§6]§r The command '${name}' was not found.`);
 
 		const { description, usage, minArgCount, category, aliases } = commands[name];
 
@@ -89,3 +52,31 @@ registerCommand({
 		player.sendMessage(commandInfo);
 	}
 });
+
+function generateCommandData() {
+	for(const command of Object.values(commands)) {
+		if(!commandData[command.category]) throw Error(`Unknown command category "${command.category}".`);
+
+		commandData[command.category].push(command);
+	}
+
+	commandData.filledCache = true;
+}
+
+function getHelpMessage() {
+	let message = "§l§aScythe Anticheat Command Help\n";
+
+	// Loop through all command categories
+	for(const category of Object.keys(friendlyCategoryNames)) {
+		message += `\n§l§a${friendlyCategoryNames[category]}\n`;
+
+		// Loop through all commands that exist for the category
+		for(const command of commandData[category]) {
+			message += `§r§3${prefix}${command.name} ${command.usage ?? ""}§r - ${command.description}\n`;
+		}
+	}
+
+	message += "\nNeed extra help? Ask your question in the support server: https://discord.gg/9m9TbgJ973.\n";
+
+	return message;
+}
