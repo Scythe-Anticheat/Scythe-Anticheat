@@ -689,8 +689,6 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	if(config.modules.killauraE.enabled && player.hasTag("hasGUIopen")) {
 		flag(player, "Killaura", "E", "Combat");
 	}
-
-	if(config.debug) console.warn(player.getTags());
 });
 
 world.afterEvents.entityHitBlock.subscribe(({ damagingEntity: player }) => {
