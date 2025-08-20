@@ -371,7 +371,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	// Make sure the players's y location is greater than the block placed's y location.
 	if(
 		config.modules.scaffoldC.enabled &&
-		Math.trunc(player.location.y) > Math.trunc(block.location.y) &&
+		Math.trunc(player.location.y) > block.location.y &&
 		player.rotation.x < config.modules.scaffoldC.min_x_rot &&
 		!player.isSwimming &&
 		block.isSolid &&
