@@ -602,6 +602,7 @@ function debugSettingsMenu(player) {
         .button("Disable Debug Intents", icons.debug)
         .button("Randomize Inventory", icons.debug)
         .button("Test Flag", icons.debug)
+        .button("Enable All Modules", icons.debug)
         .button("Reset Config", icons.debug)
         .button("Force Watchdog Stack Overflow", icons.debug)
         .button("Force Watchdog Hang", icons.debug)
@@ -640,21 +641,31 @@ function debugSettingsMenu(player) {
                 break;
 
             case 3:
+                for(const module of Object.values(config.modules)) {
+                    module.enabled = true;
+                }
+
+                world.setDynamicProperty("config", JSON.stringify(config));
+
+                player.sendMessage("§r§6[§aScythe§6]§r All Scythe modules have been enabled.");
+                break;
+
+            case 4:
                 world.setDynamicProperty("config", undefined);
                 player.sendMessage("§r§6[§aScythe§6]§r The scythe config has been reset. Run '/reload' to apply the changes.");
                 break;
 
-            case 4: {
+            case 5: {
                 const loop = () => loop();
                 loop();
                 break;
             }
 
-            case 5:
+            case 6:
                 // eslint-disable-next-line no-constant-condition
                 while(true) {}
 
-            case 6:
+            case 7:
                 config.array = [config];
                 // eslint-disable-next-line no-constant-condition
                 while(true) {
