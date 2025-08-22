@@ -49,84 +49,47 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     // If debug is enabled then log everything we know about the player
     if(config.debug) {
-        const {
-            name,
-            nameTag,
-            location,
-            velocity,
-            rotation,
-            heldItem,
-            selectedSlotIndex,
-            isEmoting,
-            isFlying,
-            isGliding,
-            isJumping,
-            isClimbing,
-            isFalling,
-            isInWater,
-            isOnGround,
-            isSleeping,
-            isSneaking,
-            isSprinting,
-            isSwimming,
-            blocksBroken,
-            entitiesHit,
-            clicks,
-            firstAttack,
-            lastSelectedSlot,
-            startBreakTime,
-            lastThrow,
-            autotoolSwitchDelay,
-            lastMessageSent,
-            lastGoodPosition,
-            movedAt
-        } = player;
+        const playerData = {
+            name: player.name,
+            dimension: player.dimension.id,
+            location: player.location,
+            headLocation: player.getHeadLocation(),
+            velocity: player.velocity,
+            rotation: player.rotation,
+            tags: player.getTags(),
+            heldItem: player.heldItem,
+            selectedSlotIndex: player.selectedSlotIndex,
+            platform: player.clientSystemInfo.platformType,
+            scythe: {
+                blocksBroken: player.blocksBroken,
+                entitiesHit: player.entitiesHit,
+                clicks: player.clicks,
+                firstAttack: player.firstAttack,
+                lastSelectedSlot: player.lastSelectedSlot,
+                startBreakTime: player.startBreakTime,
+                lastThrow: player.lastThrow,
+                autotoolSwitchDelay: player.autotoolSwitchDelay,
+                lastMessageSent: player.lastMessageSent,
+                lastGoodPosition: player.lastGoodPosition,
+                movedAt: player.movedAt
+            }
+        };
 
-       const data = {
+        // Copy all methods such as 'isMoving', 'isGliding', 'isFlying', 'isEmoting', etc to player data
+        for(const property in player) {
+            if(!property.startsWith("is")) continue;
+
+            playerData[property] = player[property];
+        }
+
+        const data = {
             timestamp: Date.now(),
             time: new Date().toISOString(),
             check: `${check}/${checkType}`,
             debug: `${debug}§r`,
             shouldTP,
             slot,
-            playerData: {
-                name,
-                nameTag,
-                dimension: player.dimension.id,
-                location,
-                headLocation: player.getHeadLocation(),
-                velocity,
-                rotation,
-                tags: player.getTags(),
-                heldItem,
-                selectedSlotIndex,
-                platform: player.clientSystemInfo.platformType,
-                isEmoting,
-                isFlying,
-                isGliding,
-                isJumping,
-                isClimbing,
-                isFalling,
-                isInWater,
-                isOnGround,
-                isSleeping,
-                isSneaking,
-                isSprinting,
-                isSwimming,
-                scythe: {
-                    blocksBroken,
-                    entitiesHit,
-                    clicks,
-                    firstAttack,
-                    lastSelectedSlot,
-                    startBreakTime,
-                    lastThrow,
-                    autotoolSwitchDelay,
-                    lastMessageSent,
-                    lastGoodPosition,
-                    movedAt
-                }
-            }
+            playerData
         };
 
         console.warn(JSON.stringify(data));
