@@ -336,9 +336,9 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		block.location.y === blockUnder.location.y &&
 		block.location.z === blockUnder.location.z &&
 		!player.isFlying &&
+		player.gamemode !== GameMode.Creative &&
 		player.isJumping &&
 		player.isFalling &&
-		player.velocity.y < 1 &&
 		!player.getEffect("jump_boost") &&
 		// Fence and wall blocks have a bigger Y hitbox
 		!block.typeId.includes("fence") &&
@@ -349,7 +349,7 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 		// Get the decimal portion of the Y position
 		const yDecimal = Math.abs(player.location.y % 1);
 
-		if(yDecimal > config.modules.scaffoldA.max_y_pos_diff && player.gamemode !== GameMode.Creative && !player.isFlying) {
+		if(yDecimal > config.modules.scaffoldA.max_y_pos_diff) {
 			flag(player, "Scaffold", "A", "World", `yPosDiff=${yDecimal},block=${block.typeId}`, true);
 			block.setType("air");
 		}
