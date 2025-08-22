@@ -226,6 +226,7 @@ export function parseTime(str) {
 
     if(time) {
         const [, num, unit] = time;
+
         const ms = {
             s: 1000,
             m: 60000,
@@ -234,8 +235,10 @@ export function parseTime(str) {
             w: 604800000,
             y: 31536000000
         }[unit];
+
         return ms * Number(num);
     }
+
     return time;
 }
 
@@ -247,14 +250,6 @@ export function parseTime(str) {
  * @returns {object} str - The converted string
  */
 export function msToTime(ms) {
-    // validate that required params are defined
-    if(typeof ms !== "number") throw TypeError(`Error: ms is type of ${typeof ms}. Expected "number"`);
-
-    // If the milliseconds count is greater than now, subtract now.
-    const now = Date.now();
-    if(ms > now) ms = ms - now;
-
-    // Turn milliseconds into days, minutes, seconds, etc
     return {
         w: Math.floor(ms / (1000 * 60 * 60 * 24 * 7)),
         d: Math.floor((ms % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24)),
