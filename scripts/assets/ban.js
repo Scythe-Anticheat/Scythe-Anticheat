@@ -44,7 +44,9 @@ export function banMessage(player) {
             return;
         }
 
-        const { w, d, h, m, s } = msToTime(Number(time));
+        const timeUntilUnban = time - Date.now();
+
+        const { w, d, h, m, s } = msToTime(timeUntilUnban);
         friendlyTime = `${w} weeks, ${d} days, ${h} hours, ${m} minutes, ${s} seconds`;
     }
 
