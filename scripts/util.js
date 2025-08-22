@@ -97,7 +97,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 headLocation: player.getHeadLocation(),
                 velocity,
                 rotation,
-                tags: String(player.getTags()).replace(/[\r\n"]/gm, ""),
+                tags: player.getTags(),
                 heldItem,
                 selectedSlotIndex,
                 platform: player.clientSystemInfo.platformType,
