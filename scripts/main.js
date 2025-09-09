@@ -1,6 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
-import { world, system, Player, EquipmentSlot, PlayerInventoryType, GameMode } from "@minecraft/server";
+import { world, system, Player, EquipmentSlot, GameMode } from "@minecraft/server";
 import { flag, tellAllStaff } from "./util.js";
 import { banMessage } from "./assets/ban.js";
 import { mainGui, playerSettingsMenuSelected } from "./assets/ui.js";
@@ -123,6 +123,9 @@ system.runInterval(() => {
 
 			// Find the magnitude of the velocity vector
 			const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
+
+			// Get the item that the player is holding in their cursor
+			const cursorItem = player.getComponent("cursor_inventory")?.item;
 
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
@@ -250,12 +253,18 @@ system.runInterval(() => {
 			*/
 			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
 
+			// InventoryMods/B = Check if a player changes the item they are holding in their cursor slot while moving
+			if(
+				config.modules.inventorymodsB.enabled &&
+				player.lastCursorItem?.typeId !== cursorItem?.typeId &&
+				player.isUsingInputKeys()
+			) flag(player, "InventoryMods", "B", "Inventory", `oldItem=${player.lastCursorItem?.typeId},newItem=${cursorItem?.typeId}`, true);
+
 			// Check if an item was equipped to the offhand
 			if(!player.lastOffhandItem && offhandItem) {
 				// AutoOffhand/A = Checks if a player equips an item in their offhand while moving
 				if(
 					config.modules.autooffhandA.enabled &&
-					player.isOnGround &&
 					player.isUsingInputKeys()
 				) flag(player, "AutoOffhand", "A", "Inventory", `item=${offhandItem?.typeId}`, true);
 
@@ -286,6 +295,7 @@ system.runInterval(() => {
 
 			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
 
+			player.lastCursorItem = cursorItem;
 			player.lastOffhandItem = offhandItem;
 
 			// Store the players last good position
@@ -750,22 +760,11 @@ world.afterEvents.playerGameModeChange.subscribe(({ fromGameMode, player, toGame
 	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s§r §4gamemode was updated to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
 });
 
-world.afterEvents.playerInventoryItemChange.subscribe(({ beforeItemStack: oldItemStack, itemStack, player, slot, inventoryType }) => {
+world.afterEvents.playerInventoryItemChange.subscribe(({ itemStack, player, slot }) => {
 	// Check if the item in the player's current selected slot has changed
 	if(slot === player.selectedSlotIndex) {
 		player.heldItem = itemStack?.typeId ?? "minecraft:air";
 	}
-
-	// InventoryMods/B = Check if a player switches their selected item in the inventory while moving
-	if(
-		config.modules.inventorymodsB.enabled &&
-		// This event can be trigged when equipping items in your hotbar by long-pressing
-		inventoryType === PlayerInventoryType.Inventory &&
-		player.isOnGround &&
-		// Make sure the item was not previously air to avoid false positives when picking up items
-		oldItemStack &&
-		player.isUsingInputKeys()
-	) flag(player, "InventoryMods", "B", "Inventory", `slot=${slot},oldItem=${oldItemStack?.typeId},newItem=${itemStack?.typeId}`, true);
 });
 
 world.afterEvents.itemStartUse.subscribe(({ source: player, itemStack: item }) => {

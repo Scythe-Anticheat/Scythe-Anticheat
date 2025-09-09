@@ -61,7 +61,7 @@ For a full list of commands, you can run the `!help` command. This output a list
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(F) => Checks if a player sprints while they do not have enough hunger.<br/>
 
   InventoryMods-><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Check if a player switches the item they have selected in the inventory while moving.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Check if a player changes the item they are holding in their cursor slot while moving.<br/>
 
   Killaura -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for attacking while using an item.<br/>
