@@ -661,8 +661,10 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 	/*
 	Killaura/B = Check for no swing
-	For this check to work correctly Scythe has to be put at the top of the behavior packs list.
-	Players with the haste effect are excluded as the effect can make players not swing their hand.
+
+	The playerSwingStart event fires after the entityHitEntity event is fired, so we have to implement some sort of delay
+	When a player attacks, we wait 40 ticks (or two seconds) to compensate for the playerSwingStart event firing after entityHitEntity, and then check if the player has swung in the last 5 seconds
+	If they have not swung, then we know they are using a no swing cheat and we can detect them
 	*/
 	if(config.modules.killauraB.enabled && player.heldItem !== "minecraft:trident" && !player.getEffect("haste")) {
 		system.runTimeout(() => {
@@ -789,15 +791,15 @@ world.afterEvents.playerHotbarSelectedSlotChange.subscribe(({ player, itemStack 
 	player.heldItem = itemStack?.typeId ?? "minecraft:air";
 });
 
+world.afterEvents.playerSwingStart.subscribe(({ player }) => {
+	player.lastLeftClick = Date.now();
+});
+
 system.afterEvents.scriptEventReceive.subscribe(({ sourceEntity: player, id }) => {
 	if(!(player instanceof Player) || !id.startsWith("scythe:")) return;
 
 	const splitId = id.split(":");
 	switch(splitId[1]) {
-		case "left":
-			player.lastLeftClick = Date.now();
-			break;
-
 		case "startMove":
 			player.movedAt = Date.now();
 			break;
