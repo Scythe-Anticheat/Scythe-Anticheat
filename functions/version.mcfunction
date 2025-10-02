@@ -1,1 +1,1 @@
-tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r Scythe is currently on version 3.8.0-beta."}]}
+tellraw @s {"rawtext":[{"text":"§r§6[§aScythe§6]§r Scythe is currently on version 3.9.0-beta."}]}

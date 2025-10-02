@@ -305,7 +305,7 @@ system.runInterval(() => {
 
 			player.lastSprintState = player.isSprinting;
 		} catch (error) {
-			console.error(error, error.stack);
+			console.error(error.stack);
 			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
 		}
 	}

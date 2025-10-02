@@ -1,6 +1,6 @@
 {
   "name": "scythe-anticheat",
-  "version": "3.8.0",
+  "version": "3.9.0",
   "description": "Scythe Anticheat - The best anticheat designed for Minecraft Bedrock realms/worlds/servers",
   "main": "main.js",
   "repository": {
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/Scythe-Anticheat/Scythe-AntiCheat#readme",
   "devDependencies": {
-    "@minecraft/server": "2.2.0-beta.1.21.100-stable",
+    "@minecraft/server": "2.3.0-beta.1.21.111-stable",
     "@minecraft/server-ui": "2.1.0-beta.1.21.90-stable",
     "eslint": "^8.57.0"
   }
