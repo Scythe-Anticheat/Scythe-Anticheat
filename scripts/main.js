@@ -666,7 +666,12 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	When a player attacks, we wait 40 ticks (or two seconds) to compensate for the playerSwingStart event firing after entityHitEntity, and then check if the player has swung in the last 5 seconds
 	If they have not swung, then we know they are using a no swing cheat and we can detect them
 	*/
-	if(config.modules.killauraB.enabled && player.heldItem !== "minecraft:trident" && !player.getEffect("haste")) {
+	if(
+		config.modules.killauraB.enabled &&
+		player.heldItem !== "minecraft:trident" &&
+		// Mining fatigue increases how long the arm swing animation lasts, and if its in middle of an animation the playerSwingStart event will not trigger for attacks
+		!player.getEffect("mining_fatigue")
+	) {
 		system.runTimeout(() => {
 			const swingDelay = Date.now() - player.lastLeftClick;
 
@@ -792,6 +797,8 @@ world.afterEvents.playerHotbarSelectedSlotChange.subscribe(({ player, itemStack 
 });
 
 world.afterEvents.playerSwingStart.subscribe(({ player }) => {
+	console.log("SWING");
+
 	player.lastLeftClick = Date.now();
 });
 
