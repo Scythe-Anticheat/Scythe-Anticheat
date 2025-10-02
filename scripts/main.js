@@ -797,8 +797,6 @@ world.afterEvents.playerHotbarSelectedSlotChange.subscribe(({ player, itemStack 
 });
 
 world.afterEvents.playerSwingStart.subscribe(({ player }) => {
-	console.log("SWING");
-
 	player.lastLeftClick = Date.now();
 });
 
