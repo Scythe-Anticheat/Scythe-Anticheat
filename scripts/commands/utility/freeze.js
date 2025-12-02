@@ -15,6 +15,6 @@ registerCommand({
 		const target = findPlayerByName(args[0]);
 		if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		target.getDynamicProperty("frozen") ? player.unfreeze(player) : target.freeze(player);
+		target.getDynamicProperty("frozen") ? target.unfreeze(player) : target.freeze(player);
 	}
 });
