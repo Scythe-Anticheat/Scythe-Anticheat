@@ -17,15 +17,13 @@ export function banMessage(player) {
     // @ts-expect-error
     const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue"));
 
-    // We have to be careful here, improperly checking if the player exists in the unban queue may lead to a logic bug where a player can unban themselves
-    // If we did not check that unbanQueue[playerName] was an array, then a malicious player could namespoof to something like "constructor" and get unbanned
-    // This is caused as all Javascript objects includes default properties, such as "constructor" or "__proto__"
-    if(Array.isArray(unbanQueue[player.name.toLowerCase()])) {
+    const playerName = player.name.toLowerCase();
+    if(Object.hasOwn(unbanQueue, playerName)) {
         player.setDynamicProperty("banInfo", undefined);
 
         tellAllStaff(`§r§6[§aScythe§6]§r ${player.name} has been found in the unban queue and has been unbanned.`);
 
-        delete unbanQueue[player.name.toLowerCase()];
+        delete unbanQueue[playerName];
         world.setDynamicProperty("unbanQueue", JSON.stringify(unbanQueue));
         return;
     }

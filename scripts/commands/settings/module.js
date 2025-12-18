@@ -29,13 +29,13 @@ function execute(message, args, commandName) {
 	const category = commandName === "module" ? "modules" : "misc_modules";
 
 	if(!module) return player.sendMessage(`§r§6[§aScythe§6]§r Module list: ${Object.keys(config[category]).join(", ")}`);
+	if(!Object.hasOwn(config[category], module)) return player.sendMessage(`§r§6[§aScythe§6]§r No such module as ${module} exists. Please select a module from this list: ${Object.keys(config[category]).join(", ")}`);
 
 	const moduleData = config[category][module];
-	if(!moduleData) return player.sendMessage(`§r§6[§aScythe§6]§r No such module as ${module} exists. Please select a module from this list: ${Object.keys(config[category]).join(", ")}`);
 
 	if(!name) return player.sendMessage(`§r§6[§aScythe§6]§r ${module}'s configuration data:\n${JSON.stringify(moduleData, null, 2)}`);
 
-	if(moduleData[name] === undefined) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} does not have a setting called ${name}. Please select a setting from this list: ${Object.keys(moduleData).join(", ")}`);
+	if(!Object.hasOwn(moduleData, name)) return player.sendMessage(`§r§6[§aScythe§6]§r ${module} does not have a property called ${name}. Please select a property from this list: ${Object.keys(moduleData).join(", ")}`);
 
 	if(value === "") return player.sendMessage(`§r§6[§aScythe§6]§r You need enter a value for this setting.`);
 

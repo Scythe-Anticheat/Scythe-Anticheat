@@ -15,7 +15,6 @@ registerCommand({
 
         // Find the player requested
         const target = args.length ? findPlayerByName(args[0]) : player;
-
         if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
 		target.setGameMode(GameMode.Spectator);

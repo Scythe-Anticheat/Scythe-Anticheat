@@ -37,7 +37,7 @@ registerCommand({
 
 		// Give help for a command
 		const name = args[0].toLowerCase();
-		if(!commands[name]) return player.sendMessage(`§r§6[§aScythe§6]§r The command '${name}' was not found.`);
+		if(!Object.hasOwn(commands, name)) return player.sendMessage(`§r§6[§aScythe§6]§r The command '${name}' was not found.`);
 
 		const { description, usage, minArgCount, category, aliases } = commands[name];
 
