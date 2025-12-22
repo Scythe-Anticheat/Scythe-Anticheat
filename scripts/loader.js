@@ -329,6 +329,8 @@ import "./commands/utility/gms.js";
 import "./commands/utility/gmsp.js";
 import "./commands/settings/resetconfig.js";
 
+import "./checks/exploits/BadPackets/BadPackets2.js";
+
 // Run anticheat core
 import "./main.js";
 

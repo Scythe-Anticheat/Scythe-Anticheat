@@ -14,14 +14,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		msg.cancel = true;
 	}
 
-	// BadPackets[2] = Checks for invalid chat message length
-	if(config.modules.badpackets2.enabled && (message.length === 0 || message.length > config.modules.badpackets2.maxLength)) {
-		system.run(() => {
-			flag(player, "BadPackets", "2", "Exploit", `messageLength=${message.length}`);
-		});
-		msg.cancel = true;
-	}
-
 	// BadPackets[4] = Checks for newline or carriage return characters in messages
 	if(config.modules.badpackets4.enabled && message.match(/\n|\r/)) {
 		system.run(() => {
