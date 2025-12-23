@@ -255,22 +255,6 @@ system.runInterval(() => {
 world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
 	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}`);
 
-	// Reach/C = Checks if a player places a block farther than normally possible.
-	if(config.modules.reachC.enabled) {
-		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
-		const distance = Math.sqrt(
-			(block.location.x - player.location.x)**2 +
-			(block.location.y - player.location.y)**2 +
-			(block.location.z - player.location.z)**2
-		);
-
-		if(config.debug) console.log(distance);
-
-		const maxPlaceDistance = player.getMaxBlockPlaceDistance();
-
-		if(distance > maxPlaceDistance) flag(player, "Reach", "C", "World", `distance=${distance},gamemode=${player.gamemode},inputMode=${player.inputInfo.lastInputModeUsed}`);
-	}
-
 	// Get block underneath the player
 	const blockUnder = player.dimension.getBlock({x: Math.trunc(player.location.x), y: Math.trunc(player.location.y) - 1, z: Math.trunc(player.location.z)});
 

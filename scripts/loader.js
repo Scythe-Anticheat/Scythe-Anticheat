@@ -338,6 +338,7 @@ import "./checks/combat/Killaura/KillauraD.js";
 import "./checks/combat/Killaura/KillauraE.js";
 
 import "./checks/combat/Reach/ReachA.js";
+import "./checks/combat/Reach/ReachC.js";
 
 import "./checks/exploit/BadPackets/BadPackets2.js";
 import "./checks/exploit/BadPackets/BadPackets3.js";
