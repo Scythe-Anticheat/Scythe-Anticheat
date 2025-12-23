@@ -445,25 +445,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	if(tag) player.nameTag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${player.nameTag}`;
 
-	// Namespoof/A = Username length check
-	if(config.modules.namespoofA.enabled) {
-		// When a sub-client joins a world, their name has a suffix of (x), with x being a number between 1-3.
-		// To prevent any false positives with this, we make sure to omit that suffix from being calculated in the length checks
-		const maxLength = config.modules.namespoofA.maxNameLength + ((/\([1-3]\)$/).test(player.name) ? 3 : 0);
-
-		if(player.name.length < config.modules.namespoofA.minNameLength || player.name.length > maxLength) {
-			const extraLength = player.name.length - config.modules.namespoofA.maxNameLength;
-			player.nameTag = player.name.slice(0, -extraLength) + "...";
-
-			flag(player, "Namespoof", "A", "Exploit", `nameLength=${player.name.length}`);
-		}
-	}
-
-	// Namespoof/B = Regex check
-	if(config.modules.namespoofB.enabled && RegExp(config.modules.namespoofB.regex).test(player.name)) {
-		flag(player, "Namespoof", "B", "Exploit");
-	}
-
 	// This is used in the onJoin.json animation to check if Beta APIs are enabled
 	player.setScore("gametestapi", 1);
 

@@ -334,6 +334,9 @@ import "./checks/exploits/BadPackets/BadPackets3.js";
 import "./checks/exploits/BadPackets/BadPackets4.js";
 import "./checks/exploits/BadPackets/BadPackets5.js";
 
+import "./checks/exploits/Namespoof/NamespoofA.js";
+import "./checks/exploits/Namespoof/NamespoofB.js";
+
 import "./checks/misc/Spammer/SpammerA.js";
 import "./checks/misc/Spammer/SpammerB.js";
 import "./checks/misc/Spammer/SpammerC.js";
