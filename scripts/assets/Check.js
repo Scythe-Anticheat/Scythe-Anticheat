@@ -10,7 +10,7 @@ class Check {
     }
 
     get config() {
-        return config.modules[`${this.check}${this.subcheck}`.toLowerCase()];
+        return config.modules[`${this.check.toLowerCase()}${this.subcheck}`];
     }
 
     flag(player, debug, resetPos = false, slot) {

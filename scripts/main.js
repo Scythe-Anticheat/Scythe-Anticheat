@@ -14,49 +14,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		msg.cancel = true;
 	}
 
-	/*
-	Each of these Spammer modules are designed to detect the Spammer module in hack clients such as Horion, which automatically sends messages on the behalf of the player
-	If you are looking for something to prevent people sending too many messages in chat, then use the antispam misc module
-
-	Spammer/A = Checks if someone sends a message while moving
-	Spammer/B = Checks if someone sends a message while swinging their hand
-	Spammer/C = Checks if someone sends a message while using an item
-	Spammer/D = Checks if someone sends a message while having a GUI open
-	*/
-
-	if(config.modules.spammerA.enabled && player.isUsingInputKeys()) {
-		system.run(() => {
-			flag(player, "Spammer", "A", "Movement", undefined, true);
-		});
-
-		msg.cancel = true;
-	}
-
-	// Mining fatigue can make the arm swing animation last longer than normal so we ignore players with that effect
-	if(config.modules.spammerB.enabled && player.hasTag("left") && !player.getEffect("mining_fatigue")) {
-		system.run(() => {
-			flag(player, "Spammer", "B", "Combat");
-		});
-
-		msg.cancel = true;
-	}
-
-	if(config.modules.spammerC.enabled && player.isUsingItem) {
-		system.run(() => {
-			flag(player, "Spammer", "C", "Misc");
-		});
-
-		msg.cancel = true;
-	}
-
-	if(config.modules.spammerD.enabled && player.hasTag("hasGUIopen")) {
-		system.run(() => {
-			flag(player, "Spammer", "D", "Misc");
-		});
-
-		msg.cancel = true;
-	}
-
 	commandHandler(msg);
 
 	// @ts-expect-error
