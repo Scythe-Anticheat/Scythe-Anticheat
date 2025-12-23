@@ -14,14 +14,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 		msg.cancel = true;
 	}
 
-	// BadPackets[4] = Checks for newline or carriage return characters in messages
-	if(config.modules.badpackets4.enabled && message.match(/\n|\r/)) {
-		system.run(() => {
-			flag(player, "BadPackets", "4", "Exploit");
-		});
-		msg.cancel = true;
-	}
-
 	/*
 	Each of these Spammer modules are designed to detect the Spammer module in hack clients such as Horion, which automatically sends messages on the behalf of the player
 	If you are looking for something to prevent people sending too many messages in chat, then use the antispam misc module
@@ -515,18 +507,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 		flag(player, "Namespoof", "B", "Exploit");
 	}
 
-	/*
-	BadPackets[5] = Checks if the player has an invalid max render distance
-
-	This value is *not* the player's current render distance, but rather the max the player could set their render distance to.
-	Vanilla clients would have this value set to 6-96 according to https://minecraftbedrock-archive.fandom.com/wiki/Render_Distance
-	The article is slightly outdated as it is possible for really low-end devices to have a max render distance of 5.
-	*/
-	if(
-		config.modules.badpackets5.enabled &&
-		(player.clientSystemInfo.maxRenderDistance < 5 || player.clientSystemInfo.maxRenderDistance > 96)
-	) flag(player, "BadPackets", "5", "Exploit", `maxRenderDistance=${player.clientSystemInfo.maxRenderDistance}`);
-
 	// This is used in the onJoin.json animation to check if Beta APIs are enabled
 	player.setScore("gametestapi", 1);
 
@@ -604,10 +584,6 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 			flag(player, "Reach", "A", "Combat", `distance=${distance},item=${player.heldItem}`);
 		}
 	}
-
-	// BadPackets[3] = Checks if a player attacks themselves
-	// Some (bad) hacks use this to bypass anti-movement cheat checks
-	if(config.modules.badpackets3.enabled && entity.id === player.id) flag(player, "BadPackets", "3", "Exploit");
 
 	// Check if the player was hit with the UI item, and if so open the UI for that player
 	if(config.customcommands.ui.enabled && entity instanceof Player && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
