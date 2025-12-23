@@ -377,15 +377,6 @@ world.beforeEvents.playerBreakBlock.subscribe((data) => {
 
 	if(config.debug) console.warn(`${player.name} has broken the block ${block.typeId}`);
 
-	// Nuker/A = Check if a player breaks more than 3 blocks in a tick
-	if(config.modules.nukerA.enabled && ++player.blocksBroken > config.modules.nukerA.maxBlocks) {
-		system.run(() => {
-			flag(player, "Nuker", "A", "World", `blocksBroken=${player.blocksBroken}`);
-		});
-
-		data.cancel = true;
-	}
-
 	/*
 	AutoTool/A = Checks for player slot mismatch
 
@@ -395,23 +386,6 @@ world.beforeEvents.playerBreakBlock.subscribe((data) => {
 	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== GameMode.Creative) {
 		system.run(() => {
 			flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlotIndex},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
-		});
-
-		data.cancel = true;
-	}
-
-	/*
-	InstaBreak/A = Checks if a player in survival breaks an unbreakable block
-
-	While the InstaBreak method used in Horion and Zephyr are patched, there are still some bypasse that exist
-	*/
-	if(
-		config.modules.instabreakA.enabled &&
-		player.gamemode !== GameMode.Creative && 
-		config.modules.instabreakA.unbreakable_blocks.includes(block.typeId)
-	) {
-		system.run(() => {
-			flag(player, "InstaBreak", "A", "Exploit", `block=${block.typeId}`);
 		});
 
 		data.cancel = true;

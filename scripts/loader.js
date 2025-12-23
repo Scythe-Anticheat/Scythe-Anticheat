@@ -329,18 +329,22 @@ import "./commands/utility/gms.js";
 import "./commands/utility/gmsp.js";
 import "./commands/settings/resetconfig.js";
 
-import "./checks/exploits/BadPackets/BadPackets2.js";
-import "./checks/exploits/BadPackets/BadPackets3.js";
-import "./checks/exploits/BadPackets/BadPackets4.js";
-import "./checks/exploits/BadPackets/BadPackets5.js";
+import "./checks/exploit/BadPackets/BadPackets2.js";
+import "./checks/exploit/BadPackets/BadPackets3.js";
+import "./checks/exploit/BadPackets/BadPackets4.js";
+import "./checks/exploit/BadPackets/BadPackets5.js";
 
-import "./checks/exploits/Namespoof/NamespoofA.js";
-import "./checks/exploits/Namespoof/NamespoofB.js";
+import "./checks/exploit/Instabreak/InstabreakA.js";
+
+import "./checks/exploit/Namespoof/NamespoofA.js";
+import "./checks/exploit/Namespoof/NamespoofB.js";
 
 import "./checks/misc/Spammer/SpammerA.js";
 import "./checks/misc/Spammer/SpammerB.js";
 import "./checks/misc/Spammer/SpammerC.js";
 import "./checks/misc/Spammer/SpammerD.js";
+
+import "./checks/world/Nuker/NukerA.js";
 
 // Run anticheat core
 import "./main.js";
