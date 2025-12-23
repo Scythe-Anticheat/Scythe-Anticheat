@@ -458,44 +458,11 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 	}
 });
 
-world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity: player}) => {
+world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity: player }) => {
 	// Hitting an end crystal causes an error when trying to get the entity location, so we make sure the entity is valid to fix that
 	if(!(player instanceof Player) || !entity.isValid) return;
 
 	tellAllStaff(`§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g${player.name} §7(isSprinting=${player.isSprinting})`, ["actionlogger"]);
-
-	/*
-	Reach/A = Check if a player hits a player farther than normally possible
-
-	This reach detection is rather annoying, as the vanilla client can attack an entity if their collision box is in range
-	however this reach calculation doesn't account for the collision box but rather the entity's center
-	This causes false positives when attacking entities with large collision boxes such as Ender Dragons
-	To prevent any sort of false positives, we only check reach when the player attacks another player
-	*/
-	if(
-		config.modules.reachA.enabled &&
-		player.gamemode !== GameMode.Creative &&
-		entity instanceof Player
-	) {
-		// Calculate reach from the player's head location
-		const headLocation = player.getHeadLocation();
-
-		// Use the Euclidean Distance Formula to determine the distance between two 3-dimensional objects
-		const distance = Math.sqrt(
-			(entity.location.x - headLocation.x)**2 +
-			(entity.location.y - headLocation.y)**2 +
-			(entity.location.z - headLocation.z)**2
-		);
-
-		if(config.debug) console.warn(`${player.name} attacked ${entity.nameTag ?? entity.typeId} with a distance of ${distance}`);
-
-		if(
-			distance > config.modules.reachA.reach &&
-			!config.modules.reachA.excluded_items.includes(player.heldItem)
-		) {
-			flag(player, "Reach", "A", "Combat", `distance=${distance},item=${player.heldItem}`);
-		}
-	}
 
 	// Check if the player was hit with the UI item, and if so open the UI for that player
 	if(config.customcommands.ui.enabled && entity instanceof Player && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
@@ -506,85 +473,6 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 		if(item?.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name) {
 			playerSettingsMenuSelected(player, entity);
 		}
-	}
-
-	/*
-	Autoclicker/A = Check for high CPS
-
-	To find the player's CPS, we divide the amount of times they have clicked between now and the last marked click, divided by the amount of time that has passed between those two points
-	The time is measured in milliseconds, so we divide the time by 1000 to get the seconds between now and their last marked click.
-
-	Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
-	The AutoclickerA check will increment your clicks by the amount of entities in the group, which could result in a false flag if there are lots of entities in the group.
-	To prevent this, we don't increment the player's clicks if the player is are holding a trident
-	*/
-	if(config.modules.autoclickerA.enabled && player.heldItem !== "minecraft:trident") {
-		player.clicks++;
-
-		const now = Date.now();
-		if(now - player.firstAttack >= config.modules.autoclickerA.checkCPSAfter) {
-			const cps = player.clicks / ((now - player.firstAttack) / 1000);
-
-			if(cps > config.modules.autoclickerA.maxCPS) flag(player, "Autoclicker", "A", "Combat", `cps=${cps}`);
-
-			player.firstAttack = now;
-			player.clicks = 0;
-		}
-	}
-
-	// Killaura/A = Check if a player attacks an entity while using an item
-	if(
-		config.modules.killauraA.enabled &&
-		player.isUsingItem &&
-		Date.now() - player.itemUsedAt > config.modules.killauraA.min_item_use_time
-	) flag(player, "Killaura", "A", "Combat", `itemUsedFor=${Date.now() - player.itemUsedAt}`);
-
-	/*
-	Killaura/B = Check for no swing
-
-	The playerSwingStart event fires after the entityHitEntity event is fired, so we have to implement some sort of delay
-	When a player attacks, we wait 40 ticks (or two seconds) to compensate for the playerSwingStart event firing after entityHitEntity, and then check if the player has swung in the last 5 seconds
-	If they have not swung, then we know they are using a no swing cheat and we can detect them
-	*/
-	if(
-		config.modules.killauraB.enabled &&
-		player.heldItem !== "minecraft:trident" &&
-		// Mining fatigue increases how long the arm swing animation lasts, and if its in middle of an animation the playerSwingStart event will not trigger for attacks
-		!player.getEffect("mining_fatigue")
-	) {
-		system.runTimeout(() => {
-			const swingDelay = Date.now() - player.lastLeftClick;
-
-			if(swingDelay > config.modules.killauraB.max_swing_delay) {
-				flag(player, "Killaura", "B", "Combat", `swingDelay=${swingDelay}`);
-			}
-		}, config.modules.killauraB.wait_ticks);
-	}
-
-	/*
-	Killaura/C = Check for attacking multiple entities in a single tick
-
-	It is possible to attack the same entity more than one time in a single tick, so to avoid false positives we only count how many different entities were attacked
-
-	Propeling yourself towards a group of entities using a Riptide Trident will result in the trident attacking all the entities in the same tick.
-	The KillauraC check will see that the player attacked multiple entities at once, and falsely flag the player. To prevent this, we check if the player is holding a trident.
-	*/
-	if(config.modules.killauraC.enabled && player.heldItem !== "minecraft:trident") {
-		player.entitiesHit.add(entity.id);
-
-		if(player.entitiesHit.size >= config.modules.killauraC.entities) {
-			flag(player, "KillAura", "C", "Combat", `entitiesHit=${player.entitiesHit.size}`);
-		}
-	}
-
-	// Kilaura/D = Check if the player attacks an entity while sleeping
-	if(config.modules.killauraD.enabled && player.isSleeping) {
-		flag(player, "Killaura", "D", "Combat");
-	}
-
-	// Killaura/E = Check if the player attacks an entity while having a container open
-	if(config.modules.killauraE.enabled && player.hasTag("hasGUIopen")) {
-		flag(player, "Killaura", "E", "Combat");
 	}
 });
 
@@ -708,7 +596,7 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 	tellAllStaff(`§r§6[§aScythe§6]§r A ${watchdogTerminate.terminateReason} watch dog exception has been detected and has been automatically cancelled.`);
 });
 
-// When using /reload, the variables defined in playerSpawn event do not persist so we reapply them.
+// When using /reload, the variables defined in playerSpawn event do not persist so we reapply them
 system.run(() => {
 	const players = world.getPlayers();
 	for(const player of players) {

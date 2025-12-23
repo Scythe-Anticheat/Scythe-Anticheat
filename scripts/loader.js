@@ -1,4 +1,3 @@
-// @ts-check
 // This is the initial file that runs. It is used to load everything for Scythe
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
@@ -328,6 +327,17 @@ import "./commands/utility/gmc.js";
 import "./commands/utility/gms.js";
 import "./commands/utility/gmsp.js";
 import "./commands/settings/resetconfig.js";
+
+// Load all checks
+import "./checks/combat/Autoclicker/AutoclickerA.js";
+
+import "./checks/combat/Killaura/KillauraA.js";
+import "./checks/combat/Killaura/KillauraB.js";
+import "./checks/combat/Killaura/KillauraC.js";
+import "./checks/combat/Killaura/KillauraD.js";
+import "./checks/combat/Killaura/KillauraE.js";
+
+import "./checks/combat/Reach/ReachA.js";
 
 import "./checks/exploit/BadPackets/BadPackets2.js";
 import "./checks/exploit/BadPackets/BadPackets3.js";
