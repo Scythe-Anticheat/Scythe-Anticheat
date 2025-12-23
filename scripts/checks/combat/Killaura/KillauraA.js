@@ -10,11 +10,11 @@ class KillauraA extends Check {
 	 * @description Check if a player attacks an entity while using an item
 	 */
 	constructor() {
-		super();
-
-		this.check = "Killaura";
-		this.subcheck = "A";
-		this.type = "Combat";
+		super({
+			check: "Killaura",
+			subcheck: "A",
+			type: "Combat"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

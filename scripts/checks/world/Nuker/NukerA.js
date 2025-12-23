@@ -8,11 +8,11 @@ class NukerA extends Check {
 	 * @description Check for breaking too many blocks in a single tick
 	 */
 	constructor() {
-		super();
-
-		this.check = "Nuker";
-		this.subcheck = "A";
-		this.type = "World";
+		super({
+			check: "Nuker",
+			subcheck: "A",
+			type: "World"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

@@ -8,13 +8,13 @@ class ReachC extends Check {
 	 * @description Check for placing blocks farther away than possible
 	 */
 	constructor() {
-		super();
-
-		this.check = "Reach";
-		this.subcheck = "C";
-		// Technically this isn't a combat cheat, however the check has to be beside with the other Reach checks
-		// Having two reach checks in different folders would be pretty messy
-		this.type = "Combat";
+		super({
+			check: "Reach",
+			subcheck: "C",
+			// Technically this isn't a combat cheat, however the check has to be beside with the other Reach checks
+			// Having two reach checks in different folders would be pretty messy
+			type: "Combat"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

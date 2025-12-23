@@ -8,11 +8,11 @@ class SpammerB extends Check {
 	 * @description Check for sending messages while attacking
 	 */
 	constructor() {
-		super();
-
-		this.check = "Spammer";
-		this.subcheck = "B";
-		this.type = "Misc";
+		super({
+			check: "Spammer",
+			subcheck: "B",
+			type: "Misc"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

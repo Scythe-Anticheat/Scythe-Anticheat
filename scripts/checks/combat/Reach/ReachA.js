@@ -8,11 +8,11 @@ class ReachA extends Check {
 	 * @description Check for attacking players farther away than possible
 	 */
 	constructor() {
-		super();
-
-		this.check = "Reach";
-		this.subcheck = "A";
-		this.type = "Combat";
+		super({
+			check: "Reach",
+			subcheck: "A",
+			type: "Combat"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

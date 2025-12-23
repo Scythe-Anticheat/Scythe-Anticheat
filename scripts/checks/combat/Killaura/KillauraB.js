@@ -8,11 +8,11 @@ class KillauraB extends Check {
 	 * @description Check if a player attacks without swinging their hand
 	 */
 	constructor() {
-		super();
-
-		this.check = "Killaura";
-		this.subcheck = "B";
-		this.type = "Combat";
+		super({
+			check: "Killaura",
+			subcheck: "B",
+			type: "Combat"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

@@ -8,11 +8,11 @@ class AutoclickerA extends Check {
 	 * @description Check for attacking too many entities in a period of time
 	 */
 	constructor() {
-		super();
-
-		this.check = "Autoclicker";
-		this.subcheck = "A";
-		this.type = "Combat";
+		super({
+			check: "Autoclicker",
+			subcheck: "A",
+			type: "Combat"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

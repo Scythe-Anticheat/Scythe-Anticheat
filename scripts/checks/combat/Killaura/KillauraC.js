@@ -8,11 +8,11 @@ class KillauraC extends Check {
 	 * @description Check if a player attacks multiple different entities in a single tick
 	 */
 	constructor() {
-		super();
-
-		this.check = "Killaura";
-		this.subcheck = "C";
-		this.type = "Combat";
+		super({
+			check: "Killaura",
+			subcheck: "C",
+			type: "Combat"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

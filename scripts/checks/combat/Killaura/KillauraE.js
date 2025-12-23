@@ -8,11 +8,11 @@ class KillauraE extends Check {
 	 * @description Check if a player attacks an entity while having a GUI open
 	 */
 	constructor() {
-		super();
-
-		this.check = "Killaura";
-		this.subcheck = "E";
-		this.type = "Combat";
+		super({
+			check: "Killaura",
+			subcheck: "E",
+			type: "Combat"
+		});
 
 		if(this.config.enabled) this.enable();
 	}

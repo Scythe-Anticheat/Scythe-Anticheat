@@ -8,11 +8,11 @@ class KillauraD extends Check {
 	 * @description Check if a player attacks an entity while sleeping
 	 */
 	constructor() {
-		super();
-
-		this.check = "Killaura";
-		this.subcheck = "D";
-		this.type = "Combat";
+		super({
+			check: "Killaura",
+			subcheck: "D",
+			type: "Combat"
+		});
 
 		if(this.config.enabled) this.enable();
 	}
