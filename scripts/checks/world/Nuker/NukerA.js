@@ -37,6 +37,13 @@ class NukerA extends Check {
 			data.cancel = true;
 		}
 	}
+
+	/**
+	 * @param {import("@minecraft/server").Player} player
+	 */
+	tick(player) {
+		player.blocksBroken = 0;
+	}
 }
 
 export default new NukerA();

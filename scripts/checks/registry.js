@@ -1,37 +1,40 @@
 export default {
-	AutoclickerA: await import("../checks/combat/Autoclicker/AutoclickerA.js"),
+	AutoclickerA: (await import("./combat/Autoclicker/AutoclickerA.js")).default,
 
-	FastuseA: await import("../checks/combat/Fastuse/FastuseA.js"),
+	FastuseA: (await import("./combat/Fastuse/FastuseA.js")).default,
 	
-	KillauraA: await import("../checks/combat/Killaura/KillauraA.js"),
-	KillauraB: await import("../checks/combat/Killaura/KillauraB.js"),
-	KillauraC: await import("../checks/combat/Killaura/KillauraC.js"),
-	KillauraD: await import("../checks/combat/Killaura/KillauraD.js"),
-	KillauraE: await import("../checks/combat/Killaura/KillauraE.js"),
+	KillauraA: (await import("./combat/Killaura/KillauraA.js")).default,
+	KillauraB: (await import("./combat/Killaura/KillauraB.js")).default,
+	KillauraC: (await import("./combat/Killaura/KillauraC.js")).default,
+	KillauraD: (await import("./combat/Killaura/KillauraD.js")).default,
+	KillauraE: (await import("./combat/Killaura/KillauraE.js")).default,
 
-	ReachA: await import("../checks/combat/Reach/ReachA.js"),
-	ReachC: await import("../checks/combat/Reach/ReachC.js"),
+	ReachA: (await import("./combat/Reach/ReachA.js")).default,
+	ReachC: (await import("./combat/Reach/ReachC.js")).default,
 
-	BadPackets2: await import("../checks/exploit/BadPackets/BadPackets2.js"),
-	BadPackets3: await import("../checks/exploit/BadPackets/BadPackets3.js"),
-	BadPackets4: await import("../checks/exploit/BadPackets/BadPackets4.js"),
-	BadPackets5: await import("../checks/exploit/BadPackets/BadPackets5.js"),
+	BadPackets1: (await import("./exploit/BadPackets/BadPackets1.js")).default,
+	BadPackets2: (await import("./exploit/BadPackets/BadPackets2.js")).default,
+	BadPackets3: (await import("./exploit/BadPackets/BadPackets3.js")).default,
+	BadPackets4: (await import("./exploit/BadPackets/BadPackets4.js")).default,
+	BadPackets5: (await import("./exploit/BadPackets/BadPackets5.js")).default,
 
-	InstabreakA: await import("../checks/exploit/Instabreak/InstabreakA.js"),
+	InstabreakA: (await import("./exploit/Instabreak/InstabreakA.js")).default,
 
-	NamespoofA: await import("../checks/exploit/Namespoof/NamespoofA.js"),
-	NamespoofB: await import("../checks/exploit/Namespoof/NamespoofB.js"),
+	NamespoofA: (await import("./exploit/Namespoof/NamespoofA.js")).default,
+	NamespoofB: (await import("./exploit/Namespoof/NamespoofB.js")).default,
 
-	SpammerA: await import("../checks/misc/Spammer/SpammerA.js"),
-	SpammerB: await import("../checks/misc/Spammer/SpammerB.js"),
-	SpammerC: await import("../checks/misc/Spammer/SpammerC.js"),
-	SpammerD: await import("../checks/misc/Spammer/SpammerD.js"),
+	SpammerA: (await import("./misc/Spammer/SpammerA.js")).default,
+	SpammerB: (await import("./misc/Spammer/SpammerB.js")).default,
+	SpammerC: (await import("./misc/Spammer/SpammerC.js")).default,
+	SpammerD: (await import("./misc/Spammer/SpammerD.js")).default,
 
-	NukerA: await import("../checks/world/Nuker/NukerA.js"),
+	NoslowA: (await import("./movement/Noslow/NoslowA.js")).default,
 
-	ScaffoldA: await import("../checks/world/Scaffold/ScaffoldA.js"),
-	ScaffoldB: await import("../checks/world/Scaffold/ScaffoldA.js"),
-	ScaffoldC: await import("../checks/world/Scaffold/ScaffoldA.js"),
-	ScaffoldD: await import("../checks/world/Scaffold/ScaffoldA.js"),
-	ScaffoldE: await import("../checks/world/Scaffold/ScaffoldA.js"),
+	NukerA: (await import("./world/Nuker/NukerA.js")).default,
+
+	ScaffoldA: (await import("./world/Scaffold/ScaffoldA.js")).default,
+	ScaffoldB: (await import("./world/Scaffold/ScaffoldA.js")).default,
+	ScaffoldC: (await import("./world/Scaffold/ScaffoldA.js")).default,
+	ScaffoldD: (await import("./world/Scaffold/ScaffoldA.js")).default,
+	ScaffoldE: (await import("./world/Scaffold/ScaffoldA.js")).default,
 };

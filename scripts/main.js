@@ -1,5 +1,6 @@
 // @ts-check
 import config from "./data/config.js";
+import checks from "./checks/registry.js";
 import { world, system, Player, EquipmentSlot, GameMode } from "@minecraft/server";
 import { flag, tellAllStaff } from "./util.js";
 import { banMessage } from "./assets/ban.js";
@@ -62,17 +63,14 @@ system.runInterval(() => {
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
 
-			// Find the magnitude of the velocity vector
-			const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
-
 			// Get the item that the player is holding in their cursor
 			const cursorItem = player.getComponent("cursor_inventory")?.item;
 
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
 
-			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) player.blocksBroken = 0;
-			if(config.modules.killauraC.enabled && player.entitiesHit.size >= 1) player.entitiesHit.clear();
+			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) checks.NukerA.tick(player);
+			if(config.modules.killauraC.enabled && player.entitiesHit.size >= 1) checks.KillauraC.tick(player);
 			if(config.modules.autotoolA.enabled && now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlotIndex) {
 				player.flagAutotoolA = true;
 				player.autotoolSwitchDelay = now - player.startBreakTime;
@@ -92,50 +90,10 @@ system.runInterval(() => {
 			) flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
 			*/
 
-			/*
-			A player's pitch has a range of -90 to 90, and the player's yaw has a range of -180 to 180
-			There are some cheats and crash methods that make the player exceed these vanilla limits, which we can detect
-
-			In a vanilla game, it is possible to to exceed this limit by using Full Desktop Gameplay and using the arrow keys to move your camera
-			This will result in the player's pitch going beyond these limits, with a magnitude that is proportional to the rotation speed
-			The Scripting API does not allow us to determine if this option is enabled, so there is no way to fix this false positive
-
-			This check has a long history in Scythe. It was originally added somewhere in August 2020 ~ 2021, before the anticheat was public, as a function-based check
-			In July 2022, this check was ported to use the Scripting API, however there was a bug where using boats would make the player's viewing angles exceed the limit by an absurd value
-			It was reintroduced as a Scripting API after it was confirmed that the issue is no longer present
-			*/
-			if(
-				config.modules.badpackets1.enabled &&
-				(Math.abs(player.rotation.x) > 90 || Math.abs(player.rotation.y) > 180)
-			) {
-				flag(player, "BadPackets", "1", "Exploit", `xRot=${player.rotation.x},yRot=${player.rotation.y}`, true);
-			}
+			if(config.modules.badpackets1.enabled) checks.BadPackets1.tick(player);
 
 			// NoSlow/A = Speed limit check
-			if(
-				config.modules.noslowA.enabled &&
-				playerSpeed >= config.modules.noslowA.speed &&
-				playerSpeed <= config.modules.noslowA.maxSpeed &&
-				player.isOnGround &&
-				!player.isJumping &&
-				!player.isGliding &&
-				player.heldItem !== "minecraft:trident" &&
-				player.isUsingItem &&
-				// Make sure the player has been using the item for at least 10 ticks
-				now - player.itemUsedAt >= 500 &&
-				player.isUsingInputKeys() &&
-				!player.getEffect("speed") &&
-				!player.hasTag("riding")
-			) {
-				const blockBelow = player.dimension.getBlock({x: player.location.x, y: player.location.y - 1, z: player.location.z});
-
-				// Make sure there are no entities below the player to fix false positives with boats
-				const nearbyEntities = player.dimension.getEntitiesAtBlockLocation(player.location);
-
-				if(blockBelow && !nearbyEntities.find(entity => entity instanceof Player) && !blockBelow.typeId.includes("ice")) {
-					flag(player, "NoSlow", "A", "Movement", `speed=${playerSpeed.toFixed(2)},heldItem=${player.heldItem},blockBelow=${blockBelow.typeId},timeUsingItem=${now - player.itemUsedAt}`, true);
-				}
-			}
+			if(config.modules.noslowA.enabled) checks.NoslowA.tick(player);
 
 			// Check if the player just started sprinting
 			if(!player.lastSprintState && player.isSprinting) {

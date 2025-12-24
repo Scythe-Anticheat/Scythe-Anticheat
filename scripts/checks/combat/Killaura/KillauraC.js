@@ -43,6 +43,13 @@ class KillauraC extends Check {
 			this.flag(player, `entitiesHit=${player.entitiesHit.size}`);
 		}
 	}
+
+	/**
+	 * @param {Player} player
+	 */
+	tick(player) {
+		player.entitiesHit.clear();
+	}
 }
 
 export default new KillauraC();
