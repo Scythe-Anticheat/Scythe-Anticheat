@@ -76,20 +76,6 @@ system.runInterval(() => {
 				player.autotoolSwitchDelay = now - player.startBreakTime;
 			}
 
-			/*
-			// Crasher/A = Invalid position check check
-			// Horion's old crasher would teleport the player to the position 4,294.967,295 in each coordinate plane
-			// This would result in the server crashing as it does not support such large player positions
-			// The vanilla game has a border at 30,000,000 which cannot be passed normally, even with commands like /tp
-			// If the player goes beyond that coordinate value, then we know an exploit, most likely Crasher, was being used
-			if(
-				config.modules.crasherA.enabled &&
-				Math.abs(player.location.x) > 30000000 ||
-				Math.abs(player.location.y) > 30000000 ||
-				Math.abs(player.location.z) > 30000000
-			) flag(player, "Crasher", "A", "Exploit", `x_pos=${player.location.x},y_pos=${player.location.y},z_pos=${player.location.z}`, true);
-			*/
-
 			if(config.modules.badpackets1.enabled) checks.BadPackets1.tick(player);
 
 			// NoSlow/A = Speed limit check
