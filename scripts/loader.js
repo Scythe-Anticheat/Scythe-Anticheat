@@ -357,6 +357,12 @@ import "./checks/misc/Spammer/SpammerD.js";
 
 import "./checks/world/Nuker/NukerA.js";
 
+import "./checks/world/Scaffold/ScaffoldA.js";
+import "./checks/world/Scaffold/ScaffoldB.js";
+import "./checks/world/Scaffold/ScaffoldC.js";
+import "./checks/world/Scaffold/ScaffoldD.js";
+import "./checks/world/Scaffold/ScaffoldE.js";
+
 // Run anticheat core
 import "./main.js";
 
