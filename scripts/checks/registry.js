@@ -28,6 +28,13 @@ export default {
 	SpammerC: (await import("./misc/Spammer/SpammerC.js")).default,
 	SpammerD: (await import("./misc/Spammer/SpammerD.js")).default,
 
+	InvalidsprintA: (await import("./movement/Invalidsprint/InvalidsprintA.js")).default,
+	InvalidsprintB: (await import("./movement/Invalidsprint/InvalidsprintB.js")).default,
+	InvalidsprintC: (await import("./movement/Invalidsprint/InvalidsprintC.js")).default,
+	InvalidsprintD: (await import("./movement/Invalidsprint/InvalidsprintD.js")).default,
+	InvalidsprintE: (await import("./movement/Invalidsprint/InvalidsprintE.js")).default,
+	InvalidsprintF: (await import("./movement/Invalidsprint/InvalidsprintF.js")).default,
+
 	NoslowA: (await import("./movement/Noslow/NoslowA.js")).default,
 
 	NukerA: (await import("./world/Nuker/NukerA.js")).default,

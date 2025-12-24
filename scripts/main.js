@@ -78,57 +78,16 @@ system.runInterval(() => {
 
 			if(config.modules.badpackets1.enabled) checks.BadPackets1.tick(player);
 
-			// NoSlow/A = Speed limit check
 			if(config.modules.noslowA.enabled) checks.NoslowA.tick(player);
 
 			// Check if the player just started sprinting
 			if(!player.lastSprintState && player.isSprinting) {
-				/*
-				InvalidSprint/A = Checks if a player sprints while they have the Blindness effect
-				InvalidSprint/B = Checks if a player sprints while using an item
-				InvalidSprint/C = Checks if a player sprints while sneaking
-				InvalidSprint/D = Checks if a player sprints while using an elytra
-				InvalidSprint/F = Checks if a player sprints while they do not have enough hunger
-				*/
-
-				if(config.modules.invalidsprintA.enabled && player.getEffect("blindness")) flag(player, "InvalidSprint", "A", "Movement", undefined, true);
-
-				// This module is disabled due to false flags
-				// When the player is about to finish eating food, the game makes the player sprint right before the player finishes eating
-				if(
-					config.modules.invalidsprintB.enabled &&
-					player.isUsingItem &&
-					// If a player uses a riptide trident, they will sprint right before the item is considered as not used
-					player.heldItem !== "minecraft:trident" &&
-					// Make sure the player has been using the item for at least four ticks
-					now - player.itemUsedAt >= 200
-				) flag(player, "InvalidSprint", "B", "Movement", `itemUsedFor=${now - player.itemUsedAt}`, true);
-
-				if(
-					config.modules.invalidsprintC.enabled &&
-					player.isSneaking &&
-					player.gamemode !== GameMode.Creative &&
-					!player.isFlying
-				) flag(player, "InvalidSprint", "C", "Movement", undefined, true);
-
-				// This module is disabled due to false flags
-				// If you press the W and CTRL button at the same time, the client makes you sprint while gliding
-				if(config.modules.invalidsprintD.enabled && player.isGliding) flag(player, "InvalidSprint", "D", "Movement", undefined, true);
-
-				if(
-					config.modules.invalidsprintE.enabled &&
-					player.isUsingInputKeys() &&
-					player.hasTag("riding") &&
-					// Make sure the player hasn't moved within the last four ticks (4 * 50)
-					now - player.movedAt > 200
-				) flag(player, "InvalidSprint", "E", "Movement", undefined, true);
-
-				if(config.modules.invalidsprintF.enabled) {
-					// Fallback incase the property is undefined
-					const hunger = player.getComponent("player.hunger") ?? { currentValue: 20 };
-
-					if(hunger.currentValue <= 6) flag(player, "InvalidSprint", "F", "Movement", `hunger=${hunger.currentValue}`, true);
-				}
+				if(config.modules.invalidsprintA.enabled) checks.InvalidsprintA.tick(player);
+				if(config.modules.invalidsprintB.enabled) checks.InvalidsprintB.tick(player);
+				if(config.modules.invalidsprintC.enabled) checks.InvalidsprintC.tick(player);
+				if(config.modules.invalidsprintD.enabled) checks.InvalidsprintD.tick(player);
+				if(config.modules.invalidsprintE.enabled) checks.InvalidsprintE.tick(player);
+				if(config.modules.invalidsprintF.enabled) checks.InvalidsprintF.tick(player);
 			}
 
 			/*
