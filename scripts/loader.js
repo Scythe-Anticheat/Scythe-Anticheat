@@ -331,6 +331,8 @@ import "./commands/settings/resetconfig.js";
 // Load all checks
 import "./checks/combat/Autoclicker/AutoclickerA.js";
 
+import "./checks/combat/Fastuse/FastuseA.js";
+
 import "./checks/combat/Killaura/KillauraA.js";
 import "./checks/combat/Killaura/KillauraB.js";
 import "./checks/combat/Killaura/KillauraC.js";

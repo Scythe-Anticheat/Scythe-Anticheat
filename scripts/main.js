@@ -371,19 +371,7 @@ world.afterEvents.entityHitBlock.subscribe(({ damagingEntity: player }) => {
 
 world.beforeEvents.itemUse.subscribe((itemUse) => {
 	const { source: player } = itemUse;
-
 	if(!(player instanceof Player)) return;
-
-	if(config.modules.fastuseA.enabled) {
-		const now = Date.now();
-
-		const lastThrowTime = now - player.lastThrow;
-		if(lastThrowTime > config.modules.fastuseA.min_use_delay && lastThrowTime < config.modules.fastuseA.max_use_delay) {
-			// flag(player, "FastUse", "A", "Combat", `lastThrowTime=${lastThrowTime}`);
-			itemUse.cancel = true;
-		}
-		player.lastThrow = now;
-	}
 
 	// Patch bypasses for the freeze system
 	if(player.getDynamicProperty("frozen")) itemUse.cancel = true;
