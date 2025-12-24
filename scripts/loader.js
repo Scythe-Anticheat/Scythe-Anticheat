@@ -329,41 +329,7 @@ import "./commands/utility/gmsp.js";
 import "./commands/settings/resetconfig.js";
 
 // Load all checks
-import "./checks/combat/Autoclicker/AutoclickerA.js";
-
-import "./checks/combat/Fastuse/FastuseA.js";
-
-import "./checks/combat/Killaura/KillauraA.js";
-import "./checks/combat/Killaura/KillauraB.js";
-import "./checks/combat/Killaura/KillauraC.js";
-import "./checks/combat/Killaura/KillauraD.js";
-import "./checks/combat/Killaura/KillauraE.js";
-
-import "./checks/combat/Reach/ReachA.js";
-import "./checks/combat/Reach/ReachC.js";
-
-import "./checks/exploit/BadPackets/BadPackets2.js";
-import "./checks/exploit/BadPackets/BadPackets3.js";
-import "./checks/exploit/BadPackets/BadPackets4.js";
-import "./checks/exploit/BadPackets/BadPackets5.js";
-
-import "./checks/exploit/Instabreak/InstabreakA.js";
-
-import "./checks/exploit/Namespoof/NamespoofA.js";
-import "./checks/exploit/Namespoof/NamespoofB.js";
-
-import "./checks/misc/Spammer/SpammerA.js";
-import "./checks/misc/Spammer/SpammerB.js";
-import "./checks/misc/Spammer/SpammerC.js";
-import "./checks/misc/Spammer/SpammerD.js";
-
-import "./checks/world/Nuker/NukerA.js";
-
-import "./checks/world/Scaffold/ScaffoldA.js";
-import "./checks/world/Scaffold/ScaffoldB.js";
-import "./checks/world/Scaffold/ScaffoldC.js";
-import "./checks/world/Scaffold/ScaffoldD.js";
-import "./checks/world/Scaffold/ScaffoldE.js";
+import "./checks/registry.js";
 
 // Run anticheat core
 import "./main.js";

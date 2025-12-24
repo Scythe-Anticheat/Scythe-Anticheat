@@ -245,7 +245,7 @@ system.runInterval(() => {
 			if(player.rotation.x !== 0 && player.rotation.y !== 0) player.lastGoodPosition = player.location;
 
 			player.lastSprintState = player.isSprinting;
-		} catch (error) {
+		} catch (/** @type {any} */ error) {
 			console.error(error.stack);
 			if(player.hasTag("errorlogger")) tellAllStaff(`§r§6[§aScythe§6]§r There was an error while running the tick event. Please forward this message to https://discord.gg/9m9TbgJ973.\n-------------------------\n${error}\n${error.stack || "\n"}-------------------------`, ["errorlogger"]);
 		}
