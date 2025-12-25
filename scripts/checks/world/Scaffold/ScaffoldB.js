@@ -39,8 +39,9 @@ class ScaffoldB extends Check {
 
 		This check was donated to me by the developer of Isolate Anticheat
 		*/
-		if((Number.isInteger(player.rotation.x) && player.rotation.x !== 0) || (Number.isInteger(player.rotation.y) && player.rotation.y !== 0)) {
-			this.delayedFlag(player, `xRot=${player.rotation.x},yRot=${player.rotation.y}`, true);
+		const rotation = player.getRotation();
+		if((Number.isInteger(rotation.x) && rotation.x !== 0) || (Number.isInteger(rotation.y) && rotation.y !== 0)) {
+			this.delayedFlag(player, `xRot=${rotation.x},yRot=${rotation.y}`, true);
 			data.cancel = true;
 		}
 	}

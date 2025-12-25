@@ -29,8 +29,6 @@ declare module "@minecraft/server" {
 		lastCursorItem?: ItemStack
 		lastOffhandItem?: ItemStack
 		lastGoodPosition: Vector3
-		rotation: Vector2
-		velocity: Vector3
 
 		// Custom functions
 		addOp(initiator?: Player): void

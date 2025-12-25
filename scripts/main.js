@@ -57,10 +57,6 @@ system.runInterval(() => {
 		const player = players[i];
 
 		try {
-			// --- Prerequisite variables that are used by checks later on ---
-			player.velocity = player.getVelocity();
-			player.rotation = player.getRotation();
-
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
 
@@ -116,7 +112,8 @@ system.runInterval(() => {
 			// Store the players last good position
 			// When a movement-related check flags the player, they will be teleported to this position
 			// xRot and yRot being 0 means the player position was modified from player.teleport, which we should ignore
-			if(player.rotation.x !== 0 && player.rotation.y !== 0) player.lastGoodPosition = player.location;
+			const rotation = player.getRotation();
+			if(rotation.x !== 0 && rotation.y !== 0) player.lastGoodPosition = player.location;
 
 			player.lastSprintState = player.isSprinting;
 		} catch (/** @type {any} */ error) {

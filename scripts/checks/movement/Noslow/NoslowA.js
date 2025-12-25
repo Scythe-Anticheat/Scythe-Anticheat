@@ -36,7 +36,8 @@ class NoslowA extends Check {
         if(now - player.itemUsedAt <= 500) return;
 
         // Find the magnitude of the velocity vector
-        const playerSpeed = Math.sqrt(player.velocity.x**2 + player.velocity.z**2);
+        const velocity = player.getVelocity();
+        const playerSpeed = Math.sqrt(velocity.x**2 + velocity.z**2);
 
         // Check if player speed is within the range of the flag
         if(playerSpeed <= this.config.speed && playerSpeed >= this.config.maxSpeed) return;
