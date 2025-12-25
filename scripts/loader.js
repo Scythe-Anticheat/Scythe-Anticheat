@@ -34,7 +34,7 @@ system.run(() => {
 			config[i] = parsedConfig[i];
 		}
 
-		console.log("Loaded Scythe Config from Dynamic Properties");
+		console.log("Loaded Scythe config from Dynamic Properties");
 	}
 
 	// Update config to support the latest Scythe version
@@ -292,6 +292,11 @@ system.run(() => {
 	}
 
 	config.version = latestConfigVer;
+
+	// Once we have loaded the config, load all checks
+	import("./checks/registry.js");
+
+	console.log("Scythe has successfully loaded!");
 });
 
 // Load class extensions
@@ -331,10 +336,5 @@ import "./commands/utility/gms.js";
 import "./commands/utility/gmsp.js";
 import "./commands/settings/resetconfig.js";
 
-// Load all checks
-import "./checks/registry.js";
-
 // Run anticheat core
 import "./main.js";
-
-console.log("Scythe has successfully loaded!");
