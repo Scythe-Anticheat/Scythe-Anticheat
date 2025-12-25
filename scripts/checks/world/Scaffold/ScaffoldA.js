@@ -1,6 +1,6 @@
 // @ts-check
 import Check from "../../../assets/Check.js";
-import { world, GameMode } from "@minecraft/server";
+import { world } from "@minecraft/server";
 
 class ScaffoldA extends Check {
 	/**
@@ -33,7 +33,6 @@ class ScaffoldA extends Check {
 
 		const blockId = block?.typeId;
 		if(
-			player.gamemode === GameMode.Creative ||
 			player.isFlying ||
 			player.isJumping ||
 			player.isFalling ||

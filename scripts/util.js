@@ -4,14 +4,14 @@ import { world, Player } from "@minecraft/server";
 
 /**
  * @name flag
+ * @description Sends a notification to staff members, and punish the player for cheating
  * @param {Player} player - The player object
- * @param {string} check - What check ran the function.
- * @param {string} checkType - What sub-check ran the function (ex. A, B, C).
- * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
- * @param {string} [debug] - Debug info.
+ * @param {string} check - What check ran the function
+ * @param {string} checkType - What sub-check ran the function (ex. A, B, C)
+ * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit)
+ * @param {string} [debug] - Debug info
  * @param {boolean} [shouldTP] - Whether to reset the player's position
- * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
- * @remarks Alerts staff if a player is hacking.
+ * @example flag(player, "Spammer", "B", "Combat");
  */
 export function flag(player, check, checkType, hackType, debug, shouldTP = false) {
     // validate that required params are defined
