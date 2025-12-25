@@ -10,11 +10,10 @@ import { world, Player } from "@minecraft/server";
  * @param {string} hackType - What the hack is considered as (ex. movement, combat, exploit).
  * @param {string} [debug] - Debug info.
  * @param {boolean} [shouldTP] - Whether to reset the player's position
- * @param {number} [slot] - Slot to clear an item out.
  * @example flag(player, "Spammer", "B", "Combat", undefined, undefined, undefined, msg);
  * @remarks Alerts staff if a player is hacking.
  */
-export function flag(player, check, checkType, hackType, debug, shouldTP = false, slot) {
+export function flag(player, check, checkType, hackType, debug, shouldTP = false) {
     // validate that required params are defined
     if(!(player instanceof Player)) throw TypeError(`Error: player is not an instance of Player.`);
     if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
@@ -22,17 +21,14 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(typeof hackType !== "string") throw TypeError(`Error: hackType is type of ${typeof hackType}. Expected "string"`);
     if(typeof debug !== "string" && debug !== undefined) throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string", "number" or "undefined"`);
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
-    if(typeof slot !== "number" && slot !== undefined) throw TypeError(`Error: slot is type of ${typeof slot}. Expected "number" or "undefined"`);
 
+    // @ts-expect-error
     const checkData = config.modules[check.toLowerCase() + checkType];
     if(!checkData) throw Error(`No valid check data was found for ${check}/${checkType}.`);
 
     if((config.disableFlagsFromScytheOp || checkData.exclude_scythe_op) && player.hasTag("op")) return;
 
     if(debug) {
-        // Remove characters that may break commands
-        debug = debug.replace(/"|\\|\n/gm, "");
-
         /*
         Back when the NBT exploit was still a major thing, Scythe had a check called IllegalItemsF that would log if an item had a name greater than 32 characters
         This check would return the item name as part of the debug data to fix any false positives if there was a vanilla item with a longer name
@@ -87,7 +83,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
             check: `${check}/${checkType}`,
             debug: `${debug}§r`,
             shouldTP,
-            slot,
             playerData
         };
 
@@ -108,14 +103,6 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     if(config.logAlertsToConsole) console.log(flagMessage.replace(/§./g, ""));
     tellAllStaff(flagMessage, ["notify"]);
-
-    if(typeof slot === "number") {
-        const container = player.getComponent("inventory")?.container;
-
-		container?.setItem(slot, undefined);
-	}
-
-    if(!checkData.enabled) throw Error(`${check}/${checkType} was flagged but the module was disabled.`);
 
     // Handle punishments
     const { punishment } = checkData;
