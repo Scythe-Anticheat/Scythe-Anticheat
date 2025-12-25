@@ -44,11 +44,13 @@ export default {
 
 	NoslowA: (await import("./movement/Noslow/NoslowA.js")).default,
 
+	AutotoolA: (await import("./world/Autotool/AutotoolA.js")).default,
+
 	NukerA: (await import("./world/Nuker/NukerA.js")).default,
 
 	ScaffoldA: (await import("./world/Scaffold/ScaffoldA.js")).default,
-	ScaffoldB: (await import("./world/Scaffold/ScaffoldA.js")).default,
-	ScaffoldC: (await import("./world/Scaffold/ScaffoldA.js")).default,
-	ScaffoldD: (await import("./world/Scaffold/ScaffoldA.js")).default,
-	ScaffoldE: (await import("./world/Scaffold/ScaffoldA.js")).default,
+	ScaffoldB: (await import("./world/Scaffold/ScaffoldB.js")).default,
+	ScaffoldC: (await import("./world/Scaffold/ScaffoldC.js")).default,
+	ScaffoldD: (await import("./world/Scaffold/ScaffoldD.js")).default,
+	ScaffoldE: (await import("./world/Scaffold/ScaffoldE.js")).default,
 };

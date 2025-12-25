@@ -65,10 +65,8 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
                 entitiesHit: player.entitiesHit,
                 clicks: player.clicks,
                 firstAttack: player.firstAttack,
-                lastSelectedSlot: player.lastSelectedSlot,
                 startBreakTime: player.startBreakTime,
                 lastThrow: player.lastThrow,
-                autotoolSwitchDelay: player.autotoolSwitchDelay,
                 lastMessageSent: player.lastMessageSent,
                 lastGoodPosition: player.lastGoodPosition,
                 movedAt: player.movedAt
@@ -79,6 +77,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         for(const property in player) {
             if(!property.startsWith("is")) continue;
 
+            // @ts-expect-error
             playerData[property] = player[property];
         }
 
@@ -277,8 +276,8 @@ export function tellAllStaff(message, tags = ["op"]) {
 /**
  * @name getBlocksBetween
  * @remarks Find every possible coordinate between two sets of Vector3
- * @param {object} pos1 - First set of coordinates
- * @param {object} pos2 - Second set of coordinates
+ * @param {{ x: Number; y: Number; z: Number; }} pos1 - First set of coordinates
+ * @param {{ x: Number; y: Number; z: Number; }} pos2 - Second set of coordinates
  * @returns {object[]} coordinates - Each possible coordinate
  */
 export function getBlocksBetween(pos1, pos2) {

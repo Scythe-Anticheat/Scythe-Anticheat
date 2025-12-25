@@ -2,7 +2,7 @@
 import config from "./data/config.js";
 import checks from "./checks/registry.js";
 import { world, system, Player, EquipmentSlot, GameMode } from "@minecraft/server";
-import { flag, tellAllStaff } from "./util.js";
+import { tellAllStaff } from "./util.js";
 import { banMessage } from "./assets/ban.js";
 import { mainGui, playerSettingsMenuSelected } from "./assets/ui.js";
 import { commandHandler } from "./commands/handler.js";
@@ -50,8 +50,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 });
 
 system.runInterval(() => {
-	const now = Date.now();
-
 	// Run as each player
 	const players = world.getPlayers();
 	// Oddly enough, this method of looping over all online player's is slightly more efficient than `for(const player of players)`
@@ -68,10 +66,6 @@ system.runInterval(() => {
 
 			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) checks.NukerA.tick(player);
 			if(config.modules.killauraC.enabled && player.entitiesHit.size >= 1) checks.KillauraC.tick(player);
-			if(config.modules.autotoolA.enabled && now - player.startBreakTime < config.modules.autotoolA.startBreakDelay && player.lastSelectedSlot !== player.selectedSlotIndex) {
-				player.flagAutotoolA = true;
-				player.autotoolSwitchDelay = now - player.startBreakTime;
-			}
 
 			if(config.modules.badpackets1.enabled) checks.BadPackets1.tick(player);
 
@@ -136,20 +130,6 @@ world.beforeEvents.playerBreakBlock.subscribe((data) => {
 	const { player, block } = data;
 
 	if(config.debug) console.warn(`${player.name} has broken the block ${block.typeId}`);
-
-	/*
-	AutoTool/A = Checks for player slot mismatch
-
-	When you mine a block with Horion's autotool, it starts mining the block without switching the item you're holding until 30-100ms later
-	At that point, the player's selected slot is switched to the one that contains the item best fit to mine the block
-	*/
-	if(config.modules.autotoolA.enabled && player.flagAutotoolA && player.gamemode !== GameMode.Creative) {
-		system.run(() => {
-			flag(player, "AutoTool", "A", "World", `selectedSlot=${player.selectedSlotIndex},lastSelectedSlot=${player.lastSelectedSlot},switchDelay=${player.autotoolSwitchDelay}`);
-		});
-
-		data.cancel = true;
-	}
 
 	if(config.misc_modules.oreAlerts.enabled && config.misc_modules.oreAlerts.blocks.includes(block.typeId) && !player.hasTag("op")) {
 		tellAllStaff(`§r§6[§aScythe§6]§r [Ore Alerts] ${player.name} has broken 1x ${block.typeId}`, ["notify"]);
@@ -234,15 +214,6 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 			playerSettingsMenuSelected(player, entity);
 		}
 	}
-});
-
-world.afterEvents.entityHitBlock.subscribe(({ damagingEntity: player }) => {
-	if(!(player instanceof Player)) return;
-
-	player.flagAutotoolA = false;
-	player.lastSelectedSlot = player.selectedSlotIndex;
-	player.startBreakTime = Date.now();
-	player.autotoolSwitchDelay = 0;
 });
 
 world.beforeEvents.itemUse.subscribe((itemUse) => {

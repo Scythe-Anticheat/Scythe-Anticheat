@@ -3,7 +3,6 @@ import { Player, Entity, ItemStack, Vector2, Vector3, GameMode } from "@minecraf
 declare module "@minecraft/server" {
 	interface Player {
 		// Booleans
-		flagAutotoolA: boolean
 		lastSprintState: boolean
 		isUsingItem: boolean
 
@@ -12,15 +11,12 @@ declare module "@minecraft/server" {
 		heldItem: string
 
 		// Numbers
-		autotoolSwitchDelay: number
 		blocksBroken: number
 		clicks: number
 		firstAttack: number
 		lastLeftClick: number
 		lastMessageSent: number
-		lastSelectedSlot: number
 		lastThrow: number
-		selectedSlotIndex: number
 		startBreakTime: number
 		movedAt: number
 		itemUsedAt: number
