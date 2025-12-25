@@ -25,7 +25,6 @@
 				]
 			},
 			"animations": {
-				"onTick": "animation.onTick",
 				"onJoin": "animation.onJoin",
 				"glide": "controller.animation.glide",
 				"levitate": "controller.animation.levitate",
