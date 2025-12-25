@@ -7,7 +7,6 @@ declare module "@minecraft/server" {
 		isUsingItem: boolean
 
 		// Strings
-		gamemode: GameMode
 		heldItem: string
 
 		// Numbers

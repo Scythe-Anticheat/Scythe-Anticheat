@@ -385,7 +385,7 @@ export function playerSettingsMenuSelected(player, target) {
             `Unique ID: ${target.id}\n` +
             `Dimension: ${capitalizeFirstLetter((target.dimension.id).replace("minecraft:", ""))}\n` +
             `Coordinates: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\n` +
-            `Gamemode: ${target.gamemode}\n` +
+            `Gamemode: ${target.getGameMode()}\n` +
             `Platform: ${target.clientSystemInfo.platformType}\n` +
             `Scythe Opped: ${target.hasTag("op") ? "§atrue" : "false"}\n` +
             `§rMuted: ${target.isMuted() ? "§ctrue" : "§afalse"}\n` +

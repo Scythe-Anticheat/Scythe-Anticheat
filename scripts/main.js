@@ -168,7 +168,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	}
 
 	// If enabled from previous login then activate
-	if(player.hasTag("flying") && player.gamemode !== GameMode.Creative) player.runCommand("ability @s mayfly true");
+	if(player.hasTag("flying") && player.getGameMode() !== GameMode.Creative) player.runCommand("ability @s mayfly true");
 	if(player.isMuted()) player.runCommand("ability @s mute true");
 	if(player.getDynamicProperty("frozen")) player.triggerEvent("scythe:freeze");
 });
@@ -236,10 +236,6 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	}
 });
 
-world.afterEvents.playerGameModeChange.subscribe(({ player, toGameMode }) => {
-	player.gamemode = toGameMode;
-});
-
 world.afterEvents.playerInventoryItemChange.subscribe(({ itemStack, player, slot }) => {
 	// Check if the item in the player's current selected slot has changed
 	if(slot === player.selectedSlotIndex) {
@@ -300,7 +296,6 @@ system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
 system.run(() => {
 	const players = world.getPlayers();
 	for(const player of players) {
-		player.gamemode = player.getGameMode();
 		player.lastGoodPosition = player.location;
 		player.heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
 	}

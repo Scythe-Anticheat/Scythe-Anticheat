@@ -22,7 +22,7 @@ registerCommand({
             player.setDynamicProperty("vanished", true);
 
             // Store the player's previous gamemode so we can return them back when they exit out of vanish
-            player.setDynamicProperty("previousGamemode", player.gamemode);
+            player.setDynamicProperty("previousGamemode", player.getGameMode());
             player.setGameMode(GameMode.Spectator);
 
             player.sendMessage("§r§6[§aScythe§6]§r You are now vanished.");

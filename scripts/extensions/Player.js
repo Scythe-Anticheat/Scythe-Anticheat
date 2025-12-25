@@ -90,7 +90,7 @@ Player.prototype.disableFly = function(initiator) {
  */
 Player.prototype.getMaxBlockPlaceDistance = function() {
     // Regardless of what input method you are using, the block place reach is capped if you are on survival
-    if(this.gamemode === GameMode.Survival) return 5;
+    if(this.getGameMode() === GameMode.Survival) return 5;
 
     const inputMode = this.inputInfo.lastInputModeUsed;
 

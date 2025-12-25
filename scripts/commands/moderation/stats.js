@@ -24,7 +24,7 @@ registerCommand({
 });
 
 export function getStatsMsg(target) {
-	let statsMsg = `${logo} Showing all Scythe logs for ${target.name}:\n${logo} ==== BASIC INFO ====\n${logo} Unique ID: ${target.id}\n${logo} Gamemode: ${target.gamemode}\n${logo} Dimension: ${capitalizeFirstLetter(target.dimension.id.replace("minecraft:", ""))}\n${logo} Position: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\n${logo} Platform: ${target.clientSystemInfo.platformType}\n${logo} ==== VIOLATIONS ====\n`;
+	let statsMsg = `${logo} Showing all Scythe logs for ${target.name}:\n${logo} ==== BASIC INFO ====\n${logo} Unique ID: ${target.id}\n${logo} Gamemode: ${target.getGameMode()}\n${logo} Dimension: ${capitalizeFirstLetter(target.dimension.id.replace("minecraft:", ""))}\n${logo} Position: ${Math.trunc(target.location.x)}, ${Math.trunc(target.location.y)}, ${Math.trunc(target.location.z)}\n${logo} Platform: ${target.clientSystemInfo.platformType}\n${logo} ==== VIOLATIONS ====\n`;
 
 	let totalViolations = 0;
 	for(const objective of world.scoreboard.getObjectives()) {

@@ -36,7 +36,7 @@ class ReachA extends Check {
 		This causes false positives when attacking entities with large collision boxes such as Ender Dragons
 		To prevent any sort of false positives, we only check reach when the player attacks another player
 		*/
-		if(!(player instanceof Player) || !(entity instanceof Player) || player.gamemode === GameMode.Creative || this.config.excluded_items.includes(player.heldItem)) return;
+		if(!(player instanceof Player) || !(entity instanceof Player) || player.getGameMode() === GameMode.Creative || this.config.excluded_items.includes(player.heldItem)) return;
 
 		// Calculate reach from the player's head location
 		const headLocation = player.getHeadLocation();
