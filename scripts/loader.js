@@ -2,7 +2,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "21";
+const latestConfigVer = "22";
 
 // Set dynamic properties
 system.run(() => {
@@ -180,6 +180,9 @@ system.run(() => {
 
 		case "20":
 			delete config.misc_modules.antiGamemode;
+
+		case "21":
+			delete config.modules.badpackets2.maxLength;
 
 		case latestConfigVer:
 			break;

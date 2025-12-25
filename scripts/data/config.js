@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "21",
+	"version": "22",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -218,7 +218,6 @@ export default
 		},
 		"badpackets2": {
 			"enabled": true,
-			"maxLength": 512,
 			"punishment": "ban",
 			"punishmentLength": "",
 			"minVlbeforePunishment": 1

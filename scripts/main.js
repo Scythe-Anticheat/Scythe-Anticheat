@@ -77,13 +77,6 @@ system.runInterval(() => {
 				if(config.modules.invalidsprintF.enabled) checks.InvalidsprintF.tick(player);
 			}
 
-			/*
-			The Minecraft world has an invisible barrier at Y level -104 that is impossible to pass through.
-			Using TP hacks or glitches, it is possible to go beyond that barrier
-			Scythe automatically teleports the player back up if they ever go beyond it
-			*/
-			if(player.location.y < -104) player.tryTeleport({ x: player.location.x, y: -104, z: player.location.z });
-
 			if(config.modules.inventorymodsB.enabled) checks.InventoryModsB.tick(player);
 
 			// Check if an item was equipped to the offhand
@@ -92,6 +85,13 @@ system.runInterval(() => {
 				if(config.modules.autooffhandB.enabled) checks.AutoOffhandB.tick(player);
 				if(config.modules.autooffhandC.enabled) checks.AutoOffhandC.tick(player);
 			}
+
+			/*
+			The Minecraft world has an invisible barrier at Y level -104 that is impossible to pass through.
+			Using TP hacks or glitches, it is possible to go beyond that barrier
+			Scythe automatically teleports the player back up if they ever go beyond it
+			*/
+			if(player.location.y < -104) player.tryTeleport({ x: player.location.x, y: -104, z: player.location.z });
 
 			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
 				player.tryTeleport({
