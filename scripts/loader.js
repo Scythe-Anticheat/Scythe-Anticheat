@@ -2,7 +2,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "20";
+const latestConfigVer = "21";
 
 // Set dynamic properties
 system.run(() => {
@@ -279,6 +279,9 @@ system.run(() => {
 			// Convert the previous time in ticks to milliseconds
 			config.modules.killauraA.min_item_use_time = config.modules.killauraA.rightTicks * 50;
 			delete config.modules.killauraA.rightTicks;
+
+		case "20":
+			delete config.misc_modules.antiGamemode;
 
 		case latestConfigVer:
 			break;

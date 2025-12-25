@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "20",
+	"version": "21",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -451,18 +451,6 @@ export default
 			"enabled": true,
 			"radius": 5,
 			"max_armor_stand_count": 50
-		},
-		"antiGamemode": {
-			"enabled": false,
-			"blockedGamemodes": [
-				/*
-				Example:
-
-				creative,
-				spectator,
-				adventure
-				*/
-			]
 		},
 		"antiSpam": {
 			"enabled": false,

@@ -236,19 +236,8 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 	}
 });
 
-world.afterEvents.playerGameModeChange.subscribe(({ fromGameMode, player, toGameMode }) => {
+world.afterEvents.playerGameModeChange.subscribe(({ player, toGameMode }) => {
 	player.gamemode = toGameMode;
-
-	if(
-		!config.misc_modules.antiGamemode.enabled ||
-		// @ts-expect-error
-		!config.misc_modules.antiGamemode.blockedGamemodes.includes(toGameMode.toLowerCase()) ||
-		player.hasTag("op")
-	) return;
-
-	// Player entered a blocked gamemode
-	player.setGameMode(fromGameMode);
-	tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}'s§r §4gamemode was updated to a blocked gamemode §7(oldGamemode=${fromGameMode},newGamemode=${toGameMode})§4.`, ["notify"]);
 });
 
 world.afterEvents.playerInventoryItemChange.subscribe(({ itemStack, player, slot }) => {
@@ -301,8 +290,7 @@ system.afterEvents.scriptEventReceive.subscribe(({ sourceEntity: player, id }) =
 });
 
 system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
-	// We try to stop any watchdog crashes incase malicious users try to make the scripts lag
-	// and cause the server to crash
+	// Prevent malicious users from purposely lagging out scripts in order to force the world to crash from the Scripting API's Watchdog
 	watchdogTerminate.cancel = true;
 
 	tellAllStaff(`§r§6[§aScythe§6]§r A ${watchdogTerminate.terminateReason} watch dog exception has been detected and has been automatically cancelled.`);
