@@ -63,9 +63,6 @@ system.runInterval(() => {
 			player.velocity = player.getVelocity();
 			player.rotation = player.getRotation();
 
-			// Get the item that the player is holding in their cursor
-			const cursorItem = player.getComponent("cursor_inventory")?.item;
-
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
 
@@ -95,34 +92,15 @@ system.runInterval(() => {
 			Using TP hacks or glitches, it is possible to go beyond that barrier
 			Scythe automatically teleports the player back up if they ever go beyond it
 			*/
-			if(player.location.y < -104) player.tryTeleport({x: player.location.x, y: -104, z: player.location.z});
+			if(player.location.y < -104) player.tryTeleport({ x: player.location.x, y: -104, z: player.location.z });
 
-			// InventoryMods/B = Check if a player changes the item they are holding in their cursor slot while moving
-			if(
-				config.modules.inventorymodsB.enabled &&
-				player.lastCursorItem?.typeId !== cursorItem?.typeId &&
-				player.isUsingInputKeys()
-			) flag(player, "InventoryMods", "B", "Inventory", `oldItem=${player.lastCursorItem?.typeId},newItem=${cursorItem?.typeId}`, true);
+			if(config.modules.inventorymodsB.enabled) checks.InventoryModsB.tick(player);
 
 			// Check if an item was equipped to the offhand
 			if(!player.lastOffhandItem && offhandItem) {
-				// AutoOffhand/A = Checks if a player equips an item in their offhand while moving
-				if(
-					config.modules.autooffhandA.enabled &&
-					player.isUsingInputKeys()
-				) flag(player, "AutoOffhand", "A", "Inventory", `item=${offhandItem?.typeId}`, true);
-
-				// AutoOffhand/B = Checks if a player equips an item in their offhand while using an item
-				if(
-					config.modules.autooffhandB.enabled &&
-					player.isUsingItem
-				) flag(player, "AutoOffhand", "B", "Inventory", `item=${offhandItem?.typeId}`);
-
-				// AutoOffhand/C = Checks if a player equips an item in their offhand while swinging their hand
-				if(
-					config.modules.autooffhandC.enabled &&
-					player.hasTag("left")
-				) flag(player, "AutoOffhand", "C", "Inventory", `item=${offhandItem?.typeId}`);
+				if(config.modules.autooffhandA.enabled) checks.AutoOffhandA.tick(player);
+				if(config.modules.autooffhandB.enabled) checks.AutoOffhandB.tick(player);
+				if(config.modules.autooffhandC.enabled) checks.AutoOffhandC.tick(player);
 			}
 
 			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
@@ -139,7 +117,6 @@ system.runInterval(() => {
 
 			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
 
-			player.lastCursorItem = cursorItem;
 			player.lastOffhandItem = offhandItem;
 
 			// Store the players last good position
@@ -154,10 +131,6 @@ system.runInterval(() => {
 		}
 	}
 }, 1);
-
-world.afterEvents.playerPlaceBlock.subscribe(({ block, player }) => {
-	if(config.debug) console.warn(`${player.name} has placed ${block.typeId}`);
-});
 
 world.beforeEvents.playerBreakBlock.subscribe((data) => {
 	const { player, block } = data;
@@ -324,10 +297,6 @@ world.afterEvents.itemStartUse.subscribe(({ source: player, itemStack: item }) =
 
 	player.isUsingItem = true;
 	player.itemUsedAt = Date.now();
-
-	// Temporarily disabled due to false positives. The hasGUIopen tag can take around 500ms to be removed once the player closes a chest
-	// To determine if a player has a GUI open, you need a environmental sensor in player.json, which are slow compared to animation controllers, causing the delay
-	if(config.modules.inventorymodsA.enabled && player.hasTag("hasGUIopen")) flag(player, "InventoryMods", "A", "Inventory");
 });
 
 world.afterEvents.itemStopUse.subscribe(({ source: player }) => {

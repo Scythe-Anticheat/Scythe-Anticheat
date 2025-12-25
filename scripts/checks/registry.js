@@ -2,7 +2,7 @@ export default {
 	AutoclickerA: (await import("./combat/Autoclicker/AutoclickerA.js")).default,
 
 	FastuseA: (await import("./combat/Fastuse/FastuseA.js")).default,
-	
+
 	KillauraA: (await import("./combat/Killaura/KillauraA.js")).default,
 	KillauraB: (await import("./combat/Killaura/KillauraB.js")).default,
 	KillauraC: (await import("./combat/Killaura/KillauraC.js")).default,
@@ -22,6 +22,13 @@ export default {
 
 	NamespoofA: (await import("./exploit/Namespoof/NamespoofA.js")).default,
 	NamespoofB: (await import("./exploit/Namespoof/NamespoofB.js")).default,
+
+	AutoOffhandA: (await import("./inventory/AutoOffhand/AutoOffhandA.js")).default,
+	AutoOffhandB: (await import("./inventory/AutoOffhand/AutoOffhandB.js")).default,
+	AutoOffhandC: (await import("./inventory/AutoOffhand/AutoOffhandC.js")).default,
+
+	InventoryModsA: (await import("./inventory/InventoryMods/InventoryModsA.js")).default,
+	InventoryModsB: (await import("./inventory/InventoryMods/InventoryModsB.js")).default,
 
 	SpammerA: (await import("./misc/Spammer/SpammerA.js")).default,
 	SpammerB: (await import("./misc/Spammer/SpammerB.js")).default,

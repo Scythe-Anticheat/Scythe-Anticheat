@@ -18,7 +18,7 @@ class InvalidsprintA extends Check {
 	 * @param {import("@minecraft/server").Player} player
 	 */
 	tick(player) {
-		if(player.getEffect("blindndess")) this.flag(player, undefined, true);
+		if(player.getEffect("blindness")) this.flag(player, undefined, true);
 	}
 }
 
