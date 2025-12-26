@@ -60,26 +60,26 @@ system.runInterval(() => {
 			// Get the item in the player's offhand
 			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
 
-			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) checks.NukerA.tick(player);
-			if(config.modules.killauraC.enabled && player.entitiesHit.size >= 1) checks.KillauraC.tick(player);
+			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) checks.nukerA.tick(player);
+			if(config.modules.killauraC.enabled && player.entitiesHit.size >= 1) checks.killauraC.tick(player);
 
-			if(config.modules.badpackets1.enabled) checks.BadPackets1.tick(player);
+			if(config.modules.badpackets1.enabled) checks.badpackets1.tick(player);
 
 			// Check if the player just started sprinting
 			if(!player.lastSprintState && player.isSprinting) {
-				if(config.modules.invalidsprintA.enabled) checks.InvalidsprintA.tick(player);
-				if(config.modules.invalidsprintB.enabled) checks.InvalidsprintB.tick(player);
-				if(config.modules.invalidsprintC.enabled) checks.InvalidsprintC.tick(player);
-				if(config.modules.invalidsprintD.enabled) checks.InvalidsprintD.tick(player);
-				if(config.modules.invalidsprintE.enabled) checks.InvalidsprintE.tick(player);
-				if(config.modules.invalidsprintF.enabled) checks.InvalidsprintF.tick(player);
+				if(config.modules.invalidsprintA.enabled) checks.invalidsprintA.tick(player);
+				if(config.modules.invalidsprintB.enabled) checks.invalidsprintB.tick(player);
+				if(config.modules.invalidsprintC.enabled) checks.invalidsprintC.tick(player);
+				if(config.modules.invalidsprintD.enabled) checks.invalidsprintD.tick(player);
+				if(config.modules.invalidsprintE.enabled) checks.invalidsprintE.tick(player);
+				if(config.modules.invalidsprintF.enabled) checks.invalidsprintF.tick(player);
 			}
 
 			// Check if an item was equipped to the offhand
 			if(!player.lastOffhandItem && offhandItem) {
-				if(config.modules.autooffhandA.enabled) checks.AutoOffhandA.tick(player);
-				if(config.modules.autooffhandB.enabled) checks.AutoOffhandB.tick(player);
-				if(config.modules.autooffhandC.enabled) checks.AutoOffhandC.tick(player);
+				if(config.modules.autooffhandA.enabled) checks.autooffhandA.tick(player);
+				if(config.modules.autooffhandB.enabled) checks.autooffhandB.tick(player);
+				if(config.modules.autooffhandC.enabled) checks.autooffhandC.tick(player);
 			}
 
 			/*
