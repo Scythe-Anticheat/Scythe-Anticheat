@@ -43,6 +43,7 @@ class ReachC extends Check {
 		const maxPlaceDistance = player.getMaxBlockPlaceDistance();
 		if(distance > maxPlaceDistance) {
 			this.delayedFlag(player, `distance=${distance},gamemode=${player.getGameMode()},inputMode=${player.inputInfo.lastInputModeUsed}`);
+			data.cancel = true;
 		}
 	}
 }
