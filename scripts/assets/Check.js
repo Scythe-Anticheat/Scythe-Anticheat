@@ -16,10 +16,37 @@ class Check {
 		this.subcheck = subcheck;
 		this.type = type;
 
-		// @ts-expect-error
-		this.config = config.modules[`${this.check.toLowerCase()}${this.subcheck}`];
-		if(!this.config) throw Error(`No config data was found for ${this.check}[${this.subcheck}]`);
+		const moduleConfig = config.modules[this.check.toLowerCase() + this.subcheck];
+		if(!moduleConfig) throw Error(`No config data was found for ${this.check}[${this.subcheck}]`);
+
+		Object.defineProperty(moduleConfig, "_enabled", {
+			// We dont need the command or UI interfaces to show the '_enabled' field
+			enumerable: false,
+			writable: true,
+			value: moduleConfig.enabled
+		});
+
+		const self = this;
+		Object.defineProperty(moduleConfig, "enabled", {
+			enumerable: true,
+			get: function() {
+				return this._enabled;
+			},
+			set: function(value) {
+				if(config.debug) console.log(`${this._enabled} --> ${value}`);
+				// Module was enabled
+				if(!this._enabled && value) self.enable?.();
+
+				// Module was disabled
+				if(this._enabled && !value) self.disable?.();
+
+				this._enabled = value;
+			}
+		});
+
+		this.config = moduleConfig;
 	}
+
 
 	/**
 	 * @param {import("@minecraft/server").Player} player - The player that should be flaged

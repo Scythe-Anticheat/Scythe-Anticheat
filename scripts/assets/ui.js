@@ -1,4 +1,3 @@
-// @ts-check
 import { world, ItemTypes, ItemStack, GameMode } from "@minecraft/server";
 import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 
@@ -23,7 +22,6 @@ const icons = {
 };
 
 const moduleList = Object.keys(config.modules).concat(Object.keys(config.misc_modules));
-// Using a Set() here would be a lot better for performance, however it becomes annoying later on in the code
 const modules = [];
 
 // Get a list of all modules without the sub-check
@@ -50,15 +48,12 @@ const punishmentSettings = ["punishment","punishmentLength","minVlbeforePunishme
 
 // This is the function that will be called when the player wants to open the GUI
 // All other GUI functions will be called from here
-export function mainGui(player, error) {
+export function mainGui(player) {
     player.playSound("mob.chicken.plop");
-
-    let text = `Hello ${player.name},\n\nPlease select an option below.`;
-    if(error) text += `\n\n§c${error}`;
 
     const menu = new ActionFormData()
 		.title("Scythe Anticheat UI")
-		.body(text)
+		.body(`Hello ${player.name},\n\nPlease select an option below.`)
 		.button("Ban Menu", icons.anvil)
 		.button("Configure Settings", "textures/ui/gear.png")
 		.button(`Manage Players\n§8§o${world.getPlayers().length} player(s) online`, "textures/ui/FriendsDiversity.png")
@@ -619,6 +614,9 @@ function debugSettingsMenu(player) {
                 const container = player.getComponent("inventory").container;
                 const allItems = ItemTypes.getAll();
 
+                /**
+                 * @type {Array<String>}
+                 */
                 const totalItems = [];
                 for(let i = 0; i < 36; i++) {
                     if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
