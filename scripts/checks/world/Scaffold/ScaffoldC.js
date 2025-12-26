@@ -18,17 +18,18 @@ class ScaffoldC extends Check {
 	}
 
 	enable() {
-		world.beforeEvents.playerPlaceBlock.subscribe((...args) => this.beforePlayerPlaceBlock(...args));
+		// Normally we want to use before events whenever possible, however the before event does tell whether or not the block permutation that has been placed is solid
+		world.afterEvents.playerPlaceBlock.subscribe((...args) => this.afterPlayerPlaceBlock(...args));
 	}
 
 	disable() {
-		world.beforeEvents.playerPlaceBlock.unsubscribe(this.beforePlayerPlaceBlock);
+		world.afterEvents.playerPlaceBlock.unsubscribe(this.afterPlayerPlaceBlock);
 	}
 
 	/**
-	 * @param {import("@minecraft/server").PlayerPlaceBlockBeforeEvent} data
+	 * @param {import("@minecraft/server").PlayerPlaceBlockAfterEvent} data
 	 */
-	beforePlayerPlaceBlock(data) {
+	afterPlayerPlaceBlock(data) {
 		const { player, block } = data;
 		if(player.isSwimming || !block.isSolid || player.hasTag("riding")) return;
 
@@ -36,7 +37,7 @@ class ScaffoldC extends Check {
 		const rotation = player.getRotation();
 		if(Math.trunc(player.location.y) > block.location.y && rotation.x < this.config.min_x_rot) {
 			this.delayedFlag(player, `xRot=${rotation.x},yPosPlayer=${player.location.y},yPosBlock=${block.location.y}`);
-			data.cancel = true;
+			block.setType("air");
 		}
 	}
 }
