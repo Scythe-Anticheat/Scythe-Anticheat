@@ -99,10 +99,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     let currentVl = player.getScore(scoreboardObjective);
     player.setScore(scoreboardObjective, ++currentVl);
 
-    const flagMessage = `§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${currentVl}`;
-
-    if(config.logAlertsToConsole) console.log(flagMessage.replace(/§./g, ""));
-    tellAllStaff(flagMessage, ["notify"]);
+    tellAllStaff(`§r§6[§aScythe§6]§r ${player.name}§r §1has failed §7(${hackType}) §4${check}/${checkType}${debug ? ` §7(${debug}§r§7)§4`: ""}. VL= ${currentVl}`, ["notify"]);
 
     // Handle punishments
     const { punishment } = checkData;
@@ -185,6 +182,7 @@ export function parseTime(str) {
             y: 31536000000
         }[unit];
 
+        // @ts-expect-error
         return ms * Number(num);
     }
 
@@ -193,10 +191,10 @@ export function parseTime(str) {
 
 /**
  * @name msToTime
+ * @description Convert milliseconds into weeks, days, hours, minutes, and seconds
  * @param {number} ms - The string to convert
  * @example str(88200000); // Returns { d: 1, h: 0, m: 30, s: 0 }
- * @remarks Convert milliseconds to seconds, minutes, hours, days and weeks
- * @returns {object} str - The converted string
+ * @returns {{w: Number, d: Number, h: Number, m: Number, s: Number}} time
  */
 export function msToTime(ms) {
     return {
@@ -249,11 +247,13 @@ export function findPlayerByName(name) {
 
 /**
  * @name tellAllStaff
- * @remarks Send a message to all Scythe-Opped players
+ * @description Send a message to all Scythe-Opped players
  * @param {string} message - The message to send
  * @param {string[]} tags - What tags does a player require to get this message
  */
 export function tellAllStaff(message, tags = ["op"]) {
+    if(config.logAlertsToConsole && !tags.includes("actionlogger")) console.log(message.replace(/§./g, ""));
+
     const players = world.getPlayers({ tags });
     for(const player of players) {
         player.sendMessage(message);
