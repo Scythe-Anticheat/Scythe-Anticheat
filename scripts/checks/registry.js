@@ -28,7 +28,6 @@ export default {
 	AutoOffhandC: (await import("./inventory/AutoOffhand/AutoOffhandC.js")).default,
 
 	InventoryModsA: (await import("./inventory/InventoryMods/InventoryModsA.js")).default,
-	InventoryModsB: (await import("./inventory/InventoryMods/InventoryModsB.js")).default,
 
 	SpammerA: (await import("./misc/Spammer/SpammerA.js")).default,
 	SpammerB: (await import("./misc/Spammer/SpammerB.js")).default,
@@ -41,8 +40,6 @@ export default {
 	InvalidsprintD: (await import("./movement/Invalidsprint/InvalidsprintD.js")).default,
 	InvalidsprintE: (await import("./movement/Invalidsprint/InvalidsprintE.js")).default,
 	InvalidsprintF: (await import("./movement/Invalidsprint/InvalidsprintF.js")).default,
-
-	NoslowA: (await import("./movement/Noslow/NoslowA.js")).default,
 
 	AutotoolA: (await import("./world/Autotool/AutotoolA.js")).default,
 

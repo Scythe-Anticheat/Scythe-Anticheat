@@ -1,12 +1,9 @@
 // @ts-check
-import Check from "../../../assets/Check.js";
+import Check from "../../assets/Check.js";
 
 /**
- * This module is disabled due to false flags
- * To determine if a player has a GUI open, such as a chest, we have an environmental sensor in the player.json file that checks if the player has a container open
- * When a player opens a container, an event will fire which will give the player the 'hasGUIopen' tag
- * This process is rather slow, as it could take up to 500ms from when the player first opened the chest to giving the tag
- * Between that time, the player could close the GUI and use an item, causing a false flag
+ * This check could detect Inventory Move cheats by seeing if the player was interacting with the inventory and moving items into their cursor
+ * Server Authoritative Movement, at least since 1.21.130, now checks if the player moves while having so inventory move cheats are completely patched
  */
 class InventoryModsB extends Check {
 	/**
@@ -16,7 +13,7 @@ class InventoryModsB extends Check {
 	constructor() {
 		super({
 			check: "InventoryMods",
-			subcheck: "A",
+			subcheck: "B",
 			type: "Inventory"
 		});
 	}

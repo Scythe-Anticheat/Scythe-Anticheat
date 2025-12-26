@@ -65,8 +65,6 @@ system.runInterval(() => {
 
 			if(config.modules.badpackets1.enabled) checks.BadPackets1.tick(player);
 
-			if(config.modules.noslowA.enabled) checks.NoslowA.tick(player);
-
 			// Check if the player just started sprinting
 			if(!player.lastSprintState && player.isSprinting) {
 				if(config.modules.invalidsprintA.enabled) checks.InvalidsprintA.tick(player);
@@ -76,8 +74,6 @@ system.runInterval(() => {
 				if(config.modules.invalidsprintE.enabled) checks.InvalidsprintE.tick(player);
 				if(config.modules.invalidsprintF.enabled) checks.InvalidsprintF.tick(player);
 			}
-
-			if(config.modules.inventorymodsB.enabled) checks.InventoryModsB.tick(player);
 
 			// Check if an item was equipped to the offhand
 			if(!player.lastOffhandItem && offhandItem) {

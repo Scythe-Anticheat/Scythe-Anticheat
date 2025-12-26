@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "22",
+	"version": "23",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -312,11 +312,6 @@ export default
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},
-		"inventorymodsB": {
-			"enabled": true,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
-		},
 		"killauraA": {
 			"enabled": true,
 			// Minimum time the player should be using the item for a flag
@@ -362,13 +357,6 @@ export default
 			"regex": "/[^A-Za-z0-9_\\-() ]/",
 			"punishment": "kick",
 			"minVlbeforePunishment": 1
-		},
-		"noslowA": {
-			"enabled": true,
-			"speed": 0.12,
-			"maxSpeed": 0.28,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
 		},
 		"nukerA": {
 			"enabled": false,

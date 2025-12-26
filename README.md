@@ -60,9 +60,6 @@ For a full list of commands, you can run the `!help` command. This output a list
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(E) => Checks for sprinting while riding an entity.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(F) => Checks if a player sprints while they do not have enough hunger.<br/>
 
-  InventoryMods-><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Check if a player changes the item they are holding in their cursor slot while moving.<br/>
-
   Killaura -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for attacking while using an item.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for no swing. (Instantly detects toolbox killaura)<br/>
@@ -73,9 +70,6 @@ For a full list of commands, you can run the `!help` command. This output a list
   Namespoof -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player's name is longer than 16 characters.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) => Checks for invalid characters in the player's name.<br/>
-
-  NoSlow -><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks for high movement speeds while using or eating an item.
 
   Nuker -><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) => Checks if a player breaks more than 3 blocks in a single tick.
