@@ -18,11 +18,23 @@ class AutoclickerA extends Check {
 	}
 
 	enable() {
-		world.afterEvents.entityHitEntity.subscribe((...args) => this.afterEntityHitEntity(...args));
+		/**
+		 * There's surely a better way to do this...
+		 * We want the afterEntityHitEntity function have a this value of the AutoclickerA class
+		 * Doing something like 'world.afterEvents.entityHitEntity.subscribe(this.afterEntityHitEntity)' will result in a this value of null
+		 * We could use .bind() in order to set the this value to the AutoClickerA class, but the callback signature would be different so we wont be able to unsubscribe from it in the disable function
+		 * To get around this, we use .bind() and store the callback in the callbacks object, and use the references to those callbacks in the disable function
+		 */
+		this.callbacks = {
+			afterEntityHitEntity: world.afterEvents.entityHitEntity.subscribe(this.afterEntityHitEntity.bind(this))
+		};
 	}
 
 	disable() {
-		world.afterEvents.entityHitEntity.unsubscribe(this.afterEntityHitEntity);
+		if(!this.callbacks) return;
+
+		world.afterEvents.entityHitEntity.unsubscribe(this.callbacks.afterEntityHitEntity);
+		delete this.callbacks;
 	}
 
 	/**
@@ -43,14 +55,9 @@ class AutoclickerA extends Check {
 		const now = Date.now();
 		if(now - player.firstAttack <= this.config.checkCPSAfter) return;
 
-		/*
-		To find the player's CPS, we divide the amount of times they have clicked between now and the last marked click, divided by the amount of time that has passed between those two points
-		The time is measured in milliseconds, so we divide the time by 1000 to get the seconds between now and their last marked click.
-		*/
 		const cps = player.clicks / ((now - player.firstAttack) / 1000);
 		if(cps > this.config.maxCPS) this.flag(player, `cps=${cps}`);
 
-		// Reset CPS data
 		// TODO: Potentially save this data inside the AutoclickerA class instead of in the player class?
 		player.firstAttack = now;
 		player.clicks = 0;

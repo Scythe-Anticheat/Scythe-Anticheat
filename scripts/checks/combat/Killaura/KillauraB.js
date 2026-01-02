@@ -18,11 +18,16 @@ class KillauraB extends Check {
 	}
 
 	enable() {
-		world.afterEvents.entityHitEntity.subscribe((...args) => this.afterEntityHitEntity(...args));
+		this.callbacks = {
+			afterEntityHitEntity: world.afterEvents.entityHitEntity.subscribe(this.afterEntityHitEntity.bind(this))
+		};
 	}
 
 	disable() {
-		world.afterEvents.entityHitEntity.unsubscribe(this.afterEntityHitEntity);
+		if(!this.callbacks) return;
+
+		world.afterEvents.entityHitEntity.unsubscribe(this.callbacks.afterEntityHitEntity);
+		delete this.callbacks;
 	}
 
 	/**

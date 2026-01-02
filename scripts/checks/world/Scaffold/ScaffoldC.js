@@ -17,13 +17,19 @@ class ScaffoldC extends Check {
 		if(this.config.enabled) this.enable();
 	}
 
+
 	enable() {
-		// Normally we want to use before events whenever possible, however the before event does tell whether or not the block permutation that has been placed is solid
-		world.afterEvents.playerPlaceBlock.subscribe((...args) => this.afterPlayerPlaceBlock(...args));
+		this.callbacks = {
+			// Normally we want to use before events whenever possible, however the before event doesn't return whether or not the block permutation that has been placed is solid
+			afterPlayerPlaceBlock: world.afterEvents.playerPlaceBlock.subscribe(this.afterPlayerPlaceBlock.bind(this))
+		};
 	}
 
 	disable() {
-		world.afterEvents.playerPlaceBlock.unsubscribe(this.afterPlayerPlaceBlock);
+		if(!this.callbacks) return;
+
+		world.afterEvents.playerPlaceBlock.unsubscribe(this.callbacks.afterPlayerPlaceBlock);
+		delete this.callbacks;
 	}
 
 	/**

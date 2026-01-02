@@ -18,11 +18,16 @@ class SpammerC extends Check {
 	}
 
 	enable() {
-		world.beforeEvents.chatSend.subscribe((...args) => this.beforeChatSend(...args));
+		this.callbacks = {
+			beforeChatSend: world.beforeEvents.chatSend.subscribe(this.beforeChatSend.bind(this))
+		};
 	}
 
 	disable() {
-		world.beforeEvents.chatSend.unsubscribe(this.beforeChatSend);
+		if(!this.callbacks) return;
+
+		world.beforeEvents.chatSend.unsubscribe(this.callbacks.beforeChatSend);
+		delete this.callbacks;
 	}
 
 	/**

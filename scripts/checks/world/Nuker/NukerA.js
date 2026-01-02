@@ -18,11 +18,16 @@ class NukerA extends Check {
 	}
 
 	enable() {
-		world.beforeEvents.playerBreakBlock.subscribe((...args) => this.beforePlayerBreakBlock(...args));
+		this.callbacks = {
+			beforePlayerBreakBlock: world.beforeEvents.playerBreakBlock.subscribe(this.beforePlayerBreakBlock.bind(this))
+		};
 	}
 
 	disable() {
-		world.beforeEvents.playerBreakBlock.unsubscribe(this.beforePlayerBreakBlock);
+		if(!this.callbacks) return;
+
+		world.beforeEvents.playerBreakBlock.unsubscribe(this.callbacks.beforePlayerBreakBlock);
+		delete this.callbacks;
 	}
 
 	/**

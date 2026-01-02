@@ -25,13 +25,18 @@ class AutotoolA extends Check {
 	}
 
 	enable() {
-		world.afterEvents.entityHitBlock.subscribe((...args) => this.afterEntityHitBlock(...args));
-		world.afterEvents.playerHotbarSelectedSlotChange.subscribe((...args) => this.afterPlayerChangeSlot(...args));
+		this.callbacks = {
+			afterEntityHitBlock: world.afterEvents.entityHitBlock.subscribe(this.afterEntityHitBlock.bind(this)),
+			afterPlayerChangeSlot: world.afterEvents.playerHotbarSelectedSlotChange.subscribe(this.afterPlayerChangeSlot.bind(this))
+		};
 	}
 
 	disable() {
-		world.afterEvents.entityHitBlock.unsubscribe(this.afterEntityHitBlock);
-		world.afterEvents.playerHotbarSelectedSlotChange.unsubscribe(this.afterPlayerChangeSlot);
+		if(!this.callbacks) return;
+
+		world.afterEvents.entityHitBlock.unsubscribe(this.callbacks.afterEntityHitBlock);
+		world.afterEvents.playerHotbarSelectedSlotChange.unsubscribe(this.callbacks.afterPlayerChangeSlot);
+		delete this.callbacks;
 	}
 
 	/**
@@ -54,7 +59,6 @@ class AutotoolA extends Check {
 		const switchDelay = Date.now() - player.startBreakTime;
 		if(switchDelay < this.config.startBreakDelay) {
 			this.flag(player, `oldSlot=${previousSlotSelected},newSlot=${newSlotSelected},switchDelay=${switchDelay}`);
-			player.selectedSlotIndex = previousSlotSelected;
 		}
 	}
 

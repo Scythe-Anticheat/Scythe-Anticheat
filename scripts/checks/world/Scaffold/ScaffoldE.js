@@ -18,11 +18,16 @@ class ScaffoldE extends Check {
 	}
 
 	enable() {
-		world.beforeEvents.playerPlaceBlock.subscribe((...args) => this.beforePlayerPlaceBlock(...args));
+		this.callbacks = {
+			beforePlayerPlaceBlock: world.beforeEvents.playerPlaceBlock.subscribe(this.beforePlayerPlaceBlock.bind(this))
+		};
 	}
 
 	disable() {
-		world.beforeEvents.playerPlaceBlock.unsubscribe(this.beforePlayerPlaceBlock);
+		if(!this.callbacks) return;
+
+		world.beforeEvents.playerPlaceBlock.unsubscribe(this.callbacks.beforePlayerPlaceBlock);
+		delete this.callbacks;
 	}
 
 	/**

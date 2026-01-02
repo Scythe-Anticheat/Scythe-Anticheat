@@ -90,7 +90,7 @@ For a full list of commands, you can run the `!help` command. This output a list
 
 # FAQ
 Q1: Does the AntiCheat auto-ban?<br/>
-A1: Yes. Currently only the BadPackets[1], BadPackets[2], BadPackets[3], BadPackets[4], and BadPackets[5] checks autoban.
+A1: Yes. Currently only the BadPackets[1], BadPackets[2], BadPackets[3], BadPackets[4], and BadPackets[5] checks automatically ban.
 
 Q2: Is it customizable?<br/>
 A2: Yes you can edit the config.js file to disable or change the settings of certain checks. A guide can be found [here](https://github.com/Scythe-Anticheat/Scythe-AntiCheat/wiki/How-to-Setup) (Outdated)

@@ -18,11 +18,16 @@ class FastuseA extends Check {
 	}
 
 	enable() {
-		world.beforeEvents.itemUse.subscribe((...args) => this.beforeItemUse(...args));
+		this.callbacks = {
+			beforeItemUse: world.beforeEvents.itemUse.subscribe(this.beforeItemUse.bind(this))
+		};
 	}
 
 	disable() {
-		world.beforeEvents.itemUse.unsubscribe(this.beforeItemUse);
+		if(!this.callbacks) return;
+
+		world.beforeEvents.itemUse.unsubscribe(this.callbacks.beforeItemUse);
+		delete this.callbacks;
 	}
 
 	/**
