@@ -4,7 +4,7 @@ import Check from "../../../assets/Check.js";
 class AutoOffhandA extends Check {
 	/**
 	 * @class
-	 * @description Check for moving items into the offhand while moving
+	 * @description Check for moving items into the offhand while doing another action
 	 */
 	constructor() {
 		super({
@@ -18,8 +18,18 @@ class AutoOffhandA extends Check {
 	 * @param {import("@minecraft/server").Player} player
 	 */
 	tick(player) {
+		// Check if the player is using sending movement inputs
 		if(player.isUsingInputKeys()) {
-			this.flag(player, undefined, true);
+			this.flag(player, `state=moving`, true);
+		}
+
+		if(player.isUsingItem) {
+			this.flag(player, `state=usingItem`);
+		}
+
+		// Check if the player is currently swinging their hand
+		if(player.hasTag("left")) {
+			this.flag(player, `state=swungHand`);
 		}
 	}
 }

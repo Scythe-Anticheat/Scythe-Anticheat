@@ -78,8 +78,6 @@ system.runInterval(() => {
 			// Check if an item was equipped to the offhand
 			if(!player.lastOffhandItem && offhandItem) {
 				if(config.modules.autooffhandA.enabled) checks.autooffhandA.tick(player);
-				if(config.modules.autooffhandB.enabled) checks.autooffhandB.tick(player);
-				if(config.modules.autooffhandC.enabled) checks.autooffhandC.tick(player);
 			}
 
 			/*

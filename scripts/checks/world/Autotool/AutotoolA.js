@@ -54,6 +54,7 @@ class AutotoolA extends Check {
 		const switchDelay = Date.now() - player.startBreakTime;
 		if(switchDelay < this.config.startBreakDelay) {
 			this.flag(player, `oldSlot=${previousSlotSelected},newSlot=${newSlotSelected},switchDelay=${switchDelay}`);
+			player.selectedSlotIndex = previousSlotSelected;
 		}
 	}
 

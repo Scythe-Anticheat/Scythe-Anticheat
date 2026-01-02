@@ -22,8 +22,6 @@ export default {
 	namespoofB: (await import("./exploit/Namespoof/NamespoofB.js")).default,
 
 	autooffhandA: (await import("./inventory/AutoOffhand/AutoOffhandA.js")).default,
-	autooffhandB: (await import("./inventory/AutoOffhand/AutoOffhandB.js")).default,
-	autooffhandC: (await import("./inventory/AutoOffhand/AutoOffhandC.js")).default,
 
 	inventorymodsA: (await import("./inventory/InventoryMods/InventoryModsA.js")).default,
 
