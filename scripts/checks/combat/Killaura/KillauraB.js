@@ -1,5 +1,5 @@
 // @ts-check
-import Check from "../../../assets/Check.js";
+import Check from "../../Check.js";
 import { world, system, Player } from "@minecraft/server";
 
 class KillauraB extends Check {

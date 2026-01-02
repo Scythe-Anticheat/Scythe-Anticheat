@@ -1,5 +1,5 @@
 // @ts-check
-import Check from "../../../assets/Check.js";
+import Check from "../../Check.js";
 import { world, GameMode, Player } from "@minecraft/server";
 
 class ReachA extends Check {

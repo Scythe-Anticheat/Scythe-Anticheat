@@ -1,5 +1,5 @@
 // @ts-check
-import Check from "../../../assets/Check.js";
+import Check from "../../Check.js";
 
 class InvalidsprintB extends Check {
 	/**
