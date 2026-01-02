@@ -1,5 +1,5 @@
 // @ts-check
-import Check from "../../assets/Check.js";
+import Check from "../Check.js";
 
 /**
  * This check could detect Inventory Move cheats by seeing if the player was interacting with the inventory and moving items into their cursor
