@@ -6,8 +6,6 @@ export default {
 	killauraA: (await import("./combat/Killaura/KillauraA.js")).default,
 	killauraB: (await import("./combat/Killaura/KillauraB.js")).default,
 	killauraC: (await import("./combat/Killaura/KillauraC.js")).default,
-	killauraD: (await import("./combat/Killaura/KillauraD.js")).default,
-	killauraE: (await import("./combat/Killaura/KillauraE.js")).default,
 
 	reachA: (await import("./combat/Reach/ReachA.js")).default,
 	reachC: (await import("./combat/Reach/ReachC.js")).default,

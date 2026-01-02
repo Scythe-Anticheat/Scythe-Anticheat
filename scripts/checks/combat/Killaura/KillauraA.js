@@ -2,12 +2,10 @@
 import Check from "../../../assets/Check.js";
 import { world, Player } from "@minecraft/server";
 
-// KillauraA, KillauraD, and KillauraE are closely linked together as they all check if a player attacks an entity in impossible scenarios
-// Maybe we should combine these checks into one
 class KillauraA extends Check {
 	/**
 	 * @class
-	 * @description Check if a player attacks an entity while using an item
+	 * @description Check if a player attacks an entity while doing another action
 	 */
 	constructor() {
 		super({
@@ -34,9 +32,20 @@ class KillauraA extends Check {
 		const { damagingEntity: player } = data;
 		if(!(player instanceof Player)) return;
 
+		// Checks if a player attacks while using an item
 		if(player.isUsingItem && Date.now() - player.itemUsedAt > this.config.min_item_use_time) {
-            this.flag(player, `itemUsedFor=${Date.now() - player.itemUsedAt}`);
+            this.flag(player, `state=usingItem,itemUsedFor=${Date.now() - player.itemUsedAt}`);
         }
+
+		// Checks if a player attacks while sleeping
+		if(player.isSleeping) {
+			this.flag(player, `state=sleeping`);
+		}
+
+		// Checks if a player attacks while having a GUI (such as a chest) open
+		if(player.hasTag("hasGUIopen")) {
+			this.flag(player, `state=guiOpen`);
+		}
 	}
 }
 

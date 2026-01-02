@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "23",
+	"version": "24",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -331,16 +331,6 @@ export default
 			"enabled": true,
 			// It is only possible to attack one entity per tick, but incase of lag someone may be able to attack two entites at once.
 			"entities": 3,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
-		},
-		"killauraD": {
-			"enabled": true,
-			"punishment": "none",
-			"minVlbeforePunishment": 0
-		},
-		"killauraE": {
-			"enabled": true,
 			"punishment": "none",
 			"minVlbeforePunishment": 0
 		},

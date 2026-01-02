@@ -19,7 +19,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
     if(typeof check !== "string") throw TypeError(`Error: check is type of ${typeof check}. Expected "string"`);
     if(typeof checkType !== "string") throw TypeError(`Error: checkType is type of ${typeof checkType}. Expected "string"`);
     if(typeof hackType !== "string") throw TypeError(`Error: hackType is type of ${typeof hackType}. Expected "string"`);
-    if(typeof debug !== "string" && debug !== undefined) throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string", "number" or "undefined"`);
+    if(typeof debug !== "string" && debug !== undefined) throw TypeError(`Error: debug is type of ${typeof debug}. Expected "string" or "undefined"`);
     if(typeof shouldTP !== "boolean") throw TypeError(`Error: shouldTP is type of ${typeof shouldTP}. Expected "boolean"`);
 
     // @ts-expect-error
@@ -28,19 +28,17 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     if((config.disableFlagsFromScytheOp || checkData.exclude_scythe_op) && player.hasTag("op")) return;
 
-    if(debug) {
+    if(debug && debug.length > 256) {
         /*
         Back when the NBT exploit was still a major thing, Scythe had a check called IllegalItemsF that would log if an item had a name greater than 32 characters
         This check would return the item name as part of the debug data to fix any false positives if there was a vanilla item with a longer name
         The problem is that a malicious NBT could set an item's name to include thousands of characters which would lag and potentially crash any staff members who viewed the Scythe alert
-        To solve this, a character limit of 256 was imposed to stop this type of attack.
+        To solve this, a character limit of 256 was imposed to stop this type of attack
         
         While exploits such as NBTs are no longer a concern, this is good pratice for any other currently present modules that could be abused in a similiar fashion
         */
-        if(debug.length > 256) {
-            const extraLength = debug.length - 256;
-            debug = debug.slice(0, -extraLength) + ` (+${extraLength} additional characters)`;
-        }
+        const extraLength = debug.length - 256;
+        debug = debug.slice(0, -extraLength) + ` (+${extraLength} additional characters)`;
     }
 
     // If debug is enabled then log everything we know about the player
