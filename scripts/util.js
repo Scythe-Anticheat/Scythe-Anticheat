@@ -38,7 +38,7 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
         While exploits such as NBTs are no longer a concern, this is good pratice for any other currently present modules that could be abused in a similiar fashion
         */
         const extraLength = debug.length - 256;
-        debug = debug.slice(0, -extraLength) + ` (+${extraLength} additional characters)`;
+        debug = debug.slice(0, 256) + ` (+${extraLength} additional characters)`;
     }
 
     // If debug is enabled then log everything we know about the player
