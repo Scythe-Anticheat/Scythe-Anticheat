@@ -2,7 +2,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "26";
+const latestConfigVer = "27";
 
 // Set dynamic properties
 system.run(() => {
@@ -201,6 +201,15 @@ system.run(() => {
 
 			delete config.customcommands;
 
+		case "26":
+			config.misc_modules.chatExtensions = {
+				enabled: true,
+				customTags: true,
+				filterUnicodeChat: config.misc_modules.filterUnicodeChat.enabled
+			};
+
+			delete config.misc_modules.filterUnicodeChat;
+
 		case latestConfigVer:
 			break;
 
@@ -211,11 +220,11 @@ system.run(() => {
 
 	config.version = latestConfigVer;
 
-	// Once we have loaded the config, load all checks
-	import("./checks/registry.js");
-
-	// Once we have loaded everything, load the anticheat core
+	// Once we have loaded the config, load the anticheat core
 	import("./main.js");
+
+	import("./checks/registry.js");
+	import("./modules/registry.js");
 
 	console.log("Scythe has successfully loaded!");
 });

@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "26",
+	"version": "27",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -424,8 +424,22 @@ export default
 			// How fast players can send messages in milliseconds
 			"messageRatelimit": 500
 		},
-		"filterUnicodeChat": {
-			"enabled": false
+		"chatExtensions": {
+			"enabled": true,
+			// If tags from the !tag command should be handled
+			// Disable this if you have conflicts with other addons that modify Player#nameTag
+			"customTags": true,
+			// Remove non-ASCII characters from chat messages to prevent certain exploits
+			// Leave this disabled if your server speaks in an language other than English
+			"filterUnicodeChat": false
+		},
+		"oreAlerts": {
+			"enabled": false,
+			"blocks": [
+				"minecraft:diamond_ore",
+				"minecraft:deepslate_diamond_ore",
+				"minecraft:ancient_debris"
+			]
 		},
 		"welcomeMessage": {
 			"enabled": false,
@@ -436,14 +450,6 @@ export default
 			"enabled": false,
 			"max_x": 10000,
 			"max_z": 10000
-		},
-		"oreAlerts": {
-			"enabled": false,
-			"blocks": [
-				"minecraft:diamond_ore",
-				"minecraft:deepslate_diamond_ore",
-				"minecraft:ancient_debris"
-			]
 		}
 	}
 };

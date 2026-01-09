@@ -1,6 +1,7 @@
 // @ts-check
 import config from "./data/config.js";
 import checks from "./checks/registry.js";
+import modules from "./modules/registry.js";
 import { world, system, Player, EquipmentSlot, GameMode } from "@minecraft/server";
 import { tellAllStaff } from "./util.js";
 import { banMessage } from "./assets/ban.js";
@@ -8,7 +9,7 @@ import { mainGui, playerSettingsMenuSelected } from "./assets/ui.js";
 import { commandHandler } from "./commands/handler.js";
 
 world.beforeEvents.chatSend.subscribe((msg) => {
-	const { sender: player, message } = msg;
+	const { sender: player } = msg;
 
 	if(player.isMuted()) {
 		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
@@ -21,30 +22,6 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	if(!msg.cancel && globalmute.muted && !player.hasTag("op")) {
 		player.sendMessage(`§r§6[§aScythe§6]§r Chat has been disabled by ${config.commands.globalmute.showModeratorName ? globalmute.muter : "a server admin"}.`);
-		msg.cancel = true;
-	}
-
-	if(config.misc_modules.antiSpam.enabled && !player.hasTag("op")) {
-		const now = Date.now();
-
-		const messageDelay = now - player.lastMessageSent;
-		if(messageDelay < config.misc_modules.antiSpam.messageRatelimit) {
-			tellAllStaff(`§o§7<${player.name}> ${message}\n§r§6[§aScythe§6]§r ${player.name}'s message has been blocked due to spam. (delay=${messageDelay})`, ["notify"]);
-
-			player.sendMessage("§r§6[§aScythe§6]§r Stop spamming! You are sending messages too fast.");
-			msg.cancel = true;
-		}
-
-		player.lastMessageSent = now;
-	}
-
-	// Run if the player has a custom nametag or filter unicode chat is enabled
-	if(!msg.cancel && (player.name !== player.nameTag || config.misc_modules.filterUnicodeChat.enabled)) {
-		// Adds user custom tags to their messages and filter any non-ASCII characters
-		const playerTag = player.name !== player.nameTag ? `${player.nameTag}§7:§r` : `<${player.nameTag}>`;
-		const newMsg = config.misc_modules.filterUnicodeChat.enabled ? message.replace(/[^\x00-\xFF]/g, "") : message;
-
-		world.sendMessage(`${playerTag} ${newMsg}`);
 		msg.cancel = true;
 	}
 });
@@ -81,23 +58,12 @@ system.runInterval(() => {
 			}
 
 			/*
-			The Minecraft world has an invisible barrier at Y level -104 that is impossible to pass through.
-			Using TP hacks or glitches, it is possible to go beyond that barrier
-			Scythe automatically teleports the player back up if they ever go beyond it
+			The Minecraft world has an invisible barrier at Y level -104 that is impossible to pass through
+			Using TP hacks or glitches, it is possible to go beyond that barrier, so we bring the player back to -104 if they go beyond it
 			*/
 			if(player.location.y < -104) player.tryTeleport({ x: player.location.x, y: -104, z: player.location.z });
 
-			if(config.misc_modules.worldborder.enabled && (Math.abs(player.location.x) > config.misc_modules.worldborder.max_x || Math.abs(player.location.z) > config.misc_modules.worldborder.max_z) && !player.hasTag("op")) {
-				player.tryTeleport({
-					x: player.location.x - (player.location.x >= 0 ? 1 : -1),
-					y: player.location.y,
-					z: player.location.z - (player.location.z >= 0 ? 1 : -1)
-				}, {
-					checkForBlocks: false
-				});
-
-				player.sendMessage("§r§6[§aScythe§6]§r You have reached the world border.");
-			}
+			if(config.misc_modules.worldborder.enabled) modules.WorldBorder.tick(player);
 
 			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
 
@@ -121,10 +87,6 @@ world.beforeEvents.playerBreakBlock.subscribe((data) => {
 	const { player, block } = data;
 
 	if(config.debug) console.warn(`${player.name} has broken the block ${block.typeId}`);
-
-	if(config.misc_modules.oreAlerts.enabled && config.misc_modules.oreAlerts.blocks.includes(block.typeId) && !player.hasTag("op")) {
-		tellAllStaff(`§r§6[§aScythe§6]§r [Ore Alerts] ${player.name} has broken 1x ${block.typeId}`, ["notify"]);
-	}
 });
 
 world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
@@ -140,16 +102,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.removeTag("hasGUIopen");
 	player.removeTag("left");
 
-	// Load custom nametags
-	const { mainColor, borderColor, playerNameColor, defaultTag } = config.commands.tag;
-
-	let tag = player.getDynamicProperty("tag");
-
-	// Add default tag if enabled
-	if(!tag && defaultTag) tag = defaultTag;
-
-	if(tag) player.nameTag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${player.nameTag}`;
-
 	// This is used in the onJoin.json animation to check if Beta APIs are enabled
 	player.setScore("gametestapi", 1);
 
@@ -157,36 +109,10 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	if(globalmute.muted && player.hasTag("op")) player.sendMessage(`§r§6[§aScythe§6]§r NOTE: Chat has been currently disabled by ${globalmute.muter}. Chat can be re-enabled by running the !globalmute command.`);
 
-	if(config.misc_modules.welcomeMessage.enabled) {
-		player.sendMessage(config.misc_modules.welcomeMessage.message.replace(/\[@player]/g, player.name));
-	}
-
 	// If enabled from previous login then activate
 	if(player.hasTag("flying") && player.getGameMode() !== GameMode.Creative) player.runCommand("ability @s mayfly true");
 	if(player.isMuted()) player.runCommand("ability @s mute true");
 	if(player.getDynamicProperty("frozen")) player.triggerEvent("scythe:freeze");
-});
-
-world.afterEvents.entitySpawn.subscribe(({ entity }) => {
-	// If the entity dies right before this event triggers, an error will be thrown if any property is accessed
-	if(!entity.isValid) return;
-
-	// Detect a lag machine method that involves spamming armor stands in a close cluster
-	if(config.misc_modules.antiArmorStandCluster.enabled && entity.typeId === "minecraft:armor_stand") {
-		const entities = entity.dimension.getEntities({
-			location: entity.location,
-			maxDistance: config.misc_modules.antiArmorStandCluster.radius,
-			type: "armor_stand"
-		});
-
-		if(entities.length > config.misc_modules.antiArmorStandCluster.max_armor_stand_count) {
-			tellAllStaff(`§r§6[§aScythe§6]§r Potential lag machine detected at X: ${~entity.location.x}, Y: ${~entity.location.y}, Z: ${~entity.location.z}. There are ${entities.length}/${config.misc_modules.antiArmorStandCluster.max_armor_stand_count} armor stands in this area.`, ["notify"]);
-
-			for(const entityLoop of entities) {
-				entityLoop.remove();
-			}
-		}
-	}
 });
 
 world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity: player }) => {
