@@ -3,7 +3,7 @@ import config from "../../data/config.js";
 import { capitalizeFirstLetter } from "../../util.js";
 import { registerCommand, commands } from "../handler.js";
 
-const prefix = config.customcommands.prefix;
+const prefix = config.commands.prefix;
 
 const commandData = {
 	filledCache: false,
@@ -47,7 +47,7 @@ registerCommand({
 		if(minArgCount) commandInfo += `§r§6[§aScythe§6]§r Minimium Argument Count: ${minArgCount}\n`;
 		if(aliases) commandInfo += `§r§6[§aScythe§6]§r Aliases: ${aliases.join(", ")}\n`;
 
-		commandInfo += `§r§6[§aScythe§6]§r Category: ${capitalizeFirstLetter(category)}\n§r§6[§aScythe§6]§r Enabled: ${config.customcommands[name].enabled ? "§atrue" : "§4false"}`;
+		commandInfo += `§r§6[§aScythe§6]§r Category: ${capitalizeFirstLetter(category)}\n§r§6[§aScythe§6]§r Enabled: ${config.commands[name].enabled ? "§atrue" : "§4false"}`;
 
 		player.sendMessage(commandInfo);
 	}

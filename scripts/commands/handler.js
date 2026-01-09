@@ -2,7 +2,7 @@
 import { world, system, ChatSendBeforeEvent } from "@minecraft/server";
 import config from "../data/config.js";
 
-const prefix = config.customcommands.prefix ?? "!";
+const prefix = config.commands.prefix ?? "!";
 export const commands = {};
 
 // A map of command aliases and the command they belong to
@@ -27,7 +27,7 @@ export function registerCommand(data) {
 
     if(commands[name]) throw Error(`Command "${name}" has already been registered`);
 
-    if(!config.customcommands[name]) throw Error(`No valid config found for ${name}`);
+    if(!config.commands[name]) throw Error(`No valid config found for ${name}`);
 
     // To make it easy for the handler function to determine if a command name is an alias, we map all command aliases to the command they belong to
     for(const alias of aliases) {
@@ -64,15 +64,15 @@ export function commandHandler(msg) {
         let commandData;
         let commandName;
 
-        if(typeof config.customcommands[command] === "object") {
+        if(typeof config.commands[command] === "object") {
             commandName = command;
-            commandData = config.customcommands[command];
+            commandData = config.commands[command];
         } else if (aliasMap[command]) {
             commandName = aliasMap[command];
-            commandData = config.customcommands[commandName];
+            commandData = config.commands[commandName];
         } else {
             // Command does not exist
-            if(config.customcommands.sendInvalidCommandMsg) {
+            if(config.commands.sendInvalidCommandMsg) {
                 player.sendMessage(`§r§6[§aScythe§6]§c The command "${command}" was not found. Please make sure it exists.`);
                 msg.cancel = true;
             }

@@ -20,7 +20,7 @@ class Check {
 		if(!moduleConfig) throw Error(`No config data was found for ${this.check}[${this.subcheck}]`);
 
 		Object.defineProperty(moduleConfig, "_enabled", {
-			// We dont need the command or UI interfaces to show the '_enabled' field
+			// We dont want the command or UI interfaces to show the '_enabled' field
 			enumerable: false,
 			writable: true,
 			value: moduleConfig.enabled
@@ -48,7 +48,7 @@ class Check {
 	}
 
 	/**
-	 * @param {import("@minecraft/server").Player} player - The player that should be flaged
+	 * @param {import("@minecraft/server").Player} player - The player that should be flagged
 	 * @param {String} [debug] - Debug information about what caused the flag
 	 * @param {Boolean} [resetPos] - Should the player's position be reset to the last known good position
 	 */

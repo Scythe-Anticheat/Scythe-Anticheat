@@ -129,7 +129,7 @@ function banMenuSelect(player, selection) {
 }
 
 function kickPlayerMenu(player, target, lastMenu = 0) {
-    if(!config.customcommands.kick.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
+    if(!config.commands.kick.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Kicking players is disabled in config.js.");
     player.playSound("mob.chicken.plop");
 
     const menu = new ModalFormData()
@@ -160,7 +160,7 @@ function kickPlayerMenu(player, target, lastMenu = 0) {
 }
 
 function banPlayerMenu(player, target, lastMenu = 0) {
-    if(!config.customcommands.ban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Banning players is disabled in config.js.");
+    if(!config.commands.ban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Banning players is disabled in config.js.");
 
     player.playSound("mob.chicken.plop");
 
@@ -200,7 +200,7 @@ function banPlayerMenu(player, target, lastMenu = 0) {
 }
 
 function unbanPlayerMenu(player) {
-    if(!config.customcommands.unban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Unbanning players is disabled in config.js.");
+    if(!config.commands.unban.enabled) return player.sendMessage("§r§6[§aScythe§6]§r Unbanning players is disabled in config.js.");
 
     // @ts-expect-error
     const unbanQueue = JSON.parse(world.getDynamicProperty("unbanQueue")); // Returns Object
@@ -407,7 +407,7 @@ export function playerSettingsMenuSelected(player, target) {
     menu.show(player).then((response) => {
         switch (response.selection) {
             case 0:
-                if(!config.customcommands.invsee.enabled) {
+                if(!config.commands.invsee.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Invsee is disabled in config.js.");
                 }
 
@@ -423,7 +423,7 @@ export function playerSettingsMenuSelected(player, target) {
                 break;
 
             case 3:
-                if(!config.customcommands.stats.enabled) {
+                if(!config.commands.stats.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Player Stats is disabled in config.js.");
                 }
 
@@ -431,7 +431,7 @@ export function playerSettingsMenuSelected(player, target) {
                 break;
 
             case 4:
-                if(!config.customcommands.ecwipe.enabled) {
+                if(!config.commands.ecwipe.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Enderchest wiping is disabled in config.js.");
                 }
 
@@ -439,7 +439,7 @@ export function playerSettingsMenuSelected(player, target) {
                 break;
 
             case 5:
-                if(!config.customcommands.fly.enabled) {
+                if(!config.commands.fly.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Toggling Fly is disabled in config.js.");
                 }
 
@@ -447,7 +447,7 @@ export function playerSettingsMenuSelected(player, target) {
                 break;
 
             case 6:
-                if(!config.customcommands.freeze.enabled) {
+                if(!config.commands.freeze.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Freezing players is disabled in config.js.");
                 }
 
@@ -455,7 +455,7 @@ export function playerSettingsMenuSelected(player, target) {
                 break;
 
             case 7:
-                if(!config.customcommands.mute.enabled) {
+                if(!config.commands.mute.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Muting players is disabled in config.js.");
                 }
 
@@ -463,7 +463,7 @@ export function playerSettingsMenuSelected(player, target) {
                 break;
 
             case 8:
-                if(!config.customcommands.op.enabled) {
+                if(!config.commands.op.enabled) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Scythe-Opping players is disabled in config.js.");
                 }
 
@@ -619,7 +619,7 @@ function debugSettingsMenu(player) {
                  */
                 const totalItems = [];
                 for(let i = 0; i < 36; i++) {
-                    if(container.getItem(i)?.nameTag === config.customcommands.ui.ui_item_name) continue;
+                    if(container.getItem(i)?.nameTag === config.commands.ui.ui_item_name) continue;
 
                     const randomItem = allItems[~~(Math.random() * allItems.length)];
 

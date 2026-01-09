@@ -30,7 +30,7 @@ registerCommand({
         }
 
         const tag = args.join(" ");
-        const { mainColor, borderColor, playerNameColor } = config.customcommands.tag;
+        const { mainColor, borderColor, playerNameColor } = config.commands.tag;
 
         const nametag = `${borderColor}[§r${mainColor}${tag}${borderColor}]§r ${playerNameColor}${target.name}`;
 

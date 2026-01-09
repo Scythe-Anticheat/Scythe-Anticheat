@@ -2,7 +2,7 @@
 import config from "./data/config.js";
 import { system, world } from "@minecraft/server";
 
-const latestConfigVer = "25";
+const latestConfigVer = "26";
 
 // Set dynamic properties
 system.run(() => {
@@ -195,6 +195,11 @@ system.run(() => {
 		case "24":
 			delete config.modules.autooffhandB;
 			delete config.modules.autooffhandC;
+
+		case "25":
+			config.commands = config.customcommands;
+
+			delete config.customcommands;
 
 		case latestConfigVer:
 			break;

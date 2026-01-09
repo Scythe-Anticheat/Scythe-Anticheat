@@ -11,7 +11,7 @@ registerCommand({
     execute: (message, args) => {
         const { player } = message;
 
-		if(args[0] && !config.customcommands.gma.canChangeOtherPeopleGamemode) player.sendMessage("§r§6[§aScythe§6]§r You cannot change other people's gamemodes.");
+		if(args[0] && !config.commands.gma.canChangeOtherPeopleGamemode) player.sendMessage("§r§6[§aScythe§6]§r You cannot change other people's gamemodes.");
 
         // Find the player requested
         const target = args.length ? findPlayerByName(args[0]) : player;

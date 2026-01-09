@@ -21,15 +21,13 @@ registerCommand({
 
 		// Make sure they don't have the UI item in their current slot
 		const currentItem = container.getItem(player.selectedSlotIndex);
-
-		if(currentItem?.typeId === config.customcommands.ui.ui_item && currentItem?.nameTag === config.customcommands.ui.ui_item_name) {
+		if(currentItem?.typeId === config.commands.ui.ui_item && currentItem?.nameTag === config.commands.ui.ui_item_name) {
 			return player.sendMessage("§r§6[§aScythe§6]§r You already have the UI item in your inventory.");
 		}
 
 		// Create the item that opens the UI
-		const item = new ItemStack(config.customcommands.ui.ui_item, 1);
-
-		item.nameTag = config.customcommands.ui.ui_item_name;
+		const item = new ItemStack(config.commands.ui.ui_item, 1);
+		item.nameTag = config.commands.ui.ui_item_name;
 
 		// Enchant the item with Unbreaking 3
 		item.getComponent("enchantable")?.addEnchantment({ type: new EnchantmentType("unbreaking"), level: 3 });

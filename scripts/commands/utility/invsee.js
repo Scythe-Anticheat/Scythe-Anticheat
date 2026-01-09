@@ -54,7 +54,7 @@ export function getInvseeMsg(target) {
 
 	// Loop through every armor slot
 	let foundItem = false;
-	if(config.customcommands.invsee.show_armor) {
+	if(config.commands.invsee.show_armor) {
 		const armor = target.getComponent("equippable");
 
 		for(const equipment of Object.keys(equipmentList)) {
@@ -66,7 +66,7 @@ export function getInvseeMsg(target) {
 
 			inventory += `§r§6[§aScythe§6]§r ${equipmentList[equipment]}: ${item.typeId} x${item.amount}\n`;
 
-			if(config.customcommands.invsee.show_enchantments) {
+			if(config.commands.invsee.show_enchantments) {
 				loopEnchants(item.getComponent("enchantable")?.getEnchantments());
 			}
 		}
@@ -85,7 +85,7 @@ export function getInvseeMsg(target) {
 
 		inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId} x${item.amount}\n`;
 
-		if(config.customcommands.invsee.show_enchantments) {
+		if(config.commands.invsee.show_enchantments) {
 			loopEnchants(item.getComponent("enchantable")?.getEnchantments());
 		}
 	}

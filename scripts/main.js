@@ -20,7 +20,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	// @ts-expect-error
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	if(!msg.cancel && globalmute.muted && !player.hasTag("op")) {
-		player.sendMessage(`§r§6[§aScythe§6]§r Chat has been disabled by ${config.customcommands.globalmute.showModeratorName ? globalmute.muter : "a server admin"}.`);
+		player.sendMessage(`§r§6[§aScythe§6]§r Chat has been disabled by ${config.commands.globalmute.showModeratorName ? globalmute.muter : "a server admin"}.`);
 		msg.cancel = true;
 	}
 
@@ -141,7 +141,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	player.removeTag("left");
 
 	// Load custom nametags
-	const { mainColor, borderColor, playerNameColor, defaultTag } = config.customcommands.tag;
+	const { mainColor, borderColor, playerNameColor, defaultTag } = config.commands.tag;
 
 	let tag = player.getDynamicProperty("tag");
 
@@ -196,12 +196,12 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 	tellAllStaff(`§߈§r§6[§aScythe§6]§r §breceived §aATTACK§r action from: §g${player.name} §7(isSprinting=${player.isSprinting})`, ["actionlogger"]);
 
 	// Check if the player was hit with the UI item, and if so open the UI for that player
-	if(config.customcommands.ui.enabled && entity instanceof Player && !config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
+	if(config.commands.ui.enabled && entity instanceof Player && !config.commands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
 		const container = player.getComponent("inventory")?.container;
 		if(!container) return; // This should not happen
 
 		const item = container.getItem(player.selectedSlotIndex);
-		if(item?.typeId === config.customcommands.ui.ui_item && item.nameTag === config.customcommands.ui.ui_item_name) {
+		if(item?.typeId === config.commands.ui.ui_item && item.nameTag === config.commands.ui.ui_item_name) {
 			playerSettingsMenuSelected(player, entity);
 		}
 	}
@@ -221,10 +221,10 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 
 	// If the player is holding the UI axe and has the proper permissions, then open the UI
 	if(
-		config.customcommands.ui.enabled &&
-		item.typeId === config.customcommands.ui.ui_item &&
-		item.nameTag === config.customcommands.ui.ui_item_name &&
-		!config.customcommands.ui.requiredTags.some(tag => !player.hasTag(tag))
+		config.commands.ui.enabled &&
+		item.typeId === config.commands.ui.ui_item &&
+		item.nameTag === config.commands.ui.ui_item_name &&
+		!config.commands.ui.requiredTags.some(tag => !player.hasTag(tag))
 	) {
 		mainGui(player);
 	}

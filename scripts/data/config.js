@@ -6,7 +6,7 @@ export default
 
 	Internally we still call it the config version, however it should be referred to as the config revision.
 	*/
-	"version": "25",
+	"version": "26",
 	"debug": true,
 	"flagWhitelist": [],
 	/*
@@ -16,7 +16,7 @@ export default
 	*/
 	"disableFlagsFromScytheOp": false,
 	"logAlertsToConsole": true,
-	"customcommands": {
+	"commands": {
 		"prefix": "!",
 		"sendInvalidCommandMsg": false,
 		"ban": {
