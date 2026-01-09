@@ -33,6 +33,7 @@ class NoslowA extends Check {
 			player.isJumping ||
 			player.isGliding ||
 			player.heldItem === "minecraft:trident" ||
+			// Fishing rods do not slow down the player when used
 			player.heldItem === "minecraft:fishing_rod" ||
 			!player.isUsingItem ||
 			!player.isUsingInputKeys() ||

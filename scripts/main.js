@@ -12,7 +12,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	const { sender: player } = msg;
 
 	if(player.isMuted()) {
-		player.sendMessage("§r§6[§aScythe§6]§r §a§lNOPE! §r§aYou have been muted.");
+		player.sendMessage("§r§6[§aScythe§6]§r Your message was not sent as you are currently muted.");
 		msg.cancel = true;
 	}
 
@@ -21,7 +21,7 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 	// @ts-expect-error
 	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
 	if(!msg.cancel && globalmute.muted && !player.hasTag("op")) {
-		player.sendMessage(`§r§6[§aScythe§6]§r Chat has been disabled by ${config.commands.globalmute.showModeratorName ? globalmute.muter : "a server admin"}.`);
+		player.sendMessage(`§r§6[§aScythe§6]§r Your message was not sent as the chat is disabled by ${config.commands.globalmute.showModeratorName ? globalmute.muter : "a server admin"}.`);
 		msg.cancel = true;
 	}
 });

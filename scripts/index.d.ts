@@ -38,6 +38,8 @@ declare module "@minecraft/server" {
 		enableFly(initiator?: Player): void
 		disableFly(initiator?: Player): void
 
+		getDebugData(): any
+
 		getMaxBlockPlaceDistance(): number
 
 		freeze(initiator?: Player): void

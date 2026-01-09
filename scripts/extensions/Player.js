@@ -6,7 +6,7 @@ import { banMessage } from "../assets/ban.js";
 
 // In older versions of Scythe, we would only add these properties if the necessary module was enabled in the playerJoin event
 // However this would bring along a problem where if a world is loaded without the module enabled,
-// and an admin were to enable the module, Scythe would break due to the required properties not being initialized.
+// and an admin were to enable the module, Scythe would break due to the required properties not being initialized
 Player.prototype.blocksBroken = 0;
 Player.prototype.firstAttack = 0;
 Player.prototype.clicks = 0;
@@ -82,6 +82,46 @@ Player.prototype.disableFly = function(initiator) {
 
 	this.runCommand("ability @s mayfly false");
 	this.sendMessage("§r§6[§aScythe§6]§r You are now no longer in fly mode.");
+};
+
+/**
+ * @remarks Return all the information about the player for debugging purposes
+ * @returns {any} - Debug data
+ */
+Player.prototype.getDebugData = function() {
+    const playerData = {
+        name: this.name,
+        dimension: this.dimension.id,
+        location: this.location,
+        headLocation: this.getHeadLocation(),
+        velocity: this.getVelocity(),
+        rotation: this.getRotation(),
+        tags: this.getTags(),
+        heldItem: this.heldItem,
+        selectedSlotIndex: this.selectedSlotIndex,
+        platform: this.clientSystemInfo.platformType,
+        scythe: {
+            blocksBroken: this.blocksBroken,
+            entitiesHit: this.entitiesHit,
+            clicks: this.clicks,
+            firstAttack: this.firstAttack,
+            startBreakTime: this.startBreakTime,
+            lastThrow: this.lastThrow,
+            lastMessageSent: this.lastMessageSent,
+            lastGoodPosition: this.lastGoodPosition,
+            movedAt: this.movedAt
+        }
+    };
+
+    // Copy all methods such as 'isMoving', 'isGliding', 'isFlying', 'isEmoting', etc to player data
+    for(const property in this) {
+        if(!property.startsWith("is")) continue;
+
+        // @ts-expect-error
+        playerData[property] = this[property];
+    }
+
+    return playerData;
 };
 
 /**
@@ -206,7 +246,7 @@ Player.prototype.unmute = function(initiator, reason = "No reason specified") {
         this.sendMessage(`§r§6[§aScythe§6]§r You have been unmuted.`);
     }
 
-    // Unmar the player as muted
+    // Unmark the player as muted
     this.setDynamicProperty("muted", false);
 
     // Restore the player's chat ability
@@ -224,7 +264,6 @@ Player.prototype.isUsingInputKeys = function() {
     I'm not sure if Server Authoritative Movement triggers if the movement vector does not check out, so it might be necessary to implement checks for spoofed move vectors
     */
     const moveVector = this.inputInfo.getMovementVector();
-
     return moveVector.x !== 0 || moveVector.y !== 0;
 };
 

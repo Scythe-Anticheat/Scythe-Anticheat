@@ -43,45 +43,13 @@ export function flag(player, check, checkType, hackType, debug, shouldTP = false
 
     // If debug is enabled then log everything we know about the player
     if(config.debug) {
-        const playerData = {
-            name: player.name,
-            dimension: player.dimension.id,
-            location: player.location,
-            headLocation: player.getHeadLocation(),
-            velocity: player.getVelocity(),
-            rotation: player.getRotation(),
-            tags: player.getTags(),
-            heldItem: player.heldItem,
-            selectedSlotIndex: player.selectedSlotIndex,
-            platform: player.clientSystemInfo.platformType,
-            scythe: {
-                blocksBroken: player.blocksBroken,
-                entitiesHit: player.entitiesHit,
-                clicks: player.clicks,
-                firstAttack: player.firstAttack,
-                startBreakTime: player.startBreakTime,
-                lastThrow: player.lastThrow,
-                lastMessageSent: player.lastMessageSent,
-                lastGoodPosition: player.lastGoodPosition,
-                movedAt: player.movedAt
-            }
-        };
-
-        // Copy all methods such as 'isMoving', 'isGliding', 'isFlying', 'isEmoting', etc to player data
-        for(const property in player) {
-            if(!property.startsWith("is")) continue;
-
-            // @ts-expect-error
-            playerData[property] = player[property];
-        }
-
         const data = {
             timestamp: Date.now(),
             time: new Date().toISOString(),
             check: `${check}/${checkType}`,
             debug: `${debug}§r`,
             shouldTP,
-            playerData
+            playerData: player.getDebugData()
         };
 
         console.warn(JSON.stringify(data));
