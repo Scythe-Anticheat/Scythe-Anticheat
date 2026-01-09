@@ -163,11 +163,7 @@ world.afterEvents.playerInventoryItemChange.subscribe(({ itemStack, player, slot
 	}
 });
 
-world.afterEvents.itemStartUse.subscribe(({ source: player, itemStack: item }) => {
-	// Fishing rods is a special useable item as you do not get slowed down when using it, and it does not cancel actions such as sprinting
-	// To avoid false positives, we simply don't count the player as using an item if the item they used is a fishing rod
-	if(item?.typeId === "minecraft:fishing_rod") return;
-
+world.afterEvents.itemStartUse.subscribe(({ source: player }) => {
 	player.isUsingItem = true;
 	player.itemUsedAt = Date.now();
 });
