@@ -142,7 +142,7 @@ Player.prototype.getMaxBlockPlaceDistance = function() {
     */
     switch(inputMode) {
         case InputMode.KeyboardAndMouse:
-            return 5;
+            return 5.5;
 
         case InputMode.Touch:
             return 11.5;
