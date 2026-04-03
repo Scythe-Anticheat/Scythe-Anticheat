@@ -1,4 +1,4 @@
-import { world, ItemTypes, ItemStack, GameMode } from "@minecraft/server";
+import { world, ItemTypes, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 
 import { flag, parseTime, capitalizeFirstLetter, tellAllStaff } from "../util.js";
@@ -611,7 +611,7 @@ function debugSettingsMenu(player) {
                 break;
 
             case 1: {
-                const container = player.getComponent("inventory").container;
+                const container = player.getComponent(EntityComponentTypes.Inventory).container;
                 const allItems = ItemTypes.getAll();
 
                 /**

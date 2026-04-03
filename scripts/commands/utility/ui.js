@@ -1,5 +1,5 @@
 // @ts-check
-import { ItemStack, EnchantmentType } from "@minecraft/server";
+import { ItemComponentTypes, ItemStack, EnchantmentType, EntityComponentTypes } from "@minecraft/server";
 import config from "../../data/config.js";
 import { registerCommand } from "../handler.js";
 
@@ -12,7 +12,7 @@ registerCommand({
 		const { player } = message;
 
 		// Get the player's inventory component
-		const container = player.getComponent("inventory").container;
+		const container = player.getComponent(EntityComponentTypes.Inventory).container;
 
 		// Check if the player's inventory is full
 		if(container.emptySlotsCount === 0) {
@@ -30,7 +30,7 @@ registerCommand({
 		item.nameTag = config.commands.ui.ui_item_name;
 
 		// Enchant the item with Unbreaking 3
-		item.getComponent("enchantable")?.addEnchantment({ type: new EnchantmentType("unbreaking"), level: 3 });
+		item.getComponent(ItemComponentTypes.Enchantable)?.addEnchantment({ type: new EnchantmentType("unbreaking"), level: 3 });
 
 		container.addItem(item);
 

@@ -1,5 +1,6 @@
 // @ts-check
 import Check from "../../Check.js";
+import { EntityComponentTypes } from "@minecraft/server";
 
 const MIN_HUNGER_FOR_SPINT = 6;
 
@@ -20,7 +21,7 @@ class InvalidsprintF extends Check {
 	 * @param {import("@minecraft/server").Player} player
 	 */
 	tick(player) {
-		const hunger = player.getComponent("player.hunger");
+		const hunger = player.getComponent(EntityComponentTypes.Hunger);
         if(!hunger) return;
 
         if(hunger.currentValue <= MIN_HUNGER_FOR_SPINT) this.flag(player, `hunger=${hunger.currentValue}`, true);

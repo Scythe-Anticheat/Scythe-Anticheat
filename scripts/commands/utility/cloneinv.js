@@ -1,4 +1,4 @@
-import { EquipmentSlot } from "@minecraft/server";
+import { EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
 import { findPlayerByName, tellAllStaff } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -23,11 +23,11 @@ registerCommand({
 
 		if(!target) return player.sendMessage("§r§6[§aScythe§6]§r Couldn't find that player.");
 
-		const playerInv = player.getComponent("inventory").container;
-		const playerArmor = player.getComponent("equippable");
+		const playerInv = player.getComponent(EntityComponentTypes.Inventory).container;
+		const playerArmor = player.getComponent(EntityComponentTypes.Equippable);
 
-		const targetInv = target.getComponent("inventory").container;
-		const targetArmor = player.getComponent("equippable");
+		const targetInv = target.getComponent(EntityComponentTypes.Inventory).container;
+		const targetArmor = player.getComponent(EntityComponentTypes.Equippable);
 
 		for(const equipment of Object.keys(EquipmentSlot)) {
 			playerArmor.setEquipment(equipment, targetArmor.getEquipment(equipment));

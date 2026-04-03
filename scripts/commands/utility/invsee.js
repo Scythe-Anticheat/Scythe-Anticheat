@@ -1,6 +1,6 @@
 // @ts-check
 import config from "../../data/config.js";
-
+import { EntityComponentTypes, ItemComponentTypes } from "@minecraft/server";
 import { capitalizeFirstLetter, findPlayerByName } from "../../util.js";
 import { registerCommand } from "../handler.js";
 
@@ -36,7 +36,7 @@ registerCommand({
  * @returns {string} msg - A list of all the items in the players inventory
  */
 export function getInvseeMsg(target) {
-	const container = target.getComponent("inventory")?.container;
+	const container = target.getComponent(EntityComponentTypes.Inventory)?.container;
 
 	let inventory = `§r§6[§aScythe§6]§r ${target.name}'s inventory:\n\n`;
 
@@ -55,7 +55,7 @@ export function getInvseeMsg(target) {
 	// Loop through every armor slot
 	let foundItem = false;
 	if(config.commands.invsee.show_armor) {
-		const armor = target.getComponent("equippable");
+		const armor = target.getComponent(EntityComponentTypes.Equippable);
 
 		for(const equipment of Object.keys(equipmentList)) {
 			// @ts-expect-error
@@ -67,7 +67,7 @@ export function getInvseeMsg(target) {
 			inventory += `§r§6[§aScythe§6]§r ${equipmentList[equipment]}: ${item.typeId} x${item.amount}\n`;
 
 			if(config.commands.invsee.show_enchantments) {
-				loopEnchants(item.getComponent("enchantable")?.getEnchantments());
+				loopEnchants(item.getComponent(ItemComponentTypes.Enchantable)?.getEnchantments());
 			}
 		}
 
@@ -86,7 +86,7 @@ export function getInvseeMsg(target) {
 		inventory += `§r§6[§aScythe§6]§r Slot ${i}: ${item.typeId} x${item.amount}\n`;
 
 		if(config.commands.invsee.show_enchantments) {
-			loopEnchants(item.getComponent("enchantable")?.getEnchantments());
+			loopEnchants(item.getComponent(ItemComponentTypes.Enchantable)?.getEnchantments());
 		}
 	}
 

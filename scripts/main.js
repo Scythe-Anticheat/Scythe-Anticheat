@@ -2,7 +2,7 @@
 import config from "./data/config.js";
 import checks from "./checks/registry.js";
 import modules from "./modules/registry.js";
-import { world, system, Player, EquipmentSlot, GameMode } from "@minecraft/server";
+import { world, system, Player, EntityComponentTypes, EquipmentSlot, GameMode, } from "@minecraft/server";
 import { tellAllStaff } from "./util.js";
 import { banMessage } from "./assets/ban.js";
 import { mainGui, playerSettingsMenuSelected } from "./assets/ui.js";
@@ -35,7 +35,7 @@ system.runInterval(() => {
 
 		try {
 			// Get the item in the player's offhand
-			const offhandItem = player.getComponent("equippable")?.getEquipment(EquipmentSlot.Offhand);
+			const offhandItem = player.getComponent(EntityComponentTypes.Equippable)?.getEquipment(EquipmentSlot.Offhand);
 
 			if(config.modules.nukerA.enabled && player.blocksBroken >= 1) checks.nukerA.tick(player);
 			if(config.modules.killauraC.enabled && player.entitiesHit.size >= 1) checks.killauraC.tick(player);
@@ -123,7 +123,7 @@ world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity
 
 	// Check if the player was hit with the UI item, and if so open the UI for that player
 	if(config.commands.ui.enabled && entity instanceof Player && !config.commands.ui.requiredTags.some(tag => !player.hasTag(tag))) {
-		const container = player.getComponent("inventory")?.container;
+		const container = player.getComponent(EntityComponentTypes.Inventory)?.container;
 		if(!container) return; // This should not happen
 
 		const item = container.getItem(player.selectedSlotIndex);
@@ -213,6 +213,6 @@ system.run(() => {
 	const players = world.getPlayers();
 	for(const player of players) {
 		player.lastGoodPosition = player.location;
-		player.heldItem = player.getComponent("inventory")?.container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
+		player.heldItem = player.getComponent(EntityComponentTypes.Inventory)?.container?.getItem(player.selectedSlotIndex)?.typeId ?? "minecraft:air";
 	}
 });

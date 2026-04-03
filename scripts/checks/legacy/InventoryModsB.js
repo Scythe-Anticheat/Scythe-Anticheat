@@ -1,5 +1,6 @@
 // @ts-check
 import Check from "../Check.js";
+import { EntityComponentTypes } from "@minecraft/server";
 
 /**
  * This check could detect Inventory Move cheats by seeing if the player was interacting with the inventory and moving items into their cursor
@@ -22,7 +23,7 @@ class InventoryModsB extends Check {
 	 * @param {import("@minecraft/server").Player} player
 	 */
 	tick(player) {
-		const cursorItem = player.getComponent("cursor_inventory")?.item;
+		const cursorItem = player.getComponent(EntityComponentTypes.CursorInventory)?.item;
 
 		if(player.lastCursorItem?.typeId !== cursorItem?.typeId && player.isUsingInputKeys()) {
 			this.flag(player, `oldItem=${player.lastCursorItem?.typeId},newItem=${cursorItem?.typeId}`, true);
