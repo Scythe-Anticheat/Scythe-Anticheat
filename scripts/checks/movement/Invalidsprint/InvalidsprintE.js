@@ -18,7 +18,7 @@ class InvalidsprintE extends Check {
 	 * @param {import("@minecraft/server").Player} player
 	 */
 	tick(player) {
-		if(!player.isUsingInputKeys() || !player.hasTag("riding")) return;
+		if(!player.isUsingInputKeys() || !player.isRiding()) return;
 
 		// Make sure the player hasn't moved within the last four ticks (4 * 50)
 		const now = Date.now();

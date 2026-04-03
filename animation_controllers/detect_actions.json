@@ -119,7 +119,7 @@
 						"ride": "query.is_riding"
 					}],
 					"on_entry": [
-						"/tag @s remove riding",
+						// "/tag @s remove riding",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIDE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=stop)\"}]}"
 					]
 				},
@@ -128,7 +128,7 @@
 						"default": "!query.is_riding"
 					}],
 					"on_entry": [
-						"/tag @s add riding",
+						// "/tag @s add riding",
 						"/tellraw @a[tag=actionlogger] {\"rawtext\":[{\"text\":\"§߈§r§6[§aScythe§6]§r §breceived §aRIDE§r action from: §g\"},{\"selector\":\"@s\"},{\"text\":\" §7(type=start)\"}]}"
 						// "/tag @s remove moving"
 					]

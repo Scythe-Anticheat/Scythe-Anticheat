@@ -38,7 +38,7 @@ class NoslowA extends Check {
 			!player.isUsingItem ||
 			!player.isUsingInputKeys() ||
 			player.getEffect("speed") ||
-			player.hasTag("riding")
+			player.isRiding()
 		) return;
 
 		// Make sure the player has been using the item for at least 10 ticks

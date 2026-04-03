@@ -37,7 +37,7 @@ class ScaffoldC extends Check {
 	 */
 	afterPlayerPlaceBlock(data) {
 		const { player, block } = data;
-		if(player.isSwimming || !block.isSolid || player.hasTag("riding")) return;
+		if(player.isSwimming || !block.isSolid || player.isRiding()) return;
 
 		// Make sure the players's y location is greater than the block placed's y location.
 		const rotation = player.getRotation();
