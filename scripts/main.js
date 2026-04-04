@@ -159,7 +159,7 @@ world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
 world.afterEvents.playerInventoryItemChange.subscribe(({ itemStack, player, slot }) => {
 	// Check if the item in the player's current selected slot has changed
 	if(slot === player.selectedSlotIndex) {
-		player.heldItem = itemStack?.typeId ?? "minecraft:air";
+		player.heldItem = itemStack == null ? "minecraft:air" : itemStack.typeId;
 	}
 });
 
