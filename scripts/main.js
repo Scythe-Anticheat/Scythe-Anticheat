@@ -112,7 +112,7 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	// If enabled from previous login then activate
 	if(player.hasTag("flying") && player.getGameMode() !== GameMode.Creative) player.runCommand("ability @s mayfly true");
 	if(player.isMuted()) player.runCommand("ability @s mute true");
-	if(player.getDynamicProperty("frozen")) player.triggerEvent("scythe:freeze");
+	if(player.isFrozen()) player.triggerEvent("scythe:freeze");
 });
 
 world.afterEvents.entityHitEntity.subscribe(({ hitEntity: entity, damagingEntity: player }) => {
@@ -138,7 +138,7 @@ world.beforeEvents.itemUse.subscribe((itemUse) => {
 	if(!(player instanceof Player)) return;
 
 	// Patch bypasses for the freeze system
-	if(player.getDynamicProperty("frozen")) itemUse.cancel = true;
+	if(player.isFrozen()) itemUse.cancel = true;
 });
 
 world.afterEvents.itemUse.subscribe(({ itemStack: item, source: player }) => {
@@ -202,7 +202,7 @@ system.afterEvents.scriptEventReceive.subscribe(({ sourceEntity: player, id }) =
 });
 
 system.beforeEvents.watchdogTerminate.subscribe((watchdogTerminate) => {
-	// Prevent malicious users from purposely lagging out scripts in order to force the world to crash from the Scripting API's Watchdog
+	// Prevent malicious users from purposely lagging out scripts in order to force the world to crash by the Scripting API's Watchdog
 	watchdogTerminate.cancel = true;
 
 	tellAllStaff(`§r§6[§aScythe§6]§r A ${watchdogTerminate.terminateReason} watch dog exception has been detected and has been automatically cancelled.`);

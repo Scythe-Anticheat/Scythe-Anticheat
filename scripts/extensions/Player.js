@@ -1,6 +1,6 @@
 // @ts-check
 // Add new methods to Scripting API classes
-import { Player, InputPermissionCategory, GameMode, InputMode, EntityComponentTypes, Entity } from "@minecraft/server";
+import { Player, InputPermissionCategory, GameMode, InputMode, EntityComponentTypes } from "@minecraft/server";
 import { tellAllStaff } from "../util.js";
 import { banMessage } from "../assets/ban.js";
 
@@ -156,6 +156,14 @@ Player.prototype.getMaxBlockPlaceDistance = function() {
             // Unknown
             return 12;
     }
+};
+
+/**
+ * @remarks Returns whether or not the player is frozen
+ * @returns {boolean} - Is the player frozen
+ */
+Player.prototype.isFrozen = function() {
+    return !!this.getDynamicProperty("frozen");
 };
 
 /**

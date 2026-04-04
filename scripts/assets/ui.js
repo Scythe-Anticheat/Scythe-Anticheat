@@ -1,4 +1,4 @@
-import { world, ItemTypes, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { Player, world, ItemTypes, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 
 import { flag, parseTime, capitalizeFirstLetter, tellAllStaff } from "../util.js";
@@ -368,7 +368,10 @@ function playerSettingsMenu(player) {
         playerSettingsMenuSelected(player, allPlayers[response.selection]);
     });
 }
-
+/**
+ * @param {Player} player 
+ * @param {Player} target 
+ */
 export function playerSettingsMenuSelected(player, target) {
     player.playSound("mob.chicken.plop");
 
@@ -384,7 +387,7 @@ export function playerSettingsMenuSelected(player, target) {
             `Platform: ${target.clientSystemInfo.platformType}\n` +
             `Scythe Opped: ${target.hasTag("op") ? "§atrue" : "false"}\n` +
             `§rMuted: ${target.isMuted() ? "§ctrue" : "§afalse"}\n` +
-            `§rFrozen: ${target.getDynamicProperty("frozen") ? "§ctrue" : "§afalse"}\n` +
+            `§rFrozen: ${target.isFrozen() ? "§ctrue" : "§afalse"}\n` +
             `§rVanished: ${target.getDynamicProperty("vanished") ?? false}\n` +
             `Flying: ${target.isFlying}`
         )
@@ -394,7 +397,7 @@ export function playerSettingsMenuSelected(player, target) {
         .button("View Anticheat Logs", icons.info)
         .button("Clear Enderchest", "textures/blocks/ender_chest_front.png")
         .button(target.hasTag("flying") ? "Disable Fly" : "Enable Fly", "textures/ui/levitation_effect.png")
-        .button(target.getDynamicProperty("frozen") ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
+        .button(target.isFrozen() ? "Unfreeze Player" : "Freeze Player", "textures/ui/icon_winter.png");
 
     target.isMuted() ? menu.button("Unmute Player", icons.mute_off) : menu.button("Mute Player", icons.mute_on);
     target.hasTag("op") ? menu.button("Remove Player as Scythe-Op", icons.member) :  menu.button("Set Player as Scythe-Op", icons.op);

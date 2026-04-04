@@ -42,6 +42,7 @@ declare module "@minecraft/server" {
 
 		getMaxBlockPlaceDistance(): number
 
+		isFrozen(): boolean
 		isRiding(): boolean
 
 		freeze(initiator?: Player): void
