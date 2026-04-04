@@ -41,6 +41,8 @@ class ScaffoldA extends Check {
 			player.isFlying ||
 			player.isJumping ||
 			player.isFalling ||
+			// When climbing a ladder, it is possible to be close enough to a ladder to retain the climbing effect while being ontop of another block
+			player.isClimbing ||
 			player.getEffect("jump_boost") ||
 			// Fence and wall blocks have a bigger Y hitbox
 			blockId.includes("fence") || blockId.includes("wall") ||
