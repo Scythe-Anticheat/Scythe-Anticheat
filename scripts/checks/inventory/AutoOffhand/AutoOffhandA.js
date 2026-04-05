@@ -27,7 +27,7 @@ class AutoOffhandA extends Check {
 		}
 
 		const lastSwingTime = Date.now() - player.lastLeftClick;
-		if(lastSwingTime > 250) {
+		if(lastSwingTime < 250) {
 			this.flag(player, `state=swungHand,lastSwingTime=${lastSwingTime}`);
 		}
 	}

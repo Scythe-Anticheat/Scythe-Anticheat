@@ -10,7 +10,7 @@ registerCommand({
     execute: (message) => {
         const { player } = message;
 
-        if(player.getDynamicProperty("vanished")) {
+        if(player.isVanished()) {
             player.setDynamicProperty("vanished", false);
 
             player.setGameMode(player.getDynamicProperty("previousGamemode"));

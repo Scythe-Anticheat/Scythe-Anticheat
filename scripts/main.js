@@ -65,7 +65,7 @@ system.runInterval(() => {
 
 			if(config.misc_modules.worldborder.enabled) modules.WorldBorder.tick(player);
 
-			if(player.getDynamicProperty("vanished")) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
+			if(player.isVanished()) player.onScreenDisplay.setActionBar("§aYOU ARE VANISHED!");
 
 			player.lastOffhandItem = offhandItem;
 

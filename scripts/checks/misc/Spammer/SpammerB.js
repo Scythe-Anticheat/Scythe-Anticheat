@@ -37,7 +37,7 @@ class SpammerB extends Check {
 		const { sender } = msg;
 
 		const lastSwingTime = Date.now() - sender.lastLeftClick;
-		if(lastSwingTime > 250) {
+		if(lastSwingTime < 250) {
 			this.delayedFlag(sender, `last_swing_time=${lastSwingTime}`);
 			msg.cancel = true;
 		}

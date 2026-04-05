@@ -388,7 +388,7 @@ export function playerSettingsMenuSelected(player, target) {
             `Scythe Opped: ${target.hasTag("op") ? "§atrue" : "false"}\n` +
             `§rMuted: ${target.isMuted() ? "§ctrue" : "§afalse"}\n` +
             `§rFrozen: ${target.isFrozen() ? "§ctrue" : "§afalse"}\n` +
-            `§rVanished: ${target.getDynamicProperty("vanished") ?? false}\n` +
+            `§rVanished: ${target.isVanished()}\n` +
             `Flying: ${target.isFlying}`
         )
         .button("View Inventory", "textures/blocks/chest_front.png")

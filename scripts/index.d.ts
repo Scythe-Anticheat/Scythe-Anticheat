@@ -44,6 +44,7 @@ declare module "@minecraft/server" {
 
 		isFrozen(): boolean
 		isRiding(): boolean
+		isVanished(): boolean
 
 		freeze(initiator?: Player): void
 		unfreeze(initiator?: Player): void

@@ -11,7 +11,7 @@ Player.prototype.blocksBroken = 0;
 Player.prototype.firstAttack = 0;
 Player.prototype.clicks = 0;
 Player.prototype.lastThrow = 0;
-Player.prototype.lastLeftClick = Date.now();
+Player.prototype.lastLeftClick = 0;
 Player.prototype.entitiesHit = new Set();
 Player.prototype.lastMessageSent = 0;
 Player.prototype.reports = new Set();
@@ -172,6 +172,14 @@ Player.prototype.isFrozen = function() {
  */
 Player.prototype.isRiding = function() {
     return this.hasComponent(EntityComponentTypes.Riding);
+};
+
+/**
+ * @remarks Returns whether or not the player is vanished
+ * @returns {boolean} - Is the player vanished
+ */
+Player.prototype.isVanished = function() {
+    return !!this.getDynamicProperty("vanished");
 };
 
 /**
