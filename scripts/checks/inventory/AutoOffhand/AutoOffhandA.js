@@ -18,7 +18,6 @@ class AutoOffhandA extends Check {
 	 * @param {import("@minecraft/server").Player} player
 	 */
 	tick(player) {
-		// Check if the player is using sending movement inputs
 		if(player.isUsingInputKeys()) {
 			this.flag(player, `state=moving`, true);
 		}
@@ -27,9 +26,9 @@ class AutoOffhandA extends Check {
 			this.flag(player, `state=usingItem`);
 		}
 
-		// Check if the player is currently swinging their hand
-		if(player.hasTag("left")) {
-			this.flag(player, `state=swungHand`);
+		const lastSwingTime = Date.now() - player.lastLeftClick;
+		if(lastSwingTime > 250) {
+			this.flag(player, `state=swungHand,lastSwingTime=${lastSwingTime}`);
 		}
 	}
 }

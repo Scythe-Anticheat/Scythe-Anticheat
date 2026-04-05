@@ -36,9 +36,9 @@ class SpammerB extends Check {
 	beforeChatSend(msg) {
 		const { sender } = msg;
 
-		// Mining fatigue can make the arm swing animation last longer than normal so we ignore players with that effect
-		if(sender.hasTag("left") && !sender.getEffect("mining_fatigue")) {
-			this.delayedFlag(sender);
+		const lastSwingTime = Date.now() - sender.lastLeftClick;
+		if(lastSwingTime > 250) {
+			this.delayedFlag(sender, `last_swing_time=${lastSwingTime}`);
 			msg.cancel = true;
 		}
 	}

@@ -161,10 +161,7 @@
 			"states": {
 				"default": {
 					"transitions": [{
-						// Fishing rods are extremely buggy with the is_using_item query. If you were to right click twice extremely fast,
-						// it would not properly add/remove the 'right' tag from you.
-						// And unlike other items that you can use, fishing rods don't slow you down or prohibit you from sprinting.
-						"right": "query.is_using_item && query.get_equipped_item_name != 'fishing_rod'"
+						"right": "query.is_using_item"
 					}],
 					"on_entry": [
 						// "/tag @s remove right",

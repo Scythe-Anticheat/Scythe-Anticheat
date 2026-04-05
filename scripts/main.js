@@ -100,7 +100,6 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 
 	// Remove tags from previous session
 	player.removeTag("hasGUIopen");
-	player.removeTag("left");
 
 	// This is used in the onJoin.json animation to check if Beta APIs are enabled
 	player.setScore("gametestapi", 1);
