@@ -23,7 +23,7 @@ registerCommand({
 					return player.sendMessage("§r§6[§aScythe§6]§r You must enter a username to unban.");
 				}
 
-				const member = args[1].replace(/\\/g, "").toLowerCase(); // String
+				const member = args[1].toLowerCase(); // String
 
 				if(member.length > 16) {
 					return player.sendMessage("§r§6[§aScythe§6]§r That player name is too long. It must be less than or equal to 16 characters long.");
@@ -66,7 +66,7 @@ registerCommand({
 					return player.sendMessage("§r§6[§aScythe§6]§r You must enter a username.");
 				}
 
-				const member = args[1].replace(/\\/g, "").toLowerCase(); // String
+				const member = args[1].toLowerCase(); // String
 
 				const reason = args.slice(2).join(" ") || "No reason specified";
 
