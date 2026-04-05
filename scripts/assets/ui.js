@@ -454,7 +454,7 @@ export function playerSettingsMenuSelected(player, target) {
                     return player.sendMessage("§r§6[§aScythe§6]§r Freezing players is disabled in config.js.");
                 }
 
-                player.getDynamicProperty("frozen") ? target.unfreeze(player) : target.freeze(player);
+                player.isFrozen() ? target.unfreeze(player) : target.freeze(player);
                 break;
 
             case 7:
