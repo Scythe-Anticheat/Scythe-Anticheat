@@ -6,12 +6,6 @@ const latestConfigVer = "27";
 
 // Set dynamic properties
 system.run(() => {
-	if(!world.getDynamicProperty("globalmute")) {
-		const data = { muted: false, muter: "" };
-
-		world.setDynamicProperty("globalmute", JSON.stringify(data));
-	}
-
 	if(!world.getDynamicProperty("unbanQueue")) {
 		/*
 			The data in the object should have the following format:

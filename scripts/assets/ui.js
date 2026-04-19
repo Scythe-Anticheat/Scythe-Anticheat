@@ -1,9 +1,9 @@
-import { Player, world, ItemTypes, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { world, ItemTypes, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ModalFormData, ActionFormData } from "@minecraft/server-ui";
 
+import DataManager from "../managers/DataManager.js";
 import { flag, parseTime, capitalizeFirstLetter, tellAllStaff } from "../util.js";
 import { getStatsMsg } from "../commands/moderation/stats.js";
-import { toggleGlobalMute } from "../commands/moderation/globalmute.js";
 import { getInvseeMsg } from "../commands/utility/invsee.js";
 
 import config from "../data/config.js";
@@ -369,8 +369,8 @@ function playerSettingsMenu(player) {
     });
 }
 /**
- * @param {Player} player 
- * @param {Player} target 
+ * @param {import("@minecraft/server").Player} player
+ * @param {import("@minecraft/server").Player} target
  */
 export function playerSettingsMenuSelected(player, target) {
     player.playSound("mob.chicken.plop");
@@ -556,15 +556,14 @@ function playerSettingsMenuSelectedGamemode(player, target) {
 function serverManagementMenu(player) {
     player.playSound("mob.chicken.plop");
 
-    // @ts-expect-error
-    const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
+    const globalMute = DataManager.getGlobalMute();
 
     const menu = new ActionFormData()
         .title("Server Management Menu")
         .body(`Hello ${player.name},\n\nPlease select an option below.`)
         .button("Full Report", icons.info);
 
-    globalmute.muted ? menu.button("Disable Global Mute", icons.mute_off) : menu.button("Enable Global Mute", icons.mute_on);
+    globalMute.enabled ? menu.button("Disable Global Mute", icons.mute_off) : menu.button("Enable Global Mute", icons.mute_on);
 
     menu.button("Back", icons.back);
     menu.show(player).then((response) => {
@@ -579,7 +578,7 @@ function serverManagementMenu(player) {
             }
 
             case 1:
-                toggleGlobalMute(player);
+                DataManager.setGlobalMute(!globalMute.enabled, player.name);
                 break;
 
             case 2:

@@ -2,7 +2,8 @@
 import config from "./data/config.js";
 import checks from "./checks/registry.js";
 import modules from "./modules/registry.js";
-import { world, system, Player, EntityComponentTypes, EquipmentSlot, GameMode, } from "@minecraft/server";
+import DataManager from "./managers/DataManager.js";
+import { world, system, Player, EntityComponentTypes, EquipmentSlot, GameMode } from "@minecraft/server";
 import { tellAllStaff } from "./util.js";
 import { banMessage } from "./assets/ban.js";
 import { mainGui, playerSettingsMenuSelected } from "./assets/ui.js";
@@ -18,10 +19,9 @@ world.beforeEvents.chatSend.subscribe((msg) => {
 
 	commandHandler(msg);
 
-	// @ts-expect-error
-	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
-	if(!msg.cancel && globalmute.muted && !player.hasTag("op")) {
-		player.sendMessage(`§r§6[§aScythe§6]§r Your message was not sent as the chat is disabled by ${config.commands.globalmute.showModeratorName ? globalmute.muter : "a server admin"}.`);
+	const globalMute = DataManager.getGlobalMute();
+	if(globalMute.enabled && !msg.cancel && !player.hasTag("op")) {
+		player.sendMessage(`§r§6[§aScythe§6]§r Your message was not sent as the chat is disabled by ${config.commands.globalmute.showModeratorName ? globalMute.muter : "a server admin"}.`);
 		msg.cancel = true;
 	}
 });
@@ -104,9 +104,10 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }) => {
 	// This is used in the onJoin.json animation to check if Beta APIs are enabled
 	player.setScore("gametestapi", 1);
 
-	// @ts-expect-error
-	const globalmute = JSON.parse(world.getDynamicProperty("globalmute"));
-	if(globalmute.muted && player.hasTag("op")) player.sendMessage(`§r§6[§aScythe§6]§r NOTE: Chat has been currently disabled by ${globalmute.muter}. Chat can be re-enabled by running the !globalmute command.`);
+	const globalMute = DataManager.getGlobalMute();
+	if(globalMute.enabled && player.hasTag("op")) {
+		player.sendMessage(`§r§6[§aScythe§6]§r Chat was currently disabled by ${globalMute.muter}. It can be re-enabled by running the !globalmute command.`);
+	}
 
 	// If enabled from previous login then activate
 	if(player.hasTag("flying") && player.getGameMode() !== GameMode.Creative) player.runCommand("ability @s mayfly true");
